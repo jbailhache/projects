@@ -1,0 +1,147 @@
+﻿PYTRADE : fonctions Python pour le trading
+
+PYTRADE est un ensemble de fonctions Python pour le trading, utilisables de façon interactive. Pour l'utiliser, commencez par lancer l'interpréteur Python en mode interactif à partir du dossier pytrade, puis chargez le script load.py qui contient les instructions de chargement des différents scripts contenant les définitions des fonctions :
+>>> execfile('load.py')
+
+Le script valorat.py calcule la valorisation du portefeuille contenu dans pf.py et affiche les valeurs d'indicateurs techniques :
+>>> execfile('valorat.py')
+
+Le script bourse.py contient des fonctions permettant de lire des fichiers de cours téléchargés à partir de sites de bourse comme par exemple http://bourse.lesechos.fr/ .
+La fonction lirecourslf(lnf) lit les cours contenus dans les fichiers dont les noms figurent dans la liste lnf et rend le résultat sous forme de tableau. 
+Exemple : lecture des cours du SRD de janvier, février et mars 2009 :
+cours=lirecourslf(['cours\srd-0901.xls','cours\srd-0902.xls','cours\srd-0903.xls'])
+La fonction coursval permet d'extraire à partir d'une liste de cours de plusieurs valeurs les cours concernant une valeur particulière. Exemple :
+cours_alten=coursval(cours,'ALTEN')
+La fonction courslval extrait les cours correspondant à une liste de valeurs.
+
+Le script lc.py contient des fonctions permettant de télécharger les cours intraday à partir du site d'Euronext. 
+La fonction lire_euronext(v) télécharge les cours intraday de la valeur v.
+La fonction valor(pf,at) calcule la valorisation du portefeuille pf, et si at est différent de 0, affiche également des indicateurs techniques pour les valeurs de ce portefeuille.
+
+Le script lh.py contient des fonctions permettant de télécharger l'historique des cours à partir du site d'Euronext.
+La fonction cours_nom_jours(v,j1,j2) rend sous forme de tableau les cours de la valeur v pendant la période [j-j1,j-j2].
+
+Le script afchid.py contient des fonctions permettant d'afficher les cours historiques et intraday correspondant à une liste de valeurs.
+Exemple : cours historiques sur 1 mois et intraday de ALTEN, BOUYGUES et PPR dans une fenêtre 600 x 300 :
+>>> wd=600
+>>> hg=300
+>>> afchid(['ALTEN','BOUYGUES','PPR'],-31,0)
+
+Le script indic.py contient des fonctions qui permettent de calculer différents indicateurs techniques et le capital résultant d'une stratégie de trading basée sur ces indicateurs.
+Ces fonctions utilisent les valeurs globales suivantes :
+afc=0 : ne pas afficher les cours
+afc=1 : afficher les cours
+ dans ce cas :
+  wd = largeur de la fenêtre
+  hg = hauteur de la fenêtre
+Exemple : trading sur la valeur ALTEN basé sur une MME de 26 jours :
+>>> afc=1
+>>> mme(cours_alten,26)
+Exemple : trading sur la valeur ALTEN basé sur une MACD de paramètres 12, 26 et 9 :
+>>> macd(ca,[12,26,9])
+
+
+Les fonctions de la forme ...repete... permet de calculer les indicateurs à partir de fonctions de la forme init_xxx, etape_xxx et graphe_xxx où xxx est le nom de l'indicateur.
+Exemple:
+repete1(init_mme,etape_mme,cours_alten,26)
+Il existe différentes versions de cette fonction.
+Dans les fonctions avec 1 les paramètres init, etape, graphe, p sont transmis séparément, dans les fonctions sans 1 ils sont transmis dans une liste.
+Exemple:
+repete(cours_alten,[init_mme,etape_mme,26])
+Les fonctions avec g ont un paramètre supplémentaire graphe pour afficher un graphique du cours et de l'indicateur.
+Dans les fonctions avec s les tests s<0 et s>0 pour déclencher un achat ou une vente sont remplacés par s<1 et s>1.
+Les fonctions commençant par q_ retournent l'état final q au lieu du capital final k.
+ 
+La fonction calculind permet de calculer un indicateur par produit d'une matrice mt par un vecteur d'état.
+Exemple:
+calculind(cours_alten,mimme,mtmme(26))
+Il existe différentes variantes de cette fonction.
+Exemples:
+calculind3c(cours_alten,[qi3mme,mt3mme(26)])
+calculind3c(cours_alten,[qi3macd,mt3macd(12,26,9)])[0]
+v=vecteurqimt(qi3macd,mt3macd(12,26,9))
+qm=qimt(v)
+calculind3c(cours_alten,qm)[0]
+
+Avec calculind3cav, q[0] et q[1] correspondent au seuil d'achat et de vente.
+calculind3ohbc prend en compte les cours d'ouverture, plus haut, plus bas et clôture.
+calculind3ohbcavnl est une version non linéaire avec une fonction f transmise en paramètre.
+calculind3ohbcavnlpe permet en plus un calcul en plusieurs étapes.
+
+Les fonctions de la forme moyxxx calculent la moyenne sur une liste de valeurs du capital final (pour un capital initial de 1000) obtenu avec une stratégie basée sur l'indicateur xxx.
+Exemple:
+>>> moymme3(['ALTEN','BOUYGUES','ARCELORMITTAL'],26)
+972.4	1196.2955684	ALTEN
+1000.0	1208.40669014	BOUYGUES
+960.22	993.193806986	ARCELORMITTAL
+[977.53999999999996, 1132.6320218426661]
+La fonction moyind fait le même calcul pour n'importe quel indicateur avec la fonction définissant cet indicateur passée en 2ème paramètre :
+>>> moyind(['ALTEN','BOUYGUES','ARCELORMITTAL'],mme3,26)
+[977.53999999999996, 1132.6320218426661]
+>>> moyind(['ALTEN','BOUYGUES','ARCELORMITTAL'],mme,26)
+[970.03999999999996, 1123.8949198190312]
+>>> moyind(sel3,mmes2,[28,2,-0.07,0.07])
+[1000.0, 1183.7257310781965]
+>>> moyind(sel3,repetegs,[init_rl,etape_rl,graphe_rl,[31,0.0022]])
+[962.98285714285726, 1139.1835742453532]
+>>> moyind(sel3,repetegs,[init_ccia,etape_ccia,graphe_ccia,[18,5,-1,1]])
+[1000.0, 1183.7257310781965]
+>>> moyind(sel3,emv,85)
+[1000.0, 1183.7257310781965]
+de même pour la fonction moyindc, mais le premier paramètre n'est pas une liste de noms de valeurs mais une liste de cours.
+
+indicsn.py contient des fonctions init_indics, etape_indics et graphe_indics qui calculent plusieurs indicateurs et doivent être utilisées avec la fonction repete1gsc, par exemple :
+repete1gsc (init_indics, etape_indics, graphe_indics, cours_alten, p)
+
+
+Les scripts heuris.py, evol.py, combtvgc.py, decal.py et normcours.py permettent de calculer les coefficients optimaux de cette matrice mt par un algorithme génétique.
+Exemples :
+>>> p0=popinit(heur,300)
+>>> repevolcv(p0,paramopt,c1)
+>>> testparam(p0)
+>>> execfile('evoln.py')
+>>> repevoln(p0,paramopt,c1)
+>>> execfile('decal.py')
+>>> seed(26)
+>>> c1d = decal(c1,300)
+>>> execfile('normcours.py')
+>>> c1dn = normcours(c1d)
+>>> repevolcv(p0,paramopt,c1dn)
+>>> p1=p0+[vecteurqimt(qi3macd,mt3macd(12,26,9))]
+>>> execfile('repar.py')
+>>> p0r=popinit(heur,300)
+>>> p1r=p0r+[[50.0]+vecteurqimt(qi3macd,mt3macd(12,26,9))] 
+>>> c1n=normcours(c1)
+>>> repevolcv(p1r,paramopt,c1n)
+>>> execfile('convertxnq.py')
+>>> p5=popinit(heur,300)
+>>> p5m=p5+[convertxnq(vecteurqimt(qi3macd,mt3macd(12,26,9)),4,5)]
+>>> execfile('pop-20000.py')
+>>> p5n=p5m+[convertxnq(pop[0][1],4,5)]
+>>> repevolcv(p5n,paramopt,c1dn)
+>>> p0=popinitc(heur,300,c1dn)
+>>> p0=popinitcnq(heur,300,c1dn,5)
+
+Le script indicsn.py contient des fonctions permettant de calculer plusieurs indicateurs techniques associés aux cours de certaines valeurs.
+Les scripts rlmn.py, optim.py et testpo.py permettent de calculer un indicateur basé sur une combinaison optimale d'autres indicateurs :
+On commence par choisir le mode de calcul :
+- moyenne : combindc = moyindc
+- minimum : combindc = minindc
+- moyenne de la moyenne et du minimum : combindc = mmmindc
+puis on calcule les paramètres optimaux, par exemple
+cs = courslval(cours,s)
+po = paramoptc (cs, 3, 20)
+où s contient une liste de noms de valeurs, et 3 et 20 correspondent à des nombres d'itérations
+Pour calculer le résultat de paramètres sur une sélection de cours :
+moyrlm (cs, po)
+
+Le script acpcours.py permet d'effectuer une analyse en composantes principales sur les cours.
+
+
+
+
+
+
+
+
+

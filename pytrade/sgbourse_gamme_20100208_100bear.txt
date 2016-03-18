@@ -1,0 +1,34 @@
+100% Bear;;;;;;;;;;;;;;;;
+Sous-jacent;Type;Niveau Ref;Seuil de sécurité;Échéance;Achat;Vente;Cours du Sous-Jacent;Parité (ss-jacent/produit);Frais de gestion/an;Éligible PEA;Garantie de change;Dividendes;Perf 1 an;Mnémo;Isin;Dernière mise à jour
+ALUMINIUM;;6 242,85 $;5 930,71 $;29 déc. 10;42,36 € (c);42,61 € (c);1 994 $;1/100;1 %;Non;Oui;-; 9,23 %;2458S;FR0010337980;08/02/2010 17:29:52
+ARGENT;;30 $;27 $;29 déc. 10;148,10 € (c);148,90 € (c);15,15 $;10/1;0 %;Non;Oui;-; 12,60 %;2457S;FR0010340984;08/02/2010 17:29:40
+BLE;;18,18 $;16,36 $;Ouverte;133,00 € (c);133,30 € (c);4,87 $;1/10;1 %;Non;Oui;-;+15,78 %;3264S;FR0010538629;08/02/2010 17:29:49
+BRENT;;224,90 $;213,66 $;Ouverte;154,88 € (c);154,98 € (c);69,97 $;1/1;1 %;Non;Oui;-; 9,24 %;8054S;FR0010612200;08/02/2010 17:29:52
+CAC 40;;10 769,20 pts;9 692,28 pts;Ouverte;71,57 € (c);71,65 € (c);1,63 pts;1/100;EONIA -2%;Non;--;-; 9,61 %;3712S;FR0010550921;08/02/2010 17:29:49
+CRB;;600 pts;540 pts;29 déc. 10;33,84 € (c);33,94 € (c);261,70 pts;1/10;0 %;Non;Oui;-; 10,72 %;3722S;FR0010412858;08/02/2010 17:29:54
+CUIVRE;;14 515,90 $;13 499,79 $;29 déc. 10;80,75 € (c);81,20 € (c);6 398,75 $;1/100;1 %;Non;Oui;-; 25,54 %;2459S;FR0010339473;08/02/2010 17:28:36
+DAX®;;12 973,18 pts;11 675,87 pts;Ouverte;74,83 € (c);74,91 € (c);1,63 pts;1/100;2 %;Non;--;-; 12,39 %;3667S;FR0010598490;08/02/2010 17:29:48
+DJ EUROSTOXX 50;;6 838,31 pts;6 154,48 pts;Ouverte;41,71 € (c);41,74 € (c);2 665,67 pts;1/100;EONIA -2%;Non;--;-; 11,30 %;4591S;FR0010452821;08/02/2010 17:29:44
+DJ STOXX 600 AUTOMOBILE;;592,71 pts;533,44 pts;Ouverte;37,84 € (c);37,96 € (c);213,70 pts;1/10;EONIA -2%;Non;--;-; 7,52 %;4593S;FR0010452938;08/02/2010 17:29:46
+DJ STOXX 600 BANKS;;982,42 pts;884,18 pts;Ouverte;78,60 € (c);78,84 € (c);195,22 pts;1/10;EONIA -2%;Non;--;-; 8,69 %;4594S;FR0010452953;08/02/2010 17:29:30
+DJ STOXX 600 BASIC RESOURCES;;1 091,77 pts;982,59 pts;Ouverte;63,25 € (c);63,45 € (c);458,25 pts;1/10;EONIA -2%;Non;--;-; 22,77 %;4595S;FR0010452961;08/02/2010 17:29:46
+DJ STOXX 600 CONSTRUCT;;788,77 pts;709,89 pts;Ouverte;53,42 € (c);53,59 € (c);253,75 pts;1/10;EONIA -2%;Non;--;-; 11,78 %;4598S;FR0010453001;08/02/2010 17:29:00
+DJ STOXX 600 FINANCIAL SERVICES;;890,56 pts;801,50 pts;Ouverte;67,93 € (c);68,15 € (c);210,14 pts;1/10;EONIA -2%;Non;--;-; 8,09 %;4599S;FR0010453019;08/02/2010 17:29:16
+DJ STOXX 600 FOOD;;589,66 pts;530,70 pts;Ouverte;29,23 € (c);29,33 € (c);296,87 pts;1/10;EONIA -2%;Non;--;-; 23,34 %;4600S;FR0010453027;08/02/2010 17:29:15
+DJ STOXX 600 MEDIA;;489,30 pts;440,37 pts;Ouverte;33,78 € (c);33,89 € (c);150,98 pts;1/10;EONIA -2%;Non;--;-; 7,38 %;4605S;FR0010453506;08/02/2010 17:29:46
+DJ STOXX 600 OIL & GAS;;723,43 pts;651,09 pts;Ouverte;41,27 € (c);41,41 € (c);310,03 pts;1/10;EONIA -2%;Non;--;-; 9,84 %;4606S;FR0010453522;08/02/2010 17:29:45
+DJ STOXX 600 TECHNOLOGY;;597,06 pts;537,36 pts;Ouverte;40,63 € (c);40,77 € (c);190,06 pts;1/10;EONIA -2%;Non;--;-; 9,17 %;4609S;FR0010453597;08/02/2010 17:29:45
+DJ STOXX 600 TRAVEL & LEISURE;;393,94 pts;354,55 pts;Ouverte;28,65 € (c);28,75 € (c);106,95 pts;1/10;EONIA -2%;Non;--;-; 6,38 %;4611S;FR0010453654;08/02/2010 17:29:16
+DJ STOXX 600 UTILITIES;;868,89 pts;782 pts;Ouverte;55,11 € (c);55,28 € (c);316,97 pts;1/10;EONIA -2%;Non;--;-; 2,87 %;4612S;FR0010453688;08/02/2010 17:29:45
+HSCEI;;37 961,11 pts;34 165 pts;Ouverte;267,06 € (c);271,77 € (c);10 989,11 pts;1/100;2 %;Non;Oui;-; 11,98 %;3098S;FR0010533471;08/02/2010 17:29:48
+IBEX 35;;26 432,06 pts;23 788,85 pts;Ouverte;162,07 € (c);162,40 € (c);10 213,29 pts;1/100;EONIA -2%;Non;--;-; 13,51 %;4592S;FR0010452904;08/02/2010 17:29:51
+MSCI Daily Gross Small Cap;;306,66 pts;276 pts;Ouverte;155,60 € (c);157,16 € (c);1,63 pts;1/1;0 %;Non;--;-;  ;7038S;FR0010805655;08/02/2010 17:29:50
+NICKEL;;78 625,60 $;70 763,04 $;29 déc. 10;61,40 € (c);61,75 € (c);17 048,50 $;1/100;1 %;Non;Oui;-; 7,86 %;4134S;FR0010434944;08/02/2010 17:28:58
+OR;;1 400 $;1 260 $;29 déc. 10;32,96 € (c);33,06 € (c);1 068,90 $;1/10;0 %;Non;Oui;-; 32,25 %;2456S;FR0010341008;08/02/2010 17:29:49
+PLOMB;;6 683,25 $;6 014,93 $;Ouverte;47,28 € (c);47,53 € (c);1 942 $;1/1;1 %;Non;Oui;-; 12,66 %;1956S;FR0010508689;08/02/2010 17:17:38
+SOJA;;18,66 $;16,79 $;Ouverte;92,85 € (c);93,20 € (c);9,36 $;1/10;1 %;Non;Oui;-; 13,22 %;3265S;FR0010538637;08/02/2010 17:27:12
+WTI;;226,34 $;215,02 $;Ouverte;154,70 € (c);154,80 € (c);71,64 $;1/1;1 %;Non;Oui;-; 11,11 %;3777S;FR0010600544;08/02/2010 17:29:30
+ZINC;;6 017,20 $;5 415,48 $;29 déc. 10;39,96 € (c);40,26 € (c);2 001,50 $;1/100;1 %;Non;Oui;-; 15,50 %;2461S;FR0010337923;08/02/2010 17:29:01
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;;;;;;

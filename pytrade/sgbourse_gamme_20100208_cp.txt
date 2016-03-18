@@ -1,0 +1,12 @@
+Capital Protégé;;;;;;;;;;;;;
+Sous-jacent;Indexation;Rbsmt. min à échéance;Garantie de change;Cours initial sous-jacent;;Constatation finale;Échéance;Achat;Vente;Cours du Sous-Jacent;Mnémo;Isin;Dernière mise à jour
+CAC 40;100 %;94 €;--;5 283,75 pts;;De nov. 10 à oct. 11;21 oct. 11;96,44 € (c);97,44 € (c);3 607,79 pts;2777S;FR0010372607;08/02/2010 17:15:00
+CRB;100 %;93 €;Oui;348,05 pts;;29 juin 12;12 juil. 12;99,55 € (c);101,50 € (c);261,70 pts;2455S;FR0010341164;08/02/2010 17:27:18
+CRB;70 %;100 €;Oui;348,05 pts;;29 juin 12;12 juil. 12;105,10 € (c);107,10 € (c);261,70 pts;2454S;FR0010341248;08/02/2010 17:24:56
+DJ EUROSTOXX 50;100 %;95 €;--;3 940,50 pts;;De nov. 10 à oct. 11;21 oct. 11;98,40 € (c);99,40 € (c);2 665 pts;2776S;FR0010372623;08/02/2010 17:25:00
+DJ EUROSTOXX 50;100 %;100 €;--;3 509,39 pts;;De juin 12 à juin 13;21 juin 13;94,64 € (c);95,64 € (c);2 665 pts;8107S;FR0010620989;08/02/2010 17:26:12
+DOW JONES;100 %;87 €;Oui;11 840 pts;;De nov. 10 à oct. 11;21 oct. 11;91,71 € (c);92,71 € (c);10 003,15 pts;2778S;FR0010372599;08/02/2010 17:29:14
+NIKKEI 225;100 %;96 €;Oui;16 428 pts;;De nov. 10 à oct. 11;21 oct. 11;99,34 € (s);100,34 € (s);--;2775S;FR0010372615;08/02/2010 15:15:57
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;;;

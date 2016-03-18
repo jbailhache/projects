@@ -1,0 +1,44 @@
+Bonus;;;;;;;;;;;;;
+Sous-jacent;Niveau bonus;Barrière;Constatation finale;Échéance;Parité (produit/ss-jacent);Achat;Vente;Cours du Sous-Jacent;Rendement min. potentiel *;Ecart/seuil **;Mnémo;Isin;Dernière mise à jour
+AIR LIQUIDE;100 €;61,82 €;19 juil. 10;2 août 10;1,1/1;83,66 € (c);83,96 € (c);78,30 €;--;Barrière franchie;2489S;FR0010514463;08/02/2010 17:28:48
+ALCATEL LUCENT;9,50 €;6 €;19 juil. 10;2 août 10;1/1;2,31 € (c);2,36 € (c);2,35 €;--;Barrière franchie;2490S;FR0010514497;08/02/2010 17:27:06
+AXA;39,08 €;20,42 €;19 juil. 10;2 août 10;0,98/1;13,92 € (c);14,02 € (c);14,245 €;--;Barrière franchie;2492S;FR0010514547;08/02/2010 17:29:52
+BNP PARIBAS;110 €;56 €;19 juil. 10;2 août 10;1/1;47,18 € (c);47,38 € (c);47,515 €;--;Barrière franchie;2494S;FR0010514588;08/02/2010 17:29:49
+BOUYGUES;38,20 €;23,38 €;30 sept. 11;18 oct. 11;1/1;34,64 € (c);34,79 € (c);34,96 €;9,80%; 33,12%;0307S;FR0010801969;08/02/2010 17:29:53
+CAC 40;4 260 pts;2 700,15 pts;24 oct. 11;9 nov. 11;100/1;36,95 € (c);37,10 € (c);3 607,79 pts;14,82%; 25,16%;0582S;FR0010819557;08/02/2010 17:29:49
+CAC 40;4 910 pts;2 700,15 pts;23 oct. 12;8 nov. 12;100/1;37,16 € (c);37,31 € (c);3 607,79 pts;31,60%; 25,16%;0583S;FR0010819565;08/02/2010 17:29:49
+CAC 40;7 000 pts;4 000 pts;1 oct. 10;15 oct. 10;100/1;34,54 € (c);34,69 € (c);3 607,79 pts;--;Barrière franchie;2472S;FR0010514679;08/02/2010 17:29:54
+CARREFOUR;59 €;35,80 €;19 juil. 10;2 août 10;1/1;33,14 € (c);33,29 € (c);34,33 €;--;Barrière franchie;2496S;FR0010514604;08/02/2010 17:29:54
+CREDIT AGRICOLE;41,52 €;23,07 €;19 juil. 10;2 août 10;1,08/1;--;--;--;--;Barrière franchie;1429S;FR0010492769;08/02/2010 17:29:33
+DJ EUROSTOXX 50;5 600 pts;3 100 pts;1 oct. 10;15 oct. 10;100/1;25,67 € (c);25,82 € (c);2 665 pts;--;Barrière franchie;2471S;FR0010514661;08/02/2010 17:29:44
+DJSTOXX SELECTDIV 30;5 027 pts;2 010,55 pts;11 jan. 12;11 jan. 13;100/1;13,45 € (c);13,58 € (c);1 609,38 pts;--;Barrière franchie;2904S;FR0010529776;08/02/2010 17:29:30
+FRANCE TELECOM;21,51 €;12,95 €;10 oct. 11;26 oct. 11;1/1;16,42 € (c);16,52 € (c);16,52 €;30,21%; 21,61%;0308S;FR0010801977;08/02/2010 17:29:43
+FRANCE TELECOM;30 €;15,40 €;19 juil. 10;2 août 10;1/1;20,58 € (c);20,79 € (c);16,52 €;44,30%; 6,78%;2499S;FR0010514638;08/02/2010 17:29:43
+Gdf Suez;33,28 €;20,77 €;30 sept. 11;18 oct. 11;1/1;27,56 € (c);27,71 € (c);26,48 €;20,10%; 21,56%;0309S;FR0010801985;08/02/2010 17:29:47
+Gdf Suez;43,68 €;23,30 €;19 juil. 10;2 août 10;0,97/1;26,59 € (c);26,74 € (c);26,48 €;--;Barrière franchie;2502S;FR0010514406;08/02/2010 17:29:47
+LAFARGE;121,63 €;71,67 €;19 juil. 10;2 août 10;1/0,87;56,69 € (c);56,89 € (c);51,52 €;--;Barrière franchie;2506S;FR0010514422;08/02/2010 17:29:22
+LVMH;64,86 €;47,17 €;30 juil. 10;13 août 10;1/1;76,10 € (c);76,40 € (c);76,11 €;0,00%; 38,02%;6423S;FR0010758946;08/02/2010 17:29:45
+LVMH;90 €;59 €;24 sept. 10;8 oct. 10;1/1;74,61 € (c);74,91 € (c);76,11 €;--;Barrière franchie;2505S;FR0010514414;08/02/2010 17:29:45
+MICHELIN;100 €;64 €;19 juil. 10;2 août 10;1/1;52,78 € (c);52,98 € (c);52,94 €;--;Barrière franchie;2509S;FR0010514471;08/02/2010 17:29:48
+NIKKEI 225;21 000 pts;12 300 pts;1 oct. 10;15 oct. 10;100/1;99,45 € (s);100,40 € (s);--;--;Barrière franchie;2473S;FR0010514489;08/02/2010 17:09:21
+PINAULT PRINTEMPS;89,95 €;58,57 €;30 sept. 11;18 oct. 11;1/1;83,14 € (c);83,44 € (c);83,41 €;7,80%; 29,78%;0310S;FR0010801993;08/02/2010 17:29:54
+RENAULT;140 €;68 €;19 juil. 10;2 août 10;1/1;32,55 € (c);32,70 € (c);32,69 €;--;Barrière franchie;2514S;FR0010514513;08/02/2010 17:29:50
+S&P GSCI AGRI;80 pts;52 pts;1 oct. 10;15 oct. 10;1/1;54,15 € (c);55,25 € (c);54,67 pts;--;Barrière franchie;2543S;FR0010517409;08/02/2010 17:29:46
+SAINT GOBAIN;86,31 €;54,51 €;21 juil. 10;6 août 10;0,91/1;34,27 € (c);34,42 € (c);32,28 €;--;Barrière franchie;2517S;FR0010514570;08/02/2010 17:29:54
+SANOFI AVENTIS;72 €;42 €;19 juil. 10;2 août 10;1/1;50,64 € (c);50,84 € (c);53 €;--;Barrière franchie;2518S;FR0010514646;08/02/2010 17:29:43
+SCHNEIDER ELECTRIC;75,12 €;46,61 €;30 sept. 11;18 oct. 11;1/1;71,12 € (c);71,42 € (c);72,96 €;5,18%; 36,12%;0311S;FR0010802009;08/02/2010 17:29:54
+SCHNEIDER ELECTRIC;130 €;68,50 €;19 juil. 10;2 août 10;1/1;70,59 € (c);70,89 € (c);72,96 €;--;Barrière franchie;2520S;FR0010514687;08/02/2010 17:29:54
+TOTAL;45,90 €;28,36 €;30 sept. 11;18 oct. 11;1/1;40,70 € (c);40,90 € (c);40,875 €;12,22%; 30,62%;0312S;FR0010802017;08/02/2010 17:29:44
+TOTAL;70 €;38 €;19 juil. 10;2 août 10;1/1;39,45 € (c);39,60 € (c);40,875 €;--;Barrière franchie;2529S;FR0010514711;08/02/2010 17:29:48
+VALLOUREC;127,80 €;76,54 €;30 sept. 11;18 oct. 11;1/1;121,65 € (c);122,15 € (c);122,84 €;4,63%; 37,69%;0315S;FR0010802041;08/02/2010 17:29:02
+VEOLIA;28,32 €;17,05 €;30 sept. 11;18 oct. 11;1/1;23,87 € (c);24,02 € (c);23,27 €;17,90%; 26,73%;0313S;FR0010802025;08/02/2010 17:29:53
+VEOLIA;60 €;36 €;19 juil. 10;2 août 10;1/1;22,06 € (c);22,21 € (c);23,27 €;--;Barrière franchie;2532S;FR0010514745;08/02/2010 17:29:53
+VINCI;60 €;35 €;19 juil. 10;2 août 10;1/1;36,80 € (c);36,95 € (c);38,01 €;--;Barrière franchie;2539S;FR0010514752;08/02/2010 17:29:32
+VIVENDI;23,62 €;14,04 €;30 sept. 11;18 oct. 11;1/1;17,74 € (c);17,84 € (c);18,015 €;32,40%; 22,06%;0314S;FR0010802033;08/02/2010 17:29:52
+VIVENDI;40 €;22 €;19 juil. 10;2 août 10;1/1;16,64 € (c);16,74 € (c);18,015 €;--;Barrière franchie;2540S;FR0010514760;08/02/2010 17:29:52
+* Rendement en cas de remboursement au Niveau Bonus. Cela correspond au rendement minimum du placement pour un investissement au cours actuel du produit, et cela dès lors que la barrière n'est pas touchée en cours de vie.;;;;;;;;;;;;;
+** Baisse du sous-jacent en clôture par rapport au niveau actuel pour laquelle le Niveau Bonus n'est plus garanti (Barrière désactivée).;;;;;;;;;;;;;
+Dans ce cas, le certificat vaudra à échéance le minimum entre la valeur de l'action à la Date de constatation finale et le Niveau Bonus.;;;;;;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;;;

@@ -1,0 +1,104 @@
+﻿PYTRADE : fonctions Python pour le trading
+
+PYTRADE est un ensemble de fonctions Python pour le trading, utilisables de fa?n interactive. Pour l'utiliser, commencez par lancer l'interpr?eur Python en mode interactif ?partir du dossier pytrade, puis chargez le script load.py qui contient les instructions de chargement des diff?ents scripts contenant les d?initions des fonctions :
+>>> execfile('load.py')
+
+Le script valorat.py calcule la valorisation du portefeuille contenu dans pf.py et affiche les valeurs d'indicateurs techniques :
+>>> execfile('valorat.py')
+
+Le script bourse.py contient des fonctions permettant de lire des fichiers de cours t??harg? ?partir de sites de bourse comme par exemple http://bourse.lesechos.fr/ .
+La fonction lirecourslf(lnf) lit les cours contenus dans les fichiers dont les noms figurent dans la liste lnf et rend le r?ultat sous forme de tableau. 
+Exemple : lecture des cours du SRD de janvier, f?rier et mars 2009 :
+cours=lirecourslf(['cours\srd-0901.xls','cours\srd-0902.xls','cours\srd-0903.xls'])
+La fonction coursval permet d'extraire ?partir d'une liste de cours de plusieurs valeurs les cours concernant une valeur particuli?e. Exemple :
+cours_alten=coursval(cours,'ALTEN')
+La fonction courslval extrait les cours correspondant ?une liste de valeurs.
+
+Le script lc.py contient des fonctions permettant de t??harger les cours intraday ?partir du site d'Euronext. 
+La fonction lire_euronext(v) t??harge les cours intraday de la valeur v.
+La fonction valor(pf,at) calcule la valorisation du portefeuille pf, et si at est diff?ent de 0, affiche ?alement des indicateurs techniques pour les valeurs de ce portefeuille.
+
+Le script lh.py contient des fonctions permettant de t??harger l'historique des cours ?partir du site d'Euronext.
+La fonction cours_nom_jours(v,j1,j2) rend sous forme de tableau les cours de la valeur v pendant la p?iode [j-j1,j-j2].
+
+Le script afchid.py contient des fonctions permettant d'afficher les cours historiques et intraday correspondant ?une liste de valeurs.
+Exemple : cours historiques sur 1 mois et intraday de ALTEN, BOUYGUES et PPR dans une fen?re 600 x 300 :
+>>> wd=600
+>>> hg=300
+>>> afchid(['ALTEN','BOUYGUES','PPR'],-31,0)
+
+Le script indic.py contient des fonctions qui permettent de calculer diff?ents indicateurs techniques et le capital r?ultant d'une strat?ie de trading bas? sur ces indicateurs.
+Ces fonctions utilisent les valeurs globales suivantes :
+afc=0 : ne pas afficher les cours
+afc=1 : afficher les cours
+ dans ce cas :
+  wd = largeur de la fen?re
+  hg = hauteur de la fen?re
+Exemple : trading sur la valeur ALTEN bas?sur une MME de 26 jours :
+>>> afc=1
+>>> mme(cours_alten,26)
+
+Les fonctions de la forme ...repete... permet de calculer les indicateurs à partir de fonctions de la forme init_xxx, etape_xxx et graphe_xxx où xxx est le nom de l'indicateur.
+Exemple:
+repete1(init_mme,etape_mme,cours_alten,26)
+Il existe différentes versions de cette fonction.
+Dans les fonctions avec 1 les paramètres init, etape, graphe, p sont transmis séparément, dans les fonctions sans 1 ils sont transmis dans une liste.
+Exemple:
+repete(cours_alten,[init_mme,etape_mme,26])
+Les fonctions avec g ont un paramètre supplémentaire graphe pour afficher un graphique du cours et de l'indicateur.
+Dans les fonctions avec s les tests s<0 et s>0 pour déclencher un achat ou une vente sont remplacés par s<1 et s>1.
+Les fonctions commençant par q_ retournent l'état final q au lieu du capital final k.
+
+La fonction calculind permet de calculer un indicateur par produit d'une matrice mt par un vecteur d'?at.
+
+Les scripts heuris.py, evol.py, combtvgc.py, decal.py et normcours.py permettent de calculer les coefficients optimaux de cette matrice mt par un algorithme g??ique.
+Exemples :
+>>> p0=popinit(heur,300)
+>>> repevolcv(p0,paramopt,c1)
+>>> testparam(p0)
+>>> execfile('evoln.py')
+>>> repevoln(p0,paramopt,c1)
+>>> execfile('decal.py')
+>>> seed(26)
+>>> c1d = decal(c1,300)
+>>> execfile('normcours.py')
+>>> c1dn = normcours(c1d)
+>>> repevolcv(p0,paramopt,c1dn)
+>>> p1=p0+[vecteurqimt(qi3macd,mt3macd(12,26,9))]
+>>> execfile('repar.py')
+>>> p0r=popinit(heur,300)
+>>> p1r=p0r+[[50.0]+vecteurqimt(qi3macd,mt3macd(12,26,9))] 
+>>> c1n=normcours(c1)
+>>> repevolcv(p1r,paramopt,c1n)
+>>> execfile('convertxnq.py')
+>>> p5=popinit(heur,300)
+>>> p5m=p5+[convertxnq(vecteurqimt(qi3macd,mt3macd(12,26,9)),4,5)]
+>>> execfile('pop-20000.py')
+>>> p5n=p5m+[convertxnq(pop[0][1],4,5)]
+>>> repevolcv(p5n,paramopt,c1dn)
+>>> p0=popinitc(heur,300,c1dn)
+>>> p0=popinitcnq(heur,300,c1dn,5)
+
+Le script indicsn.py contient des fonctions permettant de calculer plusieurs indicateurs techniques associ? aux cours de certaines valeurs.
+Les scripts rlmn.py, optim.py et testpo.py permettent de calculer un indicateur bas?sur une combinaison optimale d'autres indicateurs :
+On commence par choisir le mode de calcul :
+- moyenne : combindc = moyindc
+- minimum : combindc = minindc
+- moyenne de la moyenne et du minimum : combindc = mmmindc
+puis on calcule les param?res optimaux, par exemple
+cs = courslval(cours,s)
+po = paramoptc (cs, 3, 20)
+o? s contient une liste de noms de valeurs, et 3 et 20 correspondent ?des nombres d'it?ations
+Pour calculer le r?ultat de param?res sur une s?ection de cours :
+moyrlm (cs, po)
+
+Le script acpcours.py permet d'effectuer une analyse en composantes principales sur les cours.
+
+
+
+
+
+
+
+
+

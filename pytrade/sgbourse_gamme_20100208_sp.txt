@@ -1,0 +1,9 @@
+Sprint Plus;;;;;;;;;;;;;;;
+Sous-jacent;Borne basse;Borne haute;Barrière de protection;Coefficient multiplicateur;Date de constatation finale;Échéance;Achat;Vente;Cours du Sous-Jacent;Effet de levier;Remb. max;Rend. Max potentiel;Mnémo;Isin;Dernière mise à jour
+CAC 40;3 186,82 pts;3 887,92 pts;2 230,77 pts;2 x;20 juin 12;4 juil. 12;34,58 € (c);34,73 € (c);3 607,79 pts;Non;45,89 €;32,13%;6792S;FR0010776997;08/02/2010 17:29:54
+DJ EUROSTOXX 50;4 167 pts;5 584 pts;2 500,20 pts;2 x;1 oct. 10;15 oct. 10;25,06 € (c);25,21 € (c);2 665 pts;Non;--;--;2541S;FR0010517243;08/02/2010 17:29:44
+DJ EUROSTOXX 50;2 417,72 pts;2 852,91 pts;1 692,40 pts;2 x;20 juin 12;4 juil. 12;25,34 € (c);25,49 € (c);2 665 pts;Non;32,88 €;29,00%;6793S;FR0010777003;08/02/2010 17:29:44
+* Le cours de l?indice termine à ou au-dessus de la Borne Haute, vous recevez le remboursement maximum du certificat.;;;;;;;;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;;;;;

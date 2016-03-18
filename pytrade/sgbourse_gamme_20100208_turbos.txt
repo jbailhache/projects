@@ -1,0 +1,19 @@
+Turbos;;;;;;;;;
+Type Turbo;Échéance;Barrière désactivante;Parité (turbo/ss-jacent);Achat;Vente;Effet de levier;Mnémo;Isin;Dernière mise à jour
+CAC 40  3 607,79 pts;;;;;;;;;
+Call;19 mars 10;3 550 pts;100/1;--;KO;--;0596S;FR0010825406;08/02/2010 13:34:57
+Call;19 mars 10;3 500 pts;100/1;1,22 € (c);1,26 € (c);29,23;0435S;FR0010815068;08/02/2010 17:29:54
+Put;19 mars 10;3 800 pts;100/1;2,04 € (c);2,07 € (c);17,49;0906S;FR0010852095;08/02/2010 17:29:49
+Put;19 mars 10;3 850 pts;100/1;2,53 € (c);2,55 € (c);14,16;0907S;FR0010852103;08/02/2010 17:29:54
+Put;19 mars 10;3 900 pts;100/1;3,01 € (c);3,04 € (c);11,89;0871S;FR0010843607;08/02/2010 17:29:49
+Put;19 mars 10;3 950 pts;100/1;3,50 € (c);3,53 € (c);10,24;0872S;FR0010843615;08/02/2010 17:29:49
+Put;19 mars 10;4 100 pts;100/1;4,98 € (c);5,01 € (c);7,21;0455S;FR0010815266;08/02/2010 17:29:49
+Put;19 mars 10;4 150 pts;100/1;5,48 € (c);5,50 € (c);6,56;0873S;FR0010843623;08/02/2010 17:29:54
+Put;19 mars 10;4 200 pts;100/1;5,98 € (c);6,00 € (c);6,01;0874S;FR0010843631;08/02/2010 17:29:54
+Put;19 mars 10;4 250 pts;100/1;6,48 € (c);6,50 € (c);5,55;0875S;FR0010843649;08/02/2010 17:29:54
+Put;19 mars 10;4 300 pts;100/1;6,98 € (c);7,00 € (c);5,15;0876S;FR0010843656;08/02/2010 17:29:54
+Put;19 mars 10;3 650 pts;100/1;--;--;--;0603S;FR0010825471;
+;;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;

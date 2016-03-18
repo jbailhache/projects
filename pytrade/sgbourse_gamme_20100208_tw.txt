@@ -1,0 +1,10 @@
+Twin Win;;;;;;;;;;;
+Sous-jacent;Barrière;Cours initial sous-jacent;Date de constatation finale;Échéance;Achat;Vente;Cours du Sous-Jacent;Ecart/Barrière **;Mnémo;Isin;Dernière mise à jour
+CAC 40;2 022 pts;3 110 pts;25 juin 12;6 juil. 12;113,51 €;114,51 €;3 608,76 pts; 43,97%;6789S;FR0010777052;08/02/2010 17:28:53
+CAC 40;2 333 pts;3 110 pts;24 juin 11;8 juil. 11;114,26 € (c);115,26 € (c);3 607,79 pts; 35,33%;6788S;FR0010777045;08/02/2010 17:29:49
+CAC 40;2 340 pts;3 600 pts;28 sept. 12;9 oct. 12;95,87 € (c);96,87 € (c);3 607,79 pts; 35,14%;7010S;FR0010800839;08/02/2010 17:29:49
+DJ EUROSTOXX 50;1 647 pts;2 353 pts;25 juin 12;6 juil. 12;109,89 € (c);110,89 € (c);2 665 pts; 38,20%;6790S;FR0010777060;08/02/2010 17:29:44
+* La colonne garantie permet d'évaluer facilement le couple rendement/risque de ce placement. Elle présente la distance entre le cours actuel de l'indice et la barrière. Si cette barrière est atteinte l'effet Twin Win disparaît et le certificat est rembou;;;;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;

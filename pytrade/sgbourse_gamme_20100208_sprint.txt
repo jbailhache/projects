@@ -1,0 +1,14 @@
+Sprint;;;;;;;;;;;;;
+Sous-jacent;Borne basse;Borne haute;Coefficient multiplicateur;Date de constatation finale;Échéance;Achat;Vente;Cours du Sous-Jacent;Remb. max;Rend. Max potentiel;Mnémo;Isin;Dernière mise à jour
+CAC 40;3 187 pts;3 680,78 pts;2 x;30 juin 10;14 juil. 10;38,44 € (c);38,95 € (c);3 607,79 pts;41,75 €;7,18%;6783S;FR0010776948;08/02/2010 17:29:54
+DJ EUROSTOXX 50;2 418 pts;2 780,38 pts;2 x;30 juin 10;14 juil. 10;29,10 € (c);29,62 € (c);2 665 pts;31,43 €;6,10%;6784S;FR0010776955;08/02/2010 17:29:44
+DROITS EMISCO2 PHAS2;15 €;21 €;2 x;27 oct. 11;10 nov. 11;15,08 € (c);15,28 € (c);14,09 €;27,00 €;76,70%;7045S;FR0010816009;08/02/2010 17:28:49
+GSCI Brent ER-USD;420 pts;700 pts;1,5 x;27 jan. 12;6 fév. 12;54,94 € (c);55,09 € (c);527,50 pts;84,00 €;52,48%;9902S;FR0010720623;08/02/2010 17:29:01
+OR;919,50 $;1 039 $;2 x;23 juin 10;7 juil. 11;99,53 € (c);100,03 € (c);1 068,90 $;115,85 €;15,82%;6786S;FR0010776971;08/02/2010 17:29:49
+OR;1 180 $;1 330 $;2 x;30 déc. 10;12 jan. 11;110,80 € (c);111,30 € (c);1 068,90 $;148,00 €;32,97%;7126S;FR0010831966;08/02/2010 17:29:33
+OR;1 180 $;1 355 $;2 x;30 déc. 10;12 jan. 11;80,70 € (c);81,20 € (c);1 068,90 $;153,00 €;88,42%;7127S;FR0010831958;08/02/2010 17:29:49
+S&P BRIC 40 EURO;2 915 pts;3 650 pts;2 x;1 oct. 10;15 oct. 10;20,83 € (c);21,04 € (c);2 039 pts;43,85 €;108,41%;3145S;FR0010535559;08/02/2010 17:29:48
+* Le remboursement maximal correspond à la Borne basse + deux fois la différence entre la Borne haute et la Borne basse.;;;;;;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;;;;;;

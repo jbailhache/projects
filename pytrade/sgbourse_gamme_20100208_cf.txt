@@ -1,0 +1,31 @@
+Cappés & Floorés;;;;;;;;
+Type;Borne basse;Borne haute;Date de constatation finale;Vente;Achat;Mnémo;Isin;Dernière mise à jour
+CAC 40  3 607,79 pts;;;;;;;;
+Cappé;3 400 pts;3 600 pts;19 mars 10;--;--;7064S;FR0010819615;08/02/2010 17:29:49
+Cappé;3 600 pts;3 800 pts;19 mars 10;--;--;7065S;FR0010819623;08/02/2010 17:29:49
+Cappé;3 800 pts;4 000 pts;19 mars 10;--;--;7066S;FR0010819631;08/02/2010 17:29:49
+Cappé;4 000 pts;4 200 pts;19 mars 10;--;--;7067S;FR0010819649;08/02/2010 17:29:49
+Cappé;4 200 pts;4 400 pts;19 mars 10;--;--;7068S;FR0010819656;08/02/2010 17:29:49
+Flooré;3 400 pts;3 600 pts;19 mars 10;--;--;7079S;FR0010819888;08/02/2010 17:29:49
+Flooré;3 600 pts;3 800 pts;19 mars 10;--;--;7080S;FR0010819912;08/02/2010 17:29:49
+Flooré;3 800 pts;4 000 pts;19 mars 10;--;--;7081S;FR0010819938;08/02/2010 17:29:49
+Flooré;4 000 pts;4 200 pts;19 mars 10;--;--;7082S;FR0010819979;08/02/2010 17:29:49
+Flooré;4 200 pts;4 400 pts;19 mars 10;--;--;7083S;FR0010819987;08/02/2010 17:26:51
+Cappé;3 200 pts;3 400 pts;18 juin 10;--;--;7069S;FR0010819839;08/02/2010 17:29:49
+Cappé;3 400 pts;3 600 pts;18 juin 10;--;--;7070S;FR0010819862;08/02/2010 17:29:54
+Cappé;3 600 pts;3 800 pts;18 juin 10;--;--;7071S;FR0010819896;08/02/2010 17:29:49
+Cappé;3 800 pts;4 000 pts;18 juin 10;--;--;7072S;FR0010819904;08/02/2010 17:29:49
+Cappé;4 000 pts;4 200 pts;18 juin 10;--;--;7073S;FR0010819920;08/02/2010 17:29:49
+Cappé;4 200 pts;4 400 pts;18 juin 10;--;--;7074S;FR0010819946;08/02/2010 17:29:49
+Cappé;4 400 pts;4 600 pts;18 juin 10;--;--;7075S;FR0010819953;08/02/2010 17:29:54
+Flooré;3 200 pts;3 400 pts;18 juin 10;--;--;7084S;FR0010819292;08/02/2010 17:29:49
+Flooré;3 400 pts;3 600 pts;18 juin 10;--;--;7085S;FR0010819326;08/02/2010 17:29:49
+Flooré;3 600 pts;3 800 pts;18 juin 10;--;--;7086S;FR0010819334;08/02/2010 17:29:54
+Flooré;3 800 pts;4 000 pts;18 juin 10;--;--;7087S;FR0010819342;08/02/2010 17:29:49
+Flooré;4 000 pts;4 200 pts;18 juin 10;--;--;7088S;FR0010819359;08/02/2010 17:29:54
+Flooré;4 200 pts;4 400 pts;18 juin 10;--;--;7089S;FR0010819367;08/02/2010 17:28:47
+Flooré;4 400 pts;4 600 pts;18 juin 10;--;--;7090S;FR0010819383;08/02/2010 17:29:49
+;;;;;;;;
+Les chiffres relatifs à des performances futures sont des prévisions qui ne constituent pas un indicateur fiable quant aux performances futures.;;;;;;;;
+Les gains ou pertes éventuels peuvent se voir réduits ou augmentés en fonction des taux de change et ne prennent pas en compte les frais, commissions et redevances éventuels supportés par l'investisseur;;;;;;;;
+(ex : impôts, taxes ou autres frais induits par la réglementation locale, frais de courtage ou autres commissions prélevés par l'intermédiaire financier...);;;;;;;;
