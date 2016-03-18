@@ -1,0 +1,866 @@
+
+module ordi where
+
+ data nat : Set where 
+  O : nat
+  S : nat -> nat
+
+ data ordinal : Set where
+  Zero : ordinal
+  Succ : ordinal -> ordinal
+  Limit : (nat -> ordinal) -> ordinal
+
+-- iter a f n x = f^n(x)
+ iter : (a : Set) (f : a -> a) (n : nat) (x : a) -> a
+ iter a f O x = x
+ iter a f (S p) x = iter a f p (f x)
+
+-- OpLim = L1
+ OpLim : (nat -> ordinal -> ordinal) -> ordinal -> ordinal
+ OpLim F a = Limit (\n -> F n a) 
+
+-- OpItw = H1
+ OpItw : (ordinal -> ordinal) -> ordinal -> ordinal
+ OpItw f = OpLim (iter _ f)
+
+{-
+ cantor a 0 = Succ a ; 0 = Zero
+ cantor a 1 = H1 Succ a = a + w
+ cantor a 2 = H1 (H1 Succ) a + w^2
+ cantor a w = H2 H1 Succ a
+ cantor a (w+1) = H1 (H2 H1 Succ) a
+ cantor a x = [Succ->H, 0->Succ]x a
+-}
+ cantor : ordinal -> ordinal -> ordinal 
+ cantor a Zero = Succ a
+ cantor a (Succ b) = OpItw (\x -> cantor x b) a 
+ cantor a (Limit f) = Limit (\n -> cantor a (f n)) 
+
+{-
+ Nabla f 0 = f 0
+ Nabla f 1 = f (Succ (f 0))
+ Nabla f 2 = f (Succ (f (Succ (f 0))))
+-}
+ Nabla : (ordinal -> ordinal) -> ordinal -> ordinal
+ Nabla f Zero = f Zero
+ Nabla f (Succ a) = f (Succ (Nabla f a)) 
+ Nabla f (Limit h) = Limit (\n -> Nabla f (h n)) 
+
+ deriv : (ordinal -> ordinal) -> ordinal -> ordinal 
+ deriv f = Nabla (OpItw f) 
+
+ veblen : ordinal -> ordinal -> ordinal 
+ veblen Zero = Nabla (OpLim (iter _ (cantor Zero)))
+ veblen (Succ a) = Nabla (OpLim (iter _ (veblen a))) 
+ veblen (Limit f) = Nabla (OpLim (\n -> veblen (f n))) 
+
+ veb : ordinal -> ordinal
+ veb a = veblen a Zero
+
+ epsilon0 : ordinal
+ epsilon0 = veb Zero
+
+ Gamma0 : ordinal
+ Gamma0 = Limit (\n -> iter _ veb n Zero) 
+
+
+---
+
+
+r 0 f x = x
+r (n+1) f x = f (r n f x)
+r (lim g) f x = lim [r * f x]
+
+w = lim [r * suc 0]
+w+1 = suc (lim [r * suc 0])
+lim [r * suc (lim [r * suc 0])]
+w = [lim [r * suc **]] 0
+w*w = w^2 = [lim [r * [lim [r * suc **]] **]] 0
+w = [[lim [r * *** **]]] suc 0 = H suc 0
+w^2 = H (H suc) 0
+lim = L 0
+w^w = L 1 [r * [[lim [r * *** **]]] suc] 0
+L 1 f = [L 0 [f * **]]
+L 1 f x = L 0 [f * x]
+
+repeat _ n f x = rep f n x = f^n(x)
+Meta f 0 y = f y
+Meta f (x+1) y = Rep y (Meta f x) y
+                     0  suc
+
+Def lim1 (f: nat -> ord -> ord) (x:ord) : ord :=
+ lim (fun n => f n x).
+
+Def lim2 (f:nat->(ord->ord)->ord->ord) (x:ord) :=
+ lim1 (fun n => f n x).
+ou
+Def lim2 (f:nat->(ord->ord)->ord->ord) (g:ord->ord) (x:ord) :=
+ lim (fun n => f n x).
+ou
+Def limp (a:Type) (f:nat->a->ord) (x:a) : ord :=
+ lim (fun n => f n a).
+
+limp ord = lim 1
+
+lim2 f g x 
+limp f <g, x>
+
+def H1 (f:(ord->ord)->ord->ord) (g:ord->ord) (x:ord) : ord :=
+ lim (fun n => repeat _ n f g x).
+
+nuplet n f x1 ... xn = f <x1, ..., xn>
+<x1, ..., xn> g = g x1 ... xn
+Ln = \f. \x1. ... \xn. L0 (\i. f i x1 ... xn)
+Ln = [nuplet n [L0 [** (*** *)]]]
+Ln = \f (nuplet n (\a (L0 (\i (a (f i))))))
+L2 f = [[l [f * *** **]]]
+ = nuplet 2 [L [f ** *]]
+L2 f x y = nuplet 2 [l [f ** *)) x y
+ = [l [f ** *]] <x, y>
+ = [L [f <x, y> *]]
+ = [L [f (* x y)]]
+ = [L [f * x y]]
+ = [L [<x, y> (f *)]]
+L2 = [nuplet 2 [L [** (*** *)]]]
+
+0
+1 = suc 0
+w = lim [r * suc 0] = L [r * suc 0]
+w+1 = suc (L [r * suc 0])
+w*2 = L [r * suc (L [r * suc 0])]
+w^2 = L [r * [L [r * suc **]] 0]
+ = [L [r * [L [R * suc **]] **]] 0
+w^3 = L [r * [L [r * [L [r * suc **]] **]] 0]
+ = [L [r * [L [r * [L [r * suc **]] **] 0
+w^w = L1 [r * [[L [r * *** **]]] suc] 0
+ = L1 [r * [[L [r * *** **]]] **]] suc 0 = H H suc 0
+L1 f x = L [f * x]
+L1 = [[L0 [*** * **]]]
+L1 = \f. \x. L0 (\i. f i x)
+L2 = \f. \x. \y. L0 [\i. f i x y)
+Ln = \n. \x1. ... \xn. (\i. f i x1 ... xn)
+
+
+L1 f x = L [f * x]
+L1 = [[L [*** * **]]]
+L2 f x y = L [f * x y]
+L2 = [[[ L [ **** * *** ** ]]]]
+L f x = L [f * x]
+w^w = [L1 [r * [[L [r * *** **]]] **]] suc 0 = H H suc 0
+w = H suc 0 = [L [r * suc **]] 0
+ = [[L [r * *** **]]] suc 0
+w^w = [[L1 [r * *** **]]] [[L [r * *** **]]] suc 0 
+ = H1 H0 suc 0
+ ou H H suc 0 avec L1 = L
+epsilon0 = R1 H suc 0 = H <H> I suc 0
+ Hw->0 suc 0
+ Hn = [[Ln [r * *** **]]]
+L1 = [[L0 [*** * **]]]
+L2 = [[[L [**** * *** **]]]]
+L2 f = [[L [f * *** **]]]]
+L 2 = [nuplet 2 [L [*** ** *]]]
+L n = [nuplet n [L [*** ** *]]]
+
+
+epsilon0 = [[Lw->0 [r * *** **]]] suc 0
+L n = [nuplet n [L0 [** (*** *)]]]
+H n = [[L n [r * *** **]]]
+L n = [nuplet n [L [** (*** *)]]]
+epsilon0 = L [R*->0 suc 0]
+R*->0 n = S*->0 I
+S*->0 n = <H n, H (n-1), ..., H 1, H 0>
+S*->0 0 = I
+S*->0 (n+1) f = nuplet n [* f (H (n+1))]
+
+ord = 0 | suc ord | L (ord -> ord)
+0 z s l = z
+suc a z s l = s a
+L f z s l = l f
+
+
+H : (ord->ord)->ord->ord
+H1 : ((a->ord)->(a->ord))->(a->ord)->a->ord
+H2 : a->b->ord ...
+
+
+0
+1 = suc 0
+w = H suc 0 = r w suc 0
+w+1 = suc (H suc 0) 
+w*2 = H suc (H suc 0) = r w suc (r w suc 0)
+w^2 = H (H suc) 0 = r w (r w suc) 0
+w^w = H H suc 0 = H1 H0 suc 0 = r w (r w) suc 0
+epsilon0 = R1 H suc 0 = Hw->0 suc 0 = r w <r w> I suc 0 = [r w <*> I] (r w) suc 0
+epsilon1 = R1 (R1 H) suc 0 = Hw^2->0 suc 0
+epsilon w = H R1 H suc 0 = Hw^w^w->0 suc 0
+R2 R1 H suc 0 = H [H*->0 suc 0] 0 = H1;0 suc 0 = E1;0
+R2 R1 H suc (R2 R1 H suc 0) = E1;0 * 2
+R2 R1 H (R2 R1 H suc) 0 = E1;0 ^ 2
+R2 R1 H (R2 R1 H) suc 0 = E1;0 ^ E1;0
+R1 (R2 R1 H) suc 0 = E1;1
+R1 (R1 (R2 R1 H)) suc 0 = E1;2
+H R1 (R2 R1 H) suc 0 = E1;w
+R2 R1 (R2 R1 H) suc 0 = E2;0
+R2 (R2 R1) H suc 0 = E1,0;0
+R3 R2 R1 H suc 0 = HW;0 suc 0 = H [EW*] 1 =EW;W
+
+
+R3 R2 R1 H suc 0 = R R R H suc 0
+Rw->1 H suc 0 = R1 R H suc 0
+Hw->0 suc 0 = R1 H suc 0
+Rw->1 H suc 0 = R (* R) H suc 0
+R2 Rw->1 H suc 0 = R R (* R) H suc 0
+Rw*2->1 H suc 0 = R (* R) (* R) H suc 0
+Rw^2->1 H suc 0 = R (* R) ... (* R) H suc 0
+
+
+R2 R1 H suc 0 = (nuplet 2 [r w * I]) (nuplet 1 [r w * I]) (r w) suc 0
+nuplet 0 x = x I
+Rw->1 H suc 0 = nuplet {w->1} [r w * I] (r w) suc 0
+R2 Rw->1 H suc 0 = Rw+1->1 H suc 0 = (nuplet 2 [r w * I]) (nuplet {w->1} [r w * I]) (r w) suc 0
+Rw->2 Rw->1 H suc 0 = Rw*2 H suc 0 = (nuplet {w->2} [r w * 1]) (nuplet {w->1} [r w * 1]) (r w) suc 0
+Rw^2 H suc 0 = nuplet {w->{w->1}} [r w * I] (r w) suc 0
+Rw^w H suc 0 = nuplet (r w [w -> *] 1) [r w * I] (r w) suc 0
+
+
+R1 H suc 0 = r w <r w> I suc 0 ; r w = H
+ -> r w [r * <r *> I suc 0] 0 -> r w [r * (r * <r *> I suc 0] 0] 0 = R2 R1 H suc 0 ?
+
+
+0
+suc 0
+H suc 0 = r w suc 0
+H (H suc) 0 = r 2 (r w) suc 0
+H H suc 0 = (r w) (r w<) suc 0 = <r w> (<r w> I) suc 0
+R1 H suc 0 = r w <r w> I suc 0
+suc (R1 H suc 0) = suc (r w <r w> I suc 0)
+H suc (R1 H suc 0) = r w suc (r w <r w> I suc 0)
+R1 H suc (R1 H suc 0) = r w <r w> I suc (r w <r w> I suc 0)
+H (R1 H suc) 0 = r w (r w <r w> I suc) 0
+R1 H (R1 H suc) 0 = r w <r w> I (r w <r w> I suc) 0
+H (R1 H) suc 0 = r w (r w <r w> I) suc 0
+R1 H (R1 H) suc 0 = rw <r w> I (r w <r w> I) suc 0
+R1 (R1 H) suc 0 = r w <r w <r w> I> I suc 0
+H R1 H suc 0 = r w [r w <*> I] (r w) suc 0
+R1 H R1 H suc 0 = [r w <*> I] (r w) [r w <*> I] (r w) suc 0
+R2 R1 H suc 0 = [[r w <**, *> I]] [r w <*> I] (r w) suc 0
+
+
+r w [r * <r *> I suc 0] w = H R1 H suc 0
+a = R1 H suc 0 = r w <r w> I suc 0
+r a suc 0 = a
+r 2 (r a) suc 0 = r a (r a suc) 0
+r 2 (r a suc) 0 = r a suc (r a suc 0) = a * 2 = R1 H suc (R1 H suc 0)
+r 2 (r a) suc 0 = r a (r a suc) 0 = a^2 = R1 H (R1 H suc) 0
+r a (r a) suc 0 = a^a = R1 H (R1 H) suc 0
+(r a) ... (r a) suc 0 = a^...^a = RA (R1 H) suc 0
+r 2  [r * <r *> I suc 0] w = R1 (R1 H) suc 0
+ = [r * <r *> I suc 0] (r w <r w> I suc 0)
+ = r a <r a> I suc 0
+ = r w <r a> I suc 0 = (r a) ... (r a) suc 0 = R1 (R1 H) suc 0
+
+
+R3 R2 R1 H suc 0
+R1 = [H <*> I]
+R2 = [[H <**, *> I]]
+R3 = [[[H <***,**,*> I]]]
+
+Rn = R n
+
+R1 = nuplet 1 [H * I]
+R2 = nuplet 2 [H * I]
+R3 = nuplet 3 [H * I]
+nuplet n f x1 ... xn = f <x1, ..., xn>
+<> f = f => <> = I
+nuplet 0 f = f I => nuplet 0 = <I>
+nuplet (n+1) f x0 x1 ... xn = f <x0, x1, ..., xn>
+nuplet (n+1) f x = nuplet n [f (insert x0 *)]
+insert x0 <x1, ... xn> f = <x1, ... xn> (f x0) 
+ = f x0 x1 ... xn
+
+Rx->1 H suc 0 = (nuplet x [H * I]) (nuplet (x-1) [H * I]) ... (nuplet 2 [H * I]) (nuplet 1 [H * I]) H suc 0
+[R*->1] 0 = I
+
+
+0
+1 = suc 0
+w = H suc 0
+w^w = H H suc 0 = C I H (CI H I) suc 0
+epsilon0 = H ... H suc 0 = R1 H suc 0 = H (CI H) I suc 0
+ = [h (C I *) I] H suc 0
+H R1 H suc 0 = H [H (CI *) I] H suc 0
+R1 H R1 H suc 0 = [H (CI *) I] H [H (Ci *) I] H suc 0
+epsilon0 = H <H> I suc 0 = [H <*> I] H suc 0 ; [H <*> I] = R1
+R1 H R1 H suc 0 = [H <*> I] H [H <*> I] H suc 0
+ = <[H <*> I], H> (<[H <*> I], H> I) suc 0
+R2 R1 H suc 0 = H <[H <*> I], H> I suc 0
+ = [[H <**,*> I]] [H <*> I] H suc 0
+R1 a = a a a ... = H <a> I = [H <*> I] a ; R1 = [H <*> I]
+R2 a b = a b a b ... = H <a, b> I = [[H <**, *> I]] a b ; R2 = [[H <**, *> I]]
+R3 = [[[H <***, **, *> I]]]
+
+---
+
+0
+suc 0
+suc (suc 0)
+H0 suc 0
+suc (H0 suc 0)
+H0 suc (H0 suc 0)
+H1 H0 suc 0
+Hw->0 suc 0 = R1,0 H suc 0
+f : x -> Hx->0 suc 0
+f 0 = H0 suc 0
+Hw+1->0 suc 0 = H R1,0 H suc 0
+Hw+2->0 suc 0 = H H R1,0 H suc 0
+Hw*2->0 suc 0 = R H R H suc 0
+Hw*w->0 suc 0 = Hw^2->0 = R2 R1 H suc 0
+Hw^3->0 suc 0 = R3 R2 R1 H suc 0
+Hw^w->0 suc 0 = Rw->1 H suc 0
+Hw^w+1->0 suc 0 = H Rw->1 H suc 0
+Hw^w+w->0 suc 0 = R1 H Rw->1 H suc 0
+Hw^w+w+1->0 H suc 0 = H R1 HRw->1 H suc 0
+Hw^w+w*2->0 H suc 0 =R1 H R1 H Rw->1 H suc 0
+Hw^w*2->0 suc 0 = Rw->1 H Rw->1 H suc 0
+Hw^(w+1)->0 suc 0 = R2 Rw->1 H suc 0 = Rw+1->1 H suc 0
+
+
+cantor a 0 = suc a
+cantor a 1 = H suc a
+cantor a 2 = H (H suc) a
+cantor a w = R1 H suc a
+cantor a (w+1) = cantor a (suc (H suc 0)) = H (R1 H suc)
+
+
+iter a f n x = f^n(x) = r n f x
+OpLim F a = Limit [F * a]
+OpLim = lim1
+OpItw f = OpLim (iter * f)
+OpItw = H 
+
+cantor a 0 = suc a
+cantor a (suc b) = H [cantor * b] a
+cantor a (lim f) = lim [cantor a (f *)]
+
+cantor a 1 = H [cantor * 0] = H suc a 
+cantor a 2 = H [cantor * 1] a = H (H suc) a
+cantor a 3 = H (H (H suc)) a
+cantor a w = H H suc a
+cantor a (w+1) = H (H H suc) a
+cantor a (w*2) = H H (H H suc) a
+cantor a (w*w) = H (H H) suc a
+cantor a (w^w) = H H H suc a
+cantor a epsilon0 = R1 H suc a
+
+Nabla f 0 = f 0
+Nabla f (suc a) = f (suc (Nabla f a))
+Nabla f (Limit h) = Limit [Nabla f (h *)]
+
+Nabla f 1 = f (suc (f 0))
+Nabla f 2 = f (suc (f (suc (f 0)))
+Nabla f w = H (B f suc) (f 0)
+Nabla f (w+1) = f (suc (H (B f suc) (f 0)))
+
+deriv f = Nabla (h f)
+
+veblen 0 = Nabla (lim1 (iter _ (cantor 0)))
+veblen (suc a) = Nabla (lim1 (iter _ (veblen a)))
+veblen (lim f) = Nabla (lim1 [veblen (f *)])
+
+
+M0 x s z = META0 s z x
+M0 = Repr ?
+
+0
+suc 0
+H0 suc 0
+suc (H0 suc 0)
+suc (suc (H0 suc 0))
+H0 suc (h0 suc 0)
+H0 (H0 suc) 0 = M0 2 H0 suc 0
+H0 (H0 (H0 suc))) 0 = M0 3 H0 suc 0
+H1 H0 suc 0 = M0 (H0 suc 0) H0 suc 0
+H2 H1 H0 suc 0 = M0 (H1 H0 suc 0) H0 suc 0
+R1 H suc 0 = Hw->0 suc 0 = M0 (M0 (H0 suc 0) H0 suc 0) H0 suc 0
+ = META0 H0 suc (META0 H0 suc (H0 suc 0) 0) 0
+ [M0 * [M0 * H0 suc 0] H0 suc 0]
+M0 (H0 suc 0) [M0 * H0 suc 0] (h0 suc 0]
+
+
+0
+suc 0
+suc (suc 0)
+H0 suc 0
+suc (H0 suc 0)
+suc (suc (H0 suc 0)
+H0 suc (H0 suc 0)
+H0 (H0 suc) 0 = Repr 2 H0 suc 0
+H1 H0 suc 0 = Repr (H0 suc 0) H0 suc 0
+H0 (H1 H0 suc) 0 = Repr (suc (H0 suc 0)) H0 suc 0
+H1 H0 (H1 H0 suc) 0 = Repr (H0 suc (H0 suc 0)) H0 suc 0
+[Repr * H0 suc 0] : ord -> ord
+Repr 0 H0 suc 0 = suc 0
+Repr (suc 0) H0 suc 0 = H0 suc 0
+Repr (H0 suc 0) H0 suc 0 = H1 H0 suc 0
+Repr (H1 H0 suc 0) H0 suc 0 = H2 H1 H0 suc 0
+Hw->0 suc 0 = R1 H suc 0
+R1 H suc 0 = H0 [Repr * H0 suc 0] 0
+H [Repr * [Repr * H0 suc 0] 0] 0
+ou [Repr * [Repr * H0 suc 0] H0 suc 0] ?
+ou H [Repr * H0 [Repr * H0 suc 0] 0] 0
+H f 0 = Repr (H suc 0] f 0
+
+
+[Repr * H0 [Repr * H0 suc 0] 0]
+Repr 0 H0 [Repr * H0 suc 0] 0 = Repr 0 H0 suc 0 = suc 0
+Repr (suc 0) H0 [Repr * H0 suc 0] 0 = H0 [Repr * H0 suc 0] 0 = R1 H suc 0
+Repr (R1 H suc 0) H0 [Repr * H0 suc 0] 0 = R1 H0 [Repr * H0 suc 0] = R1 H0 (R1 H0 suc) 0
+H0 (H0 [Repr * H0 suc 0]) 0 = H0 (R1 H0 suc) 0
+H0 [Repr * H0 suc 0] = R1 H suc
+H1 H0 [Repr * H0 suc 0] 0 = H1 H0 (R1 H0 suc) 0
+R1 H0 [Repr * H0 suc 0] 0 = R1 H0 (R1 H0 suc) 0
+... H0 (R1 H0) suc 0
+H0 suc 0 = H0 suc 0
+suc -> [Repr . H0 suc]
+H0 [Repr * H0 suc 0] 0 = R1 H suc 0
+H0 [Repr . H0 [Repr . H0 suc 0] 0] 0 = H0 (R1 H0) suc 0
+... R1 H0 (R1 H0) suc 0 = r3
+
+
+x {suc->s, 0->z} : ord
+ = Rep z s x
+ = Re s z x
+ = Repr x s k
+ = META0 s z x
+
+Re : (ord->ord)->ord->ord->ord
+Re s z 0 = z
+Re s z (suc x) = s (Re s z x)
+Re s z (lim f) = Lim (\n. Re s z (f n))
+
+Meta f 0 y = f y => Meta f 0 = f
+Meta f (suc x) y = Re (Meta f x) y y
+Meta f 1 y = Re f y y = y {suc->f, 0->y}
+Meta f 2 y = Re (Meta f 1) y y = y {suc->Meta f 1, 0->y}
+
+META1 t s z 0 = z
+META1 t s z 1 = s z
+META1 t s z w x:t = Lim (\n: META1 t s z n x)
+
+
+meta0 f x = Re f x x
+meta1 f x = META1 _ Re f x x
+meta2 f x = META1 _ meta1 f x x
+
+
+m0 = w
+m1 = f0 =\x. op x x x
+m1 m0 = op w w w = R2 R1 H suc 0
+m2 x y = Re (Meta x y) w w
+m2 m1 m 0 = Re (Meta m1 w) w w
+
+
+0 f0 : ford 0 = ord : 0, suc 0, ...
+1 f1 : ford = ord->ord : suc, H0 suc ...
+2 f2 : ford 2 : H0
+3 f3 : H1
+
+0
+suc 0
+suc (suc 0) = R 2 suc 0 ; R n s z = s^n(z)
+lim [R * suc 0]
+suc (lim [R * suc 0])
+lim (R * suc (lim [r * suc 0])]
+suc -> (x -> lim [R * suc x]) : \f. \x. lim (\n. R n f x) = F
+ (ord->ord)->ord->ord
+F suc 0 = Lim (\n. R n suc 0) = w
+F f x = lim (\n. R n f x)
+F = H0
+0, suc 0, ..., H0 suc 0
+suc, H0 suc, H0 (H0 suc), ... H1 H0 suc
+lim [H _ ... H0 suc 0] = R1 H suc 0
+
+
+0 : ord
+x : ord => suc x : ord
+suc : ord->ord
+f ... f x -> f^n(x) = re f x n
+
+O
+suc 0
+suc (suc 0) = re suc 0 2
+lim (re suc 0) = w
+suc (lim (re suc 0))
+lim (re (suc (lim (re (suc 0))) = w*2
+= re (\x. lim (re suc x)) 0 2
+lim (re (\x. lim (re suc x)) 0) = w^2
+\y. lim (re (\x. lim (re suc x)) y)) = +w^2
+lim (re (\y. lim (re (\x. lim (re suc x) y) 0)
+= re (\f. \x. re f x)) suc 3 0
+= \z. lim (re [\y lim (re (\x. lim (re suc x) y) 2) 0
+lim1 (re (\f. \x. re f x)) suc
+= lim1 (re re) suc
+
+
+Meta f 0 y = f y
+Meta f (suc x) y = Rep y (Meta f y) = Re (Meta f y) y y
+Meta f 1 y = Re I y y = I^y y = y
+Meta f 1 = I ?
+
+
+Meta f 0 y = f y ; Meta f 0 = I
+Meta f 1 y = Rep y I y = y
+Rep z s y
+Meta f z s = Rep y (Meta f 1) y = Rep y I y
+
+META0 s z 0 = z
+META0 s z 1 = s z
+META0 s z x = x[suc->s,0->z]
+META0 = Re
+
+META t s z 0 = z
+META t s z 1 = s z ... ?
+
+m0 
+m1 x = op x x x
+m2 x y = Rep w (Meta x y) w
+m3 f1 f x = META _ f1 f x
+
+
+meta 0 f x = META0 f x x
+
+
+Meta f 0 = f
+Meta f 1 = \y. Rep y f y = \y. y[suc->f,0->y]
+Meta f 2 = \y. Rep y (Meta f 1) y
+ = \y ;Rep y (\y. y[suc->f,0->y]) y
+ = \y. y[suc->\y[suc->f,0->y],0->y]
+
+META0 = Re
+META0 s z x = x[suc->s,0->z]
+
+meta0 f x = META0 f x x
+meta1 f x = META1 meta0 f x x
+meta2 f x = META2 meta1 f x x
+
+META1 -> metam -> prim 0
+
+
+META s z 0 = z
+META s z 1 = s z
+META s z 2 = s (s z)
+META s z w = \x. lim (\y. META s z x y)
+
+
+m0 = w
+m1 = f0 = \x. op x x x
+m1 m0 = op w w w = R2 R1 H suc 0
+m2 x y = Re (Meta x y) w w
+m2 m1 m0 = Re (Meta m1 w) w w
+Meta m1 w y = lim (\n. Meta m1 n y)
+
+
+META0 = Re
+
+prime0 m Zero f x = m f x
+prime0 m 1 f x = meta m x f x
+
+ord6 = ter0 sec0 prim0 meta0 f0 w
+f0 w = op w w w = R2 R1 H suc 0
+meta0 f0 w = META0 f w w = Re f w w = f0^w w
+f0 w = R2 R1 H suc 0
+f0 (f0 w) = op (R2 R1 H suc 0) (R2 R1 H suc 0) (R2 R1 H suc 0)
+
+
+ordinaux
+Rx->1 H suc 0
+Hn->0 suc 0
+META
+prim second ter
+veblen
+SLC en agda
+réflexivité
+
+
+(R1 _ H) (R1 _ H) suc zero
+R1 0 (\n -> R1 n H) suc zero
+R1 _ (\n -> R1 n H) suc zero = R1 (R1 H) suc zero
+R1 0 (\n -> R1 n (\n -> R1 n H)) suc zero = R1 (R1 (R1 H)) suc 0
+[\n. R1 n (\n. R1 n (\n. R1 n H))) 0 suc 0
+(\h. \n. R1 n h) H 0 suc 0
+H _ (\h. \n. R1 n H) H 0 suc 0
+x3 = H2 H1 (lim2 reCIR1H0) suc zero
+ = H2 H1 (lim2 (_p. re (\h. \n. R1 n h) H p 0) suc zero
+
+
+R10 H suc zero = ... H2 H1 H0 suc 0
+R10 = R100
+R101 H f s z = ... H3 H2 H1 f suc 0
+
+
+ordinaux
+R1 H suc 0 -> H R1 H suc 0, H2 H1 (H R1 H) suc 0
+nuplet
+rn -> R1 H0 (R1 H0) suc 0
+m3 -> R2 R1 H suc 0 -> Meta ?
+meta
+prim second ... -> > R2 R1 H suc 0
+ordi cantor veblen -> Gamma0 = H [R*->1 H suc 0] 0 = R1;1 H suc 0
+application système formel
+
+
+f0 x = op x x x
+Meta f n y = Rep y (Rep y ...) y
+META0 s z n = s^n z
+META0 s z x = x [suc->s, 0->z]
+r1 = H0 (\x -> META1 _ H0 suc x 0) 0
+suc 0
+H0 suc 0 = w
+Hw;0 suc 0 = H (... H suc) 0 = H1 H0 suc 0
+Hepsilon0;0 suc 0 = H2 H1 H0 suc 0
+R1 H suc 0
+
+
+H0 (\x. META1 _ H0 (\x. META1 _ H0 suc x 0) x 0) 0
+H0 [META1 _ H0 [META1 _ H0 suc * 0@ * 0] 0
+META1 _ H0 [META1 _ H0 suc * 0] 0 0
+= META1 _ H0 suc 0 0
+= suc 0 = 1
+META1 _ H0 [Meta1 _ H0 suc * 0] 1 0
+= H0 [META1 _ H0 suc * 0] 0
+META1 _ H0 suc 0 0 = 1
+META1 _ H0 suc 1 0 = H0 suc 0 = w
+META1 _ H0 suc w 0 = H1 H0 suc 0
+... R1 H suc 0 = epsilon0
+META1 _ H0 [META1 _ H0 suc * 0] (R1 H suc 0) 0
+= [suc->H0, 0->[META1 _ H0 suc * 0]] (R1 H suc 0) 0
+= R1 H H [META1 _ H0 suc * 0] 0
+= R1 H0 [META1 _ H0 suc * 0] 0
+-> H0 [ ... ] = epsilon0
+H H [ ... ] 0
+-> H [ ... ] = epsilon0
+H (H [ ... ]) 0 = epsilon0 * 2 = R1 H suc (R1 H suc 0)
+R1 H [ ... ] 0
+r2 = H (R1 H) suc 0 ?
+
+
+r3 = H0 (H1 (\f. \x. META1 _ H0 f x 0) suc) 0
+ = H0 (H1 [[META1 _ H0 ** * 0]] suc) 0
+- 0
+- H1 [[META1 _ H0 ** * 0]] suc 0
+  - suc 0
+  - [[META1 _ H0 ** * 0]] suc 0
+    = META1 _ H0 suc 0 0
+    = suc 0
+  - [[META1 _ H0 ** * 0]] ([[META1 _ H0 ** * 0]] suc) 0
+    = META1 _ H0 suc 0 0
+    = suc 0
+  -> suc 0
+
+
+Meta0 f x = META0 f x x = [suc->f,0->x] x
+meta1 f x = META1 _ meta0 f x x
+ = [suc->meta0,0->f] x x
+meta 0 f x = meta0 f x
+metan m 0 f x = m f x ; metan m 0 = m
+matan m 1 f x = META1 _ (metan m 0) f x x
+ = META1 _ m f x x
+
+
+Meta f 0 y = f y
+Meta f 1 y = Rep y (Meta f 0) y = Rep y f y
+Meta f 2 y = Rep y (Meta f 1) y
+Meta f 1 = \y. [suc->f,0->y] y
+Meta f 2 = \y. [suc->\y.[suc->f,0->y]y,0->y] y
+Meta f w = ...
+
+
+f0 x = op x x x ; Rep z s x = [0->z,suc->s] x
+m0 = w
+m1 = f0
+m2 x y = Rep w (Meta x y) w
+m3 f1 f x = META _ f1 f x x
+m30 = m3 m2 m1 m0
+ = META1 _ m2 m1 m0
+ = META1 _ [[Rep w (Meta ** *) w]] f0 w
+ = H [[Rep w (Meta ** *) w]] f0 w
+   - f0 w = op w w w
+      op 0 w w = w + w = H suc (H suc 0)
+      op 1 w w = w * w = H (H suc) 0
+      op 2 w w = w ^ w = H H suc 0
+      op 3 w w = w ^ w ^ ... ^ w = R1 H suc 0
+      op 4 w w
+      ...
+      -> op w w w = R2 R1 H suc 0
+   - [[Rep w (Meta ** *) w]] f0 w
+     = Rep w (Meta f0 w) w (w = H suc 0)
+     = H (Meta f0 w) w
+       - w
+       - Meta f0 w w
+         - Meta f0 0 w = f0 w = op w w w = R2 R1 H suc 0
+         - Meta f 1 w = Rep w f0 w
+           = H f0 w
+             - w
+             - f0 w = R2 R1 H suc 0
+             - f0 (f0 w) = op (f0 w) (f0 w) (f0 w)
+               = R4 R3 R2 R1 H suc 0 ?
+         - Meta f0 2 w = ?
+       - Meta f0 w (Meta f0 w w)
+
+
+x = Rw->1 H suc 0
+op x x x ?
+op 0 x x = x + x = Rw->1 H suc (Rw->1 H suc 0)
+op 1 x x = x * x = Rw->1 H (Rw->1 H suc) 0
+op 2 x x = x ^ x = (Rw->Q1 H) (Rw->1 H) suc 0
+op 3 x x = x ^ ... ^ x = Rw->1 (Rw->1 H) suc 0
+op 4 0 x = 1
+op 4 1 x = x
+op 4 2 x = op 3 x (op 4 1 x)
+ = op 3 x x
+ = Rw->1 (Rw->1 H) suc 0
+op 4 3 x = op 3 x (op 4 2 x)
+ = op 3 x (Rw->1 (Rw->1 H) suc 0)
+ = Rw->1 (Rw->1 (Rw->1 H)) suc 0
+op 4 w x = H Rw->1 H suc 0 ?
+op 4 x x =Rw->1 H Rw->1 H suc 0
+op 5 0 x = 1
+op 5 1 x = x
+op 5 2 x = op 4 x x = Rw->1 H Rw->1 H suc 0
+op 5 3 x = op 4 x (op 4 2 x) 
+ = op 4 x (Rw->1 H Rw->1 H suc 0)
+ = Rw->1 H Rw->1 H Rw->1 H suc 0
+op 5 w x = R2 Rw->1 H suc 0 ?
+op 5 x x = Rw->2 Rw->1 H suc 0
+
+
+op 6 x x
+op 6 0 x = 1
+op 6 1 x
+op 6 2 x = op 5 x x = Rw*2 Rw->1 H suc 0
+ = Rw*2->1 H suc 0
+op 6 3 x = op 5 x (op 5 x x)
+ = op 5 x (Rw*2->1 H suc 0)
+op 5 0 (Rw*2->1 H suc 0) = 1
+op 5 1 (Rw*2->1 H suc 0) = Rw*2->1 H suc 0
+op 5 2 (Rw*2->1 H suc 0) = op 4 (Rw*2->1 H suc 0) (Rw*2->1 H suc 0)
+ = Rw*2->1 H Rw*2->1 H suc 0
+op 5 w (Rw*2->1 H suc 0) = R2 Rw*2->1 H suc 0
+ = Rw*2+1->1 H suc 0
+op 5 x (Rw*2->1 H suc 0) = Rw->2 Rw*2->1 H suc 0
+ = Rw*2+w->1 H suc 0
+op 6 w x = Rw*2+w*w->1 H suc 0
+ = Rw^2->1 H suc 0 ?
+
+
+op 0 x x = Rw->1 H suc (Rw->1 H suc 0)
+op 1 x x = Rw->1 H (Rw->1 H suc) 0
+op 2 x x = Rw->1 H (Rw->1 H) suc 0
+op 3 x x = Rw->1 (Rw->1 H) suc 0
+op 4 x x = Rw->1 H Rw->1 H suc 0
+op 5 x x = Rw->2 Rw->1 H suc 0
+ = Rw*2->1 H suc 0
+op w x xx = Rw^2->1 H suc 0
+op x x x = Rx->1 H suc 0 ?
+
+
+Meta f0 2 w 
+ = Rep w (Rep * f0 *] w
+ = H [Rep * f *] w
+   - w
+   - Rep w f0 w
+     = H f0 w
+       - w
+       - f0 w = R2 R1 H suc 0
+       -> Rw->1 H suc 0 = x
+   - Rep x f0 x
+     = [suc->f0,0->x] x
+     = Rw->1 H f0 (Rw->1 H suc 0)
+       - R1 H f0 (Rw->1 H suc 0)
+         - f0 (Rw->1 H suc 0) = op x x x = Rx->1 H suc 0 ?
+         - H f0 (Rw->1 H suc 0)
+         - H H f0 (Rw->1 H suc 0)
+         -> H [R*->1 H suc 0] 0
+       - R2 R1 H f0 (Rw->1 H suc 0)
+
+
+Meta f 0 y = f y
+Meta f 1 y = Rep y (Meta f 0) y
+Meta f 0 y = f y
+Meta f (suc x) y = Rep y (Meta f x) y
+
+f0 x = op x x x 
+Rep z s x = [suc->s,0->z] x
+m0 = w
+m1 = f0
+m2 x y = Rep w (Meta x y) w
+m3 f1 f x = META _ f1 f x x
+m30 = m3 m2 m1 m0
+ = META1 _ [[Rep w (Meta ** *) w]] f0 w
+ = H [[Rep w (Meta ** *) w]] f0 w
+   - f0 w = op w w w = R2 R1 H suc 0
+   - [[Rep w (Meta ** *) w]] f0 w
+     = Rep w (Meta f0 w) w (w = H suc 0)
+     = H (Meta f0 w) w
+       - w
+       - Meta f0 w w
+         - Meta f0 0 w = f0 w = op w w w = R2 R1 H suc 0
+         - Meta f0 1 w = Rep w f0 w
+           = H f0 w
+             - w = H suc 0
+             - f0 w = R2 R1 H suc 0
+             - f0 (f0 w) = op (f0 w) (f0 w) (f0 w) = R4 R3 R2 R1 H suc 0 ?
+             -> Rw->1 H suc 0
+         - Meta f0 2 w = Rep w (Meta f 1) w
+           = Rep w [Rep * f0 *] w = H [Rep * f *] w
+             - w
+             - Rep w f0 w = x
+             - Rep x f0 x = Rw->1 H f0 (Rw->1 H suc 0)
+               - R1 H f0 (Rw->1 H suc 0)
+                 - f0 (Rw->1 H suc 0) = op x x x = Rx->1 H suc 0 ?
+                 - H f0 (Rw->1 H suc 0)
+                 -> H [R*->1 H suc 0] 0 ?
+               - R2 R1 H f0 (Rw->1 H suc 0)
+       - Meta f0 w (Meta f0 w w)
+   - [[Rep w (Meta ** *) w]] ([[Rep w (Meta ** *) w]] f0) w
+
+
+ord6 = ter0 second0 prim0 meta0 f0 w
+f0 w = op w w w = R2 R1 H suc 0
+meta0 f0 w = META0 f0 w w = [suc->f0,0->w] w = f0^w w
+- w
+- f0 w = op w w w = R2 R1 H suc 0
+- f0 (f0 w) = R4 R3 R2 R1 H suc 0 ?
+-> Rw->1 H suc 0 ?
+metan m 0 = m
+
+prim0 meta0 f0 w = prim0 meta0 (suc 0) f0 w
+ = metan (prime0 meta0 0) w f0 w
+ = metan meta0 w f0 w
+   - metan meta0 0 f0 w = meta0 f0 w = Rw->1 H suc 0
+   - metan meta0 1 f0 w = META1 _ (metan meta0 0) f0 w w
+     - f0 w = R2 R1 H suc 0
+     - metan meta0 0 f0 w = Rw->1 H suc 0
+     - metan meta0 0 (metan meta0 0 f0) w
+       = meta0 (meta0 f0) w
+       = META0 (meta0 f0) w w
+       = (meta0 f0)^w w
+         - w
+         - meta0 f0 w = META0 f0 w w = Rw->1 H suc 0
+         - meta0 f0 (meta0 f0 w)
+           = [suc->f0,0->Rw->1 H suc 0] Rw->1 H suc 0
+           = Rw->1 H f0 (Rw->1 H suc 0)
+              f0 (Rw->1 H suc 0) = f0 x
+              R(Rw->1 H suc 0)->0 H suc 0 ?
+              H f0 (Rw->1 H suc 0)
+              H [R*->1 H suc 0] 0 ?
+              = R1;1 H suc 0
+
+   
+grand ordinal x, fonction fortement croissante f 
+ -> ordinal [suc->f, 0->x] x = META0 f x x = meta0 f x
+f -> fonction x -> [suc->f, 0->x] x : ford 2
+F f x = [suc->f, 0->x] x
+F f x = meta0 f x
+F = meta0
+

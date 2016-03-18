@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Ordinal Notation</title></head>
+<body>
+<p align="right">Dmytro Taranovsky<br/>
+Last Update:  April 20, 2015</p>
+
+<h1 align="center">Ordinal Notation</h1>
+
+<p><b>Outline:</b>  We define strong yet simple ordinal notation systems.  The <a href="#A1">first section</a> defines the general structure for the notations.  The notation system in the <a href="#A2">second section</a> reaches ATR<sub>0</sub> plus "for every ordinal <i>a</i>, there is recursively <i>a</i>-inaccessible ordinal."  The <a href="#A3">third section</a> reaches substantially beyond KP +  Π<sub>n</sub> reflection. The <a href="#A4">fourth</a> section (attempt to reach second order arithmetic) is retained for historical purposes. The <a href="#A5">final</a> section proposes and analyzes an ordinal notation system for second order arithmetic. <br/>
+Update (Jan 9, 2014):  See <a href="#A6">update</a> / correction at the end of the paper.<br/>
+<b>Note:</b> Some of the results here were reached by intuitive reasoning without formal proofs.<br/>
+<b>Note:</b> A python module/program that implements comparison and ordinal arithmetic for the ordinal notation system for second order arithmetic is available <a href="OrdinalArithmetic.py">here</a>. (See "One Variable C" subsection of the paper for a notational difference with the module.)</p>
+
+<p><b>Historical Note:</b>  In 2005, I discovered the right general form of C, defined a notation system at the level of <i>a</i>-recursively inaccessible ordinals, and proposed a schema (a detailed idea) for reaching second order arithmetic (August  7, 2005 version of the paper).  In 2006 (or possibly late 2005) (January 24, 2006 version), I defined the stronger (n=2) notation system, and (June 28, 2009 revision) added the comparison algorithm subsection (the algorithm was previously given implicitly). Finally, in March 16, 2012 revision, I added the ordinal notation system for second order arithmetic.</p>
+
+
+<h2 align="center"><a id="A1"/>A Framework for Ordinal Notations</h2>
+
+<h3>Definition of the General Notation</h3>
+<p>In this paper, we define several ordinal notation systems based on the general notion of degree and the corresponding collapsing function C.</p>
+<p><b>Definition:</b>  A degree for a well-ordered set S is a binary relation on S such that</p>
+<ol>
+<li>Every element <i>a</i> has degree 0<sub>S</sub> (the least element of S).  0<sub>S</sub> only has degree 0<sub>S</sub>.</li>
+<li>For a limit b, 'a' has degree b iff it has every degree less than b.</li>
+<li>For a successor b'=b+1, either of the following holds
+<ul> <li>An element has degree b' iff it is a limit of elements of degree b</li>
+     <li>There is a limit element d ≤ b such that for every c in S, c has degree b' iff it has degree b and either c ≤ d or c is a limit of elements of degree b (or both).  </li>
+</ul></li>
+</ol>
+
+<p>The corresponding collapsing function C is defined such that:<br/>
+C(a, b) is the least element above b that has degree a. C(a, b) is defined iff such an element exists.</p>
+<p>C is called a collapsing function because typically, if <i>a</i> is much larger than <i>b</i>, then C(a, b) &lt; a and acts as a collapse of <i>a</i> above <i>b</i>.</p>
+
+<p>A partial ordinal notation system is a partial mapping O of ordinals into finite sequences of symbols and ordinals such that O(<i>a</i>) is undefined if <i>a</i> belongs to a sequence in the range of O.  (Thus, ordinals are represented in terms of symbols and non-representable ordinals.)</p>
+For a partial ordinal notation system O and a collapsing function C corresponding to a degree, the standard combination of the notations is defined as follows:
+<ul><li>If an ordinal <i>a</i> is in the domain of O, then represent <i>a</i> using O and the representations of ordinals in O(<i>a</i>).</li>
+<li>Otherwise if <i>a</i> = C(b, c) where b is maximal and c is minimal (that is b'>b ⇒ C(b', c) > C(b, c), and c' &lt; c ⇒ C(b, c') &lt; C(b, c)), then represent <i>a</i> through C(b, c).</li>
+</ul>
+
+A well-behaved combined ordinal notation system should satisfy the following (this is not intended as a definition and can be skipped by the reader):
+<ol>
+<li>Let Ω be the least ordinal that is above all ordinals that are represented by C-terms (a C-term is just C(…, …)).  C(a, b) is defined whenever <i>a</i> and b are representable and min(a, b) &lt; Ω (except possibly when b≥Ω and b+ω<sub>a</sub> is above all ordinals in the notation system).</li>
+<li>Let <i>a</i> be the least ordinal represented by a C-term and Ω as above.  If a ≤ C(b,c) &lt; Ω and <i>b</i> is maximal and c is minimal in C(b, c), then C(b, c) is represented by C-term except possibly when c=0 and b is not represented by a C-term.<br/>
+Note:  In general, we can stack ordinal notation systems on top of each other.  For example, we can use one system for ordinals below Ω, and another system for representing ordinals above Ω in terms of ordinals below Ω.
+</li>
+<li>The standard representation of an ordinal is the unique representation using (C and 0) with the least number of C-terms.  This should hold even if all representable ordinals below a particular one were to be added to O as constant symbols.</li>
+</ol>
+
+<p>An example is the notation system below ε<sub>0</sub> generated using 0 as the least ordinal and C(a, b) = b+ω<sup>a</sup>.  The standard representation is analogous to Cantor normal form.  Another example is generated by 0, x→ε<sub>x</sub>, and C with C(a, b) = b+ω<sup>a</sup>.<br/>
+Each of the notation systems in this paper can also be built on top of an arbitrary ordinal by representing all ordinals below that one by a constant.</p>
+
+<p>A notation system above a generic ordinal specifies standardness and comparison given syntactic form and comparison for inputs.  For example, pairing gives a notation system for Ω<sup>2</sup> given a system for Ω, and comparison of (a,b) with (c,d) depends only on how a,b,c,d compare with each other.  (Note: While not necessary here, it may be convenient to relax the definition of ordinal notation system above a generic ordinal by allowing comparison with 0 and possibly other queries.)  Notation systems in this paper can generally be defined above a generic ordinal.  Furthermore, the general form of some constructs is a mapping that given an ordinal notation system above a generic ordinal, turns it into a stronger one.</p>
+
+<h3>Basic Properties</h3>
+Using the general definition, we can prove a variety of properties of C.  Without loss of generality, we will assume in the following that the well-ordered set S is an ordinal.<br/>
+If b &lt; a, then having degree <i>a</i> implies having degree <i>b</i>.<br/>
+If 0 &lt; a ≤ b, then <i>b</i> has degree <i>a</i> iff there are <i>c</i> and <i>d</i> with d ≥ a and b = c+ω<sup>d</sup>.<br/>
+C(a, b) = b+ω<sup>a</sup> iff C(a, b) ≥ a.<br/>
+C(a, b) is monotonic in <i>a</i> and <i>b</i> and is continuous in <i>a</i>.<br/>
+C(a, b) &gt; b.<br/>
+If b = C(c, d) where <i>c</i> is maximal, then b is minimal in C(a, b) iff a≤c.<br/>
+In general, if <i>e</i> is represented in the standard form as C(a<sub>1</sub>, C(a<sub>2</sub>,... C(a<sub>m</sub>, b)...)) and f as C(c<sub>1</sub>, C(c<sub>2</sub>,... C(c<sub>n</sub>, b)...)), then e &lt; f ⇔ (a<sub>m</sub>, ... a<sub>2</sub>, a<sub>1</sub>) &lt; (c<sub>n</sub>, ..., c<sub>2</sub>, c<sub>1</sub>) with the comparison done in lexicographical order.  Also, a<sub>m</sub> ≥... a<sub>2</sub> ≥ a<sub>1</sub>.<br/>
+If <i>a</i> is maximal in C(a, b) and b ≤ d, then <i>a</i> is maximal in C(a, d).
+
+<p>If <i>a</i> is maximal in C(a, b), then C(a, b) &lt; C(c, d) iff C(a, b) ≤ d or (b &lt; C(c, d) and a &lt; c).<br/>
+Since the standard form requires <i>a</i> to be maximal in C(a, b), the above equivalence leads to a polynomial time comparison algorithm for ordinals in the notation system assuming that we can compare <i>a</i> and <i>b</i> when "a" is a constant or is otherwise not a C-term.<br/>
+Note that to evaluate C(a, b) &lt; C(c, d), <i>c</i> need not be maximal in C(c, d).  In fact, recursive definitions of maximality will often involve such comparisons.</p>
+
+<h3>Bachmann-Howard Ordinal</h3>
+<p>We illustrate the framework by defining a notation system at the level of the Bachmann-Howard ordinal.
+The notation system will consist of C (as above) and two constants: 0 (the least ordinal) and Ω with C(a, b) &lt; Ω if b &lt; Ω.  At this point, the notation system is fully specified except for the definition of when <i>a</i> is maximal in C(a, b).  On the other hand, at this point the system is fully general in that by choosing the maximality condition, we can reach arbitrarily high recursive ordinals.  Note that the definition of maximality cannot affect comparison of ordinals in the standard representation.  Instead, it determines which representations are standard.  To reach the Bachmann-Howard ordinal, define <i>a</i> to be maximal in C(a, b) iff its standard representation (equivalently, some representation) in terms of ordinals not above b (equivalently, ordinals below C(a, b)) only uses ordinals below <i>a</i>.</p>
+<p>Consequently, for C(Ω*a+b, c) (a, b, c &lt; Ω), we have either Ω*a+b or Ω*(a+1) or Ω<sup>2</sup>is maximal.  C(Ω<sup>2</sup>, c) is the least ordinal in the range of Γ above c.  If Ω*a+b is maximal and a > 0, then C(Ω*a+b, c) is point number ω<sup>b</sup> above c in the range if the <i>a</i>th fixpoint function (ε is the first fixpoint function).</p>
+<p>If H(a, b) is the defined as the least set of ordinals including Ω and all ordinals below <i>b</i> and closed under x,y → C(x, y) where x&lt;a, then <br/>
+C(a, b) = H(a, b+1) ∩ Ω for b &lt; Ω. (If Ω &lt; b, then C(a, b) = b+ω<sup>a</sup>.)<br/>
+Note: H would be unchanged if "closed under x,y → C(x, y)" is replaced by "closed under x,y → C(x, y) where <i>x</i> is maximal and y is minimal in C(x, y)".</p>
+<p>To convert C(a, b) to the standard form, convert <i>a</i> and <i>b</i> to the standard form, maximize <i>a</i> and minimize <i>b</i>.  b can be minimized using C(x, C(y, z)) = C(x, z) if y &lt; x and y is maximal in C(y, z) (and if b = Ω (or 0), then it is already minimal).  To maximize <i>a</i>, if a &lt; Ω and not already maximal, then just replace <i>a</i> with Ω.  If a ≥ Ω (and not already maximal), then look at the standard representation of <i>a</i> in terms of ordinals below Ω.  Find the rightmost ordinal instance whose standard representation in terms of ordinals below b+1 uses an ordinal above <i>a</i>.  Replace that instance with Ω and delete all ordinals (including Ω) to the left of it, removing extraneous Cs (by recursively replacing C(,x) with x and deleting C(,)).<br/>
+For example, if b = 0 and a = Ω*ω+Γ<sub>0</sub>*2+1 = C(0, C(Γ<sub>0</sub>, C(Γ<sub>0</sub>, C(C(0, Ω), Ω)))), then out of (0, Γ<sub>0</sub>, Γ<sub>0</sub>, Γ<sub>0</sub>, 0), delete the first two and convert the third one to Ω:  a → C(, C(, C(Ω, C(C(0, Ω), Ω)))) → C(Ω, C(C(0, Ω), Ω)) = Ω*(ω+1).</p>
+
+<h3>One Variable C</h3>
+
+<p>To allow more readable ordinal representations, given a definition of C, let us define C<sub>1</sub> as<br/>
+C<sub>1</sub>(a) = C<sub>1</sub>(a,0)<br/>
+C<sub>1</sub>(0,b) = b<br/>
+if d &lt; ω<sup>a+1</sup> and a is maximal in C(a,b): C<sub>1</sub>(ω<sup>a</sup>+d,b) = C<sub>1</sub>(d, C(a,b))<br/>
+if d &lt; ω<sup>a+1</sup> and a is not maximal in C(a,b): C<sub>1</sub>(ω<sup>a</sup>+d,b) = C(a,b)<br/>
+<b>Note:</b>  The python module uses "C" in place of 1-variable C<sub>1</sub>, C(a, base=b) in place of C<sub>1</sub>(a, b), and "C2" in place of the 2-variable C.</p>
+
+Thus,
+<ul>
+<li> C(a<sub>1</sub>,C(a<sub>2</sub>,.... C(a<sub>n</sub>,b)..)) (if each a<sub>i</sub> is maximal) = C<sub>1</sub>(w<sup>a<sub>n</sub></sup>+...w<sup>a<sub>2</sub></sup>+w<sup>a<sub>1</sub></sup>,b)
+</li><li> C(a, b) = C<sub>1</sub>(ω<sup>a</sup>, b).
+</li><li> If b is fixed, C<sub>1</sub> is continuous and monotonic and onto ordinals ≥b.  Also, C<sub>1</sub> is monotonic in b.
+</li><li> If a is not above the least fixpoint of exponentiation base ω above b, then C<sub>1</sub>(a,b) = b+a.  In all cases, C<sub>1</sub>(a,b)≤b+a
+</li><li> If a<sub>1</sub> &lt; a<sub>2</sub> and a<sub>1</sub>+b is maximal in C<sub>1</sub>(a<sub>1</sub>+b,c) and a<sub>2</sub> is maximal in C<sub>1</sub>(a<sub>2</sub>,c), then a<sub>2</sub>+b is maximal C<sub>1</sub>(a<sub>2+</sub>b,c).
+</li><li> C<sub>1</sub>(a,b) = C<sub>1</sub>(C<sub>1</sub>inv(b)+a) where C<sub>1</sub>inv(a,b) is the largest x such that C<sub>1</sub>(x,b) = a and C<sub>1</sub>inv(a) = C<sub>1</sub>inv(a,b).
+</li></ul>
+
+<p>Formal definitions of ordinal notation systems tend to be simpler using C than C<sub>1</sub> because C already takes care of addition and exponentiation, while with C<sub>1</sub>, addition and exponentiation would have to be defined separately.  However, use of C<sub>1</sub> gives much more readable representations because a single C<sub>1</sub> can combine a long chain of Cs, and because key properties C<sub>1</sub>(a) can be read off CNF (for appropriate base) representation of a.<br/>
+For example (with C as defined in the Bachmann-Howard ordinal subsection above):<br/>
+ε<sub>ω<sup>2</sup>+ω+3</sub> = φ(1, ω<sup>2</sup>+ω+3) = C<sub>1</sub>(Ω*(ω<sup>2</sup>+ω+3)) = C(Ω,C(Ω,C(Ω,C(Ω+1,C(Ω+2,0)))))<br/>
+φ(1,φ(φ(1, ω<sup>2</sup>+ω+3),5)+6) = C<sub>1</sub>(Ω<sup>C<sub>1</sub>(Ω*(ω<sup>2</sup>+ω+3))</sup>*4+Ω*6)<br/>
+As seen above, another key simplification for ordinal representations is that typically C<sub>1</sub> can be just a one-argument function while two arguments are required for C.</p>
+
+<p>The conversion between using C and using C<sub>1</sub> is straightforward.  Typically, in the standard form (and assuming that C<sub>1</sub>(a) is representable), "C<sub>1</sub>(a)" is used iff a is maximal and there is no other representation of C<sub>1</sub>(a); in particular, if "C<sub>1</sub>(a)" is standard, then C<sub>1</sub>(a) = ω<sup>C<sub>1</sub>(a)</sup>.  Typically, two-argument C<sub>1</sub> is not used in standard representations.  Comparison of standard forms is based on monotonicity of C<sub>1</sub> and on C<sub>1</sub>(a) being a fix-point of exponentiation base ω.  For typical C<sub>1</sub>, assuming that a is maximal in C<sub>1</sub>(a), C<sub>1</sub>(a+ω<sup>b</sup>) = ω<sup>C<sub>1</sub>(a+ω<sup>b</sup>)</sup> ⇔ ∃x≤b x=ω<sup>x</sup> > C<sub>1</sub>(a).</p>
+
+
+
+<h2 align="center"><a id="A2"/>Degrees of Recursive Inaccessibility</h2>
+
+<p>In this section, we define an ordinal notation system for rudimentary set theory plus "for every ordinal <i>a</i>, there is recursively <i>a</i>-inaccessible ordinal".  Note that instead of rudimentary set theory (a set theoretical analogue of ACA<sub>0</sub>), we can use a stronger theory like Π<sup>1</sup><sub>1</sub>-CA<sub>0</sub>.</p>
+<h3>Definition of the Notation</h3>
+<p> The notation is built from the constant 0 (the least ordinal) and a function C as follows:</p>
+<ol>
+<li>C(a, b, c) is the least ordinal <i>e</i> of admissibility degree <i>a</i> that is above <i>c</i> and is not in H(b, e).
+</li><li>H(b, e) is the least set of ordinals that contains all members of <i>e</i>, and is closed under h, i, j → C(h, i, j) where i &lt; b.</li>
+<li>If an ordinal <i>e</i> is of admissibility degree <i>a</i>, then C(h, i, j) &lt; e whenever h &lt; a and j &lt; e.  0 is of admissibility degree 0.</li>
+</ol>
+
+<p>A canonical notion of admissibility degrees is:<br/>
+3'. Ordinals of admissibility degree a+1 are the recursively <i>a</i>-inaccessible ordinals and their limits. <br/>
+For limit <i>a</i>, having admissibility degree <i>a</i> is the same as having every admissibility degree below <i>a</i>. <br/>
+(An ordinal is recursively <i>a</i>-inaccessible iff it is admissible >ω and for every <i>b &lt; a</i> is a limit of recursively <i>b</i>-inaccessible ordinals.).</p>
+
+<p>1, 2, and 3 define the comparison relation for ordinals in the notation.  1, 2, and 3' uniquely fix C and imply 3.</p>
+
+<p><b>Interpretation:</b>  C(a, b, c) is the least ordinal above <i>c</i> of degree <i>a</i> that is not reachable from below using "collapses" of ordinals less than <i>b</i>.  If C(a, b, c) &lt; b, then C(a, b, c) may be viewed as a collapse of <i>b</i> above <i>c</i>.<br/>
+<b>Note:</b>  The pair (a, b) may be viewed as a degree in a similar sense as degrees in the General Notation section.</p>
+
+<h3>Comparison Relation</h3>
+<p>A polynomial time comparison algorithm is obtained as follows:</p>
+<ol>
+<li>In C(a, b, c), treat (a, b) like an ordinal and use the comparison relation in the General Notation section.  Specifically, if a and b are maximal in C(a, b, c), then C(a, b, c) &lt; C(d, e, f) iff C(a, b, c) ≤ f or (c &lt; C(d, e, f) and (a, b) &lt; (c, d)<br/>
+Note: (a, b) &lt; (c, d) iff a &lt; c, or a = c and b &lt; d.
+</li><li><i>a</i> is always maximal in C(a, b, c).
+</li><li><i>b</i> is maximal in e = C(a, b, c) iff b is in H(b, e).
+</li><li><i>k</i> is in H(b, e) iff k &lt; e, &nbsp;or&nbsp; k = C(g, h, i), <i>h</i> is maximal, <i>i</i> is minimal, each of g, h, i is in H(b, e), and h &lt; b.
+</li></ol>
+
+<p>Instead of 3 and 4, we can use the following: b is maximal in C(a, b, c) iff it has a representation (equivalently, standard representation) in terms of ordinals below C(a, b, c) (used as constants) using only ordinals below b.</p>
+
+<h3>Examples</h3>
+Here are some examples where C(a, b)=C(0, a, b), and x<sup>+</sup>=C(1, 0, x) (the next admissible ordinal above x):<br/>
+C(0, x) = x+1,<br/>
+C(b, c) = H(b, c+1) ∩ c<sup>+</sup>, so <br/>
+C(b, c) is the least ordinal not in H(b, c+1).<br/>
+However, C(1, 0<sup>+</sup>, 0) is greater than C(1, ε<sub>0</sub>, 0), the least ordinal of admissibility degree 1 that is not in H(0<sup>+</sup>, 1).<br/>
+C(b, c) = min(c+ω<sup>b</sup>, C(c<sup>+</sup>, c)) if b &lt; c<sup>+</sup>,<br/>
+C(a<sup>+</sup>, a) is the least fixed point of x → ω<sup>x</sup> above <i>a</i>.<br/>
+{x: c &lt; x &lt; C(a, b, c) and <i>x</i> has admissibility degree <i>a</i>} has order type 0 if b=0 and min(ω<sup>b</sup>, C(a, b, c)) otherwise.<br/>
+C(a, C(a+1, 0, b), b) is the least ordinal <i>c</i> above <i>b</i> such that there are <i>c</i> ordinals &lt;c of admissibility degree <i>a</i>.<br/>
+C((0<sup>+</sup>)<sup>2</sup>, 0) =  Γ<sub>0</sub>.<br/>
+C((0<sup>+</sup>)<sup>ω</sup>, 0) is the small Veblen Ordinal, and C((0<sup>+</sup>)<sup>0<sup>+</sup></sup>, 0) is the large Veblen ordinal.<br/>
+C(0<sup>++</sup>, 0) is the Bachmann-Howard ordinal.<br/>
+C(C(1, 1, 0), 0) is the proof-theoretical ordinal of Π<sup>1</sup><sub>1</sub>-CA<sub>0</sub>.<br/>
+C(C(1, 1, 0)<sup>+</sup>, 0) is the ordinal for Π<sup>1</sup><sub>1</sub>-CA + TI.<br/>
+C(C(2, 0, 0), 0) is the ordinal for Π<sup>1</sup><sub>1</sub> Transfinite Recursion (with induction limited to sets).<br/>
+C(C(2, 0, 0)<sup>+</sup>, 0) is the ordinal for KPi.<br/>
+C(C(3, 0, 0)<sup>+</sup>, 0) is the ordinal for KP + a proper class of recursively inaccessible cardinals, which (in the absence of uncountable sets) is probably equivalent to KP + Σ<sup>1</sup><sub>1</sub> Monotonic Induction.
+
+
+
+<h2 align="center"><a id="A3"/>Degrees of Reflection</h2>
+
+<p><b>Definition</b></p>
+<p>We define a strong ordinal notation system as follows.  Let Ω be a large ordinal and let <b>O</b> be a notation system for ordinals in terms of ordinals below Ω (ordinals below Ω are treated as given in <b>O</b>).  For example (and for definiteness), let <b>O</b> be built using Ω and C with C(a, b) = b + ω<sup>a</sup> (b ≥ Ω; in the standard form b = Ω or b ≥ max(ω<sup>a</sup>, Ω)).  Other canonical examples include Cantor and Veblen normal forms base Ω.<br/>
+The notation uses C(a, b) for b &lt; Ω (which for ordinals in the notation implies C(a, b) &lt; Ω), and <b>O</b> for larger ordinals, and 0 for the least ordinal.  <i>a</i> is maximal in C(a, b) iff for every ordinal d which is included in the <b>O</b> representation of <i>a</i>, the following holds.  The standard representation of d does not use ordinals that are below Ω but greater than d, excluding instances in the scope of an ordinal less than C(a, b).  (If d is …f…, and f &lt; C(a, b), then do not parse f for ordinals larger than d. If a &lt; Ω, then d is a.) (When C is used for <b>O</b>, this appears to be equivalent to the n=2 notation system in the <a href="#A5">last section</a>.)</p>
+
+<p><b>Examples</b><br/>
+Using a canonical <b>O</b>, and setting gaps in the canonical way, we have <br/>
+C(Ω*a+b, c) = C(a, b, c) of the previous notation (for a, b, c representable in that notation).<br/>
+Ordinals (below Ω and with a&lt;Ω) of degree Ω<sup>a+1</sup> are recursively <i>a</i>-Mahlo ordinals (and their limits)<br/>
+C(C(Ω, C(Ω<sup>2</sup>, 0)), 0) is the ordinal for KPM (KP + the universe is recursively Mahlo).<br/>
+In general, for many appropriate conditions F, the ordinal for KP + "the universe is F" is C(C(Ω, a), 0) (which equals C(ε<sub>a+1</sub>, 0)) where <i>a</i> is the least ordinal such L<sub>a</sub> satisfies or can be forced to satisfy F.<br/>
+However, the ordinal for KP + "for every ordinal <i>a</i>, there is recursively <i>a</i>-inaccessible ordinal" is C(C(Ω<sup>2</sup>, 0) + ε<sub>a+1</sub>, 0) since C(Ω<sup>2</sup>, 0) is needed to reach a = C(Ω*C(Ω<sup>2</sup>, 0) + Ω, 0), the least ordinal <i>a</i> that is recursively <i>a</i>-inaccessible.<br/>
+Ordinals below Ω of degree Ω<sup>Ω</sup> are Π<sub>3</sub> reflecting ordinals (and their limits).<br/>
+Ordinals below Ω of degree Ω<sup>Ω<sup>n</sup></sup> (n &lt; ω) are Π<sub>n+2</sub> reflecting ordinals and their limits (Π<sub>2</sub> reflecting is the same thing as admissible >ω).<br/>  
+C(C(Ω, C(Ω<sup>Ω<sup>n</sup></sup>, 0)), 0) is the proof theoretical ordinal of KP + Π<sub>n+2</sub> reflection  (n &lt; ω). <br/>
+C(C(Ω<sup>Ω<sup>ω</sup></sup>, 0), 0) is the proof theoretical ordinal of KP + {Π<sub>n</sub> reflection}<sub>n</sub>, and also apparently of ACA<sub>0</sub> + lightface Π<sup>1</sup><sub>2</sub> comprehension.<br/>
+Ordinals above <i>a</i> and below Ω of degree Ω<sup>Ω<sup>ω*a</sup>+1</sup> are <i>a</i>-stable ordinals and their limits.<br/>
+C(Ω<sup>Ω<sup>C(Ω<sup>Ω<sup>Ω</sup></sup>,0)</sup>+1</sup>,0) is the least ordinal <i>a</i> that is <i>a</i>-stable.<br/>
+C(Ω<sup>Ω<sup>Ω</sup></sup>, 0) is the least ordinal <i>a</i> that is <i>a</i><sup>+</sup>-stable.<br/>
+C(C(Ω<sup>Ω<sup>Ω</sup></sup>,0)<sup>++</sup>, 0) is the proof theoretical ordinal of KP + stable ordinal, but ATR + TI (or even just ATR<sub>0</sub>) + lightface Π<sup>1</sup><sub>2</sub> comprehension appears strictly stronger because the later implies that there are sufficiently many ordinals above the stable ordinal.<br/>
+C(Ω<sup>Ω<sup>Ω*Ω+Ω</sup></sup>, 0) is the least ordinal <i>a</i> that is <i>a</i><sup>+</sup>*<i>a</i><sup>+</sup>+<i>a</i><sup>+</sup>-stable, and analogously for other ordinals.<br/>
+Note: <i>a</i><sup>+</sup> is C(Ω, a) (a&lt;Ω)<br/>
+<i>a</i> is <i>b</i>-stable iff L<sub>a</sub> ⊰<sub>Σ<sub>1</sub></sub> L<sub>a+b</sub>.
+</p>
+
+<p><b>Additional Properties</b></p>
+<p>An ordinal that is a limit of ordinals of maximum degree <i>a</i> has degree a+b iff it is a "level" b limit of ordinals of degree <i>a</i>.  For example, C(Ω<sup>Ω</sup>+Ω<sup>2</sup>+Ω+1, 0) is the least limit of admissible limits of recursively Mahlo limits of Π<sub>3</sub> reflecting ordinals.  An ordinal below Ω has degree a+Ω iff it is not above a certain ordinal and has degree <i>a</i>, or it is an admissible limit or a limit of admissible limits of ordinals of degree <i>a</i>.  An ordinal above ω and below Ω in the notation is admissible iff its maximum degree has effective cofinality Ω using <b>O</b> (with effective cofinality of Ω being Ω); equivalently iff it is a limit ordinal and every increasing sequence of ordinals in the notation system having that ordinal as a limit uses arbitrarily high ordinals up to the limit of <b>O</b> in the representation of the ordinals.<br/>
+An analogous property holds for ordinals of degree a*b.  For example, C(ω<sup>Ω<sup>3</sup>+Ω<sup>2</sup>*2+Ω</sup>, 0) is the least ordinal that is Π<sub>2</sub> reflecting onto ordinals that are Π<sub>3</sub> reflecting onto ordinals that are Π<sub>3</sub> reflecting onto Π<sub>4</sub> reflecting ordinals.<br/>
+For the complete assignment of notations to ordinals (using C for <b>O</b>), see the assignment of degrees for the ordinal notation system for second order arithmetic.</p>
+
+<p>In the case <b>O</b> is based on Ω and C, a natural construction order for representable ordinals is the following: Start with 0, and then iteratively add the least ordinal that equals C(a, b) for a and b already constructed, with Ω added at stage ε<sub>0</sub>.  The following properties should hold.  The construction order for representable ordinals below C(Ω, 0) agrees with their ordinal order.  The construction order would remain unchanged if when adding C(a, b), we required that C(a, b) is in the standard form.  The order-type of the construction order equals the order type of representable ordinals below C(Ω, 0).  The construction order can also be relativized by starting with all ordinals (or all representable ordinals) below a particular one; such construction order should still satisfy analogues of the above properties.</p>
+
+<p>Note that we are not defining C(a, b) when both <i>a</i> and C(a, b) are in a gap in the notation.  One possibility is to allow ordinals not representable in the notation from below (that is using lesser ordinals as constants) to have the largest possible degrees.  However, in that case some ordinals below C(Ω, 0) would have every degree below Ω (which contradicts the general definition of C).  Another possibility is to use such <i>a</i> to fill in the gaps in the notation.</p>
+
+<p>The notation system can just as well be defined above an arbitrary ordinal.  Since <b>O</b> is a parameter, we can "stack" an ordinal notation on top of "itself" any finite number of times.  However, stacking the notation system on top of itself an infinite number of times would lead to an ill-founded system.</p>
+
+<p>As noted previously, using C<sub>1</sub> rather than C can improve readability.  Here is an example using C<sub>1</sub>:<br/>
+C<sub>1</sub>(Ω<sup>Ω<sup>Ω</sup></sup>+Ω<sup>Ω<sup>2</sup></sup>*3+Ω<sup>Ω</sup>*4+Ω<sup>2</sup>*5+Ω*6) is the 6th admissible ordinal after the 5th recursively inaccessible ordinal after the 4th recursively-Mahlo ordinal after the 3rd recursively hyper-Mahlo ordinal after the 1st Π<sub>3</sub> reflecting ordinal.<br/>
+In C<sub>1</sub>(...+Ω<sup>a</sup>*b+...), Ω<sup>a</sup>+b corresponds to going up by b (b is count) a-recursively inaccessible ordinals and their limits; if b is above the result, it encodes how much diagonalization to take (and similarly with other ordinals above the result).  If a = ...+Ω<sup>c</sup>*d+..., c encodes degree of recursive Mahloness and d encodes the number of times to take a limit operation where at successor steps the limits must correspond to c (where c encodes degree of recursive Mahloness).  For example, a=Ω<sup>2</sup>+Ω*2 corresponds to recursively Mahlo limit of recursively Mahlo limits of recursively hyper-Mahlo ordinals.  If c=...+Ω<sup>e</sup>*f+..., then e encodes degree of reflection and f how many times to apply the reflection; for example Ω<sup>10</sup>*2 corresponds to Π<sub>8</sub> reflecting ordinals onto Π<sub>8</sub> reflecting ordinals.  If e≥Ω, then the use of Ω in e corresponds to the next admissible ordinal above the result of C1.  Limit values of a,b,c,d,e,f are handled using the limiting process; for example C1(Ω<sup>Ω<sup>ω</sup></sup>) is the least limit of recursively n-Mahlo ordinals for all finite n (and hence is not admissible).</p>
+
+
+<h3>Comparison Algorithm</h3>
+<p>In this subsection, we explicitly state the comparison algorithm and the conversion to the standard form.<br/>
+For ordinals in the standard representation written in the postfix form, the comparison is done in the lexicographical order where 'C' &lt; '0' &lt; 'Ω':  For example, C(C(0,0),0) &lt; C(Ω, 0) because 000CC &lt; 0ΩC. (This does not hold for non-standard representations of ordinals).  The recursive test for being in the standard form is:</p>
+<ol>
+<li>'0' and 'Ω' are standard
+</li><li> If 'C(a,b)' is standard, then so are 'a' and 'b'.
+</li><li> If C('a', C('b', 'c')) is standard, then a&le;b
+</li><li> If the above tests succeeded for "C(a,b)", let T<sub>a</sub> be the parse tree of 'a': T<sub>a</sub> is the set of subterms of 'a', and for x and y in T<sub>a</sub>, x&lt;y means that y is a subterm of x and y≠x.  Let Ord(x) be the ordinal coded by x.  Parse 'a' into the set of terms below Ω. Formally,<br/>
+let X = {x ∈ T<sub>a</sub>: Ord(x) &lt; Ω ∧ ∀y&lt;x Ord(y)≥Ω}<br/>
+The test for the standard form is:<br/>
+∀x∈X ∀y>x (Ord(y)&lt;Ord(x) ∨ Ord(y)≥Ω ∨ ∃z≤y Ord(z) &lt; C(a, b))<br/>
+<b>Note:</b> All comparisons between ordinals here can be done in the above-described lexicographical order.
+</li></ol>
+
+<p>To convert 'C(a, b)' to the standard form, first convert 'a' and 'b'. Next, recursively minimize b by replacing it with d for as long as b is C(c, d) and c&lt;a. If we are not done, then perform a right-to-left (with functions written in prefix form) preorder traversal of T<sub>a</sub> until we find the first <i>y</i> that violates the above condition.  Replace <i>y</i> with Ω, and delete everything in 'a' to the left of 'y' (except for the required number of 'C').  Convert 'a' to the standard form.  'C(a, b)' is now a standard representation.</p>
+
+
+
+<h2 align="center"><a id="A4"/>A Step towards Second Order Arithmetic</h2>
+
+<p> <b>Note:</b>  The section is retained for historical purposes, but the content is effectively superseded by the <a href="#A5">last section</a>.</p>
+
+<p> The notation system below is only slightly more powerful, yet by introducing the idea of "correctness", it brings us significantly closer to full second order arithmetic.  Originally, the notation system was my attempt to reach the full second order arithmetic, yet the maximality condition used here gives a much weaker strength.</p>
+
+<p>Here is the notion of correctness used in this section:<br/>
+Every ordinal has correctness 0.<br/>
+An ordinal a has correctness 1 if it is admissible >ω.<br/>
+An ordinal a has correctness of n+1 (n>0) if it is a<sup>++</sup>-stable limit of ordinals of correctness n.<br/>
+a<sup>++</sup> is the second admissible ordinal above a.<br/>
+Below, limits of ordinals of correctness n (with correctness n as defined above) will also be said to have correctness n.<br/>
+A more natural notion of correctness is used in the next section.</p>
+<p> The notation system reaches KP + {there is an ordinal of correctness n}<sub>n</sub>.  This is weaker than even KP + there is <i>a</i> that is <i>a</i><sup>++</sup>+1-stable, which is weaker than Π<sup>1</sup><sub>1</sub>-CA<sub>0</sub> + lightface Π<sup>1</sup><sub>2</sub> comprehension.
+</p>
+
+<p>For every positive integer i, the constant Ω<sub>i</sub> is for the least ordinal of correctness i.  (In the above, Ω corresponds to Ω<sub>2</sub>.)  C(a, b) has correctness n>0 iff there is c with correctness n+1 and b &lt; c ≤ a.  Every ordinal has correctness 0, and if m &lt; n, every ordinal of correctness n has correctness m. <br/>
+Thus, if an ordinal <i>a</i> has a positive but not infinite correctness n, b &lt; a, and d is less than the least ordinal above <i>a</i> of correctness n+1, then C(d, b) &lt; a.</p>
+
+<p>For Ω of correctness at least two, the maximality condition in the notation in the previous section is a necessary but not a sufficient one. We propose the following condition, which implies the previous one.</p>
+
+<p>If C(a, b) has maximum correctness n>0, let Ω be the least ordinal above b of correctness n+1, and Ω' the least ordinal above b of correctness n+2.  Thus, we have Ω ≤ a &lt; Ω'.  For maximality of <i>a</i>, we require that the standard representation of <i>a</i> does not use ordinals that are above <i>a</i> but below Ω' except in the scope of an ordinal less than Ω.  In addition, as in the previous section, parse "<i>a</i>" from the root to branches until a constant or an ordinal below Ω is reached on every branch (at this stage, do not parse the ordinals below Ω).  For every such ordinal d &lt; Ω, we require that its standard form does not use ordinals strictly between d and Ω except in the scope of an ordinal less than C(a, b).  If C(a, b) only has correctness 0, we simply require that the standard form of <i>a</i> does not use ordinals strictly between <i>a</i> and Ω except in the scope of an ordinal less than C(a, b), where Ω is the least ordinal above b of correctness 2.</p>
+
+<p>The least ordinal of correctness n>0 above b equals f<sup>(i-n)</sup>(Ω<sub>i</sub>) whenever n≤i and Ω<sub>i</sub>>b and f(x)=C(x, b).<br/>
+0 &lt; Ω<sub>1</sub> &lt; Ω<sub>2</sub> &lt; …<br/>
+C(a, b) &lt; Ω<sub>i</sub> iff b &lt; Ω<sub>i</sub> and a &lt; Ω<sub>i+1</sub>.<br/>
+C(a, b) = Ω<sub>i</sub> iff b &lt; Ω<sub>i</sub> and a = Ω<sub>i+1</sub>.<br/>
+The maximum degree of C(a, b) can be found by relying on the Ω ≤ a &lt; Ω' above.<br/>
+Ω<sub>i</sub> is always maximal in C(Ω<sub>i</sub>, b) (and as always, 0 is maximal in C(0, b)).
+The leads to a polynomial time algorithm for checking whether a particular representation is standard, and for comparing ordinals in the standard form.  I conjecture that there is also a polynomial time algorithm for converting arbitrary C-terms to the standard form.
+</p>
+
+<p>
+<b>Examples:</b><br/>
+If <i>a</i> has correctness n>0 (but not infinite correctness) and b is the least ordinal above <i>a</i> of correctness n and c &lt; a, then C(ε<sub>a + 1</sub>, c) = C(b, c).<br/>
+C(Ω<sub>n+1</sub>*2, 0) is the least admissible limit of ordinals of correctness n.<br/>
+C(Ω<sub>n+1</sub><sup>2</sup>, 0) is the least recursively Mahlo limit of ordinals of correctness n.<br/>
+If a is the least ordinal above b of correctness n+1, then 
+C(a+a, b) is the least admissible limit of ordinals of correctness n above b, and analogously with other large ordinal properties.
+</p>
+
+
+
+<h2 align="center"><a id="A5"/>Ordinal Notation System for Second Order Arithmetic</h2>
+
+<h3> Definition and Basic Properties</h3>
+
+<p><b> Definition:</b> An ordinal a is 0-built from below from b iff a≤b<br/>
+a is n+1-built from below from b iff the standard representation of a does not use ordinals above a except in the scope of an ordinal n-built from below from b.<br/>
+(Note: "in the scope of" means "as a subterm of".)</p>
+
+<p> The n<sup>th</sup>  (n is a positive integer) ordinal notation system is defined as follows.<br/>
+<b>Syntax:</b> Two constants (0, Ω<sub>n</sub>) and a binary function C.<br/>
+<b> Comparison:</b>  For ordinals in the standard representation written in the postfix form, the comparison is done in the lexicographical order where 'C' &lt; '0' &lt; 'Ω<sub>n</sub>': For example, C(C(0,0),0) &lt; C(Ω<sub>n</sub>, 0) because 000CC &lt; 0Ω<sub>n</sub>C.<br/>
+<b>Standard Form:</b><br/>
+0, Ω<sub>n</sub> are standard<br/>
+"C(a, b)" is standard iff<br/>
+1. "a" and "b" are standard,<br/>
+2. b is 0 or Ω<sub>n</sub> or "C(c, d)" with a≤c, and<br/>
+3. a in n-built from below from b.</p>
+
+<p><b>Notes:</b> <br/>
+* For b &lt; Ω<sub>n</sub>, clearly Ω<sub>n</sub> is 1-built from below from b but not 0 built from below from b.<br/>
+* An equivalent form of 3 (see proof below) is that a is n-built from below from &lt;C(a,b) where c&lt;C(a,b) is checked in the usual lexicographical order.</p>
+
+<p>For n=1, this is the notation system for Bachmann-Howard ordinal given in the introduction, and for n=2, the notation system appears to be equivalent to the one in <a href="#A3">Degrees of Reflection</a> section.  I conjecture that the strength of the n<sup>th</sup> ordinal notation system is between Π<sup>1</sup><sub>n-1</sub>-CA and Π<sup>1</sup><sub>n</sub>-CA<sub>0</sub> (see the previous section for detailed correspondence), and thus the sum of the order types of these ordinal notation systems is the proof-theoretical ordinal of second order arithmetic.</p>
+
+<p>The ordinal notation systems are best combined into one system as follows:<br/>
+Constants 0 and Ω<sub>i</sub> (for every positive integer i), and binary function C.<br/>
+Ω<sub>i</sub> = C(Ω<sub>i+1</sub>, 0) and the standard form always uses Ω<sub>i</sub> instead of C(Ω<sub>i+1</sub>, 0).<br/>
+To check for standard form and compare ordinals use Ω<sub>i</sub> = C(Ω<sub>i+1</sub>, 0) to convert each Ω to Ω<sub>n</sub> for a single positive integer n (it does not matter which n) and then use the n<sup>th</sup> ordinal notation system.</p>
+
+<p>To make C a total function for a and b in the notation system, let C(a, b) be the least ordinal of degree ≥a above b, where the degree of Ω<sub>i</sub> is Ω<sub>i+1</sub> and the degree of C(c,d) is c if "C(c,d)" is the standard form.  I believe that this is recursive with the comparison conversion as follows.</p>
+
+<p> Conjectured conversion to the standard form for the n<sup>th</sup> notation system: To convert 'C(a, b)' to the standard form, first convert 'a' and 'b'. Next, recursively minimize b by replacing it with d for as long as b is C(c, d) and c&lt;a.  If a is not n-built from below from b, then perform an in-order right-to-left traversal of the term tree of a to find the first counterexample:  a &lt; a<sub>1</sub> &lt; a<sub>2</sub> ... &lt; a<sub>n</sub> (a<sub>i+1</sub> is a subterm of a<sub>i</sub>).  This occurrence of a<sub>n</sub> is part of C(a<sub>n</sub>, d) with C(a<sub>n</sub>, d) &lt; Ω<sub>n</sub>.  Replace this C(a<sub>n</sub>, d) with Ω<sub>n</sub>, and delete everything to the left of this Ω<sub>n</sub>, and add the right number of 'C(' to make the new 'a' a valid term, and convert the new 'a' to the standard form.<br/>
+<b>Note:</b> By converting between different Ω<sub>i</sub>, the conversion for the full notation system follows.</p>
+
+<p>Proof that of the equivalence of the alternative form of 3 (a is n-built from below from &lt;C(a,b)) in the definition of the standard form:<br/>
+Let "C(a, b)" be a counterexample, and let c be the least ordinal such that a is n-built from below from c. c is a subterm of a (hence proving its existence does not require proving that the notation system is well-founded) and b&lt;c&lt;C(a, b), and c = C(d, e) (standard form) with d&lt;a and e≥b.  By the minimality of c, c must be a counterexample to a being n-built from below from &lt;c, which contradicts d&lt;a and d being n-built from below from &lt;c.</p>
+
+<p>Also, computer search shows (or strongly suggests) that in defining the system, without affecting the set of standard terms, n+1-built from below can be weakened as follows:  a is n+1-built from below from b if the representation of a does not use ordinals above a except in the scope of an ordinal n-built from below from b, where in representing C(c,d) for c&lt;a, one only counts C(c,d) and ordinals ≤d and their subterms.</p>
+
+<p>Regarding C<sub>1</sub>, a natural condition (in the nth notation system) for a to be maximal in C<sub>1</sub>(a) might be that a is n-built from below, but that is not equivalent to the system defined above.</p>
+
+<h3>Analysis and Examples</h3>
+
+<p><b>Note:</b> The ordinal assignments in this section might be wrong; see "Update" below.</p>
+
+To correctly set the gaps in the notation system, we introduce the notion of correctness.  Let ρ be an ordinal such that L<sub>ρ</sub> satisfies ZFC minus power set.  For definiteness, let ρ be ω<sub>1</sub><sup>L</sup> since second order arithmetic does not prove existence ρ with L<sub>ρ</sub> satisfying ZFC\P, but it proves as a schema that L<sub>ω<sub>1</sub><sup>L</sup></sub> satisfies ZFC\P.
+<ul>
+<li>An ordinal κ has correctness 1 iff it is admissible >ω or is a limit of admissible ordinals.
+</li><li>An ordinal κ has correctness n+1 with n>0 iff L<sub>κ</sub> is a  Σ<sub>n</sub> elementary substructure of L<sub>ρ</sub>.</li>
+</ul>
+
+<p>For every positive integer i, the constant Ω<sub>i</sub> should be assigned to the least ordinal of correctness i.  (In <a href="#A3">Degrees of Reflection</a> section, Ω corresponds to Ω<sub>2</sub>.)  C(a, b) has correctness n>0 iff there is c with correctness n+1 and b &lt; c ≤ a.  Every ordinal has correctness 0, and if m &lt; n, every ordinal of correctness n has correctness m. <br/>
+Thus, if an ordinal <i>a</i> has a positive but not infinite correctness n, b &lt; a, and d is less than the least ordinal above <i>a</i> of correctness n+1, then C(d, b) &lt; a.<br/>
+The least ordinal of correctness n>0 above b equals f<sup>(i-n)</sup>(Ω<sub>i</sub>) whenever n≤i and Ω<sub>i</sub>>b and f(x)=C(x, b).<br/>
+0 &lt; Ω<sub>1</sub> &lt; Ω<sub>2</sub> &lt; …<br/>
+C(a, b) &lt; Ω<sub>i</sub> iff b &lt; Ω<sub>i</sub> and a &lt; Ω<sub>i+1</sub>.<br/>
+C(a, b) = Ω<sub>i</sub> iff b &lt; Ω<sub>i</sub> and a = Ω<sub>i+1</sub>.</p>
+
+<p>After Π<sub>n</sub> reflecting ordinals, the next set theoretical concept is that of stability.  Here are ordinals corresponding to different levels of stability.<br/>
+C(Ω<sub>2</sub><sup>+</sup>,0) -- the least ordinal <i>a</i> that is stable up to ε<sub><i>a</i><sup>+</sup>+1</sub> (note that Ω<sub>2</sub><sup>+</sup> equals C(C(Ω<sub>3</sub>,Ω<sub>2</sub>),Ω<sub>2</sub>))<br/>
+C(C(Ω<sub>3</sub>,Ω<sub>2</sub>),0) -- the least ordinal stable up to 2 admissible ordinals<br/>
+C(C(Ω<sub>3</sub>,Ω<sub>2</sub>)*Ω<sub>2</sub>,0) -- the least ordinal that is Π<sub>2</sub> reflecting onto ordinals that are stable up to two admissible ordinals, and similarly with other levels of reflection<br/>
+C(C(Ω<sub>3</sub>,C(Ω<sub>3</sub>,Ω<sub>2</sub>)),0) -- the least ordinal stable up to 3 admissible ordinals, and so on<br/>
+C(C(Ω<sub>3</sub>+Ω<sub>2</sub>,0),0) -- the least ordinal stable up to a recursively inaccessible ordinal<br/>
+C(C(Ω<sub>3</sub>+Ω<sub>2</sub><sup>2</sup>,0),0) -- the least ordinal stable up to a recursively Mahlo ordinal, and so on<br/>
+C(C(Ω<sub>3</sub>+C(Ω<sub>3</sub>,Ω<sub>2</sub>),0),0) -- the least ordinal that is stable up to a larger ordinal that is stable up to two admissible ordinals<br/>
+C(C(C(Ω<sub>3</sub>*2,0),0),0) -- proof theoretical ordinal of Π<sup>1</sup><sub>2</sub>-CA<sub>0</sub><br/>
+C(C(Ω<sub>3</sub>*2,0)+1,0) -- the least ordinal <i>a</i> such that L<sub><i>a</i></sub> models KP + Σ<sub>1</sub> separation (which has the same strength as Π<sup>1</sup><sub>2</sub>-CA + TI), so its proof theoretical ordinal appears to be C(C(C(Ω<sub>3</sub>*2,0)+1,0)<sup>+</sup>, 0).<br/>
+C(C(C(Ω<sub>3</sub>*ε<sub>0</sub>,0),0),0) may be the proof theoretical ordinal of Δ<sup>1</sup><sub>3</sub>-CA, which has the same strength as KP + {there is a Σ<sub>1</sub> elementary chain of length <i>a</i>: <i>a</i>&lt;ε<sub>0</sub>}.
+</p>
+
+<h3>Possible Alternative</h3>
+<p> One issue with the notation system is that while C(Ω<sub>n+1</sub>+1, 0) (n>0) is the height of the least Σ<sup>1</sup><sub>n</sub>-correct model of Π<sup>1</sup><sub>n</sub>-CA, the collapse C(C(Ω<sub>3</sub>+1, 0), 0) corresponds to a weaker theory than Π<sup>1</sup><sub>2</sub>-CA<sub>0</sub>.  The cause of this is our maximality condition for degrees which causes for example C(ε<sub>Ω<sub>2</sub>+1</sub>, 0) to equal C(Ω<sub>2</sub><sup>+</sup>, 0).  If we could devise a corresponding notation system that distinguishes such terms, here are guesses for some of the proof theoretical ordinals:<br/>
+For n>0, C(…C(Ω<sub>n+1</sub>+1, 0)…, 0) (with n+1 Cs) -- the ordinal for Π<sup>1</sup><sub>n</sub>-CA<sub>0</sub>.<br/>
+C(C(C(Ω<sub>3</sub>, C(Ω<sub>3</sub>+1, 0)), 0), 0) -- the ordinal for  Π<sup>1</sup><sub>2</sub>-CA + TI.<br/> <!--note that C(C(Ω<sub>3</sub>+1, 0),0) would only give us an ordinal that for every n is a limit of ordinals that start a Σ<sub>1</sub> elementary chain of length n.-->
+C(Ω<sub>3</sub>*2, 0) -- the least ordinal κ of correctness 2 with L<sub>κ</sub> satisfying KP + Δ<sub>2</sub> separation.<br/>
+C(C(C(Ω<sub>3</sub>*2, 0), 0), 0) -- the ordinal for Π<sup>1</sup><sub>2</sub>-TR<sub>0</sub>.<br/>
+C(C(C(Ω<sub>3</sub>, C(Ω<sub>3</sub>*2, 0)), 0), 0) -- the ordinal for  Δ<sup>1</sup><sub>3</sub>-CA + TI.</p>
+
+<h3>Assignment of Degrees</h3>
+
+<p>This section gives a partial definition of degrees for arbitrary ordinals, including those not in the notation system.  In turn, the definition of degrees (to the extent that it is complete) allows us to define how to correctly set gaps in the notation system.  For illustration purposes, we start with a relatively simple fragment.</p>
+
+<p>Let a = C(b, c) (standard representation) be an ordinal >ω in the notation system and Ω the least ordinal above a of correctness 2 and assume b&lt;ε<sub>Ω+1</sub>.  a is admissible iff the critical sequence of b using Cantor Normal Form base Ω has length Ω.  a is recursively f-Mahlo iff it is admissible and b is of the form ...+Ω<sup>d</sup>*e (Cantor Normal Form base Ω) where d>f and f≤a.  (Note:  recursively 0-Mahlo means admissible >ω and recursively f-Mahlo (f>0) means Π<sub>2</sub> reflecting onto g-Mahlo ordinals for every g&lt;f.)  If a &lt; C(Ω<sub>2</sub><sup>C(Ω<sub>2</sub><sup>Ω<sub>2</sub></sup>, 0)+2</sup>, 0), then a is assigned to the least ordinal consistent with its degree of Mahloness and assignment of notations below a.</p>
+
+<p> Also, if h is an ordinal, then the notation system can be defined above h treating all ordinals ≤h as constants (and with representations for ordinals above h in terms of ordinals &lt;h agreeing with the standard representations).  If a &lt; C(Ω<sup>C(Ω<sup>Ω</sup>, h)+2</sup>, h) (a>h and Ω is the least ordinal above a of correctness 2), then a is assigned to the least ordinal consistent with its degree of Mahloness and assignment of notations below a.</p>
+
+<p>To go beyond this fragment, let x be an ordinal, and construct the ordinal notation system above x using ordinals &lt;x as constant symbols.  Because we have not completely defined the gaps in the notation, degrees will be terms denoting ordinals in the notation.  Furthermore, not all degrees will necessarily be defined for all ordinals below x (for example, we can have y&lt;x and a degree using an ordinal &lt;x above y), but assuming that x is limit (otherwise, it only has degree 0), given a degree d, the property of having degree d can be defined for all sufficiently large ordinals below x, which suffices for our purposes.<br/>
+Note:  If x > ω<sub>1</sub><sup>L</sup>, then for defining correctness above x, ρ can be the least L-cardinal >x.</p>
+
+<p> Let Ω be the least ordinal above x of correctness 2, and assume that the maximum degree of x is below ε<sub>Ω+1</sub>.  Also assume that x is limit. Every ordinal has degree 0.  Let us say that d is &lt;x maximal if for all sufficiently large y&lt;x, d is maximal in C(d, y) (equivalently if there is y&lt;x such that y is above all ordinals &lt;x included in d and d is maximal in C(d, y)).  x has degree d+1 iff x has degree d and (1) x is a limit of ordinals of degree d or (2) d is not &lt;x maximal.    If d is a limit and the critical sequence of d using Cantor Normal Form base Ω has length &lt;Ω, then x has degree d iff it has every degree below d.  (The length is required to be &lt;Ω because our notation system has gaps.)  Otherwise, let d' be the least degree ≥d that is &lt;x maximal.  x has degree d iff it has degree d'.  d' has the form e + Ω<sup>f</sup> (additive decomposition) where f is successor or is ≥Ω. x has degree d iff x has admissibility degree f' and is a limit of ordinals of degree e, or a limit of such ordinals (that is a limit of ordinals of admissibility degree f' that are limits of ordinals of degree e), where f' is such that f<sub>deg</sub>(f')=Ω<sup>f</sup> (so f' is f or f-1; f<sub>deg</sub> is defined below).  This reduces assignment of degrees (below ε<sub>Ω+1</sub>) to that of admissibility degrees.  (Note:  The notion of admissibility degrees used here corresponds to degrees of recursive Mahloness and beyond and not degrees of recursive inaccessibility.)</p>
+
+<p>We do not have the full definition of admissibility degrees, but for a partial definition, assume that the admissibility degree d is &lt;ε<sub>Ω+1</sub> (note that we do not prohibit x from having degree (as opposed to admissibility degree) ≥ε<sub>Ω+1</sub>).  Every ordinal has admissibility degree 0.   Let f<sub>deg</sub> be the function converting admissibility degrees to degrees:  f<sub>deg</sub>(d) = Ω<sup>d</sup>, except that if d is a limit with critical sequence (using CNF base Ω) shorter than Ω, or if d is such a limit plus a finite ordinal, then f<sub>deg</sub>(d)=Ω<sup>d+1</sup>.  d has the form (CNF base Ω) e + Ω<sup>f</sup>*g. x has admissibility degree d iff <br/>
+Case A: g is limit or f<sub>deg</sub>(d) is not &lt;x maximal.  x has admissibility degree e + Ω<sup>f</sup>*h for every representable h&lt;g (equivalently, for cofinally many h&lt;g).<br/>
+Case B: g is successor and f<sub>deg</sub>(d) is &lt;x maximal.  x is Π<sub>2+f'</sub> reflecting onto ordinals of admissibility degree e + Ω<sup>f</sup>*(g-1) (g-1 is the predecessor of g) where f' is derived from f as follows:<br/>
+- Let f<sub>1</sub> be the order type of {h: f<sub>deg</sub>(e + Ω<sup>f</sup>*(g-1)+Ω<sup>h</sup>) is &lt;x maximal and h is a representable ordinal &lt;f}  (so f' = f<sub>1</sub> = f if f≤x)<br/>
+- Let y be the order type of representable ordinals below C(Ω, x).  Express f<sub>1</sub> using CNF base y and then change CNF to base x<sup>+</sup> (the least admissible ordinal above x) to get f' (so f' = f<sub>1</sub> if f&lt;Ω).</p>
+
+<p><b>Notes:</b> <br/>
+* For a>0, Π<sub>ω*a</sub> reflecting means a-stable, and Π<sub>ω*a+n</sub> reflection of x is defined using reflection of L<sub>x+a</sub> onto an ordinal below x for the appropriate set of formulas.  The definition for reflection onto a class of ordinals is analogous. <br/>
+* To clarify, the degrees are arbitrary terms involving ordinals &lt;x, 'C', Ω, and Ω<sub>i</sub> (i>2) where Ω<sub>i</sub> is the least ordinal of correctness i above Ω.  In our assignment, there is some indeterminacy about comparison, specifically about how to compare certain terms with x (and ordinals below x).  However, given an ordinal y, we still have unique assignment of degrees to ordinals below C(ε<sub>Ω+1</sub>, y) (Ω is the least ordinal above y of correctness 2) where C(a, b) is only used for b≥y and ordinals ≤y are represented as themselves.</p>
+
+<h3>Beyond Second Order Arithmetic</h3>
+
+<p><b>Note:</b>  The contents of this subsection are speculative.<br/>
+Also, as described in the Update section below, the standard C above might already capture ZFC and beyond.</p>
+
+<p> To go beyond second order arithmetic, we need transfinitely many degrees of correctness. Cardinals will be ordinals that cannot be reached from below no matter how large the degree of correctness is.  Let Ω be the least uncountable cardinal and b a countable ordinal, as computed in the model (specifically, in L).  If <i>a</i> &lt; b, then b having correctness ω*(a+1) may be defined as L<sub>b+a</sub> being elementarily embeddable L<sub>Ω+a</sub>. Correctness Ω+ω may correspond to L<sub>b+b</sub> being elementarily embeddable in L<sub>Ω+Ω</sub>, and similarly for Ω<sup>2</sup>+ω and L<sub>Ω*Ω</sub>, and so on.</p>
+
+<p>For a notation system, we can try to use a total ternary function C such that C(a, b, c) is the least ordinal above c of correctness <i>a</i> and for that correctness of degree b.  If we treat (a, b) like an ordinal, then the function satisfies formal requirements of C (as described in the general notation), so the only issue is specifying when (a, b) is maximal.  For <i>a</i>=0, the maximality of b is arguably like in the second section (that is the standard form of b uses only ordinals below b), but the general case is unclear.</p>
+
+<!-- This is not well-founded.  Let W=C(ω,0,0). C(W,0) > C(C(1,W,0),0) > C(C(1,C(2,W,0),0),0) > ...
+<p> Here is a guess (which might be wrong as it does not appear to correspond with the notation system for second order arithmetic) for rudimentary set theory plus ∀a∈Ord ∃ρ L<sub>ρ+a</sub> ⊨ "ρ is uncountable".  Use a ternary function C and constant 0.  Because C(a,b,c)>a, a is always maximal.  The condition on b is an analog/extension to n-built from below:  While n-built from below criterion allows n drops, we allow up to an ordinal level from where to drop while requiring that the level (first argument of C) to decrease on each drop.  Specifically,<br/>
+for every b<sub>1</sub> and b<sub>2</sub> with b<sub>1</sub> a subterm of b and b<sub>2</sub> subterm of b<sub>1</sub> and such that on the path (in the subterm tree) from b to b<sub>2</sub>, b<sub>2 </sub> is the largest ordinal and b<sub>1</sub> is the second largest ordinal and such that all ordinals on the path are ≥C(a,b,c), we require a<sub>2</sub> > a<sub>1</sub>.  To clarify, a<sub>1</sub> is defined such that b<sub>1</sub> is part of C(a<sub>1</sub>,b<sub>1</sub>,c<sub>1</sub>) or a<sub>1</sub>=b<sub>1</sub> with b<sub>1</sub> part of C(b<sub>1</sub>, d<sub>1</sub>, c<sub>1</sub>), and similarly with a<sub>2</sub>.  Also note that b<sub>1</sub> can be b.</p>-->
+
+<p>I do not have the conditions for a and b in the presence of uncountable cardinals.  However, roughly speaking, the condition for a is being definable from below from &lt;C(a,b,c). If a'&lt;a, then C(a',b,c) is definable in L<sub>Ω+a</sub> for every representable value of b provided that c &lt; Ω and a' and c are definable in L<sub>Ω+a</sub> (Ω+a (in both instances) is not sharp here, but it communicates the idea).</p>
+
+<p>I also note that, for every finite n, to get an ordinal notation system for ZFC\P + "ω<sub>n</sub> exists", it is sufficient to describe an ordinal notation system for ordinals between ω<sub>n</sub> and ω<sub>n+1</sub> where ordinals ≤ω<sub>n</sub> are given as constants and ordinals ≥w<sub>n+1</sub> are represented in terms of ordinals &lt;ω<sub>n+1</sub> using a given notation system <b>O</b>.  One can then stack the resulting systems on top of each other any finite (but fixed) number of times to get the full system for a particular n.</p>
+
+<!--  Paragraph commented out because the system is not well-founded (for the same reason as above).
+<p><b>(paragraph added January 2, 2014)</b> Based on the above, here is a guess for a notation system for any finite number of iterations of powerset.  Let <b>O</b> be a well-behaved ordinal notation system for ordinals above Ω in terms of ordinals below it.  Let gap(a,b,c) mean that a&lt;b and there is d a&lt;d≤b such that <b>O</b> representation of d does not use ordinals (&lt;Ω) that are ≥b.  For an <b>O</b> based on C (below), we compute the truthfulness of gap(a,b,c) by doing the lexicograhical comparison in postfix form between a and b, and verifying that a&lt;b and that the comparison terminates before reaching c<sub>1</sub> c≤c<sub>1</sub>&lt;Ω or b has Ω (or an ordinal ≥Ω) in place of c<sub>1</sub>.<br/>
+To define C using <b>O</b> (and optionally treating ordinals below a certain ordinal as given), the maximality condition on a in C(a,b) is:  For every a<sub>1</sub> and a<sub>2</sub> with a<sub>1</sub> a subterm of a and a<sub>2</sub> subterm of a<sub>1</sub> and such that on the path (in the subterm tree) from a to a<sub>2</sub>, a<sub>2 </sub> is the largest ordinal and a<sub>1</sub> is the second largest ordinal (among ordinals below Ω), and such that all ordinals on the path are ≥C(a,b), we require gap(p<sub>1</sub>, p<sub>2</sub>, a<sub>1</sub>), where in the representation of a, p<sub>1</sub> is the O parent of a<sub>1</sub> and p<sub>2</sub> is the O parent of a<sub>2</sub>, that is if a<sub>1</sub> is part of c = O(...,a<sub>1</sub>,...), then p<sub>1</sub> is c and otherwise (which happens if a<sub>1</sub> is top-level or part of C(a<sub>1</sub>,..)) p<sub>1</sub> is a<sub>1</sub>, and similarly with p<sub>2</sub>. <b>(end of paragraph)</b></p>
+-->
+
+<p> If the definition of C(a,b,c) is worked out, one can extend the system by adding a function that enumerates L-cardinals (or just cardinals).  To get inaccessible cardinals, one can use constant 0 and a 4-variable C(a,b,c,d) where a indicates degree of inaccessibility.  One guess is that going beyond 4-variables corresponds to higher order set theory, and that the strength for finite variable C corresponds to ZFC + {n-ineffable: n&lt;ω} (plus a conservative higher order set theory extension to extend Ord to match the notation system).  One can go further by adding ordinal Ω and using higher ordinals in place of n-tuples.  To go still further, one would use Ω<sub>1</sub>, Ω<sub>2</sub>, ..., (analogously to the notation system for second order arithmetic) with the hope/ideal to capture second order arithmetic plus projective determinacy.  However, we are still far from that.</p>
+
+<p>One approach to find ordinal notation systems for ZFC and beyond is to find a set of functions that is rich enough to capture the set-existence principles but tame enough for comparison to be recursive.  Let us start with 0, ordinal addition, ordinal exponentiation base ω, and add aleph function that enumerates infinite cardinals as computed in L.  A key property of uncountable cardinals is unreachability from below; for example, every infinite model has a countable submodel.  So to capture the unreachability, let us add function 
+f: f(a, b) → the least ordinal c such that c is not definable in L<sub>a</sub> using parameters ≤b.</p>
+
+<p> Two questions to ask are:<br/>
+Is the resulting ordinal representation system recursive? (That is, is there an algorithm for comparing terms?)<br/>
+If yes, how strong is the resulting system?  Does it capture the full strength of the underlying set theory or does it correspond to recursive analogue (of cardinals) or something in between?</p>
+
+<p>If f is not sufficient, one can try a full collapsing mapping and instead of just its critical point:<br/>
+Coll(a, b) → the collapsing mapping for least elementary submodel of L<sub>a</sub> that contains all ordinals ≤b (and in that case, include terms like Coll(a,b)(c) in the notation system)</p>
+
+<p> To try to reach ZFC and beyond, we can add a 3-variable function<br/>
+f: f(a, b, c) → the least a-inaccessible (in  L) L-cardinal k > c that that is not definable in L_b using parameters &lt;k<br/>
+and ask whether the resulting representation system is still recursive, and if so, what is its strength.</p>
+
+<p>To (try to) go to levels of indescribability, one can add function<br/>
+g: g(a, b, c) → the least cardinal d > c such that for some cardinal e>d, there is elementary embedding j:Coll(e, d)(L<sub>e</sub>) → L<sub>a</sub> with crit(j) = d and j(d) = b.
+To (try to) get to n-ineffable cardinals for all n&lt;ω, one can use a predicate for n-reflective cardinals as computed in L (see "Higher Order Set Theory with Reflective Cardinals" by the same author), and define g<sub>1</sub>, g<sub>2</sub>, ... that are like g except that Coll and j must also be elementary with respect to n-reflective cardinals (for n&lt;i for g<sub>i</sub>), but allowing Coll and j to "move" the predicates for reflective cardinals by application.<br/>
+To go beyond that, one would use mice and the associated embeddings.</p>
+
+<p><b>An Example</b></p>
+<p>To inspire future work, here is how a notation system (for ZFC+{n-ineffable}<sub>n&lt;ω</sub>) might look like, though it would be lucky if this particular system is well-founded and has the right strength.  The system uses constant 0 and multivariable C. C(a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub>, b) corresponds to 2-variable C((a<sub>1</sub>, ..., a<sub>n</sub>), b) if (a<sub>1</sub>, ..., a<sub>n</sub>) is treated as an ordinal with lexicographical comparison, where after all leading 0s are removed a longer sequence is larger than a shorter one and (a<sub>1</sub>)=a<sub>1</sub> and standard form prohibits a<sub>1</sub>=0.  Thus (as written in Basic Properties section for general C), it suffices to state the maximality condition.<br/>
+(a<sub>1</sub>, ..., a<sub>n</sub>) is maximal in C(a<sub>1</sub>, ..., a<sub>n</sub>, b) iff for each i 1≤i≤n, a<sub>i</sub> is &lt;(a<sub>1</sub>, ..., a<sub>n</sub>) built from below from &lt;C(a<sub>1</sub>, ..., a<sub>n</sub>, b).<br/>
+a is &lt;b built from below from &lt;c if for every subterm e<sub>i</sub> of a where e<sub>i</sub> is is part of C(e<sub>1</sub>, ..., e<sub>m</sub>, f) (as an immediate subterm in the term tree of a) and e<sub>i</sub>>a and on the path from a to e<sub>i</sub> all ordinals are ≥c and ≤a, we have (e<sub>1</sub>,...,e<sub>m</sub>) &lt; b and e<sub>i</sub> is &lt;b built from below from &lt;c.<br/>
+The hierarchy is a bit different from the notation systems in previous sections.  If d=C(1,0,C(2,0,0)), the least recursively inaccessible ordinal should be C(1,d,0), least admissible limit of recursively inaccessibles should be C(1,d*2,0), least recursively Mahlo C(1,d<sup>2</sup>,0), and so on.<br/>
+Instead of n-tuples (as in (a<sub>1</sub>, ..., a<sub>n</sub>)), we can use a stronger notation system &mdash; the construction can be formally generalized into a mapping that turns ordinal notation systems above generic ordinals (notation system above a generic ordinal is defined earlier in the paper) into stronger ones.  As a particular example, we can use 2-variable C (in place of multivariable C), 0, and a large ordinal Ω, and treat ordinals ≥Ω as syntactic constructs. (Formally, given a, let variables range over subterms of a, including their position in a, and let '⊏' denote subterm (not necessarily a proper subterm, but different positions in a are distinguished), and '&lt;' compare variables as ordinals. The maximality condition for a in C(a,b) is ∀s,t (s&lt;t&lt;Ω ∧ t⊏s ∧ ¬∃u⊐s s&lt;u&lt;Ω ∧ ¬∃u⊐t t&lt;u&lt;Ω ∧ ¬∃u⊐t u&lt;C(a,b) ⇒ ∀v⊐t (¬∃w&lt;Ω (t⊏w⊏v ∧ w≠t ∧ w≠v) ⇒ v&lt;a)). Also, b&lt;Ω⇒C(a,b)&lt;Ω.) </p>
+
+
+<h3> Remaining Work </h3>
+<p>To complete ordinal analysis of second order arithmetic, one would need:<br/>
+* A canonical assignment of notations to formulas that provably in second order arithmetic denote an ordinal, and such that for every two ordinals/formulas, comparison is provable in second order arithmetic.  The idea is that the notation system captures not only provably recursive ordinals of second order arithmetic but all ordinals that have a provable canonical definition in second order arithmetic.  Currently, we have a complete assignment for a large fragment, including all representable ordinals below the least ordinal <i>a</i> that is <i>a</i><sup>+</sup> stable.  A desired property (assuming that it is canonically achievable) is maximality:  One cannot add an extra ordinal to the notation system, and still have provable (in second order arithmetic) comparison.<br/>
+* Proof that the system is well-founded and that it has the right strength, etc.  Specifically, we want:<br/>
+- Proof in a weak base system of various basic properties of the recursive comparison relation.<br/>
+- Proof in a weak base system that the assignment of notations to formulas (as requested in the paragraph above) satisfies the requested properties.<br/>
+- (Strengthening of the previous item) A constructive proof in a weak base system and with feasible polynomial time witness that for every n, second order arithmetic proves (as a statement rather than a schema) the following statement:  The assignment (as in the assignment above) of ordinal notations in the nth notation system to formulas is well-defined and order-preserving.<br/>
+- Proof in a weak base system that the well-foundness of the notation system up to Ω<sub>1</sub> is equivalent to Π<sup>1</sup><sub>1</sub> soundness of second order arithmetic and that a slightly stronger assumption (like in ATR<sub>0</sub> plus existence of a transitive model of second order arithmetic) suffices to prove well-foundness of the full system.<br/>
+- A proof analysis of second order arithmetic that relates proofs to ordinal notations, and similarly for fragments of second order arithmetic.<br/>
+- Proofs of various correspondences between fragments of the notation system and fragments of second order arithmetic.</p>
+
+<p>To go beyond second order arithmetic, one would need to work out how to develop ordinal notations beyond the first ω levels of correctness, and eventually how to incorporate large cardinal properties in a tractable way.</p>
+
+<h2><a id="A6"/>Update</h2>
+
+<p>(further updated April 20, 2015)</p>
+
+<p>The n=2 notation system in "Ordinal Notation System for Second Order Arithmetic" is not identical to the one in "Degrees of Reflection".  The notation system for degrees of inaccessibility corresponds to the one in "Degrees of Reflection".  Let the standard C denote denote the notation system in "Ordinal Notation System for Second Order Arithmetic".</p>
+
+<p>C(C(Ω+C(Ω*2,0),C(Ω*2,0)),0) appears to be the "least" term valid for "Degrees of reflection" C but not for the standard C.  However, this does not appear to adversely affect the strength of the standard C since enough ordinals remain available for the collapse.  For example, in n=2 system, for every a built from below, for every b that uses only ordinals &lt;a, C(C(a+b,0),0) is standard (after converting a+b to the standard form).</p>
+
+<p> C(Ω<sub>2</sub>+ε<sub>C(Ω<sub>2</sub>*2,0)+1</sub>,0) appears to be the "least" term valid for the standard C but not "Degrees of Reflection" C, and the difference appears to make the standard C for n=2 much stronger than C in "Degrees of reflection".  The assignment of ordinals in this paper is for the "Degrees of Reflection" system.  Applying this assignment to the standard C, while valid as a formal definition, misses the full strength of the notation system.</p>
+
+<p> For standard C (with Ω=Ω<sub>2</sub>), if d=C(Ω,C(Ω*2,0)), then C(Ω+d,0) should be the least recursively inaccessible ordinal. (Intuitively, since d is admissible but not limit of admissibles and for cofinally many representable e&lt;d, C(1,e,0) is standard, C(1,d,0) should also be admissible.)<br/>
+Continuing upward, C(Ω+d*2,0) should be the least recursively hyperinaccessible ordinal; C(Ω+d<sup>2</sup>,0) -- least recursively Mahlo, C(Ω+d<sup>d</sup>,0) -- least Π<sub>3</sub> reflecting, and so on, completely analogously to the description from "Degrees of Reflection".  The hierarchy suggests that C(Ω*2, 0) should be the least ordinal x such that L<sub>x</sub> is a Σ<sub>1</sub> elementary substructure of L, but the structure beyond that is unclear.</p>
+
+<p>Similar patterns repeat at different levels of the strength hierarchy, and there are at least four plausible possibilities about the strength of the notation system: (1) not well-founded, (2) second order arithmetic, (3) rudimentary set theory + {there is n-subtle cardinal: n is a natural number}, and (4) second order arithmetic with projective determinacy (with the notation system covering canonical projective ordinals).</p>
+
+<p>Here is one guess, which I include to inspire future research. C(Ω*a+b,c) corresponds with C(a,b,c) from "Beyond Second Order Arithmetic".  For appropriate large a, C(ω*a+ω,0,0) is f<sub>a</sub>(ω<sub>1</sub><sup>L</sup>) where f<sub>a</sub> is the collapse of the Skolem hull of L<sub>a</sub>. Going further, working in L (or other suitable model if L is insufficient) C(Ω<sup>2</sup>,0) corresponds to ω<sub>1</sub>. <br/>
+[correspondences are approximate] <br/>
+C(Ω<sup>2</sup>+Ω*a,b) - least cardinal κ >b not definable in V<sub>λ+a</sub> from parameters in V<sub>κ</sub> where λ is the least inaccessible cardinal above b. <br/>
+C(Ω<sup>2</sup>*(a+1),0) - a-inaccesible <br/>
+C(Ω<sup>a+1</sup>,0) - a-Mahlo <br/>
+C(Ω<sup>Ω<sup>a</sup></sup>) - a-indescribable (approximate) <br/>
+C(Ω<sub>3</sub>*n, 0) - n-subtle <br/>
+C(Ω<sub>3</sub>*a, 0) - enough structure for a-reflective cardinals (see "Reflective Cardinals" paper) <br/>
+C(Ω<sub>3</sub><sup>a+1</sup>) - measurable of order a.
+</p> 
+
+<!--- Previous text (January 10, 2014) is below
+In C(Ω<sup>2</sup>+Ω*a,0), a is roughly related to the largest α such that C(Ω<sup>2</sup>+Ω*a,0) is inaccessible in L<sub>C(Ω<sup>2</sup>+Ω*a,0)+α</sub>, and for very large a, the condition might instead roughly be a-indescribable.  C(Ω<sup>2</sup>+C(Ω<sup>2</sup>,C(Ω<sup>2</sup>*2,0)),0) might be the least inaccessible cardinal (compare with recursive inaccessibility).  If a cardinal is subtle, then for every P there is P-indescribable cardinal below it, so C(Ω<sup>2</sup>*2,0) may be the least subtle cardinal. The least n-subtle might be C(Ω<sup>2</sup>*(n+2),0) (though C(Ω<sup>n+1</sup>,0) is also tempting).  Going further, the hierarchy of ordinals above Ω possibly resembles a hierarchy of mice (in inner model theory), which (assuming zero sharp) also extends beyond Ord.</p>
+ 
+<p> The strength of the full system for the standard C is unclear.  The most optimistic plausible hypothesis is that the strength of the full system is that of second order arithmetic with projective determinacy.  Allowing an ordinal to be defined from higher ordinals n-times might be analogous to mice being able to capture arbitrary reals (through genericity over iterates) n (or so) times.  However, there are many plausible lower stopping points, one of which is ZFC+{n-reflective: n&lt;ω} (same Π<sup>1</sup><sub>1</sub> (and even Σ<sup>V</sup><sub>2</sub>) strength as ZFC+{n-ineffable: n&lt;ω} but with ordinals extending further), and the lowest plausible guess (assuming well-foundness) is still second order arithmetic.</p>
+-->
+
+<h2>Iteration of n-built from below</h2>
+
+(section added April 20, 2015)
+
+<p>By iterating n-built from below, one gets a candidate stronger notation system, but its strength and well-foundess are not clear.</p>
+
+<p><b>Notation System:</b><br/>
+<b>Syntax:</b> Two constants (0, Ω) and a binary function C.<br/>
+<b>Comparison:</b> Standard.  (For ordinals in the standard representation written in the postfix form, the comparison is done in the lexicographical order where 'C' &lt; '0' &lt; 'Ω': For example, C(C(0,0),0) &lt; C(Ω, 0) because 000CC &lt; 0ΩC.)<br/>
+<b>Standard Form:</b><br/>
+0, Ω are standard<br/>
+"C(a, b)" is standard iff<br/>
+<b>1.</b> "a" and "b" are standard<br/>
+<b>2.</b> b is 0 or Ω or "C(c, d)" with a≤c, and<br/>
+<b>3.</b> Every a' in CNF base Ω representation of a is a''-n-built from below from &lt;C(a,b).  See below for definitions.</p>
+
+<p> <b>Definitions for 3:</b><br/>
+<b>1.</b>  In constructing the subterm tree of a (used below), ordinals ≥Ω are represented in Cantor Normal Form base Ω, which can be accomplished using the equation C(a,b)=b+ω<sup>a</sup> iff a is ≤ the least fix-point of x→ω<sup>x</sup> above b (the inequality always holds if b≥Ω).  (Also, C(a,b)&lt;Ω iff b &lt;Ω.)<br/>
+<b>2.</b>  a'' is obtained by representing a in CNF base Ω and deleting all terms with significance level less than or equal that of a', where Ω<sup>c</sup>*d is deleted if c or d is deleted, and '+' is deleted if d is deleted in c+d. The significance level of a term d&lt;Ω in a (using CNF base Ω) is obtained by deleting everything to the right of d (but if d is inside e in Ω<sup>e</sup>*f; f is replaced by 1), changing d to Ω and subtracting a on the left (and converting to standard form for comparison).<br/>
+<b>3.</b>  n=1+max(m∈N: ∃d∈Ord c=d+m), where c is the rightmost ordinal &lt;Ω in CNF base Ω representation of a, where c is to the left of a' and the significance level (as defined above) of c is higher than that of a' (and c is 0 if a has no terms of higher significance level than that of a').<br/>
+<b>4.</b> Testing for &lt;C(a,b) can be done in the ordinary lexicographical order.<br/>
+<b>5.</b> a is a''-0 built from below from &lt;b iff a&lt;b.<br/>
+&nbsp;&nbsp;&nbsp; a is a''-n+1 built from below from &lt;b iff a does not use ordinals &lt;Ω above a except<br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a. as a subterm of an ordinal a''-n built from below from &lt;b or <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b. as a subterm of C(c,d) with c&lt;a'' that is not in the scope of a subterm of C(c,d) that is ≤d.</p>
+
+<p><b>Notes:</b><br/>
+* In 5, the same ordinal may occur in several places in the subterm tree, and each occurence is treated separately.<br/>
+* In practice, one would use CNF base Ω for ordinals ≥Ω (also, one would likely prefer 1-variable C).<br/>
+* A variation is to use a different ordinal notation system (instead of C) for ordinals ≥Ω.  One can use an arbitrarily strong system as long as it has an appropriate structure for the combined system to work.</p>
+
+<p>To understand the system, consider the segment that uses only C(a,b,c) = C(Ω*a+b,c) (with a,b,c &lt;Ω). 5 requires that b is a-n-built from below from &lt;C(a,b,c) where n is the integer part of a+1. (I use a-n in place of Ω*a-n; also in this segment a is automatically built from below from &lt;C(a,b,c).) For a=n-1, this approximately corresponds with n built from below from c, which allows embedding of the main system (the one using Ω<sub>n</sub>) into this segment with finite a. For limit a, the level may correspond with J<sub>a</sub>(R), and then one repeats n-built from below construction but this time assuming that for lower levels definability has been completed, hence 5b.  The sense of 5b is that C(c,d) is treated as representing the ordinal in terms of ordinals ≤d, and which intermediate ordinals >d are used is irrelevant.</p>
+
+<p>The full system is a transfinite iteration of the above. Beyond Ω<sup>e</sup> for a fixed small ordinal e, CNF base Ω becomes more complex, but using significance level should be the right generalization.  In requiring a' to a''-n built from below (from &lt;C(a,b,c)), we avoid circularity by requiring that, in a certain sense, a'' is constructed prior to a', which can be used to explain the construction of a''.</p>
+
+<p>If the main notation system (that uses Ω<sub>n</sub>) reaches Z<sub>2</sub>+PD (otherwise, the strength here might be much lower), a reasonable hypothesis for the strength of this system below Ω<sup>Ω*ω</sup> is rudimentary set theory + for every ordinal κ there are κ Woodin cardinals (with ordinals &lt;Ω corresponding to Wadge ranks (within determinacy) that have a canonical definition in the theory).  This appears to have the same strength as rudimentary set theory plus schema (n a natural number): Games on integers of countable length and projective payoff are determined, where the game consists of n rounds, with the first round having length ω and each round coding (with coding having projective complexity) the length of the next one.  Ω<sup>a+1</sup> may correspond with (approximately) ω*a Woodin cardinals, and Ω<sup>Ω+a</sup> with (approximately) the number of Woodin cardinals equaling the value of (ω*a)th Woodin cardinal.  The full system may correspond to games with a level n round (schema given n), with level m rounds consisting of level m-1 subrounds, and the number of subrounds (or number of moves for level 1 rounds) is determined at the start of each round. (This strength can also be expressed using limits of Woodin cardinals, and is well below a regular limit of Woodin cardinals.)</p>
+
+<p><b>Further Extensions:</b>  While the strength can be increased slightly by going beyond ε<sub>Ω+1</sub>, new construction principles are required to reach substantially further.  In C(<i>a</i>,b,c), one would want to allow <i>a</i> to have a richer structure than b.  Here is how it may look like, although the particular extension below is just a guess and might well be either ill-founded or failing to reach further.  In 5 (above), add clause<br/>
+c. or the term f has lower significance level in e than that of a' in a, where e is the outermost (without intervening C) CNF base Ω superterm of f.<br/>
+(Thus, it is more accurate to say (significance level of a' in a)-a''-n built from below.  The significance level is for CNF base Ω and as is defined above.  If f is e, the level is Ω.  One can also consider the restriction below (for example) Ω<sup>ω</sup>.)</p>
+
+</body>
+</html>

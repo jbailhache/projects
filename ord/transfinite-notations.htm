@@ -1,0 +1,1046 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Notations for transfinite ordinals</title>
+
+<meta content="Jacques Bailhache" name="author"></head><body>
+<font style="font-weight: bold;" size="+1">Notations
+for transfinite ordinals</font><br>
+<br>
+<span style="font-weight: bold;">Conventions&nbsp;</span><br>
+<br>
+w represents omega.<br>
+W represents Omega = omega 1, the first uncountable ordinal.<br>
+<br>
+<span style="font-weight: bold;">Veblen function</span><br>
+<br>
+phi(an,...,a0) is defined by :<br>
+phi(a) = w^a<br>
+phi(0,an,...,a0) = phi(an,...,a0)<br>
+phi(an,...,a(i+1),a,0,...,0,c) = c-th fixed point of
+\x.phi(an,...,a(i+1),b,x,0,...,0) for all b&lt;a<br>
+see <a href="http://en.wikipedia.org/wiki/Veblen_function">http://en.wikipedia.org/wiki/Veblen_function</a><br>
+<br>
+<span style="font-weight: bold;">Collapsing function</span><br>
+<br>
+psi(a)
+is the smallest ordinal which cannot be expressed from 0, 1, w and W
+using sums, products, exponentials and the psi function itself to
+previously constructed ordinals less than a.<br>
+<br><span style="font-weight: bold;">Madore tree</span><br><br>The order on finite rooted trees is recursively defined as follows: a tree A is less than a tree B, written A &lt; B,<br>iff :<br>-&nbsp;either there is some child (=immediate subtree) B' of B such that A &lt;= B',<br>-&nbsp;or
+the following two conditions hold: every child A' of A satisfies A'
+&lt;  B, and the list of children of A is lexicographically less than
+the list of children of B for the order &lt;  (with the leftmost
+children having the most weight, i.e., either B has more children than
+A, or if A' and B' are the leftmost children on which they differ then
+A' &lt; B').<br>This is a well-order.<br><br>
+<span style="font-weight: bold;">Combinatory notations</span><br>
+<br>
+This notation uses combinatory logic with&nbsp;De Bruijn indexes. <br>
+lambda.x is written [ x ] and variables are written *, **, ***..., for example [ ... * ... ] = \x ( ... x ... )&nbsp;<br>
+<br>CI = C I is defined by CI x f = f x.<br>CI x = &lt;x&gt;<br>&lt;x1,...,xn&gt; f = f x1 ... xn<br>nuplet n f x1 ... xn = f &lt;x1,...,xn&gt;<br>nuplet 0 = &lt;I&gt;<br>nuplet (n+1) f x0 = nuplet n [ f (insert x0 *) ]<br>with insert x0 a f &nbsp;= a (f x0)<br><br>r 0 f x = x<br>r (n+1) f x = f (r n f x)<br>r (lim g) f x = lim [r * f x]<br><br>H f x represents the limit of x, f x, f (f x), ...<br>H f x = r w f x<br><br>R1 = [H &lt;*&gt; I] = nuplet 1 [H * I]<br>R2 = [[H &lt;**,*&gt; I]] = nuplet 2 [H * I]<br>R3 = [[[H &lt;***,**,*&gt; I]]] = nuplet 3 [H * I]<br>Rn = nuplet n [H * I]<br>R(n-&gt;1) = Rn ... R1<br>S(n-&gt;1) = [S(*-&gt;1)] n = &lt;Rn,...,R1&gt;<br>R(n-&gt;1) = S(n-&gt;1) I<br>[S(*-&gt;1)] 0 = I<br>[S(*-&gt;1)] (n+1) = insert (nuplet (n+1) [H * I]) ([S(*-&gt;1)] n)<br><br>L f = lim f 0, f 1, ...<br>L f x = L [f * x]<br>H = [[L [r * *** **]]]<br>
+or<br>
+L0 = lim f 0, f 1, ...<br>
+L n f = nuplet n [ L0 [ ** (f *) ]]<br>
+L n = [ nuplet n [ L0 [ ** (*** *) ]]]<br>L = [[ nuplet ** [ L0 [ ** (*** *) ]]]<br>
+&nbsp;= \n \f (nuplet n \a (L0 \i (a (f i)) ) )<br>
+&nbsp;<br>
+<br>
+<table style="text-align: left; width: 100%;" rules="all" border="2" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td>Name</td>
+<td>Symbol</td>
+<td>Properties</td>
+<td>Algebraic</td>
+<td>Veblen function</td>
+<td>Collapsing function</td>
+<td>Madore tree</td>
+<td>Combinatory</td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>0</td>
+<td>Smallest ordinal</td>
+<td>0</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>()</td>
+<td>0</td>
+</tr>
+<tr>
+<td>One</td>
+<td>1</td>
+<td><br>
+</td>
+<td>1</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(())</td>
+<td>suc 0</td>
+</tr>
+<tr>
+<td>Two</td>
+<td>2</td>
+<td><br>
+</td>
+<td>2</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>((()))</td>
+<td>suc (suc 0)</td>
+</tr>
+<tr>
+<td>omega</td>
+<td>w</td>
+<td>Smallest infinite ordinal</td>
+<td>w</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(()())</td>
+<td>H suc 0 = r w suc 0 <br>= L [r * suc 0] = [[L [r * *** **]]] suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w+1</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>((()()))</td>
+<td>suc (H suc 0)</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w+2</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(((()())))</td>
+<td>suc (suc (H suc 0))</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w*2</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(()(()))</td>
+<td>H suc (H suc 0)</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w*3</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(()((())))</td>
+<td>H suc (H suc (H suc 0))</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w^2</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(()(()()))</td>
+<td>H (H suc) 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w^3</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>(()(()(()())))</td>
+<td>H (H (H suc)) 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w^w</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>((())())</td>
+<td>H H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>w^w^w</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>((()())())</td>
+<td>H H H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>epsilon 0</td>
+<td><br>
+</td>
+<td>limit of w^w^...^w</td>
+<td>phi(1,0)</td>
+<td>psi(0)</td>
+<td>(()()())</td>
+<td>R1 H suc 0 &nbsp;<br>= H &lt;H&gt; I suc 0<br>= r w &lt;r w&gt; I suc 0<br>= [r w &lt;*&gt; I] (r w) suc 0<br>
+with R1 = [ H (CI *) I ] <br>= [H &lt;*&gt; I]<br>= nuplet 1 [H * I]<br>or \f (H (\g (g f)) (\x x)) in lambda calculus</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>epsilon 1</td>
+<td><br>
+</td>
+<td>epsilon 0 ^ ... ^ epsilon 0</td>
+<td>phi(1,1)</td>
+<td>psi(1)</td>
+<td>(()()(()))</td>
+<td>R1 (R1 H) suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>epsilon 2</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,2)</td>
+<td>psi(2)</td>
+<td>(()()((())))</td>
+<td>R1 (R1 (R1 H)) suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>epsilon w</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,w)</td>
+<td>psi(w)</td>
+<td>(()()(()()))</td>
+<td>H R1 H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>epsilon epsilon 0</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,phi(1,0))</td>
+<td>psi(psi(0))</td>
+<td>(()()(()()()))</td>
+<td>R1 H R1 H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>zeta 0</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(2,0)</td>
+<td>psi(W)</td>
+<td>(()(())())</td>
+<td>R(2-&gt;1) H suc 0 = R2 R1 H suc 0<br>= [[r w &lt;**,*&gt; I]] [r w &lt;*&gt; I] (r w) suc 0<br>
+with R2 = [[ H (B (CI *) (CI **)) I ]]<br>= [[ H &lt;**,*&gt; I ]]<br>= nuplet 2 [H * I]</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(3,0)</td>
+<td>psi(W^2)</td>
+<td>(()((()))())</td>
+<td>R(3-&gt;1) H suc 0 = R3 R2 R1 H suc 0<br>
+with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<br>= nuplet 3 [H * I]</td>
+</tr>
+<tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) H suc (R(w-&gt;1) H suc 0)</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>H (R(w-&gt;1) H suc) 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) H (R(w-&gt;1) H &nbsp;suc) 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>H (R(w-&gt;1) H) suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) H (R(w-&gt;1) H) suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R1 (R(w-&gt;1) H) suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) (R(w-&gt;1) H) suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>H R(w-&gt;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(w-&gt;1) H R(w-&gt;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R2 R(w-&gt;1) H suc 0 = R(w+1-&gt;1) H suc 0</td></tr><tr>
+<td>Feferman-Schütte</td>
+<td>Gamma 0</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,0)</td>
+<td>psi(W^W)</td>
+<td>((())()())</td>
+<td>H [ R(*-&gt;1) H suc 0 ] 0<br>
+= R(1;1) H suc 0<br>
+with R(1;1) = [[[ H [ R(*-&gt;1) **** *** ** ] 0 ]]]<br>
+= nuplet 3 [ H [ ** R(*-&gt;1) ] 0]<br>
+with nuplet n f x1 ... xn = f &lt;x1, ... , xn&gt;<br>
+and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,1)</td>
+<td>psi(W^W*2)</td>
+<td>((())()(()))</td>
+<td>R(1;1) (R(1;1) H) suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>Gamma w</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,w)</td>
+<td>psi(W^W*w)</td>
+<td>((())()(()()))</td>
+<td>H R(1;1) H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,Gamma 0)</td>
+<td>psi(W^W*Gamma 0)</td>
+<td>((())()((())()()))</td>
+<td>R(1;1) H R(1;1) H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,1,0)</td>
+<td>psi(W^(W+1))</td>
+<td>((())(())())</td>
+<td>R2 R(1;1) H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,2,0)</td>
+<td>psi(W^(W+2))</td>
+<td>((())((()))())</td>
+<td>R3 R2 R(1;1) H suc 0 <br>
+= R(3-&gt;2) R(1;1) H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(2,0,0)</td>
+<td>psi(W^(W*2))</td>
+<td>(((()))()())</td>
+<td>H [ R(*-&gt;2) R(1;1) H suc 0 ] 0<br>
+=R(1;2) R(1;1) H suc 0<br>
+with R(1;2) = [[[[H[R(*-&gt;2) ***** **** *** **]0]]]]<br>
+= R(1;2-&gt;1) H suc 0</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(3,0,0)</td>
+<td>psi(W^(W*3))</td>
+<td>((((())))()())</td>
+<td>R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3-&gt;1) H suc 0</td>
+</tr>
+<tr>
+<td>Ackermann</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,0,0)<br>
+phi(W^2,0)</td>
+<td>psi(W^W^2)</td>
+<td>(()()()())</td>
+<td>H [ R(1;*-&gt;1) H suc 0 ] 0<br>
+= R(2;1) H suc 0<br>
+with R(2;1) = [[[ H [ R(1;*-&gt;1) **** *** ** ] 0 ]]]</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(1,0,0,0,0)</td>
+<td>psi(W^W^3)</td>
+<td>(()()()()())</td>
+<td>R(3;1) H suc 0</td>
+</tr>
+<tr>
+<td>small Veblen</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>limit of phi(1,0,...,0)<br>
+phi(W^w,0)</td>
+<td>psi(W^W^w)</td>
+<td>no representation <br>
+for a&gt;=small Veblen ordinal</td>
+<td>R(w;1) H suc 0</td>
+</tr>
+<tr>
+<td>large Veblen</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td>phi(W^W,0)</td>
+<td>psi(W^W^W)</td>
+<td><br>
+</td>
+<td>H [ R(*;1) H suc 0] 0<br>
+= R(W;1) H suc 0 or R(1,0;1) H suc 0<br>
+with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc 0</td>
+</tr>
+<tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(1,1;1) H suc 0<br>= R(1:1,0:1;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(1,2;1) H suc 0<br>= R(1:1,0:2;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(2,0;1) H suc 0<br>= R(1:2;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>R(1,0,0;1) H suc 0<br>= R(2:1;1) H suc 0</td></tr><tr><td>Bachmann-Howard</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>phi(epsilon (W+1),0)<br>with epsilon(W+1)=W^...^W</td><td>psi(epsilon(W+1))</td><td><br>
+</td><td>R(1,0,...,0;1) H suc 0<br>= R(H suc 0:1;1) H suc 0</td></tr><tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>H [ R(*:1;1) H suc 0 ] 0<br>= [[[ H [ R(*:1;1) **** *** ** ] 0 ]]] H suc 0<br>
+= R(1,0:1;1) H suc 0<br>
+= R(1:1:1;1) H suc 0<br>
+</td></tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">R(1,0,0:1;1) H suc 0<br>
+= R(2:1:1;1) H suc 0<br>
+      </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top;">Takeuti-Feferman-Buchholz<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">psi(epsilon W(w)+1)<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">R(w:1:1;1) H suc 0 (?)<br>with a:b:c = (a:b):c<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">R(1:1:1:1;1) H suc 0<br>= R(1::3::1;1) H suc 0<br>= R(r 3 [*:1] 1;1) H suc 0 <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">R(1:1:1:1:1;1) H suc 0<br>= R(1::4::1;1) H suc 0<br>= R(r 4 [*:1] 1;1) H suc 0<br>
+      </td>
+    </tr>
+<tr><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td><br>
+</td><td>H [R(1::*::1;1) H suc 0] 0<br>= H [R(r * [*:1] 1;1) H suc 0] 0</td></tr><tr>
+<td>Church-Kleene</td>
+<td>wCK1</td>
+<td>Smallest non recursive ordinal</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+</tr>
+<tr>
+<td><br>
+</td>
+<td>W or w1</td>
+<td>Smallest uncountable ordinal</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+<td><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br style="font-weight: bold;">
+<span style="font-weight: bold;">Example of application</span><br>
+<br>
+In&nbsp;<a href="http://math.stanford.edu/%7Efeferman/papers/penrose.pdf">"Penrose's
+G&ouml;delian argument"</a> (p 9) Feferman writed :<br>
+"It
+was Turing (not me) who showed in his 1939 paper that the ordinal logic
+obtained by iteration of adjunction of consistency statements starting
+with PA and proceeding through the recursive ordinals is complete for
+&#928;1 statement (in fact at a surprisingly low level); Turing had hoped to
+improve this to completeness for &#928;2 sentences. In my 1962 paper I
+proved that: (i) Turings ordinal logic is incomplete for &#928;2 sentences;
+(ii) the same holds for progressions based on transfinite iteration of
+the so-called local reflection principle; (iii) but one obtains
+completeness for all arithmetical sentences in a progression based on
+the transfinite iteration of the so-called global or uniform reflection
+principle."<br>
+<br>
+The uniform reflection principle is defined by :<br>
+For all natural number n, if there exist a proof off "p(n)", then p(n).<br>
+See <a href="http://www.cl.cam.ac.uk/%7Ejrh13/papers/reflect.html">Metatheory
+and Reflection in Theorem Proving: A Survey and Critique</a> by
+John Harrison for more information about reflection principles.<br>
+<br>
+So,
+it is possible to extend PA (Peano arithmetic) by adding the uniform
+reflection principle to it, and repeat it "some transfinite number of
+times" to get a stronger theory. For each true arithmetical sentence,
+there exist a transfinite ordinal such that the sentence can be proved
+by PA extended by transfinite iteration of uniform reflection principle
+up to this ordinal.<br>
+<br>
+<h4>Ordinal Gamma0 in Coq</h4>
+<pre>
+Inductive ordinal : Type :=
+ | Zero : ordinal
+ | Succ : ordinal -&gt; ordinal
+ | Limit : (nat -&gt; ordinal) -&gt; ordinal.
+
+Fixpoint iter (a:Type) (f:a-&gt;a) (n:nat) (x:a) : a :=
+ match n with
+  | O =&gt; x
+  | S p =&gt; iter a f p (f x)
+ end.
+
+Definition OpLim (F:nat-&gt;ordinal-&gt;ordinal) (a:ordinal) : ordinal :=
+ Limit (fun n =&gt; F n a).
+ 
+Definition OpItw (f:ordinal-&gt;ordinal) : ordinal-&gt;ordinal :=
+ OpLim (iter _ f).
+
+Fixpoint cantor (a:ordinal) (c:ordinal) : ordinal :=
+ match c with
+  | Zero =&gt; Succ a
+  | Succ b =&gt; OpItw (fun x =&gt; cantor x b) a
+  | Limit f =&gt; Limit (fun n =&gt; cantor a (f n))
+ end.
+
+Fixpoint Nabla (f:ordinal-&gt;ordinal) (b:ordinal) : ordinal :=
+ match b with
+  | Zero =&gt; f Zero
+  | Succ a =&gt; f (Succ (Nabla f a))
+  | Limit h =&gt; Limit (fun n =&gt; Nabla f (h n))
+ end.
+
+Definition deriv (f:ordinal-&gt;ordinal) : ordinal-&gt;ordinal :=
+ Nabla (OpItw f).
+
+Fixpoint veblen (b:ordinal) : ordinal-&gt;ordinal :=
+ match b with
+  | Zero =&gt; Nabla (OpLim (iter _ (cantor Zero)))
+  | Succ a =&gt; Nabla (OpLim (iter _ (veblen a)))
+  | Limit f =&gt; Nabla (OpLim (fun n =&gt; veblen (f n)))
+ end.
+
+Definition veb (a:ordinal) : ordinal := veblen a Zero.
+
+Definition epsilon0 : ordinal := veb Zero. 
+
+Definition Gamma0 : ordinal := Limit (fun n =&gt; iter _ veb n Zero).
+
+Check epsilon0.
+Check Gamma0.
+</pre>
+<h4>Ordinal Gamma0 in Agda</h4>
+<pre>module ordi where
+
+ data nat : Set where 
+  O : nat
+  S : nat -&gt; nat
+
+ data ordinal : Set where
+  Zero : ordinal
+  Succ : ordinal -&gt; ordinal
+  Limit : (nat -&gt; ordinal) -&gt; ordinal
+
+ iter : (a : Set) (f : a -&gt; a) (n : nat) (x : a) -&gt; a
+ iter a f O x = x
+ iter a f (S p) x = iter a f p (f x)
+
+ OpLim : (nat -&gt; ordinal -&gt; ordinal) -&gt; ordinal -&gt; ordinal
+ OpLim F a = Limit (\n -&gt; F n a) 
+
+ OpItw : (ordinal -&gt; ordinal) -&gt; ordinal -&gt; ordinal
+ OpItw f = OpLim (iter _ f)
+
+ cantor : ordinal -&gt; ordinal -&gt; ordinal 
+ cantor a Zero = Succ a
+ cantor a (Succ b) = OpItw (\x -&gt; cantor x b) a 
+ cantor a (Limit f) = Limit (\n -&gt; cantor a (f n)) 
+
+ Nabla : (ordinal -&gt; ordinal) -&gt; ordinal -&gt; ordinal
+ Nabla f Zero = f Zero
+ Nabla f (Succ a) = f (Succ (Nabla f a)) 
+ Nabla f (Limit h) = Limit (\n -&gt; Nabla f (h n)) 
+
+ deriv : (ordinal -&gt; ordinal) -&gt; ordinal -&gt; ordinal 
+ deriv f = Nabla (OpItw f) 
+
+ veblen : ordinal -&gt; ordinal -&gt; ordinal 
+ veblen Zero = Nabla (OpLim (iter _ (cantor Zero)))
+ veblen (Succ a) = Nabla (OpLim (iter _ (veblen a))) 
+ veblen (Limit f) = Nabla (OpLim (\n -&gt; veblen (f n))) 
+
+ veb : ordinal -&gt; ordinal
+ veb a = veblen a Zero
+
+ epsilon0 : ordinal
+ epsilon0 = veb Zero
+
+ Gamma0 : ordinal
+ Gamma0 = Limit (\n -&gt; iter _ veb n Zero) 
+</pre>
+<h4>Large Veblen ordinal in Agda</h4>
+<pre>
+{- 
+   A definition of the large Veblen ordinal in Agda
+   by Jacques Bailhache, March 2016
+
+   See https://en.wikipedia.org/wiki/Veblen_function
+
+    (1) phi(a)=w**a for a single variable,
+
+    (2) phi(0,an-1,...,a0)=phi(an-1,...,a0), and
+
+    (3) for a&gt;0, c-&gt;phi(an,...,ai+1,a,0,...,0,c) is the function enumerating the common fixed points of the functions 
+        x-&gt;phi(an,...,ai+1,b,x,0,...,0) for all b&lt;a.
+
+    (4) Let a be a transfinite sequence of ordinals (i.e., an ordinal function with finite support) which ends in zero 
+        (i.e., such that a0=0), and let a[0-&gt;c] denote the same function where the final 0 has been replaced by c. 
+        Then c-&gt;phi(a[0-&gt;c]) is defined as the function enumerating the common fixed points of all functions x-&gt;phi(b)      
+        where b ranges over all sequences which are obtained by decreasing the smallest-indexed nonzero value of a 
+        and replacing some smaller-indexed value with the indeterminate x (i.e., b=a[i0-&gt;z,i-&gt;x] meaning that 
+        for the smallest index i0 such that ai0 is nonzero the latter has been replaced by some value z&lt;ai0 
+        and that for some smaller index i&lt;i0, the value ai=0 has been replaced with x).
+
+-}
+
+
+module LargeVeblen where
+
+ data Nat : Set where
+  O : Nat
+  1+ : Nat -&gt; Nat
+
+ data Ord : Set where
+  Zero : Ord
+  Suc : Ord -&gt; Ord
+  Lim : (Nat -&gt; Ord) -&gt; Ord
+
+ -- rpt n f x = f^n(x)
+ rpt : {t : Set} -&gt; Nat -&gt; (t -&gt; t) -&gt; t -&gt; t
+ rpt O f x = x
+ rpt (1+ n) f x = rpt n f (f x)
+
+ -- smallest fixed point of f greater than x, limit of x, f x, f (f x), ...
+ fix : (Ord -&gt; Ord) -&gt; Ord -&gt; Ord
+ fix f x = Lim (\n -&gt; rpt n f x)
+
+ w = fix Suc Zero -- not a fixed point in this case !
+
+ -- cantor a b = b + w^a
+ cantor : Ord -&gt; Ord -&gt; Ord
+ cantor Zero a = Suc a
+ cantor (Suc b) a = fix (cantor b) a
+ cantor (Lim f) a = Lim (\n -&gt; cantor (f n) a)
+
+ -- phi0 a = w^a
+ phi0 : Ord -&gt; Ord
+ phi0 a = cantor a Zero
+
+ -- Another possibility is to use phi'0 instead of phi0 in the definition of phi,
+ -- this gives a phi function which grows slower
+ phi'0 : Ord -&gt; Ord
+ phi'0 Zero = Suc Zero
+ phi'0 (Suc a) = Suc (phi'0 a)
+ phi'0 (Lim f) = Lim (\n -&gt; phi'0 (f n))
+
+ -- Associative list of ordinals
+ infixr 40 _=&gt;_&_
+ data OrdAList : Set where
+  Zeros : OrdAList
+  _=&gt;_&_ : Ord -&gt; Ord -&gt; OrdAList -&gt; OrdAList
+
+ -- Usage : phi al, where al is the associative list of couples index =&gt; value ordered by increasing values,
+ -- absent indexes corresponding to Zero values
+ phi : OrdAList -&gt; Ord
+ phi              Zeros  = phi0 Zero -- (1) phi(0) = w**0 = 1
+ phi (Zero =&gt; a & Zeros) = phi0 a    -- (1) phi(a) = w**a
+ phi (            k =&gt; Zero & al) = phi al -- eliminate unnecessary Zero value
+ phi (Zero =&gt; a & k =&gt; Zero & al) = phi (Zero =&gt; a & al) -- idem
+ phi (Zero =&gt; a & Zero =&gt; b & al) = phi (Zero =&gt; a & al) -- should not appear but necessary for completeness
+ phi (Zero =&gt; Lim f & al) = Lim (\n -&gt; phi (Zero =&gt; f n & al)) -- canonical treatment of limit
+ phi (            k =&gt; Lim f & al) = Lim (\n -&gt; phi (k =&gt; f n & al)) -- idem
+ phi (Zero =&gt; a & k =&gt; Lim f & al) = Lim (\n -&gt; phi (Zero =&gt; a & k =&gt; f n & al)) -- idem 
+ phi (                Suc k =&gt; Suc b & al) = fix (\x -&gt; phi (k =&gt; x & Suc k =&gt; b & al)) Zero -- (3) least fixed point
+ phi (Zero =&gt; Suc a & Suc k =&gt; Suc b & al) = fix (\x -&gt; phi (k =&gt; x & Suc k =&gt; b & al)) (Suc (phi (Zero =&gt; a & Suc k =&gt; Suc b & al))) -- (3) following fixed points
+ phi (                Lim f =&gt; Suc b & al) = Lim (\n -&gt; fix (\x -&gt; phi (f n =&gt; x & Lim f =&gt; b & al)) Zero) -- (4) least fixed point
+ phi (Zero =&gt; Suc a & Lim f =&gt; Suc b & al) = Lim (\n -&gt; fix (\x -&gt; phi (f n =&gt; x & Lim f =&gt; b & al)) (Suc (phi (Zero =&gt; a & Lim f =&gt; Suc b & al)))) -- (4) following fixed points 
+
+ SmallVeblen = phi (w =&gt; Suc Zero & Zeros)
+
+ LargeVeblen = fix (\x -&gt; phi (x =&gt; Suc Zero & Zeros)) (Suc Zero)
+
+{-
+Normally it should terminate because the parameter of phi lexicographically decreases, but Agda is not clever enough to see it, 
+so it must be called with no termination check option :
+
+$ agda -I --no-termination-check LargeVeblen.agda
+                 _ 
+   ____         | |
+  / __ \        | |
+ | |__| |___  __| | ___
+ |  __  / _ \/ _  |/ __\     Agda Interactive
+ | |  |/ /_\ \/_| / /_| \
+ |_|  |\___  /____\_____/    Type :? for help.
+        __/ /
+        \__/
+
+The interactive mode is no longer supported. Don't complain if it doesn't work.
+Checking LargeVeblen (/perso/ord/LargeVeblen.agda).
+Finished LargeVeblen.
+Main&gt; phi Zeros
+Suc Zero
+Main&gt; phi (Zero =&gt; Suc Zero & Zeros)
+Lim (λ n → rpt n (λ a → Suc a) Zero)
+Main&gt; phi (Zero =&gt; Suc (Suc Zero) & Zeros)
+Lim
+(λ n → rpt n (λ a → Lim (λ n₁ → rpt n₁ (λ a₁ → Suc a₁) a)) Zero)
+Main&gt; phi (Suc Zero =&gt; Suc Zero & Zeros)
+Lim
+(λ n →
+   rpt n (λ x → phi (Zero =&gt; x & Suc Zero =&gt; Zero & Zeros)) Zero)
+Main&gt; 
+-}
+
+
+</pre>
+<span style="font-weight: bold;">Links </span><br>
+<br>
+
+<a href="http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordinaux-intro.html">
+Tutorial introduction to ordinal numbers in French</a><br>
+
+<a href="http://quibb.blogspot.fr/p/infinity-series-portal.html">
+Professor Quibb's Infinity Series Portal</a><br>
+
+<a href="https://sites.google.com/site/largenumbers/home">
+Sbiis Saibian's Large Number Site</a><br>
+
+<a href="https://en.wikipedia.org/wiki/Veblen_function">
+Veblen function</a> on Wikipedia<br>
+
+<a href="http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-1500814-9/S0002-9947-1908-1500814-9.pdf">
+Continuous increasing functions of finite and transfinite ordinals</a> by
+Oswald Veblen<br>
+
+<a href="http://en.wikipedia.org/wiki/Ordinal_collapsing_function">
+Ordinal collapsing function</a> on Wikipedia<br>
+
+<a href="http://www.madore.org/%7Edavid/math/ordtrees.pdf">
+Madore ordinal trees</a><br>
+
+<a href="http://www.cl.cam.ac.uk/%7Ejrh13/papers/reflect.html">
+Metatheory and Reflection in Theorem Proving: A Survey and Critique</a> by John Harrison<br>
+
+<a href="http://math.stanford.edu/%7Efeferman/papers/penrose.pdf">
+Penrose's G&ouml;delian argument</a> by Solomon Feferman<br>
+
+<a href="http://www.turingarchive.org/browse.php/B/15">
+Systems of logic based on ordinals</a> by Alan Turing<br>
+
+<a href="http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm">
+Ordinal Notation</a> by Dmytro Taranovsky<br>
+
+<a href="http://arxiv.org/html/1203.2270">Higher Order Set Theory with Reflective Cardinals</a> by Dmytro Taranovsky<br>
+
+<a href="https://coq.inria.fr/documentation">
+Coq documentation</a><br>
+
+<a href="http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.Documentation">
+Agda documentation</a><br>
+
+
+<br>
+<br>
+
+</body></html>

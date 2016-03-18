@@ -1,0 +1,23 @@
+[2000-06-29 18:37:33]
+
+Proof of accessibility of all predecessors of Gamma0,
+in a type theory with an (external) sequence of 
+cumulative universes, containing N, N0, N1, and
+closed under both Sigma and Pi. 
+
+Not all the files are used.
+The ones that are used are (I think):
+
+	ordlens.agda
+	nextU.agda
+	ordinals.agda
+	naturals.agda
+	amenities.agda
+
+(The rest contain experiments, or related
+material of some kind.) 
+
+The main theorem is in ordlens.agda
+It is called Corollary (!)
+
+This should all be heavily revised.

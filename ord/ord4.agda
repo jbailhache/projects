@@ -1,0 +1,56 @@
+module ord where
+
+ data Nat : Set where
+  zn : Nat
+  sn : Nat -> Nat
+
+ data Ord : Set where
+  zo : Ord
+  so : Ord -> Ord
+  lo : (Nat -> Ord) -> Ord
+
+ ordofnat : Nat -> Ord
+ ordofnat zn = zo
+ ordofnat (sn n) = so (ordofnat n)
+
+ w : Ord
+ w = lo ordofnat
+
+ repeat : (a : Set) -> (n : Nat) -> (f : a -> a) -> (x : a) -> a
+ repeat _ zn f x = x
+ repeat a (sn p) f x = repeat a p f (f x)
+
+ plusw : Ord -> Ord
+ plusw x = lo (\(n : Nat) -> repeat _ n so x)
+
+ w1 = plusw zo
+
+ wx2 = plusw (plusw zo)
+
+ wp2 = lo (\(n : Nat) -> repeat _ n plusw zo)
+
+ pluswp2 : Ord -> Ord
+ pluswp2 x = lo (\(n : Nat) -> repeat _ n plusw x)
+
+ H0 : (f : Ord -> Ord) -> (x : Ord) -> Ord
+ H0 f x = lo (\(n : Nat) -> repeat _ n f x)
+
+ w2 = H0 so zo
+
+ H1 : (f : (Ord -> Ord) -> (Ord -> Ord)) -> (g : Ord -> Ord) -> (x : Ord) -> Ord 
+ H1 f g x = lo (\(n : Nat) -> repeat _ n f g x)
+
+ wpw = H1 H0 so zo
+
+ ford : Nat -> Set
+ ford zn = Ord
+ ford (sn n) = ford n -> ford n
+
+ lim1 : (Nat -> Ord -> Ord) -> Ord -> Ord
+ lim1 f x = lo (\(p : Nat) -> f p x)
+
+ limn : (n : Nat) -> (Nat -> ford n) -> ford n
+ limn zn f = lo f
+ limn (sn p) f = \x -> limn p (\q -> f q x)
+
+ 

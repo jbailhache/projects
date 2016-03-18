@@ -1,0 +1,17 @@
+
+ord : type.
+zero : ord.
+suc : ord -> ord.
+lim : (ord -> ord) -> ord.
+
+eq-ord : ord -> ord -> type.
+eq-ord1 : eq-ord X X.
+
+one = suc zero.
+
+i : ord -> ord.
+i1 : eq-ord (i X) X.
+
+w = lim i.
+w1 = suc (lim i).
+

@@ -1,0 +1,33 @@
+
+
+nat : type.
+O : nat.
+S : nat -> nat.
+
+ord : type.
+zero : ord.
+suc : ord -> ord.
+lim : (nat -> ord) -> ord.
+
+eq-ord : ord -> ord -> type.
+eq-ord1 : eq-ord X X.
+
+one = suc zero.
+
+i : ord -> ord.
+i1 : eq-ord (i X) X.
+
+nateqord : nat -> ord -> type.
+nateqord1 : nateqord O zero.
+nateqord2 : {n:nat} {x:ord} nateqord n x -> nateqord (S n) (suc x).
+
+ordofnat : nat -> ord.
+ordofnat1 : {n:nat} nateqord n (ordofnat n).
+
+w = lim ordofnat.
+w1 = suc w.
+
+ford : nat -> type.
+ord : ford O.
+ford n -> ford n : ford (S n).
+

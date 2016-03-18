@@ -1,0 +1,13 @@
+
+nat : type.
+zero : nat.
+suc : nat -> nat.
+
+% plus : nat -> nat -> nat.
+% pz : plus zero P = P.
+% ps : plus (suc N) P = suc (plus N P).
+
+plus : nat -> nat -> nat -> type.
+pz : plus zero P P.
+ps : plus (suc N) P (suc Q) <- plus N P Q.
+
