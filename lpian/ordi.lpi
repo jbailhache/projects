@@ -1,0 +1,25 @@
+(
+
+(def-slc ord-zero : 
+ EQUAL (ord zero) I)
+
+(def-slc ord-suc : LAMBDA x :
+ EQUAL (AP (ord x) (ord (suc x))) I)
+
+(def-slc ord-one-1 :
+ REDLR : AP ord-suc zero)
+
+(def-slc ord-one-2 :
+ REDLR : AP ord-zero (ord (suc zero)))
+
+(def-slc ord-one :
+ LTRANSYM ord-one-2 ord-one-1)    
+
+(def-slc ord-one-direct :
+ LTRANSYM 
+  (REDLR : AP ord-zero : ord : suc zero)
+  (REDLR : AP ord-suc zero) )
+ 
+)
+
+

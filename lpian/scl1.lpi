@@ -1,0 +1,95 @@
+(
+
+(def SCL-SIDE : ARG s : ARG x :
+ %x NCONSPTHEN %x :
+ 'SCL-SIDE %x CAR GETPROP ARG prop :
+ %prop THEN (%x %s %prop EXEC) :
+ %x CDR %s SCL-SIDE %x CAR %s SCL-SIDE CONS)
+
+(def SCL-EQUAL : ARG x :
+ '() %x '() SCL-SIDE CONS %x 'true SCL-SIDE CONS 'EQUAL CONS)
+
+(def def-scl-side : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-SIDE %node PUTPROP)
+
+(def-scl-side EQUAL : ARG s : ARG (() a b) :
+ %s THEN %a %b)
+
+(def-scl-side LTRANSYM : ARG s : ARG (() a b) :
+ %a 'true SCL-SIDE %b 'true SCL-SIDE EQUAL THEN
+  (%s THEN %a %b '() SCL-SIDE)
+ %('LTRANSYM a b))
+
+(def-scl-side APK : ARG s : ARG (() a b) :
+ %a SCL-EQUAL ARG (() a1 a2) :
+ %b SCL-EQUAL ARG (() b1 b2) :
+ %s THEN %('AP ('AP 'K a1) b1) %a2)
+
+(def-scl-side APS : ARG a : ARG b : ARG c :
+ %a SCL-EQUAL ARG (() a1 a2) :
+ %b SCL-EQUAL ARG (() b1 b2) :
+ %c SCL-EQUAL ARG (() c1 c2) : 
+ %s THEN %('AP ('AP ('AP S a1) b1) c1) %('AP ('AP a2 c2) ('AP b2 c2)))
+
+(def SCL-INT : ARG x :
+ %x NCONSPTHEN 
+  ('SCL-DEF %x GETPROP ARG prop :
+   %prop THEN %prop %x) :
+ 'SCL-INT %x CAR GETPROP ARG prop :
+ %prop THEN (%x %prop EXEC) :
+ %x CDR SCL-INT %x CAR SCL-INT CONS)
+ 
+(def def-scl-int : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-INT %node PUTPROP)
+
+(def APN : ARG l :
+ %l NCONSPTHEN (0 VAR DBL) :
+ %l CDR NCONSPTHEN (%l CAR SCL-INT) :
+ '() %l LAST CAR SCL-INT CONS %l BUTLAST APN CONS 'AP CONS)
+
+('() SETVQ SCL-DEFS)
+
+(def def-scl : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SCL-DEFS %name CONS SETVQ SCL-DEFS
+ %val SCL-INT 'SCL-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SCL-INT SCL-EQUAL REP SETVQ SCLRES
+ REP CDR CAR SCL-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SCL-EXT PRINT)
+
+(def SCL-EXT : ARG x :
+ (%SCL-DEFS '() CONTIENT : DEP ARG name : 
+  'SCL-DEF %name GETPROP ARG val : 
+  %val %x EQUAL THEN %name '()) OR :
+ %x NCONSPTHEN %x : 
+ 'SCL-EXT %x CAR GETPROP ARG prop :
+ %prop THEN (%x %prop EXEC) : 
+ %x CDR SCL-EXT %x CAR SCL-EXT CONS)
+
+(def def-scl-ext : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-EXT %node PUTPROP)
+
+(def SCL-SIMPLIF : ARG x : 
+ %x NCONSPTHEN %x (%x CDR SCL-SIMPLIF %x CAR SCL-SIMPLIF CONS) ARG y : 
+ (SCL-SIMPLIF-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %x %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SCL-SIMPLIF-RULES '(
+
+))
+
+(def scle : C QUOTE : ARG x :
+ %x SCL-INT SCL-EQUAL REP SETVQ SCLRES 
+ SCL-SIMPLIF SCL-EXT PRINT)
+
+(def scl : C QUOTE : ARG x :
+ %x SCL-INT SCL-EQUAL REP SETVQ SCLRES 
+ REP CDR CAR SCL-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SCL-EXT PRINT)
+
+
+)

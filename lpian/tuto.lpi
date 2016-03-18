@@ -1,0 +1,89 @@
+(
+
+(def tuto : C QUOTE : C QUOTE : ARG code : ARG com : 
+ NL
+ %com PRINTSTRING NL
+ %code PRINT
+ %code EXEC
+ "Type Return to continue" PRINTSTRING
+ READSTRING DEP
+)
+
+{
+(tuto "Push an expression on the stack and print it" :
+ '(a (b . c) d e) PRINT)
+
+(tuto "Create a pair and print it" :
+ 'foo 'bar CONS PRINT)
+
+(tuto "Access to the second element of a list" :
+ '(one two three four five six) CDR CAR PRINT)
+
+("End of tutorial" PRINTSTRING)
+}
+
+(def TUTO : 
+ NL "LPIA TUTORIAL" PRINTSTRING NL
+ ('() MAPK : DEP ARG (com . code) :
+  NL
+  %com PRINTSTRING NL
+  %code PRINT
+  %code EXEC
+  "Type Return to continue" PRINTSTRING
+  READSTRING DEP
+ )
+ NL "End of tutorial" PRINTSTRING NL NL)
+ 
+('(
+("Push an expression on the stack and print it" 
+ '(a (b . c) d e) PRINT)
+
+("Create a pair and print it" 
+ 'foo 'bar CONS PRINT)
+
+("Access to the second element of a list" 
+ '(one two three four five six) CDR CAR PRINT)
+
+("Addition"
+ 120 44 PLUS PRINT)
+
+("Stack manipulation"
+ 'a 'b 'c SWAP DROP DUP PRINT PRINT PRINT)
+
+("Tests"
+ 'foo THEN 'true 'false PRINT
+ '() THEN 'true 'false PRINT)
+
+("Combinators: fixed point Y used for loop and (K I) to exit"
+ 10 Y (-1 PLUS DUP 0 EQ THEN (K I) : DUP PRINT) DROP)
+
+("Definition"
+ (def CADR : CDR CAR) 
+ '(a b c) CADR PRINT)
+
+("Argument"
+ (def CADR : ARG l : %l CDR CAR)
+ '(a b c) CADR PRINT)
+
+("Context"
+ GETCTX PRINTCTX)
+
+("Many worlds"
+ ALT (ALT 'a 'b PRINT END) I)
+
+("Depth-first"
+ 1 SETINCR ALT (ALT ('a PRINT (ALT ('b PRINT) ('c PRINT)))
+                    ('d PRINT (ALT ('e PRINT) ('f PRINT))) END) I)
+
+("Breadth-first"
+ -1 SETINCR 
+ ALT (ALT ('a PRINT (ALT ('b PRINT) ('c PRINT)))
+          ('d PRINT (ALT ('e PRINT) ('f PRINT))) END) 
+     (GETPRIO -100 PLUS SETPRIO ALT END I))
+
+) TUTO)
+
+
+
+)
+

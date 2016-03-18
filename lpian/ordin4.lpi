@@ -1,0 +1,73 @@
+(
+
+(def-slc ord-zero : 
+ EQUAL (type ord zero) I)
+
+(def-slc ord-suc : LAMBDA x :
+ EQUAL (AP (type ord x) (type ord (suc x))) I)
+
+(def-slc ord-lim : LAMBDA f :
+ EQUAL (AP (type (ord => ord) f) (type ord (lim f))) I)
+
+(def-slc ord-one-1 :
+ REDLR : AP ord-suc zero)
+
+(def-slc ord-one-2 :
+ REDLR : AP ord-zero (type ord (suc zero)))
+
+(def-slc ord-one :
+ LTRANSYM ord-one-2 ord-one-1)    
+
+(def-slc ord-one-direct :
+ LTRANSYM 
+  (REDLR : AP ord-zero : type ord : suc zero)
+  (REDLR : AP ord-suc zero) )
+
+(def-slc ford-i :
+ EQUAL (type (ord => ord) I) I)
+
+(def-slc ord-omega-1 :
+ REDLR : AP ord-lim I)
+
+(def-slc ord-omega-2 :
+ REDLR : AP ford-i (type ord (lim I)))
+
+(def-slc ord-omega :
+ LTRANSYM ord-omega-2 ord-omega-1)
+
+(def-slc ord-omega-direct :
+ LTRANSYM
+  (REDLR : AP ford-i : type ord : lim I) 
+  (REDLR : AP ord-lim I) )
+ 
+(def-slc ord-omega+1-direct :
+ LTRANSYM 
+  (REDLR : AP ord-omega-direct : type ord : suc : lim I)
+  (REDLR : AP ord-suc : lim I) )
+
+(def-slc A : LAMBDA f : AP f f)
+
+(def-slc B : LAMBDA f : LAMBDA g : LAMBDA x : AP f : AP g x)
+
+(def-slc Y : LAMBDA f : AP A : APN B f A)
+
+(def-slc rpt-zero : LAMBDA f : LAMBDA x :
+ EQUAL (rpt zero f x) x)
+
+(def-slc rpt-suc : LAMBDA n : LAMBDA f : LAMBDA x :
+ EQUAL (rpt (suc n) f x) (f (rpt n f x)) )
+
+(def-slc omega : lim I)
+
+(def-slc ford-rpt-n-suc-omega :
+ EQUAL (type (ord => ord) : LAMBDA n : rpt n suc omega) I) 
+
+(def-slc omega*2 : lim : LAMBDA n : rpt n suc omega)
+
+(def-slc ord-omega*2-direct :
+ LTRANSYM
+  (REDLR : AP ford-rpt-n-suc-omega : type ord omega*2)
+  (REDLR : AP ord-lim : LAMBDA n : rpt n suc omega) )
+
+)
+

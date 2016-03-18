@@ -1,0 +1,62 @@
+(
+
+(def-slc nat-zero : EQUAL (nat zero) I)
+
+(def-slc nat-suc : LAMBDA n :
+ EQUAL (AP (nat n) : nat : suc n) I)
+
+(def-slc refl-symb : EQUAL (term symb) I)
+
+(def-slc refl-ltransym : LAMBDA x : LAMBDA y : 
+ EQUAL (AP (term x) : AP (term y) : term (ltransym x y)) I)
+
+(def-slc refl-dbl : LAMBDA x : 
+ EQUAL (AP (term x) : term : dbl x) I)
+
+(def-slc refl-dbv : LAMBDA n :
+ EQUAL (AP (nat n) : term : dbv n) I)
+
+(def-slc refl-left-equal : LAMBDA a : LAMBDA b :
+ EQUAL (AP (term : equal a b) : left (equal a b) a) I)
+
+(def-slc refl-right-equal : LAMBDA a : LAMBDA b : 
+ EQUAL (AP (term : equal a b) : right (equal a b) b) I)
+
+(def-slc refl-left-symb :
+ EQUAL (left symb symb) I)
+
+(def-slc refl-right-symb :
+ EQUAL (right symb symb) I)
+
+(def-slc refl-left-dbv : LAMBDA n :
+ EQUAL (AP (nat n) : left (dbv n) (dbv n)) I)
+
+(def-slc refl-right-dvb : LAMBDA n :
+ EQUAL (AP (nat n) : right (dbv n) (dbv n)) I)
+
+(def-slc refl-left-ltransym : LAMBDA x : LAMBDA y :
+ EQUAL (AP (left x a) :
+        AP (right x b) :
+        AP (left y a) :
+        AP (right y c) : left (ltransym x y) b) I)
+
+(def-slc refl-right-ltransym : LAMBDA x : LAMBDA y :
+ EQUAL (AP (left x a) :
+        AP (right x b) :
+        AP (left y a) :
+        AP (right y c) : right (ltransym x y) c) I)
+
+(def-slc refl-red-symb :
+ EQUAL (red symb symb) I)
+
+(def-slc refl-red-dbv : LAMBDA n :
+ EQUAL (AP (nat n) : red (DBV n) (DBV n)) I)
+
+(def-slc refl-red-cons : LAMBDA a : LAMBDA b :
+ EQUAL (AP (term (a . b)) 
+  )
+)
+
+
+)
+

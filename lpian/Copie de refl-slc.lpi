@@ -1,0 +1,317 @@
+(
+
+{
+(def-slc nat-zero : EQUAL (nat zero) I)
+
+(def-slc nat-suc : LAMBDA n :
+ EQUAL (AP (nat n) : nat : suc n) I)
+
+(def-slc nat-plus-zero : LAMBDA n : 
+ EQUAL (AP (nat n) : plus zero n n) I)
+
+(def-slc nat-plus-suc : LAMBDA n : LAMBDA p : LAMBDA q :
+ EQUAL (AP (plus n p q) : plus (suc n) p (suc q)) I)
+
+(def-slc nat-order1 : LAMBDA n : 
+ EQUAL (AP (nat n) : order n n) I)
+
+(def-slc nat-order2 : LAMBDA n : LAMBDA p :
+ EQUAL (AP (order n p) : order n (suc p)) I)
+}
+
+(def-slc-axiom refl refl-symb : EQUAL (term symb) I)
+
+(def-slc-axiom refl refl-ap : LAMBDA x : LAMBDA y :
+ EQUAL (AP (term x) : AP (term x) :
+        term (ap x y)) I)
+
+(def-slc-axiom refl refl-ltransym : LAMBDA x : LAMBDA y : 
+ EQUAL (AP (term x) : AP (term y) : term (ltransym x y)) I)
+
+(def-slc-axiom refl refl-dbl : LAMBDA x : 
+ EQUAL (AP (term x) : term : dbl x) I)
+
+(def-slc-axiom refl refl-dbv : LAMBDA n :
+ EQUAL (AP (NAT n) : term : dbv n) I)
+
+(def-slc-axiom refl refl-nat : LAMBDA x :
+ EQUAL (AP (term x) : term : nat x) I)
+
+(def-slc-axiom refl refl-order : LAMBDA x : LAMBDA y : 
+ EQUAL (AP (term x) : AP (term y) : term : order x y) I)
+
+(def-slc-axiom refl refl-plus : LAMBDA a : LAMBDA b : LAMBDA c :
+ EQUAL (AP (term a) : AP (term b) : AP (term c) : term : plus a b c) I)
+
+
+(def-slc-axiom refl refl-left-equal : LAMBDA a : LAMBDA b :
+ EQUAL ((term : equal a b) => (left (equal a b) a)) I)
+
+(def-slc-axiom refl refl-right-equal : LAMBDA a : LAMBDA b : 
+ EQUAL ((term : equal a b) => (right (equal a b) b)) I)
+
+(def-slc-axiom refl refl-left-symb :
+ EQUAL (left symb symb) I)
+
+(def-slc-axiom refl refl-right-symb :
+ EQUAL (right symb symb) I)
+
+(def-slc-axiom refl refl-left-dbv : LAMBDA n :
+ EQUAL ((NAT n) => (left (dbv n) (dbv n))) I)
+
+(def-slc-axiom refl refl-right-dvb : LAMBDA n :
+ EQUAL (AP (NAT n) : right (dbv n) (dbv n)) I)
+
+(def-slc-axiom refl refl-left-ltransym : LAMBDA x : LAMBDA y : LAMBDA a : LAMBDA b : LAMBDA c :
+ EQUAL ((left x a) => :
+        (right x b) => :
+        (left y a) => :
+        (right y c) => : left (ltransym x y) b) I)
+
+(def-slc-axiom refl refl-right-ltransym : LAMBDA x : LAMBDA y : LAMBDA a : LAMBDA b : LAMBDA c : 
+ EQUAL ((left x a) => :
+        (right x b) => :
+        (left y a) => :
+        (right y c) => : right (ltransym x y) c) I)
+
+(def-slc-axiom refl refl-left-redlr : LAMBDA x : LAMBDA lx : LAMBDA rlx :
+ EQUAL ((left x lx) => :
+        (red lx rlx) => :
+        left (redlr x) rlx) I)
+
+(def-slc-axiom refl refl-right-redlr : LAMBDA x : LAMBDA rx : LAMBDA rrx :
+ EQUAL ((right x rx) => :
+        (red rx rrx) => :
+        right (redlr x) rrx) I)
+
+(def-slc-axiom refl refl-left-redr : LAMBDA x : LAMBDA lx :
+ EQUAL (AP (left x lx) :
+        left (redr x) lx) I)
+
+(def-slc-axiom refl refl-right-redr : LAMBDA x : LAMBDA rx : LAMBDA rrx :
+ EQUAL (AP (right x rx) :
+        AP (red rx rrx) :
+        right (redr x) rrx) I)
+
+(def-slc-axiom refl refl-left-nat : LAMBDA x : 
+ EQUAL ((term x) => :
+        left (nat x) (nat x)) I)
+
+(def-slc-axiom refl refl-right-nat : LAMBDA x :
+ EQUAL ((NAT x) => :
+        right (nat x) I) I)
+
+(def-slc-axiom refl refl-left-order : LAMBDA x : LAMBDA y :
+ EQUAL ((term x) => : (term y) => :
+        left (order x y) (order x y)) I)
+
+(def-slc-axiom refl refl-right-order : LAMBDA x : LAMBDA y :
+ EQUAL ((ORDER x y) => :
+        right (order x y) I) I)
+
+(def-slc-axiom refl refl-left-plus : LAMBDA a : LAMBDA b : LAMBDA c :
+ EQUAL ((term a) => : (term b) => : (term c) => :
+        left (plus a b c) (plus a b c)) I)
+
+(def-slc-axiom refl refl-right-plus : LAMBDA a : LAMBDA b : LAMBDA c :
+ EQUAL ((PLUS a b c) => :
+        right (plus a b c) I) I)
+
+
+(def-slc-axiom refl refl-shift-symb : LAMBDA m : LAMBDA n :
+ EQUAL ((NAT m) => : (NAT n) => : shift m n symb symb) I)
+
+(def-slc-axiom refl refl-shift-dbv1 : LAMBDA m : LAMBDA n : LAMBDA p : LAMBDA q : 
+ EQUAL ((ORDER p m) => : 
+        (PLUS n p q) => :  
+        shift m n (dbv p) (dbv q)) I)
+
+(def-slc-axiom refl refl-shift-dbv2 : LAMBDA m : LAMBDA n : LAMBDA p : LAMBDA p1 :
+ EQUAL ((NAT n) => :
+        (PLUS p 1 p1) => :
+        (ORDER p1 m) => :
+        shift m n (dbv p) (dbv p)) I)
+
+(def-slc-axiom refl refl-shift-dbl : LAMBDA m : LAMBDA n : LAMBDA x : LAMBDA m1 :
+ EQUAL ((plus m 1 m1) => :
+        (shift m1 n x y) => :
+        shift m n (dbl x) (dbl y)) I)
+
+(def-slc-axiom refl refl-shift-cons : LAMBDA m : LAMBDA n : LAMBDA a : LAMBDA b : LAMBDA a1 : LAMBDA b1 :
+ EQUAL ((shift m n a a1) => :
+        (shift m n b b1) => :
+        shift m n (a . b) (a1 . b1)) I)
+
+
+(def-slc-axiom refl refl-subst-symb : LAMBDA n : LAMBDA x : 
+ EQUAL ((NAT n) => :
+        (term x) => :
+        subst n symb x symb) I)
+
+(def-slc-axiom refl refl-subst-dbv1 : LAMBDA n : LAMBDA x :
+ EQUAL ((NAT n) => :
+        (term x) => :
+        subst n (dbv n) x x) I)
+
+(def-slc-axiom refl refl-subst-dbv2 : LAMBDA n : LAMBDA p : LAMBDA x : LAMBDA p1 :
+ EQUAL ((PLUS p 1 p1) => :
+        (ORDER n p1) => :
+        (term x) => :
+        subst n (dbv p1) x (dbv p)) I)
+
+(def-slc-axiom refl refl-subst-dbv3 : LAMBDA n : LAMBDA p : LAMBDA x : LAMBDA p1:
+ EQUAL ((PLUS p 1 p1) => :
+        (ORDER p1 n) => :
+        subst n (dbv p) x (dbv p)) I)
+
+(def-slc-axiom refl refl-red-symb :
+ EQUAL (red symb symb) I)
+
+(def-slc-axiom refl refl-red-dbv : LAMBDA n :
+ EQUAL ((NAT n) => : red (DBV n) (DBV n)) I)
+
+(def-slc-axiom refl refl-red-cons : LAMBDA a : LAMBDA b : LAMBDA a1 : LAMBDA b1 :
+ EQUAL ((term (a . b)) => :
+        (red a a1) => :
+        AP (red b b1) : red (a . b) (a1 . b1)) I)
+
+(def-slc-axiom refl refl-red-ap : LAMBDA a : LAMBDA b : LAMBDA c :
+ EQUAL ((subst zero a b c) => :
+        red (ap (dbl a) b) c) I)
+
+(def-slc-axiom refl refl-red-red : LAMBDA x : LAMBDA y : LAMBDA z :
+ EQUAL ((red x y) => :
+        (red y z) => :
+        red x z) I)
+
+
+(def-slc-axiom refl eval-symb : 
+ EQUAL (eval symb SYMB) I)
+
+(def-slc-axiom refl eval-ap : LAMBDA x : LAMBDA y : LAMBDA vx : LAMBDA vy :
+ EQUAL ((eval x vx) => :
+        (eval y vy) => :
+        eval (ap x y) (AP vx vy)) I)
+
+(def-slc-axiom refl eval-ltransym : LAMBDA x : LAMBDA y : LAMBDA vx : LAMBDA vy :
+ EQUAL ((eval x vx) => :
+        (eval y vy) => :
+        eval (ltransym x y) (LTRANSYM vx vy)) I)
+
+(def-slc-axiom refl eval-dbv : LAMBDA n :
+ EQUAL ((NAT n) => : 
+        eval (dbv n) (DBV n)) I)
+
+(def-slc-axiom refl eval-dbl : LAMBDA x : LAMBDA vx :
+ EQUAL ((eval x vx) => : 
+        eval (dbl x) (DBL vx)) I)
+
+(def-slc-axiom refl eval-redlr : LAMBDA x : LAMBDA vx :
+ EQUAL ((eval x vx) => :
+        eval (redlr x) (REDLR vx)) I)
+
+(def-slc-axiom refl eval-redr : LAMBDA x : LAMBDA vx :
+ EQUAL ((eval x vx) => :
+        eval (redr x) (REDR vx)) I)
+
+(def-slc-axiom refl eval-nat : LAMBDA x : LAMBDA vx :
+ EQUAL ((eval x vx) => :
+        eval (nat x) (NAT vx)) I)
+
+(def-slc-axiom refl eval-order : LAMBDA x : LAMBDA y : LAMBDA vx : LAMBDA vy :
+ EQUAL (AP (eval x vx) : 
+        AP (eval y vy) :
+        eval (order x y) (ORDER vx vy)) I)
+
+(def-slc-axiom refl eval-plus : LAMBDA a : LAMBDA b : LAMBDA c : LAMBDA va : LAMBDA vb : LAMBDA vc :
+ EQUAL ((eval a va) => :
+        (eval b vb) => : 
+        (eval c vc) => :
+        eval (plus a b c) (PLUS va vb vc)) I)
+
+
+(def-slc-axiom refl reflection : LAMBDA p : LAMBDA l : LAMBDA r :
+ EQUAL (AP (left p l) :
+        AP (eval l vl) vl)
+       (AP (right p r) :
+        AP (eval r vr) vr))
+
+
+(def SLC-REP : ARG x :
+ %x 'SYMB EQ THEN 'symb :
+ %x ISVAR THEN 
+ (%x ARG (() n) %('dbv n)) :
+ %x NCONSPTHEN %('REP x) :
+ %x CAR 'DBL EQ THEN
+ (%x ARG (() y) : %y SLC-REP ARG z %('dbl z)) :
+ %x CAR 'LTRANSYM EQ THEN
+ (%x ARG (() a b) :
+  %a SLC-REP ARG ra :
+  %b SLC-REP ARG rb 
+  %('ltransym ra rb)) :
+ %x CAR 'AP EQ THEN 
+ (%x ARG (() a b) :
+  %a SLC-REP ARG ra :
+  %b SLC-REP ARG rb 
+  %('ap ra rb)) :
+ %x CDR SLC-REP %x CAR SLC-REP CONS)
+
+(def SLC-REFL : ARG x :
+ %('EQUAL ('term x) '(DBL (DBV 0))))
+
+(def REFL-THEORY : ARG theory : 
+ %theory '() MAPKAR 
+  (DEP ARG (name axiom) : 
+   %axiom SLC-REFL ARG refl-axiom :
+   %(('refl name) refl-axiom))
+ %theory APPEND)
+
+{ example of axiom : axiom1 : SYMB = (AP SYMB SYMB) }
+
+(def-slc axiom1 : EQUAL SYMB (AP SYMB SYMB))
+
+{ reflection for this axiom }
+
+(def-slc refl-axiom1 : 
+ EQUAL (term axiom1) I)
+
+(def-slc refl-left-axiom1 : 
+ EQUAL (left axiom1 symb) I)
+
+(def-slc refl-right-axiom1 :
+ EQUAL (right axiom1 (ap symb symb)) I)
+
+{ 
+  Gödelian proposition G : GL = GR
+  for all x, if x is a well formed proof, then :
+   x does not prove GL = GR
+  or :
+   not (left x is GL and right x is GR)
+  G = (GL = GR) = ((LAMBDA x : (term x) => : (left x GL) => : (right x GR) => false) = (LAMBDA x I))
+  GL = (LAMBDA x : (term x) => : (left x GL) => : (right x GR) => false)
+  GR = (LAMBDA x I) = (DBL I) = (AP K I)
+  GL = (LAMBDA x : (term x) => : (left x GL) => : (right x (DBL I)) => false)
+  GL = AP Y (LAMBDA gl : LAMBDA x : (term x) => : (left x gl) => : (right x (DBL I)) => false)
+
+  point fixe de la non démontrabilité
+  Y f = A (f o A)
+  A p = rep (P p) avec p = rep P
+  f p = rep de ~ existe n tq n = rep dem P
+  f' = f o A
+  f' p = rep de ~ existe n tq n = rep dem P p
+  G = F' f'
+  F' p = ~ existe n tq n = rep dem P p
+  F' p = all x ((term x) => (left x (P p)) => (right x I) => faux)
+       = all x ((term x) => (eval P p) => (left x (P p)) => (right x I) => faux
+  F' = LAMBDA p : all x ((term x) => (eval P p) => (left x (P p)) => (right x I) => faux)
+  f' = rep F'
+  G = F' f' 
+  G = all x : all P ((term x) => (eval P f') => (left x (P f')) => (right x I) => faux)
+
+}
+
+
+ 
+  
+)
+

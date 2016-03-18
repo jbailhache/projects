@@ -1,0 +1,15 @@
+LICENSE.txt
+Makefile
+alt.scm
+definstr.h
+exn.lpi
+files.txt
+init.lpi
+lcs.lpi
+lpia
+lpia.c
+lpia.o
+lpiadoc-en.txt
+lpiadoc-fr.txt
+testlcs.lpi
+tuto.lpi

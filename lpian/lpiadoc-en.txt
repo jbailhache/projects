@@ -1,0 +1,441 @@
+LPIA : PROGRAMMING LANGUAGE FOR ARTIFICIAL INTELLIGENCE
+
+LPIA is an interpreted symbolic functional language with multi-process
+capabilities and predefined pattern matching. It is inspired by combinatory
+logic, lambda calculus, Scheme and Forth.
+
+
+INSTALLATION AND USE
+
+Build and install the interpreter :
+
+$ make
+cc -c -g lpia.c
+cc -o lpia lpia.o
+$ make install
+cp lpia /usr/bin
+
+To run it type :
+$ lpia
+
+To load a source :
+("myprog.lpi" LOAD)
+
+To run the tutorial type :
+("tuto.lpi" LOAD)
+
+
+SYMBOLIC EXPRESSIONS
+
+It uses symbolic expressions like Lisp or Scheme. 
+A symbolic expression can be :
+- a symbol
+- an integer
+- a character string
+- an instruction
+- a pair ( car . cdr )
+To each symbol are associated 2 symbolic expressions : its definition and its properties list.
+
+Notations : 
+- Lists : (a b c) is equivalent to (a . (b . (c . nil)))
+- Nested lists : (a b c : d e f) is equivalent to (a b c (d e f))
+- Reverse lists : @(a b c) is equivalent to (c b a)
+- 'x is equivalent to (QUOTE x)
+- %x is equivalent to (GET x)
+- &x is equivalent to (VAR x)
+- () is equivalent to nil
+
+PROCESS STATE
+
+The state of a process is represented by 5 symbolic expressions :
+- the strategy
+- the program
+- the (main) stack
+- the secondary stack
+- the environment
+The list of these expression is called the context. The context is an
+expression representing the state of a process during its execution.
+
+The strategy contains the priority of the process and the increments of the
+priority used when new processes are created.
+
+The program is a list of instructions executed sequentially.
+
+The stacks are used to transmit arguments and return results.
+
+The environment is a list which associates variables to their values.
+
+
+EXECUTION
+
+When the first element of the program is a list, it is appended to the beginning of the rest of
+the program :
+((a b c) d e f) -> (a b c d e f)
+
+When it is a symbol, it is replaced by its definition.
+
+When it is an instruction, a specific treatment depending on the instruction
+is done.
+
+There are different types of instructions :
+
+- Combinators which act on the program :
+I a -> a
+K a b -> a
+S a b c -> a c (b c)
+Y a -> a (Y a)
+B a b c -> a (b c)
+C a b c -> a c b
+W a b -> a b b
+APPLYTO a b -> b a
+P a b c -> c a b
+J a -> 
+
+- QUOTE pushes a value on the main stack
+
+- Stack manipulation operations :
+( instruction : main stack before / secondary stack before -> main stack after
+/ secondary stack after )
+DROP or DEP : a / -> /
+DUP or REP : a / -> a a /
+SWAP or ECH : a b / -> b a /
+>R or DES : a / -> / a
+R> or MON : / a -> a /
+MONDEP : / a -> /
+GETH n : / a1 a2 ... an -> an / a1 a2 ... an
+
+- Tests :
+THEN a b executes a if top of stack is true, else b.
+nil = () is considered as false, all other are true.
+NCONSPTHEN a b executes a if top of stack is not a pair, else b.
+CONSP replaces the top of stack by a true value if it is a pair, otherwise by
+nil.
+
+- Execution :
+EXEC executes the top of the stack by moving it at the beginning of the
+program.
+
+- Definitions :
+GETDEF accesses to the definition of a symbol
+SETDEF modifies the definition of a symbol
+def a b sets the definition of symbol a to b
+
+- Data manipulation :
+CAR accesses to the first element of a pair
+CDR accesses to the second element of a pair
+CONS makes a new pair
+EQ tests the equality of symbolic expression (same address in memory)
+GETTYPE accesses to the type of a symbolic expression 
+SETTYPE modifies the type of a symbolic expression (expr type SETTYPE)
+RPLACA modifies the first element of a pair (expr pair RPLACA)
+RPLACD modifies the second element of a pair (expr pair RPLACD)
+
+- Arithmetic and logical operations :
+PLUS : addition
+MINUS or MOINS : substraction
+TIMES or FOIS : multiplication
+DIV : division
+MOD : modulo
+NOT : bitwise negation
+LOGAND or ETL : bitwise and
+LOGOR or OUL : bitwise or
+LOGXOR or OXL : bitwise exclusive or
+
+- Strings :
+n NEWSTR creates a string of length n
+i str GETSTRCHAR pushes the i-th character of string str
+c i str SETSTRCHAR replaces the i-th character of str by c
+
+- Input output :
+TYI pushes a character read from standard input
+TYO outputs a character to standard output
+READSTRING reads a line from standard input
+PRINTSTRING displays a character string to standard output
+READ reads a symbolic expression from standard input
+PRIN prints a symbolic expression to standard output
+x l PRINL prints x with depth level l
+PRINT prints a symbolic expression followed by an end of line to standard output
+READFILE read the content of a file
+
+- Context access :
+Instructions prefixed by GET and SET accesses or modify the following symbolic expressions representing the state of execution :
+LCTXS : list of contextes of other processes
+STRAT : strategy = (PRIO LINCR RINCR)
+PROG : program
+STACK : main stack
+RSTACK : secondary stack
+ENVIR : environment
+PRIO : priority
+LINCR : left increment
+RINCR : right increment
+CTX : current context = (STRAT PROG STACK RSTACK ENVIR)
+ALT a b forks the current process into 2 processes, the first one runs a and its PRIO is incremented by LINCR, and the second one runs b and its PRIO is incremented by RINCR
+END terminates the current process and "jumps" to the first process of LCTXS
+
+- Environment and variables
+var env GETVENV gets the value of var in env
+val var env SETVENV modifies the value of var in env and pushes the modified environment
+val var env ADDVENV adds the value val to the variable var in environment env 
+var env REMVENV removes the value of var in env
+GET var pushes the value of var in the current environment (ENVIR)
+SETVQ var modifies the value of VAR in the current environment
+ARG var code : runs code with value of var set to top of stack
+
+- Interprocess Communication channels
+'() MKCNL creates a communication channel which ignores priorities of processes
+'true MKCNL creates a communication channel which takes in account priorities of processes
+%cnl RECEIVE receives a value from channel %cnl
+%cnl SEND sends a value to a channel
+Example :
+('true MKCNL : ARG cnl : ALT (%cnl RECEIVE PRINT END) : 'test %cnl SEND)
+test
+
+
+EXAMPLES
+
+File exn.lpi : miscellaneous examples :
+
+$ lpia
+("exn.lpi" LOAD)
+
+Example of Prolog clause plappend :
+
+(ALT (plappend '((a b c) (d e) &x) :
+        %x PRINT END)
+        I)
+(a b c d e)
+
+(ALT (plappend '(&x &y (a b c d e))
+        %x PRIN %y PRINT END)
+        I)
+nil(a b c d e)
+(a)(b c d e)
+(a b)(c d e)
+(a b c)(d e)
+(a b c d)(e)
+(a b c d e)nil
+
+
+Example of a lazy list which virtually contains the infinite list (30 31 32 ...)
+
+(30 INTFROM SETVQ l)
+(%l UNFREEZE CDR UNFREEZE CAR PRINT)
+31
+
+
+Path finding :
+
+     n
+     ^
+     |
+o <- * -> e
+     |
+     v
+     s
+
+G <- H -> I
+|    ^    |
+v    |    v
+D <- E -> F
+|    ^    |
+v    |    v
+A -> B -> C
+
+('A 'I '() lab1 CHEMIN PRINT)
+chemin de A a I dv=nil
+chemin de B a I dv=(A)
+chemin de E a I dv=(B A)
+chemin de D a I dv=(E B A)
+chemin de A a I dv=(D E B A)
+chemin de H a I dv=(E B A)
+chemin de G a I dv=(H E B A)
+chemin de D a I dv=(G H E B A)
+chemin de A a I dv=(D G H E B A)
+chemin de I a I dv=(H E B A)
+(e n n e . true)
+
+Infinite lists :
+
+('((label l) a b c (goto l)) LINK PRINT)
+(a b c a b c a b c a b c a b c a b c a b c a b c a b c a b c a b ... )
+
+
+
+Example of expert system :
+
+LCC
+homme traverse avec (chevre blanchette) de rive gauche vers rive droite
+homme traverse seul de rive droite vers rive gauche
+homme traverse seul de rive gauche vers rive droite
+Deja rencontre
+homme traverse avec (loup loulou) de rive gauche vers rive droite
+homme traverse avec (loup loulou) de rive droite vers rive gauche
+Deja rencontre
+homme traverse avec (chevre blanchette) de rive droite vers rive gauche
+homme traverse avec (chevre blanchette) de rive gauche vers rive droite
+Deja rencontre
+homme traverse avec (chou chou1) de rive gauche vers rive droite
+homme traverse seul de rive droite vers rive gauche
+homme traverse seul de rive gauche vers rive droite
+Deja rencontre
+homme traverse avec (chevre blanchette) de rive gauche vers rive droite
+Solution :
+    Regle objectif-lcc , env =
+        BASE = (((chevre blanchette) sur (rive droite)) ((homme toto) sur (rive droite)) ((chou chou1) sur (rive droite)) ((loup loulou) sur (rive droite)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle2-lcc , env =
+        BASE = (((chevre blanchette) sur (rive droite)) ((homme toto) sur (rive droite)) ((chou chou1) sur (rive droite)) ((loup loulou) sur (rive droite)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle1-lcc , env =
+        BASE = (((homme toto) sur (rive gauche)) ((chou chou1) sur (rive droite)) ((chevre blanchette) sur (rive gauche)) ((loup loulou) sur (rive droite)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle2-lcc , env =
+        BASE = (((chou chou1) sur (rive droite)) ((homme toto) sur (rive droite)) ((chevre blanchette) sur (rive gauche)) ((loup loulou) sur (rive droite)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle2-lcc , env =
+        BASE = (((chevre blanchette) sur (rive gauche)) ((homme toto) sur (rive gauche)) ((loup loulou) sur (rive droite)) ((chou chou1) sur (rive gauche)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle2-lcc , env =
+        BASE = (((loup loulou) sur (rive droite)) ((homme toto) sur (rive droite)) ((chevre blanchette) sur (rive droite)) ((chou chou1) sur (rive gauche)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle1-lcc , env =
+        BASE = (((homme toto) sur (rive gauche)) ((chevre blanchette) sur (rive droite)) ((loup loulou) sur (rive gauche)) ((chou chou1) sur (rive gauche)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+    Regle regle2-lcc , env =
+        BASE = (((chevre blanchette) sur (rive droite)) ((homme toto) sur (rive droite)) ((loup loulou) sur (rive gauche)) ((chou chou1) sur (rive gauche)) ((rive gauche) proche (rive droite)) ((rive droite) proche (rive gauche)))
+
+
+File lcs.lpi : theorem proving
+
+testlcs.lpi contains examples of theorem proving.
+
+$ lpia
+("exn.lpi" LOAD)
+("lcs.lpi" LOAD)
+("testlcs.lpi" LOAD)
+(
+(def a1 ': dem (egal a b) : loi)
+(def a2 ': dem (egal b c) : loi)
+(def d1 : a2 a1 TRANS)
+(d1 PRINT)
+(d1 VERIF PRINT)
+(a1 AJDEMBASE)
+(a2 AJDEMBASE)
+(-1 SETINCR)
+(def-elems (a b c))
+('(egal a c) DEM PRINT)
+('(I a) RECR PRINT)
+('() SETLCTXS)
+(-1 SETINCR)
+(ALT ('(I x) SIMPLIFLCS PRINT END) : GETPRIO -15 PLUS SETPRIO : ALT END : '() SETLCTXS)
+(ALT ('(I x) SFDLCS PRINT END) : GETPRIO -10 PLUS SETPRIO : ALT END : '() SETLCTXS)
+('(x x) 'x ABSTRACTLCS PRINT)
+('(x x) 'x ATDLCS PRINT)
+(ALT (plsimpliflcs '((I x) &y) %y PRINT END) : GETPRIO -15 PLUS SETPRIO : ALT END : '() SETLCTXS)
+('I FORMEXT-TERME PRINT)
+('(egal I I) FORMEXT-EG PRINT)
+('(ABS x (x x)) LCS-FORMINT PRINT)
+('(PT x : egal x x) LCS-FORMINT-EG PRINT)
+
+)
+(def a1 (QUOTE (dem (egal a b) (loi))))
+(def a2 (QUOTE (dem (egal b c) (loi))))
+(def d1 (a2 a1 TRANS))
+(d1 PRINT)
+(dem (egal a c) (trans (dem (egal a b) (loi)) (dem (egal b c) (loi))))
+(d1 VERIF PRINT)
+t
+(a1 AJDEMBASE)
+(a2 AJDEMBASE)
+(-1 SETINCR)
+(def-elems (a b c))
+((QUOTE (egal a c)) DEM PRINT)
+(dem (egal b c) (loi))
+(dem (egal a c) (trans (dem (egal a b) (loi)) (dem (egal b c) (loi))))
+(dem (egal a c) (trans (dem (egal a b) (loi)) (dem (egal b c) (loi))))
+((QUOTE (I a)) RECR PRINT)
+(dem (egal b c) (loi))
+(dem (egal b c) (loi))
+(dem (egal a (I a)) (dcbi (dem (egal a a) (loi))))
+((QUOTE nil) SETLCTXS)
+(-1 SETINCR)
+(ALT ((QUOTE (I x)) SIMPLIFLCS PRINT END) (GETPRIO -15 PLUS SETPRIO (ALT END ((QUOTE nil) SETLCTXS))))
+(I x)
+x
+(I x)
+(I (I x))
+((K (I x)) I)
+x
+(I x)
+((K (I x)) K)
+(I x)
+((K (I x)) S)
+(ALT ((QUOTE (I x)) SFDLCS PRINT END) (GETPRIO -10 PLUS SETPRIO (ALT END ((QUOTE nil) SETLCTXS))))
+(dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x x) (loi))))
+
+*** GC ***
+(dem (egal x (I x)) (trans (dem (egal x x) (loi)) (dem (egal x (I x)) (dcbi (dem (egal x x) (loi))))))
+(dem (egal (I x) (I x)) (trans (dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x x) (loi)))) (dem (egal (I x) (I x)) (ext (dem (egal ((I x) $30) ((I x) $30)) (trans (dem (egal ((I x) $30) ((I x) $30)) (egap (dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x x) (loi)))) (dem (egal $30 $30) (loi)))) (dem (egal ((I x) $30) ((I x) $30)) (egap (dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x ...) (loi)))) (dem (egal $30 $30) (loi))))))))))
+(dem (egal (I (I x)) (I x)) (trans (dem (egal (I (I x)) (I (I x))) (egap (dem (egal I I) (loi)) (dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x x) (loi)))))) (dem (egal (I (I x)) (I x)) (sym (dem (egal (I x) (I (I x))) (dcbi (dem (egal (I x) (I x)) (egap (dem (egal I I) (loi)) (dem (egal x x) (loi))))))))))
+((QUOTE (x x)) (QUOTE x) ABSTRACTLCS PRINT)
+((S I) I)
+((QUOTE (x x)) (QUOTE x) ATDLCS PRINT)
+(dem (egal (((S I) I) x) (x x)) (trans (dem (egal (((S I) I) x) ((I x) (I x))) (sym (dem (egal ((I x) (I x)) (((S I) I) x)) (dcbs (dem (egal I I) (loi)) (dem (egal I I) (loi)) (dem (egal x x) (loi)))))) (dem (egal ((I x) (I x)) (x x)) (egap (dem (egal (I x) x) (sym (dem (egal x (I x)) (dcbi (dem (egal x x) (loi)))))) (dem (egal (I x) x) (sym (dem (egal x (I x)) (dcbi (dem (egal x x) (loi))))))))))
+(ALT (plsimpliflcs (QUOTE ((I x) (VAR y))) (GET y) PRINT END) (GETPRIO -15 PLUS SETPRIO (ALT END ((QUOTE nil) SETLCTXS))))
+(I x)
+x
+((K (I x)) (VAR $95))
+(I (I x))
+x
+((K (I x)) (VAR $246))
+(I (I x))
+((K x) (VAR $505))
+(I x)
+(I x)
+(I x)
+x
+(((S K) (VAR $625)) (I x))
+
+*** GC ***
+((VAR $45) ((K x) (VAR $568)))
+((VAR $45) (I x))
+((QUOTE I) FORMEXT-TERME PRINT)
+(ABS $928 $928)
+((QUOTE (egal I I)) FORMEXT-EG PRINT)
+(PT $931 (egal $931 $931))
+((QUOTE (ABS x (x x))) LCS-FORMINT PRINT)
+((S I) I)
+((QUOTE (PT x (egal x x))) LCS-FORMINT-EG PRINT) 
+(egal I I)
+
+
+File slc.lpi : Symbolic Lambda Calculus, another thjeorem proving system
+
+This system is based on Church's lambda calculus and De Bruijn's notation which permits to represent lambda calculus expressions without variables names.
+In lambda calculus the expression "lambda x . a" represents the function which associates a to x.
+The problem is that two expressions which seems different may represent the same object, for example "lambda x . x" and "lambda y . y". 
+De Bruijn's notation avoids this problem by replacing variable names by numbers representing the nesting level, for example "lambda . 0" corresponds to "lambda x . x" and "lambda . lambda . 1" to "lambda x . lambda y . x".
+
+Lambda calculus expressions represent both functions and objects.
+In SLC formalism, expressions also represent functions and objects but may also represent equalities. An object x is identified with the equality x = x. To each expression are associated a left and a right member. This expression is associated to the equality left member = right member.
+Axioms are represented by the equality (EQUAL a b) which affirms the equality of a and b.
+Rules permit to deduce other equalities from axioms.
+For example if x is associated with equality a=b then (SYM x) is associated to equality b=a.
+If x is associated to equality a=b and y is associated to equality b=c then (TRANS x y) is associated to equality a=c.
+If x is associated to equality f=g and y is associated to equality a=b then (AP x y) is associated to equality (AP f a) = (AP g b).
+A true proposition is associated to identity I = (lambda x . x).
+The deduction rule P |- q (from p infer q) is represented by application (AP p q).
+If (AP p q) and p are true then (AP p q) = I and p = I, so (AP p q) = (AP I q) = q = I, then q is also true.
+
+
+File scl.lpi : Symbolic combinatory logic
+
+This system is a modified version of symbolic lambda calculus where lambda calculus has been replaced by combinatory logic. It is a simpler but less efficient formalism compared to lambda calculus. Combinatory logic terms are made of applications of basic combinators I, K and S defined by :
+(AP I a) = a
+(AP (AP K a) b) = a
+(AP (AP (AP S a) b) c) = (AP (AP a c) (AP b c))
+Lambda calculus expressions may be translated into combinatory logic expressions by the following formulas :
+lambda x . x = I
+lambda x . a = (AP K a) si x ne figure pas dans a
+lambda x . (AP a b) = (AP (AP S (lambda x . a)) (lambda x . b))
+
+
+
+
+
+
+ 
+

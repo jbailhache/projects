@@ -1,0 +1,426 @@
+(
+
+(def VAR : ARG x : %('DBV x))
+
+(def ISVAR : ARG x : 
+ %x NCONSPTHEN '() :
+ %x CAR 'DBV EQ)
+
+(def DBL : ARG x : %('DBL x))
+
+(def SLC-SHIFT : ARG m : ARG n : ARG x :
+ %x NCONSPTHEN %x :
+ %x ISVAR THEN
+  (%x CDR CAR %m MOINS POSP THEN
+   (%x CDR CAR %n PLUS VAR) 
+   %x) :
+ %x CAR 'DBL EQ THEN
+  (%x CDR CAR %n %m 1 PLUS SLC-SHIFT DBL) :
+ %x CDR %n %m SLC-SHIFT %x CAR %n %m SLC-SHIFT CONS)
+
+(def SLC-SUBST : ARG n : ARG a : ARG b :
+ %a NCONSPTHEN %a :
+ %a ISVAR THEN
+  (%a CDR CAR %n EQ THEN %b :
+   %a CDR CAR %n MOINS POSP THEN (%a CDR CAR -1 PLUS VAR) %a) :
+ %a CAR 'DBL EQ THEN 
+  (%b 1 0 SLC-SHIFT %a CDR CAR %n 1 PLUS SLC-SUBST DBL) :
+ %b %a CDR %n SLC-SUBST %b %a CAR %n SLC-SUBST CONS)
+
+(def SLC-RED1 : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR 'AP EQ AND (%x CDR CAR CONSP AND : %x CDR CAR CAR 'DBL EQ) THEN
+  (%x ARG (() (() a) b) : %b %a  0 SLC-SUBST) :
+ %x CDR SLC-RED1 %x CAR SLC-RED1 CONS)
+
+(def SLC-RED : ARG x :
+ %x SLC-RED1 ARG y :
+ %x %y EQUAL THEN %x : 
+ %y SLC-RED)
+
+(def SLC-DBNAME : ARG n : ARG x : ARG y :
+ %x %y EQUAL THEN (%n VAR) :
+ %y NCONSPTHEN %y :
+ %y %x DANS NOT THEN %y :
+ %y CAR 'DBL EQ THEN
+  (%y CDR CAR %x %n 1 PLUS SLC-DBNAME DBL) :
+ %y CDR %x %n SLC-DBNAME %y CAR %x %n SLC-DBNAME CONS)
+
+(def SLC-SIDE : ARG s : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR ARG node :
+ %node GETTYPE 'a GETTYPE EQ THEN ('SLC-SIDE %node GETPROP) '() ARG prop :
+ %prop THEN (%x %s %prop EXEC) :
+ %x CDR %s SLC-SIDE %x CAR %s SLC-SIDE CONS)
+
+(def SLC-EQUAL : ARG x :
+ '() %x '() SLC-SIDE CONS %x 'true SLC-SIDE CONS 'EQUAL CONS)
+
+(def def-slc-side : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-SIDE %node PUTPROP)
+
+(def-slc-side EQUAL : ARG s : ARG (() a b) :
+ %s THEN %a %b)
+
+(def-slc-side SYM : ARG s : ARG (() a) :
+ %a %s THEN '() 'true SLC-SIDE)
+
+(def-slc-side TRANS : ARG s : ARG (() a b) :
+ %a '() SLC-SIDE %b 'true SLC-SIDE EQUAL THEN
+  (%s THEN %a %b %s SLC-SIDE) :
+ %('TRANS a b))
+
+(def-slc-side LTRANSYM : ARG s : ARG (() a b) :
+ %a 'true SLC-SIDE %b 'true SLC-SIDE EQUAL THEN
+  (%s THEN %a %b '() SLC-SIDE)
+ %('LTRANSYM a b))
+
+(def-slc-side RTRANSYM : ARG s : ARG (() a b) :
+ %a '() SLC-SIDE %b '() SLC-SIDE EQUAL THEN
+  (%s THEN %a %b 'true SLC-SIDE)
+ %('RTRANSYM a b))
+
+(def-slc-side SUBST : ARG s : ARG (() a b) :
+ %s THEN %('AP ('DBL a) b) :
+ %b %a 0 SLC-SUBST) 
+
+(def-slc-side APS : ARG s : ARG (() a b) :
+ %s THEN %('AP a b) :
+ %a NCONSPTHEN %('AP a b) :
+ %a CAR 'DBL EQ THEN ('() %b CONS %a CDR CAR CONS 'SUBST CONS %s SLC-SIDE) :
+ %('AP a b))
+
+(def-slc-side REDR1 : ARG s : ARG (() x) :
+ %s THEN %x : 
+ %x SLC-RED)
+
+(def-slc-side REDR : ARG s : ARG (() x) :
+ %s THEN (%x %s SLC-SIDE) :
+ %x %s SLC-SIDE SLC-RED)
+
+(def-slc-side SUBSTLR : ARG s : ARG (() x) :
+ %x 'true SLC-SIDE ARG y :
+ %y 'true SLC-SIDE ARG z :
+ %y %z EQUAL THEN
+  (%s THEN (%y '() SLC-SIDE) (%x '() SLC-SIDE)) : 
+ %x)
+
+(def-slc-side REDLR : ARG s : ARG (() x) :
+ %x %s SLC-SIDE SLC-RED)
+
+(def-slc-side SIMPLIF : ARG s : ARG (() x) : 
+ %x %s SLC-SIDE SLC-SIMPLIF)
+
+
+(def-slc-side NAT : ARG s : ARG (() n) :
+ %n GETTYPE '0 GETTYPE EQ THEN
+ (%s THEN %('NAT n) '(DBL (DBV 0)))
+ %('NAT n))
+
+(def-slc-side ORDER : ARG s : ARG (() n p) :
+ (%n GETTYPE '0 GETTYPE EQ AND :
+  %p GETTYPE '0 GETTYPE EQ AND :
+  %p %n MOINS POSP)
+ THEN
+ (%s THEN %('ORDER n p) '(DBL (DBV 0)))
+ %('ORDER n p))
+
+(def-slc-side PLUS : ARG s : ARG (() a b c) :
+ (%a GETTYPE '0 GETTYPE EQ AND :
+  %b GETTYPE '0 GETTYPE EQ AND :
+  %c GETTYPE '0 GETTYPE EQ AND :
+  %a %b PLUS %c EQ)
+ THEN
+ (%s THEN %('PLUS a b c) '(DBL (DBV 0)))
+ %('PLUS a b c))
+
+
+(def SLC-INT : ARG x :
+ %x NCONSPTHEN 
+  (%x GETTYPE 'a GETTYPE EQ THEN ('SLC-DEF %x GETPROP) '() ARG prop :
+   %prop THEN %prop %x) :
+ %x CAR ARG node :
+ %node GETTYPE 'a GETTYPE EQ THEN ('SLC-INT %node GETPROP) '() ARG prop :
+ %prop THEN (%x %prop EXEC) :
+ %x CDR SLC-INT %x CAR SLC-INT CONS)
+
+(def def-slc-int : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-INT %node PUTPROP)
+
+(def-slc-int LAMBDA : ARG (() a b) : 
+ %b SLC-INT %a SLC-INT 0 SLC-DBNAME DBL)
+
+(def APN : ARG l :
+ %l NCONSPTHEN (0 VAR DBL) :
+ %l CDR NCONSPTHEN (%l CAR SLC-INT) :
+ '() %l LAST CAR SLC-INT CONS %l BUTLAST APN CONS 'AP CONS)
+
+(def-slc-int APN : ARG (() . l) :
+ %l APN)
+
+('() SETVQ SLC-DEFS)
+
+(def def-slc : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SLC-DEFS %name CONS SETVQ SLC-DEFS
+ %val SLC-INT 'SLC-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SLC-INT SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT)
+
+(def def-slc-axiom : C QUOTE : C QUOTE : C QUOTE : ARG val : ARG name : ARG theory :
+ %SLC-DEFS %name CONS SETVQ SLC-DEFS
+ %val SLC-INT ARG intval : 
+ %intval 'SLC-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SLC-INT SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT
+ %(name intval) LIST1 %theory GETENV GETVENV APPEND %theory GETENV SETVENV SETENV)
+
+(def PRINT-THEORY : ARG theory :
+ %theory '() MAPK : DEP ARG (name axiom) : 
+ %name PRIN " : " PRINTSTRING %axiom PRIN " |- " PRINTSTRING 
+ %axiom SLC-EQUAL ARG (() a b) :
+ %a SLC-EXT PRIN " = " PRINTSTRING %b SLC-EXT PRINT)
+
+(def SLC-VERIF : ARG theory : ARG x :
+ %x SLC-INT ARG y :
+{ "y=" PRINTSTRING %y PRINT  }
+ %theory %y CONTIENT (ARG y : ARG (name axiom) : %y %axiom EQUAL) OR :
+ %y CONSP AND :
+ (%y CAR 'DBV EQ AND :
+  %y LENGTH 2 EQ AND :
+  %y CDR CAR GETTYPE 0 GETTYPE EQ) OR :
+ (%y CAR 'DBL EQ AND :
+  %y LENGTH 2 EQ AND :
+  %y CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'AP EQ AND :
+  %y LENGTH 3 EQ AND :
+  %y CDR CAR %theory SLC-VERIF AND :
+  %y CDR CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'LTRANSYM EQ AND :
+  %y LENGTH 3 EQ AND : 
+  %y CDR CAR %theory SLC-VERIF AND :
+  %y CDR CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'REDR EQ AND :
+  %y LENGTH 2 EQ AND :
+  %y CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'REDLR EQ AND :
+  %y LENGTH 2 EQ AND :
+  %y CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'NAT EQ AND : 
+  %y LENGTH 2 EQ AND :
+  %y CDR CAR GETTYPE 0 GETTYPE EQ) OR :
+ (%y CAR 'ORDER EQ AND :
+  %y LENGTH 3 EQ AND :
+  %y CDR CAR GETTYPE 0 GETTYPE EQ AND :
+  %y CDR CDR CAR GETTYPE 0 GETTYPE EQ AND :
+  %y CDR CDR CAR %y CDR CAR MOINS POSP) OR :
+ (%y CAR 'PLUS EQ AND :
+  %y LENGTH 4 EQ AND :
+  %y CDR CAR GETTYPE 0 GETTYPE EQ AND :
+  %y CDR CDR CAR GETTYPE 0 GETTYPE EQ AND :
+  %y CDR CDR CDR CAR GETTYPE 0 GETTYPE EQ AND :
+  %y CDR CAR %y CDR CDR CAR PLUS %x CDR CDR CDR CAR EQ) OR :
+ (%y '(EQUAL (WFP (REP &a)) (DBL (DBV 0))) 'true UNIF ARG env :
+  %env AND : 
+  'a %env GETVENV ARG a :
+  %a %theory SLC-VERIF) OR : 
+ (%y '(EQUAL (LEFT (REP &a) (REP &b)) (DBL (DBV 0))) 'true UNIF ARG env :
+  %env AND :
+  'a %env GETVENV ARG a :
+  'b %env GETVENV ARG b :
+  %a %theory SLC-VERIF AND :
+  %a 'true SLC-SIDE %b EQUAL) OR :
+ (%y '(EQUAL (RIGHT (REP &a) (REP &b)) (DBL (DBV 0))) 'true UNIF ARG env : 
+  %env AND :
+  'a %env GETVENV ARG a :
+  'b %env GETVENV ARG b : 
+  %a %theory SLC-VERIF AND :
+  %a '() SLC-SIDE %b EQUAL) OR : 
+ (%y '(EQUAL (EVAL (REP &a) &a) (DBL (DBV 0))) 'true UNIF ARG env :
+  'a %env GETVENV ARG a :
+  %a %theory SLC-VERIF) 
+{
+ (%y CAR 'EQUAL EQ AND :
+  %y LENGTH 3 EQ AND :
+  %y CDR CDR CAR '(DBL (DBV 0)) EQUAL AND :
+  %y CDR CAR LENGTH 2 EQ AND :
+  %y CDR CAR CAR 'term EQ AND :
+  %y CDR CAR CDR CAR %theory SLC-VERIF) OR :
+ (%y CAR 'EQUAL EQ AND : 
+  %y LENGTH 3 EQ AND :
+  %y CDR CDR CAR '(DBL (DBV 0)) EQUAL AND :
+  %y CDR CAR LENGTH 3 EQ AND :
+  %y CDR CAR CAR 'left EQ AND :
+  %y CDR CAR CDR CAR %theory SLC-VERIF AND :
+  %y CDR CAR CDR CAR 'true SLC-SIDE %y CDR CAR CDR CDR CAR EQUAL) OR : 
+ (%y CAR 'EQUAL EQ AND : 
+  %y LENGTH 3 EQ AND :
+  %y CDR CDR CAR '(DBL (DBV O)) EQUAL AND :
+  %y CDR CAR LENGTH 3 EQ AND :
+  %y CDR CAR CAR 'right EQ AND :
+  %y CDR CAR CDR CAR %theory SLC-VERIF AND : 
+  %y CDR CAR CDR CAR 'true SLC-SIDE %y CDR CAR CDR CDR CAR EQUAL) 
+}
+)
+
+ 
+(def SLC-EXT : ARG x :
+ (%SLC-DEFS '() CONTIENT : DEP ARG name : 
+  'SLC-DEF %name GETPROP ARG val : 
+  %val %x EQUAL THEN %name '()) OR :
+ %x NCONSPTHEN %x : 
+  %x CAR ARG node :
+  %node GETTYPE 'a GETTYPE EQ THEN
+   ('SLC-EXT %node GETPROP) '() ARG prop :
+  %prop THEN (%x %prop EXEC) : 
+ %x CDR SLC-EXT %x CAR SLC-EXT CONS)
+
+(def def-slc-ext : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-EXT %node PUTPROP)
+
+(def-slc-ext AP : ARG (() a1 b1) :
+ %a1 SLC-EXT ARG a :
+ %b1 SLC-EXT ARG b :
+ %a NCONSPTHEN %('AP a b) :
+ %a CAR 'AP EQ THEN 
+  ('() %b SLC-EXT CONS %a CDR CDR CAR SLC-EXT CONS %a CDR CAR SLC-EXT CONS 'APN CONS) : 
+ %a CAR 'APN EQ THEN
+  ('() %b SLC-EXT CONS %a CDR SLC-EXT APPEND 'APN CONS) :
+  %('AP a b))
+
+{
+(def SLC-SIMPLIF : ARG x : 
+ %x NCONSPTHEN %x :
+ %x SLC-RED ARG y :
+ %y NCONSPTHEN %y :
+ (%y CAR GETTYPE 'a GETTYPE EQ THEN
+  (%y CAR GETPROP) '()) ARG prop : 
+ %prop THEN (%y %prop EXEC) : 
+ %y CDR SLC-SIMPLIF %y CAR SLC-SIMPLIF CONS)
+}
+
+(def SLC-SIMPLIF : ARG x : 
+ %x NCONSPTHEN %x (%x CDR SLC-SIMPLIF %x CAR SLC-SIMPLIF CONS) ARG y : 
+ (SLC-SIMPLIF-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %y { a verifier : x ou y ? } %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SLC-SIMPLIF-RULES '(
+ ((DBL (AP &f (DBV 0))) &f)
+))
+
+(def slce : C QUOTE : ARG x :
+ %x SLC-INT SLC-EQUAL REP SETVQ SLCRES 
+ SLC-SIMPLIF SLC-EXT PRINT)
+
+(def slc : C QUOTE : ARG x :
+ %x SLC-INT SLC-EQUAL REP SETVQ SLCRES 
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT)
+
+(def-slc I : LAMBDA a a)
+
+(def-slc K : LAMBDA a : LAMBDA b a)
+
+(def-slc S : LAMBDA a : LAMBDA b : LAMBDA c : AP (AP a c) (AP b c))
+
+(def-slc gp-rule1 : LAMBDA x : LAMBDA y : LAMBDA z : 
+ EQUAL (AP (parent x y) : AP (parent y z) : gdparent x z) I)
+
+(def-slc gp-axiom1 : EQUAL (parent Allan Brenda) I)
+(def-slc gp-axiom2 : EQUAL (parent Brenda Charles) I)
+
+(def-slc gp-lemma1 : REDLR : APN gp-rule1 Allan Brenda Charles)
+(def-slc gp-lemma2 : REDLR : AP gp-axiom1 : AP (parent Brenda Charles) : gdparent Allan Charles)
+(def-slc gp-lemma3 : LTRANSYM gp-lemma2 gp-lemma1)
+(def-slc gp-lemma4 : REDLR : AP gp-axiom2 : gdparent Allan Charles)
+(def-slc gp-theorem1 : LTRANSYM gp-lemma4 gp-lemma3)
+
+{
+(def TEST :
+ '(RED (AP (AP S K) K)) SLC-INT SLC-EQUAL SLC-EXT PRINT
+ 'gp-theorem1 SLC-INT SLC-EQUAL SLC-EXT PRINT
+)
+}
+
+(def TEST :
+ (slc : REDR : APN S K K)
+ (slc gp-theorem1)
+
+)
+
+(def-slc prop-mp : LAMBDA p : LAMBDA q : 
+ EQUAL (AP (p => q) : AP p q) I)
+
+(def-slc prop-ak : LAMBDA p : LAMBDA q : 
+ EQUAL (p => (q => p)) I)
+
+(def-slc prop-as : LAMBDA p : LAMBDA q : LAMBDA r : 
+ EQUAL ((p => (q => r)) => ((p => q) => (p => r))) I)
+
+(def-slc prop-efq : LAMBDA p : 
+ EQUAL (false => p) I)
+
+(def-slc prop-raa : LAMBDA p :
+ EQUAL (((p => false) => false) => p) I)
+
+(def-slc pred-gen : LAMBDA p : 
+ EQUAL (p : all : DBL p) I)
+
+(def-slc pred-part : LAMBDA p : LAMBDA t :
+ EQUAL ((all p) => (AP p t)) I)
+
+(def-slc pred-permut : LAMBDA p : LAMBDA q :
+ EQUAL ((all : LAMBDA x : p => (AP q x))  => (p => (all q))) I)
+
+(def-slc prop-lemma1 : REDLR : APN prop-as p (p => p) p)
+
+(def-slc prop-lemma2 : REDLR : APN prop-ak p (p => p))
+
+(def-slc prop-lemma3 : REDLR : APN prop-mp (p => ((p => p) => p)) ((p => (p => p)) => (p => p)))
+
+(def-slc prop-lemma4 : REDLR : AP prop-lemma1 (AP (p => ((p => p) => p)) ((p => (p => p)) => (p => p))))
+ 
+(def-slc prop-lemma5 : LTRANSYM prop-lemma4 prop-lemma3)
+
+(def-slc prop-lemma6 : REDLR : AP prop-lemma2 ((p => (p => p)) => (p => p)))
+
+(def-slc prop-lemma7 : LTRANSYM prop-lemma6 prop-lemma5)
+
+(def-slc prop-lemma8 : REDLR : APN prop-ak p p)
+
+(def-slc prop-lemma9 : REDLR : APN prop-mp (p => (p => p)) (p => p))
+
+(def-slc prop-lemma10 : REDLR : AP prop-lemma7  (AP (p => (p => p)) (p => p)))
+
+(def-slc prop-lemma11 : LTRANSYM prop-lemma10 prop-lemma9)
+
+(def-slc prop-lemma12 : REDLR : AP prop-lemma8 (p => p))
+
+(def-slc prop-theorem1 : LTRANSYM prop-lemma12 prop-lemma11)
+
+(def-slc reflection : 
+ LAMBDA rx :
+ LAMBDA rlx :
+ LAMBDA rrx :
+ LAMBDA x : 
+ LAMBDA lx : 
+ EQUAL 
+ ((WFP rx) => :
+  (LEFT rx rlx) => : 
+  (RIGHT rx rrx) => : 
+  (EVAL rx x) => : 
+  (EVAL rlx lx) => : 
+  (EVAL rrx I) => lx)
+ I) 
+
+
+ 
+)

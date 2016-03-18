@@ -1,0 +1,526 @@
+
+(
+
+
+
+(def CLAUSE : ARG args : ARG corps @:
+	CONS 'APPLYTO
+	LIST1
+	CONS 'REP CONS 'QUOTE CONS CONS %args %corps ':
+	RENAME REP DES CAR UNIFPROLOG
+	DES GETH 1 CDR EXEC :
+	GETH 1 CAR MON UNIFPROLOG
+	GETENV REP CONSTR SETENV
+	MON VARIABLES GETENV UNBINDVENV SETENV)
+
+(def UNIFPROLOG : GETENV UNIF REP THEN SETENV END)
+
+(def LIST1 : ARG x %(x))
+
+(def defclause : C QUOTE : C QUOTE : C QUOTE :
+		 ARG corps : ARG args : ARG pred :
+	%corps %args CLAUSE ARG clause :
+	%pred DECLSYM GETDEF NOT
+		THEN (%clause %pred SETDEF) :
+        %pred GETDEF GETTYPE 1 EQ 
+        THEN (%clause %pred SETDEF) : 
+	'() %clause CONS %pred GETDEF CONS 'ALT CONS 
+        NL
+        "defclause " PRINTSTRING 
+        %pred PRIN 
+        " " PRINTSTRING 
+        %args PRIN
+        " " PRINTSTRING
+        %corps PRIN
+        " -> " PRINTSTRING
+        REP PRINT
+        NL
+        %pred SETDEF)
+
+(defclause plappend (() &l &l) I)
+
+(defclause plappend ((&x . &a) &b (&x . &c)) :
+	plappend '(&a &b &c))
+
+(def plappend1 :
+	ALT
+	(APPLYTO : REP '((() &l &l) . I) :
+	 RENAME REP DES CAR UNIFPROLOG
+	 DES GETH 1 CDR EXEC :
+	 GETH 1 CAR MON UNIFPROLOG
+	 GETENV REP CONSTR SETENV
+	 MON VARIABLES GETENV UNBINDVENV SETENV)
+	(APPLYTO : REP '(((&x . &a) &b (&x . &c)) plappend '(&a &b &c)) :
+	 RENAME REP DES CAR UNIFPROLOG
+	 DES GETH 1 CDR EXEC :
+	 GETH 1 CAR MON UNIFPROLOG
+	 GETENV REP CONSTR SETENV
+	 MON VARIABLES GETENV UNBINDVENV SETENV))
+
+{
+(ALT (plappend '((a b c) (d e) &x) :
+	%x PRINT END)
+	I)
+} 
+{ (a b c d e) }
+
+{
+(ALT (plappend '(&x &y (a b c d e))
+	%x PRIN %y PRINT END)
+	I)
+}
+
+{
+()(a b c d e)
+(a)(b c d e)
+(a b)(c d e)
+(a b c)(d e)
+(a b c d)(e)
+(a b c d e)()
+}
+
+
+(def INTERP :
+	Y :
+	REP NCONSPTHEN EXIT :
+	REP CAR PREMINSTR 'STOP EQ THEN EXIT :
+	EVOL-LCTXS)
+ 
+
+(def NCONSPTHEN : CONSP NOT THEN) 
+
+(def PREMINSTR : ARG (() (x)) %x)
+
+(def EVOL-LCTXS :
+	REP CAR EVOL ECH CDR ECH INSLCTXS)
+
+(def ONEOF :
+	REP NCONSPTHEN END :
+	ALT CAR : CDR ONEOF)
+
+
+{ (30 149 SETREG) } 
+
+(def MOTEUR-NOTRACE : ARG objectif : ARG regles :
+	REPEAT
+		(%regles ONEOF GETDEF EXEC
+		TEST-BASE THEN END I
+		 { on verifie qu'on n'est pas dans un etat deja rencontre }
+		)
+	%objectif EXEC)
+
+(def TRACE-MOTEUR '())
+
+(def MAPK : C Q : ARG _f : ARG _x : ARG _l :
+	%_l NCONSPTHEN I :
+	%_l CAR %_x %_f EXEC :
+	%_l CDR %_x '() %_f CONS Q MAPK CONS EXEC) 
+
+(def PRINTSOL : %SOL PRINTSOL1)
+
+(def PRINTSOL1 : ARG sol :
+	"Solution : " PRINTSTRING NL
+	%sol '() MAPK : ARG x : ARG (regle env) :
+	"    Regle " PRINTSTRING %regle PRIN " , env = " PRINTSTRING NL  
+	%env PRINTENVBASE)
+
+(def PRINTENV : ARG env :
+	%env '() MAPK : ARG x : ARG (var . vals) :
+	"        " PRINTSTRING %var PRIN " = " PRINTSTRING %vals PRINT)
+
+(def PRINTENVBASE : ARG env :
+	"        BASE = " PRINTSTRING
+	'BASE %env GETVENV PRINT)	
+
+(def MOTEUR : ARG objectif : ARG regles :
+	TRACE-MOTEUR THEN ("Regles : " PRINTSTRING %regles PRINT) I
+	REPEAT
+	      ( TRACE-MOTEUR THEN ("Debut repeat: Base " PRINTSTRING %BASE PRINT) I
+		TRACE-MOTEUR THEN ("regles : " PRINTSTRING %regles PRINT) I 
+		%regles ONEOF { REP PRINT } 
+		TRACE-MOTEUR THEN (READSTRING DEP {0 ECH CREF 115 EQ THEN STEPON I}
+				   NL "Base " PRINTSTRING %BASE PRINT
+				   "Regle " PRINTSTRING REP PRINT) I
+		GETDEF EXEC
+		TRACE-MOTEUR THEN ("base " PRINTSTRING %BASE PRINT
+				   {"sol  " PRINTSTRING %SOL PRINT}
+				   %SOL PRINTSOL) I
+		TEST-BASE THEN 
+			("Deja rencontre" PRINTSTRING NL END)
+			(TRACE-MOTEUR THEN
+                                ("Nouveau" PRINTSTRING NL) I I)
+		 { on verifie qu'on n'est pas dans un etat deja rencontre }
+		)
+	TRACE-MOTEUR THEN ("Apres REPEAT, base " PRINTSTRING %BASE PRINT) I
+	%objectif EXEC
+	TRACE-MOTEUR THEN ("Apres objectif, base " PRINTSTRING %BASE PRINT) I)
+
+(def REPEAT : B (ALT I) (S I REPEAT))
+
+(def TEST-BASE :
+	%SOL CDR %BASE CONTIENT :
+	ARG base : ARG (regle env) :
+	'BASE %env GETVENV %base MEMES-BASES)
+
+{ (def MEMES-BASES EQUAL) }
+(def MEMES-BASES : ARG b1 : ARG b2 : 
+        (%b1 %b2 INCL) AND
+        (%b2 %b1 INCL))
+
+{
+(def CONTIENT :
+	C QUOTE : DES DES DES
+	(GETH 0 NCONSPTHEN '() :
+	 GETH 0 CAR GETH 1 GETH 2 EXEC :
+	 OR :
+	 GETH 0 CDR GETH 1
+	 '() GETH 2 CONS 'CONTIENT CONS EXEC)
+	MONDEP MONDEP MONDEP)
+}
+
+(def OR : B (REP THEN I) DEP)
+
+(def defregle : C QUOTE : C QUOTE : C QUOTE :
+		ARG corps : ARG vars : ARG nom :
+	%corps %vars %nom REGLE
+	%nom DECLSYM SETDEF)
+
+(def REGLE : ARG nom : ARG vars : ARG corps :
+	%('QUOTE 'UNDEFINED 'BINDVQ vars
+	  corps
+	  ('%SOL 'QUOTE '() 'GETENV 'CONS 'QUOTE nom 'CONS 'CONS
+	   'SETVQ 'SOL)
+	   { mise a jour de la solution : ajoute (nom-regle vars) en tete }
+	   'UNBINDVQ vars))
+
+(def fait : APPLYTO :
+	%BASE ONEOF ECH UNIFIER)
+
+(def UNIFIER :
+	GETENV UNIF REP THEN SETENV END)
+
+(def ajouter : APPLYTO :
+	GETENV CONSTR
+	%BASE ECH CONS SETVQ BASE)
+
+(def supprimer : APPLYTO :
+	REP
+	%BASE ONEOF REP ECH3 UNIFIER
+	%BASE ECH REMQ SETVQ BASE)
+
+(def ECH3 : ARG a : ARG b : ARG c : %a %b %c)
+
+(def REMQ : ARG x : ARG l :
+	%l CAR %x EQ THEN (%l CDR) :
+	%l CDR %x REMQ %l CAR CONS)
+
+
+(def base-init-lcc ':
+	((homme toto) sur (rive gauche))
+	((loup loulou) sur (rive gauche))
+	((chevre blanchette) sur (rive gauche))
+	((chou chou1) sur (rive gauche))
+	((rive gauche) proche (rive droite))
+	((rive droite) proche (rive gauche))
+)
+
+(defregle objectif-lcc () :
+	fait '((homme toto) sur (rive droite))
+	fait '((loup loulou) sur (rive droite))
+	fait '((chevre blanchette) sur (rive droite))
+	fait '((chou chou1) sur (rive droite))
+)
+
+(defregle manger () :
+	fait '((chevre &()) sur (rive &r))
+	{ "chevre sur rive " PRINTSTRING %r PRINT }
+	(ALT (fait '((loup &()) sur (rive &r)) { 'loup PRINT } )
+	     (fait '((chou &()) sur (rive &r)) { 'chou PRINT } ))
+	prolognot (fait '((homme &()) sur (rive &r)) { 'homme PRINT } )
+)
+
+(defregle regle1-lcc (h d a) :
+	supprimer '((homme &h) sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
+	prolognot manger
+        "homme traverse seul de rive " PRINTSTRING %d PRIN " vers rive " PRINTSTRING %a PRINT
+)
+
+(defregle regle2-lcc (h o d a) :
+	supprimer '((homme &h) sur (rive &d))
+	supprimer '(&o sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
+	ajouter '(&o sur (rive &a))
+	prolognot manger
+        "homme traverse avec " PRINTSTRING %o PRIN " de rive " PRINTSTRING %d PRIN " vers rive " PRINTSTRING %a PRINT
+)
+
+(def LCC :
+	base-init-lcc : ARG BASE :
+	'true : ARG SOL :
+	'(regle1-lcc regle2-lcc) 'objectif-lcc MOTEUR
+	PRINTSOL
+	Y : READ EXEC)
+
+(base-init-lcc SETVQ BASE)
+
+{ (def PRINTSOL PRINT) }
+
+(def RPTN :
+	B (1 PLUS Y) : #-1 PLUS REP ZEROP THEN (K I))
+
+(def NEW-MKCNL :
+	'() ECH CONS
+	%('CANAL '() '()) APPEND)
+
+
+
+(def VALUEINCTX :
+	DES DES
+	(GETCTX :
+         ENLINSTR
+	 GETH 0
+		'THROW AJINSTR
+		ECH AJINSTR
+		'QUOTE AJINSTR
+		GETH 1 AJINSTR
+	 SETCTX)
+	MONDEP MONDEP)
+
+(synonym KI J)
+
+(def freeze :
+	GETCTX : ENLINSTR KI)
+
+(def UNFREEZE :
+	REP ENLINSTR ECH PREMINSTR
+	VALUEINCTX)
+
+
+(def INTFROM : ARG n :
+	freeze : %n 1 PLUS INTFROM %n CONS)
+
+(def CHEMIN : ARG lab : ARG dv : ARG arr : ARG dep :
+        "chemin de " PRINTSTRING %dep PRIN " a " PRINTSTRING %arr PRIN " dv=" PRINTSTRING %dv PRINT
+	%dep %dv MEMBER THEN END :
+	%dep %arr EQUAL THEN 'true :
+	%dep %lab GETVENV ONEOF :
+	ARG (dir nv) :
+	%nv %arr %(dep . dv) %lab CHEMIN
+	%dir CONS)
+
+(def CHEMINS :
+	values CHEMIN
+	DES DES DEP DEP DEP MON)
+
+(def UNCHEMIN :
+	cut : ALT CHEMIN : DEP DEP DEP DEP '())
+
+(def lab1 ':
+	(A : (e B))
+	(B : (n E) (e C))
+	(C : )
+	(D : (s A))
+	(E : (o D) (n H) (e F))
+	(F : (s C))
+	(G : (s D))
+	(H : (o G) (e I))
+	(I : (s F))
+)
+
+
+(def LINK-LABEL 'label)
+(def LINK-GOTO 'goto)
+
+(def LINK : LIST1 LINK1 CAR)
+
+(def LINK1 :
+	'() ARG labels :
+	LINK2 ARG y :
+	'() ARG linked :
+	%y LINK3
+	(Y :
+		%linked NOT THEN EXIT :
+		'() SETVQ linked
+		%y LINK3)
+	%y)
+
+(def LINK2 : ARG x :
+	%x NCONSPTHEN %x :
+	(%x CAR NCONSPTHEN '() :
+	 %x CAR CAR LINK-LABEL EQ)
+	THEN (%x CDR LINK2 ARG y :
+		@(labels SETVQ
+			CONS CONS CAR CDR CAR %x CONS %y '()
+				%labels)
+		%y) :
+	@:CONS LINK2 CAR %x LINK2 CDR %x)
+
+(def LINK3 :
+	'() SETVQ LINK-DEJAVU
+	LINK4)
+
+(def LINK4 : ARG x :
+	%x %LINK-DEJAVU MEMQ THEN I :
+	%x NCONSPTHEN I :
+	%LINK-DEJAVU %x CONS SETVQ LINK-DEJAVU
+	%x CAR LINK4 %x CDR LINK4
+	(%x CAR NCONSPTHEN '() :
+	 %x CAR CAR NCONSPTHEN '() :
+	 LINK-GOTO %x CAR CAR CAR EQ)
+	THEN ('true SETVQ linked
+		%x CAR CAR CDR CDR %labels GETVENV
+		%x RPLACA) :
+	(%x CDR NCONSPTHEN '() :
+	 %x CDR CAR NCONSPTHEN '() :
+	 LINK-GOTO %x CDR CAR CAR EQ)
+	THEN ('true SETVQ linked
+		%x CDR CAR CDR CAR %labels GETVENV
+		%x RPLACD)
+	I)
+
+
+
+{ (definstr nom corps) -> (def nom : GETCTX : ENLINSTR corps SETCTXS) }
+
+
+
+(def definstr : C QUOTE : C QUOTE : ARG corps : ARG nom @:
+	SETDEF DECLSYM %nom
+	%('GETCTX ('ENLINSTR corps 'SETCTXS)))
+
+(definstr INSTR-DEUXIEME : ARG ctx :
+	%ctx DEPIL %ctx SOMPIL CDR CAR EMPIL LIST1)
+
+(definstr instr : ARG (strat (f . prog) . sc) :
+	%(strat prog . sc) %f EXEC)
+
+(def INSTR-TROISIEME : instr : ARG ctx :
+	%ctx DEPIL %ctx SOMPIL CDR CDR CAR EMPIL LIST1)
+
+
+(def INTERP : Y :
+ 	{ REP LENGTH PRINT REP CAR PRINTCTX READSTRING DEP }
+	REP NCONSPTHEN EXIT :
+	REP CAR PREMINSTR
+	REP 'STOP EQ THEN (DEP EXIT) :
+	REP 'META-APPLY EQ
+		THEN (DEP :
+			ARG ((strat (() f . prog) (x . bas) fh
+				. sc) . ac) :
+			%x %f EXEC : ARG y :
+			%((strat prog (y . bas) fh . sc) . ac)) :
+	REP 'META EQ
+		THEN (DEP REP CDR ECH CAR ENLINSTR REP PREMINSTR EXEC
+			(ENLINSTR REP ENLINSTR ENLINSTR ECH PREMINSTR
+				AJINSTR CONS)
+			ENLINSTR ENLINSTR CONS) :
+	REP 'GETLCTXS EQ
+		THEN (DEP ARG ((strat (() . prog) bas fh . sc) . ac) :
+			%((strat prog (((strat prog bas fh . sc)
+						. ac) . bas) fh
+				. sc) . ac)) :
+	REP 'LEVEL EQ
+		THEN (DEP ARG ((strat (() . prog) bas fh . sc) . ac) :
+			LEVEL 1 PLUS : ARG l :
+			%((strat prog (l . bas) fh . sc) . ac)) :
+	DEP EVOL-LCTXS)
+
+
+(def EVOL-LCTXS : REP CAR EVOL ECH CDR ECH INSLCTX)
+(def META-VALUE : B ('() META-APPLY) DEP)
+(def META-EXEC : META-APPLY EXEC)
+(def META-EVAL : C META-VALUE EXEC)
+(def NEW-META : B META-EVAL : P 'K 'KI)
+
+(def shiftup : GETCTX : ENLINSTR LIST1 : Y : EVOL-LCTXS)
+(def SHIFTUP1 : GETCTX : ENLINSTR LIST1 : INTERP)
+(def SHIFTUP : B GETCTX : ENLINSTR LIST1 INTERP)
+
+{
+(def GETGCTXS :
+	GETROOT CAR CDR CAR CDR
+	CDR GETCTX : ENLINSTR DEPIL CONS)
+(def SETGCTXS : GETROOTR CAR CDR CAR RPLACD)
+(def GCUT : '() GETROOT CAR CDR CAR CDR RPLACD)
+}
+
+(def GSHIFTUP : B GETCTXS : GCUT REP CDR ECH CAR ENLINSTR CONS INTERP)
+
+(def SHIFTDOWN1 : GETCTX / ENLINSTR META-APPLY SETCTX)
+(def SHIFTDOWN : GETCTX : ENLINSTR META-APPLY (ALT SETCTX I) END)
+
+(def /REPEVOL :
+	INTERP
+	REP NCONSPTHEN I :
+	REP CDR ECH CAR ENLINSTR CONS)
+
+(def /APPLIQ :
+	'() 'STOP CONS ECH CONS AJINSTR LIST1 /REPEVOL)
+
+(def /APPREMINSTR :
+	REP ENLINSTR ECH PREMINSTR /APPLIQ)
+
+(def *REPEVOL :
+	/REPEVOL
+	REP NCONSPTHEN I :
+	REP CDR *REPEVOL ECH CAR CONS)
+
+(def *APPLIQ :
+	'() 'STOP CONS ECH CONS AJINSTR LIST1 *REPEVOL)
+
+(def *APPLIQ :
+	'() 'STOP CONS ECH CONS AJINSTR LIST1 *REPEVOL)
+
+(def *APPREMINSTR :
+	REP ENLINSTR ECH PREMINSTR *APPLIQ)
+
+(definstr values : ARG ctx :
+	%ctx *APPREMINSTR
+	'() MAPKAR (DEP SOMPIL)
+	%ctx ENLINSTR ECH EMPIL LIST1)
+
+(definstr cut :
+	/APPREMINSTR CAR LIST1)
+
+(definstr bloc
+	*APPREMINSTR)
+
+(definstr hyp : ARG ctx :
+	%ctx /APPREMINSTR NCONSPTHEN '() (%ctx ENLINSTR LIST1))
+
+(definstr prolognot : ARG ctx :
+	%ctx /APPREMINSTR NCONSPTHEN (%ctx ENLINSTR LIST1) '())
+
+(definstr prologif : ARG ctx :
+	%ctx : ARG (strat (c x y . prog) . sc) :
+	%(strat prog . sc) %c *APPLIQ : ARG lctxs :
+	%lctxs NCONSPTHEN %((strat (y . prog) . sc)) :
+	%lctxs %x MAPKAR AJINSTR)
+
+{
+(defprop META _NDF : SHIFTUP (DEP KI) META)
+(defprop META-APPLY _NDF : SHIFTUP (DEP KI) META-APPLY)
+}
+
+(def tour-reflexive1 :
+(defprop META _NDF : SHIFTUP SETCTXS META)
+(defprop META-APPLY _NDF : SHIFTUP SETCTXS META-APPLY)
+(defprop TOP _NDF I)
+(defprop LEVEL _NDF 0)
+)
+
+(def tour-reflexive2 :
+(defprop META _NDF : GSHIFTUP SETCTXS META)
+(defprop META-APPLY _NDF : GSHIFTUP SETCTXS META-APPLY)
+(defprop STOP _NDF I)
+)
+
+(defprop LEVEL _NDF 0)
+(defprop GETLCTXS _NDF GETGCTXS)
+
+
+
+)

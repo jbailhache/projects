@@ -1,0 +1,44 @@
+(
+
+(def-slc ord-zero : 
+ EQUAL (type ord zero) I)
+
+(def-slc ord-suc : LAMBDA x :
+ EQUAL (AP (type ord x) (type ord (suc x))) I)
+
+(def-slc ord-lim : LAMBDA f :
+ EQUAL (AP (type (ord => ord) f) (type ord (lim f))) I)
+
+(def-slc ord-one-1 :
+ REDLR : AP ord-suc zero)
+
+(def-slc ord-one-2 :
+ REDLR : AP ord-zero (type ord (suc zero)))
+
+(def-slc ord-one :
+ LTRANSYM ord-one-2 ord-one-1)    
+
+(def-slc ord-one-direct :
+ LTRANSYM 
+  (REDLR : AP ord-zero : type ord : suc zero)
+  (REDLR : AP ord-suc zero) )
+
+(def-slc ford-suc :
+ EQUAL (type (ord => ord) suc) I)
+
+(def-slc ord-omega-1 :
+ REDLR : AP ord-lim suc)
+
+(def-slc ord-omega-2 :
+ REDLR : AP ford-suc (type ord (lim suc)))
+
+(def-slc ord-omega :
+ LTRANSYM ord-omega-2 ord-omega-1)
+
+(def-slc ord-omega-direct :
+ LTRANSYM
+  (REDLR : AP ford-suc : type ord : lim suc) 
+  (REDLR : AP ord-lim suc) )
+ 
+)
+

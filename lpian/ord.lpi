@@ -1,0 +1,16 @@
+(
+
+(def-slc-axiom ord function : 
+ LAMBDA t1 : LAMBDA t2 : LAMBDA f : LAMBDA x :
+ EQUAL (AP (type (t1 > t2) f) : AP (type t1 x) : type t2 (AP f x)) I)
+ 
+(def-slc-axiom ord zero : EQUAL (type ord zero) I)
+
+(def-slc-axiom ord suc : EQUAL (type (ord > ord) suc) I)
+
+(def-slc-axiom ord H : LAMBDA t :
+ EQUAL (type (t > t) (H t)) I)
+
+)
+
+

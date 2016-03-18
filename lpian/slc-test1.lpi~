@@ -1,0 +1,77 @@
+(
+
+(def VAR : ARG x : %('DBV x))
+
+(def ISVAR : ARG x : 
+ %x NCONSPTHEN '() :
+ %x CAR 'DBV EQ)
+
+(def ISDBS : ARG x :
+ %x NCONSPTHEN '() :
+ %x CAR 'DBS EQ)
+
+(def DBL : ARG x : %('DBL x))
+
+(def SLC-SHIFT : ARG m : ARG n : ARG x :
+ %x NCONSPTHEN %x :
+ %x ISVAR THEN
+  (%x CDR CAR %m MOINS POSP THEN
+   (%x CDR CAR %n PLUS VAR) 
+   %x) :
+ %x CAR 'DBL EQ THEN
+  (%x CDR CAR %n %m 1 PLUS SLC-SHIFT DBL) :
+ %x CDR %n %m SLC-SHIFT %x CAR %n %m SLC-SHIFT CONS)
+
+{
+(def SLC-SUBST : ARG n : ARG a : ARG b :
+ %a NCONSPTHEN %a :
+ %a ISVAR THEN
+  (%a CDR CAR %n EQ THEN %b :
+   %a CDR CAR %n MOINS POSP THEN (%a CDR CAR -1 PLUS VAR) %a) :
+ %a CAR 'DBL EQ THEN 
+  (%b 1 0 SLC-SHIFT %a CDR CAR %n 1 PLUS SLC-SUBST DBL) :
+ %b %a CDR %n SLC-SUBST %b %a CAR %n SLC-SUBST CONS)
+}
+
+(def SLC-SUBST : ARG n : ARG a : ARG b :
+ %a NCONSPTHEN %a :
+ %a ISVAR THEN
+  (%a CDR CAR %n EQ THEN %b :
+   %a CDR CAR {%n MOINS} POSP THEN (%a CDR CAR -1 PLUS VAR) %a) :
+ %a CAR 'DBL EQ THEN 
+  (%b {1 0 SLC-SHIFT} %a CDR CAR %n 1 PLUS SLC-SUBST DBL) :
+ %b %a CDR %n SLC-SUBST %b %a CAR %n SLC-SUBST CONS)
+
+(def SLC-SUBSTIT : ARG u : ARG a : ARG b :
+ %a %u EQUAL THEN %b :
+ %a %('DBS u) EQUAL THEN %u :
+ %a NCONSPTHEN %a :
+ { %a ISDBS THEN (%a CDR CAR) : }
+ %a CAR 'DBL EQ THEN
+  (%b %a CDR CAR '() %u CONS 'DBS CONS SLC-SUBSTIT DBL) :
+ %b %a CDR %u SLC-SUBSTIT %b %a CAR %u SLC-SUBSTIT CONS)
+
+(def SLC-RED1 : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR 'AP EQ AND (%x CDR CAR CONSP AND : %x CDR CAR CAR 'DBL EQ) THEN
+  (%x ARG (() (() a) b) : %b %a  0 SLC-SUBST) :
+ %x CAR 'FREEZE EQ THEN %x : 
+ %x CDR SLC-RED1 %x CAR SLC-RED1 CONS)
+
+{
+(def SLC-RED1 : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR 'AP EQ AND (%x CDR CAR CONSP AND : %x CDR CAR CAR 'DBL EQ) THEN
+  (%x ARG (() (() a) b) : %b %a 'DBZ SLC-SUBSTIT) :
+ %x CAR 'FREEZE EQ THEN %x :
+ %x CDR SLC-RED1 %x CAR SLC-RED1 CONS)
+}
+
+(def SLC-RED : ARG x :
+ %x CONSP AND (%x CAR 'FREEZE EQ) THEN (%x CDR CAR) :
+ %x SLC-RED1 ARG y :
+ %x %y EQUAL THEN %x : 
+ %y SLC-RED)
+
+)
+

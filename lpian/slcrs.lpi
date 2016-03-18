@@ -1,0 +1,256 @@
+(
+
+{
+SLC terms :
+	(SMB)		symbol
+	(DB0)		variable 0
+	(DBS x)		variable n+1
+	(DBL x)		lambda . x
+	(APL x y)	application	a = b, c = d => a c = b d
+	(LTR x y)	left transitivity - symmetry with reduction	a = b, c = d, a -> e, c -> e, b -> f, d -> g => f = g
+	(AXM)		axiom	a = b
+}
+
+(def DB0 '(DB0))
+
+(def DBS : ARG u :
+ '() %u CONS 'DBS CONS)
+
+(def DBL : ARG x : %('DBL x))
+
+
+(def SLC-SHIFT : ARG u : ARG x :
+ %x %u EQUAL THEN (%u DBS) :
+ %x NCONSPTHEN %x :
+ %x CAR 'DBL EQ THEN
+  (%x CDR CAR %u DBS SLC-SHIFT DBL) :
+ %x CDR %u SLC-SHIFT %x CAR %u SLC-SHIFT CONS)
+
+(def SLC-SUBST : ARG u : ARG a : ARG b :
+ %a %u EQUAL THEN %b :
+ %a %u DBS EQUAL THEN %u :
+ %a NCONSPTHEN %a :
+ %a CAR 'DBL EQ THEN
+  (%b DB0 SLC-SHIFT %a CDR CAR %u DBS SLC-SUBST DBL) :
+ %b %a CDR %u SLC-SUBST %b %a CAR %u SLC-SUBST CONS)
+
+(def SLC-RED1 : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR 'APL EQ AND (%x CDR CAR CONSP AND : %x CDR CAR CAR 'DBL EQ) THEN
+  (%x ARG (() (() a) b) : %b %a DB0 SLC-SUBST) :
+ %x CDR SLC-RED1 %x CAR SLC-RED1 CONS)
+
+(def SLC-RED : ARG x :
+ %x SLC-RED1 ARG y :
+ %x %y EQUAL THEN %x : 
+ %y SLC-RED)
+
+
+(def SLC-DBNAME : ARG u : ARG x : ARG y :
+ %x %y EQUAL THEN %u :
+ %y NCONSPTHEN %y :
+ %y %x DANS NOT THEN %y :
+ %y CAR 'DBL EQ THEN
+  (%y CDR CAR %x %u DBS SLC-DBNAME DBL) :
+ %y CDR %x %u SLC-DBNAME %y CAR %x %u SLC-DBNAME CONS)
+
+
+(def SLC-SIDE : ARG t : ARG s : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR ARG node :
+ %node GETTYPE 'a GETTYPE EQ THEN ('SLC-SIDE %node GETPROP) '() ARG prop :
+ %prop THEN (%x %s %t %prop EXEC) :
+ %x CDR %s %t SLC-SIDE %x CAR %s %t SLC-SIDE CONS)
+
+(def SLC-EQUAL : ARG t : ARG x :
+ '() %x '() %t SLC-SIDE CONS %x 'true %t SLC-SIDE CONS 'EQUAL CONS)
+
+(def def-slc-side : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-SIDE %node PUTPROP)
+
+(def-slc-side LTR : ARG t : ARG s : ARG (() a b) :
+ %a 'true %t SLC-SIDE SLC-RED 
+ %b 'true %t SLC-SIDE SLC-RED
+ EQUAL THEN
+  (%s THEN %a %b '() %t SLC-SIDE SLC-RED)
+ %('LTR a b))
+
+(def-slc-side AXM : ARG t : ARG s : ARG a :
+ %s THEN (%t CAR) (%t CDR CAR))
+
+
+(def-slc-side REDR : ARG t : ARG s : ARG (() x) :
+ %s THEN (%x %s %t SLC-SIDE) :
+ %x %s %t SLC-SIDE SLC-RED)
+
+(def-slc-side REDLR : ARG t : ARG s : ARG (() x) :
+ %x %s %t SLC-SIDE SLC-RED)
+
+
+(def SLC-INT : ARG x :
+ %x NCONSPTHEN 
+  (%x GETTYPE 'a GETTYPE EQ THEN ('SLC-DEF %x GETPROP) '() ARG prop :
+   %prop THEN %prop %x) :
+ %x CAR ARG node :
+ %node GETTYPE 'a GETTYPE EQ THEN ('SLC-INT %node GETPROP) '() ARG prop :
+ %prop THEN (%x %prop EXEC) :
+ %x CDR SLC-INT %x CAR SLC-INT CONS)
+
+(def def-slc-int : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-INT %node PUTPROP)
+
+(def-slc-int LAMBDA : ARG (() a b) : 
+ %b SLC-INT %a SLC-INT DB0 SLC-DBNAME DBL)
+
+
+(def APN : ARG l :
+ %l NCONSPTHEN (0 VAR DBL) :
+ %l CDR NCONSPTHEN (%l CAR SLC-INT) :
+ '() %l LAST CAR SLC-INT CONS %l BUTLAST APN CONS 'APL CONS)
+
+(def-slc-int APN : ARG (() . l) :
+ %l APN)
+
+
+('() SETVQ SLC-DEFS)
+
+
+(def SLC-EXT : ARG x :
+ (%SLC-DEFS '() CONTIENT : DEP ARG name : 
+  'SLC-DEF %name GETPROP ARG val : 
+  %val %x EQUAL THEN %name '()) OR :
+ %x NCONSPTHEN %x : 
+  %x CAR ARG node :
+  %node GETTYPE 'a GETTYPE EQ THEN
+   ('SLC-EXT %node GETPROP) '() ARG prop :
+  %prop THEN (%x %prop EXEC) : 
+ %x CDR SLC-EXT %x CAR SLC-EXT CONS)
+
+(def def-slc-ext : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SLC-EXT %node PUTPROP)
+
+(def-slc-ext APL : ARG (() a1 b1) :
+ %a1 SLC-EXT ARG a :
+ %b1 SLC-EXT ARG b :
+ %a NCONSPTHEN %('APL a b) :
+ %a CAR 'APL EQ THEN 
+  ('() %b SLC-EXT CONS %a CDR CDR CAR SLC-EXT CONS %a CDR CAR SLC-EXT CONS 'APN CONS) : 
+ %a CAR 'APN EQ THEN
+  ('() %b SLC-EXT CONS %a CDR SLC-EXT APPEND 'APN CONS) :
+  %('APL a b))
+
+
+(def t0 '(AXL AXR))
+
+
+(def def-slc : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SLC-DEFS %name CONS SETVQ SLC-DEFS
+ %val SLC-INT {SLC-RED} ARG intval :
+ %intval 'SLC-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SLC-INT t0 SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT)
+
+(def def-slc-nored : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SLC-DEFS %name CONS SETVQ SLC-DEFS
+ %val SLC-INT ARG intval :
+ %intval 'SLC-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SLC-INT t0 SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT)
+
+(def def-slc-red : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SLC-DEFS %name CONS SETVQ SLC-DEFS
+ %val SLC-INT SLC-RED ARG intval :
+ %intval 'SLC-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SLC-INT t0 SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT)
+
+
+(def SLC-SIMPLIF : ARG x : 
+ %x NCONSPTHEN %x (%x CDR SLC-SIMPLIF %x CAR SLC-SIMPLIF CONS) ARG y : 
+ (SLC-SIMPLIF-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %y { a verifier : x ou y ? } %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SLC-SIMPLIF-RULES '(
+ ((DBL (APL &f DB0)) &f)
+))
+
+
+(def top : 
+ "SLC toplevel
+" PRINTSTRING
+ Y :
+ READ
+ REP 'quit EQUAL THEN ('Bye PRINT K I) :
+ ARG x :
+ %x SLC-INT ARG y : 
+ %y t0 SLC-EQUAL REP SETVQ SLCRES
+ REP CDR CAR SLC-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SLC-EXT PRINT
+ %y PRINT)
+
+(def topred :
+ "SLC reduction
+" PRINTSTRING
+ Y :
+ READ
+ REP 'quit EQUAL THEN ('Bye PRINT K I) :
+ ARG x :
+ "-> " PRINTSTRING
+ %x SLC-INT SLC-RED PRINT)
+
+
+(def-slc I : LAMBDA a a)
+
+(def-slc K : LAMBDA a : LAMBDA b a)
+
+(def-slc S : LAMBDA a : LAMBDA b : LAMBDA c : APL (APL a c) (APL b c))
+
+(def-slc KI : LAMBDA a : LAMBDA b b)
+
+(def-slc P : LAMBDA a : LAMBDA b : LAMBDA c : APL (APL c a) b)
+
+{ (def-slc zero : LAMBDA z : LAMBDA s z) }
+
+(def-slc suc : LAMBDA n : LAMBDA z : LAMBDA s : APL s n)
+
+(def-slc-red parent : APL (SMB) K)
+(def-slc-red gdparent : APL (SMB) : APL suc K)
+(def-slc-red Allan : APL (SMB) : APL suc : APL suc K)
+(def-slc-red Brenda : APL (SMB) : APL suc : APL suc : APL suc K)
+(def-slc-red Charles : APL (SMB) : APL suc : APL suc : APL suc : APL suc K)
+
+(def-slc theory-gp : LAMBDA s : LAMBDA w : APN w 
+ (LAMBDA x : LAMBDA y : LAMBDA z : 
+  APN s (APL (APN parent x y) : APL (APN parent y z) : APN gdparent x z) I)
+ (APN s (APN parent Allan Brenda) I)
+ (APN s (APN parent Brenda Charles) I) )
+
+(def t0 : '() '(APL theory-gp KI) SLC-INT CONS '(APL theory-gp K) SLC-INT CONS)
+ 
+(def-slc gp-rule1 : APL (AXM) : LAMBDA r1 : LAMBDA a1 : LAMBDA a2 r1)
+
+(def-slc gp-axiom1 : APL (AXM) : LAMBDA r1 : LAMBDA a1 : LAMBDA a2 a1)
+
+(def-slc gp-axiom2 : APL (AXM) : LAMBDA r1 : LAMBDA a1 : LAMBDA a2 a2)
+
+(def-slc gp-lemma1c : APN gp-rule1 Allan Brenda Charles)
+(def-slc gp-lemma2c : APL gp-axiom1 : APL (APN parent Brenda Charles) : APN gdparent Allan Charles)
+(def-slc gp-lemma3c : LTR gp-lemma2c gp-lemma1c)
+(def-slc gp-lemma4c : APL gp-axiom2 : APN gdparent Allan Charles)
+(def-slc gp-theorem1c : LTR gp-lemma4c gp-lemma3c)
+
+
+)
+

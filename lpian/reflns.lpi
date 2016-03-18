@@ -1,0 +1,121 @@
+(
+
+(def-slc KI : LAMBDA a : LAMBDA b b)
+(def-slc B : LAMBDA f : LAMBDA g : LAMBDA x : APL f : APL g x)
+(def-slc A : LAMBDA x : APL x x)
+(def-slc Y : LAMBDA f : APL A : APL (APL B f) A)
+(def-slc P : LAMBDA x : LAMBDA y : LAMBDA f : APN f x y)
+(def-slc zero : LAMBDA z : LAMBDA s z)
+(def-slc suc : LAMBDA n : LAMBDA z : LAMBDA s : APL s n)
+
+(def-slc RSMB : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e b)
+(def-slc RDB0 : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e z)
+(def-slc RDBS : LAMBDA x : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e : APL s x)
+(def-slc RDBL : LAMBDA x : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e : APL l x)
+(def-slc RAP : LAMBDA x : LAMBDA y : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e : APL (APL a x) y)
+(def-slc RLTR : LAMBDA x : LAMBDA y : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e : APL (APL t x) y)
+(def-slc RAXM : LAMBDA b : LAMBDA z : LAMBDA s : LAMBDA l : LAMBDA a : LAMBDA t : LAMBDA e e)
+
+(def-slc RK : APL RDBL : APL RDBL : APL RDBS RDB0)
+(def-slc RKI : APL RDBL : APL RDBL RDB0)
+
+(def-slc equal : APL Y : LAMBDA equal : LAMBDA x : LAMBDA y : APN x
+ (APN y K KI (APL K KI) (APL K KI) (APL K : APL K KI) (APL K : APL K KI) KI)
+ (APN y KI K (APL K KI) (APL K KI) (APL K : APL K KI) (APL K : APL K KI) KI)
+ (LAMBDA x : APN y KI KI (APL equal x) (APL K KI) (APL K : APL K KI) (APL K : APL K KI) KI)
+ (LAMBDA x : APN y KI KI (APL K KI) (APL equal x) (APL K : APL K KI) (APL K : APL K KI) KI)
+ (LAMBDA x1 : LAMBDA x2 : APN y KI KI (APL K KI) (APL K KI) (LAMBDA y1 : LAMBDA y2 : APN equal x1 y1 (APN equal x2 y2) KI) (APL K : APL K KI) KI)
+ (LAMBDA x1 : LAMBDA x2 : APN y KI KI (APL K KI) (APL K KI) (APL K : APL K KI) (LAMBDA y1 : LAMBDA y2 : APN equal x1 y1 (APN equal x2 y2) KI) KI)
+ (APN y K KI (APL K KI) (APL K KI) (APL K : APL K KI) (APL K : APL K KI) K) )
+
+(def-slc shift : APL Y : LAMBDA shift : LAMBDA u : LAMBDA x :
+ APN equal x u (APL RDBS u) :
+ APN x
+  RSMB
+  RDB0
+  (LAMBDA x1 : APL RDBS : APN shift u x1)
+  (LAMBDA x1 : APL RDBL : APN shift (APL RDBS u) x1)
+  (LAMBDA x1 : LAMBDA x2 : APN RAP (APN shift u x1) (APN shift u x2))
+  (LAMBDA x1 : LAMBDA x2 : APN RLTR (APN shift u x1) (APN shift u x2))
+  RAXM)
+
+(def-slc subst : APL Y : LAMBDA subst : LAMBDA u : LAMBDA a : LAMBDA b :
+ APN equal a u b :
+ APN a
+  RSMB
+  RDB0
+  (LAMBDA a1 : APN equal a1 u u : APL RDBS : APN subst u a1 b)
+  (LAMBDA a1 : APL RDBL : APN subst (APL RDBS u) a1 (APN shift RDB0 b))
+  (LAMBDA a1 : LAMBDA a2 : APN RAP (APN subst u a1 b) (APN subst u a2 b))
+  (LAMBDA a1 : LAMBDA a2 : APN RLTR (APN subst u a1 b) (APN subst u a2 b))
+  RAXM)
+
+(def-slc red1 : APL Y : LAMBDA red1 : LAMBDA x : APN x
+ RSMB
+ RDB0
+ (LAMBDA x1 : APL RDBS : APL red1 x1)
+ (LAMBDA x1 : APL RDBL : APL red1 x1)
+ (LAMBDA x1 : LAMBDA x2 : APN x1
+   (APN RAP (APL red1 x1) (APL red1 x2))
+   (APN RAP (APL red1 x1) (APL red1 x2))
+   (APL K : APN RAP (APL red1 x1) (APL red1 x2))
+   (LAMBDA x3 : APN subst RDB0 x3 x2)
+   (APL K : APL K : APN RAP (APL red1 x1) (APL red1 x2))
+   (APL K : APL K : APN RAP (APL red1 x1) (APL red1 x2))
+   (APN RAP (APL red1 x1) (APL red1 x2)) )
+ (LAMBDA x1 : LAMBDA x2 : APN RLTR (APL red1 x1) (APL red1 x2))
+ RAXM)
+
+(def-slc red : APL Y : LAMBDA red : LAMBDA x :
+ APL (LAMBDA y : APN equal x y x : APL red y) :
+ APL red1 x)
+
+(def-slc side : APL Y : LAMBDA side : LAMBDA t : LAMBDA s : LAMBDA x : APN x
+ RSMB
+ RDB0
+ (LAMBDA x1 : APL RDBS : APN side t s x1)
+ (LAMBDA x1 : APL RDBL : APN side t s x1)
+ (LAMBDA x1 : LAMBDA x2 : APN RAP (APN side t s x1) (APN side t s x2))
+ (LAMBDA x1 : LAMBDA x2 : APN equal (APL red : APN side t K x1) (APL red : APN side t K x2) 
+  (APL red : APN side t KI (APN s x1 x2)) 
+  (APN RLTR x1 x2))
+ (APN s (APL t K) (APL t KI)) )
+{ (APN s (APN RAP t RK) (APN RAP t RKI)) ? }
+
+(def-slc eval : APL Y : LAMBDA x : APN x
+ (SMB)
+ (DB0)
+ (LAMBDA x1 : DBS : APL eval x1)
+ (LAMBDA x1 : DBL : APL eval x1)
+ (LAMBDA x1 : LAMBDA x2 : APL (APL eval x1) (APL eval x2))
+ (LAMBDA x1 : LAMBDA x2 : LTR (APL eval x1) (APL eval x2))
+ (AXM) )
+
+(def-slc map : APL Y : LAMBDA map : LAMBDA f : 
+ LAMBDA g : APN g
+  (APL f RSMB)
+  (APL f RDB0)
+  (APL map : LAMBDA x : APL f : APL RDBS x)
+  (APL map : LAMBDA x : APL f : APL RDBL x)
+  (APL map : LAMBDA x : APN map : LAMBDA y : APL f : APN RAP x y)
+  (APL map : LAMBDA x : APN map : LAMBDA y : APL f : APN RLTR x y)
+  (APL f RAXM) )
+   
+(def-slc refl : LAMBDA t : LAMBDA s :
+ APL map : LAMBDA x : APL eval : APN side t s x)
+
+(def-slc addrefl : LAMBDA t :
+ APN P (APN P (APL t K) (APN refl t K)) (APN P (APL t KI) (APN refl t KI)) )
+
+(def-slc mapnat : APL Y : LAMBDA mapnat : LAMBDA f :
+ LAMBDA g : APN g
+  (APL f zero)
+  (APL mapnat : LAMBDA n : APL f : APL suc n) )
+
+(def-slc lim : LAMBDA f : 
+ APN P 
+  (APN mapnat : LAMBDA n : APN f n K)
+  (APN mapnat : LAMBDA n : APN f n KI))
+  
+)
+

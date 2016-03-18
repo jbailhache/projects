@@ -1,0 +1,2603 @@
+{ lcs1.lpia J 9-7-1997 }
+
+{
+Representation des termes :
+	combinateurs de base (I, K, S) et symboles : symboles LPIA
+	applications : (f a)
+
+Representation des demonstrations :
+	(dem (egal x y) (regle d1 d2 ...))
+	x, y: termes; d1, d2... : demonstrations
+
+Regles :
+	fonctions combinant des demonstrations et verifiant la correction
+	... d2 d1 REGLE -> d ou ()
+
+Methodes :
+	combinaisons de regles
+
+Base de faits :
+	ou BASE = ((dem...))
+		-> RPLACA
+	fonction BASE -> %BASE CAR
+	variable globale BASE : liste de demonstrations
+	init. : lois de la theorie
+
+Verification d'une demonstration
+	'(dem (egal (...) (...)) VERIF -> #T (ou la meme dem) ou ()
+
+Demonstration d'une egalite :
+	'(egal x y) DEM -> (dem (egal x y) ...) ou ()
+	ou '(egal x y) base tactiques DEM
+	ou END au lieu de '() et eventuellement plusieurs resultats avec ALT
+	- (egalite syntaxique)
+	- (loi x=y)
+	- egalite dans base
+	- tactiques
+
+Tactiques :
+	'(egal x y) base tactique -> dem
+		base = liste de dems
+	- filtrage ou unification arguments
+	- tests conditions sur arguments
+	- sous-demonstrations
+	- combinaison, construction, deduction avec regles
+		et avec methodes
+		cf LCF type theoreme
+
+	tactiques correspondant aux regles
+
+Construction de termes :
+	x CONSTR -> (dem (egal x x) (egap ...))
+
+Regles de reecriture :
+	x RECR -> (dem (egal y x) (...)) ou ()
+	x RECR1 ...
+	RECR :
+		RECR1 -> () -> ()
+		      -> d1 = (dem (egal x y) (...))
+			y RECR -> () : d1
+			       -> d2 = (dem (egal z y)) : d2 d1 TRANS
+
+Regles :
+	trans   : a=b, b=c -> a=c
+	sym     : a=b -> b=a
+	egap    : f=g, a=b -> fa=gb
+	dcbi    : a=a' -> a=Ia'         (ou a=a)
+	dcbk    : a=a', b=b' -> a=Ka'b'
+	dcbs    : a=a', b=b', c=c' -> ac(bc) = Sa'b'c'
+	ext     : fx=gx, x ni dans f, ni dans g, ni dans BASE -> f=g
+
+RECR1 :
+	appliquer une des regles de reecriture
+	au top niveau
+
+Reecriture a l'interieur ?
+	RECR2 au lieu de RECR1 dans RECR ...
+	egap
+
+Regles de reecriture :
+	RR-...
+	atome : () ou (dem (egal x x) (loi)) ?
+	ou END au lieu de () ?
+	(I a) :
+		d1 = (dem (egal a a) (...))
+		-> (dem (egal a (I a)) (dcbi d1))
+	((K a) b) :
+		d1 = (dem (egal a a) (...))
+		d2 = (dem (egal b b) (...))
+		-> (dem (egal a ((K a) b)) (dcbk d1 d2))
+	(((S a) b) c) :
+		...
+	(f a) :
+		f RECR -> d1 = (dem (egal g f) (...))
+		a RECR -> d2 = (dem (egal b a) (...))
+		-> (dem (egal (g b) (f a)) (egap d1 d2))
+
+Autres regles de reecriture :
+	(S K) -> (K I)
+	(S (K I)) -> I
+	(S (K (K x))) -> (K (K x))
+	((S (K x)) I) -> x
+	((S (K a)) (K b)) -> (K (a b))
+	(Y (K x)) -> x
+		Y = (((S I) I) ((S (K (SI))) ((S I) I)))
+
+	...
+
+Theorie de base :
+	W E+ = K I
+	E- a b a = E- a b b
+	E- a b (f x) = E- a b f (E- a b x)
+
+}
+
+(
+
+(def UNDEF 'UNDEFINED)
+
+(def EGSYNT EQUAL)
+
+(def TRANS : ARG d1 : ARG d2 :
+	UNDEF ARG (a b c) :
+	%d1 '(dem (egal &a &b) &()) FILTRE :
+	%d2 '(dem (egal &b &c) &()) FILTRE :
+{
+	%d1 ARG (() (() a b1) c1) :
+	%d2 ARG (() (() b2 c) c2) :
+	%b1 %b2 EGSYNT AND :
+}
+	%('dem ('egal a c) ('trans d1 d2))
+	NVDEM
+)
+
+(def SYM : ARG d :
+	%d ARG (() (() a b) ()) :
+	%('dem ('egal b a) ('sym d))
+	NVDEM)
+
+(def EGAP : ARG d1 : ARG d2 :
+	%d1 ARG (() (() f g) ()) :
+	%d2 ARG (() (() a b) ()) :
+	%('dem ('egal (f a) (g b)) ('egap d1 d2))
+	NVDEM)
+
+(def DCBI : ARG d1 :
+	UNDEF ARG (a a1) :
+	%d1 '(dem (egal &a &a1) &()) FILTRE :
+	%('dem ('egal a ('I a1)) ('dcbi d1))
+	NVDEM)
+
+(def DCBK : ARG d1 : ARG d2 :
+	UNDEF ARG (a a1 b b1) :
+	%d1 '(dem (egal &a &a1) &()) FILTRE :
+	%d2 '(dem (egal &b &b1) &()) FILTRE :
+	%('dem ('egal a (('K a1) b1)) ('dcbk d1 d2))
+	NVDEM)
+
+(def DCBS : ARG d1 : ARG d2 : ARG d3 :
+	UNDEF ARG (a a1 b b1 c c1) :
+	%d1 '(dem (egal &a &a1) &()) FILTRE :
+	%d2 '(dem (egal &b &b1) &()) FILTRE :
+	%d3 '(dem (egal &c &c1) &()) FILTRE :
+	%('dem ('egal ((a c) (b c)) ((('S a1) b1) c1)) ('dcbs d1 d2 d3))
+	NVDEM)
+
+(def EXT : ARG d :
+	UNDEF ARG (f g x) :
+	%d '(dem (egal (&f &x) (&g &x)) &()) FILTRE :
+	%x C NCONSPTHEN '() :
+	%x %f OCC NOT AND :
+	%x %g OCC NOT AND :
+	%x BASE OCC NOT AND :
+	%('dem ('egal f g) ('ext d))
+	NVDEM)
+
+(def OCC : ARG y : ARG x :
+	%y %x EQUAL OR :
+	%y NCONSPTHEN '() :
+	%x %y CAR OCC OR :
+	%x %y CDR OCC)
+
+(def UNLIST :
+	GETSTACK CDR ECH APPEND SETSTACK)
+
+(def VERIF : ARG d :
+	%d ARG (() (() x y) (r . ld)) :
+	%r 'loi EQ OR :
+	%ld UNLIST %r REGLE EXEC %d EQUAL AND :
+	C I NOT : %ld '() CONTIENT : DEP : ARG di : C I NOT :
+	%di VERIF)
+
+(def REGLE :
+	'((trans TRANS)
+	  (sym SYM)
+	  (egap EGAP)
+	  (dcbi DCBI)
+	  (dbck DCBK)
+	  (dcbs DCBS)
+	) GETVENV)
+
+(def CONSTRUC : ARG x :
+	%x NCONSPTHEN %('dem ('egal x x) ('loi)) :
+	%x ARG (f a) :
+	%f CONSTRUC ARG cf :
+	%a CONSTRUC ARG ca :
+	%('dem ('egal x x) ('egap cf ca)))
+
+{
+(def DEM : ARG tactiques : ARG base : ARG e :
+	ALT
+		(%base ONEOF ARG d1 :
+		 %d1 ARG (() e1) :
+		 %e %e1 EQUAL THEN %d1 END) :
+	%e %tactiques ONEOF EXEC)
+}
+
+(def DEM : ARG e :
+	%e ARG (() x y) :
+	%x %y EGSYNT THEN (%x CONSTRUC) :
+	ALT
+		(BASE ONEOF ARG d1 :
+		 %d1 ARG (() e1) :
+		 %e %e1 EQUAL THEN %d1 END) :
+		%e %TACTIQUES ONEOF EXEC
+                REP PRINT 
+		ARG d : %d ARG (() e2) :
+		%e %e2 EGSYNT THEN %d END)
+
+(def UN-TERME :
+	ALT 'I : ALT 'K : ALT 'S :
+	ALT (%ELEMENTS ONEOF) :
+	'() UN-TERME CONS UN-TERME CONS)
+
+(def AJDEMBASE :
+	REP %BASE CAR ECH CONS LIST1 SETVQ BASE)
+
+(def BASE : %BASE CAR)
+
+
+{ Tactiques }
+
+(def TAC-TRANS : ARG (() a c) :
+	UN-TERME ARG b :
+	%('egal b c) DEM
+	%('egal a b) DEM
+		TRANS)
+
+(def TAC-TRANSIT : ARG (() a c) :
+	UN-TERME ARG b :
+	%b %a EGSYNT THEN END :
+	%b %c EGSYNT THEN END :
+	%('egal b c) DEM
+	%('egal a b) DEM
+		TRANS)
+
+(def TAC-SYM : ARG (() a b) :
+	%('egal b a) DEM SYM)
+
+(def TAC-SYMET : ARG (() a b) :
+	%a %b EGSYNT THEN END :
+	%('egal b a) DEM SYM)
+
+(def TAC-EGAP :
+	UNDEF ARG (f a b g) :
+	'(egal (&f &a) (&g &b)) FILTRE :
+{
+(def TAC-EGAP : ARG (() fa gb) :
+	%fa REP NCONSPTHEN END : ARG (f a) :
+	%gb REP NCONSPTHEN END : ARG (g b) :
+}
+	%('egal a b) DEM
+	%('egal f g) DEM
+		EGAP)
+
+(def TAC-DCBI :
+	UNDEF ARG (a a1) :
+	'(egal &a (I &a1)) FILTRE :
+	%('egal a a1) DEM DCBI)
+
+(def TAC-DCBK :
+	UNDEF ARG (a a1 b b1) :
+	'(egal &a ((K &a1) &b1)) FILTRE :
+	%('egal b b1) DEM
+	%('egal a a1) DEM
+		DCBK)
+
+(def TAC-DCBS :
+	UNDEF ARG (a a1 b b1 c c1) :
+	'(egal ((&a &c) (&b &c)) (((S &a1) &b1) &c1)) FILTRE :
+	%('egal c c1) DEM
+	%('egal b b1) DEM
+	%('egal a a1) DEM
+		DCBS)
+
+(def TAC-EXT : ARG (() f g) :
+	GENSYM : ARG x :
+	%('egal (f x) (g x)) DEM EXT)
+
+(def TAC-CONSTR : ARG e :
+	%e ARG (() x y) :
+	%x %y EGSYNT NOT THEN END :
+	%x CONSTRUC)
+
+(def TAC-RECR : ARG (() a b) :
+        %a RECR ARG d1 :
+        %d1 ARG (() (() c)) :
+        %b RECR ARG d2 :
+        %d2 ARG (() (() d)) :
+        %('egal c d) DEM ARG d3 :
+        %d2 %d3 %d1 SYM TRANSIT TRANSIT)
+
+{
+('(TAC-DCBI TAC-DCBK TAC-DCBS TAC-EGAP TAC-SYM TAC-TRANS) SETVQ TACTIQUES)
+}
+
+(def TAC-PRIM :
+	'(TAC-DCBI TAC-DCBK TAC-DCBS TAC-EGAP TAC-SYM TAC-TRANS)
+	ONEOF EXEC)
+
+(def NVDEM I)
+
+('(Z ZZ E+ E-) SETVQ ELEMENTS)
+
+{
+@(BASE SETVQ ': :
+	(dem (egal I I) (loi))
+	(dem (egal K K) (loi))
+	(dem (egal S S) (loi))
+	(dem (egal Z Z) (loi))
+	(dem (egal (K I) (((S S) (K I)) E+)) (loi))
+)
+}
+('((
+	(dem (egal I I) (loi))
+        (dem (egal K K) (loi))
+        (dem (egal S S) (loi))
+        (dem (egal Z Z) (loi))
+        (dem (egal (K I) (((S S) (K I)) E+)) (loi))
+  )) SETVQ BASE)
+
+{
+@(TACTIQUES SETVQ ':
+	TAC-RECR
+	TAC-DCBI TAC-DCBK TAC-DCBS
+	TAC-EGAP
+	TAC-EXT
+	TAC-SYMET TAC-TRANSIT
+)
+}
+
+('(
+	TAC-RECR
+        TAC-DCBI TAC-DCBK TAC-DCBS
+        TAC-EGAP
+        TAC-EXT
+        TAC-SYMET TAC-TRANSIT
+  ) SETVQ TACTIQUES)
+
+(def RECR RECR*)
+
+(def RECR* : ARG x :
+	%x NCONSPTHEN
+		(%('egal x x) DEM) :
+	%x RECR1 ARG d1 :
+	%d1 ARG (() (() y)) :
+	%x %y EGSYNT THEN (%('egal x x) DEM) :
+	%y RECR ARG d2 :
+	%d1 %d2 TRANSIT)
+
+(def TRANSIT : ARG d1 : ARG d2 :
+	%d1 ARG (() (() x1 y1)) :
+	%d2 ARG (() (() x2 y2)) :
+	%y1 %x2 EGSYNT NOT THEN END :
+	%x1 %y1 EGSYNT THEN %d2 :
+	%x2 %y2 EGSYNT THEN %d1 :
+	%d2 %d1 TRANS)
+
+(def RECR1 : ARG x :
+	%x %REGLES-RECR ONEOF EXEC ARG d :
+	%d ARG (() (() () x1)) :
+	%x %x1 EGSYNT NOT THEN END :
+	%d)
+
+(def TAC-RECR : ARG (() a b) :
+	%a RECR ARG d1 :
+	%d1 ARG (() (() c)) :
+	%b RECR ARG d2 :
+	%d2 ARG (() (() d)) :
+	%('egal c d) DEM ARG d3 :
+	%d2 %d3 %d1 SYM TRANSIT TRANSIT)
+
+(def RR-DCBI :
+	UNDEF ARG a :
+	'(I &a) FILTRE :
+	%('egal a a) DEM DCBI)
+
+(def RR-DCBK :
+	UNDEF ARG (a b) :
+	'((K &a) &b) FILTRE :
+	%('egal b b) DEM
+	%('egal a a) DEM
+		DCBK)
+
+(def RR-DCBS :
+	UNDEF ARG (a b c) :
+	'(((S &a) &b) &c) FILTRE :
+	%('egal c c) DEM
+	%('egal b b) DEM
+	%('egal a a) DEM
+		DCBS)
+
+(def RR-EGAP : ARG x :
+	%x NCONSPTHEN END :
+	%x ARG (f a) :
+	%a RECR
+	%f RECR
+		EGAP)
+
+(def RR-TRANS : ARG x :
+	%x RECR ARG d1 :
+	%d1 ARG (() (() y)) :
+	%d1 %y RECR TRANSIT)
+
+{
+@(REGLES-RECR SETVQ ':
+	RR-DCBI RR-DCBK RR-DCBS
+	RR-EGAP
+)
+}
+('(RR-DCBI RR-DCBK RR-DCBS RR-EGAP) SETVQ REGLES-RECR)
+
+
+
+{
+Applications LCS :
+	- simplification
+	- chainage avant
+
+Simplification :
+	terme x a simplifier en y (et rendre la dem de x=y)
+	tq x = y
+	avec regles LCS et lois d'une theorie
+	et y le plus simple possible
+	definition de la taille d'un terme :
+		exemple :
+			taille I = 1, taille K = 2, taille S = 3
+			taille symbole = 1 ou 4 ou selon symbole
+			taille f a = taille application (exemple 1)
+				+ taille f + taille a
+}
+
+(def TAILLE-TERME :
+	REP NCONSPTHEN
+		(REP 'I EQ THEN (DEP 1) :
+		 REP 'K EQ THEN (DEP 2) :
+		 REP 'S EQ THEN (DEP 3) :
+		 DEP 1) :
+	REP CAR TAILLE-TERME ECH CDR CAR TAILLE-TERME PLUS 1 PLUS)
+
+(def pltaille-terme pltaille)
+
+(defclause pltaille (I 1) I)
+(defclause pltaille (K 2) I)
+(defclause pltaille (S 3) I)
+
+(defclause pltaille (&x 1) :
+	(%x NCONSPTHEN I END)
+	(%x '(I K S) MEMBER THEN END I))
+
+(defclause pltaille ((&f &a) &t) :
+	pltaille '(&f &tf)
+	pltaille '(&a &ta)
+	plplus '(&tf &ta &tf+ta)
+	plplus '(&tf+ta 1 &t)
+)
+
+{
+(defclause plplus (&a &b &c) :
+	&c UNDEF EQ THEN (&a VDEF &b VDEF PLUS SETVQ c) :
+	&a UNDEF EQ THEN (&c VDEF &b VDEF MOINS SETVQ a) :
+	&b UNDEF EQ THEN (&c VDEF &a VDEF MOINS SETVQ b) :
+	&a &b PLUS &c EQ THEN I END)
+}
+
+(def UNDEFP : REP NCONSPTHEN (DEP '()) : CAR 'VAR EQ)
+
+(def VDEF :
+	REP UNDEFP THEN END I)
+
+(defclause plnombre (&x) :
+	%x GETTYPE 0 GETTYPE EQ THEN I :
+	%x UNDEFP THEN (UN-NOMBRE SETVQ x) :
+	END)
+
+(def UN-NOMBRE-POS :
+	0 : Y : ALT (K I) : 1 PLUS)
+
+(def UN-NOMBRE-SPOS :
+	1 : Y : ALT (K I) : 1 PLUS)
+
+(def UN-NOMBRE :
+	ALT 0 :
+	UN-NOMBRE-SPOS ALT I : 0 1 MOINS FOIS)
+
+(defclause plplus (&a &b &c) :
+	&c UNDEFP THEN
+		(&a UNDEFP THEN (UN-NOMBRE SETVQ a) {:} I
+		 &b UNDEFP THEN (UN-NOMBRE SETVQ b) {:} I
+		 &a &b PLUS SETVQ c) :
+	&a UNDEFP THEN
+		(&b UNDEFP THEN (UN-NOMBRE SETVQ b) {:} I
+		 &c &b MOINS SETVQ a) :
+	&b UNDEFP THEN
+		(&c &a MOINS SETVQ b) :
+	&a &b PLUS &c EQ THEN I END)
+
+
+{
+	utilisation du parallelisme de LPIA et fonction d'evaluation (INCRPRIO) :
+		proc. avec x a simplifier ou dem x donne = x
+		x atome -> x
+		x quelconque -> x
+		1etape :
+		f a -> g b (f->g, a->b)
+		I a -> a, a -> I a
+		K a b -> a, a -> K a b
+		S a b c -> a c (b c), a c (b c) -> S a b c
+		repeter : x -> y, y -> z ...
+}
+
+(def SIMPLIFLCS :
+	Y :
+	ALT (K I) :
+	REP NCONSPTHEN END : { probleme atomes simplifiables ? }
+	REP TAILLE-TERME 0 1 MOINS FOIS INCRPRIO
+	ALT SIMPLIF1LCS :
+	ARG x : GENSYM ARG y :
+	%(x y) SIMPLIFLCS %y ABSTRACTLCS)
+
+(def SIMPLIF1LCS : REP : REP : ARG x : ARG (f a) :
+	ALT ('(I &u) FILTRE %u) :
+	ALT ('((K &u) &v) FILTRE %u) :
+	ALT ('(((S &u) &v) &w) FILTRE %((u w) (v w))) :
+	DEP
+	{ ALT @(CONS SIMPLIF1LCS %f CONS SIMPLIF1LCS %a '()) : } 
+        ALT ('() %a SIMPLIF1LCS CONS %f SIMPLIF1LCS CONS) :
+	ALT %('I x) :
+	UN-TERME ARG y :
+	ALT %(('K x) y) :
+	ALT (%x '((&u &w) (&v &w)) FILTRE %((('S u) v) w)) :
+	ALT (BASE '() CONTIENT : DEP ARG (() (() u v)) :
+		%v %x EQ THEN %u END) :
+	END)
+
+(def SFDLCS : ARG x :
+	ALT (%x CONSTRUC) :
+	%x NCONSPTHEN END :
+	%x TAILLE-TERME 0 1 MOINS FOIS INCRPRIO
+	ALT (%x SFD1LCS : REP : ARG d : ARG (() (() y)) :
+		%d %y {%x} SFDLCS TRANS) :
+	GENSYM ARG u :
+	{
+	%(x u) SFDLCS ARG d1 :
+	%d1 %u ATDLCS ARG d2 :
+	%d1 %d2 TRANS ARG d3 :
+	%d3 EXT ARG d4 :
+	%d4 ARG (() (() y)) :
+	%d4 %y SFDLCS TRANS 
+        }
+        { a verifier }
+	{ REP ARG d : ARG (() (() y)) : }
+	%(x u) SFDLCS REP REP ARG (() (() r)) :
+	%r %u ATDLCS TRANS EXT REP ARG (() (() y)) :
+	%y SFDLCS TRANS)
+
+(def SFD1LCS : REP : REP : ARG x : ARG (f a) :
+	ALT ('(I &u) FILTRE : %u CONSTRUC DCBI) :
+	ALT ('((K &u) &v) FILTRE :
+		%v CONSTRUC %u CONSTRUC DCBK) :
+	ALT ('(((S &u) &v) &w) FILTRE :
+		%w CONSTRUC %v CONSTRUC %u CONSTRUC DCBS) :
+	DEP
+	ALT (%a SFD1LCS %f SFD1LCS EGAP) :
+	ALT (%x CONSTRUC DCBI SYM) :
+	UN-TERME ARG y :
+	ALT (%y CONSTRUC %x CONSTRUC DCBK SYM) :
+	ALT (%x '((&u &w) (&v &w)) FILTRE :
+		%w CONSTRUC %v CONSTRUC %u CONSTRUC DCBS SYM) :
+	ALT (BASE '() CONTIENT : DEP REP ARG d : ARG (() (() u v)) :
+		%v %x EQ THEN %d END) :
+	END)
+
+(def DEBUG I)
+
+(def ABSTRACTLCS : ARG v : ARG x :
+	%v %x EQ THEN 'I :
+	{%x NCONSPTHEN %('K x) :}
+	%x %v DANS NOT THEN %('K x) :
+	%x ARG (f a) :
+	(%v %a EQ AND : %f %v DANS NOT) THEN %f :
+	%a %v ABSTRACTLCS ARG lva :
+	%f %v ABSTRACTLCS ARG lvf :
+	%(('S lvf) lva))
+
+(def ATDLCS : ARG v : ARG x :
+	%v %x EQ THEN (%x CONSTRUC DCBI SYM) :
+	%x %v DANS NOT THEN (%v CONSTRUC %x CONSTRUC DCBK SYM) :
+	%x ARG (f a) :
+	(%v %a EQ AND : %f %v DANS NOT) THEN (%x CONSTRUC) :
+	%a %v ATDLCS 
+        REP ARG dlva : ARG (() (() (lva))) :
+	%f %v ATDLCS REP ARG dlvf : ARG (() (() (lvf))) :
+	%dlva %dlvf EGAP
+        %dlva %dlvf EGAP
+	%v CONSTRUC %lva CONSTRUC %lvf CONSTRUC DCBS SYM 
+        TRANS)
+
+
+{
+(def ATDLCS : ARG v : ARG x :
+	%v %x EQ THEN (%x CONSTRUC DCBI SYM) :
+	%x %v DANS NOT THEN (%v CONSTRUC %x CONSTRUC DCBK SYM) :
+	%x ARG (f a) :
+        "a(1)=" PRINTSTRING %a PRINT
+	(%v %a EQ AND : %f %v DANS NOT) THEN (%x CONSTRUC) :
+        "a(2)=" PRINTSTRING %a PRINT
+	%a %v ATDLCS 
+        "a(3)=" PRINTSTRING %a PRINT 
+        REP ARG dlva : ARG (() (() (lva))) :
+        "a(4)=" PRINTSTRING %a PRINT
+        "dlva=" PRINTSTRING %dlva PRINT
+	%f %v ATDLCS REP ARG dlvf : ARG (() (() (lvf))) :
+        "dlvf=" PRINTSTRING %dlvf PRINT
+	%dlva %dlvf EGAP
+        REP PRINT
+        "v=" PRINTSTRING %v PRINT
+        "f=" PRINTSTRING %f PRINT
+        "a=" PRINTSTRING %a PRINT
+        %dlva %dlvf EGAP
+        "(1) " PRINTSTRING REP PRINT
+	%v CONSTRUC %lva CONSTRUC %lvf CONSTRUC DCBS SYM 
+        "(2) " PRINTSTRING REP PRINT
+        TRANS)
+
+(def ATDLCS : ARG v : ARG x :
+	%v %x EQ THEN (%x CONSTRUC DCBI SYM) :
+	%x %v DANS NOT THEN (%v CONSTRUC %x CONSTRUC DCBK SYM) :
+	%x ARG (f a) :
+	(%v %a EQ AND : %f %v DANS NOT) THEN (%x CONSTRUC) :
+	%a %v ATDLCS REP ARG dlva : ARG (() (() lva)) :
+        "dlva=" PRINTSTRING %dlva PRINT
+	%f %v ATDLCS REP ARG dlvf : ARG (() (() lvf)) :
+        "dlvf=" PRINTSTRING %dlvf PRINT
+	%dlva %dlvf EGAP
+        REP PRINT
+	%v CONSTRUC %lva CONSTRUC %lvf CONSTRUC DCBS SYM TRANS)
+}
+
+
+
+{
+	probleme : existence d'un meme terme dans differents processus
+	-> ne pas utiliser le parallelisme de LPIA
+	programme sequentiel avec liste de valeurs y telles que x -> y
+	ou liste de demonstrations de x=y
+	liste triee par priorite
+		priorite augmente pour expression simple
+			largeur : diminue a chaque reecriture
+	choisir l'expression la plus prioritaire et reecrire (1 etape) et ajouter
+	eventuellement limiter la longueur de la liste (-> probleme ordre)
+}
+
+(def NSFDLCS :
+	ARG incr :
+	ARG lgm :       { longueur maximale de la liste des demonstrations }
+	ARG nim :       { nombre maximal d'iteration }
+	ARG x :         { terme a simplifier }
+	%x CONSTRUC REP ARG d : ARG (() (() y)) :
+	%y TAILLE-TERME ARG ty :
+	%((d ty)) ARG l :
+	1 ARG lg : 0 ARG ni :
+	Y :
+	%ni %nim EQ THEN
+		(%l (CAR CAR) K I) :
+	%ni 1 PLUS SETVQ ni :
+	%l LENGTH SETVQ lg :
+	%l REVERSE %lg %lgm MOINS REP POSP
+		THEN (RPTN CDR) DEP
+		REVERSE SETVQ l
+	%l ARG (((() (() z)))) :
+	values (%z NSFD1LCS) ARG ld :
+	%l CDR %ld '() ITLIST : DEP REP ARG d : ARG (() (() t)) : ARG l1 :
+	%t TAILLE-TERME %incr PLUS ARG tt :
+	%l1 %(d tt) INSEL)
+
+(def NSFD1LCS : REP : REP : ARG x : ARG (f a) :
+	ALT ('(I &u) FILTRE : %u CONSTRUC DCBI) :
+	ALT ('((K &u) &v) FILTRE :
+		%v CONSTRUC %u CONSTRUC DCBK) :
+	ALT ('(((S &u) &v) &w) FILTRE :
+		%w CONSTRUC %v CONSTRUC %u CONSTRUC DCBS) :
+	DEP
+	ALT (%x NCONSPTHEN END : %a NSFD1LCS %f NSFD1LCS EGAP) :
+	ALT (%x CONSTRUC DCBI SYM) :
+	{UN-TERME ARG y :
+	ALT (%y CONSTRUC %x CONSTRUC DCBK SYM) : }
+	ALT (%x '((&u &w) (&v &w)) FILTRE :
+		%w CONSTRUC %v CONSTRUC %u CONSTRUC DCBS SYM) :
+	ALT (BASE '() CONTIENT : DEP REP ARG d : ARG (() (() u v)) :
+		%v %x EQ THEN %d END) :
+	END)
+
+(def DEBUG : %DEBUGON THEN STEP I)
+
+(def RPTN :
+	REP 0 EQ THEN (DEP KI) :
+	C QUOTE : ARG x :
+	0 1 MOINS PLUS ARG n : { C QUOTE : ARG x : }
+	%(x ('QUOTE n) 'RPTN x) EXEC)
+
+(def INSEL : ARG (x tx) : ARG l :
+	%l NCONSPTHEM %((x tx)) :
+	%l ARG ((y ty) . s1) :
+	%ty %tx MOINS POSP THEN
+		(%x %y EQUAL THEN %l
+		%((x tx) (y ty) . s1)) :
+	%s1 %(x tx) INSEL %(y ty) CONS)
+
+(def INSDEM1 : REP ARG d : ARG (() e () () v) : ARG l :
+	%l NCONSPTHEN %(d) :
+	%l ARG (d1 . s1) :
+	%d1 ARG (() e1 () () v1) :
+	%v1 %v MOINS POSP THEN
+		{(%e %e1 EQUAL THEN %(d . s1)} %(d d1 . s1) {)} :
+	%s1 %d INSDEM1 %d1 CONS)
+
+(def INSDEM : REP ARG d : ARG (() e) : ARG l :
+	(%l '() CONTIENT : DEP ARG (() e1) :
+	 %e %e1 EQUAL)
+	THEN %l :
+	%l %d INSDEM1)
+
+
+{
+	ut. prolog :
+		def clause recr (x y)
+}
+
+(defclause plsimpliflcs (&x &x) I)
+(defclause plsimpliflcs (&x &y) :
+	(&x REP UNDEF THEN DEP :
+		TAILLE-TERME 0 1 MOINS FOIS INCRPRIO)
+	plsimplif1lcs '(&x &z)
+	plsimpliflcs '(&z &y))
+
+(defclause plsimplif1lcs ((I &u) &u) I)
+(defclause plsimplif1lcs (((K &u) &v) &u) I)
+(defclause plsimplif1lcs ((((S &u) &v) &w) ((&u &w) (&v &w))) I)
+
+(defclause plsimplif1lcs ((&f &a) (&g &b)) :
+	plsimplif1lcs '(&f &g)
+	plsimplif1lcs '(&a &b))
+
+(defclause plsimplif1lcs (&x &y) :
+	plsimplif1lcs '(&y &x))
+
+(defclause plsimplif1lcs (&x &y) :
+	BASE ONEOF ARG (() (() u v)) :
+	%v %x EQ THEN (plequal '(&u &x)) END)
+
+
+(defclause plsfdlcs ((dem (egal &x &x) &c)) :
+	plconstruc '((dem (egal &x &x) &c)))
+
+(defclause plsfdlcs (&d) :
+	{&d 'plsfdlcs CONS ?}
+	plequal '(&d (dem (egal &y &x) (trans &d2 &d1)))
+	(&x REP UNDEF THEN DEP :
+	 TAILLE-TERME 0 1 MOINS FOIS INCRPRIO)
+	plequal '(&d1 (dem (egal &z &x) &c1))
+	plequal '(&d2 (dem (egal &y &z) &c2))
+	plsfd1lcs '(&d1)
+	plsfdlcs '(&d2)
+	apregle '(&d)
+	{&d 'plsfdlcs-> CONS ?}
+)
+
+(defclause plsfd1lcs ((dem (egal &u (I &u))
+			(dcbi (dem (egal &u &u) &c1)))) :
+	plconstruc '((dem (egal &u &u) &c1)))
+
+(defclause plsfd1lcs ((dem (egal &u ((K &u) &v))
+			(dcbk (dem (egal &u &u) &c1)
+			      (dem (egal &v &v) &c2)))) :
+	plconstruc '((dem (egal &u &u) &c1))
+	plconstruc '((dem (egal &v &v) &c2)))
+
+(defclause plsfd1lcs ((dem (egal ((&u &w) (&v &w)) (((S &u) &v) &w))
+			(dcbs (dem (egal &u &u) %c1)
+			      (dem (egal &v &v) &c2)
+			      (dem (egal &w &w) &c3)))) :
+	plconstruc '((dem (egal &u &u) &c1))
+	plconstruc '((dem (egal &v &v) &c2))
+	plconstruc '((dem (egal &w &w) &c3)))
+
+(defclause plsfd1lcs ((dem (egal (&g &b) (&f &a))
+			(egap (dem (egal &g &f) &c1)
+			      (dem (egal &b &a) &c2)))) :
+	plsfd1lcs '((dem (egal &g &f) &c1))
+	plsfd1lcs '((dem (egal &b &a) &c2)))
+
+(defclause plsfd1lcs ((dem (egal &y &x) (sym d1))) :
+	plsfd1lcs '((dem (egal &x &y) &d1)))
+
+(defclause plsfd1lcs (&x &y) :
+	BASE ONEOF REP ARG d1 : ARG (() (() () v)) :
+	%v %x EQ THEN (plequal '(&d1 &d)) END)
+
+
+{
+	voir aussi simplification apprentissage par compilation de savoir
+
+chainage avant :
+	theorie LCS donnee par un ensemble de lois
+	-> produire theoremes
+	valeur d'interet d'un theoreme :
+		exemple : egalite simple demontree uniquement par demonstration compliquee
+
+	liste d'egalites (lois et theoremes_ eventuellement de longueur limitee (probleme ordre)
+	ordre de priorite :
+	- interet egalite
+	- priorite diminue quand egalite utilisee
+	cf simplif
+	choisir 1 regle LCS et n (= arite regle) egalites dans la base
+		et appliquer
+	si applicable -> ajouter egalite (theoreme demontre) (ev dem) dans la base
+		si pas deja avec dem plus simple
+	eventuellement choisir au hasard avec probabilite plus grande pour les egalites plus prioritaires
+		au lieu de choisir les premieres egalites
+}
+
+(def MAPCAR MAPKAR)
+(def ITLIST : DES ECH MON TRANSLIST)
+(def SETBASE : LIST1 SETVQ BASE)
+
+(def NINTERET : REP ARG d : ARG (() (() x y) (r . ld)) :
+	%r 'loi EQ THEN 0 :
+	%d TAILLE-DEM %x TAILLE-TERME %y TAILLE-TERME PLUS DIV)
+
+(def TAILLE-DEM : REP ARG d : ARG (() (() x y) (r . ld)) :
+	%x TAILLE-TERME %y TAILLE-TERME PLUS
+	%TAILLE-REGLES PLUS
+	%ld '() ITLIST : DEP ARG d1 : ARG t :
+	%d1 TAILLE-DEM %t PLUS)
+
+(16 SETVQ TAILLE-REGLES)
+
+(def INSDEMS :
+	'() ITLIST : DEP INSDEM)
+
+(def CHAV :
+	ARG lgm :
+	ARG nim :
+	BASE '() MAPCAR (DEP CNINT)
+		SETBASE
+	BASE LENGTH ARG lg :
+	0 ARG ni :
+	Y :
+	%ni &nim EQ THEN (K I) :
+	%ni 1 PLUS SETVQ ni :
+	BASE LENGTH SETVQ lg :
+	BASE REVERSE %lg %lgm MOINS REP POSP
+		THEN (RPTN CDR) DEP
+		REVERSE SETBASE
+	BASE ARG (d1 d2 d3 . sb) :
+	{%('dem '(egal I I) '(loi) NIDB NIDB) ARG db : }
+	%sb {BASE} values (%d3 %d2 %d1 APREGLES CNINT) INSDEMS :
+	%d1 INPRIO INSDEM
+	%d2 INPRIO INSDEM
+	%d3 INPRIO INSDEM
+	SETBASE)
+
+(def CNINT : ARG d :
+	'() %d NINTERET REP DES CONS MON CONS
+	%d APPEND)
+
+(1000000 SETVQ NIDB) { #G100000 } 
+
+(def INPRIO : ARG (() (() x y) c ni np) :
+	%INP %np PLUS ARG nnp :
+	%('dem ('egal x y) c ni nnp))
+{ test }
+(1 SETVQ INP)
+
+(def APREGLES : ARG d1 : ARG d2 : ARG d3 :
+	ALT (%d1 %d2 TRANS) :
+	ALT (%d1 %d3 TRANS) :
+	ALT (%d2 %d1 TRANS) :
+	ALT (%d2 %d3 TRANS) :
+	ALT (%d3 %d1 TRANS) :
+	ALT (%d3 %d2 TRANS) :
+	ALT (ALT %d1 (ALT %d2 %d3) ALT SYM : ALT DCBI EXT) :
+	ALT (ALT %d1 (ALT %d2 %d3)
+	     ALT %d1 (ALT %d2 %d3) ALT EGAP DCBK) :
+	ALT (ALT %d1 (ALT %d2 %d3)
+	     ALT %d1 (ALT %d2 %d3)
+	     ALT %d1 (ALT %d2 %d3)
+	     DCBS) :
+	END)
+
+
+{
+	lien avec simplif
+		similitude
+		ut. chainage avant pour simpl.:
+			interet augmente pour egalite x-donne = ...
+			surtout si ... simple
+
+	ut. prolog ?
+
+	ut. parallelisme LCS ?
+
+}
+
+
+{ fe1.ll : traduction d'egalites LCS forme interne -> externe }
+
+
+
+(def FORMEXT : ARG x :
+	%x LENGTH 3 EQ AND *%x CAR 'egal EQ
+		THEN (%x FORMEXT-EG) :
+	%x FORMETX-TERME)
+
+(def FORMEXT-TYPE : ARG type :
+	%type 'egalite EQ THEN FORMEXT-EG :
+	%type 'terme EQ THEN FORMEXT-TERME :
+	ARG x : "type incorrect" %type %x ERR-LCS
+	%('err-lcs x))
+
+{
+(def FORMEXT-TERME : ARG x :
+	%x NCONSPTHEN %x :
+	(%NOMS-LCS '() CONTIENT : DEP ARG no :
+	 'LCS-DEF %nom GETPROP %x EQUAL THEN %nom '())
+	OR :
+	%x CAR NCONSPTHEN (%x CDR FORMEXT-TERME %x CAR CONS) :
+	%x CDR FORMEXT-TERME %x CAR FORMEXT-TERME APPEND)
+}
+
+{
+I -> \x.x
+K -> \xy.x
+Ka -> \x.a
+S -> \xyz.xz(yz)
+Sa -> \xy.ay(xy)
+Sab -> \x.ax(bx)
+
+Ia -> a
+Kab -> b
+Sabc -> ac(bc)
+
+et reit.
+
+}
+
+{
+(def NFILTRE :
+	(C QUOTE : ARG x :
+	 %('values '(FILTRE GETENV) 'THEN 'SETENV ''())) EXEC)
+}
+
+(def NFILTRE :
+	values (FILTRE GETENV) DES DEP DEP MON REP THEN (REP CAR SETENV) I)
+
+(def FORMEXT-TERME : ARG t :
+	'() ARG l :
+	%t FORMEXT-TERME1 SIMPAR)
+
+(def SIMPAR : ARG x :
+	%x NCONSPTHEN %x :
+	%x CAR 'ABS EQ THEN
+		(%x ARG (() v u) :
+		%u SIMPAR ARG us :
+		%('ABS v us)) :
+	%x ARG (f a) :
+	%f SIMPAR ARG fs :
+	%a SIMPAR ARG as :
+	%fs NCONSPTHEN %(fs as) :
+	%fs CAR 'LCS-formext ECH GETPROP THEN %(fs as) :
+	%(as) %fs APPEND)
+
+(def FORMEXT-TERME1 : ARG t{x} :
+	%t %l MEMBER THEN %t :
+	%l %t CONS ARG l :
+{       %t NCONSPTHEN %t : }
+	(%NOMS-LCS '() CONTIENT : DEP ARG nom :
+	 'LCS-DEF %nom GETPROP %t EQUAL THEN %nom '())
+	OR :
+	(%t NCONSPTHEN '() : %t CAR 'ABS EQ)
+		THEN (%t ARG (() v u) :
+		      %u FORMEXT-TERME1 ARG ue :
+		      %('ABS v ue)) :
+	UNDEF ARG (a b c) :
+	GENSYM ARG x : GENSYM ARG y : GENSYM ARG z :
+	%t 'I NFILTRE THEN %('ABS x x) :
+	%t '(I &a) NFILTRE THEN (%a FORMEXT-TERME1) :
+	%t 'K NFILTRE THEN %('ABS x : 'ABS y x) :
+	%t '(K &a) NFILTRE THEN (%a FORMEXT-TERME1 ARG a %('ABS x a)) :
+	%t '((K &a) &b) NFILTRE THEN (%a FORMEXT-TERME1) :
+	%t 'S NFILTRE THEN %('ABS x : 'ABS y : 'ABS z : (x z) : y z) :
+	%t '(S &a) NFILTRE THEN (%((a y) (x y)) FORMEXT-TERME1 ARG r
+		%('ABS x : 'ABS y r)) :
+	%t '((S &a) &b) NFILTRE THEN (%((a x) (b x)) FORMEXT-TERME1 ARG r
+		%('ABS x r)) :
+	%t '(((S &a) &b) &c) NFILTRE THEN (%((a c) (b c)) FORMEXT-TERME1) :
+	%t NCONSPTHEN &t :
+	%t CAR NCONSPTHEN ('() %t CDR CAR FORMEXT-TERME1 CONS %t CAR CONS
+		FORMEXT-TERME1) :
+	{'() %t CDR CAR FORMEXT-TERME1 CONS %t CAR FORMEXT-TERME APPEND}
+	'() %t CDR CAR FORMEXT-TERME1 CONS %t CAR FORMEXT-TERME1
+{       REP NCONSPTHEN CONS :
+	REP CAR 'LCS-formext ECH GETPROP THEN CONS APPEND}
+	CONS FORMEXT-TERME1)
+
+{
+probleme : (f a)
+	f -> f'
+	a -> a'
+	(f a) -> (f' a')
+	(f' a') -> ?
+}
+
+(def FORMEXT-EG : ARG (() x y) :
+	(%NOMS-LCS '() CONTIENT : DEP ARG nom :
+	 'LCS-DEF %nom GETPROP %('egal x{t} y) EQUAL THEN %nom '())
+	OR :
+	UNDEF ARG (a b c d) :
+	%x '(((E! &a) &b) &c) NFILTRE AND (%y '(((E! &a) &b) &d) NFILTRE)
+		THEN (%('egal a b) FORMEXT-EG ARG eab :
+		      %('egal c d) FORMEXT-EG ARG ecd :
+		      %('SI! eab ecd)) :
+	%x '(((E? &a) &b) &c) NFILTRE AND (%y '(((E? &a) &b) &d) NFILTRE)
+		THEN (%('egal a b) FORMEXT-EG ARG eab :
+		      %('egal c d) FORMEXT-EG ARG ecd :
+		      %('SI? eab ecd)) :
+	%x '(((E! &a) &b) K) NFILTRE AND (%y '(((E! a) b) (K I)) NFILTRE)
+		THEN (%('egal a b) FORMEXT-EG ARG eab :
+		%('NON! eab)) :
+	%x '(((E? &a) &b) K) NFILTRE AND (%y '(((E? a) b) (K I)) NFILTRE)
+		THEN (%('egal a b) FORMEXT-EG ARG eab :
+		%('NON? eab)) :
+	%x FORMEXT-TERME ARG xe :
+	%y FORMEXT-TERME ARG ye :
+	%('egal xe ye) FORMEXT-EG1)
+
+(def FORMEXT-EG1 : ARG (() x y) :
+	(%x LENGTH 3 EQ AND :
+	 %x CAR 'ABS EQ AND :
+	 %x ARG (() v a) :
+	 %y LENGTH 3 EQ AND :
+	 %y CAR 'ABS EQ AND :
+	 %y ARG (() w b) :
+	 %b %w %v SUBST ARG c : {%v %w}
+	 %('egal a c) FORMEXT-EG1 ARG e :
+	 %('PT v e))
+	OR %('egal x y))
+
+
+
+
+
+(def PRINTDEMARB : ARG marge : ARG (() (() a b) (r . ld)) :
+	%marge RPTN (" " PRINTSTRING)
+	"dem " PRINTSTRING
+	%a LCS-FE PRIN " = " PRINTSTRING %b LCS-FE PRIN
+	" : " PRINTTRING %r{egle} PRIN
+	%ld '() MAPCAR
+		(DEP %marge PRINTDEMARB-INCMARGE PLUS PRINTDEMARB '()) DEP
+)
+
+(def PRINTDEMARB-INCMARGE 3)
+
+(def LCS-FE I)
+
+(def PRINTDEMLIST : ARG n : ARG (() (() a b) (r . ld)) :
+	%ld '() MAPCAR
+		(DEP %n PRINTDEMLIST REP 1 PLUS SETVQ n)
+	REP ARG ln :
+	REP NCONSPTHEN (DEP %n) (LAST CAR 1 PLUS) ARG n :
+	%n PRIN " : " PRINTSTRING
+	%a LCS-FE PRIN " = " PRINTSTRING %b LCS-FE PRIN
+	" : " PRINTSTRING %r PRIN " " PRINTSTRING
+	(Y : %ld NCONSPTHEN EXIT :
+		%ld ARG ((() (() ai bi))) :
+		%ln CAR PRIN " (" PRINTSTRING %ai LCS-FE PRIN " = " PRINTSTRING
+		%bi LCS-FE PRIN ")  " PRINTSTRING
+		%ld CDR SETVQ ld
+		%ln CDR SETVQ ln
+	)
+	"|\0A" PRINTSTRING
+	%n)
+
+(def FLATDEM : ARG n : REP ARG d : ARG (() (() a b) (r . ld)) :
+	%ld '() MAPCAR
+		(DEP %n FLATDEM REP CAR 1 PLUS SETVQ n)
+	REP ARG ln :
+	REP NCONSPTHEN (DEP %n) (LAST CAR CAR 1 PLUS) ARG n :
+	'() ARG sdems :
+{       %n PRIN " : " PRINTSTRING
+	%a LCS-FE PRIN " = " PRINTSTRING %b LCS-FE PRIN
+	" : " PRINTSTRING %r PRIN }
+	%(n d ('egal a b) r)
+	%ln SETVQ ln1
+	(Y : %ld NCONSPTHEN EXIT :
+		%ld ARG ((() (() ai bi))) :
+		%ln ARG ((ni)) :
+{               %ln CAR PRIN " (" PRINTSTRING %ai LCS-FE PRIN " = " PRINTSTRING
+		%bi LCS-FE PRIN ") " PRINTSTRING }
+		%((ni ('egal ai bi))) %sdems APPEND SETVQ sdems
+		%ld CDR SETVQ ld
+		%ln CDR SETVQ ln
+	)
+{       "|\0A" PRINTSTRING
+	%n }
+	%sdems ECH APPEND ARG le :
+	%(le) (%ln1 '() MAPCA{R}N : DEP CDR) APPEND
+	%n CONS
+)
+
+(def CORRESP-FDEM : ARG (() . l) :
+	%l '() MAPCAR : DEP ARG (n d) :
+	%l '() CONTIENT : DEP ARG (n1 d1) :
+	%d1 %d EQ AND %(n n1))
+
+{
+(def SIMPLIF-FDEM : ARG fd :
+	%fd CORRESP-FDEM ARG c :
+	(%c %fd '() TRANSLIST : DEP ARG (n n1) : ARG fd1 :
+	 %fd1 %n %n1 SUBST)
+	ARG fd2 :
+	(%fd2 CDR '() MAPCAN : DEP ARG (n2 . s2) :
+	 (%c '() CONTIENT : DEP ARG (() n3) " %n3 %n2 EQ)
+	 THEN %((n2 . s2)) '())
+	%fd2 CAR CONS)
+}
+
+(def SIMPLIF-FDEM : ARG fd :
+	%fd CORRESP-FDEM ARG c :
+	(%fd C{A}DR '() MAPCAN : DEP ARG (n2 . s2) :
+	 (%c '() CONTIENT : DEP ARG (() n3) : %n3 %n2 EQ)
+	 THEN %((n2 . s2)) '())
+	ARG fd3 :
+	(%c %fd3 '() TRANSLIST : DEP ARG (n n1) : ARG fd1 :
+	 %fd1 %n %n1 SUBST)
+{	 ARG fd2 : }
+	%fd CAR CONS)
+
+(def PRINTDEMLIST1 : ARG n : ARG d :
+	%d %n FLATDEM ARG (() . l) :
+	(%l '() MAPCAR : DEP ARG (n1 d1 (() a1 b1) r1 . sd1) :
+	 %n1 PRIN " : dem " PRINTSTRING
+	 %a1 PRIN " = " PRINTSTRING %b PRIN
+	 " : " PRINTSTRING %r PRIN
+	 (%sd1 '() MAPCAR : DEP ARG (n2 (() a2 b2)) :
+	  %n2 PRIN " (" PRINTSTRING %a2 PRIN " = " PRINTSTRING %b2 PRIN
+	  ")  " PRINTSTRING)
+	 DEP)
+	DEP
+)
+
+(def PRINTFLATDEM : ARG fd :
+	%fd ARG (() . l) :
+	(%l '() MAPCAR : DEP ARG (n1 d1 (() a1 b1) r1 . sd1) :
+	 %n1 PRIN " : dem " PRINTSTRING
+	 %a1 PRIN " = " PRINTSTRING %b1 PRIN
+	 " : " PRINTSTRING %r1 PRIN " " PRINTSTRING
+	 (%sd1 '() MAPCAR : DEP ARG (n2 (() a2 b2)) :
+	  %n2 PRIN " (" PRINTSTRING %a2 PRIN " = " PRINTSTRING %b2 PRIN
+	  ")  " PRINTSTRING)
+	 DEP
+	 "|\0A" PRINTSTRING
+	 )
+	DEP
+)
+
+(def PRINTDEMLIST-SIMPLIF : ARG n : ARG d :
+	%d %n FLATDEM SIMPLIF-FDEM PRINTFLATDEM)
+
+
+(def MAPCAN :
+	C QUOTE :
+	DES DES DES
+	(GETH 0 NCONSPTHEN (GETH 0) :
+	 GETH 0 CAR GETH 1 GETH 2 EXEC :
+	 GETH 0 CDR GETH 1 '() GETH 2 CONS 'MAPCAN CONS EXEC : { a verifier }
+	 ECH APPEND)
+	MONDEP MONDEP MONDEP)
+
+
+
+
+
+{
+(def LELPIA : ARG x :
+	%x NCONSPTHEN %('GET x) :
+	%x CAR GETTYPE ARG tcx :
+	%tcx '(()) GETTYPE EQ THEN (%x LELPIA-CONS) :
+	%tcx 'a GETTYPE EQ THEN
+	 ('lelpia %x CAR GETPROP ARG fn :
+	  %fn THEN (%x CDR %fn EXEC) :
+	  %x CAR %LELPIA-LFND MEMBER THEN
+		("fonction lelisp non definie" %x CAR %x LELPIA-ERR) :
+	  %LELPIA-LFND %x CAR CONS ARG lfnd :
+	  %x 'LELPIA LLXSEQ 'EXEC LLXSEQ) :
+	"type du CAR d'une forme incorrect" %x CAR %x LELPIA-ERR)
+}
+
+(def LCS-FORMINT : ARG x :
+	{ traduction en forme interne de la forme externe x }
+	%x NCONSPTHEN ('LCS-DEF %x GETPROP OR %x) :
+	%x CAR GETTYPE ARG tcx :
+	%tcx 'a GETTYPE EQ THEN
+	 ('LCS-formext %x CAR GETPROP ARG fn :
+	  %fn THEN (%x CDR %fn EXEC) :
+	  %x LCS-FORMINT-AP
+	  {"mot-cle non defini" %x CAR %x LCS-ERR}) :
+	%x LCS-FORMINT-AP
+	{"type du CAR d'une expression incorrect" %x CAR %x LCS-ERR})
+
+(def LCS-FORMINT-TYPE : ARG type : ARG x :
+	%x LCS-FORMINT
+	%type NOT THEN I :
+	%type 'terme EQ THEN I :
+	%type 'egalite EQ THEN
+		(REP (NCONSPTHEN '() : REP CAR 'egal EQ) THEN I :
+		 ARG y : %('egal LCS-VRAI y)) :
+	"type incorrect" %type %x LCS-ERR)
+
+('I SETVQ LCS-VRAI)
+
+(def LCS-FORMINT-AP1 : ARG x :
+	%x LENGTH ARG lx :
+	%lx 2 EQ THEN x :
+	%lx 0 EQ THEN 'I :
+	%lx 1 EQ THEN (%x CAR LCS-FORMINT-AP1) :
+	%x BUTLAST ARG f :
+	%x LAST ARG (a) :
+	%(f a))
+
+(def LCS-FORMINT-AP : ARG x :
+	%x LENGTH ARG lx :
+	%lx 2 EQ THEN
+		(%x ARG (f a) :
+		 %f LCS-FORMINT ARG f1 :
+		 %a LCS-FORMINT ARG a1 :
+		 %(f1 a1)) :
+	%lx 0 EQ THEN 'I :
+	%lx 1 EQ THEN (%x CAR LCS-FORMINT) :
+	%x BUTLAST LCS-FORMINT ARG f :
+	%x LAST CAR LCS-FORMINT ARG a :
+	%(f a))
+
+(def LCS-ERR : ARG x : ARG y : ARG ch :
+	"|\0A" PRINTSTRING
+	"--- LCS : erreur dans l'expression " PRINTSTRING
+	%x PRINT
+	"--- " PRINTSTRING
+	%ch PRINTSTRING
+	" : " PRINTSTRING
+	%y PRINT
+	%('lcs-err ch y x)
+)
+
+{
+(def LLSEQ : ARG s : ARG x :
+	%x NCONSPTHEN (%s %x CONS) :
+	%s %x APPEND)
+}
+
+(def LLSEQ : ARG s : ARG x :
+	%s NCONSPTHEN (%s LIST1 SETVQ s) I
+	%x NCONSPTHEN (%x LIST1 SETVQ x) I
+{	%x NCONSPTHEN (%s %x CONS) : }
+	%s %x APPEND)
+
+(def LLXSEQ : ECH LLSEQ)
+
+{
+(def def-lelpia : C QUOTE : C QUOTE : C QUOTE :
+		  ARG corps : ARG vars : ARG nom :
+	%vars LELPIA-NVV THEN
+		(%('defprop nom 'LELPIA : 'ARG vars corps) EXEC) :
+	%('defprop nom 'LELPIA : 'ARG 'args :
+		'%args 'LENGTH '2 'EQ 'THEN
+			('%args 'ARG vars corps) :
+	'"mauvais nombre d'arguments" '%args ('GET (('QUOTE nom) . 'args)
+		'LELPIA-ERR)
+
+(def-lelpia cons (x y) :
+	%x LELPIA %y LELPIA LLXSEQ 'XCONS LLXSEQ)
+
+}
+
+(def def-lcs : C QUOTE : C QUOTE : C QUOTE :
+	       ARG corps : ARG vars : ARG nom :
+	%vars LELPIA-NVV THEN
+		(%('defprop nom 'LCS-formext : 'ARG vars corps) EXEC) :
+	%vars LENGTH ARG l :
+	%('defprop nom 'LCS-formext : 'ARG 'args :
+		'%args 'LENGTH {'2} l 'EQ 'THEN
+		('%args 'ARG vars corps) :
+	'"mauvais nombre d'arguments" '%args ('GET (('QUOTE nom) . 'args))
+		'LCS-ERR) EXEC)
+
+(def LELPIA-NVV : ARG args :
+	%args NCONSPTHEN %args :
+	%args LAST CDR)
+
+(def LCS-FORMINT-EG LCS-FORMINT)
+
+(def-lcs ABS (v x) :
+	%x LCS-FORMINT %v ABSTRACTLCS)
+
+(def-lcs egal (x y) :
+	%x LCS-FORMINT ARG x1 :
+	%y LCS-FORMINT ARG y1 :
+	%('egal x1 y1))
+
+
+(def-lcs MG (e) :
+	%e LCS-FORMINT-EG ARG (() a b) %a)
+
+(def-lcs MD (e) :
+	%e LCS-FORMINT-EG ARG (() a b) %b)
+
+(def-lcs PT (v e) :
+	%e 'egalite LCS-FORMINT-TYPE ARG (() a b) :
+	%a %v ABSTRACTLCS ARG a1 :
+	%b %v ABSTRACTLCS ARG b1 :
+	%('egal a1 b1))
+
+(def-lcs {=!>} SI! (eab ecd) :
+	%eab LCS-FORMINT-EG ARG (() a b) :
+	%ecd LCS-FORMINT-EG ARG (() c d) :
+	%('egal ((('E! a) b) c) ((('E! a) b) d)))
+
+(def-lcs {=?>} SI? (eab ecd) :
+	%eab LCS-FORMINT-EG ARG (() a b) :
+	%ecd LCS-FORMINT-EG ARG (() c d) :
+	%('egal ((('E? a) b) c) ((('E? a) b) d)))
+
+(def-lcs FAUX () '(egal K (K I)))
+
+(def-lcs NON! (e) :
+	%e LCS-FORMINT-EG ARG (() a b) :
+	%('egal ((('E! a) b) 'K) ((('E! a) b) '(K I))))
+
+(def-lcs NON? (e) :
+	%e LCS-FORMINT-EG ARG (() a b) :
+	%('egal ((('E? a) b) 'K) ((('E? a) b) '(K I))))
+
+(def-lcs EQ (eab ecd) :
+	%eab LCS-FORMINT-EG ARG (() a b) :
+	%ecd LCS-FORMINT-EG ARG (() c d) :
+	%('egal (('S ('(S I) ('K a))) ('K c))
+		(('S ('(S I) ('K b))) ('K d))))
+
+
+(def DEF-LOIS : C QUOTE : ARG l :
+	%l '() MAPCAR (DEP LCS-FORMINT-EG ARG e : %('dem e '(loi)))
+	BASE {ECH} APPEND SETBASE)
+
+(def DEF-LOI : C QUOTE : ARG l :
+	%l LCS-FORMINT-EG ARG e %('dem e '(loi))
+	'() ECH CONS BASE APPEND SETBASE)
+
+
+
+(defclause pltrans ((dem (egal &a &b) &c1)
+		    (dem (egal &b &c) &c2)
+		    (dem (egal &a &c) (trans &c1 &c2))) I)
+
+(defclause plsym ((dem (egal &a &b) &c)
+		  (dem (egal &b &a) (sym &c))) I)
+
+(defclause plegap ((dem (egal &f &g) &c1)
+		   (dem (egal &a &b) &c2)
+		   (dem (egal (&f &a) (&g &b)) (egal &c1 &c2))) I)
+
+(defclause pldcbi ((dem (egal &a &a1) &c1)
+		   (dem (egal &a (I &a1)) (dcbi &c))) I)
+
+(defclause pldcbk ((dem (egal &a &a1) &c1)
+		   (dem (egal &b &b1) &c2)
+		   (dem (egal &a ((K &a1) &b1)) (dcbk &c1 &c2))) I)
+
+(defclause pldcbs ((dem (egal &a &a1) &c1)
+		   (dem (egal &b &b1) &c2)
+		   (dem (egal &c &c1) &c3)
+		   (dem (egal ((&a &c) (&b &c)) (((S &a1) &b1) &c1))
+			(dcbs &c1 &c2 &c3))) I)
+
+(defclause plequal (&x &x) I)
+
+(defclause plverif ((dem (egal &x &y) (loi))) I)
+
+(defclause plverif ((dem (egal &x &y) (&r . &ld))) :
+	apregle '((dem (egal &x &y) (&r . &ld)))
+	prolognot : &ld '() CONTIENT : DEP : ARG di : prolognot :
+	plverif '(&di))
+
+(def REGLE :
+	'((trans TRANS)
+	  (sym SYM)
+	  (egap EGAP)
+	  (dcbi DCBI)
+	  (dcbk DCBK)
+	  (ext EXT)
+	) GETVENV)
+
+(def PLREGLE :
+	'((trans pltrans)
+	  (sym plsym)
+	  (egap plegap)
+	  (dcbi pldcbi)
+	  (dcbk pldcbk)
+	  (dcbs pldcbs)
+	  (ext plext)
+	) GETENV)
+
+(defclause plconstruc ((dem (egal &x &y))) :
+	&x NCONSPTHEN I END)
+
+(defclause plconstruc ((dem (egal &f &a) (&f &a)) (egap &d1 &d2)) : { a verifier } 
+	plequal '(&d1 (dem (egal &f &f) &c1))
+	plequal '(&d2 (dem (egal &a &a) &c2))
+	plconstruc '(&d1)
+	plconstruc '(&d2))
+
+{
+(defclause pldem (&d) :
+	plequal (&d (dem (egal &x &y) (&r . &ld)) :
+		))
+}
+
+(defclause pldem (&d) :
+	pldem1 '(&d)
+	+++
+)
+
+(def +++ :
+	GETINCR 0 1 MOINS PLUS 2 DIV SETINCR)
+
+(defclause pldem1 (&d) :
+	plconstruc '(&d))
+
+(defclause pldem1 (&d) :
+	BASE ONEOF ARG d1 :
+	plequal '(&d &d1))
+
+(defclause pldem1 (&d) :
+	%PLTACTIQUES ONEOF EXEC '(&d))
+
+('(pltac-trans
+   pltac-sym
+   pltac-egap
+   pltac-dcbi
+   pltac-dcbk
+   pltac-dcbs
+   pltac-ext)
+ SETVQ PLTACTIQUES)
+
+('(pltac-recr
+   pltac-dcbi
+   pltac-dcbk
+   pltac-dcbs
+   pltac-egap
+   pltac-ext
+   pltac-symet
+   pltac-transit)
+ SETVQ PLTACTIQUES)
+
+(defclause plun-terme (I) I)
+(defclause plun-terme (K) I)
+(defclause plun-terme (S) I)
+
+(defclause plun-terme (&x) :
+	%ELEMENTS ONEOF ARG y :
+	plequal '(&x &y))
+
+(defclause plun-terme ((&f &a)) :
+	plun-terme '(&f)
+	plun-terme '(&a))
+
+{
+(defclause pltac-trans (&d) :
+	plequal '(&d (dem (egal &a &c) &cs))
+	plun-terme '(&b)
+	pldem '((dem (egal &a &b) &cs1))
+	pldem '((dem (egal &b &c) &cs2))
+	pltrans '((dem (egal &a &b) &cs1)
+		  (dem (egal &b &c) &cs2)
+		  &d))
+}
+
+(defclause pltac-trans (&d) :
+	plequal '(&d (dem (egal &a &c) (trans &d1 &d2)))
+	plun-terme '(b)
+	plequal '(&d1 (dem (egal &a &b) &cs1))
+	plequal '(&d2 (dem (egal &b &c) &cs2))
+	pldem '(&d1)
+	pldem '(&d2)
+	apregle '(&d))
+
+(defclause pltac-transit (&d) :
+	plequal '(&d (dem (egal &a &c) (trans &d1 &d2)))
+	plun-terme '(&b)
+	(%b %a ESYN THEN END I)
+	(%b %c EGSYNT THEN END I)
+	plequal '(&d1 (dem (egal &a &b) &cs1))
+	plequal '(&d2 (dem (egal &b &c) &cs2))
+	pldem '(&d1)
+	pldem '(&d2)
+	apregle '(&d))
+
+(defclause pltac-sym (&d) :
+	plequal '(&d (dem (egal &a &b) (sym &d1)))
+	plequal '(&d1 (dem (egal &b &a) &cs1))
+	pldem '(&d1)
+	apregle '(&d))
+
+(defclause pltac-symet (&d) :
+	plequal '(&d (dem (egal &a &b) (sym &d1)))
+	(%a %b EGSYNT THEN END I)
+	plequal '(&d1 (dem (egal &b &a) &cs1))
+	pldem '(&d1)
+	apregle '(&d))
+
+(defclause pltac-egap (&d) :
+	plequal '(&d (dem (egal (&f &a) (&g &b)) (egap &d1 &d2)))
+	plequal '(&d1 (dem (egal &f &g) &c1))
+	plequal '(&d2 (dem (egal &a &b) &c2))
+	pldem '(&d1)
+	pldem '(&d2)
+	apregle '(&d))
+
+(defclause pltac-dcbi (&d) :
+	plequal '(&d (dem (egal &a (I &a1)) (dcbi &d1)))
+	plequal '(&d1 (dem (egal &a &a1) &cs1))
+	pldem '(&d1)
+	apregle '(&d))
+
+(defclause pltac-dcbk (&d) :
+	plequal '(&d (dem (egal &a ((K &a1) &b1)) (dcbk &d1 &d2)))
+	plequal '(&d1 (dem (egal &a &a1) &cs1))
+	plequal '(&d2 (dem (egal &b &b1) &cs2))
+	pldem '(&d1)
+	pldem '(&d2)
+	apregle '(&d))
+
+(defclause pltac-dcbs (&d) :
+	plequal '(&d (dem (egal ((&a &c) (&b &c)) (((S &a1) &b1) &c1))
+			(dcbs &d1 &d2 &d3)))
+	plequal '(&d1 (dem (egal &a &a1) &cs1))
+	plequal '(&d2 (dem (egal &b &b1) &cs2))
+	plequal '(&d3 (dem (egal &c &c1) &cs3))
+	pldem '(&d1)
+	pldem '(&d2)
+	pldem '(&d3)
+	apregle '(&d))
+
+(defclause pltac-ext (&d) :
+	plequal '(&d (dem (egal &f &g) (ext &d1)))
+	GENSYM : ARG x :
+	plequal '(&d1 (dem (egal (&f &x) (&g &x)) &cs1))
+	pldem '(&d1)
+	apregle '(&d))
+
+(defclause pltac-constr (&d) :
+	plconstruc '(&d))
+
+(defclause pltac-prim (&d) :
+	'(pltac-dcbi pltac-dcbk pltac-dcbs pltab-egap pltac-sym pltac-trans)
+	ONEOF EXEC '(&d))
+
+{ (defclause plrecr plrecr* ) } { a verifier } 
+
+(defclause plrecr* ((dem (egal &x &x) &c)) :
+	&x NCONSPTHEN I END :
+	pldem '((dem (egal &x &x) &c)))
+
+(defclause plrecr& (((dem (egal &z &x) &c))) : { a verifier }
+	plrecr1 '((dem (egal &y &x) &c1))
+	prologif (plequal '(&x &y))
+		 (pldem '((dem (egal &x &x) &c))
+		  plequal '(&x &z)) :
+	plrecr '((dem (egal &z &y) &c2))
+	pltransit '((dem (egal &z &y) &c2)
+		    (dem (egal &y &x) &c1)
+		    (dem (egal &z &x) &c)))
+
+{
+(defclause pltransit ((dem (egal &x &y) &c1)
+		      (dem (egal &y &z) &c2
+		      (dem (egal &x &z) &c)) :
+	prologif (plequal '(&x &y)) (plequal '(&c2 &c)) :
+	prologif (plequal '(&y &z)) (plequal '(&c1 &c)) :
+	pltrans '((dem (egal &x &y) &c1)
+		  (dem (egal &y &z) &c2)
+		  (dem (egal &x &z) &c)))
+}
+
+(defclause pltransit ((dem (egal &x &y) &c1)
+		      (dem (egal &y &z) &c2)
+		      (dem (egal &x &z) &c)) :
+	prologif (plequal '(&x &y)) (plequal '(&c2 &c)) :
+	prologif (plequal '(&y &z)) (plequal '(&c1 &c)) :
+	plequal '(&c (trans (dem (egal &x &y) &c1)
+			    (dem (egal &y &z) &c2)))
+	apregle '((dem (egal &x &z) &c)))
+
+(defclause plrecr1 ((dem (egal &y &x) &c)) :
+	%PLREGLES ONEOF EXEC '((dem (egal &y &x) &c)))
+
+(defclause pltac-recr ((dem (egal &a &b) &cs)) :
+	plrecr '((dem (egal &c &a) &cs1))
+	plrecr '((dem (egal &d &b) &cs2))
+	pldem '((dem (egal &c &d) &cs3))
+{	plsym '((dem (egal &c &a) &cs1)
+		(dem (egal &a &c) &cs4))
+}
+	plequal '(&cs4 (sym (dem (egal &c &a) &cs1)))
+	apregle '((dem (egal &a &c) &cs4))
+	pltransit '((dem (egal &a &c) &cs4)
+		    (dem (egal &c &d) &cs3)
+		    (dem (egal &a &d) &cs5))
+	pltransit '((dem (egal &a &d) &cs5)
+		    (dem (egal &d &b) &cs2)
+		    (dem (egal &a &b) &cs)))
+
+{
+(defclause plrr-dcbi ((dem (egal &a (I &a)) &c)) :
+	pldcbi '((dem (egal &a &a) &c1)
+		 (dem (egal &a (I &a)) &c)))
+}
+
+{
+(defclause plrr-dcbi (&d) :
+	plequal '(&d (dem (egal &a (I &a)) (dcbi &d1))) :
+	plequal '(&d1 (dem (egal &a &a) &cs1))
+	pldem '(&d1)
+	apregle '(&d))
+}
+
+(def plrr-dcbi pltac-dcbi)
+(def plrr-dcbk pltac-dcbk)
+(def plrr-dcbs pltac-dcbs)
+(def plrr-egap pltac-dgap)
+(def plrr-trans pltac-trans)
+
+{
+@(PLREGLES-RECR SETVQ ':
+	plrr-dcbi plrr-dcbk plrr-dcbs
+	plrr-egap
+)
+}
+('( plrr-dcbi plrr-dcbk plrr-dcbs plrr-egap ) SETVQ PLREGLES-RECR)
+
+
+(defclause apregle ((dem (egal &a &b) :
+			trans (dem (egal &a &c) &p1)
+			      (dem (egal &c &b) &p2))) I)
+
+(defclause apregle ((dem (egal &a &b) :
+			sym (dem (egal &b &a) &p1))) I)
+
+(defclause apregle ((dem (egal &a (I &a1)) :
+			dcbi (dem (egal &a &a1) &p1))) I)
+
+(defclause apregle ((dem (egal &a ((K &a1) &b1)) :
+			dcbk (dem (egal &a &a1) &p1)
+			     (dem (egal &b &b1) &p2))) I)
+
+(defclause apregle ((dem (egal ((&a &c) (&b &c)) (((S &a1) &b1) &c1)) :
+			dcbs (dem (egal &a &a1) &p1)
+			     (dem (egal &b &b1) &p2)
+			     (dem (egal &c &c1) &p3))) I)
+
+(defclause apregle ((dem (egal &f &g) :
+			ext (dem (egal (&f &x) (&g &x))))) :
+	&x NCONSPTHEN I END :
+	&x &f OCC THEN END :
+	&x &g OCC THEN END :
+	%x BASE OCC THEN END I)
+
+(defclause resoudre (&d) :
+	prouve '(&d))
+
+(defclause prouve '(&d) :
+{	(&d BASE MEMBER THEN I END) }
+	BASE ONEOF ARG d1 :
+	plequal '(&d1 &d))
+
+(defclause resoudre ((dem &e &ri)) :
+	prolognot (cherche '(&e))
+	ajcherche '(&e)
+	tactique '((&dem &e &ri))
+	spcherche '(&e))
+
+(defclause cherche (&e) :
+{	(&e %CHERCHES MEMBER THEN I END : }
+	%CHERCHES ONEOF ARG d1 :
+	plequal '(&d &d1))
+
+(def ajcherche (&e) :
+	%CHERCHES %e CONS SETVQ CHERCHES)
+
+(def spcherche (&e) :
+	%CHERCHES %e REMOVE SETVQ CHERCHES)
+
+('() SETVQ CHERCHES)
+
+(defclause resoudre (&d) :
+	chav
+	resoudre '(&d))
+
+
+(def veriftop apregle)
+
+
+(defclause deduction (&r1 (dem &e &r1)) : { ou ((dem &e &ri)) }
+	veriftop '((dem &e &ri)))
+
+(defclause deduire (&ri &d) :
+	deduction '(&ri &d)
+	(&ri CDR '() MAPCAR : DEP : ARG d1 : prouve '(&d1))
+	ajprouve '(&d))
+
+(defclause ajprouve (&d) :
+	prouve '(&d))
+
+(defclause ajprouve (&d) :
+	prolognot (prouve '(&d))
+	ajprouve1 '(&d))
+
+(defclause ajprouve1 (&d) :
+	%d AJDEMBASE)
+
+(defclause egalite ((dem &e &ri) &e) I)
+
+
+
+{
+(defclause verif ((dem &e &ri)) :
+
+}
+
+
+
+
+{
+ut. LCS :
+
+lcs31.lpia :
+	regles :
+		'(dem (egal b c) ...) '(dem (egal a b) ...) TRANS
+	->	'(dem (egal a c) (trans (dem (egal a b) ...) (dem (egal b c) ...)))
+	...
+	x CONSTRUC -> '(dem (egal x x) ...)
+	'(egal a b) DEM -> ;*dem (egal a b) ...)
+	tactiques
+		'(egal a c) TAC-TRANS -> '(dem (egal a c) ...)
+	...
+	x RECR -> (dem (egal y x) ...)
+	regles recr. :
+		x RR-TRANS -> (dem (egal y x) (trans ...))
+	...
+	('(Z ZZ E! E?) SETVQ ELEMENTS)
+
+pllcs20.lpia :
+	(plverif '((dem (egal a b) (regle dem ...))))
+	(plconstruc '((dem (egal &x &x) ...)))
+		bug : & -> &x
+	(pldem '((dem ...)))
+	(plun-terme '(&x))
+	(plrecr '((dem (egal &y &x) ...)))
+
+applcs34.lpia :
+	x SIMPLIFLCS -> y
+	x SFDLCS -> (dem (egal y x) (regle dem ...))
+	x v ABSTRACTLCS -> y
+	x v ATDLCS -> (dem (egal (y v) x) ...)
+	x n-max-it lg-max-ls-dems incr NSFDLCS -> ((dem (egal y x) ...) ...)
+	(plsimpliflcs '((dem (egal &y &x) ...)))
+	n-it-max lg-max CHAV
+
+(* fe15.ll *)
+lt10.ll
+forme-ext LCS-FORMINT -> forme-int
+(DEF-LOIS : (egal fe1g fe1d) ...)
+(DEF-LOI : egal a b)
+forme externe :
+	(ABS x ( ... x ... ))
+	(egal a b)
+	(MG (egal a b)) = a
+	(MD (egal a b)) = b
+	(PT x (egal a b)) = (egal (ABS x a) (ABS x b))
+	(SI! (egal a b) (egal c d)) = (egal (((E! a) b) c) (((E! a) b) d))
+	(SI? ...)
+	(FAUX) = (egal K (K I))
+	(NON! (egal a b)) = (egal (((E! a) b) K) (((E! a) b) (K I)))
+	(NON? ...)
+	(ET (egal a b) (egal c d))
+
+(* lt10.ll *)
+fe18.ll :
+forme-int FORMEXT -> forme-ext
+
+pda3c.lpia :
+(dem (egal a b) (regle dems ...)) marge PRINTDEMARB
+(dem ...) n PRINTDEMLIST
+(dem ...) n PRINTDEMLIST-SIMPLIF
+
+(DEF-LOI : egal ... ...)
+...
+'(egal ... ...) LCS-FORMINT DEM PRINTDEM...
+x n-max-it lg-max-ls-dems incr NSFDLCS -> ((dem (egal y x) ...) ...)
+m-it-max lg-max CHAV
+
+}
+
+
+
+(defclause plconstruc ((dem (egal &x &x))) :
+	&x NCONSPTHEN I END)
+
+{ (def def-loi DEF-LOI) }
+{ test }
+{
+(def def-loi : 
+ C QUOTE : C QUOTE : 
+ ARG corps : ARG nom : 
+ I)
+}
+
+
+(def def-loi : C QUOTE : C QUOTE :
+	       ARG e : ARG nom :
+	trace-def-loi THEN ("def loi " PRINTSTRING %nom PRINT) I
+	%('DEF-LOI e) EXEC
+	%e 'LCS-def-loi %nom PUTPROP)
+
+
+(def trace-def-loi '#T)
+
+(def PUTPROP SETPROP)
+
+(def def-elems : C QUOTE : ARG l :
+	%ELEMENTS %l APPEND SETVQ ELEMENTS)
+
+
+(def-loi MP : PT a : egal I : E! a a)
+
+(def-loi AI : PT a : PT b : egal (E? a b a) (E? a b b))
+{ ou (PT a : PT b : SI? (egal a b) (egal a b)) }
+
+(def-loi AS : PT a : PT b : PT f : PT x :
+	egal (E? a b f (E? a b x)) (E? a b (f x)))
+
+
+{
+	MP : p=>q, p -> q
+	(def-loi : PT p : PT q : SI! (thr : si p q) : SI! (thr p) : thr q)
+	AK : p=>q=>p
+	(def-loi : PT p : SI! (thr p) : PT q : SI! (thr q) : si p : si q p)
+	AS : (p=>q=>r) => (p=>q) => p => r
+	EFQ : F=>p
+	RPA : ((p=>F)=>F) => p
+
+}
+
+(def-elems : prop si thr)
+
+(def-loi prop-si : PT p : SI! (prop p) : PT q : SI! (prop q) :
+	prop : si p q)
+
+
+(def-loi mp : PT p : PT q :
+	SI! (thr : si p q) : SI! (thr p) : thr q)
+
+(def-loi ak : PT p : SI! (prop p) : PT q : SI! (prop q) :
+	thr : si p : si q p)
+
+(def-loi as : PT p : SI! (prop p) : PT q : SI! (prop q) : PT r : SI! (prop r) :
+	thr : si (si p : si q r) : si (si p q) : si p r)
+
+(def-loi efq : PT p : SI! (prop p) :
+	thr : si faux p)
+
+(def-loi rpa : PT p : SI! (prop p) :
+	thr : si (si (si p faux) faux) p)
+
+
+(def-elems : univ pred1 pred2 pred3 appl1 appl2 appl3)
+
+(def non : ABS p : si p faux)
+
+(def exist : ABS p : non : univ : ABS x : non : p x)
+
+(def et : ABS p : ABS q : non : si p : si q faux)
+
+(def ou : ABS p : ABS q : si (non p) : si (non q) faux)
+
+(def equiv : ABS p : ABS q : et (si p q) (si q p))
+
+
+{
+	nec : p -> pt x p
+	pte : pt x p[x] => p[a]
+	pti : p[a] =? pt x p[x] ?
+	iee : ie x p[x] =? (pt y (p[y] => q)) => q
+	iei : p[a] =? ie x p[x]
+}
+
+(def-loi nec : PT p :
+	SI! (thr p) : thr : univ : K p)
+
+(def-loi pte : PT p : SI! (pred1 p) : PT a : SI! (obj a) :
+	thr : si (univ p) : appl1 p a)
+
+(def-loi pti : PT p : SI! (pred1 p) :
+	SI! (PT a : thr : appl1 p a) :
+	thr : univ p)
+
+(def-loi iee : PT p : SI! (pred1 p) : PT! q : SI! (prop q) :
+	thr : si (exist p) : si (univ : ABS y : si (appl1 p y) q) q)
+
+(def-loi iei : PT p : SI! (pred1 p) : PT a : SI! (obj a) :
+	thr : si (appl1 p a) : exist p)
+
+
+{
+	eqsub : x=y => p[x] => p[y]
+}
+
+(def-elems : eq)
+
+(def-loi eqsub : PT x : SI! (obj x) : PT y : SI! (obj y) :
+	PT p : SI! (pred1 p) :
+	thr : si (eq x y) : si (appl1 p x) : appl1 p y)
+
+{
+	p/\q = (p=>q=>F) => F
+	p\/q = (p=>F) => (q=>F) =>F
+
+	modalites :
+	[a]p -> mod a p
+	ex:
+		a = (action alpha)
+		a = (nec)
+		a = (sait a)
+		a = (croit A)
+		a = (veut A)
+
+	NEC : p -> [a]p
+	MPM : [a](p=>q) => [a]p => [a]q
+
+	logique dynamique :
+	[a;b], [a|b], [*a], [-a]
+		[a;b]p <=> [a][b]p
+		[a|b]p <=> ([a]p \/ [b]p)
+		[*a]p <=> (p /\ [a][*a]p)
+
+	mod. sait:
+		[sait A]p => p
+	introspection :
+		[sait A]p => [sait A][sait A]p
+		~]sait A]p => [sait A]~[sait A]p
+
+	[dit A p][connu][sait A]p
+	[dit A B p][sait B][sait A]p
+
+}
+
+
+(def-elems : modalite mod etre-pensant sait faux)
+
+(def-loi necm : PT p : PT a : SI! (modalite a) :
+	SI! (thr p) : thr : mod a p)
+
+(def-loi mpm : PT p : SI! (prop p) : PT q : SI! (prop q) :
+	PT a : SI! (modalite a) :
+	thr : si (mod a : si p q) : si (mod a p) : mod a q)
+
+(def-loi sait : PT a : SI! (etre-pensant a) : modalite : sait a)
+
+(def-loi introspection-pos :
+	PT A : SI! (etre-pensant A) :
+	PT p : SI! (prop p) :
+	thr : si (mod (sait A) p) : mod (sait A) : mod (sait A) p)
+
+(def-loi  introspection-neg :
+	PT A : SI! (etre-pensant A) :
+	PT p : SI! (prop p) :
+	thr : si (si (mod (sait A) p) faux) :
+		mod (sait A) : si (mod (sait A) p) faux)
+
+{
+	probleme des 3 sages :
+		3 sages avec chacun un chapeau
+		chaque sage ne voit que les chapeaux des autres
+		au moins 1 chapeau blanc, les 3 sages le savent
+		le sage A ne sait pas la couleur de son chapeau
+			et il le dit -> les autres savent que A ne sait pas ...
+		-> au moins 1 chapeau blanc parmi les autres sinon A saurait qu'il
+			a un chapeau blanc
+		le sage B ne sait pas la couleur de son chapeau et le dit
+		=> C deduit qu'il a un chapeau blanc.
+
+	cb A : A a un chapeau blanc
+
+	prop (cb A)
+
+	cb A => [sait B](cb A)
+	~cb A => [sait B] (~cb A)
+	id. C/B
+	[* (sait A | sait B | sait C)] (cb A => ...)
+
+		ne pas introd. donnees en axiomes mais (donnees => question)
+		car probleme couleurs chapeaux, vrai mais non connu
+		ou axiomes seulement pour ce qui est connu
+	connu = *(sait A | ...)
+	cb A => [connu] [sait B] cb A ? non : ~ (cb A => [sait A] [sait B] cb A)
+	axiome cb A =? [* (sait B | sait C)] cb A
+
+	cb A \/ cb B \/ cb C (facult.)
+	[sait X] (cb A \/ cb B \/ cb C) (facult.)
+	[* (sait A | sait B | sait C)] (cb A \/ cb B \/ cb C)
+
+	cb C, non connu
+
+	(cb C => ([sait A]cb A => [connu]cb A) => ([sait A]~cb A => [connu]~cb A)
+	 ...)
+	([connu]~[sait A]cb A => [connu]~[sait B] cb B => [sait C]cb C)
+	probleme dissymetrie ordre A, B
+	si A et B le disent en meme temps et si C ne voit pas A et B,
+		alors A et B pourraient avoir des chapeaux blancs...
+	[connu]~[sait A]cb A : A ne savait pas qu'il a un chapeau blanc,
+		avant que B ait dit ...
+	[connu]~[sait B]cb B : B ne sait pas qu'il a un chapeau blanc,
+		meme apres que A ait dit ...
+	logique dynamique, etat evoluant...
+	dans etat initial :
+		~[sait A]cb A
+		[connu]~[sait A]cb A => ~[sait B]cb B ([dit A ...]...)
+		[connu]~[sait A]cb A => [connu](... ^ ...) => [sait C]cb C ?
+		ou plutot :
+		[connu]~[sait A]cb A =>
+			[connu]~[sait A]cb A /\ ~[sait B]cb B) => [sait C]cb C >
+		probleme : <=> cas precedent
+		comment exprimer "B ne sait pas cb B meme apres que A ait dit ..." ?
+		logique dynamique ?
+	[dit A ~[sait A]cb A] [dit B ~[sait B]cb B] [sait C]cb C ?
+
+	[dit A ~[sait A] cb A] [connu] ~[sait A] cb A (regle dit)
+	~(cb B \/ cb C) => cb A car cb A \/ cb B \/ cb C
+	~(cb B \/ cb C) => [sait A] ~(cb B \/ cb C) car axiome
+		~cb B => [sait A] ~cb B, id. C/B
+	[connu] ~[sait A] cb A => ~[sait A] cb A
+	~[sait A]cb A => (cb B \/ cb C)
+		ut. RPA : ~(cb B \/ cb C) => [sait A] cb A
+			~(cb B \/ cb C) => [sait A] ~(cb B \/ cb C)
+			...		=> cb A
+			[sait A] (cb A \/ cb B \/ cb C)
+			=> [sait A] (~(cb B \/ cb C) => cb A)
+			   ... ^ ... => ([sait A]~(cb B \/ cb C) => [sait A] cb A)
+			   ... ^ ... => (~(cb B \/ cb C) => [sait A] cb A)
+				car ~(cb B \/ cb C) => [sait A] ~(cb B \/ cb C)
+	donc [dit A ~[sait A] cb A] (cb B \/ cb C)
+	donc [dit A ~[sait A] cb A] [connu] (cb B \/ cb C) ?
+	[connu] ~[sait A] cb A => [connu] (cb B \/ cb C) ?
+	[connu] (~[sait A] cb A => (cb B \/ cb C)) ?
+	[connu] (~(cb B \/ cb C) => [sait A] cb A) ?
+	[connu] (~(cb B \/ cb C) => [sait A] ~(cb B \/ cb C))
+	[connu] (p=>q) => [connu] p => [connu] q
+	[connu] (~(cb B \/ cb C) => [sait A] cb A)
+		car [connu] (~(cb B \/ cb C) => [sait A] ~(cb B \/ cb C))
+	donc [connu] ~[sait A] cb A => [connu] (cb B \/ cb C)
+	donc [dit A ~[sait A] cb A] [connu] (cb B \/ cb C)
+
+	[dit B ~[sait B] cb B] [connu] ~[sait B] cb B
+
+	[dit A ~[sait A] cb A] :
+		[connu] (cb B \/ cb C)
+		[dit B ~[sait B] cb B] :
+			[connu] ~[sait B] cb B
+			[connu] cb C ?
+				(=> [sait C] cb C)
+			[connu] ~[sait B] cb B => [connu] cb C ?
+			[connu] (~[sait B] cb B => cb C) ?
+			[connu] (~cb C => [sait B] cb B) ?
+			[connu] (~cb C => [sait B] ~cb C)
+			[connu] (~cb C => cb B) car [connu] (cb B \/ cb C)
+			[connu] [sait B] (~cb C => cb B)
+				car [connu] (~cb C => [sait B] ~cb C)
+			donc [connu] ~[sait B] cb B => [connu] cb C
+			donc [connu] cb C (MP)
+			donc [sait C] cb C
+
+}
+
+{
+(def def-loi : C QUOTE : C QUOTE :
+	       ARG e : ARG nom :
+	%('DEF-LOI e) EXEC
+	%e 'LCS-def-loi %nom PUTPROP)
+}
+
+{
+	zeronat : nat 0 (* nat? 0 ? *)
+	sucnat : nat n => nat (suc n)
+	zeronsuc : ~ 0 = suc n
+	eqsuc : suc n = suc p => n = p
+	induc : (pt n : (* nat n => *) p n => p (suc n)) =>
+		p 0 => pt x nat x => p x)
+	znplus : 0 + n = n
+	sucplus : suc n + p = suc (n + p)
+	zafois : 0 * n = 0
+	sucfois : suc n * p = p + (n * p)
+
+}
+
+(def-elems : nat zero suc plus fois)
+
+(def-loi zeronat : nat zero)
+
+(def-loi sucnat : PT n : SI! (nat n) : nat : suc n)
+
+(def-loi zeronsuc : thr : univ : ABS n : non : eq zero : suc n)
+
+(def-loi eqsuc :
+	thr : univ : ABS n : univ : ABS p : si (eq (suc n) (suc p)) : eq n p)
+
+(def-loi induc : PT p : SI! (pred1 p) :
+	thr : si (univ : ABS n : si (appl1 p n) : appl1 p : suc n) :
+	si (appl1 p zero) :
+	univ p)
+
+(def-loi znplus :
+	thr : univ : ABS n : eq n : plus zero n)
+
+(def-loi sucplus :
+	thr : univ : ABS n : univ : ABS p : eq (suc : plus n p) : plus (suc n) p)
+
+(def-loi zafois :
+	thr : univ : ABS n : eq zero : fois zero n)
+
+(def-loi sucfois :
+	thr : univ : ABS n : univ : ABS p :
+	eq (plus p : fois n p) : fois (suc n) p)
+
+{
+	ensembles
+}
+
+(def-elems : est)
+
+(def-loi ext : thr : univ : ABS x : univ : ABS y :
+	si (univ : ABS z : si (est x z) : est y z) : est y x)
+
+(def-loi reg-fond : thr : univ : ABS x :
+	si (si (univ : ABS y : si (est x y) faux) faux) :
+	si (univ : ABS y : si (est x y) :
+		si (univ : ABS z : si (est x z) :
+			si (est y z) faux) faux) faux)
+
+(def-loi sous-ens : thr : PT phi : SI! (pred1 phi) :
+	univ : ABS z : si (univ : ABS y : si (univ : ABS x :
+		si (
+		si (si (est y x)
+			(si (si (est z x) :
+				si (appl phi x) faux) faux)
+		si (si (si (si (est z x) :
+				si (appl phi x) faux) faux)
+			(est x y)) faux) faux) faux)))
+
+(def-loi parties : thr : univ : ABS w :
+	si (univ : ABS y :
+		si (univ : ABS x :
+			si (si (si (est y x)
+				       (univ : ABS z : si (est x z) : est w z))
+				si (si (univ : ABS z : si (est x z) : est w z)
+					(est y x))
+				faux) faux)
+			faux) faux)
+
+{ a verifier }
+(def-loi infini : thr :
+	si (univ : ABS x :
+		si (si (univ : ABS v : si (univ : ABS n : si (est v n) faux) :
+			si (est x v) :
+			si (univ : ABS y :
+				si (est x y) :
+				si (univ : ABS z :
+					si (univ : ABS t :
+						si (si (si (est z t)
+							(si (si (e y t) faux) : si (si (eq y t) faux) faux))
+						:si (si (si (si (e y t) faux) : si (si (eq y t) faux) faux))
+							(est z t)) faux) faux)
+						:si (est x z)
+							faux) faux) faux)
+						faux) faux) {faux)}
+
+(def-loi repl : thr : PT phi : SI! (pred2 phi) : univ : ABS z :
+	si (univ : ABS x : univ : ABS y : univ : ABS z :
+		si (appl2 phi x y) : si (appl2 phi x z) : eq y z) :
+	si (univ : ABS w : si (univ : ABS y :
+			si (est w y) :
+			si (univ : ABS x :
+				si (
+					est z x) :
+				si (appl2 phi x y
+				   ) faux) faux)
+		faux) faux)
+
+{
+(def non : ABS p : si p faux)
+
+(def exist : ABS p : non : univ : ABS x : non : p x)
+
+(def et : ABS p : ABS q : non : si p : si q faux)
+
+(def ou : ABS p : ABS q : si (non p) : si (non q) faux)
+
+(def equiv : ABS p : ABS q : et (si p q) (si q p))
+
+}
+
+(def-loi union : univ : ABS w :
+		 exist : ABS y : univ : ABS x :
+		 equiv (est x y) :
+		 exist : ABS x :
+		 et (est x z) (est w z))
+
+(def-loi vide : exist : ABS y :
+		univ : ABS x : non : est y x)
+
+(def-loi pair : univ : ABS s : univ : ABS t :
+		exist : ABS y : univ : ABS x :
+		equiv (est y x) :
+		ou (eq s x) (eq t x))
+
+{
+	infini : autre forme :
+	(exist : ABS w : univ : ABS y :
+	 (non (est w y) & (univ : ABS x : (est w z) =>
+			ou exist : ABS x : (est x w) /\ ... ?
+	  (exist : ABS z : ((est w z) & (univ : ABS u : (est z u) <=> (=> ?)
+					   (eq u z) \/ (est z u)))))))
+
+}
+
+(DEF appl I)
+(DEF appl2 I)
+
+(def-loi pred2-eq : pred2 eq)
+(def-loi pred2-est : pred2 est)
+
+(def-loi prop-si : PT p : SI! (prop p) :
+		   PT q : SI! (prop q) :
+		   prop : si p q)
+
+(def-loi prop-univ : PT p : SI! (pred1 p) :
+		     prop : univ p)
+
+{ prop ou pred0 }
+
+(def-elems : obj)
+
+(def-loi prop-appl : PT p : SI! (pred1 p) :
+		     PT o : SI! (obj o) :
+		     prop : appl p o)
+
+(def-loi prop-appl2 : PT p : SI! (pred2 p) :
+		      PT x : SI! (obj x) :
+		      PT y : SI! (obj y) :
+		      prop : appl2 p x y)
+
+(def-loi pred1 : PT p :
+		 SI! (PT x : SI? (obj x) : prop : px) :
+		 pred1 p)
+
+(def-loi pred2 : PT p :
+		 SI! (PT x : SI? (obj x) :
+		      PT y : SI? (obj y) :
+		      prop : appl2 p x y) :
+		 pred2 p)
+
+
+(def-elems : vide sousens parties omega repl)
+
+(def-loi obj-vide : obj vide)
+(def-loi def-vide : univ : ABS x : non : est vide x)
+
+(def-loi fonct-sousens : PT phi : SI! (pred1 phi) :
+			 PT x : SI! (ob x) :
+			 obj : sousens phi x)
+(def-loi def-sousens : PT phi : SI! (pred1 phi) :
+		       PT x : SI! (obj x) :
+		       univ : ABS y :
+		       equiv (est (sousens phi x) y) :
+		       et (appl phi y) (est x y))
+
+(def-loi fonct-parties : PT x : SI! (obj x) : obj : parties x)
+(def-loi def-parties : PT x : SI! (obj x) :
+		       univ : ABS y :
+		       equiv (est (parties x) y) :
+		       univ : ABS z : si (est x z) (est w z))
+
+(def-loi est-omega-vide : est omega vide)
+(def-loi succ : univ : ABS x : si (est omega x) :
+		exist : ABS y :
+		et ({y = x U {x}}
+			univ : ABS z :
+			equiv (est y z) :
+			ou (est x z) (eq x z)) :
+		est x y)
+
+(def-loi fonct-repl : PT phi : SI! (pred2 phi) :
+		      PT x : SI! (obj x) :
+		      obj : repl phi x)
+(def-loi def-repl : PT phi : SI! (pred2 phi) :
+		    PT z : SI! (obj z) :
+		    si (univ : ABS x : univ : ABS y : univ : ABS z :
+			si (appl2 phi x y) : si (appl2 phi x z) : eq y z) :
+		    univ : ABS y :
+		    equiv (est (repl phi z) y) :
+		    exist : ABS x : et (appl2 phi x y) (est z x))
+
+(def-elems : incl fleche compl inter union)
+
+(def-loi incl : PT a : PT b : PT x :
+		SI! (incl a b) : SI! (est a x) : est b x)
+
+(def-loi fleche : PT f : PT x : PT a : PT b :
+		  SI! (est (fleche a b) x) :
+		  SI! (est a x) : est b : f x)
+
+(def-loi compl : PT a : PT x :
+		 SI! (est a x) : SI! (est (compl a) x) : FAUX)
+
+(def-loi inter-e : PT a : PT b : PT x :
+		   SI! (est (inter a b) x : et (est a x) (est b x)))
+(def-loi inter-i : PT a : PT b : PT x :
+		   SI! (est a x) : SI! (est b x) : est (inter a b) x)
+
+(def-loi union-i : PT a : PT b : PT x :
+		   SI! (ou (est a x) (est b x) : est (union a b) x))
+(def-loi union-e : PT a : PT b : PT x :
+		   SI! (est (union a b) x) : ou (est a x) (est b x))
+
+
+{ ord : aleph 1 ? }
+
+
+(def-elems : ord H H1 R R1)
+
+(def-loi ord-zero : est ord zero)
+
+(def-loi rep-ord-zero : est rep-ord rep-zero)
+
+(def-loi ord-succ :
+	PT x : SI! (est ord x) : estt ord : succ x)
+
+(def-loi ord-union :
+	PT x : SI! (est ord x) :
+	PT y : SI! (est ord y) :
+	est ord : union x y)
+
+
+(def-elems : oc)
+
+(def-loi ord-oc-0 :
+	PT x : SI! (est ord x) :
+	oc zero x)
+
+(def-loi ord-oc-ord :
+	PT x : SI! (est ord x) :
+	PT y : SI! (oc y x) :
+	est ord y)
+
+(def-loi ord-fond :
+	PT x : SI! (est ord x) :
+	NON! : oc (succ x) x)
+
+
+(def-loi oc-refl :
+	PT x : oc x x)
+
+(def-loi oc-trans :
+	PT x : PT y : PT z :
+	SI! (oc x y) : SI! (oc y z) : oc x z)
+
+(def-loi oc-succ : PT x :
+	oc x : succ x)
+
+(def-loi oc-union-g : PT x : PT y :
+	oc x : union x y)
+(def-loi oc-union-d : PT x : PT y :
+	oc y : union x y)
+
+
+(def-loi fonct-succ : est (fleche ord ord) succ)
+
+(def-loi H : PT f : PT x : egal (H f x) : union x : H f : f x)
+
+(def-loi H-oc-z : PT f : PT x : oc x : H f x)
+(def-loi H-oc-s : PT f : PT x : oc (H f : f x) : H f x)
+
+
+(def-loi egal-H-H1I : egal H : H1 I)
+
+(def-loi H1 : PT phi : PT f : PT x : egal (H1 phi f x) : union (phi x) :
+	H1 phi f (f x))
+
+(def-loi H1-oc-z : PT phi : PT f : PT x : oc (phi x) : H1 phi f x)
+(def-loi H1-oc-s : PT phi : PT f : PT x : oc (H1 phi f (f x)) : H1 phi f x)
+
+
+(def-loi ap-union : PT f : PT g : PT x : egal (union (f x) (g x)) : union f g x)
+
+
+{ C I app.a a -> (a -> b) -> b :
+  pt ens (obj) a, b, ...
+}
+
+(def-loi CIa : PT a : SI! (obj a) : PT b : SI! (obj b) :
+	est (fleche a : fleche (fleche a b) b) (C I))
+
+
+(def-loi suca : PT a : SI! (obj a) :
+	est (fleche a a) suc)
+
+(def-loi Ha : PT a : SI! (obj a) :
+	est (fleche (fleche a a) : fleche a a) H)
+
+(def-loi uniona : PT a : SI! (obj a) :
+	est (fleche a : fleche a a) union)
+
+(def-loi unionb : PT a : SI! (obj a) : PT b : SI! (obj b) :
+	est (fleche a : fleche b : union a b) union)
+
+
+(def-loi R : PT f : PT x :
+	egal (R1 I f x) : R f x)
+
+(def-loi R1-zero : PT phi : PT f : PT x :
+	egal (phi x) : R1 zero phi f x)
+
+(def-loi R1-suc : PT phi : PT f : PT x : PT n :
+	egal (phi (R1 n phi f (f x))) :
+	R1 (suc n) phi f x)
+
+
+(def-elems : gamma Lambda Ack)
+
+(def-loi gamma-zero :
+	thr : univ : ARG n : eq zero : gamma zero n)
+
+(def-loi gamma-suc :
+	thr : univ : ARG n : univ : ARG x : eq (suc : gamma x n) : gamma (suc x) n)
+
+(def-loi gamma-H1 :
+	PT phi : SI! (est (fleche ord ord) phi) :
+	PT f : SI! (est (fleche ord ord) f) :
+	thr : univ : ARG x : univ : ARG n :
+	eq (gamma (R1 n phi f x) n) :
+	gamma (H1 phi f x) n)
+
+(def-loi gamma :
+	est (fleche ord : fleche nat ord) gamma)
+
+
+(def-loi Lambda-zero :
+	thr : univ : ARG n : eq zero : Lambda zero n)
+
+(def-loi Lambda-suc :
+	thr : univ : ARG n : univ : ARG x :
+	eq (Lambda x : suc n) : Lambda (suc x) n)
+
+(def-loi Lambda-H1 :
+	PT phi : SI! (est (fleche ord ord) phi) :
+	PT f : SI! (est (fleche ord ord) f) :
+	thr : univ : ARG x : univ : ARG n :
+	eq (Lambda (R1 n phi f x) n) :
+	Lambda (H1 phi f x) n)
+
+(def-loi Lambda :
+	est (fleche ord : fleche nat ord) Lambda)
+
+
+(def-loi Ack-zero :
+	thr : univ : ABS n : eq (suc n) : Ack zero n)
+
+(def-loi Ack-suc-zero :
+	thr : univ : ABS n :
+	eq (suc : Ack n : Ack (suc n) p) :
+	Ack (suc n) (suc p))
+
+(def-loi Ack-suc-H1 :
+	PT phi : SI! (est (fleche ord ord) phi) :
+	PT f : SI! (est (fleche ord ord) f) :
+	thr : univ : ABS n : univ : ABS x :
+	eq (H1 (S (K : Ack : suc n) phi) f x) :
+	Ack (suc n) (H1 phi f x))
+
+(def-loi Ack-H1 :
+	PT phi : SI! (est (fleche ord ord) phi) :
+	PT f : SI! (est (fleche ord ord) f) :
+	thr  :univ : ABS x : univ : ABS y :
+	eq (H1 (S (K : S Ack : K y) phi) f x) :
+	Ack (H1 phi f x) y)
+
+
+(def-loi Ack :
+	est (fleche ord : fleche ord ord) Ack)
+
+
+(DEF rzero : ABS z : ABS s : ABS h1 z)
+(DEF rsuc : ABS x : ABS z : ABS s : ABS h1 : s x)
+(DEF rH1 : ABS rphi : ABS rf : ABS x : ABS z : ABS s : ABS h1 :
+	h1 rphi rf x)
+
+(DEF rI : ABS i : ABS k : ABS s : ABS a i)
+{ (S (K K) : S (K K) K) }
+(DEF rK : ABS i : ABS k : ABS s : ABS a k)
+{ (K (S (K K) K)) }
+(DEF rs : ABS i : ABS k : ABS s : ABS a s)
+{ (K (K K)) }
+(DEF rap : ABS rf : ABS ra : ABS i : ABS k : ABS s : ABS a :
+	a rf ra)
+{ (S (K : S : K K) : S (K : S : K K) : S (K : S : K K) :
+   S (S (K S) : S (K K) : S (K S) : S (K : S I) K) : K K)
+  = (ABS rf : ABS ra : K : K : K : S (S I (K rf)) (K ra))
+}
+
+(def eval : ABS r :
+	r I K S :
+	abs rf : abs ra : eval rf : eval ra)
+
+(def reprep : ABS r :
+	r
+		(rap (rap rS (rap rK rK)) :
+		 rap (rap rS (rap rK rK)) rK)
+		(rap rK : rap (rap rS (rap rK rK)) rK)
+		(rap rK (rap rK rK)) :
+	ABS rf : ABS ra :
+	rap rK : rap rK : rap rK :
+	rap (rap rS : rap (rap rS rI) : rap rK : reprep rf) :
+	rap rK : reprep ra)
+
+(def rep1 : ARG x :
+	%x 'I EQUAL THEN ('LCS-DEF 'rI GETPROP FORMINT) :
+	%x 'K EQUAL THEN ('LCS-DEF 'rK GETPROP FORMINT) :
+	%x 'S EQUAL THEN ('LCS-DEF 'rS GETPROP FORMINT) :
+	%x ARG (f a) :
+	%f rep1 ARG rf :
+	%a rep1 ARG ra :
+	'LCS-DEF 'rap GETPROP FORMINT ARG rap :
+	%((rap rf) ra))
+
+{
+(def rep : ARG x :
+	(%x LENGTH 3 EQUAL AND %x CAR 'egal EQ)
+		THEN (%x ARG (() a b) :
+			%a rep1 ARG ra :
+			%b rep1 ARG rb :
+
+))
+}
+
+{
+	redefinir lois ord x avec x = rep struct ord
+	(x -> rx)
+	liste de ces lois -> var. LOIS-ORD ((egal a0 b0) ...)
+
+	fonct. LC n (rep struct ord) -> nieme loi
+	nieme-loi-ord
+	(DEF nieme-loi-ord : ABS n :
+		n (P a0 b0) (ABS n1 : n1 (P a1 b1) (ABS n2 ...) (Y I)) (Y I))
+
+	loi ord (H1 phi rsuc rzero)
+		avec phi = ABS n : let r = rep-theoreme n
+				   in si r = "vrai = ord x" alors x sinon 0
+
+	fonct. theoreme n
+
+}
+
+)
+
+

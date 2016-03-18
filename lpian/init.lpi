@@ -1,0 +1,140 @@
+(
+(def CADR : CDR CAR)
+
+(def GETH0 : GETH 0)
+(def GETH1 : GETH 1)
+(def GETH2 : GETH 2)
+
+(def GETPROP : ARG x : ARG y :
+ %x GETTYPE 'a GETTYPE EQ NOT THEN '() :
+ %y %x GETPROPS GETVENV)
+
+(def PUTPROP : ARG symb : %symb GETPROPS SETVENV %symb SETPROPS)
+(def SETPROP : ARG symb : %symb GETPROPS SETVENV %symb SETPROPS)
+
+(def RESTART : 13 TYO 10 TYO "Restarting" PRINTSTRING 13 TYO 10 TYO)
+
+(def LOAD : READFILE MAPEXEC)
+
+(def MAPEXEC : ARG l : 
+ %l NCONSPTHEN () :
+ %l CAR REP PRINT EXEC :
+ %l CDR MAPEXEC)
+
+(def MAPPRINT : ARG l :
+ %l NCONSPTHEN () :
+ %l CAR PRINT :
+ %l CDR MAPPRINT)
+
+(def MAPK : C Q : ARG _f : ARG _x : ARG _l :
+        %_l NCONSPTHEN I :
+        %_l CAR %_x %_f EXEC :
+        %_l CDR %_x '() %_f CONS Q MAPK CONS EXEC)
+
+(def MAPKAR :
+        C Q (DES DES DES
+                (GETH0 NCONSPTHEN GETH0
+                    (GETH0 CAR GETH1 GETH2 EXEC
+                        (GETH0 CDR GETH1 Q () GETH2 CONS Q MAPKAR CONS EXEC
+                                (ECH CONS)
+                        )
+                    )
+              )
+                MONDEP MONDEP MONDEP))
+
+(def CONTIENT : C Q : ARG _f : ARG _x : ARG _l :
+        %_l NCONSPTHEN '() :
+        %_l CAR %_x %_f EXEC : REP THEN I :
+        DEP %_l CDR %_x Q () %_f CONS Q CONTIENT CONS EXEC)
+
+(def UNLIST : ARG l :
+        %l NCONSPTHEN I :
+        %l CAR %l CDR UNLIST)
+
+(def ONEOF : ARG l :
+        %l NCONSPTHEN END :
+        ALT (%l CAR) :
+        %l CDR ONEOF)
+
+(def AND : C THEN '())
+
+(def OR : B (REP THEN I) DEP)
+
+(def EXIT KI)
+
+(def synonym def)
+
+(def MAJPRIO :
+        GETPRIO GETINCR PLUS SETPRIO)
+
+(def INCRPRIO : ARG i :
+        GETSTRAT ARG (p . s) :
+        %p %i PLUS ARG p1 :
+        %(p1 . s) SETSTRAT)
+
+(def SCHEDULE : ALT END I)
+
+(def BUTLAST : ARG l :
+        %l NCONSPTHEN '() :
+        %l CDR NCONSPTHEN '() :
+        %l CDR BUTLAST %l CAR CONS)
+
+(def defprop : C Q : C Q : C Q : ECH3 SETPROP)
+
+(def NL : 13 TYO 10 TYO)
+
+(def THROW : ECH EMPIL SETCTX)
+
+
+(def SETCTXS : ARG ctxs : 
+ %ctxs NCONSPTHEN END : 
+ GETLCTXS %ctxs CDR INSLCTXS SETLCTXS 
+ %ctxs CAR SETCTX)
+
+(def NL : 13 TYO 10 TYO)
+
+(def PRINTL : PRINL NL)
+
+(def PRINTCTX : ARG ctx : 
+ "strat  = " PRINTSTRING %ctx CAR 8 PRINTL
+ "prog   = " PRINTSTRING %ctx CDR CAR 8 PRINTL
+ "stack  = " PRINTSTRING %ctx CDR CDR CAR 8 PRINTL
+ "rstack = " PRINTSTRING %ctx CDR CDR CDR CAR 8 PRINTL
+ "envir  = " PRINTSTRING %ctx CDR CDR CDR CDR CAR 8 PRINTL)
+
+(def FILTRE : GETENV UNIF REP THEN SETENV END)
+
+(def LIST1 : QUOTE () ECH CONS)
+
+(def VAR GET)
+
+(def DANS : ARG x : ARG y :
+ %x %y EQUAL THEN 'true : 
+ %y NCONSPTHEN '() : 
+ %y CAR %x DANS OR :
+ %y CDR %x DANS)
+
+(def synonym : C QUOTE : C QUOTE : ARG b : ARG a :
+ %b GETDEF %a SETDEF)
+
+(synonym DROP DEP)
+(synonym DUP REP)
+(synonym SWAP ECH)
+(synonym >R DES)
+(synonym R> MON)
+(synonym MINUS MOINS)
+(synonym TIMES FOIS)
+(synonym LOGAND ETL)
+(synonym LOGOR OUL)
+(synonym LOGXOR OXL)
+(synonym REMINSTR ENLINSTR)
+(synonym GETCTX-REMINSTR GETCTX-ENLINSTR)
+(synonym FIRSTINSTR PREMINSTR)
+
+(def SEND :
+ GETCTX-ENLINSTR : INSTR-SEND SETCTXS)
+
+(def RECEIVE :
+ GETCTX-ENLINSTR : INSTR-RECEIVE SETCTXS)
+
+)

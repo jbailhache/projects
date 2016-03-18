@@ -1,0 +1,238 @@
+(
+
+{
+(def SCL-RED1 : ARG x :
+ %x NCONSPTHEN %x :
+ %x CAR 'AP EQ NOT THEN 
+ (%x CDR SCL-RED1 %x CAR SCL-RED1 CONS) :
+ %x ARG (() f a) :
+
+}
+
+(def SCL-RED1 : ARG x : 
+ %x NCONSPTHEN %x (%x CDR SCL-RED1 %x CAR SCL-RED1 CONS) ARG y : 
+ (SCL-RED-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %x %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SCL-RED : ARG x :
+ %x SCL-RED1 ARG y :
+ %x %y EQUAL THEN %x :
+ %y SCL-RED)
+
+(def SCL-RED-RULES '(
+ ((AP I &a) &a)
+ ((AP (AP K &a) &b) &a)
+ ((AP (AP (AP S &a) &b) &c) (AP (AP &a &c) (AP &b &c)))
+
+))
+
+(def SCL-SIDE : ARG s : ARG x :
+ %x NCONSPTHEN %x :
+ 'SCL-SIDE %x CAR GETPROP ARG prop :
+ %prop THEN (%x %s %prop EXEC) :
+ %x CDR %s SCL-SIDE %x CAR %s SCL-SIDE CONS)
+
+(def SCL-EQUAL : ARG x :
+ '() %x '() SCL-SIDE CONS %x 'true SCL-SIDE CONS 'EQUAL CONS)
+
+(def def-scl-side : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-SIDE %node PUTPROP)
+
+(def-scl-side EQUAL : ARG s : ARG (() a b) :
+ %s THEN %a %b)
+
+(def-scl-side LTRANSYM : ARG s : ARG (() a b) :
+ %a 'true SCL-SIDE %b 'true SCL-SIDE EQUAL THEN
+  (%s THEN %a %b '() SCL-SIDE)
+ %('LTRANSYM a b))
+
+(def-scl-side API : ARG s : ARG (() a) :
+ %a SCL-EQUAL ARG (() a1 a2) :
+ %s THEN %('AP 'I a1) %a2)
+
+(def-scl-side APK : ARG s : ARG (() a b) :
+ %a SCL-EQUAL ARG (() a1 a2) :
+ %b SCL-EQUAL ARG (() b1 b2) :
+ %s THEN %('AP ('AP 'K a1) b1) %a2)
+
+(def-scl-side APS : ARG s : ARG (() a b c) : 
+ %a SCL-EQUAL ARG (() a1 a2) :
+ %b SCL-EQUAL ARG (() b1 b2) :
+ %c SCL-EQUAL ARG (() c1 c2) : 
+ %s THEN %('AP ('AP ('AP 'S a1) b1) c1) %('AP ('AP a2 c2) ('AP b2 c2)))
+
+(def-scl-side REDLR : ARG s : ARG (() x) :
+ %x %s SCL-SIDE SCL-RED)
+
+(def-scl-side SIMPLIF : ARG s : ARG (() x) : 
+ %x %s SCL-SIDE SCL-SIMPLIF)
+
+(def SCL-INT : ARG x :
+ %x NCONSPTHEN 
+  ('SCL-DEF %x GETPROP ARG prop :
+   %prop THEN %prop %x) :
+ 'SCL-INT %x CAR GETPROP ARG prop :
+ %prop THEN (%x %prop EXEC) :
+ %x CDR SCL-INT %x CAR SCL-INT CONS ARG y :
+ (SCL-INT-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %y %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SCL-INT-RULES : %SCLINTRULES)
+
+('() SETVQ SCLINTRULES)
+
+(def def-scl-int-rule : C QUOTE : C QUOTE : ARG r : ARG l :
+ %SCLINTRULES %(l r) CONS SETVQ SCLINTRULES)
+ 
+(def def-scl-int : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-INT %node PUTPROP)
+
+(def APN : ARG l :
+ %l NCONSPTHEN (0 VAR DBL) :
+ %l CDR NCONSPTHEN (%l CAR SCL-INT) :
+ '() %l LAST CAR SCL-INT CONS %l BUTLAST APN CONS 'AP CONS)
+
+(def-scl-int APN : ARG (() . l) :
+ %l APN)
+
+(def SCL-LAMBDA : ARG a : ARG b :
+ %b %a EQUAL THEN 'I :
+ %b NCONSPTHEN %('AP 'K b) :
+ %b %a DANS NOT THEN %('AP 'K b) :
+ %b CAR 'AP EQ THEN
+ (%b ARG (() b1 b2) :
+  %b1 %a SCL-LAMBDA ARG c1 :
+  %b2 %a SCL-LAMBDA ARG c2 : 
+  %('AP ('AP 'S c1) c2)) :
+ %b CDR %a MAPKAR (ARG a : ARG b1 : %b1 %a SCL-LAMBDA) 
+ %b CAR CONS)
+
+(def-scl-int LAMBDA : ARG (() a b) :
+ %b SCL-INT %a SCL-LAMBDA)
+
+('() SETVQ SCL-DEFS)
+
+(def def-scl : C QUOTE : C QUOTE : ARG val : ARG name : 
+ %SCL-DEFS %name CONS SETVQ SCL-DEFS
+ %val SCL-INT 'SCL-DEF %name PUTPROP
+ %name PRIN " : " PRINTSTRING
+ %name SCL-INT SCL-EQUAL REP SETVQ SCLRES
+ REP CDR CAR SCL-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SCL-EXT PRINT)
+
+(def SCL-EXT : ARG x :
+ (%SCL-DEFS '() CONTIENT : DEP ARG name : 
+  'SCL-DEF %name GETPROP ARG val : 
+  %val %x EQUAL THEN %name '()) OR :
+ %x NCONSPTHEN %x : 
+ 'SCL-EXT %x CAR GETPROP ARG prop :
+ %prop THEN (%x %prop EXEC) : 
+ %x CDR SCL-EXT %x CAR SCL-EXT CONS)
+
+(def def-scl-ext : C QUOTE : C QUOTE : ARG f : ARG node :
+ %f 'SCL-EXT %node PUTPROP)
+
+(def SCL-SIMPLIF : ARG x : 
+ %x NCONSPTHEN %x (%x CDR SCL-SIMPLIF %x CAR SCL-SIMPLIF CONS) ARG y : 
+ (SCL-SIMPLIF-RULES %y CONTIENT : ARG y : ARG (l r) :
+  %x %l 'true UNIF ARG env :
+  %env THEN (%r %env CONSTR) '())
+ OR %y)
+
+(def SCL-SIMPLIF-RULES '(
+
+))
+
+(def scle : C QUOTE : ARG x :
+ %x SCL-INT SCL-EQUAL REP SETVQ SCLRES 
+ SCL-SIMPLIF SCL-EXT PRINT)
+
+(def scl : C QUOTE : ARG x :
+ %x SCL-INT SCL-EQUAL REP SETVQ SCLRES 
+ REP CDR CAR SCL-EXT PRIN
+ " = " PRINTSTRING
+ CDR CDR CAR SCL-EXT PRINT)
+
+(def-scl-int parent : ARG (() x y) : %('AP ('AP 'parent x) y))
+
+(def-scl-int gdparent : ARG (() x y) : %('AP ('AP 'gdparent x) y))
+
+(def-scl gp-rule1 : LAMBDA x : LAMBDA y : LAMBDA z :
+ EQUAL (AP (parent x y) : AP (parent y z) : gdparent x z) I)
+
+(def-scl gp-axiom1 : EQUAL (parent Allan Brenda) I)
+(def-scl gp-axiom2 : EQUAL (parent Brenda Charles) I)
+
+(def-scl gp-lemma1 : REDLR : APN gp-rule1 Allan Brenda Charles)
+(def-scl gp-lemma2 : REDLR : AP gp-axiom1 : AP (parent Brenda Charles) : gdparent Allan Charles)
+(def-scl gp-lemma3 : LTRANSYM gp-lemma2 gp-lemma1)
+(def-scl gp-lemma4 : REDLR : AP gp-axiom2 : gdparent Allan Charles)
+(def-scl gp-theorem1 : LTRANSYM gp-lemma4 gp-lemma3)
+
+(def-scl-int impl : ARG (() p1 q1) : 
+ %p1 SCL-INT ARG p :
+ %q1 SCL-INT ARG q :
+ %('AP ('AP 'impl p) q))
+
+(def-scl-int-rule (&p => &q) (AP (AP impl &p) &q))
+
+(def-scl prop-mp : LAMBDA p : LAMBDA q :
+ EQUAL (AP (p => q) : AP p q) I)
+
+(def-scl prop-ak : LAMBDA p : LAMBDA q :
+ EQUAL (p => (q => p)) I)
+
+(def-scl prop-as : LAMBDA p : LAMBDA q : LAMBDA r :
+ EQUAL ((p => (q => r)) => ((p => q) => (p => r))) I)
+
+(def-scl prop-efq : LAMBDA p :
+ EQUAL (false => p) I)
+
+(def-scl prop-raa : LAMBDA p :
+ EQUAL (((p => false) => false) => p) I)
+
+(def-scl pred-gen : LAMBDA p :
+ EQUAL (p : all : DBL p) I)
+
+(def-scl pred-part : LAMBDA p : LAMBDA t :
+ EQUAL ((all p) => (AP p t)) I)
+
+(def-scl pred-permut : LAMBDA p : LAMBDA q :
+ EQUAL ((all : LAMBDA x : p => (AP q x))  => (p => (all q))) I)
+
+
+(def-scl prop-lemma1 : REDLR : APN prop-as p (p => p) p)
+
+(def-scl prop-lemma2 : REDLR : APN prop-ak p (p => p))
+
+(def-scl prop-lemma3 : REDLR : APN prop-mp (p => ((p => p) => p)) ((p => (p => p)) => (p => p)))
+
+(def-scl prop-lemma4 : REDLR : AP prop-lemma1 (AP (p => ((p => p) => p)) ((p => (p => p)) => (p => p))))
+ 
+(def-scl prop-lemma5 : LTRANSYM prop-lemma4 prop-lemma3)
+
+(def-scl prop-lemma6 : REDLR : AP prop-lemma2 ((p => (p => p)) => (p => p)))
+
+(def-scl prop-lemma7 : LTRANSYM prop-lemma6 prop-lemma5)
+
+(def-scl prop-lemma8 : REDLR : APN prop-ak p p)
+
+(def-scl prop-lemma9 : REDLR : APN prop-mp (p => (p => p)) (p => p))
+
+(def-scl prop-lemma10 : REDLR : AP prop-lemma7  (AP (p => (p => p)) (p => p)))
+
+(def-scl prop-lemma11 : LTRANSYM prop-lemma10 prop-lemma9)
+
+(def-scl prop-lemma12 : REDLR : AP prop-lemma8 (p => p))
+
+(def-scl prop-theorem1 : LTRANSYM prop-lemma12 prop-lemma11)
+
+
+
+
+)
