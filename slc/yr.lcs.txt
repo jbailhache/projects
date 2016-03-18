@@ -1,0 +1,85 @@
+d1 A =II
+d2 A =KK
+d3 A =SS
+d4 A =EE
+d5 A =FF
+d6 A =OO
+
+d11 A = --S--S-KSK-KI I 
+d12 A = --S--S-KS--S-KK--S-KSK-KK -S-KK 
+d13 A = --S-KS-S-KK K 
+d14 A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS-S-K-S-KSS 
+d15 A = -S-KI I d16 A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS--S-K-S-KSS-KS 
+
+d31 A = --SEI -KI
+d32 A = \a\b---E--EabIa \a\b---E--EabIb
+d33 A = -FI I
+d34 A = --SFI -KI
+d35 A = --S-K-SFF -K-KI
+d36 A = \p\q\r--F--Fp--Fqr--F--Fpq--Fpr \p\q\rI
+d37 A = \p--F--F--Fp-K-KI-K-KIp \pI
+d41 A = -O\z\s\lz I
+d42 A = \x--F-Ox-O-\y\z\s\l-syx \xI
+d43 A = \f--F--E\x--F-Ox-O-fx\xI-O-\g\z\s\l-lgf \fI
+d44 A = \x--F-O\y\z\s\l-syx-Ox \xI
+d45 A = \f\x--F-O-\g\z\s\l-lgf--F-Ox-O-fx \f\xI
+
+d51 A =LL
+d52 A =RR
+d53 A =aa
+d54 A =tt
+d55 A =ii
+d56 A =kk
+d57 A =ss
+
+d61 A = -LI I
+d81 A = -RI I
+
+d62 A = -LK K
+d82 A = -RK K
+
+d63 A = -LS S
+d83 A = -RS S
+
+d64 A = -LE E
+d84 A = -RE E
+
+d65 A = -LF F
+d85 A = -RF F
+
+d66 A = -LO O
+d86 A = -RO O
+
+d67 A = -LL L
+d87 A = -RL L
+
+d68 A = -LR R
+d88 A = -RR R
+
+d69 A = \f\a-L-fa \f\a--Lf-La
+d89 A = \f\a-R-fa \f\a--Rf-Ra
+
+d70 A = \a\b--F--E-La-Lb--E-L--tab-Ra \a\bI
+d90 A = \a\b--F--E-La-Lb--E-R--tab-Rb \a\bI
+
+d71 A = \a-L-ia \a-I-La 
+d91 A = \a-R-ia \a-Ra
+
+d72 A = \a\b-L--kab \a\b--K-La-Lb
+d92 A = \a\b-R--kab \a\b-Ra
+
+d73 A = \a\b\c-L---sabc \a\b\c---S-La-Lb-Lc
+d93 A = \a\b\c-R---sabc \a\b\c---Ra-Rc--Rb-Rc
+
+d101 A = -L--a--SEI-KI --SEI
+d102 A = -R--a--SEI-KI -KI 
+
+
+
+
+
+
+
+
+
+

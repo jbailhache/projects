@@ -1,0 +1,11 @@
+:I ^a a
+:K ^a ^b a
+:S ^a ^b ^c --a c -b c
+-I a
+--K a b
+---S a b c
+$--S K K
+.
+
+
+

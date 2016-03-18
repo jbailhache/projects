@@ -1,0 +1,94 @@
+LCEI
+Bonjour
+
+init.c(40)  : SEI = 12C0 --SEI : --SEI = --SEI
+Modified, old value: NULL, new value: --SEIl_AS = --S-KK--S--S-KS--S-K-S-KF--S--S-KS--S-KKF-K--SFI--S--S-KS--S-K-S-KFFF
+
+Name  ? Dem   ? 
+Name  : [A]
+Dem   : --SII
+Left  : --SII
+Right : --SII
+
+Name  ? Dem   ? 
+Name  : [Y]
+Dem   : --S-K--SII--S--S-KSK-K--SII
+Left  : --S-K--SII--S--S-KSK-K--SII
+Right : --S-K--SII--S--S-KSK-K--SII
+
+Name  ? Dem   ? 
+Name  : [True]
+Dem   : K
+Left  : K
+Right : K
+
+Name  ? Dem   ? 
+Name  : [False]
+Dem   : -KI
+Left  : -KI
+Right : -KI
+
+Name  ? Dem   ? 
+Name  : [P]
+Dem   : --S--S-KS--S-KK--S-KS--S-K-SIK-KK
+Left  : --S--S-KS--S-KK--S-KS--S-K-SIK-KK
+Right : --S--S-KS--S-KK--S-KS--S-K-SIK-KK
+
+Name  ? Dem   ? 
+Name  : [Zero]
+Dem   : K
+Left  : K
+Right : K
+
+Name  ? Dem   ? 
+Name  : [Suc]
+Dem   : --S-KK--S-K-SIK
+Left  : --S-KK--S-K-SIK
+Right : --S-KK--S-K-SIK
+
+Name  ? Dem   ? 
+Name  : [Eqn]
+Dem   : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-KK--S-K-S--S-KS--S-KK--SI-K-K-KIK
+Left  : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-KK--S-K-S--S-KS--S-KK--SI-K-K-KIK
+Right : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-KK--S-K-S--S-KS--S-KK--SI-K-K-KIK
+
+Name  ? Dem   ? 
+Name  : [Nil]
+Dem   : K
+Left  : K
+Right : K
+
+Name  ? Dem   ? 
+Name  : [Ins]
+Dem   : --S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK
+Left  : --S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK
+Right : --S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK
+
+Name  ? Dem   ? 
+Name  : [Length]
+Dem   : ---S-K--SII--S--S-KSK-K--SII--S-K-S--SI-KK--S-KK--S-KK-S-K--S-KK--S-K-SIK
+Left  : ---S-K--SII--S--S-KSK-K--SII--S-K-S--SI-KK--S-KK--S-KK-S-K--S-KK--S-K-SIK
+Right : ---S-K--SII--S--S-KSK-K--SII--S-K-S--SI-KK--S-KK--S-KK-S-K--S-KK--S-K-SIK
+
+Name  ? Dem   ? 
+Name  : [Index]
+Dem   : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--SI-KI--S-K-S-KK--S-K-S--S-KS--S-K-S-KS-S-KK--S-KK--S-KK--S--S-KS--S-KKS-KK
+Left  : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--SI-KI--S-K-S-KK--S-K-S--S-KS--S-K-S-KS-S-KK--S-KK--S-KK--S--S-KS--S-KKS-KK
+Right : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--SI-KI--S-K-S-KK--S-K-S--S-KS--S-K-S-KS-S-KK--S-KK--S-KK--S--S-KS--S-KKS-KK
+
+Name  ? Dem   ? 
+Name  : [Eql]
+Dem   : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-K-S-KK--S-K-S-K-S--S-KS--S-KK--S-KS--S-KK--SI-K-KI--S-K-S-KK--S--S-KS--S-K-S-KS--S-K-S-K-S-KS--S-K-S-K-S-K-S-KS--S-K-S-K-S-K-S-K-S-KS--S-K-S--S-KS--S-K-S-KS--S-K-S-KK--S-K-S-KS--S-K-S-K-S-KS-S-K-S-KK--S-K-S-KK-S-K-S-KK-K-K-K-K-K-K-KI
+Left  : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-K-S-KK--S-K-S-K-S--S-KS--S-KK--S-KS--S-KK--SI-K-KI--S-K-S-KK--S--S-KS--S-K-S-KS--S-K-S-K-S-KS--S-K-S-K-S-K-S-KS--S-K-S-K-S-K-S-K-S-KS--S-K-S--S-KS--S-K-S-KS--S-K-S-KK--S-K-S-KS--S-K-S-K-S-KS-S-K-S-KK--S-K-S-KK-S-K-S-KK-K-K-K-K-K-K-KI
+Right : ---S-K--SII--S--S-KSK-K--SII--S-K-S-K-S--S-KS--S--S-KSK-K--S--SI-KK-K-K-KI--S-K-S-KK--S-K-S-K-S--S-KS--S-KK--S-KS--S-KK--SI-K-KI--S-K-S-KK--S--S-KS--S-K-S-KS--S-K-S-K-S-KS--S-K-S-K-S-K-S-KS--S-K-S-K-S-K-S-K-S-KS--S-K-S--S-KS--S-K-S-KS--S-K-S-KK--S-K-S-KS--S-K-S-K-S-KS-S-K-S-KK--S-K-S-KK-S-K-S-KK-K-K-K-K-K-K-KI
+
+Name  ? Dem   ? 
+Name  : [Adl]
+Dem   : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK-KK--S-KK--S-K-S-K-S--S-KS--S-KK--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK--S-K-S-KK--S--S-KS--S-KKS-KK
+Left  : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK-KK--S-KK--S-K-S-K-S--S-KS--S-KK--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK--S-K-S-KK--S--S-KS--S-KKS-KK
+Right : ---S-K--SII--S--S-KSK-K--SII--S-K-S--S-KS--S--S-KSK-K--S--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK-KK--S-KK--S-K-S-K-S--S-KS--S-KK--S-K-S-KK--S--S-KS--S-KK--S-KS--S-K-SIK-KK--S-K-S-KK--S--S-KS--S-KKS-KK
+
+Name  ? Dem   ? 
+
+
+

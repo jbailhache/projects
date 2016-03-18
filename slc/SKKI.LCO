@@ -1,0 +1,40 @@
+LCEI
+Bonjour
+
+init.c(40)  : SEI = 12B6 --SEI : --SEI = --SEI
+Modified, old value: NULL, new value: --SEIl_AS = --S-KK--S--S-KS--S-K-S-KF--S--S-KS--S-KKF-K--SFI--S--S-KS--S-K-S-KFFF
+
+Name  ? Dem   ? 
+Dem   : //sKK[x]---SKK[x]k[x]-K[x]
+Left  : ---SKK[x]
+Right : [x]
+
+Name  ? Dem   ? 
+Dem   : ///sKK[x]---SKK[x]k[x]-K[x]---SKK[x]
+Left  : [x]
+Right : ---SKK[x]
+
+Name  ? Dem   ? 
+Dem   : i[x]
+Left  : -I[x]
+Right : [x]
+
+Name  ? Dem   ? 
+Dem   : /i[x]-I[x]
+Left  : [x]
+Right : -I[x]
+
+Name  ? Dem   ? 
+Dem   : ////sKK[x]---SKK[x]k[x]-K[x]---SKK[x]/i[x]-I[x]
+Left  : ---SKK[x]
+Right : -I[x]
+
+Name  ? Dem   ? 
+Dem   : ///--SKK////////-////-S///s--S-KSK-KIK---S--S-KSK-KIK-//s-KSKK---S-KSKK-kSK-KKkIK//-4K---S--S-KSK-KIKiK-S--S-KKI-SK-S--S-KKI-SK///s--S-KSK-KIK---S--S-KSK-KIK-//s-KSKK---S-KSKK-kSK-KKkIK//-4K---S--S-KSK-KIKiK--S--S-KKI--S-KKI--SKK--S--S-KKI--S-KKI--SKK//////-////-S////-////-S/////-//s--S-KS--S-KK--S-KSK-KKS---S--S-KS--S-KK--S-KSK-KKS-//s-KS--S-KK--S-KSKS---S-KS--S-KK--S-KSKS-kSS//s-KK--S-KSKS---S-KK--S-KSKS-kKS//s-KSKS---S-KSKS-kSS-KSkKSK----S--S-KS--S-KK--S-KSK-KKSK//s-K-S-KSKK---S-K-S-KSKK-k-S-KSK-KK--5SK--S-KS-KK//s-KKSK---S-KKSK-kKK-SK-S--S-KS-KK-S-K-SK-S--S-KS-KK-S-K-SK-KK--S--S-KS-KK-KK/////-//s--S-KS--S-KK--S-KSK-KK-SK---S--S-KS--S-KK--S-KSK-KK-SK-//s-KS--S-KK--S-KSK-SK---S-KS--S-KK--S-KSK-SK-kS-SK//s-KK--S-KSK-SK---S-KK--S-KSK-SK-kK-SK//s-KSK-SK---S-KSK-SK-kS-SK-K-SKkK-SKK----S--S-KS--S-KK--S-KSK-KK-SKK//s-K-S-K-SKKK---S-K-S-K-SKKK-k-S-K-SKK-KK--5-SKK--S-K-SK-KK//s-KK-SKK---S-KK-SKK-kKK--SKK--S--S-KS-KK-KK-K--SKK-S--S--S-KS-KK-KK-S-K--SKK-S--S--S-KS-KK-KK-S-K--SKKI--S--S--S-KS-KK-KKI///s--S-KSK-KI--SKK---S--S-KSK-KI--SKK-//s-KSK--SKK---S-KSK--SKK-kS--SKK-K--SKKkI--SKK//-4--SKK---S--S-KSK-KI--SKKi--SKK--S--S--S-KS-KK-KKI--SKK///-//-//s-K-S-KS--S-KS-S-KS-KK---S-K-S-KS--S-KS-S-KS-KK-k-S-KS-KK//s-KS-S-KS-KK---S-KS-S-KS-KK-kS-KK--S-KS-KK-KK----S-K-S-KS--S-KS-S-KS-KK-KK//s-KS-S--S-KS-KK-KK---S-KS-S--S-KS-KK-KK-kS-KK--S--S-KS-KK-KKI---3-KK-KKI--S--S--S-KS-KK-KKI//-//-//s--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK---S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-//s-KS--S-KK--S-KS--S-K-S-KSS-KK---S-KS--S-KK--S-KS--S-K-S-KSS-KK-kS-KK//s-KK--S-KS--S-K-S-KSS-KK---S-KK--S-KS--S-K-S-KSS-KK-kK-KK//s-KS--S-K-S-KSS-KK---S-KS--S-K-S-KSS-KK-kS-KK//s-K-S-KSS-KK---S-K-S-KSS-KK-k-S-KS-KK-S-KKkS-KK-KK----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KK//s-K-S--S-KS-S-KKS-KK---S-K-S--S-KS-S-KKS-KK-k-S--S-KS-S-KK-KK-S-KKI-----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KKI//s--S-KS-S-KK-S-KKI---S--S-KS-S-KK-S-KKI-//s-KS-S-KKI---S-KS-S-KKI-kSI--S-KKI--S-KKI/--SKK--SKK/////-////-S///s--S-KSK-KIK---S--S-KSK-KIK-//s-KSKK---S-KSKK-kSK-KKkIK//-4K---S--S-KSK-KIKiK-S--S-KKI-SK-S--S-KKI-SKK--S--S-KKIK--SKK--S--S-KKIK--SKK/-//s-KS-S-KKI---S-KS-S-KKI-kSI--S-KKIK//--2IK----S-KS-S-KKIKkIK--SKK/////s--S-KSK-KII---S--S-KSK-KII-//s-KSKI---S-KSKI-kSI-KIkII//-4I---S--S-KSK-KIIiI//-1I--S-KIIiI/II--SKKI
+Left  : --SKK
+Right : I
+
+Name  ? Dem   ? 
+
+
+

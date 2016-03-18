@@ -1,0 +1,13 @@
+:true \0
+:rule1 ^x ^y ^z # ---parent x y ---parent y z --gdparent x z true
+:axiom1 # --parent Allan Brenda true
+:axiom2 # --parent Brenda Charles true
+:lemma1 ---rule1 Allan Brenda Charles
+:lemma2 - axiom1 ---parent Brenda Charles --gdparent Allan Charles
+:lemma3 /< lemma2 lemma1
+:lemma4 - axiom2 --gdparent Allan Charles
+:theorem1 /< lemma4 lemma3
+
+.
+
+ 

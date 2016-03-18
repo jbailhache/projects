@@ -1,0 +1,2008 @@
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  F 
+       =  F 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - F - <f>  <p> 
+       = - F - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  F 
+        =  F 
+  0 premisses : 
+
+  DEM A : - <f>  <p> 
+        = - <f>  <p> 
+  2 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM ! :  <p> 
+         =  <p> 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM ! :  K [T, O] 
+       =  K [T, O] 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  T 
+       =  T 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  ? 
+       =  ? 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - K [T, O]  T 
+       = - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  K [T, O] 
+        =  K [T, O] 
+  0 premisses : 
+
+  DEM ! :  T 
+        =  T 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - ? - K [T, O]  T 
+       = - ? - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  ? 
+        =  ? 
+  0 premisses : 
+
+  DEM A : - K [T, O]  T 
+        = - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  K [T, O] 
+         =  K [T, O] 
+   0 premisses : 
+
+   DEM ! :  T 
+         =  T 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM ! :  <n> 
+       =  <n> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : -- ? - K [T, O]  T  <n> 
+       = -- ? - K [T, O]  T  <n> 
+ 2 premisses : 
+  DEM A : - ? - K [T, O]  T 
+        = - ? - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  ? 
+         =  ? 
+   0 premisses : 
+
+   DEM A : - K [T, O]  T 
+         = - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  K [T, O] 
+          =  K [T, O] 
+    0 premisses : 
+
+    DEM ! :  T 
+          =  T 
+    0 premisses : 
+
+
+
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+
+      d2 = 
+ DEM ! :  O 
+       =  O 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : --- ? - K [T, O]  T  <n>  O 
+       = --- ? - K [T, O]  T  <n>  O 
+ 2 premisses : 
+  DEM A : -- ? - K [T, O]  T  <n> 
+        = -- ? - K [T, O]  T  <n> 
+  2 premisses : 
+   DEM A : - ? - K [T, O]  T 
+         = - ? - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  ? 
+          =  ? 
+    0 premisses : 
+
+    DEM A : - K [T, O]  T 
+          = - K [T, O]  T 
+    2 premisses : 
+     DEM ! :  K [T, O] 
+           =  K [T, O] 
+     0 premisses : 
+
+     DEM ! :  T 
+           =  T 
+     0 premisses : 
+
+
+
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+
+  DEM ! :  O 
+        =  O 
+  0 premisses : 
+
+
+      d2 = 
+ DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+       =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+ 2 premisses : 
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+  DEM A : -- F - <f>  <p> - <f>  <p> 
+        = -- F - <f>  <p> - <f>  <p> 
+  2 premisses : 
+   DEM A : - F - <f>  <p> 
+         = - F - <f>  <p> 
+   2 premisses : 
+    DEM ! :  F 
+          =  F 
+    0 premisses : 
+
+    DEM A : - <f>  <p> 
+          = - <f>  <p> 
+    2 premisses : 
+     DEM ! :  <f> 
+           =  <f> 
+     0 premisses : 
+
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+
+
+   DEM A : - <f>  <p> 
+         = - <f>  <p> 
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM ! :  <p> 
+          =  <p> 
+    0 premisses : 
+
+
+
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  F 
+       =  F 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - F - <f>  <p> 
+       = - F - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  F 
+        =  F 
+  0 premisses : 
+
+  DEM A : - <f>  <p> 
+        = - <f>  <p> 
+  2 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM ! :  <p> 
+         =  <p> 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM ! :  K [T, O] 
+       =  K [T, O] 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  T 
+       =  T 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  ? 
+       =  ? 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - K [T, O]  T 
+       = - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  K [T, O] 
+        =  K [T, O] 
+  0 premisses : 
+
+  DEM ! :  T 
+        =  T 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - ? - K [T, O]  T 
+       = - ? - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  ? 
+        =  ? 
+  0 premisses : 
+
+  DEM A : - K [T, O]  T 
+        = - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  K [T, O] 
+         =  K [T, O] 
+   0 premisses : 
+
+   DEM ! :  T 
+         =  T 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM ! :  <n> 
+       =  <n> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : -- ? - K [T, O]  T  <n> 
+       = -- ? - K [T, O]  T  <n> 
+ 2 premisses : 
+  DEM A : - ? - K [T, O]  T 
+        = - ? - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  ? 
+         =  ? 
+   0 premisses : 
+
+   DEM A : - K [T, O]  T 
+         = - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  K [T, O] 
+          =  K [T, O] 
+    0 premisses : 
+
+    DEM ! :  T 
+          =  T 
+    0 premisses : 
+
+
+
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+
+      d2 = 
+ DEM ! :  O 
+       =  O 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : --- ? - K [T, O]  T  <n>  O 
+       = --- ? - K [T, O]  T  <n>  O 
+ 2 premisses : 
+  DEM A : -- ? - K [T, O]  T  <n> 
+        = -- ? - K [T, O]  T  <n> 
+  2 premisses : 
+   DEM A : - ? - K [T, O]  T 
+         = - ? - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  ? 
+          =  ? 
+    0 premisses : 
+
+    DEM A : - K [T, O]  T 
+          = - K [T, O]  T 
+    2 premisses : 
+     DEM ! :  K [T, O] 
+           =  K [T, O] 
+     0 premisses : 
+
+     DEM ! :  T 
+           =  T 
+     0 premisses : 
+
+
+
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+
+  DEM ! :  O 
+        =  O 
+  0 premisses : 
+
+
+      d2 = 
+ DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+       =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+ 2 premisses : 
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+  DEM A : -- F - <f>  <p> - <f>  <p> 
+        = -- F - <f>  <p> - <f>  <p> 
+  2 premisses : 
+   DEM A : - F - <f>  <p> 
+         = - F - <f>  <p> 
+   2 premisses : 
+    DEM ! :  F 
+          =  F 
+    0 premisses : 
+
+    DEM A : - <f>  <p> 
+          = - <f>  <p> 
+    2 premisses : 
+     DEM ! :  <f> 
+           =  <f> 
+     0 premisses : 
+
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+
+
+   DEM A : - <f>  <p> 
+         = - <f>  <p> 
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM ! :  <p> 
+          =  <p> 
+    0 premisses : 
+
+
+
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <p> 
+       =  <p> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  F 
+       =  F 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - F - <f>  <p> 
+       = - F - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  F 
+        =  F 
+  0 premisses : 
+
+  DEM A : - <f>  <p> 
+        = - <f>  <p> 
+  2 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM ! :  <p> 
+         =  <p> 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM A : - <f>  <p> 
+       = - <f>  <p> 
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM ! :  K [T, O] 
+       =  K [T, O] 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  T 
+       =  T 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM ! :  ? 
+       =  ? 
+ 0 premisses : 
+
+      d2 = 
+ DEM A : - K [T, O]  T 
+       = - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  K [T, O] 
+        =  K [T, O] 
+  0 premisses : 
+
+  DEM ! :  T 
+        =  T 
+  0 premisses : 
+
+
+dmap: d1 = 
+ DEM A : - ? - K [T, O]  T 
+       = - ? - K [T, O]  T 
+ 2 premisses : 
+  DEM ! :  ? 
+        =  ? 
+  0 premisses : 
+
+  DEM A : - K [T, O]  T 
+        = - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  K [T, O] 
+         =  K [T, O] 
+   0 premisses : 
+
+   DEM ! :  T 
+         =  T 
+   0 premisses : 
+
+
+
+      d2 = 
+ DEM ! :  <n> 
+       =  <n> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : -- ? - K [T, O]  T  <n> 
+       = -- ? - K [T, O]  T  <n> 
+ 2 premisses : 
+  DEM A : - ? - K [T, O]  T 
+        = - ? - K [T, O]  T 
+  2 premisses : 
+   DEM ! :  ? 
+         =  ? 
+   0 premisses : 
+
+   DEM A : - K [T, O]  T 
+         = - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  K [T, O] 
+          =  K [T, O] 
+    0 premisses : 
+
+    DEM ! :  T 
+          =  T 
+    0 premisses : 
+
+
+
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+
+      d2 = 
+ DEM ! :  O 
+       =  O 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM A : --- ? - K [T, O]  T  <n>  O 
+       = --- ? - K [T, O]  T  <n>  O 
+ 2 premisses : 
+  DEM A : -- ? - K [T, O]  T  <n> 
+        = -- ? - K [T, O]  T  <n> 
+  2 premisses : 
+   DEM A : - ? - K [T, O]  T 
+         = - ? - K [T, O]  T 
+   2 premisses : 
+    DEM ! :  ? 
+          =  ? 
+    0 premisses : 
+
+    DEM A : - K [T, O]  T 
+          = - K [T, O]  T 
+    2 premisses : 
+     DEM ! :  K [T, O] 
+           =  K [T, O] 
+     0 premisses : 
+
+     DEM ! :  T 
+           =  T 
+     0 premisses : 
+
+
+
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+
+  DEM ! :  O 
+        =  O 
+  0 premisses : 
+
+
+      d2 = 
+ DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+       =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+ 2 premisses : 
+  DEM ! :  <p> 
+        =  <p> 
+  0 premisses : 
+
+  DEM A : -- F - <f>  <p> - <f>  <p> 
+        = -- F - <f>  <p> - <f>  <p> 
+  2 premisses : 
+   DEM A : - F - <f>  <p> 
+         = - F - <f>  <p> 
+   2 premisses : 
+    DEM ! :  F 
+          =  F 
+    0 premisses : 
+
+    DEM A : - <f>  <p> 
+          = - <f>  <p> 
+    2 premisses : 
+     DEM ! :  <f> 
+           =  <f> 
+     0 premisses : 
+
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+
+
+   DEM A : - <f>  <p> 
+         = - <f>  <p> 
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM ! :  <p> 
+          =  <p> 
+    0 premisses : 
+
+
+
+
+dmap: d1 = 
+ DEM ! :  Y [O->T] 
+       =  Y [O->T] 
+ 0 premisses : 
+
+      d2 = 
+ DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+ 2 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+        =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+  2 premisses : 
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+   DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+         = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+   2 premisses : 
+    DEM A : --- ? - K [T, O]  T  <n>  O 
+          = --- ? - K [T, O]  T  <n>  O 
+    2 premisses : 
+     DEM A : -- ? - K [T, O]  T  <n> 
+           = -- ? - K [T, O]  T  <n> 
+     2 premisses : 
+      DEM A : - ? - K [T, O]  T 
+            = - ? - K [T, O]  T 
+      2 premisses : 
+       DEM ! :  ? 
+             =  ? 
+       0 premisses : 
+
+       DEM A : - K [T, O]  T 
+             = - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  K [T, O] 
+              =  K [T, O] 
+        0 premisses : 
+
+        DEM ! :  T 
+              =  T 
+        0 premisses : 
+
+
+
+      DEM ! :  <n> 
+            =  <n> 
+      0 premisses : 
+
+
+     DEM ! :  O 
+           =  O 
+     0 premisses : 
+
+
+    DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+     DEM A : -- F - <f>  <p> - <f>  <p> 
+           = -- F - <f>  <p> - <f>  <p> 
+     2 premisses : 
+      DEM A : - F - <f>  <p> 
+            = - F - <f>  <p> 
+      2 premisses : 
+       DEM ! :  F 
+             =  F 
+       0 premisses : 
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+      DEM A : - <f>  <p> 
+            = - <f>  <p> 
+      2 premisses : 
+       DEM ! :  <f> 
+             =  <f> 
+       0 premisses : 
+
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+
+
+
+
+
+
+td[3] = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+td[4] = 
+ DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+       =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+ 2 premisses : 
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+  DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+        = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+  2 premisses : 
+   DEM A : --- ? - K [T, O]  T  <n>  O 
+         = --- ? - K [T, O]  T  <n>  O 
+   2 premisses : 
+    DEM A : -- ? - K [T, O]  T  <n> 
+          = -- ? - K [T, O]  T  <n> 
+    2 premisses : 
+     DEM A : - ? - K [T, O]  T 
+           = - ? - K [T, O]  T 
+     2 premisses : 
+      DEM ! :  ? 
+            =  ? 
+      0 premisses : 
+
+      DEM A : - K [T, O]  T 
+            = - K [T, O]  T 
+      2 premisses : 
+       DEM ! :  K [T, O] 
+             =  K [T, O] 
+       0 premisses : 
+
+       DEM ! :  T 
+             =  T 
+       0 premisses : 
+
+
+
+     DEM ! :  <n> 
+           =  <n> 
+     0 premisses : 
+
+
+    DEM ! :  O 
+          =  O 
+    0 premisses : 
+
+
+   DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+         =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+   2 premisses : 
+    DEM ! :  <p> 
+          =  <p> 
+    0 premisses : 
+
+    DEM A : -- F - <f>  <p> - <f>  <p> 
+          = -- F - <f>  <p> - <f>  <p> 
+    2 premisses : 
+     DEM A : - F - <f>  <p> 
+           = - F - <f>  <p> 
+     2 premisses : 
+      DEM ! :  F 
+            =  F 
+      0 premisses : 
+
+      DEM A : - <f>  <p> 
+            = - <f>  <p> 
+      2 premisses : 
+       DEM ! :  <f> 
+             =  <f> 
+       0 premisses : 
+
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+
+
+     DEM A : - <f>  <p> 
+           = - <f>  <p> 
+     2 premisses : 
+      DEM ! :  <f> 
+            =  <f> 
+      0 premisses : 
+
+      DEM ! :  <p> 
+            =  <p> 
+      0 premisses : 
+
+
+
+
+
+
+td[23] = 
+ DEM A : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       = - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+ 2 premisses : 
+  DEM ! :  Y [O->T] 
+        =  Y [O->T] 
+  0 premisses : 
+
+  DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+  2 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+         =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+   2 premisses : 
+    DEM ! :  <n> 
+          =  <n> 
+    0 premisses : 
+
+    DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM A : --- ? - K [T, O]  T  <n>  O 
+           = --- ? - K [T, O]  T  <n>  O 
+     2 premisses : 
+      DEM A : -- ? - K [T, O]  T  <n> 
+            = -- ? - K [T, O]  T  <n> 
+      2 premisses : 
+       DEM A : - ? - K [T, O]  T 
+             = - ? - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  ? 
+              =  ? 
+        0 premisses : 
+
+        DEM A : - K [T, O]  T 
+              = - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  K [T, O] 
+               =  K [T, O] 
+         0 premisses : 
+
+         DEM ! :  T 
+               =  T 
+         0 premisses : 
+
+
+
+       DEM ! :  <n> 
+             =  <n> 
+       0 premisses : 
+
+
+      DEM ! :  O 
+            =  O 
+      0 premisses : 
+
+
+     DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM ! :  <p> 
+            =  <p> 
+      0 premisses : 
+
+      DEM A : -- F - <f>  <p> - <f>  <p> 
+            = -- F - <f>  <p> - <f>  <p> 
+      2 premisses : 
+       DEM A : - F - <f>  <p> 
+             = - F - <f>  <p> 
+       2 premisses : 
+        DEM ! :  F 
+              =  F 
+        0 premisses : 
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+
+
+
+
+
+
+d1 = 
+ DEM ! :  <f> 
+       =  <f> 
+ 0 premisses : 
+
+d2 = 
+ DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+       =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+ 2 premisses : 
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+  DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+        = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+  2 premisses : 
+   DEM A : --- ? - K [T, O]  T  <n>  O 
+         = --- ? - K [T, O]  T  <n>  O 
+   2 premisses : 
+    DEM A : -- ? - K [T, O]  T  <n> 
+          = -- ? - K [T, O]  T  <n> 
+    2 premisses : 
+     DEM A : - ? - K [T, O]  T 
+           = - ? - K [T, O]  T 
+     2 premisses : 
+      DEM ! :  ? 
+            =  ? 
+      0 premisses : 
+
+      DEM A : - K [T, O]  T 
+            = - K [T, O]  T 
+      2 premisses : 
+       DEM ! :  K [T, O] 
+             =  K [T, O] 
+       0 premisses : 
+
+       DEM ! :  T 
+             =  T 
+       0 premisses : 
+
+
+
+     DEM ! :  <n> 
+           =  <n> 
+     0 premisses : 
+
+
+    DEM ! :  O 
+          =  O 
+    0 premisses : 
+
+
+   DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+         =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+   2 premisses : 
+    DEM ! :  <p> 
+          =  <p> 
+    0 premisses : 
+
+    DEM A : -- F - <f>  <p> - <f>  <p> 
+          = -- F - <f>  <p> - <f>  <p> 
+    2 premisses : 
+     DEM A : - F - <f>  <p> 
+           = - F - <f>  <p> 
+     2 premisses : 
+      DEM ! :  F 
+            =  F 
+      0 premisses : 
+
+      DEM A : - <f>  <p> 
+            = - <f>  <p> 
+      2 premisses : 
+       DEM ! :  <f> 
+             =  <f> 
+       0 premisses : 
+
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+
+
+     DEM A : - <f>  <p> 
+           = - <f>  <p> 
+     2 premisses : 
+      DEM ! :  <f> 
+            =  <f> 
+      0 premisses : 
+
+      DEM ! :  <p> 
+            =  <p> 
+      0 premisses : 
+
+
+
+
+
+
+d3 = 
+ DEM A : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       = - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+ 2 premisses : 
+  DEM ! :  Y [O->T] 
+        =  Y [O->T] 
+  0 premisses : 
+
+  DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+  2 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+         =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+   2 premisses : 
+    DEM ! :  <n> 
+          =  <n> 
+    0 premisses : 
+
+    DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM A : --- ? - K [T, O]  T  <n>  O 
+           = --- ? - K [T, O]  T  <n>  O 
+     2 premisses : 
+      DEM A : -- ? - K [T, O]  T  <n> 
+            = -- ? - K [T, O]  T  <n> 
+      2 premisses : 
+       DEM A : - ? - K [T, O]  T 
+             = - ? - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  ? 
+              =  ? 
+        0 premisses : 
+
+        DEM A : - K [T, O]  T 
+              = - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  K [T, O] 
+               =  K [T, O] 
+         0 premisses : 
+
+         DEM ! :  T 
+               =  T 
+         0 premisses : 
+
+
+
+       DEM ! :  <n> 
+             =  <n> 
+       0 premisses : 
+
+
+      DEM ! :  O 
+            =  O 
+      0 premisses : 
+
+
+     DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM ! :  <p> 
+            =  <p> 
+      0 premisses : 
+
+      DEM A : -- F - <f>  <p> - <f>  <p> 
+            = -- F - <f>  <p> - <f>  <p> 
+      2 premisses : 
+       DEM A : - F - <f>  <p> 
+             = - F - <f>  <p> 
+       2 premisses : 
+        DEM ! :  F 
+              =  F 
+        0 premisses : 
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+
+
+
+
+
+d->left = - \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+d->right =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> ))
+d = 
+ DEM / : - \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> ))
+ 3 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+        =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+  2 premisses : 
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+   DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+         = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+   2 premisses : 
+    DEM A : --- ? - K [T, O]  T  <n>  O 
+          = --- ? - K [T, O]  T  <n>  O 
+    2 premisses : 
+     DEM A : -- ? - K [T, O]  T  <n> 
+           = -- ? - K [T, O]  T  <n> 
+     2 premisses : 
+      DEM A : - ? - K [T, O]  T 
+            = - ? - K [T, O]  T 
+      2 premisses : 
+       DEM ! :  ? 
+             =  ? 
+       0 premisses : 
+
+       DEM A : - K [T, O]  T 
+             = - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  K [T, O] 
+              =  K [T, O] 
+        0 premisses : 
+
+        DEM ! :  T 
+              =  T 
+        0 premisses : 
+
+
+
+      DEM ! :  <n> 
+            =  <n> 
+      0 premisses : 
+
+
+     DEM ! :  O 
+           =  O 
+     0 premisses : 
+
+
+    DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+     DEM A : -- F - <f>  <p> - <f>  <p> 
+           = -- F - <f>  <p> - <f>  <p> 
+     2 premisses : 
+      DEM A : - F - <f>  <p> 
+            = - F - <f>  <p> 
+      2 premisses : 
+       DEM ! :  F 
+             =  F 
+       0 premisses : 
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+      DEM A : - <f>  <p> 
+            = - <f>  <p> 
+      2 premisses : 
+       DEM ! :  <f> 
+             =  <f> 
+       0 premisses : 
+
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+
+
+
+
+
+  DEM A : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        = - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+  2 premisses : 
+   DEM ! :  Y [O->T] 
+         =  Y [O->T] 
+   0 premisses : 
+
+   DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+         =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+          =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+    2 premisses : 
+     DEM ! :  <n> 
+           =  <n> 
+     0 premisses : 
+
+     DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM A : --- ? - K [T, O]  T  <n>  O 
+            = --- ? - K [T, O]  T  <n>  O 
+      2 premisses : 
+       DEM A : -- ? - K [T, O]  T  <n> 
+             = -- ? - K [T, O]  T  <n> 
+       2 premisses : 
+        DEM A : - ? - K [T, O]  T 
+              = - ? - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  ? 
+               =  ? 
+         0 premisses : 
+
+         DEM A : - K [T, O]  T 
+               = - K [T, O]  T 
+         2 premisses : 
+          DEM ! :  K [T, O] 
+                =  K [T, O] 
+          0 premisses : 
+
+          DEM ! :  T 
+                =  T 
+          0 premisses : 
+
+
+
+        DEM ! :  <n> 
+              =  <n> 
+        0 premisses : 
+
+
+       DEM ! :  O 
+             =  O 
+       0 premisses : 
+
+
+      DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+            =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+      2 premisses : 
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+       DEM A : -- F - <f>  <p> - <f>  <p> 
+             = -- F - <f>  <p> - <f>  <p> 
+       2 premisses : 
+        DEM A : - F - <f>  <p> 
+              = - F - <f>  <p> 
+        2 premisses : 
+         DEM ! :  F 
+               =  F 
+         0 premisses : 
+
+         DEM A : - <f>  <p> 
+               = - <f>  <p> 
+         2 premisses : 
+          DEM ! :  <f> 
+                =  <f> 
+          0 premisses : 
+
+          DEM ! :  <p> 
+                =  <p> 
+          0 premisses : 
+
+
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+
+
+
+
+
+
+td[5] = 
+ DEM / : - \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> ))
+ 3 premisses : 
+  DEM ! :  <f> 
+        =  <f> 
+  0 premisses : 
+
+  DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+        =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+  2 premisses : 
+   DEM ! :  <n> 
+         =  <n> 
+   0 premisses : 
+
+   DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+         = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+   2 premisses : 
+    DEM A : --- ? - K [T, O]  T  <n>  O 
+          = --- ? - K [T, O]  T  <n>  O 
+    2 premisses : 
+     DEM A : -- ? - K [T, O]  T  <n> 
+           = -- ? - K [T, O]  T  <n> 
+     2 premisses : 
+      DEM A : - ? - K [T, O]  T 
+            = - ? - K [T, O]  T 
+      2 premisses : 
+       DEM ! :  ? 
+             =  ? 
+       0 premisses : 
+
+       DEM A : - K [T, O]  T 
+             = - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  K [T, O] 
+              =  K [T, O] 
+        0 premisses : 
+
+        DEM ! :  T 
+              =  T 
+        0 premisses : 
+
+
+
+      DEM ! :  <n> 
+            =  <n> 
+      0 premisses : 
+
+
+     DEM ! :  O 
+           =  O 
+     0 premisses : 
+
+
+    DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM ! :  <p> 
+           =  <p> 
+     0 premisses : 
+
+     DEM A : -- F - <f>  <p> - <f>  <p> 
+           = -- F - <f>  <p> - <f>  <p> 
+     2 premisses : 
+      DEM A : - F - <f>  <p> 
+            = - F - <f>  <p> 
+      2 premisses : 
+       DEM ! :  F 
+             =  F 
+       0 premisses : 
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+      DEM A : - <f>  <p> 
+            = - <f>  <p> 
+      2 premisses : 
+       DEM ! :  <f> 
+             =  <f> 
+       0 premisses : 
+
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+
+
+
+
+
+  DEM A : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        = - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+  2 premisses : 
+   DEM ! :  Y [O->T] 
+         =  Y [O->T] 
+   0 premisses : 
+
+   DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+         =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+          =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+    2 premisses : 
+     DEM ! :  <n> 
+           =  <n> 
+     0 premisses : 
+
+     DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM A : --- ? - K [T, O]  T  <n>  O 
+            = --- ? - K [T, O]  T  <n>  O 
+      2 premisses : 
+       DEM A : -- ? - K [T, O]  T  <n> 
+             = -- ? - K [T, O]  T  <n> 
+       2 premisses : 
+        DEM A : - ? - K [T, O]  T 
+              = - ? - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  ? 
+               =  ? 
+         0 premisses : 
+
+         DEM A : - K [T, O]  T 
+               = - K [T, O]  T 
+         2 premisses : 
+          DEM ! :  K [T, O] 
+                =  K [T, O] 
+          0 premisses : 
+
+          DEM ! :  T 
+                =  T 
+          0 premisses : 
+
+
+
+        DEM ! :  <n> 
+              =  <n> 
+        0 premisses : 
+
+
+       DEM ! :  O 
+             =  O 
+       0 premisses : 
+
+
+      DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+            =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+      2 premisses : 
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+       DEM A : -- F - <f>  <p> - <f>  <p> 
+             = -- F - <f>  <p> - <f>  <p> 
+       2 premisses : 
+        DEM A : - F - <f>  <p> 
+              = - F - <f>  <p> 
+        2 premisses : 
+         DEM ! :  F 
+               =  F 
+         0 premisses : 
+
+         DEM A : - <f>  <p> 
+               = - <f>  <p> 
+         2 premisses : 
+          DEM ! :  <f> 
+                =  <f> 
+          0 premisses : 
+
+          DEM ! :  <p> 
+                =  <p> 
+          0 premisses : 
+
+
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+
+
+
+
+
+
+dmap: d1 = 
+ DEM ! :  suc 
+       =  suc 
+ 0 premisses : 
+
+      d2 = 
+ DEM ! :  <n> 
+       =  <n> 
+ 0 premisses : 
+
+dmap: d1 = 
+ DEM t : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+       =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> ))
+ 2 premisses : 
+  DEM Y : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        = - \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+  1 premisses : 
+   DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+         =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+   2 premisses : 
+    DEM ! :  <f> 
+          =  <f> 
+    0 premisses : 
+
+    DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+          =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+    2 premisses : 
+     DEM ! :  <n> 
+           =  <n> 
+     0 premisses : 
+
+     DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM A : --- ? - K [T, O]  T  <n>  O 
+            = --- ? - K [T, O]  T  <n>  O 
+      2 premisses : 
+       DEM A : -- ? - K [T, O]  T  <n> 
+             = -- ? - K [T, O]  T  <n> 
+       2 premisses : 
+        DEM A : - ? - K [T, O]  T 
+              = - ? - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  ? 
+               =  ? 
+         0 premisses : 
+
+         DEM A : - K [T, O]  T 
+               = - K [T, O]  T 
+         2 premisses : 
+          DEM ! :  K [T, O] 
+                =  K [T, O] 
+          0 premisses : 
+
+          DEM ! :  T 
+                =  T 
+          0 premisses : 
+
+
+
+        DEM ! :  <n> 
+              =  <n> 
+        0 premisses : 
+
+
+       DEM ! :  O 
+             =  O 
+       0 premisses : 
+
+
+      DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+            =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+      2 premisses : 
+       DEM ! :  <p> 
+             =  <p> 
+       0 premisses : 
+
+       DEM A : -- F - <f>  <p> - <f>  <p> 
+             = -- F - <f>  <p> - <f>  <p> 
+       2 premisses : 
+        DEM A : - F - <f>  <p> 
+              = - F - <f>  <p> 
+        2 premisses : 
+         DEM ! :  F 
+               =  F 
+         0 premisses : 
+
+         DEM A : - <f>  <p> 
+               = - <f>  <p> 
+         2 premisses : 
+          DEM ! :  <f> 
+                =  <f> 
+          0 premisses : 
+
+          DEM ! :  <p> 
+                =  <p> 
+          0 premisses : 
+
+
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+
+
+
+
+
+  DEM / : - \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+        =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> -- Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))) <p> ))
+  3 premisses : 
+   DEM ! :  <f> 
+         =  <f> 
+   0 premisses : 
+
+   DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+         =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+   2 premisses : 
+    DEM ! :  <n> 
+          =  <n> 
+    0 premisses : 
+
+    DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+          = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+    2 premisses : 
+     DEM A : --- ? - K [T, O]  T  <n>  O 
+           = --- ? - K [T, O]  T  <n>  O 
+     2 premisses : 
+      DEM A : -- ? - K [T, O]  T  <n> 
+            = -- ? - K [T, O]  T  <n> 
+      2 premisses : 
+       DEM A : - ? - K [T, O]  T 
+             = - ? - K [T, O]  T 
+       2 premisses : 
+        DEM ! :  ? 
+              =  ? 
+        0 premisses : 
+
+        DEM A : - K [T, O]  T 
+              = - K [T, O]  T 
+        2 premisses : 
+         DEM ! :  K [T, O] 
+               =  K [T, O] 
+         0 premisses : 
+
+         DEM ! :  T 
+               =  T 
+         0 premisses : 
+
+
+
+       DEM ! :  <n> 
+             =  <n> 
+       0 premisses : 
+
+
+      DEM ! :  O 
+            =  O 
+      0 premisses : 
+
+
+     DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+           =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+     2 premisses : 
+      DEM ! :  <p> 
+            =  <p> 
+      0 premisses : 
+
+      DEM A : -- F - <f>  <p> - <f>  <p> 
+            = -- F - <f>  <p> - <f>  <p> 
+      2 premisses : 
+       DEM A : - F - <f>  <p> 
+             = - F - <f>  <p> 
+       2 premisses : 
+        DEM ! :  F 
+              =  F 
+        0 premisses : 
+
+        DEM A : - <f>  <p> 
+              = - <f>  <p> 
+        2 premisses : 
+         DEM ! :  <f> 
+               =  <f> 
+         0 premisses : 
+
+         DEM ! :  <p> 
+               =  <p> 
+         0 premisses : 
+
+
+
+       DEM A : - <f>  <p> 
+             = - <f>  <p> 
+       2 premisses : 
+        DEM ! :  <f> 
+              =  <f> 
+        0 premisses : 
+
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+
+
+
+
+
+   DEM A : - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+         = - Y [O->T]  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+   2 premisses : 
+    DEM ! :  Y [O->T] 
+          =  Y [O->T] 
+    0 premisses : 
+
+    DEM \ :  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+          =  \ <f> .( \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )))
+    2 premisses : 
+     DEM ! :  <f> 
+           =  <f> 
+     0 premisses : 
+
+     DEM \ :  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+           =  \ <n> .(---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> ))
+     2 premisses : 
+      DEM ! :  <n> 
+            =  <n> 
+      0 premisses : 
+
+      DEM A : ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+            = ---- ? - K [T, O]  T  <n>  O  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+      2 premisses : 
+       DEM A : --- ? - K [T, O]  T  <n>  O 
+             = --- ? - K [T, O]  T  <n>  O 
+       2 premisses : 
+        DEM A : -- ? - K [T, O]  T  <n> 
+              = -- ? - K [T, O]  T  <n> 
+        2 premisses : 
+         DEM A : - ? - K [T, O]  T 
+               = - ? - K [T, O]  T 
+         2 premisses : 
+          DEM ! :  ? 
+                =  ? 
+          0 premisses : 
+
+          DEM A : - K [T, O]  T 
+                = - K [T, O]  T 
+          2 premisses : 
+           DEM ! :  K [T, O] 
+                 =  K [T, O] 
+           0 premisses : 
+
+           DEM ! :  T 
+                 =  T 
+           0 premisses : 
+
+
+
+         DEM ! :  <n> 
+               =  <n> 
+         0 premisses : 
+
+
+        DEM ! :  O 
+              =  O 
+        0 premisses : 
+
+
+       DEM \ :  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+             =  \ <p> .(-- F - <f>  <p> - <f>  <p> )
+       2 premisses : 
+        DEM ! :  <p> 
+              =  <p> 
+        0 premisses : 
+
+        DEM A : -- F - <f>  <p> - <f>  <p> 
+              = -- F - <f>  <p> - <f>  <p> 
+        2 premisses : 
+         DEM A : - F - <f>  <p> 
+               = - F - <f>  <p> 
+         2 premisses : 
+          DEM ! :  F 
+                =  F 
+          0 premisses : 
+
+          DEM A : - <f>  <p> 
+                = - <f>  <p> 
+          2 premisses : 
+           DEM ! :  <f> 
+                 =  <f> 
+           0 premisses : 
+
+           DEM ! :  <p> 
+                 =  <p> 
+           0 premisses : 
+
+
+
+         DEM A : - <f>  <p> 
+               = - <f>  <p> 
+         2 premisses : 
+          DEM ! :  <f> 
+                =  <f> 
+          0 premisses : 
+
+          DEM ! :  <p> 
+                =  <p> 
+          0 premisses : 
+
+
+
+
+
+
+
+
+
+
+      d2 = 
+ DEM A : - suc  <n> 
+       = - suc  <n> 
+ 2 premisses : 
+  DEM ! :  suc 
+        =  suc 
+  0 premisses : 
+
+  DEM ! :  <n> 
+        =  <n> 
+  0 premisses : 
+
+LCT18.C(905): insufficient memory to allocate *d d

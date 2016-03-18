@@ -1,0 +1,115 @@
+ 
+<!--Connexion établie--><!--Base de données sélectionnée--><HTML><head><title>Démonstration de théorèmes en lambda calcul sur HP 48</title><meta name=keywords content=""></head><body>
+<h4>Règles</h4>
+
+<ul>
+<li> ap f=g, a=b -> ap f a = ap g b
+<li> rt a=c, b=c -> a=b
+<li> l a=b -> l a = l b
+<li> as f=l x, a=b -> ap f a = subst(0,x,b)
+<li> axm a=b, c=d -> (a=b)=(c=d)
+<li> lr r (a=b)=(c=d) -> lr r (a=b) = c
+<li> q a=b -> (a=b)=(a=b)
+<li> ev (a=b)=(c=d) -> a=d
+</ul>
+
+<pre>
+
+<< -> D R
+   << IF D TYPE {} TYPE SAME NOT 
+      THEN D
+      ELSE D 1 GET CASE
+         DUP 'AP' SAME THEN DROP
+            'AP' D 2 GET R DLR D 3 GET R DLR 3 ->LIST
+         END
+         DUP 'AXM' SAME THEN DROP
+            D R 2 + GET
+         END
+         DUP 'RT' SAME THEN DROP
+            IF D 2 GET 1 DLR D 3 GET 1 DLR SAME 
+            THEN D R 2 + GET 0 DLR
+            ELSE D END
+         END
+         DUP 'AS' SAME THEN DROP
+            D 2 GET 1 DLR -> F
+            << IF R NOT F 1 GET 'L' SAME NOT OR
+               THEN 'AP' D 2 GET R DLR D 3 GET R DLR 3 ->LIST
+               ELSE D 3 GET 1 DLR F 2 GET 0 SUBST
+               END >>
+         END
+         DROP D R RDLR 
+      END
+   END >>
+>> 'DLR' STO
+
+<< -> D R << CASE
+   D 1 GET 'DLR' SAME THEN
+      IF R NOT 
+      THEN 'DLR' D 2 GET D 3 GET R DLR 3 ->LIST
+      ELSE D 3 GET R DLR D 2 GET DLR END
+   END
+   D 1 GET 'Q' SAME THEN
+      D 2 GET
+   END
+   D 1 GET 'EV' SAME THEN
+      D 2 GET R DLR R DLR
+   END
+   D
+   END
+>> >> 'RDLR' STO
+
+<< -> z y n
+   << CASE
+         Y ISVAR THEN
+            CASE 
+               Y N SAME THEN 2 END
+               Y N > THEN Y 1 + END
+               Y END
+         END
+         Y TYPE {} TYPE SAME NOT THEN Y END
+         Y 1 GET 'L' SAME THEN
+            'L' Z 1 0 SHIFT Y 2 GET N 1 + SUBST 2 ->LIST
+         END
+         Y 1 GET
+         2 Y SIZE FOR I
+            Z Y I GET N SUBST
+         NEXT
+         Y SIZE ->LIST 
+      END
+>> >> 'SUBST' STO
+
+<< -> X N M
+   << CASE
+         X ISVAR THEN
+            IF X M >+ THEN X N + ELSE X END
+         END
+         X TYPE {} TYPE SAME NOT THEN X END
+         X 1 GET 'L' SAME THEN
+            'L' X 2 GET N M 1 + SHIFT 2 ->LIST 
+         END
+         X 1 GET
+         2 X SIZE FOR I
+            X I GET N M SHIFT
+         NEXT
+         X SIZE ->LIST
+      END
+>> >> 'SHIFT' STO
+
+<< TYPE 0 TYPE SAME >> 'ISVAR' STO
+
+<< -> X
+   << IF X TYPE {} TYPE SAME NOT
+      THEN X EVAL
+      ELSE 
+         1 X SIZE FOR I
+            X I GET XDF
+         NEXT
+         X SIZE ->LIST
+      END
+>> >> 'XDF' STO
+
+</pre>   
+
+      
+
+      </body></HTML>

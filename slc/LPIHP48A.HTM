@@ -1,0 +1,521 @@
+
+
+<!--Connexion établie--><!--Base de données sélectionnée-->
+<HTML><head>
+<title>Interprète LPIA et démonstration de théorèmes en lambda calcul sur HP 48</title><meta name=keywords content=""></head><BODY>
+ 
+<h4>Règles</h4>
+
+
+<ul>
+
+<li> ap f=g, a=b -> ap f a = ap g b
+
+<li> rt a=c, b=c -> a=b
+
+<li> l a=b -> l a = l b
+
+<li> as f=l x, a=b -> ap f a = subst(0,x,b)
+
+<li> axm a=b, c=d -> (a=b)=(c=d)
+
+<li> lr r (a=b)=(c=d) -> lr r (a=b) = c
+
+<li> q a=b -> (a=b)=(a=b)
+
+<li> evl (a=b)=(c=d) -> a=d
+
+</ul>
+
+
+
+<pre>
+
+
+
+<< -> D R
+
+   << IF D TYPE {} TYPE SAME NOT 
+
+      THEN D
+
+      ELSE D 1 GET CASE
+
+         DUP 'AP' SAME THEN DROP
+
+            'AP' D 2 GET R DLR D 3 GET R DLR 3 ->LIST
+
+         END
+
+         DUP 'AXM' SAME THEN DROP
+
+            D R 2 + GET
+
+         END
+
+         DUP 'RT' SAME THEN DROP
+
+            IF D 2 GET 1 DLR D 3 GET 1 DLR SAME 
+
+            THEN D R 2 + GET 0 DLR
+
+            ELSE D END
+
+         END
+
+         DUP 'L' SAME THEN DROP
+            'L' D 2 GET R DLR 2 ->LIST
+         END
+
+         DUP 'AS' SAME THEN DROP
+
+            D 2 GET 1 DLR -> F
+
+            << IF R NOT F ISL NOT OR
+
+               THEN 'AP' D 2 GET R DLR D 3 GET R DLR 3 ->LIST
+
+               ELSE D 3 GET 1 DLR F 2 GET 0 SUBST
+
+               END >>
+
+         END
+
+         DUP 'CTX' SAME THEN
+            D DLRCTX
+         END
+
+         DROP D R RDLR 
+
+      END
+
+   END >>
+
+>> 'DLR' STO
+
+
+
+<< -> D R << CASE
+
+   D 1 GET 'LRD' SAME THEN
+
+      IF R NOT 
+
+      THEN 'LRD' D 2 GET D 3 GET R DLR 3 ->LIST
+
+      ELSE D 3 GET R DLR D 2 GET DLR END
+
+   END
+
+   D 1 GET 'Q' SAME THEN
+
+      D 2 GET
+
+   END
+
+   D 1 GET 'EV' SAME THEN
+
+      D 2 GET R DLR R DLR
+
+   END
+
+   D
+
+   END
+
+>> >> 'RDLR' STO
+
+
+
+<< -> z y n
+
+   << CASE
+
+         Y ISVAR THEN
+
+            CASE 
+
+               Y N SAME THEN 2 END
+
+               Y N > THEN Y 1 + END
+
+               Y END
+
+         END
+
+         Y TYPE {} TYPE SAME NOT THEN Y END
+
+         Y 1 GET 'L' SAME THEN
+
+            'L' Z 1 0 SHIFT Y 2 GET N 1 + SUBST 2 ->LIST
+
+         END
+
+         Y 1 GET
+
+         2 Y SIZE FOR I
+
+            Z Y I GET N SUBST
+
+         NEXT
+
+         Y SIZE ->LIST 
+
+      END
+
+>> >> 'SUBST' STO
+
+
+
+<< -> X N M
+
+   << CASE
+
+         X ISVAR THEN
+
+            IF X M >+ THEN X N + ELSE X END
+
+         END
+
+         X TYPE {} TYPE SAME NOT THEN X END
+
+         X 1 GET 'L' SAME THEN
+
+            'L' X 2 GET N M 1 + SHIFT 2 ->LIST 
+
+         END
+
+         X 1 GET
+
+         2 X SIZE FOR I
+
+            X I GET N M SHIFT
+
+         NEXT
+
+         X SIZE ->LIST
+
+      END
+
+>> >> 'SHIFT' STO
+
+
+
+<< TYPE 0 TYPE SAME >> 'ISVAR' STO
+
+
+
+<< IF DUP TYPE {} TYPE SAME NOT 
+
+   THEN DROP 0 
+
+   ELSE 1 GET 'L' SAME 
+
+   END >> 'ISL' STO
+
+
+
+<< -> X
+
+   << IF X TYPE {} TYPE SAME NOT
+
+      THEN X EVAL IF DUP X SAME NOT THEN XDF END
+
+      ELSE 
+
+         1 X SIZE FOR I
+
+            X I GET XDF
+
+         NEXT
+
+         X SIZE ->LIST
+
+      END
+
+>> >> 'XDF' STO
+
+
+
+<< -> X
+
+   << CASE 
+
+         X 'AP' SAME THEN 'AS' END
+
+         X TYPE {} TYPE SAME THEN
+
+            1 X SIZE FOR I
+
+               X I GET APS
+
+            NEXT
+
+            X SIZE ->LIST
+
+         END
+
+         X
+
+      END
+
+   >> >> 'APS' STO
+
+
+
+<< -> X 
+
+   << X APS 1 DLR
+
+      IF DUP X SAME NOT THEN RED END
+
+   >> >> 'RED' STO
+
+
+
+Exemple :
+
+
+
+Vab=a, Fab=b
+
+Pabf = fab
+
+
+
+{L {L 1}} 'V' STO
+
+{L {L 0}} 'F' STO
+
+{L {L {L {AP {AP 0 2} 1}}}} 'P' STO 
+
+
+
+PabF = b
+
+
+
+{AP {AP {AP P A} B} F} XDF RED
+
+'B'
+
+</pre>
+
+<!--
+
+<< -> X
+   << CASE 
+         X 'AP' SAME THEN 'AS' END
+         X TYPE {} TYPE SAME THEN
+            1 X SIZE FOR I
+               X I GET APS
+            NEXT
+            X SIZE ->LIST
+         END
+         X
+         END
+   >> >> 'APS' STO
+-->
+
+<h4>Interprère LPIA</h4>
+
+Représentation du contexte : 
+{CTX {instruction continuation} {sommet pile} extension}
+
+<p>
+Règles :
+<ul>
+<li> {CTX {{a1 ... an} k} s e} -> {CTX {a1 ... an k} s e}
+<li> {CTX {instr k] s e} : évaluer instr
+</ul>
+
+<pre>
+
+<< -> D 
+   << IF D 2 GET 1 GET TYPE {} TYPE SAME
+      THEN 
+         D 2 GET LIST-> DROP 1 ->LIST +
+         D 3 GET D 4 GET 4 ->LIST
+      ELSE
+         D 2 GET D 3 GET D 4 GET
+         D 2 GET 1 GET EVAL
+      END
+   >> >> 'DLRCTX' STO
+
+</pre>
+
+<h4>Définition des instructions</h4>
+
+<pre>
+
+quote : {CTX {q x k} s e} -> {CTX k {x s} e}
+
+<< -> P S E << 
+   P 3 GET P 2 GET S 2 ->LIST
+   E 4 ->LIST >> >> 'q' STO
+
+
+eval : {CTX {evl k} {x s} e} -> {CTX {x k} s e}
+
+<< -> P S E <<
+   S 1 GET P 2 GET 2 ->LIST
+   S 2 GET
+   E 4 ->LIST >> >> 'evl' STO
+
+   
+drop : {CTX {drp k} {x s} e} -> {CTX k s e}
+
+<< -> P S E <<
+   P 2 GET 
+   S 2 GET
+   E 4 ->LIST >> >> 'drp' STO
+
+
+dup : {CTX {du k} {x s} e} -> {CTX k {x {x s}} e}
+
+<< -> P S E <<
+   P 2 GET 
+   S 1 GET S 2 ->LIST
+   E 4 ->LIST >> >> 'du' STO
+
+
+swap : {CTX {swp k} {x {y s}} e} -> {CTX k {y {x s}} e}
+
+<< -> P S E <<
+   P 2 GET 
+   S 2 GET 1 GET 
+   S 1 GET 
+   S 2 GET 2 GET 
+   2 ->LIST 
+   2 ->LIST
+   E 4 ->LIST >> >> 'swp' STO
+
+
+seq : {CTX {seq a b k} s e} -> {CTX {a {b k}} s e}
+
+<< -> P S E <<
+   P 2 GET P 3 GET P 4 GET 2 ->LIST 2 ->LIST 
+   S
+   E 4 ->LIST >> >> 'seq' STO
+
+
+eq : {CTX {eq a b k} {x {y s}} e} -> {CTX {<<IF x y EQ THEN a ELSE b END>> k} s e}
+
+<< -> P S E <<
+   P 
+   IF S 1 GET S 2 GET 1 GET SAME
+   THEN 2 ELSE 3 END
+   GET 
+   P 4 GET 2 ->LIST
+   S 2 GET 2 GET
+   E 4 ->LIST >> >> 'eq' STO
+
+
+loop : {CTX {loop a k} s e} -> {CTX {a {loop a k}} s e}
+
+<< -> P S E <<
+   P 2 GET P 2 ->LIST S
+   E 4 ->LIST >> >> 'loop' STO
+
+
+get : {CTX {get k} {i {l s}} e} -> {CTX k {l[i] s} e}
+
+list : {CTX {list k} {n {x1 { ... {xn s} ... }}} e} -> {CTX k {{x1 ... xn} s} e}
+
+<< -> P S E <<
+   P 2 GET
+   1 S 1 GET FOR I
+      S 
+      1 I FOR J 2 GET NEXT
+      1 GET
+   NEXT
+   S 1 GET ->LIST
+   S 1 S 1 GET 1 + FOR K
+      2 GET
+   NEXT
+   2 ->LIST
+   E 4 ->LIST >> >> 'list' STO
+
+
+lr : {CTX {lr k} {r {d s}} e} -> {CTX k {<<d r DLR>> s} e}
+
+  << -> P S E <<
+   P 2 GET
+   S 2 GET 1 GET S 1 GET DLR
+   S 2 GET 2 GET
+   2 ->LIST
+   E 4 ->LIST >> >> 'lr' STO
+
+
+getctx : {CTX {getctx a k} s e} -> {CTX {a k} {{CTX k s e} s} e}
+
+<< -> P S E <<
+   P 2 GET P 3 GET 2 ->LIST
+   CTX P 3 GET S E 4 ->LIST
+   S 2 ->LIST
+   E 4 ->LIST >> >> 'getctx' STO
+
+setctx : {CTX {setctx k} {ctx s} e} -> ctx
+
+nop : {CTX {noop k} s e} -> {CTX k s e}
+
+<< -> P S E <<
+   P 2 GET S
+   E 4 ->LIST >> >> 'noop' STO
+
+oi : {CTX {oi k} {x s} e} affiche x, lit y -> {CTX k {y s} e}
+
+halt : {CTX {hlt k} s e} -> {CTX {hlt k} s e}
+
+<< -> P S E <<
+   P S 
+   E 4 ->LIST >> 'hlt' STO
+
+Exemple de toplevel :
+
+{CTX {loop {seq oi evl} k} {Hello s} e} 'TOPCTX' STO
+
+
+{ a b c / d e f } MP -> { a b c { d e f } }
+
+<< -> L 
+   << CASE
+         L {} SAME THEN {} END
+         L TYPE {} TYPE SAME NOT THEN L END
+         L 1 GET { / } 1 GET SAME THEN
+            L RST 1 ->LIST 
+         END
+         L 1 GET L RST MP CONS 
+         END >> >> 'MP' STO
+
+<< LIST-> 1 + ->LIST >> 'CONS' STO
+
+<< -> L 
+   << 2 L SIZE FOR I
+         L I GET
+      NEXT
+      L SIZE 1 - ->LIST 
+   >> >> 'RST' STO
+
+
+Interprète :
+
+<< TOPCTX RED >>
+
+
+
+
+ 
+
+ 
+
+
+</pre>   
+
+
+
+      
+
+
+
+      </BODY></HTML>

@@ -1,0 +1,339 @@
+[A] --SII
+[Y] \[f]-[A]--S-K[f][A]
+
+[True] K
+[False] -KI
+
+[P] \[a]\[b]\[f]--[f][a][b]
+
+[Zero] K
+[Suc] \[n]\[z]\[s]-[s][n]
+[Eqn] -[Y]\[rEqn]\[n]\[p]
+        --[n]--[p][True]-K[False]
+        \[n1]--[p]-K[False]-[rEqn][n1]
+
+[Nil] K
+[Ins] \[x]\[l]\[n]\[i]--[i][x][l]
+[Length] -[Y]\[rLength]\[l]
+                --[l][Zero]
+                \[x]\[l1]-[Suc]-[rLength][l1]
+[Index] -[Y]\[rIndex]\[n]\[l]
+                --[l]I
+                \[x]\[l1]--[n][x]\[n1]--[rIndex][n1][l1]
+
+[Eql] -[Y]\[rEql]\[eq]\[l1]\[l2]
+                --[l1]--[l2][True]-K[False]\[x1]\[s1]
+                --[l2][False]\[x2]\[s2]
+                ----[eq][x1][x2]---[rEql][eq][s1][s2][False]
+[Adl] -[Y]\[rAdl]\[l]\[x]
+                --[l]--[Ins][x][Nil]\[x1]\[l1]
+                --[Ins][x1]--[rAdl][l1][x]
+
+[MkDem] \[nod]\[lsd]\[f]--[f][nod][lsd]
+[Nod]   \[d]-[d]K
+[Lsd]   \[d]-[d]-KI
+[Arity] \[d]-[Length]-[Lsd][d]
+[Subdem] \[i]\[d]--[Index][i]-[Lsd][d]
+
+[nI] [Zero]
+[nK] -[Suc][nI]
+[nS] -[Suc][nK]
+[nE] -[Suc][nS]
+[nIf] -[Suc][nE]
+[nOrd] -[Suc][nIf]
+[nap] -[Suc][nOrd]
+[ntransym] -[Suc][nap]
+[ndefI] -[Suc][ntransym]
+[ndefK] -[Suc][ndefI]
+[ndefS] -[Suc][ndefK]
+[nExt1] -[Suc][ndefS]
+[nExt2] -[Suc][nExt1]
+[nExt3] -[Suc][nExt2]
+[nExt4] -[Suc][nExt3]
+[nExt5] -[Suc][nExt4]
+[nExt6] -[Suc][nExt5]
+[nAE] -[Suc][nExt6]
+[nEA] -[Suc][nAE]
+[nMP] -[Suc][nEA]
+[nAI] -[Suc][nMP]
+[nAK] -[Suc][nAI]
+[nAS] -[Suc][nAK]
+[nRPA] -[Suc][nAS]
+[nZeroIsOrd] -[Suc][nRPA]
+[nSucIsOrd] -[Suc][nZeroIsOrd]
+[nLimIsOrd] -[Suc][nSucIsOrd]
+[nPredIsOrd] -[Suc][nLimIsOrd]
+[nStepIsOrd] -[Suc][nPredIsOrd]
+[nTfI] -[Sun][nStepIsOrd]
+
+[rI] --[MkDem][nI][Nil]
+[rK] --[MkDem][nK][Nil]
+[rS] --[MkDem][nS][Nil]
+[rE] --[MkDem][nE][Nil]
+[rIf] --[MkDem][nIf][Nil]
+[rOrd] --[MkDem][nOrd][Nil]
+[rap] \[rf]\[ra]--[MkDem][nap]--[Ins][rf]--[Ins][ra][Nil]
+[rtransym] \[r1]\[r2]--[MkDem][ntransym]--[Ins][r1]--[Ins][r2][Nil]
+[rdefI] \[ra]--[MkDem][ndefI]--[Ins][ra][Nil]
+[rdefK] \[ra]\[rb]--[MkDem][ndefK]--[Ins][ra]--[Ins][rb][Nil]
+[rdefS] \[ra]\[rb]\[rc]--[MkDem][ndefS]--[Ins][ra]--[Ins][rb]--[Ins][rc][Nil]
+[rExt1] --[MkDem][nExt1][Nil]
+[rExt2] --[MkDem][nExt2][Nil]
+[rExt3] --[MkDem][nExt3][Nil]
+[rExt4] --[MkDem][nExt4][Nil]
+[rExt5] --[MkDem][nExt5][Nil]
+[rExt6] --[MkDem][nExt6][Nil]
+[rAE] --[MkDem][nAE][Nil]
+[rEA] --[MkDem][nEA][Nil]
+[rMP] --[MkDem][nMP][Nil]
+[rAI] --[MkDem][nAI][Nil]
+[rAK] --[MkDem][nAK][Nil]
+[rAS] --[MkDem][nAS][Nil]
+[rRPA] --[MkDem][nRPA][Nil]
+[rZeroIsOrd] --[MkDem][nZeroIsOrd][Nil]
+[rSucIsOrd] --[MkDem][nSucIsOrd][Nil]
+[rLimIsOrd] --[MkDem][nLimIsOrd][Nil]
+[rPredIsOrd] --[MkDem][nPredIsOrd][Nil]
+[rStepIsOrd] --[MkDem][nStepIsOrd][Nil]
+[rTfI] --[MkDem][nTfI][Nil]
+
+[israp] \[d]----[Eqn]-[Nod][d][nap][True][False]
+[isnrap] \[d]---[israp][d][False][True]
+
+[isrI] \[d]----[Eqn]-[Nod][d][nI][True][False]
+[isnrI] \[d]---[isrI][d][False][True]
+
+[isrE] \[d]----[Eqn]-[Nod][d][nE][True][False]
+[isnrE] \[d]---[isrE][d][False][True]
+
+[fnc] -[Subdem][Zero]
+[arg] -[Subdem]-[Suc][Zero]
+
+
+[EqDem] -[Y]\[rEqDem]\[d1]\[d2]
+        -[d1]\[nod1]\[lsd1]
+        -[d2]\[nod2]\[lsd2]
+        ----[Eqn][nod1][nod2][False]
+        ---[Eql][rEqDem][lsd1][lsd2]
+
+[Eval] -[Y]\[rEval]\[x]
+        -[x]\[nod]\[lsd]
+        ----[Eqn][nod][nap]--[rEval]-[fnc][x]
+                            -[rEval]-[arg][x]
+        ----[Eqn][nod][nI]I
+        ----[Eqn][nod][nK]K
+        ----[Eqn][nod][nS]S
+        I
+
+[MapDem1] -[Y]\[rMapDem1]\[b]
+            --[b]
+                \[t]\[f]
+                    --[t][Nil]\[x]\[s]
+                        -[x]\[a]\[rf]
+                            :[f1]-[Eval][rf]
+                                -----[rMapDem1][False][a][f1][t][f]
+                \[a]\[f1]\[t]\[f]
+                    --[a]-[f][f1]
+                        \[n]---[rMapDem1][True][t]\[x1]
+                            -----[rMapDem1][False][n]-[f1][x1][t][f]
+
+[MapDem] -[MapDem1][True]
+
+
+[LR] -[Y]\[rLR]\[t]\[ev]\[lr]\[d]
+        -[d]\[nod]\[lsd]
+                ---[Index][nod][t]\[a]\[rf]
+                        ------[Eval][rf][rLR][t][ev][lr][lsd]
+
+[MkRule] [P]
+
+[fI] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]I[rI]
+[fK] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]K[rK]
+[fS] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]S[rS]
+[fE] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]E[rE]
+[fIf] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]F[rIf]
+[fOrd] \[rLR]\[t]\[ev]\[lr]\[lsd] --[ev]O[rOrd]
+
+[fap] \[rLR]\[t]\[ev]\[lr]\[lsd]
+        ----[ev]I[rap]
+                ---[rLR][ev][lr]--[Index][Zero][lsd]
+                ---[rLR][ev][lr]--[Index]-[Suc][Zero][lsd]
+
+[ftransym] \[rLR]\[t]\[ev]\[lr]\[lsd]
+                ----[EqDem]
+                        ----[rLR][t]-KI K --[Index][Zero][lsd]
+                        ----[rLR][t]-KI K --[Index]-[Suc][Zero][lsd]
+                  ----[rLR][t][ev]-KI
+                        --[lr]--[Index][Zero][lsd]
+                              --[Index]-[Suc][Zero][lsd]
+                  --[ev]I[rI]
+
+[fdefI] \[rLR]\[t]\[ev]\[lr]\[lsd]
+                ---[lr]---[ev]I[rap]--[ev]I[rI]I
+                        ----[rLR][t][ev][lr]--[Index][Zero][lsd]
+
+[fdefK] \[rLR]\[t]\[ev]\[lr]\[lsd]
+                --[lr]
+                    ----[ev]I[rap]
+                        ----[ev]I[rap]--[ev]K[rK]
+                            ----[rLR][t][ev][lr]--[Index][Zero][lsd]
+                            ----[rLR][t][ev][lr]--[Index]-[Suc][Zero][lsd]
+                    ----[rLR][t][ev][lr]--[Index][Zero][lsd]
+
+[fdefS] \[rLR]\[t]\[ev]\[lr]\[lsd]
+                --[lr]----[ev]I[rap]
+                      ----[ev]I[rap]
+                      ----[ev]I[rap]--[ev]S[rS]
+                        ----[rLR][t][ev][lr]--[Index][Zero][lsd]
+                        ----[rLR][t][ev][lr]--[Index]-[Suc][Zero][lsd]
+                        ----[rLR][t][ev][lr]--[Index]-[Suc]-[Suc][Zero][lsd]
+                    ----[ev]I[rap]
+                        ----[ev]I[rap]
+                            ----[rLR][t][ev][lr]--[Index][Zero][lsd]
+                            ----[rLR][t][ev][lr]--[Index]-[Suc]-[Suc][Zero][lsd]
+                        ----[ev]I[rap]
+                            ----[rLR][t][ev][lr]--[Index]-[Suc][Zero][lsd]
+                            ----[rLR][t][ev][lr]--[Index]-[Suc]-[Suc][Zero][lsd]
+
+[fExt1] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<1'>1
+[fExt2] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<2'>2
+[fExt3] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<3'>3
+[fExt4] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<4'>4
+[fExt5] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<5'>5
+[fExt6] \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<6'>6
+
+[fAE]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<e'>e
+[fEA]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<f'>f
+[fMP]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<m'>m
+[fAI]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<a'>a
+[fAK]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<b'>b
+[fAS]   \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<c'>c
+[fRPA]  \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<r'>r
+
+[fZeroIsOrd]    \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<0'>0
+[fSucIsOrd]     \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<+'>+
+[fLimIsOrd]     \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<w'>w
+[fPredIsOrd]    \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<p'>p
+[fStepIsOrd]    \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<n'>n
+[fTfI]          \[rLR]\[t]\[ev]\[lr]\[lsd] ----[rLR][t][ev][lr]--[lr]'<W'>n
+
+[t0] --[Ins]--[MkRule][Zero]'[fI]
+     --[Ins]--[MkRule][Zero]'[fK]
+     --[Ins]--[MkRule][Zero]'[fS]
+     --[Ins]--[MkRule][Zero]'[fE]
+     --[Ins]--[MkRule][Zero]'[fIf]
+     --[Ins]--[MkRule][Zero]'[fOrd]
+     --[Ins]--[MkRule]-[Suc]-[Suc][Zero]'[fap]
+     --[Ins]--[MkRule]-[Suc]-[Suc][Zero]'[ftransym]
+     --[Ins]--[MkRule]-[Suc][Zero]'[fdefI]
+     --[Ins]--[MkRule]-[Suc]-[Suc][Zero]'[fdefK]
+     --[Ins]--[MkRule]-[Suc]-[Suc]-[Suc][Zero]'[fdefS]
+     --[Ins]--[MkRule][Zero]'[fExt1]
+     --[Ins]--[MkRule][Zero]'[fExt2]
+     --[Ins]--[MkRule][Zero]'[fExt3]
+     --[Ins]--[MkRule][Zero]'[fExt4]
+     --[Ins]--[MkRule][Zero]'[fExt5]
+     --[Ins]--[MkRule][Zero]'[fExt6]
+     --[Ins]--[MkRule][Zero]'[fAE]
+     --[Ins]--[MkRule][Zero]'[fEA]
+     --[Ins]--[MkRule][Zero]'[fMP]
+     --[Ins]--[MkRule][Zero]'[fAI]
+     --[Ins]--[MkRule][Zero]'[fAK]
+     --[Ins]--[MkRule][Zero]'[fRPA]
+     --[Ins]--[MkRule][Zero]'[fZeroIsOrd]
+     --[Ins]--[MkRule][Zero]'[fSucIsOrd]
+     --[Ins]--[MkRule][Zero]'[fLimIsOrd]
+     --[Ins]--[MkRule][Zero]'[fPredIsOrd]
+     --[Ins]--[MkRule][Zero]'[fStepIsOrd]
+     --[Ins]--[MkRule][Zero]'[fTfI]
+     [Nil]
+
+[MapDemL] \[t]--[MapDem][t]---[LR][t]KK
+[MapDemR] \[t]--[MapDem][t]---[LR][t]-KI-KI
+
+[RepRep] -[Y]\[rRepRep]\[r]
+                ----[Eqn]-[Nod][r][nap]
+                    --[rap]--[rap]'[rap]-[rRepRep]-[fnc][r]
+                                        -[rRepRep]-[arg][r]
+                    ----[Eqn]-[Nod][r][nI]'[rI]
+                    ----[Eqn]-[Nod][r][nK]'[rK]
+                    ----[Eqn]-[Nod][r][nS]'[rS]
+                    ----[Eqn]-[Nod][r][nE]'[rE]
+                    ----[Eqn]-[Nod][r][nIf]'[rIf]
+                    ----[Eqn]-[Nod][r][nOrd]'[rOrd]
+                    I
+
+[RepInt] -[Y]\[rRepInt]\[n]
+                --[n]'[Zero]
+                \[n1]--[rap]'[Suc]-[rRepInt][n1]
+
+[RepTheory] -[Y]\[rRepTheory]\[t]
+                --[t]'[Nil]
+                \[x]\[t1]
+                --[rap]--[rap]'[Ins]
+                        --[rap]--[rap]'[MkRule]
+                                -[RepInt]-[x]K
+                                        -[RepRep]-[x]-KI
+                        -[rRepTheory][t1]
+
+[fRefl0] \[th]\[rLR]\[t]\[ev]\[lr]\[lsd]
+                ----[rLR][t][ev][lr]
+                --[rap]--[lr]'[MapDemL]'[MapDemR]-[RepTheory][th]
+
+[rfRefl0] '[fRefl0]
+
+[aRefl0] \[t]--[Adl][t]--[MkRule][Zero]--[rap][rfRefl0]-[RepTheory][t]
+
+[ExtractOrd] \[t]\[d]
+        :[a] ----[LR][t]-KI K[d]
+        :[b] ----[LR][t]-KI-KI[d]
+        ----[EqDem][b][rI]
+                ----[Eqn]-[Nod][a][nap]
+                        ----[Eqn]-[Nod]--[Subdem][Zero][a][nOrd]
+                                -[Eval]--[Subdem]-[Suc][Zero][a]
+                                [Zero]
+                        [Zero]
+                [Zero]
+
+[OrdZero] \[x]---[x][True]-K[False]-K[False]
+
+[rfOrdxr] \[rx]\[rLR]\[t]\[ev]\[lr]\[lsd]
+                ----[rLR][t][ev][lr]
+                        --[lr]--[rap][rOrd][rx][rI]
+
+[rep_rfOrdx] -[Y]\[rec_rep_rfOrdx]
+                --[rap]'[rfOrdxr]-[RepRep][rec_rep_rfOrdx]
+ 
+[fReflr] \[rep_rec_fRefl]\[th]
+         \[rLR]\[t]\[ev]\[lr]\[lsd]
+         :[x]--[ExtractOrd][th]--[Index][Zero][lsd]
+         -\[tx]
+          -----[fRefl0][tx][rLR][ev][lr][Nil]
+          ---[OrdZero][x][th]
+              --[Adl]
+                  --[Adl][th]
+                      --[MkRule]-[Suc][Zero]--[rap][rep_rec_fRefl][th]
+                  --[MkRule][Zero]--[rap][rfOrdx][x]
+
+[rep_fRefl] -[Y]\[rec_rep_fRefl]
+                --[rap]'[fReflr]-[RepRep][rec_rep_fRefl]
+
+[fRefl] -[Eval][rep_fRefl]
+
+                        
+
+
+
+
+
+                
+
+
+        
+
+
+
+
+
+
+

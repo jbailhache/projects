@@ -1,0 +1,10 @@
+[_ap,[_ap,[a],[b]],[c]]
+[_ap,-(a)(b),(c)]
+--(a)(b)(c)
+read:(aaa (bbb (ccc)) (ddd))
+<pre> (_ctx (_seq (qt (xxx)) (kkk)) (stk) (env)) = (_ctx (kkk) (_push (xxx) (stk)) (env))
+ (_ctx (kkk) (_push (xxx) (stk)) (env))
+ (_ctx (kkk) (_push (xxx) (stk)) (env))
+ (_trans (_sym (_ctx (_seq (qt (xxx)) (kkk)) (stk) (env))) (_ctx (_seq (qt (xxx)) (kkk)) (stk) (env)))
+ (_ctx (kkk) (_push (xxx) (stk)) (env)) = (_ctx (kkk) (_push (xxx) (stk)) (env))
+</pre>

@@ -1,0 +1,67 @@
+
+d1 A = I I
+d2 A = K K
+d3 A = S S
+d4 A = Z Z
+
+d197 A = ^ ^
+d198 A = ! !
+d199 A = --S!I -KI
+
+d201 A = x x
+d202 A = y y
+d203 A = z z
+d204 A = f f
+d205 A = t t
+d206 A = o o
+d207 A = u u
+d208 A = f f
+
+d211 A = i i
+d212 A = k k
+d213 A = s s
+d214 A = y y
+d215 A = & &
+d216 A = T T
+
+d221 A = A A
+d222 A = B B
+d223 A = C C
+d224 A = F F
+d225 A = X X
+d226 A = Y Y
+d227 A = Z Z
+d228 A = N N
+
+d231 A = 0 0
+d232 A = ' '
+d233 A = l l
+d234 A = r r
+d235 A = e e
+
+d251 A = -to I
+d252 A = -tu I
+d253 A ^x ! = -tx I ^y ! = -ty I = -t-fxy I
+
+d261 A ^A = -T-iA --fAA
+d262 A ^A ^B = -T--kAB --fA--fBA
+d263 A ^A ^B = -T---sABC--f--fA--fBC--f--fAB--fAC
+
+d264 A ^F ^X ^A ^B ! = -TF --fAB ! = -TX A = -T-FX B
+
+d265 A ^A = -T-yA --f--fAAA
+
+d271 A = -T0 o
+d272 A = -T' -foo
+d273 A = -Tl --f--fooo
+d274 A ^A = -T-rA --fo--f--fAA--fAA
+
+d281 A ^X ^A ! = -TX A = --iTX X
+d282 A ^X ^A ! = -TX A ^Y ^B ! = -TY B = ---kABXY X
+d283 A ^X ^A ! = -TX A ^Y ^B ! = -TY B ^Z ^C ! = -TZ C = ----sABCXYZ --XZ-YZ
+d284 A ^F ^A ! = -TF --fAA = --yAF -f--yAF
+
+d291 A ^A = --rA0 ---k--fAA--fAA-iA
+d292 A ^A ^N ^F ^X ! = ----rANFX Y = ----rA-'NFX -FX
+
+

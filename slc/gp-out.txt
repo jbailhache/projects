@@ -1,0 +1,11 @@
+
+?  true  : true  = true  
+?  rule1  : \\\---parent 2 1 ---parent 1 0 --gdparent 2 0  = \\\true  
+?  axiom1  : --parent Allan Brenda  = true  
+?  axiom2  : --parent Brenda Charles  = true  
+?  lemma1  : ---parent Allan Brenda ---parent Brenda Charles --gdparent Allan Charles  = true  
+?  lemma2  : ---parent Allan Brenda ---parent Brenda Charles --gdparent Allan Charles  = ---parent Brenda Charles --gdparent Allan Charles  
+?  lemma3  : ---parent Brenda Charles --gdparent Allan Charles  = true  
+?  lemma4  : ---parent Brenda Charles --gdparent Allan Charles  = --gdparent Allan Charles  
+?  theorem1  : --gdparent Allan Charles  = true  
+? 
