@@ -1,0 +1,228 @@
+CVM - Compiled Virtual Machine
+Version 0.6 - 16/08/2010
+by Jacques Bailhache (jacquesbailhache@hotmail.com)
+
+CVM is a virtual machine running a simple programming language looking like assembly language but with a syntax more similar to C. This virtual machine can be implemented either by interpreting byte code, or by compiling CVM language into machine code of a given processor.
+
+Actually, a CVM program can be run in different ways :
+- Interpreted by a virtual machine
+- Compiled into machine code and directly run (actually only for DOS/X86 and Windows Mobile Pocket PC/ARM platforms)
+- Translated into an assembly program which can be transformed into an executable with an assembler and a linker (actually only for TASM and TLINK under DOS) The generated assembly source must be linked with CVMRTLA.ASM  and CVMRTLC.C.
+
+The sources included in the distribution are :
+- cvm.h : header file containing definitions of constants and types
+- target.h : definitions specific to the target
+- cvm.c : the common source for the different target machines
+- target.c : the part of the source specific to the target machine
+- dbg.c : the debugger
+- asmdos.c : assembler - disassembler, DOS version
+- asmwm.c : assembler - disassembler, Windows Mobile version
+
+The different versions can be obtained by defining or not the following symbols : 
+#define PPC must be define for Windows Mobile Pocket PC versions
+#define INTERP must be defined to interpret the program with a virtual machine
+#define COMPARM must be defined to compile ARM machine code
+#define COMPX86 must be defined to compile X86 machine code
+
+The build procedures are :
+- build-cvm-linux-interp.sh to build the linux interpreted version cvm-linux-interp
+- CVM-TC.PRJ to build the DOS version with Turbo C
+- CVM-DEV.DEV to build the DOS version with Dev-C++.
+  Add the definitions :
+  #define INTERP
+  #define DEVCPP
+  in cvm.h before compiling with Dev-C++.
+- build-cvm-wm-interp.bat to build the Pocket PC/Windows Mobile interpreted version cvm-wm-interp.exe
+- build-cvm-wm-comparm.bat to build the Pocket PC/Windows Mobile compiled version cvm-wm-comparm.exe
+Pocket PC/Windows Mobile versions can be build with the pgcc compiler.
+The cvm folder must be copied to the folder \PGCC\SAMP of the Pocket PC.
+
+The syntax of the command line programs is the following :
+
+Under Linux :
+To produce X86 assembly code from prog.cvm CVM code :
+./cvm-linux-interp c prog.cvm prog.asm : produces X86 assembly code from prog.cvm CVM code
+To interpret prog.cvm with a virtual machine :
+./cvm-linux-interp r prog.cvm
+
+Under DOS :
+To translate prog.cvm into assembly code, produce an executable and run it type :
+CVM-TC c prog.cvm prog.asm
+or CVM-DEV c prog.cvm prog.asm
+TASM prog
+TLINK prog+cvmrtlc+cvmrtla
+prog
+To interpret prog.cvm with a virtual machine :
+CVM-TC r prog.cvm
+or CVM-DEV r prog.cvm
+
+Under Windows Mobile for Pocket PC :
+It seems that the command line arguments does not work, so they are not used. Running CVM-WM-INTERP.EXE does the equivalent of the command "CVMINT r cvm.txt cvm.asm" : it translates the cvm source into an assembly source cvm.asm (which can be used to produce a DOS executable and run with a DOS emulator like PocketDOS) and it also interprets the program. If INTERP is not defined at the beginning of the source CVM.C and COMPARM is defined, then it produces ARM machine code and executes it.
+
+CVM is specially adapted for writing compilers and contains special instructions for producing machine code. 
+For example, the following instructions :
+ code
+ r0=[rA]
+ r1=1
+ r0=r0+r1
+ [rA]=r0
+ endcode
+has for effect to write at the address contained in rC the instructions between code and endcode, which adds 1 to the value contained at address in rA.
+The following instruction :
+ code r1={r0}
+writes at address contained in rC an instruction of immediate load of r1 with value which is contained in r0 when the instruction "code r1={r0}" is executed. Note that this is not the same as :
+ code
+ r1=r0
+ endcode
+which produces a register move instruction from r0 to r1.
+
+The CVM directives are :
+:l : define label l at this point of the program (actually l = 1 character)
+align l : the following code will be produced at the next address multiple of n
+res n : reserves space of n bytes
+
+There are actually 6 registers : r0, r1, r2, rA, rB, rC.
+r0 is used for the (first) operand of an operation and the result.
+r1 is used for the second operand.
+r2 is used to store temporarily some value.
+rA can be load with a memory address to access to the corresponding location in memory
+rB is a stack pointer.
+rC is a code pointer. In compilers, it contains the memory address of the next instruction which will be written.
+
+Syntax conventions:
+a=b means that the content of b is copied to a
+[a] means the value contained in memory address a 
+
+The CVM instructions are (where 1234 may be replaced by any 4 hexadecimal digits immediate value and 12 by any 2 hhexadecimal digits immediate value) :
+
+r0=1234
+code r0={r0}
+r1=1234
+code r1={r0}
+rA=1234
+code rA={r0}
+r1=r0
+r2=r0
+r0=r2
+r1=r2
+rA=r0
+rB=r0
+rC=r0
+r0=rA
+r0=rB
+r0=rC
+rA=r1
+rC=r1
+rC=rA
+r1=rC
+r0=[rA]
+rA=[rA]
+[rA]=r0
+r0=[rA+12]
+[rA+12]=r0
+r0=[rB++]
+[--rB]=r0
+r1=[rB++]
+[--rB]=r1
+rA=[rB++]
+[rC++]=r0
+r0=r0+r1
+r0=r0-r1
+bp @somelabel
+bz @somelabel
+bp rA
+call @somelabel
+call rA
+beginf
+endf
+ret
+asr r0
+r0=r0&r1
+r0=r0^r1
+code
+r1=r0
+endcode
+getchar
+putchar
+scanhex
+getword
+setbradr
+exit
+
+Here is an example of a CVM program :
+
+getchar
+rA=@char
+[rA]=r0
+:mainloop
+rA=@char
+r0=[rA]
+r1=1
+r0=r0-r1
+rA=@char
+[rA]=r0
+putchar
+rA=@char
+r0=[rA]
+bp @mainloop
+ret
+align 4
+:char
+res 4
+
+This program reads a character from the standard input and displays characters in reverse order from this character to the null character.
+
+
+How to define a new instruction
+
+- Define the code of the instruction in cvm.h : #define code_... 0x...
+
+- Add code in function compile_op in cvm.c to compile the instruction by calling a function c_... :
+   else if (!strcmp (op, "..."))
+   {
+    ...
+    cp = c_... (cp);
+    ...
+   }
+
+- Define the code produced for this instruction in a corresponding function in target.c :
+   codeptr c_... (codeptr cp)
+   {
+    ...
+   }
+
+- Define thje effect of the instruction in interpreted mode in function interp_debug.c:
+   else if (ins == code_...) ...
+
+
+Versions history
+
+0.1
+First version with 2 registers (r0 and r1)
+
+0.2
+More registers, r1 is no more used for addressing memory, it is replaced by rA. 6 registers (R0, r1, r2, rA, rB, rC)
+Code generation instructions added
+
+0.3
+Debugger added
+
+0.4
+Instructions rd=rs for any rd and rs in r0, r1, r2, rA, rB, rC
+
+0.5
+Header file cvm.h
+
+0.6
+Version with the same sources for all platforms
+
+0.7
+Separation between the common part and the part specific to the target machine
+
+0.8
+Some bugs have been corrected
+
+To do :
+Correct other bugs concerning code ... endcode and setbradr in COMPARM version.
+Implement getword in runtime library.
+

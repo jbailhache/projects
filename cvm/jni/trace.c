@@ -1,0 +1,5 @@
+
+int trace (char *s)
+{
+}
+

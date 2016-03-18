@@ -1,0 +1,97 @@
+
+:getchr
+beginf
+rA=@fgetchr
+rA=[rA]
+call rA
+endf
+
+align 4
+:fgetchr
+res 4
+:pgetchr
+res 4
+
+:getchrstd
+beginf
+fgetc
+endf
+
+:getchrf
+beginf
+r0=@pgetchr
+rA=r0
+r0=[rA]
+fgetc
+r1=r0
+r0=1
+r0=r0+r1
+bz @gce
+r0=r1
+endf
+
+:gce
+r0=@pgetchr
+rA=r0
+r0=[rA]
+fclose
+r0=@fgetchr
+rA=r0
+r0=@getchrstd
+[rA]=r0
+getchar
+endf
+
+:getchrm
+beginf
+r0=@pgetchr
+rA=r0
+rA=[rA]
+r0=byte[rA]
+bz @gce
+r2=r0
+r1=rA
+r0=1
+r0=r0+r1
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=r1
+[rA]=r0
+r0=r2
+endf
+
+defword LOAD
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=0
+fopen
+[rA]=r0
+r0=@fgetchr
+rA=r0
+r0=@getchrf
+[rA]=r0
+endcode
+endf
+
+defword EXECSTR
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=r1
+[rA]=r0
+r0=@fgetchr
+rA=r0
+r0=@getchrm
+[rA]=r0
+endcode
+endf
+
+

@@ -1,0 +1,211 @@
+
+rA=@mfilename
+call @display
+rA=@mplofn
+call @accept
+r0=@mfilename
+r1=@moder
+fopen
+rA=@mplofh
+[rA]=r0
+
+rA=@mploptr
+r0=@mplo
+[rA]=r0
+:mploloop
+rA=@mplofh
+r0=[rA]
+fgetc
+r1=r0
+r0=1
+r0=r0+r1
+bz @mploeof
+r0=r1
+putchar
+rA=@mploptr
+rA=[rA]
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=@mploptr
+[rA]=r0
+r0=0
+bz @mploloop
+:mploeof
+rA=@mploptr
+rA=[rA]
+r0=0
+byte[rA]=r0
+
+r0=@mplo
+rA=@pc
+[rA]=r0
+
+:intrploop
+
+rA=@pc
+rA=[rA]
+r0=byte[rA]
+r2=r0
+
+r0=1
+r1=rA
+r0=r0+r1
+rA=@pc
+[rA]=r0
+
+r1=r2
+
+r0=23
+r0=r0-r1
+bz @isharp
+
+r0=31
+r0=r0-r1
+bz @ione
+
+r0=34
+r0=r0-r1
+bz @ifour
+
+r0=50
+r0=r0-r1
+bz @iup
+
+r0=51
+r0=r0-r1
+bz @iuq
+
+:isharp
+r0=0
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ione
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ifour
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=4
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iup
+rA=@ra
+r0=[rA]
+putchar
+r0=0
+bz @intrploop
+
+:iuq
+exit
+
+:display
+beginf
+:dsploop
+r0=byte[rA]
+bz @dspend
+putchar
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @dsploop
+:dspend
+endf
+
+:accept
+beginf
+:acploop
+getchar
+r1=r0
+r0=A
+r0=r0-r1
+bz @acpend
+r0=D
+r0=r0-r1
+bz @acpend
+r0=r1
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @acploop
+:acpend
+r0=0
+byte[rA]=r0
+endf
+
+align 8
+:mfilename
+ascii MPL object filename ? 
+
+align 8
+:mplofn
+
+align 8
+:moder
+ascii r
+
+align 8
+:mplofh
+res 8
+
+align 8
+:mploptr
+res 8
+
+align 8
+:pc
+res 8
+
+align 8
+:ra
+res 8
+
+align 8
+:rb
+res 8
+
+align 8
+:rc
+res 8
+
+align 8
+:mplo
+
+
+

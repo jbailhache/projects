@@ -1,0 +1,4 @@
+r0=100
+printdec
+brkdbg
+exit

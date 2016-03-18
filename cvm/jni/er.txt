@@ -1,0 +1,74 @@
+In file included from /pgcc/samp/cvm/cvm.h:27,
+                 from /pgcc/samp/cvm/cvm.c:3:
+/pgcc/samp/cvm/target.h:7: conflicting types for `typedef int instr'
+/pgcc/samp/cvm/target.h:3: previous declaration as `typedef long int instr'
+In file included from /pgcc/samp/cvm/cvm.h:27,
+                 from /pgcc/samp/cvm/dbg.c:2:
+/pgcc/samp/cvm/target.h:7: conflicting types for `typedef int instr'
+/pgcc/samp/cvm/target.h:3: previous declaration as `typedef long int instr'
+In file included from /pgcc/samp/cvm/cvm.h:27,
+                 from /pgcc/samp/cvm/target.c:7:
+/pgcc/samp/cvm/target.h:7: conflicting types for `typedef int instr'
+/pgcc/samp/cvm/target.h:3: previous declaration as `typedef long int instr'
+/pgcc/samp/cvm/target.c: In function `void setbradr(int*, int*)':
+/pgcc/samp/cvm/target.c:176: redefinition of `void setbradr(int*, int*)'
+/pgcc/samp/cvm/target.c:153: `void setbradr(int*, int*)' previously defined 
+   here
+/pgcc/samp/cvm/target.c:176: redefinition of `void setbradr(int*, int*)'
+/pgcc/samp/cvm/target.c:153: `void setbradr(int*, int*)' previously defined 
+   here
+/pgcc/samp/cvm/target.c: In function `int* compile_call(int*, int (*)(), int, 
+   int)':
+/pgcc/samp/cvm/target.c:212: redefinition of `int* compile_call(int*, int 
+   (*)(), int, int)'
+/pgcc/samp/cvm/target.c:167: `int* compile_call(int*, int (*)(), int, int)' 
+   previously defined here
+/pgcc/samp/cvm/target.c:212: redefinition of `int* compile_call(int*, int 
+   (*)(), int, int)'
+/pgcc/samp/cvm/target.c:167: `int* compile_call(int*, int (*)(), int, int)' 
+   previously defined here
+/pgcc/samp/cvm/target.c: In function `int* compile_call0(int*, int (*)())':
+/pgcc/samp/cvm/target.c:306: redefinition of `int* compile_call0(int*, int 
+   (*)())'
+/pgcc/samp/cvm/target.c:160: `int* compile_call0(int*, int (*)())' previously 
+   defined here
+/pgcc/samp/cvm/target.c:306: redefinition of `int* compile_call0(int*, int 
+   (*)())'
+/pgcc/samp/cvm/target.c:160: `int* compile_call0(int*, int (*)())' previously 
+   defined here
+/pgcc/samp/cvm/target.c:307: call of overloaded `compile_call(int*&, int 
+   (*&)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c:212:                 int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c: In function `int* c_call_dummy(int*)':
+/pgcc/samp/cvm/target.c:606: call of overloaded `compile_call(int*&, int (*)(), 
+   int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c:212:                 int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c: In function `int* c_dummyprint(int*)':
+/pgcc/samp/cvm/target.c:692: call of overloaded `compile_call(int*&, int (*)(), 
+   int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c:212:                 int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c: In function `int* c_setbradr(int*)':
+/pgcc/samp/cvm/target.c:1519: call of overloaded `compile_call(int*&, int 
+   (*)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c:212:                 int* compile_call(int*, int (*)(), 
+   int, int)
+/pgcc/samp/cvm/target.c: In function `int* c_exit(int*)':
+/pgcc/samp/cvm/target.c:1862: call of overloaded `compile_call0(int*&, int 
+   (&)())' is ambiguous
+/pgcc/samp/cvm/target.c:160: candidates are: int* compile_call0(int*, int 
+   (*)())
+/pgcc/samp/cvm/target.c:306:                 int* compile_call0(int*, int 
+   (*)())
+\pgcc\lib\runtime.lib(a.o.b)(.text+0xc4):a.c: undefined reference to `printf'
+\pgcc\samp\cvm\cvm.o(.data+0x8):/pgcc/samp/cvm/cvm: undefined reference to `Z7getchr1v'

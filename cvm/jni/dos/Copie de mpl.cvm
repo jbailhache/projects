@@ -1,0 +1,54 @@
+
+rA=@hello
+call @display
+rA=@buf
+call @accept
+rA=@buf
+call @display
+exit
+
+:display
+beginf
+:dsploop
+r0=byte[rA]
+bz @dspend
+putchar
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @dsploop
+:dspend
+endf
+
+:accept
+beginf
+:acploop
+getchar
+r1=r0
+r0=A
+r0=r0-r1
+bz @acpend
+r0=D
+r0=r0-r1
+bz @acpend
+r0=r1
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @acploop
+:acpend
+r0=0
+byte[rA]=r0
+endf
+
+align 8
+:hello
+ascii Hello World !
+
+align 8
+:buf

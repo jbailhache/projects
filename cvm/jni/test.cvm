@@ -1,0 +1,21 @@
+rem test
+getchar
+rA=@char
+[rA]=r0
+:mainloop
+rA=@char
+r0=[rA]
+r1=1
+r0=r0-r1
+rA=@char
+[rA]=r0
+putchar
+rA=@char
+r0=[rA]
+bp @mainloop
+ret
+align 4
+:char
+res 4
+
+

@@ -1,0 +1,1916 @@
+rem tasm public _lw
+
+rA=@first
+[rA]=r0
+
+rem rA=@svrb
+rem r0=[rA]
+rem rB=r0
+
+r0=@stk
+rB=r0
+
+r0=@cod
+rC=r0
+
+r0=@fgetchr
+rA=r0
+r0=@getchrstd
+[rA]=r0
+
+rA=@first
+r0=[rA]
+bz @notfirst
+
+rem r0=@stk
+rem rB=r0
+
+r0=@lw
+rem rA=@_lw
+rA=sva
+[rA+4]=r0
+
+r0=0
+bz @ini
+
+:notfirst 
+
+rA=@svrb
+r0=[rA]
+rB=r0
+
+:ini 
+
+initcvm
+
+rA=@mode
+r0=1
+[rA]=r0
+
+rA=@iflevel
+r0=0
+[rA]=r0
+
+rA=@wlevel
+r0=0
+[rA]=r0
+
+:mainloop
+rA=@mode
+r0=[rA]
+bz @lmla
+call @beginim
+:lmla
+call @getword
+r0=rA
+bz @endin
+call @execword
+rA=@mode
+r0=[rA]
+bz @lmlb
+call @endim
+:lmlb
+r0=0
+bz @mainloop
+
+:getword
+beginf
+call @readword
+r0=@wordread
+getwordstr
+endf
+
+:readword
+beginf
+rA=@wordread
+:rwa
+call @getchr
+bz @erw
+r1=r0
+call @isblank
+bz @nblanka
+r0=0
+bz @rwa
+:nblanka
+r0=r1
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+call @getchr
+bz @erw
+r1=r0
+call @isblank
+bz @nblanka
+:erw
+r0=0
+byte[rA]=r0
+endf
+
+:isblank
+beginf
+r1=r0
+r0=20
+r0=r0-r1
+bz @blank
+r0=A
+r0=r0-r1
+bz @blank
+r0=D
+r0=r0-r1
+bz @blank
+r0=9
+r0=r0-r1
+bz @blank
+r0=0
+endf
+:blank
+r0=1
+endf
+
+align 4
+:wordread
+res 100
+
+align 4
+:getchr
+beginf
+r0=rA
+[--rB]=r0
+rA=@fgetchr
+rA=[rA]
+call rA
+rA=[rB++]
+endf
+
+align 4
+:fgetchr
+res 4
+:pgetchr
+res 4
+
+:getchrstd
+beginf
+getchar
+endf
+
+:getchrf
+beginf
+r0=@pgetchr
+rA=r0
+r0=[rA]
+fgetc
+r1=r0
+r0=1
+r0=r0+r1
+bz @gcfe
+r0=r1
+endf
+
+:gcfe
+r0=@pgetchr
+rA=r0
+r0=[rA]
+fclose
+:gcme
+r0=@fgetchr
+rA=r0
+r0=@getchrstd
+[rA]=r0
+getchar
+endf
+
+:getchrm
+beginf
+r0=@pgetchr
+rA=r0
+rA=[rA]
+r0=byte[rA]
+bz @gcme
+r2=r0
+r1=rA
+r0=1
+r0=r0+r1
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=r1
+[rA]=r0
+r0=r2
+endf
+
+defword LOAD
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=0
+fopen
+[rA]=r0
+r0=@fgetchr
+rA=r0
+r0=@getchrf
+[rA]=r0
+endcode
+endf
+
+defword EXECSTR
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=@pgetchr
+rA=r0
+r0=r1
+[rA]=r0
+r0=@fgetchr
+rA=r0
+r0=@getchrm
+[rA]=r0
+endcode
+endf
+
+:endin
+rA=@svrb
+r0=rB
+[rA]=r0
+exit
+
+align 4
+:svrb
+res 4
+
+:execword
+beginf
+r0=[rA+4]
+r2=r0
+r0=[rA+8]
+r1=rA
+rA=r2
+call rA
+endf
+
+align 4
+:first
+res 4
+
+align 4
+:mode
+res 4
+
+rem :_lw
+rem res 4
+
+defword NOP
+beginf
+endf
+
+defword EXECCODE
+beginf
+rA=@cod
+call rA
+endf
+
+defword EXECWORD
+beginf
+call @getword
+r0=[rA+4]
+rA=r0
+call rA
+endf
+
+defword PUTCODE
+beginf
+call @getword
+scanhex
+[rC++]=r0
+endf
+
+defword HERE
+beginf
+r0=rC
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+defword SP@
+beginf
+code
+r0=rB
+[--rB]=r0
+endcode
+endf
+
+defword SP!
+beginf
+code
+r0=[rB++]
+rB=r0
+endcode
+endf
+
+defword @
+beginf
+code
+rA=[rB++]
+r0=[rA]
+[--rB]=r0
+endcode
+endf
+
+defword C@
+beginf
+code
+rA=[rB++]
+r0=byte[rA]
+[--rB]=r0
+endcode
+endf
+
+defword !
+beginf
+code
+rA=[rB++]
+r0=[rB++]
+[rA]=r0
+endcode
+endf
+
+defword C!
+beginf
+code
+rA=[rB++]
+r0=[rB++]
+byte[rA]=r0
+endcode
+endf
+
+defword KEY
+beginf
+code
+getchar
+[--rB]=r0
+endcode
+endf
+
+defword EMIT
+beginf
+code
+r0=[rB++]
+putchar
+endcode
+endf
+
+defword HEX.
+beginf
+code
+r0=[rB++]
+printhex
+endcode
+endf
+
+defword .
+beginf
+code
+r0=[rB++]
+printdec
+endcode
+endf
+
+defword HEXLIT
+beginf
+scanhex
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+defword DROP
+beginf
+code
+r0=[rB++]
+endcode
+endf
+
+defword DUP
+beginf
+code
+r0=[rB++]
+[--rB]=r0
+[--rB]=r0
+endcode
+endf
+
+defword SWAP
+beginf
+code
+r0=[rB++]
+r1=[rB++]
+[--rB]=r0
+[--rB]=r1
+endcode
+endf
+
+defword ROT
+beginf
+code
+r0=[rB++]
+r2=r0
+r1=[rB++]
+r0=[rB++]
+[--rB]=r1
+r1=r2
+[--rB]=r1
+[--rB]=r0
+endcode
+endf
+
+defword OVER
+beginf
+code
+r0=[rB++]
+r1=[rB++]
+[--rB]=r1
+[--rB]=r0
+[--rB]=r1
+endcode
+endf
+
+defword TUCK
+beginf
+code
+r0=[rB++]
+r1=[rB++]
+[--rB]=r0
+[--rB]=r1
+[--rB]=r0
+endcode
+endf
+
+defword +
+beginf
+code
+r0=[rB++]
+r1=[rB++]
+r0=r0+r1
+[--rB]=r0
+endcode
+endf
+
+defword -
+beginf
+code
+r1=[rB++]
+r0=[rB++]
+r0=r0-r1
+[--rB]=r0
+endcode
+endf
+
+defword *
+beginf
+code
+r0=[rB++]
+r1=[rB++]
+r0=r0*r1
+[--rB]=r0
+endcode
+endf
+
+defword AND
+beginf
+code
+r1=[rB++]
+r0=[rB++]
+r0=r0&r1
+[--rB]=r0
+endcode
+endf
+
+defword XOR
+beginf
+code
+r1=[rB++]
+r0=[rB++]
+r0=r0^r1
+[--rB]=r0
+endcode
+endf
+
+defword ASR
+beginf
+code
+r0=[rB++]
+asr r0
+[--rB]=r0
+endcode
+endf
+
+defword GPA
+beginf
+code
+r1=[rB++]
+r0=[rB++]
+getprocadr
+[--rB]=r0
+endcode
+endf
+
+defword CALLAPI0
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=[rB++]
+getprocadr
+rA=r0
+callext rA
+[--rB]=r0
+endcode
+endf
+
+defword CALLAPI1
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=[rB++]
+getprocadr
+rA=r0
+r0=[rB++]
+callext rA
+[--rB]=r0
+endcode
+endf
+
+defword CALLAPI2
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=[rB++]
+getprocadr
+rA=r0
+r0=[rB++]
+r1=r0
+r0=[rB++]
+callext rA
+[--rB]=r0
+endcode
+endf
+
+defword CALLAPI3
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=[rB++]
+getprocadr
+rA=r0
+r0=[rB++]
+r2=r0
+r0=[rB++]
+r1=r0
+r0=[rB++]
+callext rA
+[--rB]=r0
+endcode
+endf
+
+defword CALLAPI4
+beginf
+code
+r0=[rB++]
+r1=r0
+r0=[rB++]
+getprocadr
+rA=r0
+r0=[rB++]
+r3=r0
+r0=[rB++]
+r2=r0
+r0=[rB++]
+r1=r0
+r0=[rB++]
+callext rA
+[--rB]=r0
+endcode
+endf
+
+defword RUN
+beginf
+call @getword
+r0=[rA+4]
+rA=r0
+call rA
+endf
+
+defword INIT
+
+defword EXIT
+
+:caldef1
+beginf
+code rA={r0}
+code
+call rA
+endcode 
+endf
+
+:calldef
+beginf
+code rA={r0}
+code
+call rA
+endcode
+endf
+
+:defw
+res 4
+
+defword :
+beginf
+rA=@svrc
+r0=[rA]
+rC=r0
+call @getword
+rem r0=rA
+rem printhex
+r0=rA
+rA=@defw
+[rA]=r0
+rA=r0
+r0=@calldef
+[rA+4]=r0
+r0=rC
+[rA+8]=r0
+code
+beginf
+endcode
+rA=@mode
+r0=0
+[rA]=r0
+endf
+
+defword MACRO:
+beginf
+rA=@svrc
+r0=[rA]
+rC=r0
+call @getword
+r0=rC
+[rA+4]=r0
+r0=0
+[rA+8]=r0
+code
+beginf
+endcode
+rA=@mode
+r0=0
+[rA]=r0
+endf
+
+defword ;
+beginf
+code
+endf
+endcode
+rA=@mode
+r0=1
+[rA]=r0
+call @beginim
+endf
+
+align 4
+:adrim
+res 4
+
+defword [[
+beginf
+rA=@adrim
+r0=rC
+[rA]=r0
+code
+beginf
+endcode
+endf
+
+defword ]]
+beginf
+code
+endf
+endcode
+rA=@adrim
+rA=[rA]
+call rA
+rA=@adrim
+rA=[rA]
+rC=rA
+endf
+
+align 4
+:svrc
+res 4
+
+:beginim
+beginf
+rA=@svrc
+r0=rC
+[rA]=r0
+r0=@imcod
+rC=r0
+code
+beginf
+endcode
+endf
+
+:endim
+beginf
+code
+endf
+endcode
+rA=@svrc
+r0=[rA]
+rC=r0
+dummyprint
+call @imcod
+endf
+
+defword [*
+beginf
+call @beginim
+endf
+
+defword *] 
+beginf
+call @endim
+endf
+
+defword [
+beginf
+call @beginim
+rA=@mode
+r0=1
+[rA]=r0
+endf
+
+defword ]
+beginf
+call @endim
+rA=@mode
+r0=0
+[rA]=r0
+endf
+
+align 4
+:imcod
+res 100
+
+defword SVA
+beginf
+code
+rA=sva
+r0=rA
+[--rB]=r0
+endcode
+endf
+
+defword IMMEDIATE
+beginf
+rA=@defw
+rem r0=[rA]
+rem printhex
+rA=[rA]
+r0=[rA+8]
+[rA+4]=r0
+endf
+
+:getparam
+beginf
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+defword [CREATE]
+:code_icreate
+beginf
+call @getword
+r0=@getparam
+[rA+4]=r0
+r0=rC
+[rA+8]=r0
+endf
+
+defword CREATE
+beginf
+r0=@code_icreate
+code rA={r0}
+code
+call rA
+endcode
+endf
+
+:getrz
+beginf
+code
+[--rB]=r0
+endcode
+endf
+
+defword DOES>
+beginf
+code
+rem r0=@_lw
+rem rA=r0
+rem rA=[rA]
+rA=sva
+r0=[rA+4]
+rA=r0
+endcode
+r0=0
+r1=rC
+code r0={r0}
+code
+[rA+4]=r0
+endf
+endcode
+r0=rC
+rC=r1
+code r0={r0}
+code
+[rA+4]=r0
+endf
+beginf
+rA=@getparam
+call rA
+endcode
+r0=0
+r1=rC
+code r0={r0}
+code
+rA=@calldef
+call rA
+endf
+endcode
+r0=rC
+rC=r1
+code r0={r0}
+code
+rA=@calldef
+call rA
+endf
+beginf
+endcode
+endf
+
+defword ALLOT
+beginf
+code
+r0=[rB++]
+r1=rC
+r0=r0+r1
+rC=r0
+endcode
+endf
+
+defword ALLOTWLIT
+beginf
+scanhex
+r1=r0
+r0=rC
+r0=r0+r1
+rC=r0
+endf
+
+defword ,
+beginf
+code
+r0=[rB++]
+rA=rC
+[rA]=r0
+r0=4
+r1=rC
+r0=r0+r1
+rC=r0
+endcode
+endf
+
+defword C,
+beginf
+code
+r0=[rB++]
+rA=rC
+byte[rA]=r0
+r0=1
+r1=rC
+r0=r0+r1
+rC=r0
+endcode
+endf
+
+
+defword [']
+beginf
+call @getword
+r0=rA
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+defword '
+beginf
+code
+call @getword
+r0=rA
+[--rB]=r0
+endcode
+endf
+
+:ewrz
+beginf
+rA=r0
+call @execword
+endf
+
+defword EXECUTE1
+beginf
+code
+r0=[rB++]
+rA=@ewrz
+call rA
+endcode
+endf
+
+defword EXECUTE
+beginf
+code
+rA=[rB++]
+r0=[rA+8]
+rA=r0
+call rA
+endcode
+endf
+
+defword CALL
+beginf
+code
+rA=[rB++]
+call rA
+endcode
+endf
+
+defword COMPILE
+beginf
+call @getword
+r0=[rA+8]
+code r0={r0}
+r0=rA
+code r1={r0}
+r0=[rA+4]
+code rA={r0}
+code
+call rA
+endcode
+endf
+
+defword [COMPILE]
+beginf
+call @getword
+call @execword
+rem r0=[rA+4]
+rem r1=r0
+rem r0=[rA+8]
+rem rA=r1
+rem call rA
+endf
+
+defword CALLADR
+beginf
+code
+r0=[rB++]
+rA=r0
+call rA
+endcode
+endf
+
+defword CALLEXT
+beginf
+code
+r0=[rB++]
+rA=r0
+callext rA
+endcode
+endf
+
+align 4
+:abifn
+res 4
+
+defword IFN
+beginf
+code
+r0=[rB++]
+endcode
+r0=rC
+rA=@abifn
+[rA]=r0
+code
+bp @lifp
+:lifp
+endcode
+call @getword
+call @execword
+rem r0=[rA+4]
+rem r2=r0
+rem r0=[rA+8]
+rem r1=rA
+rem rA=r2
+rem call rA
+rA=@abifn
+rA=[rA]
+r0=rC
+setbradr
+endf
+
+align 4
+:wthen1
+defword THEN1
+beginf
+endf
+
+align 4
+:abif
+res 4
+
+defword IF1
+beginf
+ code
+  r0=[rB++]
+ endcode
+ r0=rC
+ rA=@abif
+ [rA]=r0
+ code
+  bz @lif
+  :lif
+ endcode
+ :loopif
+ call @getword
+ r1=rA
+ r0=@wthen
+ r0=r0-r1
+ r1=7FFF
+ r0=r0&r1
+ bz @lthen
+ call @execword
+rem r0=[rA+4]
+rem r2=r0
+rem r0=[rA+8]
+rem r1=rA
+rem rA=r2
+rem call rA
+ r0=0
+ bz @loopif
+ :lthen
+ rA=@abif
+ rA=[rA]
+ r0=rC
+ setbradr
+endf
+
+align 4
+:labels
+res 800
+
+defword >=0BRANCH
+getchar
+code
+r0=[rB++]
+endcode
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=@labels
+r0=r0+r1
+rA=r0
+r0=rC
+[rA]=r0
+code
+bp @ba
+:ba
+endcode
+r0=rA
+r1=4
+r0=r0+r1
+rA=r0
+r0=[rA]
+bz @za
+r2=r0
+r0=rA
+r1=4
+r0=r0-r1
+rA=r0
+r0=[rA]
+r1=r2
+setbradr
+:za
+endf
+
+align 4
+:iflevel
+res 4
+:wlevel
+res 4
+:adrif
+res 100
+:adrelse
+res 100
+:adrwhile 
+res 100
+:adrdo
+res 100
+
+defword IF
+beginf
+ rA=@iflevel
+ r0=[rA]
+ r1=4
+ r0=r0+r1
+ [rA]=r0
+ r1=r0
+ code
+  r0=[rB++]
+ endcode
+ r0=@adrif
+ r0=r0+r1
+ rA=r0
+ r0=rC
+ [rA]=r0
+ r0=@adrelse
+ r0=r0+r1
+ rA=r0
+ r0=0
+ [rA]=r0
+ code
+  bz @bif
+  :bif
+ endcode
+endf
+
+defword ELSE
+beginf
+ code
+  r0=0
+ endcode
+ rA=@iflevel
+ r0=[rA]
+ r1=r0
+ r0=@adrelse
+ r0=r0+r1
+ rA=r0
+ r0=rC
+ [rA]=r0
+ code
+  bz @belse
+  :belse
+ endcode
+ r0=@adrif
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ rA=r0
+ r0=rC
+ setbradr
+endf
+
+defword THEN
+beginf
+ rA=@iflevel
+ r0=[rA]
+ r1=r0
+ r0=@adrelse
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ bz @thena
+ r0=@adrelse
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ rA=r0
+ r0=rC
+ setbradr
+ r0=0
+ bz @thenb
+ :thena
+ r0=@adrif
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ rA=r0
+ r0=rC
+ setbradr
+ :thenb
+ r0=r1
+ r1=4
+ r0=r0-r1
+ rA=@iflevel
+ [rA]=r0
+endf
+
+defword BEGIN
+beginf
+ rA=@wlevel
+ r0=[rA]
+ r1=4
+ r0=r0+r1
+ [rA]=r0
+ r1=@adrwhile
+ r0=r0+r1
+ rA=r0
+ r0=rC
+ [rA]=r0
+endf
+
+defword WHILE
+beginf
+ code
+  r0=[rB++]
+ endcode
+ rA=@wlevel
+ r0=[rA]
+ r1=@adrdo
+ r0=r0+r1
+ rA=r0
+ r0=rC
+ [rA]=r0
+ code
+  bz @bwhile
+  :bwhile
+ endcode
+endf
+
+defword REPEAT
+beginf
+ code
+  r0=0
+ endcode
+ r2=rC
+ code
+  bz @brepeat
+  :brepeat
+ endcode
+ rA=@wlevel
+ r0=[rA]
+ r1=r0
+ r0=@adrwhile
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ rA=r2
+ setbradr
+ r0=@adrdo
+ r0=r0+r1
+ rA=r0
+ r0=[rA]
+ rA=r0
+ r0=rC
+ setbradr
+ r0=r1
+ r1=4
+ r0=r0-r1
+ rA=@wlevel
+ [rA]=r0
+endf
+
+align 4
+:levellambda
+res 4
+:adrblambda
+res 400
+
+defword LAMBDA
+beginf
+r2=rC
+r0=0
+code r0={r0}
+code
+rem printhex
+[--rB]=r0
+r0=0
+endcode
+rA=@adrblambda
+r0=rC
+[rA]=r0
+code
+bz @bla
+:bla
+endcode
+rem r0=rC
+rem printhex
+r0=rC
+rC=r2
+rem code r0={r0}
+rem code
+rem printhex
+rem endcode
+code r0={r0}
+code
+rem printhex
+[--rB]=r0
+r0=0
+bz @blb
+:blb
+beginf
+endcode
+endf
+
+defword ;LAMBDA
+beginf
+code
+endf
+endcode
+rA=@adrblambda
+rA=[rA]
+r0=rC
+setbradr
+endf
+
+defword LLAMBDA
+beginf
+rA=@levellambda
+r0=[rA]
+r1=1
+r0=r0+r1
+[rA]=r0
+r2=r0
+r1=rC
+code
+r0=0
+[--rB]=r0
+endcode
+r0=r2
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=@adrblambda
+r0=r0+r1
+rA=r0
+r0=rC
+[rA]=r0
+
+code
+r0=0
+bp @bb
+:bb
+endcode
+r0=rC
+rC=r1
+r1=r0
+code
+code r0={r0}
+endcode
+rC=r1
+code
+beginf
+endcode
+endf
+
+defword ENDLLAMBDA
+beginf
+code
+endf
+endcode
+rA=@levellambda
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=@adrblambda
+r0=r0+r1
+rA=r0
+rA=[rA]
+r0=rC
+setbradr
+rA=@levellambda
+r0=[rA]
+r1=1
+r0=r0-r1
+[rA]=r0
+endf
+
+align 4
+:adrbzs
+res 4
+
+defword Z"
+
+beginf
+r2=rC
+code 
+r0=0
+[--rB]=r0
+r0=0
+endcode
+
+rA=@adrbzs
+r0=rC
+[rA]=r0
+code
+bz @bzsa
+:bzsa
+endcode
+
+r0=rC
+rC=r2
+code r0={r0}
+code
+[--rB]=r0
+r0=0
+bz @bzsb
+:bzsb
+endcode
+
+:lsz
+getchar
+r2=r0
+r1=r0
+r0=22
+r0=r0-r1
+bz @esz
+r0=r2
+rA=rC
+byte[rA]=r0
+r2=r0
+r0=1
+r1=rC
+r0=r0+r1
+rC=r0
+r0=0
+bz @lsz
+
+:esz
+r0=0
+rA=rC
+byte[rA]=r0
+r2=r0
+r0=1
+r1=rC
+r0=r0+r1
+rC=r0
+
+r0=3
+r1=rC
+r0=r0+r1
+r1=r0
+r0=FFFFFFFC
+r0=r0&r1
+rC=r0
+
+rA=@adrbzs
+rA=[rA]
+r0=rC
+setbradr
+
+endf
+
+
+align 4
+:adrbzsu
+res 4
+
+defword ZU"
+
+beginf
+r2=rC
+code 
+r0=0
+[--rB]=r0
+r0=0
+endcode
+
+rA=@adrbzsu
+r0=rC
+[rA]=r0
+code
+bz @bzsau
+:bzsau
+endcode
+
+r0=rC
+rC=r2
+code r0={r0}
+code
+[--rB]=r0
+r0=0
+bz @bzsbu
+:bzsbu
+endcode
+
+:lszu
+getchar
+r2=r0
+r1=r0
+r0=22
+r0=r0-r1
+bz @eszu
+r0=r2
+rA=rC
+byte[rA]=r0
+r2=r0
+
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+byte[rA]=r0
+
+r0=2
+r1=rC
+r0=r0+r1
+rC=r0
+r0=0
+bz @lszu
+
+:eszu
+r0=0
+rA=rC
+byte[rA]=r0
+r2=r0
+
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+byte[rA]=r0
+
+r0=2
+r1=rC
+r0=r0+r1
+rC=r0
+
+r0=3
+r1=rC
+r0=r0+r1
+r1=r0
+r0=FFFFFFFC
+r0=r0&r1
+rC=r0
+
+rA=@adrbzsu
+rA=[rA]
+r0=rC
+setbradr
+
+endf
+
+align 4
+:adrbzst
+res 4
+:delim
+res 4
+
+defword ZSTRING
+
+beginf
+getchar
+rA=@delim
+byte[rA]=r0
+r2=rC
+code 
+r0=0
+[--rB]=r0
+r0=0
+endcode
+
+rA=@adrbzst
+r0=rC
+[rA]=r0
+code
+bz @bzsta
+:bzsta
+endcode
+
+r0=rC
+rC=r2
+code r0={r0}
+code
+[--rB]=r0
+r0=0
+bz @bzstb
+:bzstb
+endcode
+
+:lstz
+getchar
+r2=r0
+r1=r0
+rA=@delim
+r0=byte[rA]
+r0=r0-r1
+bz @estz
+r0=r2
+rA=rC
+byte[rA]=r0
+r2=r0
+r0=1
+r1=rC
+r0=r0+r1
+rC=r0
+r0=0
+bz @lstz
+
+:estz
+r0=0
+rA=rC
+byte[rA]=r0
+r2=r0
+r0=1
+r1=rC
+r0=r0+r1
+rC=r0
+
+r0=3
+r1=rC
+r0=r0+r1
+r1=r0
+r0=FFFFFFFC
+r0=r0&r1
+rC=r0
+
+rA=@adrbzst
+rA=[rA]
+r0=rC
+setbradr
+
+endf
+
+
+align 4
+:adrbzstu
+res 4
+:delimu
+res 4
+
+defword ZUSTRING
+
+beginf
+getchar 
+rA=@delimu
+byte[rA]=r0
+r2=rC
+code 
+r0=0
+[--rB]=r0
+r0=0
+endcode
+
+rA=@adrbzstu
+r0=rC
+[rA]=r0
+code
+bz @bzstau
+:bzstau
+endcode
+
+r0=rC
+rC=r2
+code r0={r0}
+code
+[--rB]=r0
+r0=0
+bz @bzstbu
+:bzstbu
+endcode
+
+:lstzu
+getchar
+r2=r0
+r1=r0
+rA=@delimu
+r0=byte[rA]
+r0=r0-r1
+bz @estzu
+r0=r2
+rA=rC
+byte[rA]=r0
+r2=r0
+
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+byte[rA]=r0
+
+r0=2
+r1=rC
+r0=r0+r1
+rC=r0
+r0=0
+bz @lstzu
+
+:estzu
+r0=0
+rA=rC
+byte[rA]=r0
+r2=r0
+
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+byte[rA]=r0
+
+r0=2
+r1=rC
+r0=r0+r1
+rC=r0
+
+r0=3
+r1=rC
+r0=r0+r1
+r1=r0
+r0=FFFFFFFC
+r0=r0&r1
+rC=r0
+
+rA=@adrbzstu
+rA=[rA]
+r0=rC
+setbradr
+
+endf
+
+
+
+:dll
+unicode coredll.dll
+unicode ab
+align 4
+:msgbox
+unicode MessageBoxW
+unicode ab
+align 4
+:caption
+unicode Message
+:msg
+unicode Bonjour !
+
+defword MSGBOX
+beginf
+code
+r0=@dll
+r1=@msgbox
+getprocadr
+rA=r0
+r0=0
+r3=r0
+r0=@caption
+r2=r0
+r0=[rB++]
+r1=r0
+r0=0
+callext rA
+endcode
+endf
+
+defword DUMPCODE
+beginf
+dumpcode
+endf
+
+defword RESETDRAW
+beginf
+code
+resetdraw
+endcode
+endf
+
+defword INVALIDATE
+beginf
+code
+invalidate
+endcode
+endf
+
+defword DRAW
+beginf
+code
+rA=[rB++]
+r1=[rB++]
+r0=[rB++]
+draw
+endcode
+endf
+
+align 4
+:x
+res 4
+:y
+res 4
+:r
+res 4
+
+defword CIRCLE
+beginf
+code
+r0=[rB++]
+rA=@r
+[rA]=r0
+r0=[rB++]
+rA=@y
+[rA]=r0
+r0=[rB++]
+rA=@x
+[rA]=r0
+r1=[rB++]
+r0=3
+draw
+endcode
+endf
+
+defword BIGNOP
+beginf
+code
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+r0=r0
+endcode
+endf
+
+defword CALLDUMMY
+beginf
+code
+calldummy
+endcode
+endf
+
+defword UNDEFINED
+beginf
+rA=r1
+r0=[rA+10]
+sscandec
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+defword CODETOS
+beginf
+r0=[rB++]
+code r0={r0}
+code
+[--rB]=r0
+endcode
+endf
+
+align 4
+:lw
+defword BYE
+beginf
+code
+exit
+endcode
+endf
+
+:cod
+res 2000
+:stk
+res 1000
+

@@ -1,0 +1,101 @@
+
+call @testword
+r0=0
+exit
+
+:testword
+beginf
+call @readword
+r0=@stra
+call @printstring
+r0=@wordread
+call @printstring
+r0=@strb
+call @printstring
+endf
+
+align 4
+:stra
+ascii word read: <
+
+align 4
+:strb
+ascii >
+
+align 4
+:getword
+beginf
+call @readword
+r0=@wordread
+getwordstr
+endf
+
+:printstring
+beginf
+rA=r0
+:lps
+r0=byte[rA]
+bz @eps
+putchar
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @lps
+:eps
+endf
+
+:readword
+beginf
+rA=@wordread
+:rwa
+getchar
+bz @erw
+r1=r0
+call @isblank
+bz @nblanka
+r0=0
+bz @rwa
+:nblanka
+r0=r1
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+getchar
+bz @erw
+r1=r0
+call @isblank
+bz @nblanka
+:erw
+r0=0
+byte[rA]=r0
+endf
+
+:isblank
+beginf
+r1=r0
+r0=20
+r0=r0-r1
+bz @blank
+r0=A
+r0=r0-r1
+bz @blank
+r0=D
+r0=r0-r1
+bz @blank
+r0=9
+r0=r0-r1
+bz @blank
+r0=0
+endf
+:blank
+r0=1
+endf
+
+align 4
+:wordread
+res 100
+

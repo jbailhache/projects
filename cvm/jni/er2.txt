@@ -1,0 +1,129 @@
+/pgcc/samp/cvm/target.c: In function `void setbradr(instr*, instr*)':
+/pgcc/samp/cvm/target.c:176: redefinition of `void setbradr(instr*, instr*)'
+/pgcc/samp/cvm/target.c:153: `void setbradr(instr*, instr*)' previously defined 
+   here
+/pgcc/samp/cvm/target.c:176: redefinition of `void setbradr(instr*, instr*)'
+/pgcc/samp/cvm/target.c:153: `void setbradr(instr*, instr*)' previously defined 
+   here
+/pgcc/samp/cvm/target.c: In function `instr* compile_call(instr*, int (*)(), 
+   int, int)':
+/pgcc/samp/cvm/target.c:212: redefinition of `instr* compile_call(instr*, int 
+   (*)(), int, int)'
+/pgcc/samp/cvm/target.c:167: `instr* compile_call(instr*, int (*)(), int, int)' 
+   previously defined here
+/pgcc/samp/cvm/target.c:212: redefinition of `instr* compile_call(instr*, int 
+   (*)(), int, int)'
+/pgcc/samp/cvm/target.c:167: `instr* compile_call(instr*, int (*)(), int, int)' 
+   previously defined here
+/pgcc/samp/cvm/target.c: In function `instr* compile_call0(instr*, int (*)())':
+/pgcc/samp/cvm/target.c:306: redefinition of `instr* compile_call0(instr*, int 
+   (*)())'
+/pgcc/samp/cvm/target.c:160: `instr* compile_call0(instr*, int (*)())' 
+   previously defined here
+/pgcc/samp/cvm/target.c:306: redefinition of `instr* compile_call0(instr*, int 
+   (*)())'
+/pgcc/samp/cvm/target.c:160: `instr* compile_call0(instr*, int (*)())' 
+   previously defined here
+/pgcc/samp/cvm/target.c:307: call of overloaded `compile_call(instr*&, int 
+   (*&)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c:212:                 instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c: In function `instr* c_call_dummy(instr*)':
+/pgcc/samp/cvm/target.c:606: call of overloaded `compile_call(instr*&, int 
+   (*)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c:212:                 instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c: In function `instr* c_dummyprint(instr*)':
+/pgcc/samp/cvm/target.c:692: call of overloaded `compile_call(instr*&, int 
+   (*)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c:212:                 instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c: In function `instr* c_setbradr(instr*)':
+/pgcc/samp/cvm/target.c:1519: call of overloaded `compile_call(instr*&, int 
+   (*)(), int, int)' is ambiguous
+/pgcc/samp/cvm/target.c:167: candidates are: instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c:212:                 instr* compile_call(instr*, int 
+   (*)(), int, int)
+/pgcc/samp/cvm/target.c: In function `instr* c_exit(instr*)':
+/pgcc/samp/cvm/target.c:1862: call of overloaded `compile_call0(instr*&, int 
+   (&)())' is ambiguous
+/pgcc/samp/cvm/target.c:160: candidates are: instr* compile_call0(instr*, int 
+   (*)())
+/pgcc/samp/cvm/target.c:306:                 instr* compile_call0(instr*, int 
+   (*)())
+\pgcc\samp\cvm\dbg.o(.text+0xafc):/pgcc/samp/cvm/dbg: undefined reference to `Z7dmpcodev'
+\pgcc\samp\cvm\dbg.o(.text+0xb0c):/pgcc/samp/cvm/dbg: undefined reference to `Z13dmpcodeadrlenii'
+\pgcc\samp\cvm\dbg.o(.text+0x15c8):/pgcc/samp/cvm/dbg: undefined reference to `Z10f_printdeci'
+\pgcc\samp\cvm\dbg.o(.text+0x15ec):/pgcc/samp/cvm/dbg: undefined reference to `Z10f_sscandecPc'
+\pgcc\samp\cvm\dbg.o(.text+0x161c):/pgcc/samp/cvm/dbg: undefined reference to `Z7f_fopeniPc'
+\pgcc\samp\cvm\dbg.o(.text+0x16c4):/pgcc/samp/cvm/dbg: undefined reference to `Z10getprocadrPwS_'
+\pgcc\samp\cvm\dbg.o(.text+0x176c):/pgcc/samp/cvm/dbg: undefined reference to `Z7dmpcodev'
+\pgcc\samp\cvm\dbg.o(.text+0x1784):/pgcc/samp/cvm/dbg: undefined reference to `Z7initcvmv'
+\pgcc\samp\cvm\cvm.o(.text+0x1628):/pgcc/samp/cvm/cvm: undefined reference to `Z7dmpcodev'
+\pgcc\samp\cvm\cvm.o(.text+0x1c3c):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_mov_r0_imPllPc'
+\pgcc\samp\cvm\cvm.o(.text+0x1c7c):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_mov_r1_imPllPc'
+\pgcc\samp\cvm\cvm.o(.text+0x1cbc):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_mov_ra_imPllPc'
+\pgcc\samp\cvm\cvm.o(.text+0x1d08):/pgcc/samp/cvm/cvm: undefined reference to `Z12c_mov_ra_svaPl'
+\pgcc\samp\cvm\cvm.o(.text+0x1d6c):/pgcc/samp/cvm/cvm: undefined reference to `Z15c_q_mov_r0_imr0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x1da8):/pgcc/samp/cvm/cvm: undefined reference to `Z15c_q_mov_r1_imr0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x1de4):/pgcc/samp/cvm/cvm: undefined reference to `Z15c_q_mov_ra_imr0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x1e38):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_mov_r_rPlii'
+\pgcc\samp\cvm\cvm.o(.text+0x1e8c):/pgcc/samp/cvm/cvm: undefined reference to `Z13c_q_mov_r1_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x1ef0):/pgcc/samp/cvm/cvm: undefined reference to `Z16c_mov_r0_cont_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x1f2c):/pgcc/samp/cvm/cvm: undefined reference to `Z16c_mov_ra_cont_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x1f90):/pgcc/samp/cvm/cvm: undefined reference to `Z21c_mov_r0_byte_cont_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x1ff0):/pgcc/samp/cvm/cvm: undefined reference to `Z16c_mov_cont_ra_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2054):/pgcc/samp/cvm/cvm: undefined reference to `Z21c_mov_byte_cont_ra_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x20c8):/pgcc/samp/cvm/cvm: undefined reference to `Z24c_mov_r0_cont_ra_plus_imPli'
+\pgcc\samp\cvm\cvm.o(.text+0x213c):/pgcc/samp/cvm/cvm: undefined reference to `Z24c_mov_cont_ra_plus_im_r0Pli'
+\pgcc\samp\cvm\cvm.o(.text+0x21a0):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_r0_cont_rb_incPl'
+\pgcc\samp\cvm\cvm.o(.text+0x21dc):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_r1_cont_rb_incPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2218):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_ra_cont_rb_incPl'
+\pgcc\samp\cvm\cvm.o(.text+0x227c):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_cont_dec_rb_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x22b8):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_cont_dec_rb_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x231c):/pgcc/samp/cvm/cvm: undefined reference to `Z20c_mov_cont_rc_inc_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2398):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_add_r0_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2414):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_sub_r0_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2490):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_mul_r0_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x24dc):/pgcc/samp/cvm/cvm: undefined reference to `Z8c_asr_r0Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2554):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_and_r0_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x25d0):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_xor_r0_r1Pl'
+\pgcc\samp\cvm\cvm.o(.text+0x2618):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_bp_deplPli'
+\pgcc\samp\cvm\cvm.o(.text+0x2660):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_bz_deplPli'
+\pgcc\samp\cvm\cvm.o(.text+0x26ac):/pgcc/samp/cvm/cvm: undefined reference to `Z7c_bp_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x26f8):/pgcc/samp/cvm/cvm: undefined reference to `Z7c_bz_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2740):/pgcc/samp/cvm/cvm: undefined reference to `Z11c_call_deplPli'
+\pgcc\samp\cvm\cvm.o(.text+0x278c):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_call_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x27d8):/pgcc/samp/cvm/cvm: undefined reference to `Z12c_callext_raPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2940):/pgcc/samp/cvm/cvm: undefined reference to `Z8c_beginfPl'
+\pgcc\samp\cvm\cvm.o(.text+0x296c):/pgcc/samp/cvm/cvm: undefined reference to `Z6c_endfPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2998):/pgcc/samp/cvm/cvm: undefined reference to `Z5c_retPl'
+\pgcc\samp\cvm\cvm.o(.text+0x29c4):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_getcharPl'
+\pgcc\samp\cvm\cvm.o(.text+0x29f8):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_intbiosPli'
+\pgcc\samp\cvm\cvm.o(.text+0x2a24):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_putcharPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2a50):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_scanhexPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2a7c):/pgcc/samp/cvm/cvm: undefined reference to `Z10c_printhexPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2aa8):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_getwordPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2ad4):/pgcc/samp/cvm/cvm: undefined reference to `Z7c_fopenPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2b00):/pgcc/samp/cvm/cvm: undefined reference to `Z8c_fclosePl'
+\pgcc\samp\cvm\cvm.o(.text+0x2b2c):/pgcc/samp/cvm/cvm: undefined reference to `Z7c_fgetcPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2b58):/pgcc/samp/cvm/cvm: undefined reference to `Z7c_fputcPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2b84):/pgcc/samp/cvm/cvm: undefined reference to `Z12c_getprocadrPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2bb0):/pgcc/samp/cvm/cvm: undefined reference to `Z6c_codePl'
+\pgcc\samp\cvm\cvm.o(.text+0x2bdc):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_endcodePl'
+\pgcc\samp\cvm\cvm.o(.text+0x2c08):/pgcc/samp/cvm/cvm: undefined reference to `Z10c_setbradrPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2c34):/pgcc/samp/cvm/cvm: undefined reference to `Z10c_dumpcodePl'
+\pgcc\samp\cvm\cvm.o(.text+0x2c60):/pgcc/samp/cvm/cvm: undefined reference to `Z12c_call_dummyPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2c8c):/pgcc/samp/cvm/cvm: undefined reference to `Z12c_dummyprintPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2cb8):/pgcc/samp/cvm/cvm: undefined reference to `Z9c_initcvmPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2ce4):/pgcc/samp/cvm/cvm: undefined reference to `Z10c_sscandecPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2d10):/pgcc/samp/cvm/cvm: undefined reference to `Z10c_printdecPl'
+\pgcc\samp\cvm\cvm.o(.text+0x2d3c):/pgcc/samp/cvm/cvm: undefined reference to `Z6c_exitPl'
+\pgcc\samp\cvm\cvm.o(.text+0x4120):/pgcc/samp/cvm/cvm: undefined reference to `Z9init_codev'
