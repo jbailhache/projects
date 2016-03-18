@@ -1,0 +1,130 @@
+MPL Forth
+---------
+
+MPL Forth is a Forth compiler written in MPL programming language.
+
+MPL is a minimal programming language which consists of a minimal set of instructions and which can be implemented very easily on any platform.
+
+
+How to build the program
+------------------------
+
+If some command does not work under Linux, add ./ before it. 
+
+Create MPL object code from MPL source :
+mplc_labels.pl forth.mpls forth.mpli
+mplc_ids.pl forth.mpli forth.mplo
+
+Run with MPL interpreter in Perl :
+mpli.pl forth.mplo
+
+Build MPL interpreter in C :
+cc -o mpli mpli.c
+
+Run with MPL interpreter in C :
+mpli forth.mplo
+
+Run with machine code interpreter (Windows) :
+copy /b mpli.com+forth.mplo forth.com
+forth.com
+
+Build procedures :
+for DOS/Windows : build-mpl-forth.bat
+for Linux : ./build-mpl-forth.sh
+
+
+Memory map (addresses in hexadecimal)
+----------
+
+0000 Begin of MPL object metacode (Perl and C version)
+1800 Begin of MPL object metacode (with MPLI.COM)
+     Metacode size : 4E2F
+4919 End of MPL object metacode (Perl and C version)
+662F End of MPL object metacode (with MPLI.COM)
+
+6800 End of return addresses stack
+
+7000 End of arguments stack
+
+7100 Immediate code
+
+7200 Read buffer
+
+7F00 Begin of MPL object code
+ADC3 End of MPL object code
+
+C000 Character strings
+
+D000 MPL variables
+
+E200 Begin of dictionary
+EA40 End of primitive words
+
+F000 Begin of MPL object code of Forth words
+
+
+Standard Forth words defined in MPL-Forth
+-----------------------------------------
+
+Please refer to any Forth manual to get the meaning of these words.
+
+@
+C@
+!
+C!
+KEY
+EMIT
+.
+DROP
+DUP
+SWAP
++
+-
+*
+/
+MOD
+AND
+OR
+LSHIFT
+RSHIFT
+:
+;
+HERE
+SP@
+SP!
+[
+]
+IMMEDIATE
+CREATE
+ALLOT
+DOES>
+,
+C,
+[']
+'
+EXECUTE
+[COMPILE]
+COMPILE
+IF
+ELSE
+THEN
+BEGIN
+WHILE
+REPEAT
+BYE
+
+Non standard words defined in MPL-Forth
+---------------------------------------
+
+HEXLIT	( -- n )	Push on the stack the following hexadecimal number
+HEX.		( n -- )	Display a number in hexadecimal format
+Z"		( -- addr )	Push the address of the following string adding a null character at the end of it
+ZTYPE		( addr -- )	Display a null terminated string
+EXECMPL	( addr -- ) Execute MPL code contained in a string
+MPL		( -- )	Insert following MPL code terminated by '.'
+LOAD"		( -- )	Load Forth code contained in following file terminated by '"'. 
+                        Actually does not work with MPLI.COM.
+TRACE		( -- )	Enter trace mode : display each MPL instruction executed
+STEP		( -- ) 	Enter step mode
+
+

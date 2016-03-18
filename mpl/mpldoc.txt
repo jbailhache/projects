@@ -1,0 +1,838 @@
+MPL : A MINIMAL PROGRAMMING LANGUAGE
+
+The goal of this project is to define a minimal programming language which can be implemented very easily on any platform.
+
+
+PRINCIPLES OF MPL
+
+A MPL object program is a character string. Each character is an instruction. Loading a program simply consists in copying the content of the MPL source file to the memory. 
+Running it consists in running a very simple virtual machine with this program in memory. MPL works by metaprogramming : the initial MPL source is in fact a program which creates another program before running it.
+
+
+THE VIRTUAL MACHINE
+
+There are 5 registers :
+PC : address of next instruction
+R0 : first operand and result of operations
+R1 : second operand
+RC : address of produced code
+RS : state (2 values : normal or code, for example 0 for normal and 1 for code)
+
+If RS=code then the instruction pointed by PC is copied to the address pointed by RC; PC and RC are incremented, unless if this instruction is '}', in which case RS is set to normal.
+
+If RS=normal, a treatment depending on the instruction pointed by PC is executed; PC is incremented.
+
+
+INSTRUCTIONS
+
+, R1=R0
+X exchange R0 and R1
+p R0=PC
+Q terminate program
+? if R1=0 then R1=PC; PC=R0 (conditional jump)
+R R0=word pointed by R0
+r R0=character pointed by R0
+W store word in R1 at address in R0
+w store character in R1 at address in R0
+# R0=0
+hexadecimal digit d (0 to 9 and A to F) R0=R0*16+d
+~ bitwise negation of R0
++ R0=R0+R1
+- R0=R0-R1
+* R0=R0*R1
+/ R0=R0/R1
+% R0=RO mod R1
+& R0=R0&R1 (bitwise and)
+| R0=R0|R1 (bitwise or)
+^ R0=R0^R1 (exclusive or)
+< R0=R0<<R1 (shift left)
+> R0=R0>>R1 (shift right)
+G read character 
+P print character
+H RC=R0
+h R0=RC
+{ RS=code
+} put '}' at address pointed by RC and increment RC
+_ put R0 at address pointed by RC and increment RC
+S system call
+e generate an error (should not be executed)
+Characters corresponding to undefined instructions do nothing.
+
+
+SYSTEM CALLS
+
+System calls are done by the instruction S.
+Before call, R0 must contain the number of the function, and R1 a parameter or address of a block of parameters.
+After call, R0 or R1 may contain the result or the block of parameters may be modified.
+
+#11S to #16S : open file.
+input : R1 = address of file name
+output : R1 = file handle
+#11S : open for read
+#12S : open for write
+#13S : open for append
+#14S : open for read/update
+#15S : open for write/update
+#16S : open for append/update
+
+#1FS : close file
+input : R1 = file handle
+
+#20S : get character from file
+input : R1 = address of parameter block : file handle, character
+output : character in parameter block modified
+
+#21S : put character to file
+input : R1 = address of parameter block : file handle, character
+
+
+EXAMPLE OF MPL PROGRAM : HELLO WORLD
+
+	#6000H { Begin of program }
+
+	{hexadecimal digits}
+	h,#5000W
+	{0123456789ABCDEF}
+
+	{coding of loading of R0, 500C: value}
+	h,#5004W
+	{#5008W
+	#23_
+	#1C,#500CR>,#F&,#5000R+r_
+	#18,#500CR>,#F&,#5000R+r_
+	#14,#500CR>,#F&,#5000R+r_
+	#10,#500CR>,#F&,#5000R+r_
+	#C,#500CR>,#F&,#5000R+r_
+	#8,#500CR>,#F&,#5000R+r_
+	#4,#500CR>,#F&,#5000R+r_
+	#500CR,#F&,#5000R+r_
+	#,#5008R?}
+
+	{string to display, terminated by null}
+	h,#5010W
+	{Hello World !
+	}#_
+
+	{display a string, 501C: address of string}
+	h,#5014W
+	{#5018W
+	}h,#5020W{
+	#501CRr,
+	}h,#5024W{eeeeeeeee?
+	#501CRrP
+	#501CR,#1+,#501CW
+	#,}#5020R,#500CW#,#5004R?{?
+	}h,#5028W
+	#5024RH#5028R,#500CW#,#5004R?
+	#5028RH{
+	#,#5018R?}
+
+	{main function}
+	h,#502CW
+	{#5030W
+	#5010R,#501CW
+	#,#5014R?
+	#,#5030R?}
+
+	{call main function}
+	#,#502CR?
+	Q
+
+
+MEMORY MAP OF THIS PROGRAM
+
+Hex.	Content
+addr.
+----	-------
+0	Begin of metaprogram
+
+5000	Address of string "0123456789ABCDEF"
+
+5004	Address of function coding loading of R0 with a value
+5008	Return address
+500C	Value
+
+5010	Address of string "Hello World !" terminated by end of line and null
+
+5014	Address of function displaying a string
+5018	Return address
+501C	Pointer to string to display
+5020	Address of loop
+5024	Address of jump to end of loop
+5028	Address of end of loop
+
+502C	Main function
+5030	Return address
+	
+6000	Begin of program
+
+
+EXAMPLE OF CODING OF JUMP INSTRUCTIONS
+
+if R0=0 then goto l	,}h,#5100W{eeeeeeeee?		store the first address to modify and 
+							put error instructions to reserve space
+...			...
+if R0=0 then goto l	,}h,#5104W{eeeeeeeee?		store the second address to modify
+...			...
+l:			}h,#5108W			store the code address of l
+			#5100RH#5108R,#500CW#,#5004R?	modify the first address
+			#5104RH#5108R,#500CW#,#5004R?	modify the second address
+			#5108RH{			restore the code address
+...			...
+if R0=0 then goto l	,}#5108R,#500CW#,#5004R?{	code jump to address of l
+...			...
+if R0=0 then goto l	,}#5108R,#500CW#,#5004R?{	code jump to address of l
+
+
+DEFINING A MORE USABLE SOURCE LANGUAGE
+
+The MPL object language is made of readable ASCII characters so one can write directly programs in this language, but it is not very easy to write and read them, because one must remember the meaning of the different addresses written as hexadecimal values.
+A first idea to ameliorate it is to replace these hexadecimal addresses by symbolic identifiers which are automatically associated to hexadecimal values. 
+For example, the Hello World program becomes :
+
+
+	#6000H { Begin of program }
+
+	{hexadecimal digits}
+	h,[digits]W
+	{0123456789ABCDEF}
+
+	{coding of loading of R0, 500C: value}
+	h,[code_load_R0]W
+	{[code_load_R0_ret]W
+	#23_
+	#1C,[load_value]R>,#F&,[digits]R+r_
+	#18,[load_value]R>,#F&,[digits]R+r_
+	#14,[load_value]R>,#F&,[digits]R+r_
+	#10,[load_value]R>,#F&,[digits]R+r_
+	#C,[load_value]R>,#F&,[digits]R+r_
+	#8,[load_value]R>,#F&,[digits]R+r_
+	#4,[load_value]R>,#F&,[digits]R+r_
+	[load_value]R,#F&,[digits]R+r_
+	#,[code_load_R0_ret]R?}
+
+	{string to display, terminated by null}
+	h,[hello]W
+	{Hello World !
+	}#_
+
+	{display a string, 501C: address of string}
+	h,[display]W
+	{[display_ret]W
+	}h,[display_loop]W{
+	[display_ptr]Rr,
+	}h,[display_jmpadr]W{eeeeeeeee?
+	[display_ptr]RrP
+	[display_ptr]R,#1+,[display_ptr]W
+	#,}[display_loop]R,[load_value]W#,[code_load_R0]R?{?
+	}h,[display_end]W
+	[display_jmpadr]RH[display_end]R,[load_value]W#,[code_load_R0]R?
+	[display_end]RH{
+	#,[display_ret]R?}
+
+	{main function}
+	h,[main]W
+	{[main_ret]W
+	[hello]R,[display_ptr]W
+	#,[display]R?
+	#,[main_ret]R?}
+
+	{call main function}
+	#,[main]R?
+	Q
+
+
+Here is a Perl script which translate such a source into MPL object code :
+
+
+#!/usr/bin/perl
+
+my $sourcef;
+my $nargs = @ARGV;
+if ($nargs >= 1)
+{
+	$sourcef = $ARGV[0];
+}
+else
+{
+	print "Source file ? ";
+	$sourcef = <STDIN>;
+	chomp $sourcef;
+}
+
+open SRC, $sourcef or die "$sourcef: $!\n";
+
+my $goon = 1;
+my $next = hex('5000');
+my %dic = ();
+my $c = getc SRC;
+
+while ($goon != 0)
+{
+	if ($c eq '[')
+	{
+		my $id = '';
+		if (eof SRC) { last; }
+		$c = getc SRC;
+		while ($c ne ']')
+		{
+			$id = $id . $c;
+			if (eof SRC) { last; }
+			$c = getc SRC;
+		}
+		if (eof SRC){ last; }
+		$c = getc SRC;
+		if (!defined ($dic{$id}))
+		{
+			$dic{$id} = $next;
+			$next += 4;
+		}
+		print "#" . sprintf ('%X', $dic{$id});
+	}
+	else
+	{
+		print $c;
+		if (eof SRC) { last; }
+		$c = getc SRC;
+	}	
+}
+
+
+It is better like this, but it is still complicated to define branch instructions. So the next step is to define labels with forward and backward references to these labels.
+A label definition is represented by :label: and a reference to this label by $label$.
+The label definition associates the label with the current address (the content of RC) and modifies all the previous references to this label.
+A label reference is replaced by instructions coding le loading of R0 with the value associated to the label.
+
+With this notation, the Hello World program becomes :
+
+
+	#6000H { Begin of program }
+
+	{hexadecimal digits}
+	h,[digits]W
+	{0123456789ABCDEF}
+
+	{coding of loading of R0}
+	h,[code_load_R0]W
+	{[code_load_R0_ret]W
+	#23_
+	#1C,[load_value]R>,#F&,[digits]R+r_
+	#18,[load_value]R>,#F&,[digits]R+r_
+	#14,[load_value]R>,#F&,[digits]R+r_
+	#10,[load_value]R>,#F&,[digits]R+r_
+	#C,[load_value]R>,#F&,[digits]R+r_
+	#8,[load_value]R>,#F&,[digits]R+r_
+	#4,[load_value]R>,#F&,[digits]R+r_
+	[load_value]R,#F&,[digits]R+r_
+	#,[code_load_R0_ret]R?}
+
+	{string to display, terminated by null}
+	h,[hello]W
+	{Hello World !
+	}#_
+
+	{display a string}
+	h,[display]W
+	{[display_ret]W
+	:display_loop:
+	[display_ptr]Rr,
+	$display_end$?
+	[display_ptr]RrP
+	[display_ptr]R,#1+,[display_ptr]W
+	#,$display_loop$?
+	:display_end:
+	#,[display_ret]R?}
+
+	{main function}
+	h,[main]W
+	{[main_ret]W
+	[hello]R,[display_ptr]W
+	#,[display]R?
+	#,[main_ret]R?}
+
+	{call main function}
+	#,[main]R?
+	Q
+
+
+Here is a Perl script which does the translation of labels :
+
+
+#!/usr/bin/perl
+
+my $sourcef;
+my $objf;
+my $obj;
+
+my $nargs = @ARGV;
+if ($nargs >= 1)
+{
+	$sourcef = $ARGV[0];
+	$objf = $ARGV[1];
+}
+else
+{
+	print "Source file ? ";
+	$sourcef = <STDIN>;
+	chomp $sourcef;
+
+	print "Object file ? ";
+	$objf = <STDIN>;
+	chomp $objf;
+}
+
+open SRC, $sourcef or die "$sourcef: $!\n";
+
+if ($objf eq '')
+{
+	$obj = *STDOUT;
+}
+else
+{
+	open OBJ, ">$objf" or die "$objf: $!\n";
+	$obj = *OBJ;
+}
+
+my $goon = 1;
+my $next = hex('5000');
+my %dic = ();
+my %nrefs = ();
+my %labels = ();
+my $id = '';
+my $nr;
+my $i;
+
+my $c = getc SRC;
+
+while ($goon != 0)
+{
+	# print "c=$c=" . ord($c) . "\n";
+	if ($c eq ':')
+	{
+		$id = '';
+		if (eof SRC) { last; }
+		$c = getc SRC;
+		while ($c ne ':')
+		{
+			$id = $id . $c;
+			if (eof SRC) { last; }
+			$c = getc SRC;
+		}
+		if (eof SRC){ last; }
+		$c = getc SRC;
+		if ($labels{$id})
+		{
+			die "Error: label $id redefined.\n";
+		}
+		else
+		{
+			$labels{$id} = 1;
+			print $obj "}h,[$id]W\n";
+			if (defined($nrefs{$id}))
+			{
+				$nr = $nrefs{$id};
+			}
+			else
+			{
+				$nr = 0;
+			}
+			for ($i=1; $i<=$nr; $i++)
+			{
+				print $obj "[$id" . "_ref$i]RH[$id]R,[load_value]W#,[code_load_R0]R?\n";
+			}
+			print $obj "[$id]RH{";
+		}
+	}
+	elsif ($c eq '$')
+	{
+		$id = '';
+		if (eof SRC) { last; }
+		$c = getc SRC;
+		while ($c ne '$')
+		{
+			$id = $id . $c;
+			if (eof SRC) { last; }
+			$c = getc SRC;
+		}
+		if (eof SRC){ last; }
+		$c = getc SRC;
+		if ($labels{$id})
+		{
+			print $obj "}[$id]R,[load_value]W#,[code_load_R0]R?{"; 
+		}
+		else
+		{
+			if (defined($nrefs{$id}))
+			{
+				$nr = $nrefs{$id};
+			}
+			else
+			{
+				$nr = 0;
+			}
+			$nr++;
+			$nrefs{$id} = $nr;
+			print $obj "}h,[$id" . "_ref$nr]W{eeeeeeeee";
+		}
+	}
+	else
+	{
+		print $obj $c;
+		if (eof SRC) { last; }
+		$c = getc SRC;
+	}	
+}
+
+
+
+MPL COMPILER IN MPL
+
+The goal of the MPL project is to create a system which can be easily ported on any platform (machine and language). The part which is specific to the platform should be as small as possible. That's why it is better to write the MPL compiler in MPL itself. This compiler in contained in the files mplc_labels.mpls and mplc_ids.mpls. These MPL source files can be translated into MPL object code with mplc_labels.pl and mplc_ids.pl. This object code can be used on any platform. Then the only part which is platform dependent is the MPL interpreter.
+
+
+EXAMPLE OF MPL INTERPRETER IN PERL
+
+#!/usr/bin/perl
+
+my $trace = 0;
+
+my $nargs = @ARGV;
+my $script;
+if ($nargs >= 1)
+ { $script = $ARGV[0]; } 
+else
+ {
+  print "Script ? ";
+  $script = <STDIN>;
+  chomp $script;
+ }
+
+open SCRIPT, $script or die "$script: $!\n";
+
+my @mem = ();
+my $adr = 0;
+my $state = 'normal';
+
+# print "Reading code...\n";
+while (<SCRIPT>)
+{
+	if ($trace != 0) { print $_; }
+	@chars = split //, $_;
+	foreach $char (@chars)
+	{
+		$mem[$adr++] = ord $char;				
+	}
+}
+# print (sprintf "program size: %X\n", $adr);
+
+my $goon = 1;
+my $pc = $start;
+my $r0 = 0;
+my $r1 = 0;
+my $rc = $adr;
+my $t;
+my $instr;
+$state = 'normal';
+
+# print "Running...\n";
+while (($goon != 0) and ($pc < 30000))
+{
+	$instr = chr($mem[$pc++]);
+	# print $instr;
+
+	if ($trace != 0) { print ((sprintf "\nr0=%4X\tr1=%4X\trc=%4X\tpc=%4X\tinstr=%s ",$r0,$r1,$rc,$pc,$instr) . (ord $instr) . " "); my $r = <STDIN>; }
+
+	if ($state eq 'code') 
+	{
+		if ($instr eq '}') { $state = 'normal'; }
+		else { $mem[$rc++] = ord $instr; }
+	}
+	elsif ($instr eq ',') { $r1 = $r0; }
+	elsif ($instr eq '^') { $r0 = $pc; }
+	elsif ($instr eq 'Q') { $goon = 0; }
+	elsif ($instr eq '?') { if ($r1 == 0) { $r1 = $pc; $pc = $r0; } }
+	elsif ($instr eq 'R') { $r0 = $mem[$r0]; }
+	elsif ($instr eq 'W') { $mem[$r0] = $r1; }
+	elsif ($instr eq 'r') { $r0 = $mem[$r0]; }
+	elsif ($instr eq 'w') { $mem[$r0] = $r1; }
+	elsif ($instr eq '#') { $r0 = 0; }
+
+	elsif ($instr eq '0') { $r0 = $r0*16; }
+	elsif ($instr eq '1') { $r0 = $r0*16+1; }
+	elsif ($instr eq '2') { $r0 = $r0*16+2; }
+	elsif ($instr eq '3') { $r0 = $r0*16+3; }
+	elsif ($instr eq '4') { $r0 = $r0*16+4; }
+	elsif ($instr eq '5') { $r0 = $r0*16+5; }
+	elsif ($instr eq '6') { $r0 = $r0*16+6; }
+	elsif ($instr eq '7') { $r0 = $r0*16+7; }
+	elsif ($instr eq '8') { $r0 = $r0*16+8; }
+	elsif ($instr eq '9') { $r0 = $r0*16+9; }
+	elsif ($instr eq 'A') { $r0 = $r0*16+10; }
+	elsif ($instr eq 'B') { $r0 = $r0*16+11; }
+	elsif ($instr eq 'C') { $r0 = $r0*16+12; }
+	elsif ($instr eq 'D') { $r0 = $r0*16+13; }
+	elsif ($instr eq 'E') { $r0 = $r0*16+14; }
+	elsif ($instr eq 'F') { $r0 = $r0*16+15; }
+
+	elsif ($instr eq '~') { $r0 = !$r0; }
+	elsif ($instr eq '+') { $r0 = $r0 + $r1; }
+	elsif ($instr eq '-') { $r0 = $r0 - $r1; }
+	elsif ($instr eq '*') { $r0 = $r0 * $r1; }
+	elsif ($instr eq '/') { $r0 = $r0 / $r1; }
+	elsif ($instr eq '%') { $r0 = $r0 % $r1; }
+	elsif ($instr eq '&') { $r0 = $r0 & $r1; }
+	elsif ($instr eq '|') { $r0 = $r0 | $r1; }
+	elsif ($instr eq '<') { $r0 = $r0 << $r1; }
+	elsif ($instr eq '>') { $r0 = $r0 >> $r1; }
+
+	elsif ($instr eq 'G') { $r0 = ord getc(STDIN); }
+	elsif ($instr eq 'P') { print chr($r0); }
+	elsif ($instr eq 'H') { $rc = $r0; }
+	elsif ($instr eq 'h') { $r0 = $rc; }
+	elsif ($instr eq '{') { $state = 'code'; }
+	elsif ($instr eq '}') { $mem[$rc++] = ord $instr; }
+	elsif ($instr eq '_') { $mem[$rc++] = $r0; }
+
+	elsif ($instr eq 'T') { $trace = 1; }
+	elsif ($instr eq 'e') { print "\nError\n"; $goon = 0; }
+
+}
+
+# print "\nDone.\n";
+
+
+MPL INTERPRETER FOR MS-DOS
+
+The file MPLI.COM contains a MPL interpreter code which must be concatenated with a MPL object code to make an executable which runs the MPL interpreter with the givzen object code. 
+Example :
+COPY /B MPLI.COM+HELLO.MPLO HELLO.COM
+TESTCOM.BAT contains commands which makes the compiler for MS-DOS, compile a MPL source file, make the executable and run it.
+TESTCDB.BAT is the same for DOSBOX. Because the end of files is not correctly detected on DOSBOX a special character is appended to the files to indicate the end of file.
+
+Correspondance between MPL registers and x86 registers/memory:
+MPL	x86
+---	---
+PC	BX
+R0	DX
+R1	CX
+RC	SI
+RS	[0F00]
+
+Memory map of MPLI.COM :
+0000-0100 : Program Segment Prefix
+0100-0200 : Main program of the interpreter
+1000-17FF : Instructions routines
+1800-xxxx : MPL object metacode
+
+
+COMPILING TO MACHINE CODE
+
+The addresses 1000-17FF contain routines corresponding to MPL instructions. The routine corresponding to instruction code XX is at address 1XX0. It consists of x86 instructions ended by instruction RET. Instead of interpreting the MPL object code by calling the routines corresponding to the instructions, one can compile the MPL object code into x86 machine code by concatenating the routines corresponding to MPL instructions in memory. This is done by a new MPL instruction M. This instruction compiles at address contained in RC register the following MPL instuctions into x86 machine code until the character '.' is found. M and . correspond for compiled code to { and } for interpreted code. If a character '`' is found it compiles a RET instruction. After this, the x86 machine code can be called with the MPL c instruction, which makes a call to address contained in R0.
+The instruction ? must be replaced with ! and p with q because with compiled code the PC register does not correspond to BX but to IP register of x86.
+
+Example (TESTML.MPO) :
+
+#6000H  ( code will be compiled at address 6000 )
+M#41P`. ( compile code to display A terminated by RET )
+#6000cQ ( call address 6000 and terminate )
+
+To run this program : 
+COPY /B MPLI.COM+TESTML.MPO TESTML.COM
+TESTML.COM
+
+New instructions for compilation :
+M	compiles to machine code until .
+m	compiles the instruction contained in R0 (replaces _)
+`	compiles RET
+c	call routine at address contained in R0
+!	replaces ?
+q	replaces p
+
+
+EXECUTION MODES
+
+Instead of defining different instructions for compiled and interpreted code, a variable containing the execution mode can be used and a different treatment is done depending on the value of this variable. In MPLI.COM this variable is stored at address 0F20 hexadecimal. If its value is 1 the mode is interpreted, if its value is 2 the mode is compiled. The instructions p, ?, { and _ respectively behave as q, !, M and m if the execution mode is 2 (compilated). A new instruction x is also defined. It exchanges R0 and the execution mode. #1x sets mode to interpreted and #2x sets mode to compiled, both give in R0 the previous mode.
+
+To compile a MPL source, jus put #2x at the beginning of it. But the character strings must not be compiled, so put #1x before them and #2x after them.
+
+
+EXTENSION OF THE MPL INSTRUCTION SET
+
+A new register RU is added to the MPL virtual machine. This register contains the address of a memory area which will handle undefined instructions :
+RU -> R0
+      R1
+      PC
+      code for handling undefined instruction
+
+New instructions are defined :
+
+u R0=RU
+U RU=R0
+J restore context (R0, R1, PC) pointed by R0
+
+When an undefined instruction is executed, R0, R1 and PC are saved to the addresses pointed by RU and a jump is done to address RU + 3 words.
+
+
+EXAMPLE : COMPILER OF A SUBSET OF FORTH
+
+This compiler translates Forth code read from standard input into MPL object code and runs it immediately.
+The following Forth words are defined :
+@ C@ ! C! KEY EMIT . DROP DUP SWAP + - * / : ; BYE
+
+
+ANDROID VERSION
+
+In the method onCreate, the memory is filled with the MPL object code and this code is executed until instruction Q is reached. This code puts the program for handling the button click event at address 6000 (hexadecimal) and puts a jump to this address at address 0. 
+In the method onClick, the interpreter is called again but this time the jump to address 6000 is done and the code for handling the button click event is executed. 
+
+New registers RI and RO are added. 
+RI contains the address at which the EditText content will be copied before calling the interpreter.
+RO contains the address of a character string which will be copied to the EditText after the interpreter stops.
+
+New instructions i and o are added.
+i exchanges RI and R0.
+o exchanges RO and R0.
+
+In the given example, it copies the second character of the EditText to the fourth one. For example, if you type "abcdef", it will be replaced by "abcbef".
+
+
+FILES CONTAINED IN THE DISTRIBUTION
+
+files.txt	List of files
+mpldoc.txt	This file
+mpli.pl		MPL object code interpreter in Perl
+mpli.c		MPL interpreter in C
+mpli.com	MPL interpreter for MS-DOS
+mpli.cvm	MPL interpreter for CVM (see https://sourceforge.net/projects/cvmforth/)
+mplc_labels.pl	MPL compiler pass 1 (labels) in Perl
+mplc_ids.pl	MPL compiler pass 2 (identifiers) in Perl
+hello.mpls	Program example in MPL source code
+hello.mpli	Intermediate code (labels translated)
+hello.mplo	Its translation in MPL object code
+mplc_labels.mpls MPL compiler pass 1 (labels) in MPL source code
+mplc_labels.mpli Intermediate code (labels translated)
+mplc_labels.mplo MPL compiler pass 1 (labels) in MPL object code
+mplc_ids.mpls	MPL compiler pass 2 (identifiers) in MPL source code
+mplc_ids.mpli	Intermediate code (labels translated)
+mplc_ids.mplo	MPL compiler pass 2 (identifiers) in MPL object code
+test.bat	DOS script compiling and running these MPL sources
+test.sh		Shell script compiling and running these MPL sources
+testc.sh	Same with C version of MPL interperter
+mpl-c.sh	Compile and run a MPL source file
+ftm.pl		Translation of Forth into MPL source code
+tfm.4th		Example of Forth code to translate with ftm.pl
+cvmtompls.pl	CVM to MPL source translator in Perl (see project CVM-Forth)
+testcom.bat	Script to test mpli.com
+testcdb.bat	Script to test mpli.com with DOSBOX
+testml.mpo	Test of compiling to x86 machine code
+testgo5.mps 	Example of compiled code
+testgo5p.bat	Build and run this example with Perl compiler (mplc_labels.pl and mplc_ids.pl)
+testgo5c.bat	Idem with machine language compiler (mplc_lab.com and mplc_ids.com)
+testgo6.mps 	Example of compiled code
+testgo6p.bat	Build and run this example with Perl compiler (mplc_labels.pl and mplc_ids.pl)
+testgo6c.bat	Idem with machine language compiler (mplc_lab.com and mplc_ids.com)
+helloc.mps 	"Hello World" program, compiled version
+hellocp.bat	Build and run this example with Perl compiler (mplc_labels.pl and mplc_ids.pl)
+hellocc.bat	Idem with machine language compiler (mplc_lab.com and mplc_ids.com)
+testu.mpls	Test of extension of instruction set
+testu2.mpls	Test of extension of instruction set
+forth.mpls	Compiler of a subset of Forth
+android	folder containing the Android version
+test.cvm	Example of CVM source
+LICENSE.txt	The LGPL license
+
+
+HOW TO RUN A PROGRAM
+
+1) compile labels with the MPL compiler in Perl:
+	mplc_labels.pl hello.mpls hello.mpli
+or with the MPL compiler in MPL:
+	mpli.pl mplc_labels.mplo hello.mpls hello.mpli
+2) compile identifiers with the MPL compiler in Perl
+	mplc_ids.pl hello.mpli hello.mplo
+or with the MPL compiler in MPL:
+	mpli.pl mplc_ids.mplo hello.mpli hello.mplo
+2) run the MPL object code with the MPL interpreter:
+mpli.pl hello.mplo
+
+
+SIZE OF A MEMORY WORD
+
+The size of a memory word depends on the implementation. It is generally 2, 4 or 8. It is defined at the beginning of mpli.pl and mplc_ids.pl (variable $wordsize) and mpli.c (constant WORDSIZE). In MPL source code the address of the first variable defined by [ZERO*n] depends on the size of a memory word, it is n * wordsize. Use the instruction s to get the size of a memory word
+
+
+CHANGE LOG
+
+Version 6 : 
+In mplc_labels and mplc_ids : use '\' to treat ':', '$' and '[' as normal characters.
+In mplc_ids : define arrays [name*size]
+In mplc_labels : Comments between (...)
+
+Version 6 :
+MPL interpreter in C
+Corrections of bugs in mplc_labels.mpls and mplc_ids.mpls
+
+Version 10 :
+instruction ^ replaced by p
+new instruction ^ = exclusive or
+
+Version 11 :
+System calls
+Parametrization with the size of a memory word
+
+Version 12
+MS-DOS interpreter MPLI.COM
+
+Version 13
+Modifications for DOSBOX
+
+Version 14
+Compilation to x86 machine code
+
+Versions 15 and 16
+Execution modes
+
+Version 17
+CVM version of MPLI
+
+Version 18
+Extension of the MPL instruction set
+
+Version 19
+Added instruction X : exchange R0 and R1
+MPL source example : compiler of a subset of Forth
+
+Version 20
+Android version of MPL interpteter in Java
+
+Version 21
+Android version : RD replaced by RI and RO.
+
+
+TO DO
+
+cvmtompls.pl : translate instructions defword, setbradr, getwordstr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

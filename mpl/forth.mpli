@@ -1,0 +1,1222 @@
+[ZERO*1A00]
+#7F00H 
+
+
+h,[digits]W
+{0123456789ABCDEF}
+
+
+h,[code_load_R0]W
+{[code_load_R0_ret]W
+#23_
+#1C,[load_value]R>,#F&,[digits]R+r_
+#18,[load_value]R>,#F&,[digits]R+r_
+#14,[load_value]R>,#F&,[digits]R+r_
+#10,[load_value]R>,#F&,[digits]R+r_
+#C,[load_value]R>,#F&,[digits]R+r_
+#8,[load_value]R>,#F&,[digits]R+r_
+#4,[load_value]R>,#F&,[digits]R+r_
+[load_value]R,#F&,[digits]R+r_
+#,[code_load_R0_ret]R?}
+
+
+h,[putchar]W
+h,[putchar_std]W
+{[putchar_std_ret]W
+ [putchar_char]RP
+ #,[putchar_std_ret]R?}
+
+
+h,[getchar]W
+h,[getchar_std]W
+{[getchar_std_ret]W
+ G,[getchar_char]W
+ #,[getchar_std_ret]R?}
+
+
+h,[getchar_file]W
+{[getchar_file_ret]W
+ [input*2],#20S
+ [input],s+R,[getchar_char]W
+ 
+ [getchar_char]R,}h,[getchar_eof_ref1]W{eeeeeeeee?
+ [getchar_char]R,#1+,}h,[getchar_eof_ref2]W{eeeeeeeee?
+ #,[getchar_file_ret]R?
+ }h,[getchar_eof]W
+[getchar_eof_ref1]RH[getchar_eof]R,[load_value]W#,[code_load_R0]R?
+[getchar_eof_ref2]RH[getchar_eof]R,[load_value]W#,[code_load_R0]R?
+[getchar_eof]RH{
+ 
+ [input]R,#1FS
+ [getchar_std]R,[getchar]W
+ #,[getchar]R?
+ #,[getchar_file_ret]R?}
+
+
+h,[load_file]W
+{[load_file_ret]W
+ [load_file_name]R,#11S[input]W
+ 
+ [getchar_file]R,[getchar]W
+ #,[load_file_ret]R?}
+
+
+h,[display]W
+{[display_ret]W
+}h,[display_loop]W
+[display_loop]RH{
+[display_ptr]Rr,
+}h,[display_end_ref1]W{eeeeeeeee?
+[display_ptr]Rr,[putchar_char]W#,[putchar]R?
+[display_ptr]R,#1+,[display_ptr]W
+#,}[display_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[display_end]W
+[display_end_ref1]RH[display_end]R,[load_value]W#,[code_load_R0]R?
+[display_end]RH{
+#,[display_ret]R?}
+
+h,[displays]W
+{[displays_ret]W
+}h,[displays_loop]W
+[displays_loop]RH{
+[displays_size]R,}h,[displays_end_ref1]W{eeeeeeeee?
+[displays_ptr]Rr,}h,[displays_end_ref2]W{eeeeeeeee?
+[displays_ptr]Rr,[putchar_char]W#,[putchar]R?
+[displays_ptr]R,#1+,[displays_ptr]W
+#1,[displays_size]R-,[displays_size]W
+#,}[displays_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[displays_end]W
+[displays_end_ref1]RH[displays_end]R,[load_value]W#,[code_load_R0]R?
+[displays_end_ref2]RH[displays_end]R,[load_value]W#,[code_load_R0]R?
+[displays_end]RH{
+#,[displays_ret]R?}
+
+
+h,[read_word]W
+{[read_word_ret]W
+#,[read_word_eol]W
+}h,[read_word_loop1]W
+[read_word_loop1]RH{
+#,[getchar]R?[getchar_char]R,[read_word_char]W
+[read_word_char]R,#20-,}[read_word_loop1]R,[load_value]W#,[code_load_R0]R?{?
+[read_word_char]R,#0A-,}[read_word_loop1]R,[load_value]W#,[code_load_R0]R?{?
+[read_word_char]R,#0D-,}[read_word_loop1]R,[load_value]W#,[code_load_R0]R?{?
+[read_word_char]R,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+}h,[read_word_loop]W
+[read_word_loop]RH{
+#,[getchar]R?[getchar_char]R,[read_word_char]W
+[read_word_char]R,#20-,}h,[read_word_end_ref1]W{eeeeeeeee?
+[read_word_char]R,#0A-,}h,[read_word_crlf_ref1]W{eeeeeeeee?
+[read_word_char]R,#0D-,}h,[read_word_crlf_ref2]W{eeeeeeeee?
+[read_word_char]R,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+#,}[read_word_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[read_word_crlf]W
+[read_word_crlf_ref1]RH[read_word_crlf]R,[load_value]W#,[code_load_R0]R?
+[read_word_crlf_ref2]RH[read_word_crlf]R,[load_value]W#,[code_load_R0]R?
+[read_word_crlf]RH{
+#1,[read_word_eol]W
+}h,[read_word_end]W
+[read_word_end_ref1]RH[read_word_end]R,[load_value]W#,[code_load_R0]R?
+[read_word_end]RH{
+#,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+#,[read_word_ret]R?}
+
+
+h,[strcpy]W
+{[strcpy_ret]W
+}h,[strcpy_loop]W{
+[strcpy_src]Rr,[strcpy_dst]Rw
+[strcpy_src]Rr,}h,[strcpy_jmpadr]W{eeeeeeeee?
+[strcpy_src]R,#1+,[strcpy_src]W
+[strcpy_dst]R,#1+,[strcpy_dst]W
+#,}[strcpy_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[strcpy_end]W
+[strcpy_jmpadr]RH[strcpy_end]R,[load_value]W#,[code_load_R0]R?
+[strcpy_end]RH{
+#,[strcpy_ret]R?}
+
+
+h,[strcmp]W
+{[strcmp_ret]W
+}h,[strcmp_loop]W
+[strcmp_loop]RH{
+[strcmp_ptr1]Rr,}h,[strcmp_label1_ref1]W{eeeeeeeee?
+[strcmp_ptr2]Rr,}h,[strcmp_label2_ref1]W{eeeeeeeee?
+[strcmp_ptr1]Rr,[strcmp_ptr2]Rr-,}h,[strcmp_next_ref1]W{eeeeeeeee?
+#1,[strcmp_result]W
+#,}h,[strcmp_end_ref1]W{eeeeeeeee?
+}h,[strcmp_next]W
+[strcmp_next_ref1]RH[strcmp_next]R,[load_value]W#,[code_load_R0]R?
+[strcmp_next]RH{
+[strcmp_ptr1]R,#1+,[strcmp_ptr1]W
+[strcmp_ptr2]R,#1+,[strcmp_ptr2]W
+#,}[strcmp_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[strcmp_label2]W
+[strcmp_label2_ref1]RH[strcmp_label2]R,[load_value]W#,[code_load_R0]R?
+[strcmp_label2]RH{
+#1,[strcmp_result]W
+#,}h,[strcmp_end_ref2]W{eeeeeeeee?
+}h,[strcmp_label1]W
+[strcmp_label1_ref1]RH[strcmp_label1]R,[load_value]W#,[code_load_R0]R?
+[strcmp_label1]RH{
+[strcmp_ptr2]Rr,}h,[strcmp_label6_ref1]W{eeeeeeeee?
+#1,[strcmp_result]W
+#,}h,[strcmp_end_ref3]W{eeeeeeeee?
+}h,[strcmp_label6]W
+[strcmp_label6_ref1]RH[strcmp_label6]R,[load_value]W#,[code_load_R0]R?
+[strcmp_label6]RH{
+#,[strcmp_result]W
+}h,[strcmp_end]W
+[strcmp_end_ref1]RH[strcmp_end]R,[load_value]W#,[code_load_R0]R?
+[strcmp_end_ref2]RH[strcmp_end]R,[load_value]W#,[code_load_R0]R?
+[strcmp_end_ref3]RH[strcmp_end]R,[load_value]W#,[code_load_R0]R?
+[strcmp_end]RH{
+#,[strcmp_ret]R?}
+
+#,[lastword]W
+
+
+h,[search_dic]W
+{[search_dic_ret]W
+#,[search_dic_new]W
+}h,[search_dic_loop]W
+[search_dic_loop]RH{
+[search_dic_ptr]RR,}h,[search_dic_end_ref1]W{eeeeeeeee?
+[search_dic_ptr]RR,[strcmp_ptr1]W
+[search_dic_key]R,[strcmp_ptr2]W
+#,[strcmp]R?
+[strcmp_result]R,}h,[search_dic_found_ref1]W{eeeeeeeee?
+[search_dic_ptr]R,s+,s+,s+,s+,[search_dic_ptr]W
+#,}[search_dic_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[search_dic_end]W
+[search_dic_end_ref1]RH[search_dic_end]R,[load_value]W#,[code_load_R0]R?
+[search_dic_end]RH{
+#1,[search_dic_new]W
+[search_dic_ptr]R,[lastword]W
+[search_dic_ptr]R,s+R,[search_dic_ptr]RW
+[search_dic_key]R,[strcpy_src]W
+[search_dic_ptr]RR,[strcpy_dst]W
+#,[strcpy]R?
+[search_dic_ptr]R,s+,#XW
+[search_dic_ptr]R,s+,s+,s+,s+,s+,[search_dic_adr]W
+[strcpy_dst]R,#1+,[search_dic_adr]RW
+[search_dic_ptr]R,s+,s+,s+,s+,[search_dic_adr]W
+#,[search_dic_adr]RW
+}h,[search_dic_found]W
+[search_dic_found_ref1]RH[search_dic_found]R,[load_value]W#,[code_load_R0]R?
+[search_dic_found]RH{
+#,[search_dic_ret]R?}
+
+
+#,#E200W
+#E200,s+,[adr]W
+#C000,[adr]RW
+
+
+h,[print_hex]W
+{[print_hex_ret]W
+#1C,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#18,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#14,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#10,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#C,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#8,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#4,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+[print_hex_nbr]R,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#,[print_hex_ret]R?}
+
+
+h,[print_dec]W
+{[print_dec_ret]W
+#,[print_dec_ndigits]W
+}h,[print_dec_convert]W
+[print_dec_convert]RH{
+[print_dec_digits*8],[print_dec_ndigits]R+,[print_dec_adr]W
+#A,[print_dec_nbr]R%,#30+,[print_dec_adr]Rw
+#1,[print_dec_ndigits]R+,[print_dec_ndigits]W
+#A,[print_dec_nbr]R/,[print_dec_nbr]W
+[print_dec_nbr]R,}h,[print_dec_display_ref1]W{eeeeeeeee?
+#,}[print_dec_convert]R,[load_value]W#,[code_load_R0]R?{?
+}h,[print_dec_display]W
+[print_dec_display_ref1]RH[print_dec_display]R,[load_value]W#,[code_load_R0]R?
+[print_dec_display]RH{
+[print_dec_ndigits]R,}h,[print_dec_end_ref1]W{eeeeeeeee?
+#1,[print_dec_ndigits]R-,[print_dec_ndigits]W
+[print_dec_digits],[print_dec_ndigits]R+r,[putchar_char]W#,[putchar]R?
+#,}[print_dec_display]R,[load_value]W#,[code_load_R0]R?{?
+}h,[print_dec_end]W
+[print_dec_end_ref1]RH[print_dec_end]R,[load_value]W#,[code_load_R0]R?
+[print_dec_end]RH{
+#,[print_dec_ret]R?}
+
+
+h,[scan_hex]W
+{[scan_hex_ret]W
+#,[scan_hex_res]W
+}h,[scan_hex_loop]W
+[scan_hex_loop]RH{
+#,[getchar]R?[getchar_char]R,[scan_hex_char]W
+[scan_hex_char]R,#30-,}h,[scan_hex_0_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#31-,}h,[scan_hex_1_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#32-,}h,[scan_hex_2_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#33-,}h,[scan_hex_3_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#34-,}h,[scan_hex_4_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#35-,}h,[scan_hex_5_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#36-,}h,[scan_hex_6_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#37-,}h,[scan_hex_7_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#38-,}h,[scan_hex_8_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#39-,}h,[scan_hex_9_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#41-,}h,[scan_hex_A_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#42-,}h,[scan_hex_B_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#43-,}h,[scan_hex_C_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#44-,}h,[scan_hex_D_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#45-,}h,[scan_hex_E_ref1]W{eeeeeeeee?
+[scan_hex_char]R,#46-,}h,[scan_hex_F_ref1]W{eeeeeeeee?
+#,[scan_hex_ret]R?
+}h,[scan_hex_0]W
+[scan_hex_0_ref1]RH[scan_hex_0]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_0]RH{#4,[scan_hex_res]R<,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_1]W
+[scan_hex_1_ref1]RH[scan_hex_1]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_1]RH{#4,[scan_hex_res]R<,#1+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_2]W
+[scan_hex_2_ref1]RH[scan_hex_2]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_2]RH{#4,[scan_hex_res]R<,#2+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_3]W
+[scan_hex_3_ref1]RH[scan_hex_3]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_3]RH{#4,[scan_hex_res]R<,#3+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_4]W
+[scan_hex_4_ref1]RH[scan_hex_4]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_4]RH{#4,[scan_hex_res]R<,#4+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_5]W
+[scan_hex_5_ref1]RH[scan_hex_5]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_5]RH{#4,[scan_hex_res]R<,#5+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_6]W
+[scan_hex_6_ref1]RH[scan_hex_6]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_6]RH{#4,[scan_hex_res]R<,#6+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_7]W
+[scan_hex_7_ref1]RH[scan_hex_7]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_7]RH{#4,[scan_hex_res]R<,#7+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_8]W
+[scan_hex_8_ref1]RH[scan_hex_8]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_8]RH{#4,[scan_hex_res]R<,#8+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_9]W
+[scan_hex_9_ref1]RH[scan_hex_9]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_9]RH{#4,[scan_hex_res]R<,#9+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_A]W
+[scan_hex_A_ref1]RH[scan_hex_A]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_A]RH{#4,[scan_hex_res]R<,#A+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_B]W
+[scan_hex_B_ref1]RH[scan_hex_B]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_B]RH{#4,[scan_hex_res]R<,#B+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_C]W
+[scan_hex_C_ref1]RH[scan_hex_C]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_C]RH{#4,[scan_hex_res]R<,#C+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_D]W
+[scan_hex_D_ref1]RH[scan_hex_D]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_D]RH{#4,[scan_hex_res]R<,#D+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_E]W
+[scan_hex_E_ref1]RH[scan_hex_E]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_E]RH{#4,[scan_hex_res]R<,#E+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_hex_F]W
+[scan_hex_F_ref1]RH[scan_hex_F]R,[load_value]W#,[code_load_R0]R?
+[scan_hex_F]RH{#4,[scan_hex_res]R<,#F+,[scan_hex_res]W#,}[scan_hex_loop]R,[load_value]W#,[code_load_R0]R?{?
+}
+
+
+h,[scan_dec]W
+{[scan_dec_ret]W
+#,[scan_dec_res]W
+}h,[scan_dec_loop]W
+[scan_dec_loop]RH{
+#,[getchar]R?[getchar_char]R,[scan_dec_char]W
+[scan_dec_char]R,#30-,}h,[scan_dec_0_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#31-,}h,[scan_dec_1_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#32-,}h,[scan_dec_2_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#33-,}h,[scan_dec_3_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#34-,}h,[scan_dec_4_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#35-,}h,[scan_dec_5_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#36-,}h,[scan_dec_6_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#37-,}h,[scan_dec_7_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#38-,}h,[scan_dec_8_ref1]W{eeeeeeeee?
+[scan_dec_char]R,#39-,}h,[scan_dec_9_ref1]W{eeeeeeeee?
+#,[scan_dec_ret]R?
+}h,[scan_dec_0]W
+[scan_dec_0_ref1]RH[scan_dec_0]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_0]RH{#A,[scan_dec_res]R*,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_1]W
+[scan_dec_1_ref1]RH[scan_dec_1]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_1]RH{#A,[scan_dec_res]R*,#1+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_2]W
+[scan_dec_2_ref1]RH[scan_dec_2]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_2]RH{#A,[scan_dec_res]R*,#2+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_3]W
+[scan_dec_3_ref1]RH[scan_dec_3]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_3]RH{#A,[scan_dec_res]R*,#3+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_4]W
+[scan_dec_4_ref1]RH[scan_dec_4]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_4]RH{#A,[scan_dec_res]R*,#4+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_5]W
+[scan_dec_5_ref1]RH[scan_dec_5]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_5]RH{#A,[scan_dec_res]R*,#5+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_6]W
+[scan_dec_6_ref1]RH[scan_dec_6]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_6]RH{#A,[scan_dec_res]R*,#6+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_7]W
+[scan_dec_7_ref1]RH[scan_dec_7]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_7]RH{#A,[scan_dec_res]R*,#7+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_8]W
+[scan_dec_8_ref1]RH[scan_dec_8]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_8]RH{#A,[scan_dec_res]R*,#8+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[scan_dec_9]W
+[scan_dec_9_ref1]RH[scan_dec_9]R,[load_value]W#,[code_load_R0]R?
+[scan_dec_9]RH{#A,[scan_dec_res]R*,#9+,[scan_dec_res]W#,}[scan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}
+
+
+h,[sscan_dec]W
+{[sscan_dec_ret]W
+#,[sscan_dec_res]W
+}h,[sscan_dec_loop]W
+[sscan_dec_loop]RH{
+[sscan_dec_ptr]Rr,[sscan_dec_char]W
+#1,[sscan_dec_ptr]R+,[sscan_dec_ptr]W
+[sscan_dec_char]R,#30-,}h,[sscan_dec_0_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#31-,}h,[sscan_dec_1_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#32-,}h,[sscan_dec_2_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#33-,}h,[sscan_dec_3_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#34-,}h,[sscan_dec_4_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#35-,}h,[sscan_dec_5_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#36-,}h,[sscan_dec_6_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#37-,}h,[sscan_dec_7_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#38-,}h,[sscan_dec_8_ref1]W{eeeeeeeee?
+[sscan_dec_char]R,#39-,}h,[sscan_dec_9_ref1]W{eeeeeeeee?
+#,[sscan_dec_ret]R?
+}h,[sscan_dec_0]W
+[sscan_dec_0_ref1]RH[sscan_dec_0]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_0]RH{#A,[sscan_dec_res]R*,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_1]W
+[sscan_dec_1_ref1]RH[sscan_dec_1]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_1]RH{#A,[sscan_dec_res]R*,#1+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_2]W
+[sscan_dec_2_ref1]RH[sscan_dec_2]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_2]RH{#A,[sscan_dec_res]R*,#2+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_3]W
+[sscan_dec_3_ref1]RH[sscan_dec_3]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_3]RH{#A,[sscan_dec_res]R*,#3+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_4]W
+[sscan_dec_4_ref1]RH[sscan_dec_4]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_4]RH{#A,[sscan_dec_res]R*,#4+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_5]W
+[sscan_dec_5_ref1]RH[sscan_dec_5]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_5]RH{#A,[sscan_dec_res]R*,#5+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_6]W
+[sscan_dec_6_ref1]RH[sscan_dec_6]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_6]RH{#A,[sscan_dec_res]R*,#6+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_7]W
+[sscan_dec_7_ref1]RH[sscan_dec_7]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_7]RH{#A,[sscan_dec_res]R*,#7+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_8]W
+[sscan_dec_8_ref1]RH[sscan_dec_8]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_8]RH{#A,[sscan_dec_res]R*,#8+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[sscan_dec_9]W
+[sscan_dec_9_ref1]RH[sscan_dec_9]R,[load_value]W#,[code_load_R0]R?
+[sscan_dec_9]RH{#A,[sscan_dec_res]R*,#9+,[sscan_dec_res]W#,}[sscan_dec_loop]R,[load_value]W#,[code_load_R0]R?{?
+}
+
+h,[beginim]W
+{[beginim_ret]W
+h,[svrc]W
+#7100H
+{[imcode_ret]W}}{
+#,[beginim_ret]R?}
+
+h,[endim]W
+{[endim_ret]W
+{#,[imcode_ret]R?}}{
+[svrc]RH
+
+#,#7100?
+#,[endim_ret]R?}
+
+h,[getword]W
+{[getword_ret]W
+#7200,[read_word_ptr]W
+#,[read_word]R?
+#E200,[search_dic_ptr]W
+#7200,[search_dic_key]W
+#,[search_dic]R?
+#,[getword_ret]R?}
+
+h,[code_beginf]W
+{[code_beginf_ret]W
+{
+[adr]Ws,[rp]R-,[rp]W[adr]R,[rp]RW
+}}{
+#,[code_beginf_ret]R?}
+
+h,[code_endf]W
+{[code_endf_ret]W
+{
+[rp]RR,[adr]Ws,[rp]R+,[rp]W#,[adr]R?
+}}{
+#,[code_endf_ret]R?}
+
+h,[execword]W
+#,[code_beginf]R?
+{
+[search_dic_ptr]R,s+R,[adr]W
+[adr]R,}h,[execword_undef_ref1]W{eeeeeeeee?
+#,[adr]R?
+}#,[code_endf]R?{
+}h,[execword_undef]W
+[execword_undef_ref1]RH[execword_undef]R,[load_value]W#,[code_load_R0]R?
+[execword_undef]RH{
+[search_dic_ptr]RR,[sscan_dec_ptr]W#,[sscan_dec]R?
+[sscan_dec_res]R,[load_value]W#,[code_load_R0]R?
+{
+,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW
+}}
+#,[code_endf]R?
+
+
+
+h,[calldef]W
+{[calldef_ret]W
+{#,}}{
+s,[search_dic_ptr]R++R,[load_value]W#,[code_load_R0]R?
+{?}}{
+#,[calldef_ret]R?}
+
+h,[code_call]W
+{[code_call_ret]W
+{#,}}{
+[code_call_adr]R,[load_value]W#,[code_load_R0]R?
+{?}}{
+#,[code_call_ret]R?}
+
+h,[welcome]W
+{Welcome to MPL-Forth
+}#_
+
+
+h,[forth]W
+{[forth_ret]W
+#7000,[sp]W
+#6800,[rp]W
+#B000,[rp1]W
+#F000H
+[welcome]R,[display_ptr]W#,[display]R?
+#1,[mode]W
+#0,[iflevel]W
+}h,[mainloop]W
+[mainloop]RH{
+ 
+[mode]R,}h,[mode0a_ref1]W{eeeeeeeee?
+#,[beginim]R?
+}h,[mode0a]W
+[mode0a_ref1]RH[mode0a]R,[load_value]W#,[code_load_R0]R?
+[mode0a]RH{
+#,[getword]R?
+#,[execword]R?
+[mode]R,}h,[mode0b_ref1]W{eeeeeeeee?
+#,[endim]R?
+}h,[mode0b]W
+[mode0b_ref1]RH[mode0b]R,[load_value]W#,[code_load_R0]R?
+[mode0b]RH{
+#,}[mainloop]R,[load_value]W#,[code_load_R0]R?{?}
+
+
+h,[addp]W
+{[addp_ret]W
+[pname]R,[init_dic_ptr]RW
+[init_dic_ptr]R,s+,[adr]W
+[pcode]R,[adr]RW
+[init_dic_ptr]R,s+,s+,s+,s+,[init_dic_ptr]W
+#,[init_dic_ptr]RW
+[init_dic_ptr]R,s+,[adr]W
+#C000,[adr]RW
+#,[addp_ret]R?}
+
+#E200,[init_dic_ptr]W
+
+h,[pname]W{}#_
+h,[pcode]W
+{[ret]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{NOP}#_
+h,[pcode]W
+{[ret]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HEXLIT}#_
+h,[pcode]W
+{[ret]W
+#,[scan_hex]R?
+[scan_hex_res]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LIT}#_
+h,[pcode]W
+{[ret]W
+#,[scan_dec]R?
+[scan_dec_res]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{@}#_
+h,[pcode]W
+{[ret]W
+{[sp]RRR,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C@}#_
+h,[pcode]W
+{[ret]W
+{[sp]RRr,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[adr]Ws,[sp]R+R,[adr]RWs,[sp]R++,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[adr]Ws,[sp]R+R,[adr]Rws,[sp]R++,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{KEY}#_
+h,[pcode]W
+{[ret]W
+{s,[sp]R-,[sp]W
+ #,[getchar]R?[getchar_char]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EMIT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[putchar_char]W#,[putchar]R?
+ s,[sp]R+[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HEX.}#_
+h,[pcode]W
+{[ret]W
+{#20,[putchar_char]W#,[putchar]R?
+ [sp]RR,[print_hex_nbr]W#,[print_hex]R?
+ #20,[putchar_char]W#,[putchar]R?
+ s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{.}#_
+h,[pcode]W
+{[ret]W
+{#20,[putchar_char]W#,[putchar]R?
+ [sp]RR,[print_dec_nbr]W#,[print_dec]R?
+ #20,[putchar_char]W#,[putchar]R?
+ s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{TYPE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[displays_size]W
+  s,[sp]R+,[sp]W
+  [sp]RR,[displays_ptr]W
+  s,[sp]R+,[sp]W
+  #,[displays]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ZTYPE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[display_ptr]W
+  s,[sp]R+,[sp]W
+  #,[display]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DROP}#_
+h,[pcode]W
+{[ret]W
+{s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DUP}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SWAP}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[adr]W#|R,[sp]RW[x]R,[adr]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{+}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R+,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{-}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX-,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{*}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R*,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{/}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX/,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MOD}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX%,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{AND}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R&,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{OR}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R|,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LSHIFT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX<,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{RSHIFT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX>,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\:}#_
+h,[pcode]W
+{[ret]W
+[svrc]RH
+#,[getword]R?
+[search_dic_ptr]R,[defw]W
+s,[search_dic_ptr]R+,[calldef]RXW
+s,[search_dic_ptr]R++,hXW
+#,[code_beginf]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MACRO\:}#_
+h,[pcode]W
+{[ret]W
+[svrc]RH
+#,[getword]R?
+[search_dic_ptr]R,[defw]W
+s,[search_dic_ptr]R+,hXW
+s,[search_dic_ptr]R++,#XW
+#,[code_beginf]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;}#_
+h,[pcode]W
+{[ret]W
+#,[code_endf]R?
+#1,[mode]W
+#,[beginim]R?
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HERE1}#_
+h,[pcode]W
+{[ret]W
+h,[load_value]W#,[code_load_R0]R?
+{,[x]W
+ s,[sp]R-,[sp]W
+ [x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HERE}#_
+h,[pcode]W
+{[ret]W
+[svrc]R,[load_value]W#,[code_load_R0]R?
+{,[x]W
+ s,[sp]R-,[sp]W
+ [x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SP@}#_
+h,[pcode]W
+{[ret]W
+{[sp]R,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SP!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[}#_
+h,[pcode]W
+{[ret]W
+#,[beginim]R?
+#1,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{]}#_
+h,[pcode]W
+{[ret]W
+#,[endim]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{IMMEDIATE}#_
+h,[pcode]W
+{[ret]W
+s,[defw]R++R,[x]W
+s,[defw]R+,[x]RXW
+#,[ret]R?}
+#,[addp]R?
+
+h,[getparam]W
+{[getparam_ret]W
+
+s,[search_dic_ptr]R++R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[getparam_ret]R?}
+
+h,[pname]W{\[CREATE]}#_
+h,[pcode]W
+h,[code_icreate]W
+{[ret]W
+#,[getword]R?
+s,[search_dic_ptr]R+,[getparam]RXW
+s,[search_dic_ptr]R++,hXW
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{CREATE}#_
+h,[pcode]W
+{[ret]W
+{#,[code_icreate]R?}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ALLOT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,h+H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DOES>}#_
+h,[pcode]W
+{[ret]W
+{
+s,[lastword]R+,}}{
+h,[adr1]W
+{#eeeeeeeeXW}}{
+#,[code_endf]R?
+h,[adr2]W
+
+[adr1]RH
+[adr2]R,[load_value]W#,[code_load_R0]R?
+{XW}}{
+#,[code_endf]R?
+#,[code_beginf]R?
+{#,[getparam]R?}}{
+h,[adr3]W
+{#eeeeeeee,[code_call_adr]W
+#,[code_call]R?}}{
+#,[code_endf]R?
+h,[adr4]W
+
+[adr3]RH
+[adr4]R,[load_value]W#,[code_load_R0]R?
+{,[code_call_adr]W#,[code_call]R?}}{
+#,[code_endf]R?
+#,[code_beginf]R?
+
+#,[ret]R?}
+#,[addp]R? 
+
+h,[pname]W{,}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,hW
+ s,h+,H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C,}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,hw
+ #1,h+,H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[']}#_
+h,[pcode]W
+{[ret]W
+#,[getword]R?
+[search_dic_ptr]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{'}#_
+h,[pcode]W
+{[ret]W
+{#,[getword]R?
+ s,[sp]R-,[sp]W[search_dic_ptr]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EXECUTE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  s,[x]R++R,#X?}}{
+ #,[ret]R?}
+#,[addp]R? 
+
+h,[pname]W{EXECUTE2}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  [x]R,[search_dic_ptr]W
+  #,[execword]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[COMPILE]}#_
+h,[pcode]W
+{[ret]W
+ #,[getword]R?
+ #,[execword]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{COMPILE}#_
+h,[pcode]W
+{[compile_ret]W
+ #,[getword]R?
+ [search_dic_ptr]R,[load_value]W#,[code_load_R0]R?
+ {,[search_dic_ptr]W
+  #,[execword]R?}}{
+ #,[compile_ret]R?}
+#,[addp]R?
+
+h,[pname]W{IF}#_
+h,[pcode]W
+{[ret]W
+ s,[iflevel]R+,[iflevel]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W[x]R,}}{
+ [adrif*10],[iflevel]R+,hXW
+ [adrelse*10],[iflevel]R+,#XW
+ {#eeeeeeee?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ELSE}#_
+h,[pcode]W
+{[ret]W
+ {#,}}{
+ [adrelse],[iflevel]R+,hXW
+ {#eeeeeeee?}}{
+ h,[jmpadr]W
+ [adrif],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{THEN}#_
+h,[pcode]W
+{[ret]W
+ [adrelse],[iflevel]R+R,}h,[thena_ref1]W{eeeeeeeee?
+ h,[jmpadr]W
+ [adrelse],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,}h,[thenb_ref1]W{eeeeeeeee?
+ }h,[thena]W
+[thena_ref1]RH[thena]R,[load_value]W#,[code_load_R0]R?
+[thena]RH{
+ h,[jmpadr]W
+ [adrif],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ }h,[thenb]W
+[thenb_ref1]RH[thenb]R,[load_value]W#,[code_load_R0]R?
+[thenb]RH{
+ s,[iflevel]R-,[iflevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{BEGIN}#_
+h,[pcode]W
+{[ret]W
+ s,[wlevel]R+,[wlevel]W
+ [adrwhile*10],[wlevel]R+,hXW
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{WHILE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W[x]R,}}{
+ [adrdo*10],[wlevel]R+,hXW
+ {#eeeeeeee?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{REPEAT}#_
+h,[pcode]W
+{[ret]W
+ {#,}}{
+ h,[r2]W
+ {#eeeeeeee?}}{
+ h,[jmpadr]W
+ [r2]RH
+ [adrwhile],[wlevel]R+R,[load_value]W#,[code_load_R0]R?
+ [adrdo],[wlevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ s,[wlevel]R-,[wlevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LAMBDA1}#_
+h,[pcode]W
+{[ret]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ h,[adrblambda*10]W
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ #,[code_beginf]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;LAMBDA1}#_
+h,[pcode]W
+{[ret]W
+ #,[code_endf]R?
+ h,[jmpadr]W
+ [adrblambda]RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LAMBDA}#_
+h,[pcode]W
+{[ret]W
+ s,[lambdalevel]R+,[lambdalevel]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ [adrblambda],[lambdalevel]R+,hXW
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ #,[code_beginf]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;LAMBDA}#_
+h,[pcode]W
+{[ret]W
+ #,[code_endf]R?
+ h,[jmpadr]W
+ [adrblambda],[lambdalevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ s,[lambdalevel]R-,[lambdalevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{Z"}#_
+h,[pcode]W
+{[ret]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ h,[adrbzs]W
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ }h,[lsz]W
+[lsz]RH{
+ #,[getchar]R?[getchar_char]R,[char]W
+ [char]R,#22-,}h,[esz_ref1]W{eeeeeeeee?
+ [char]R_
+ #,}[lsz]R,[load_value]W#,[code_load_R0]R?{?
+ }h,[esz]W
+[esz_ref1]RH[esz]R,[load_value]W#,[code_load_R0]R?
+[esz]RH{
+ #_
+ #3,h+,#3~&H
+ h,[jmpadr]W
+ [adrbzs]RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EXECMPL}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  #,[x]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MPL}#_
+h,[pcode]W
+{[ret]W
+ }h,[mplloop]W
+[mplloop]RH{
+ #,[getchar]R?
+ [getchar_char]R,#2E-,}h,[mplend_ref1]W{eeeeeeeee?
+ [getchar_char]R_
+ #,}[mplloop]R,[load_value]W#,[code_load_R0]R?{?
+ }h,[mplend]W
+[mplend_ref1]RH[mplend]R,[load_value]W#,[code_load_R0]R?
+[mplend]RH{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LOAD}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  [x]R,[load_file_name]W#,[load_file]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LOAD"}#_
+h,[pcode]W
+{[ret]W
+ #,[i]W
+ }h,[load_loop]W
+[load_loop]RH{
+ #,[getchar]R?
+ [getchar_char]R,#22-,}h,[load_end_ref1]W{eeeeeeeee?
+ [load_name*20],[i]R+,[getchar_char]RXw
+ #1,[i]R+,[i]W
+ #,}[load_loop]R,[load_value]W#,[code_load_R0]R?{?
+ }h,[load_end]W
+[load_end_ref1]RH[load_end]R,[load_value]W#,[code_load_R0]R?
+[load_end]RH{
+ [load_name],[i]R+,#Xw
+ 
+ [load_name],[load_file_name]W#,[load_file]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{TRACE}#_
+h,[pcode]W
+{[ret]W
+{t}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{STEP}#_
+h,[pcode]W
+{[ret]W
+{T}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{BYE}#_
+h,[pcode]W
+{[ret]W
+{Q}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[test]W
+{[test_ret]W
+}h,[test_loop]W
+[test_loop]RH{
+#7200,[read_word_ptr]W
+#,[read_word]R?
+[read_word_eol]R,#30+P
+#28P#7200,[display_ptr]W#,[display]R?#29P
+#,}[test_loop]R,[load_value]W#,[code_load_R0]R?{?
+#,[test_ret]R?}
+
+
+
+
+#,[forth]R?
+
+
+

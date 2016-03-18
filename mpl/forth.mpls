@@ -1,0 +1,1093 @@
+[ZERO*1A00]
+#7F00H ( Begin of program )
+
+( hexadecimal digits )
+h,[digits]W
+{0123456789ABCDEF}
+
+( coding of loading of R0 )
+h,[code_load_R0]W
+{[code_load_R0_ret]W
+#23_
+#1C,[load_value]R>,#F&,[digits]R+r_
+#18,[load_value]R>,#F&,[digits]R+r_
+#14,[load_value]R>,#F&,[digits]R+r_
+#10,[load_value]R>,#F&,[digits]R+r_
+#C,[load_value]R>,#F&,[digits]R+r_
+#8,[load_value]R>,#F&,[digits]R+r_
+#4,[load_value]R>,#F&,[digits]R+r_
+[load_value]R,#F&,[digits]R+r_
+#,[code_load_R0_ret]R?}
+
+( character output )
+h,[putchar]W
+h,[putchar_std]W
+{[putchar_std_ret]W
+ [putchar_char]RP
+ #,[putchar_std_ret]R?}
+
+( character input )
+h,[getchar]W
+h,[getchar_std]W
+{[getchar_std_ret]W
+ G,[getchar_char]W
+ #,[getchar_std_ret]R?}
+
+( character input from file )
+h,[getchar_file]W
+{[getchar_file_ret]W
+ [input*2],#20S
+ [input],s+R,[getchar_char]W
+ ( [getchar_char]R,[print_hex_nbr]W#,[print_hex]R?#20P )
+ [getchar_char]R,$getchar_eof$?
+ [getchar_char]R,#1+,$getchar_eof$?
+ #,[getchar_file_ret]R?
+ :getchar_eof:
+ ( [input]R,[print_hex_nbr]W#,[print_hex]R?#20P )
+ [input]R,#1FS
+ [getchar_std]R,[getchar]W
+ #,[getchar]R?
+ #,[getchar_file_ret]R?}
+
+( load file )
+h,[load_file]W
+{[load_file_ret]W
+ [load_file_name]R,#11S[input]W
+ ( [input]R,[print_hex_nbr]W#,[print_hex]R?#20P )
+ [getchar_file]R,[getchar]W
+ #,[load_file_ret]R?}
+
+( display a string )
+h,[display]W
+{[display_ret]W
+:display_loop:
+[display_ptr]Rr,
+$display_end$?
+[display_ptr]Rr,[putchar_char]W#,[putchar]R?
+[display_ptr]R,#1+,[display_ptr]W
+#,$display_loop$?
+:display_end:
+#,[display_ret]R?}
+
+h,[displays]W
+{[displays_ret]W
+:displays_loop:
+[displays_size]R,$displays_end$?
+[displays_ptr]Rr,$displays_end$?
+[displays_ptr]Rr,[putchar_char]W#,[putchar]R?
+[displays_ptr]R,#1+,[displays_ptr]W
+#1,[displays_size]R-,[displays_size]W
+#,$displays_loop$?
+:displays_end:
+#,[displays_ret]R?}
+
+( read a word )
+h,[read_word]W
+{[read_word_ret]W
+#,[read_word_eol]W
+:read_word_loop1:
+#,[getchar]R?[getchar_char]R,[read_word_char]W
+[read_word_char]R,#20-,$read_word_loop1$?
+[read_word_char]R,#0A-,$read_word_loop1$?
+[read_word_char]R,#0D-,$read_word_loop1$?
+[read_word_char]R,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+:read_word_loop:
+#,[getchar]R?[getchar_char]R,[read_word_char]W
+[read_word_char]R,#20-,$read_word_end$?
+[read_word_char]R,#0A-,$read_word_crlf$?
+[read_word_char]R,#0D-,$read_word_crlf$?
+[read_word_char]R,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+#,$read_word_loop$?
+:read_word_crlf:
+#1,[read_word_eol]W
+:read_word_end:
+#,[read_word_ptr]Rw,#1+,[read_word_ptr]W
+#,[read_word_ret]R?}
+
+( copy string )
+h,[strcpy]W
+{[strcpy_ret]W
+}h,[strcpy_loop]W{
+[strcpy_src]Rr,[strcpy_dst]Rw
+[strcpy_src]Rr,}h,[strcpy_jmpadr]W{eeeeeeeee?
+[strcpy_src]R,#1+,[strcpy_src]W
+[strcpy_dst]R,#1+,[strcpy_dst]W
+#,}[strcpy_loop]R,[load_value]W#,[code_load_R0]R?{?
+}h,[strcpy_end]W
+[strcpy_jmpadr]RH[strcpy_end]R,[load_value]W#,[code_load_R0]R?
+[strcpy_end]RH{
+#,[strcpy_ret]R?}
+
+( compare strings )
+h,[strcmp]W
+{[strcmp_ret]W
+:strcmp_loop:
+[strcmp_ptr1]Rr,$strcmp_label1$?
+[strcmp_ptr2]Rr,$strcmp_label2$?
+[strcmp_ptr1]Rr,[strcmp_ptr2]Rr-,$strcmp_next$?
+#1,[strcmp_result]W
+#,$strcmp_end$?
+:strcmp_next:
+[strcmp_ptr1]R,#1+,[strcmp_ptr1]W
+[strcmp_ptr2]R,#1+,[strcmp_ptr2]W
+#,$strcmp_loop$?
+:strcmp_label2:
+#1,[strcmp_result]W
+#,$strcmp_end$?
+:strcmp_label1:
+[strcmp_ptr2]Rr,$strcmp_label6$?
+#1,[strcmp_result]W
+#,$strcmp_end$?
+:strcmp_label6:
+#,[strcmp_result]W
+:strcmp_end:
+#,[strcmp_ret]R?}
+
+#,[lastword]W
+
+( find or create word in dictionary )
+h,[search_dic]W
+{[search_dic_ret]W
+#,[search_dic_new]W
+:search_dic_loop:
+[search_dic_ptr]RR,$search_dic_end$?
+[search_dic_ptr]RR,[strcmp_ptr1]W
+[search_dic_key]R,[strcmp_ptr2]W
+#,[strcmp]R?
+[strcmp_result]R,$search_dic_found$?
+[search_dic_ptr]R,s+,s+,s+,s+,[search_dic_ptr]W
+#,$search_dic_loop$?
+:search_dic_end:
+#1,[search_dic_new]W
+[search_dic_ptr]R,[lastword]W
+[search_dic_ptr]R,s+R,[search_dic_ptr]RW
+[search_dic_key]R,[strcpy_src]W
+[search_dic_ptr]RR,[strcpy_dst]W
+#,[strcpy]R?
+[search_dic_ptr]R,s+,#XW
+[search_dic_ptr]R,s+,s+,s+,s+,s+,[search_dic_adr]W
+[strcpy_dst]R,#1+,[search_dic_adr]RW
+[search_dic_ptr]R,s+,s+,s+,s+,[search_dic_adr]W
+#,[search_dic_adr]RW
+:search_dic_found:
+#,[search_dic_ret]R?}
+
+( initial dictionary at address E200 hex )
+#,#E200W
+#E200,s+,[adr]W
+#C000,[adr]RW
+
+( print hexadecimal )
+h,[print_hex]W
+{[print_hex_ret]W
+#1C,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#18,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#14,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#10,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#C,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#8,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#4,[print_hex_nbr]R>,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+[print_hex_nbr]R,#F&,[digits]R+r,[putchar_char]W#,[putchar]R?
+#,[print_hex_ret]R?}
+
+( print decimal )
+h,[print_dec]W
+{[print_dec_ret]W
+#,[print_dec_ndigits]W
+:print_dec_convert:
+[print_dec_digits*8],[print_dec_ndigits]R+,[print_dec_adr]W
+#A,[print_dec_nbr]R%,#30+,[print_dec_adr]Rw
+#1,[print_dec_ndigits]R+,[print_dec_ndigits]W
+#A,[print_dec_nbr]R/,[print_dec_nbr]W
+[print_dec_nbr]R,$print_dec_display$?
+#,$print_dec_convert$?
+:print_dec_display:
+[print_dec_ndigits]R,$print_dec_end$?
+#1,[print_dec_ndigits]R-,[print_dec_ndigits]W
+[print_dec_digits],[print_dec_ndigits]R+r,[putchar_char]W#,[putchar]R?
+#,$print_dec_display$?
+:print_dec_end:
+#,[print_dec_ret]R?}
+
+(scan hexadecimal)
+h,[scan_hex]W
+{[scan_hex_ret]W
+#,[scan_hex_res]W
+:scan_hex_loop:
+#,[getchar]R?[getchar_char]R,[scan_hex_char]W
+[scan_hex_char]R,#30-,$scan_hex_0$?
+[scan_hex_char]R,#31-,$scan_hex_1$?
+[scan_hex_char]R,#32-,$scan_hex_2$?
+[scan_hex_char]R,#33-,$scan_hex_3$?
+[scan_hex_char]R,#34-,$scan_hex_4$?
+[scan_hex_char]R,#35-,$scan_hex_5$?
+[scan_hex_char]R,#36-,$scan_hex_6$?
+[scan_hex_char]R,#37-,$scan_hex_7$?
+[scan_hex_char]R,#38-,$scan_hex_8$?
+[scan_hex_char]R,#39-,$scan_hex_9$?
+[scan_hex_char]R,#41-,$scan_hex_A$?
+[scan_hex_char]R,#42-,$scan_hex_B$?
+[scan_hex_char]R,#43-,$scan_hex_C$?
+[scan_hex_char]R,#44-,$scan_hex_D$?
+[scan_hex_char]R,#45-,$scan_hex_E$?
+[scan_hex_char]R,#46-,$scan_hex_F$?
+#,[scan_hex_ret]R?
+:scan_hex_0:#4,[scan_hex_res]R<,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_1:#4,[scan_hex_res]R<,#1+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_2:#4,[scan_hex_res]R<,#2+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_3:#4,[scan_hex_res]R<,#3+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_4:#4,[scan_hex_res]R<,#4+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_5:#4,[scan_hex_res]R<,#5+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_6:#4,[scan_hex_res]R<,#6+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_7:#4,[scan_hex_res]R<,#7+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_8:#4,[scan_hex_res]R<,#8+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_9:#4,[scan_hex_res]R<,#9+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_A:#4,[scan_hex_res]R<,#A+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_B:#4,[scan_hex_res]R<,#B+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_C:#4,[scan_hex_res]R<,#C+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_D:#4,[scan_hex_res]R<,#D+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_E:#4,[scan_hex_res]R<,#E+,[scan_hex_res]W#,$scan_hex_loop$?
+:scan_hex_F:#4,[scan_hex_res]R<,#F+,[scan_hex_res]W#,$scan_hex_loop$?
+}
+
+(scan decimal)
+h,[scan_dec]W
+{[scan_dec_ret]W
+#,[scan_dec_res]W
+:scan_dec_loop:
+#,[getchar]R?[getchar_char]R,[scan_dec_char]W
+[scan_dec_char]R,#30-,$scan_dec_0$?
+[scan_dec_char]R,#31-,$scan_dec_1$?
+[scan_dec_char]R,#32-,$scan_dec_2$?
+[scan_dec_char]R,#33-,$scan_dec_3$?
+[scan_dec_char]R,#34-,$scan_dec_4$?
+[scan_dec_char]R,#35-,$scan_dec_5$?
+[scan_dec_char]R,#36-,$scan_dec_6$?
+[scan_dec_char]R,#37-,$scan_dec_7$?
+[scan_dec_char]R,#38-,$scan_dec_8$?
+[scan_dec_char]R,#39-,$scan_dec_9$?
+#,[scan_dec_ret]R?
+:scan_dec_0:#A,[scan_dec_res]R*,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_1:#A,[scan_dec_res]R*,#1+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_2:#A,[scan_dec_res]R*,#2+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_3:#A,[scan_dec_res]R*,#3+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_4:#A,[scan_dec_res]R*,#4+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_5:#A,[scan_dec_res]R*,#5+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_6:#A,[scan_dec_res]R*,#6+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_7:#A,[scan_dec_res]R*,#7+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_8:#A,[scan_dec_res]R*,#8+,[scan_dec_res]W#,$scan_dec_loop$?
+:scan_dec_9:#A,[scan_dec_res]R*,#9+,[scan_dec_res]W#,$scan_dec_loop$?
+}
+
+(scan decimal)
+h,[sscan_dec]W
+{[sscan_dec_ret]W
+#,[sscan_dec_res]W
+:sscan_dec_loop:
+[sscan_dec_ptr]Rr,[sscan_dec_char]W
+#1,[sscan_dec_ptr]R+,[sscan_dec_ptr]W
+[sscan_dec_char]R,#30-,$sscan_dec_0$?
+[sscan_dec_char]R,#31-,$sscan_dec_1$?
+[sscan_dec_char]R,#32-,$sscan_dec_2$?
+[sscan_dec_char]R,#33-,$sscan_dec_3$?
+[sscan_dec_char]R,#34-,$sscan_dec_4$?
+[sscan_dec_char]R,#35-,$sscan_dec_5$?
+[sscan_dec_char]R,#36-,$sscan_dec_6$?
+[sscan_dec_char]R,#37-,$sscan_dec_7$?
+[sscan_dec_char]R,#38-,$sscan_dec_8$?
+[sscan_dec_char]R,#39-,$sscan_dec_9$?
+#,[sscan_dec_ret]R?
+:sscan_dec_0:#A,[sscan_dec_res]R*,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_1:#A,[sscan_dec_res]R*,#1+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_2:#A,[sscan_dec_res]R*,#2+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_3:#A,[sscan_dec_res]R*,#3+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_4:#A,[sscan_dec_res]R*,#4+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_5:#A,[sscan_dec_res]R*,#5+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_6:#A,[sscan_dec_res]R*,#6+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_7:#A,[sscan_dec_res]R*,#7+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_8:#A,[sscan_dec_res]R*,#8+,[sscan_dec_res]W#,$sscan_dec_loop$?
+:sscan_dec_9:#A,[sscan_dec_res]R*,#9+,[sscan_dec_res]W#,$sscan_dec_loop$?
+}
+
+h,[beginim]W
+{[beginim_ret]W
+h,[svrc]W
+#7100H
+{[imcode_ret]W}}{
+#,[beginim_ret]R?}
+
+h,[endim]W
+{[endim_ret]W
+{#,[imcode_ret]R?}}{
+[svrc]RH
+( #28P[sp]R,[print_hex_nbr]W#,[print_hex]R?#29P )
+#,#7100?
+#,[endim_ret]R?}
+
+h,[getword]W
+{[getword_ret]W
+#7200,[read_word_ptr]W
+#,[read_word]R?
+#E200,[search_dic_ptr]W
+#7200,[search_dic_key]W
+#,[search_dic]R?
+#,[getword_ret]R?}
+
+h,[code_beginf]W
+{[code_beginf_ret]W
+{
+[adr]Ws,[rp]R-,[rp]W[adr]R,[rp]RW
+}}{
+#,[code_beginf_ret]R?}
+
+h,[code_endf]W
+{[code_endf_ret]W
+{
+[rp]RR,[adr]Ws,[rp]R+,[rp]W#,[adr]R?
+}}{
+#,[code_endf_ret]R?}
+
+h,[execword]W
+#,[code_beginf]R?
+{
+[search_dic_ptr]R,s+R,[adr]W
+[adr]R,$execword_undef$?
+#,[adr]R?
+}#,[code_endf]R?{
+:execword_undef:
+[search_dic_ptr]RR,[sscan_dec_ptr]W#,[sscan_dec]R?
+[sscan_dec_res]R,[load_value]W#,[code_load_R0]R?
+{
+,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW
+}}
+#,[code_endf]R?
+
+(
+[execword],[displays_ptr]W
+#1000,[displays_size]W
+#,[displays]R?
+)
+
+h,[calldef]W
+{[calldef_ret]W
+{#,}}{
+s,[search_dic_ptr]R++R,[load_value]W#,[code_load_R0]R?
+{?}}{
+#,[calldef_ret]R?}
+
+h,[code_call]W
+{[code_call_ret]W
+{#,}}{
+[code_call_adr]R,[load_value]W#,[code_load_R0]R?
+{?}}{
+#,[code_call_ret]R?}
+
+h,[welcome]W
+{Welcome to MPL-Forth
+}#_
+
+( main program )
+h,[forth]W
+{[forth_ret]W
+#7000,[sp]W
+#6800,[rp]W
+#B000,[rp1]W
+#F000H
+[welcome]R,[display_ptr]W#,[display]R?
+#1,[mode]W
+#0,[iflevel]W
+:mainloop:
+( [mode]R,#30+P ) 
+[mode]R,$mode0a$?
+#,[beginim]R?
+:mode0a:
+#,[getword]R?
+#,[execword]R?
+[mode]R,$mode0b$?
+#,[endim]R?
+:mode0b:
+#,$mainloop$?}
+
+( Forth primitives )
+h,[addp]W
+{[addp_ret]W
+[pname]R,[init_dic_ptr]RW
+[init_dic_ptr]R,s+,[adr]W
+[pcode]R,[adr]RW
+[init_dic_ptr]R,s+,s+,s+,s+,[init_dic_ptr]W
+#,[init_dic_ptr]RW
+[init_dic_ptr]R,s+,[adr]W
+#C000,[adr]RW
+#,[addp_ret]R?}
+
+#E200,[init_dic_ptr]W
+
+h,[pname]W{}#_
+h,[pcode]W
+{[ret]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{NOP}#_
+h,[pcode]W
+{[ret]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HEXLIT}#_
+h,[pcode]W
+{[ret]W
+#,[scan_hex]R?
+[scan_hex_res]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LIT}#_
+h,[pcode]W
+{[ret]W
+#,[scan_dec]R?
+[scan_dec_res]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{@}#_
+h,[pcode]W
+{[ret]W
+{[sp]RRR,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C@}#_
+h,[pcode]W
+{[ret]W
+{[sp]RRr,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[adr]Ws,[sp]R+R,[adr]RWs,[sp]R++,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[adr]Ws,[sp]R+R,[adr]Rws,[sp]R++,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{KEY}#_
+h,[pcode]W
+{[ret]W
+{s,[sp]R-,[sp]W
+ #,[getchar]R?[getchar_char]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EMIT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[putchar_char]W#,[putchar]R?
+ s,[sp]R+[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HEX.}#_
+h,[pcode]W
+{[ret]W
+{#20,[putchar_char]W#,[putchar]R?
+ [sp]RR,[print_hex_nbr]W#,[print_hex]R?
+ #20,[putchar_char]W#,[putchar]R?
+ s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{.}#_
+h,[pcode]W
+{[ret]W
+{#20,[putchar_char]W#,[putchar]R?
+ [sp]RR,[print_dec_nbr]W#,[print_dec]R?
+ #20,[putchar_char]W#,[putchar]R?
+ s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{TYPE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[displays_size]W
+  s,[sp]R+,[sp]W
+  [sp]RR,[displays_ptr]W
+  s,[sp]R+,[sp]W
+  #,[displays]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ZTYPE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[display_ptr]W
+  s,[sp]R+,[sp]W
+  #,[display]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DROP}#_
+h,[pcode]W
+{[ret]W
+{s,[sp]R+,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DUP}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SWAP}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[adr]W#|R,[sp]RW[x]R,[adr]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{+}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R+,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{-}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX-,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{*}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R*,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{/}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX/,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MOD}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX%,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{AND}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R&,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{OR}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]R|,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LSHIFT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX<,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{RSHIFT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]Ws,[sp]R+,[sp]W#|R,[x]RX>,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\:}#_
+h,[pcode]W
+{[ret]W
+[svrc]RH
+#,[getword]R?
+[search_dic_ptr]R,[defw]W
+s,[search_dic_ptr]R+,[calldef]RXW
+s,[search_dic_ptr]R++,hXW
+#,[code_beginf]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MACRO\:}#_
+h,[pcode]W
+{[ret]W
+[svrc]RH
+#,[getword]R?
+[search_dic_ptr]R,[defw]W
+s,[search_dic_ptr]R+,hXW
+s,[search_dic_ptr]R++,#XW
+#,[code_beginf]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;}#_
+h,[pcode]W
+{[ret]W
+#,[code_endf]R?
+#1,[mode]W
+#,[beginim]R?
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HERE1}#_
+h,[pcode]W
+{[ret]W
+h,[load_value]W#,[code_load_R0]R?
+{,[x]W
+ s,[sp]R-,[sp]W
+ [x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{HERE}#_
+h,[pcode]W
+{[ret]W
+[svrc]R,[load_value]W#,[code_load_R0]R?
+{,[x]W
+ s,[sp]R-,[sp]W
+ [x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SP@}#_
+h,[pcode]W
+{[ret]W
+{[sp]R,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{SP!}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[sp]W}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[}#_
+h,[pcode]W
+{[ret]W
+#,[beginim]R?
+#1,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{]}#_
+h,[pcode]W
+{[ret]W
+#,[endim]R?
+#,[mode]W
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{IMMEDIATE}#_
+h,[pcode]W
+{[ret]W
+s,[defw]R++R,[x]W
+s,[defw]R+,[x]RXW
+#,[ret]R?}
+#,[addp]R?
+
+h,[getparam]W
+{[getparam_ret]W
+([search_dic_ptr]R,[print_hex_nbr]W#,[print_hex]R?)
+s,[search_dic_ptr]R++R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[getparam_ret]R?}
+
+h,[pname]W{\[CREATE]}#_
+h,[pcode]W
+h,[code_icreate]W
+{[ret]W
+#,[getword]R?
+s,[search_dic_ptr]R+,[getparam]RXW
+s,[search_dic_ptr]R++,hXW
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{CREATE}#_
+h,[pcode]W
+{[ret]W
+{#,[code_icreate]R?}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ALLOT}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,h+H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{DOES>}#_
+h,[pcode]W
+{[ret]W
+{([lastword]R,[print_hex_nbr]W#,[print_hex]R?)
+s,[lastword]R+,}}{
+h,[adr1]W
+{#eeeeeeeeXW}}{
+#,[code_endf]R?
+h,[adr2]W
+([adr2]R,[print_hex_nbr]W#,[print_hex]R?)
+[adr1]RH
+[adr2]R,[load_value]W#,[code_load_R0]R?
+{XW}}{
+#,[code_endf]R?
+#,[code_beginf]R?
+{#,[getparam]R?}}{
+h,[adr3]W
+{#eeeeeeee,[code_call_adr]W
+#,[code_call]R?}}{
+#,[code_endf]R?
+h,[adr4]W
+([adr4]R,[print_hex_nbr]W#,[print_hex]R?)
+[adr3]RH
+[adr4]R,[load_value]W#,[code_load_R0]R?
+{,[code_call_adr]W#,[code_call]R?}}{
+#,[code_endf]R?
+#,[code_beginf]R?
+([adr3]R,[displays_ptr]W#1000,[displays_size]W#,[displays]R?)
+#,[ret]R?}
+#,[addp]R? 
+
+h,[pname]W{,}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,hW
+ s,h+,H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{C,}#_
+h,[pcode]W
+{[ret]W
+{[sp]RR,[x]W
+ s,[sp]R+,[sp]W
+ [x]R,hw
+ #1,h+,H}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[']}#_
+h,[pcode]W
+{[ret]W
+#,[getword]R?
+[search_dic_ptr]R,[load_value]W#,[code_load_R0]R?
+{,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{'}#_
+h,[pcode]W
+{[ret]W
+{#,[getword]R?
+ s,[sp]R-,[sp]W[search_dic_ptr]R,[sp]RW}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EXECUTE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  s,[x]R++R,#X?}}{
+ #,[ret]R?}
+#,[addp]R? 
+
+h,[pname]W{EXECUTE2}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  [x]R,[search_dic_ptr]W
+  #,[execword]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{\[COMPILE]}#_
+h,[pcode]W
+{[ret]W
+ #,[getword]R?
+ #,[execword]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{COMPILE}#_
+h,[pcode]W
+{[compile_ret]W
+ #,[getword]R?
+ [search_dic_ptr]R,[load_value]W#,[code_load_R0]R?
+ {,[search_dic_ptr]W
+  #,[execword]R?}}{
+ #,[compile_ret]R?}
+#,[addp]R?
+
+h,[pname]W{IF}#_
+h,[pcode]W
+{[ret]W
+ s,[iflevel]R+,[iflevel]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W[x]R,}}{
+ [adrif*10],[iflevel]R+,hXW
+ [adrelse*10],[iflevel]R+,#XW
+ {#eeeeeeee?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{ELSE}#_
+h,[pcode]W
+{[ret]W
+ {#,}}{
+ [adrelse],[iflevel]R+,hXW
+ {#eeeeeeee?}}{
+ h,[jmpadr]W
+ [adrif],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{THEN}#_
+h,[pcode]W
+{[ret]W
+ [adrelse],[iflevel]R+R,$thena$?
+ h,[jmpadr]W
+ [adrelse],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,$thenb$?
+ :thena:
+ h,[jmpadr]W
+ [adrif],[iflevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ :thenb:
+ s,[iflevel]R-,[iflevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{BEGIN}#_
+h,[pcode]W
+{[ret]W
+ s,[wlevel]R+,[wlevel]W
+ [adrwhile*10],[wlevel]R+,hXW
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{WHILE}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W[x]R,}}{
+ [adrdo*10],[wlevel]R+,hXW
+ {#eeeeeeee?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{REPEAT}#_
+h,[pcode]W
+{[ret]W
+ {#,}}{
+ h,[r2]W
+ {#eeeeeeee?}}{
+ h,[jmpadr]W
+ [r2]RH
+ [adrwhile],[wlevel]R+R,[load_value]W#,[code_load_R0]R?
+ [adrdo],[wlevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ s,[wlevel]R-,[wlevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LAMBDA1}#_
+h,[pcode]W
+{[ret]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ h,[adrblambda*10]W
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ #,[code_beginf]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;LAMBDA1}#_
+h,[pcode]W
+{[ret]W
+ #,[code_endf]R?
+ h,[jmpadr]W
+ [adrblambda]RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LAMBDA}#_
+h,[pcode]W
+{[ret]W
+ s,[lambdalevel]R+,[lambdalevel]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ [adrblambda],[lambdalevel]R+,hXW
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ #,[code_beginf]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{;LAMBDA}#_
+h,[pcode]W
+{[ret]W
+ #,[code_endf]R?
+ h,[jmpadr]W
+ [adrblambda],[lambdalevel]R+RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ s,[lambdalevel]R-,[lambdalevel]W
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{Z"}#_
+h,[pcode]W
+{[ret]W
+ h,[r2]W
+ {#eeeeeeee,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,}}{
+ h,[adrbzs]W
+ {#eeeeeeee?}}{
+ h,[load_value]W
+ [r2]RH
+ #,[code_load_R0]R?
+ {,[x]Ws,[sp]R-,[sp]W[x]R,[sp]RW#,#eeeeeeee?}}{
+ :lsz:
+ #,[getchar]R?[getchar_char]R,[char]W
+ [char]R,#22-,$esz$?
+ [char]R_
+ #,$lsz$?
+ :esz:
+ #_
+ #3,h+,#3~&H
+ h,[jmpadr]W
+ [adrbzs]RH
+ [jmpadr]R,[load_value]W#,[code_load_R0]R?
+ [jmpadr]RH
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{EXECMPL}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  #,[x]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{MPL}#_
+h,[pcode]W
+{[ret]W
+ :mplloop:
+ #,[getchar]R?
+ [getchar_char]R,#2E-,$mplend$?
+ [getchar_char]R_
+ #,$mplloop$?
+ :mplend:
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LOAD}#_
+h,[pcode]W
+{[ret]W
+ {[sp]RR,[x]Ws,[sp]R+,[sp]W
+  [x]R,[load_file_name]W#,[load_file]R?}}{
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{LOAD"}#_
+h,[pcode]W
+{[ret]W
+ #,[i]W
+ :load_loop:
+ #,[getchar]R?
+ [getchar_char]R,#22-,$load_end$?
+ [load_name*20],[i]R+,[getchar_char]RXw
+ #1,[i]R+,[i]W
+ #,$load_loop$?
+ :load_end:
+ [load_name],[i]R+,#Xw
+ ( [load_name],[display_ptr]W#,[display]R? )
+ [load_name],[load_file_name]W#,[load_file]R?
+ #,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{TRACE}#_
+h,[pcode]W
+{[ret]W
+{t}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{STEP}#_
+h,[pcode]W
+{[ret]W
+{T}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[pname]W{BYE}#_
+h,[pcode]W
+{[ret]W
+{Q}}{
+#,[ret]R?}
+#,[addp]R?
+
+h,[test]W
+{[test_ret]W
+:test_loop:
+#7200,[read_word_ptr]W
+#,[read_word]R?
+[read_word_eol]R,#30+P
+#28P#7200,[display_ptr]W#,[display]R?#29P
+#,$test_loop$?
+#,[test_ret]R?}
+
+(
+h,[print_hex_nbr]W#,[print_hex]R?
+[init_dic_ptr]R,[print_hex_nbr]W#,[print_hex]R?
+)
+
+( call main program )
+#,[forth]R?
+
+
+

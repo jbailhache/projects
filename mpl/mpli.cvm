@@ -1,0 +1,1042 @@
+
+rA=@mfilename
+call @display
+rA=@mplofn
+call @accept
+r0=@mfilename
+r1=@moder
+fopen
+rA=@mplofh
+[rA]=r0
+
+rA=@mploptr
+r0=@mplo
+[rA]=r0
+:mploloop
+rA=@mplofh
+r0=[rA]
+fgetc
+r1=r0
+r0=1
+r0=r0+r1
+bz @mploeof
+r0=r1
+putchar
+rA=@mploptr
+rA=[rA]
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=@mploptr
+[rA]=r0
+r0=0
+bz @mploloop
+:mploeof
+rA=@mploptr
+rA=[rA]
+r0=0
+byte[rA]=r0
+
+rA=@mplo
+call @display
+
+r0=0
+rA=@pc
+[rA]=r0
+
+r0=0
+rA=@state
+[rA]=r0
+
+:intrploop
+
+rA=@pc
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=byte[rA]
+rA=@instr
+[rA]=r0
+r2=r0
+rem uncomment below to trace interpretation
+rem putchar
+
+rA=@pc
+r0=[rA]
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+
+rA=@state
+r0=[rA]
+bz @intrprun
+r1=r2
+r0=7D
+r0=r0-r1
+bz @intrprcb
+
+rA=@rc
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=r2
+[rA]=r0
+
+rA=@rc
+r0=[rA]
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+
+r0=0
+bz @intrploop
+
+:intrprcb
+r0=0
+rA=@state
+[rA]=r0
+r0=0
+bz @intrploop
+
+:intrprun
+
+r1=r2
+
+r0=20
+r0=r0-r1
+bz @inop
+
+r0=9
+r0=r0-r1
+bz @inop
+
+r0=A
+r0=r0-r1
+bz @inop
+
+r0=D
+r0=r0-r1
+bz @inop
+
+r0=3B
+r0=r0-r1
+bz @inop
+
+r0=2C
+r0=r0-r1
+bz @icomma
+
+r0=58
+r0=r0-r1
+bz @iux
+
+r0=70
+r0=r0-r1
+bz @ilp
+
+r0=3F
+r0=r0-r1
+bz @iqm
+
+r0=52
+r0=r0-r1
+bz @iur
+
+r0=57
+r0=r0-r1
+bz @iuw
+
+r0=72
+r0=r0-r1
+bz @ilr
+
+r0=77
+r0=r0-r1
+bz @ilw
+
+r0=23
+r0=r0-r1
+bz @isharp
+
+r0=30
+r0=r0-r1
+bz @izero
+
+r0=31
+r0=r0-r1
+bz @ione
+
+r0=32
+r0=r0-r1
+bz @itwo
+
+r0=33
+r0=r0-r1
+bz @ithree
+
+r0=34
+r0=r0-r1
+bz @ifour
+
+r0=35
+r0=r0-r1
+bz @ifive
+
+r0=36
+r0=r0-r1
+bz @isix
+
+r0=37
+r0=r0-r1
+bz @iseven
+
+r0=38
+r0=r0-r1
+bz @ieight
+
+r0=39
+r0=r0-r1
+bz @inine
+
+r0=41
+r0=r0-r1
+bz @iua
+
+r0=42
+r0=r0-r1
+bz @iub
+
+r0=43
+r0=r0-r1
+bz @iuc
+
+r0=44
+r0=r0-r1
+bz @iud
+
+r0=45
+r0=r0-r1
+bz @iue
+
+r0=46
+r0=r0-r1
+bz @iuf
+
+r0=7E
+r0=r0-r1
+bz @itilda
+
+r0=2B
+r0=r0-r1
+bz @iplus
+
+r0=2D
+r0=r0-r1
+bz @iminus
+
+r0=2A
+r0=r0-r1
+bz @istar
+
+r0=26
+r0=r0-r1
+bz @iand
+
+r0=7C
+r0=r0-r1
+bz @ivbar
+
+r0=3C
+r0=r0-r1
+bz @ilt
+
+r0=3E
+r0=r0-r1
+bz @igt
+
+r0=47
+r0=r0-r1
+bz @iug
+
+r0=50
+r0=r0-r1
+bz @iup
+
+r0=48
+r0=r0-r1
+bz @iuh
+
+r0=68
+r0=r0-r1
+bz @ilh
+
+r0=7B
+r0=r0-r1
+bz @ilob
+
+r0=7D
+r0=r0-r1
+bz @ircb
+
+r0=5F
+r0=r0-r1
+bz @ius
+
+r0=73
+r0=r0-r1
+bz @ils
+
+r0=7A
+r0=r0-r1
+bz @ilz
+
+r0=51
+r0=r0-r1
+bz @iuq
+
+rA=@mudfinstr
+call @display
+rA=@instr
+r0=[rA]
+putchar
+r1=r0
+r0=40
+r0=r0+r1
+putchar
+rA=@mudfinstr
+call @display
+
+exit
+
+:inop
+r0=0
+bz @intrploop
+
+:icomma
+rA=@ra
+r0=[rA]
+rA=@rb
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iux
+rA=@ra
+r0=[rA]
+r2=r0
+rA=@rb
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=r2
+rA=@rb
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilp
+rA=@pc
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iqm
+rA=@rb
+r0=[rA]
+bz @iqmz
+r0=0
+bz @intrploop
+:iqmz
+rA=@pc
+r0=[rA]
+rA=@rb
+[rA]=r0
+rA=@ra
+r0=[rA]
+rA=@pc
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iur
+rA=@ra
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iuw
+rA=@rb
+r0=[rA]
+r2=r0
+rA=@ra
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=r2
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilr
+rA=@ra
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=byte[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilw
+rA=@rb
+r0=[rA]
+r2=r0
+rA=@ra
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=r2
+byte[rA]=r0
+r0=0
+bz @intrploop
+
+:isharp
+r0=0
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:izero
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=0
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ione
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:itwo
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=2
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ithree
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=3
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ifour
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=4
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ifive
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=5
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:isix
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=6
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iseven
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=7
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ieight
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=8
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:inine
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=9
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iua
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=A
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iub
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=B
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iuc
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=C
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iud
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=D
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iue
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=E
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iuf
+rA=@ra
+r0=[rA]
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=r0+r1
+r1=r0
+r0=F
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:itilda
+rA=@ra
+r0=1
+r1=r0
+r0=0
+r0=r0-r1
+r1=r0
+r0=[rA]
+r0=r0^r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iplus
+rA=@rb
+r0=[rA]
+r1=r0
+rA=@ra
+r0=[rA]
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iminus
+rA=@rb
+r0=[rA]
+r1=r0
+rA=@ra
+r0=[rA]
+r0=r0-r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:istar
+rA=@rb
+r0=[rA]
+r1=r0
+rA=@ra
+r0=[rA]
+r0=r0*r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iand
+rA=@rb
+r0=[rA]
+r1=r0
+rA=@ra
+r0=[rA]
+r0=r0&r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ivbar
+rA=@rb
+r0=[rA]
+r1=r0
+rA=@ra
+r0=[rA]
+r0=r0|r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+align 8
+:shiftres
+res 8
+
+align 8
+:shiftnbr
+res 8
+
+:ilt
+rA=@rb
+r0=[rA]
+rA=@shiftnbr
+[rA]=r0
+rA=@ra
+r0=[rA]
+rA=@shiftres
+[rA]=r0
+:lshiftloop
+rA=@shiftnbr
+r0=[rA]
+bz @lshiftend
+r2=r0
+r0=1
+r1=r0
+r0=r2
+r0=r0-r1
+rA=@shiftnbr
+[rA]=r0
+rA=@shiftres
+r0=[rA]
+r1=r0
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @lshiftloop
+:lshiftend
+rA=@shiftres
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:igt
+rA=@rb
+r0=[rA]
+rA=@shiftnbr
+[rA]=r0
+rA=@ra
+r0=[rA]
+rA=@shiftres
+[rA]=r0
+:rshiftloop
+rA=@shiftnbr
+r0=[rA]
+bz @rshiftend
+r2=r0
+r0=1
+r1=r0
+r0=r2
+r0=r0-r1
+rA=@shiftnbr
+[rA]=r0
+rA=@shiftres
+r0=[rA]
+asr r0
+[rA]=r0
+r0=0
+bz @rshiftloop
+:rshiftend
+rA=@shiftres
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iug
+getchar
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iup
+rA=@ra
+r0=[rA]
+putchar
+r0=0
+bz @intrploop
+
+:iuh
+rA=@ra
+r0=[rA]
+rA=@rc
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilh
+rA=@rc
+r0=[rA]
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilob
+r0=1
+rA=@state
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ircb
+rA=@rc
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=7D
+[rA]=r0
+rA=@rc
+r0=[rA]
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ius
+rA=@ra
+r0=[rA]
+r2=r0
+rA=@rc
+r0=[rA]
+r1=r0
+r0=@mplo
+r0=r0+r1
+rA=r0
+r0=r2
+byte[rA]=r0
+rA=@rc
+r0=[rA]
+r1=r0
+r0=1
+r0=r0+r1
+[rA]=r0
+r0=0
+bz @intrploop
+
+:ilz
+r0=@mplo
+rA=@ra
+[rA]=r0
+r0=0
+bz @intrploop
+
+:iuq
+exit
+
+:display
+beginf
+:dsploop
+r0=byte[rA]
+bz @dspend
+putchar
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @dsploop
+:dspend
+endf
+
+:accept
+beginf
+:acploop
+getchar
+r1=r0
+r0=A
+r0=r0-r1
+bz @acpend
+r0=D
+r0=r0-r1
+bz @acpend
+r0=r1
+byte[rA]=r0
+r0=1
+r1=rA
+r0=r0+r1
+rA=r0
+r0=0
+bz @acploop
+:acpend
+r0=0
+byte[rA]=r0
+endf
+
+align 8
+:mfilename
+ascii MPL object filename ? 
+
+align 8
+:mudfinstr
+ascii <*** Error : undefined instruction ***>
+
+align 8
+:mplofn
+
+align 8
+:moder
+ascii r
+
+align 8
+:mplofh
+res 8
+
+align 8
+:mploptr
+res 8
+
+align 8
+:instr
+res 8
+
+align 8
+:state
+res 8
+
+align 8
+:pc
+res 8
+
+align 8
+:ra
+res 8
+
+align 8
+:rb
+res 8
+
+align 8
+:rc
+res 8
+
+align 8
+:mplo
+
+
+
