@@ -340,6 +340,6 @@ module nslc_tirp where
    (var "x")
    (lambda "p" (APL (var "f") (APL3 (var "rpt") (var "p") (var "f") (var "x")))) ) ))))
 
- fix = lambda "f" (lambda "x" (APL rlim (lambda "n" (APL3 rpt (var "n") (var "f") (var "x")))))
+ fix = lambda "f" (lambda "x" (APL rLim (lambda "n" (APL3 rpt (var "n") (var "f") (var "x")))))
 
  w = APL2 fix rSuc rZero
