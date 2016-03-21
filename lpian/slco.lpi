@@ -110,6 +110,8 @@ SLC terms :
 (def-slc-int LAMBDA : ARG (() a b) : 
  %b SLC-INT %a SLC-INT DB0 SLC-DBNAME DBL)
 
+(def-slc-int lambda : ARG (() a b) : 
+ %b SLC-INT %a SLC-INT DB0 SLC-DBNAME DBL)
 
 (def APN : ARG l :
  %l NCONSPTHEN (0 VAR DBL) :
@@ -327,31 +329,36 @@ SLC terms :
 (def-slc-axiom reflog pred-some : LAMBDA p : 
  EQUAL (((all p) => false) => ((APL p (some : LAMBDA x : (APL p x) => false)) => false)) I)
 
+
+(def-slc prop-lemma1 : APN prop-as p (p => p) p)
+(def-slc prop-lemma2 : APN prop-ak p (p => p))
+(def-slc prop-lemma3 : APN prop-mp (p => ((p => p) => p)) ((p => (p => p)) => (p => p)))
+(def-slc prop-lemma4 : APL prop-lemma1 (APL (p => ((p => p) => p)) ((p => (p => p)) => (p => p))))
+(def-slc prop-lemma5 : LTR prop-lemma4 prop-lemma3)
+(def-slc prop-lemma6 : APL prop-lemma2 ((p => (p => p)) => (p => p)))
+(def-slc prop-lemma7 : LTR prop-lemma6 prop-lemma5)
+(def-slc prop-lemma8 : APN prop-ak p p)
+(def-slc prop-lemma9 : APN prop-mp (p => (p => p)) (p => p))
+(def-slc prop-lemma10 : APL prop-lemma7  (APL (p => (p => p)) (p => p)))
+(def-slc prop-lemma11 : LTR prop-lemma10 prop-lemma9)
+(def-slc prop-lemma12 : APL prop-lemma8 (p => p))
+(def-slc prop-theorem1 : LTR prop-lemma12 prop-lemma11)
+
+{
 (def-slc prop-lemma1 : REDLR : APN prop-as p (p => p) p)
-
 (def-slc prop-lemma2 : REDLR : APN prop-ak p (p => p))
-
 (def-slc prop-lemma3 : REDLR : APN prop-mp (p => ((p => p) => p)) ((p => (p => p)) => (p => p)))
-
 (def-slc prop-lemma4 : REDLR : APL prop-lemma1 (APL (p => ((p => p) => p)) ((p => (p => p)) => (p => p))))
- 
 (def-slc prop-lemma5 : LTRANSYM prop-lemma4 prop-lemma3)
-
 (def-slc prop-lemma6 : REDLR : APL prop-lemma2 ((p => (p => p)) => (p => p)))
-
 (def-slc prop-lemma7 : LTRANSYM prop-lemma6 prop-lemma5)
-
 (def-slc prop-lemma8 : REDLR : APN prop-ak p p)
-
 (def-slc prop-lemma9 : REDLR : APN prop-mp (p => (p => p)) (p => p))
-
 (def-slc prop-lemma10 : REDLR : APL prop-lemma7  (APL (p => (p => p)) (p => p)))
-
 (def-slc prop-lemma11 : LTRANSYM prop-lemma10 prop-lemma9)
-
 (def-slc prop-lemma12 : REDLR : APL prop-lemma8 (p => p))
-
 (def-slc prop-theorem1 : LTRANSYM prop-lemma12 prop-lemma11)
+}
 
 
 )
