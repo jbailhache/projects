@@ -22,6 +22,10 @@ module Main where
 
  increase a = cantor a Zero
 
+ data OrdiAList 
+  = Zeros
+  | Ass Ordi Ordi OrdiAList
+
  phi Zeros = increase Zero
  phi (Ass Zero a Zeros) = increase a
  phi (Ass k Zero al) = phi al
@@ -37,10 +41,9 @@ module Main where
  phi (Ass (Lim f) (Lim g) al) = Lim $ \n -> phi $ Ass (Lim f) (g n) al
  phi (Ass Zero (Suc a) (Ass (Lim f) (Lim g) al)) = Lim $ \n -> phi $ Ass (f n) (phi $ Ass Zero a $ Ass (Lim f) (Lim g) al) $ Ass (Lim f) (g n) al
 
+ smallVeblen = phi $ Ass w (Suc Zero) Zeros
+ largeVeblen = fix (\x -> phi $ Ass x (Suc Zero) Zeros) (Suc Zero)
 
- data OrdiAList 
-  = Zeros
-  | Ass Ordi Ordi OrdiAList
 
  main = do
   putStrLn "Hello"
