@@ -26,26 +26,26 @@
  %l CAR PRINT :
  %l CDR MAPPRINT)
 
-(def MAPK : C Q : ARG _f : ARG _x : ARG _l :
+(def MAPC : C Q : ARG _f : ARG _x : ARG _l :
         %_l NCONSPTHEN I :
         %_l CAR %_x %_f EXEC :
-        %_l CDR %_x '() %_f CONS Q MAPK CONS EXEC)
+        %_l CDR %_x '() %_f CONS Q MAPC CONS EXEC)
 
-(def MAPKAR :
+(def MAPCAR :
         C Q (DIVE DIVE DIVE
                 (GETH0 NCONSPTHEN GETH0
                     (GETH0 CAR GETH1 GETH2 EXEC
-                        (GETH0 CDR GETH1 Q () GETH2 CONS Q MAPKAR CONS EXEC
+                        (GETH0 CDR GETH1 Q () GETH2 CONS Q MAPCAR CONS EXEC
                                 (SWAP CONS)
                         )
                     )
               )
                 CLIMBDROP CLIMBDROP CLIMBDROP))
 
-(def CONTIENT : C Q : ARG _f : ARG _x : ARG _l :
+(def CONTAINS : C Q : ARG _f : ARG _x : ARG _l :
         %_l NCONSPTHEN '() :
         %_l CAR %_x %_f EXEC : REP THEN I :
-        DEP %_l CDR %_x Q () %_f CONS Q CONTIENT CONS EXEC)
+        DEP %_l CDR %_x Q () %_f CONS Q CONTAINS CONS EXEC)
 
 (def UNLIST : ARG l :
         %l NCONSPTHEN I :
