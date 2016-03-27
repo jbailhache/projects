@@ -18,7 +18,7 @@
 
 (def MAPEXEC : ARG l : 
  %l NCONSPTHEN () :
- %l CAR REP PRINT EXEC :
+ %l CAR DUP PRINT EXEC :
  %l CDR MAPEXEC)
 
 (def MAPPRINT : ARG l :
@@ -44,8 +44,8 @@
 
 (def CONTAINS : C Q : ARG _f : ARG _x : ARG _l :
         %_l NCONSPTHEN '() :
-        %_l CAR %_x %_f EXEC : REP THEN I :
-        DEP %_l CDR %_x Q () %_f CONS Q CONTAINS CONS EXEC)
+        %_l CAR %_x %_f EXEC : DUP THEN I :
+        DROP %_l CDR %_x Q () %_f CONS Q CONTAINS CONS EXEC)
 
 (def UNLIST : ARG l :
         %l NCONSPTHEN I :
@@ -58,7 +58,7 @@
 
 (def AND : C THEN '())
 
-(def OR : B (REP THEN I) DROP)
+(def OR : B (DUP THEN I) DROP)
 
 (def EXIT KI)
 
@@ -83,7 +83,7 @@
 
 (def NL : 13 TYO 10 TYO)
 
-(def THROW : ECH EMPIL SETCTX)
+(def THROW : SWAP PUSH SETCTX)
 
 
 (def SETCTXS : ARG ctxs : 
@@ -102,7 +102,7 @@
  "rstack = " PRINTSTRING %ctx CDR CDR CDR CAR 8 PRINTL
  "envir  = " PRINTSTRING %ctx CDR CDR CDR CDR CAR 8 PRINTL)
 
-(def FILTRE : GETENV UNIF REP THEN SETENV END)
+(def FILTRE : GETENV UNIF DUP THEN SETENV END)
 
 (def LIST1 : QUOTE () SWAP CONS)
 

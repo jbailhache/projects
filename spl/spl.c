@@ -1810,7 +1810,7 @@ void exec_instr (sexpr instr)
   stack = cons (getctx_enlinstr(), stack);
  DEFINSTR("DROPINSTR")
   stack = cons (enlinstr(car(stack)), cdr(stack));
- DEFINSTR("PREMINSTR") INSTR1(preminstr)
+ DEFINSTR("FIRSTINSTR") INSTR1(preminstr)
  DEFINSTR("ADDINSTR") INSTR2(ajinstr)
  DEFINSTR("SETCTX")
   setctx (car(stack));
