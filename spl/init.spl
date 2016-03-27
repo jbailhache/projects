@@ -79,7 +79,7 @@
         %l CDR NCONSPTHEN '() :
         %l CDR BUTLAST %l CAR CONS)
 
-(def defprop : C Q : C Q : C Q : ECH3 SETPROP)
+(def defprop : C Q : C Q : C Q : SWAP3 SETPROP)
 
 (def NL : 13 TYO 10 TYO)
 

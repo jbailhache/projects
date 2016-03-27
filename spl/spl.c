@@ -1503,6 +1503,8 @@ void exec_instr (sexpr instr)
   stack = cons (car(stack), stack);
  DEFINSTR("SWAP")
   stack = cons (car(cdr(stack)), cons (car(stack), cdr(cdr(stack))));
+ DEFINSTR("SWAP3")
+  stack = cons (car(cdr(cdr(stack))), cons (car(cdr(stack)), cons (car(stack), cdr(cdr(cdr(stack))))));
  DEFINSTR("DIVE")
   rstack = cons (car(stack), rstack);
   stack = cdr(stack);
