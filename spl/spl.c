@@ -493,7 +493,7 @@ void print (output out, sexpr x, int l)
    pstr (out, buf);
    break;
   case TYPE_GENSYM:
-   pchar (out, '$');
+   pchar (out, '%');
    sprintf (buf, "%d", UTVAL(x));
    pstr (out, buf);
    break; 
@@ -644,7 +644,7 @@ sexpr read (input in)
   y = cons (symbol("QUOTE"), cons(x, nil));
   return y;
  }
- else if (rc == '%')
+ else if (rc == '$')
  {
   nextchar(in);
   x = read(in);
