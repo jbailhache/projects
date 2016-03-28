@@ -6,30 +6,30 @@
 (def GETH2 : GETH 2)
 
 (def GETPROP : ARG x : ARG y :
- $x GETTYPE 'a GETTYPE EQ NOT THEN '() :
- $y $x GETPROPS GETVENV)
+ %x GETTYPE 'a GETTYPE EQ NOT THEN '() :
+ %y %x GETPROPS GETVENV)
 
-(def PUTPROP : ARG symb : $symb GETPROPS SETVENV $symb SETPROPS)
-(def SETPROP : ARG symb : $symb GETPROPS SETVENV $symb SETPROPS)
+(def PUTPROP : ARG symb : %symb GETPROPS SETVENV %symb SETPROPS)
+(def SETPROP : ARG symb : %symb GETPROPS SETVENV %symb SETPROPS)
 
 (def RESTART : 13 TYO 10 TYO "Restarting" PRINTSTRING 13 TYO 10 TYO)
 
 (def LOAD : READFILE MAPEXEC)
 
 (def MAPEXEC : ARG l : 
- $l NCONSPTHEN () :
- $l CAR DUP PRINT EXEC :
- $l CDR MAPEXEC)
+ %l NCONSPTHEN () :
+ %l CAR DUP PRINT EXEC :
+ %l CDR MAPEXEC)
 
 (def MAPPRINT : ARG l :
- $l NCONSPTHEN () :
- $l CAR PRINT :
- $l CDR MAPPRINT)
+ %l NCONSPTHEN () :
+ %l CAR PRINT :
+ %l CDR MAPPRINT)
 
 (def MAPC : C Q : ARG _f : ARG _x : ARG _l :
-        $_l NCONSPTHEN I :
-        $_l CAR $_x $_f EXEC :
-        $_l CDR $_x '() $_f CONS Q MAPC CONS EXEC)
+        %_l NCONSPTHEN I :
+        %_l CAR %_x %_f EXEC :
+        %_l CDR %_x '() %_f CONS Q MAPC CONS EXEC)
 
 (def MAPCAR :
         C Q (DIVE DIVE DIVE
@@ -43,18 +43,18 @@
                 CLIMBDROP CLIMBDROP CLIMBDROP))
 
 (def CONTAINS : C QUOTE : ARG _f : ARG _x : ARG _l :
-        $_l NCONSPTHEN '() :
-        $_l CAR $_x $_f EXEC : DUP THEN I :
-        DROP $_l CDR $_x QUOTE () $_f CONS QUOTE CONTAINS CONS EXEC)
+        %_l NCONSPTHEN '() :
+        %_l CAR %_x %_f EXEC : DUP THEN I :
+        DROP %_l CDR %_x QUOTE () %_f CONS QUOTE CONTAINS CONS EXEC)
 
 (def UNLIST : ARG l :
-        $l NCONSPTHEN I :
-        $l CAR $l CDR UNLIST)
+        %l NCONSPTHEN I :
+        %l CAR %l CDR UNLIST)
 
 (def ONEOF : ARG l :
-        $l NCONSPTHEN END :
-        ALT ($l CAR) :
-        $l CDR ONEOF)
+        %l NCONSPTHEN END :
+        ALT (%l CAR) :
+        %l CDR ONEOF)
 
 (def AND : C THEN '())
 
@@ -69,15 +69,15 @@
 
 (def INCRPRIO : ARG i :
         GETSTRAT ARG (p . s) :
-        $p $i PLUS ARG p1 :
-        $(p1 . s) SETSTRAT)
+        %p %i PLUS ARG p1 :
+        %(p1 . s) SETSTRAT)
 
 (def SCHEDULE : ALT END I)
 
 (def BUTLAST : ARG l :
-        $l NCONSPTHEN '() :
-        $l CDR NCONSPTHEN '() :
-        $l CDR BUTLAST $l CAR CONS)
+        %l NCONSPTHEN '() :
+        %l CDR NCONSPTHEN '() :
+        %l CDR BUTLAST %l CAR CONS)
 
 (def defprop : C Q : C Q : C Q : SWAP3 SETPROP)
 
@@ -87,20 +87,20 @@
 
 
 (def SETCTXS : ARG ctxs : 
- $ctxs NCONSPTHEN END : 
- GETLCTXS $ctxs CDR INSLCTXS SETLCTXS 
- $ctxs CAR SETCTX)
+ %ctxs NCONSPTHEN END : 
+ GETLCTXS %ctxs CDR INSLCTXS SETLCTXS 
+ %ctxs CAR SETCTX)
 
 (def NL : 13 TYO 10 TYO)
 
 (def PRINTL : PRINL NL)
 
 (def PRINTCTX : ARG ctx : 
- "strat  = " PRINTSTRING $ctx CAR 8 PRINTL
- "prog   = " PRINTSTRING $ctx CDR CAR 8 PRINTL
- "stack  = " PRINTSTRING $ctx CDR CDR CAR 8 PRINTL
- "rstack = " PRINTSTRING $ctx CDR CDR CDR CAR 8 PRINTL
- "envir  = " PRINTSTRING $ctx CDR CDR CDR CDR CAR 8 PRINTL)
+ "strat  = " PRINTSTRING %ctx CAR 8 PRINTL
+ "prog   = " PRINTSTRING %ctx CDR CAR 8 PRINTL
+ "stack  = " PRINTSTRING %ctx CDR CDR CAR 8 PRINTL
+ "rstack = " PRINTSTRING %ctx CDR CDR CDR CAR 8 PRINTL
+ "envir  = " PRINTSTRING %ctx CDR CDR CDR CDR CAR 8 PRINTL)
 
 (def FILTRE : GETENV UNIF DUP THEN SETENV END)
 
@@ -109,13 +109,13 @@
 (def VAR GET)
 
 (def DANS : ARG x : ARG y :
- $x $y EQUAL THEN 'true : 
- $y NCONSPTHEN '() : 
- $y CAR $x DANS OR :
- $y CDR $x DANS)
+ %x %y EQUAL THEN 'true : 
+ %y NCONSPTHEN '() : 
+ %y CAR %x DANS OR :
+ %y CDR %x DANS)
 
 (def synonym : C QUOTE : C QUOTE : ARG b : ARG a :
- $b GETDEF $a SETDEF)
+ %b GETDEF %a SETDEF)
 
 {
 (synonym DROP DEP)
