@@ -1877,6 +1877,9 @@ void exec_instr (sexpr instr)
   envir = unbindvenv (envir, car(prog));
   prog = cdr(prog);
 
+ DEFINSTR("lambda")
+  prog = cons (subst (car(cdr(cdr(prog))), car(prog), car(cdr(prog))), cdr(cdr(cdr(prog))));
+
 /* List utilities */
  DEFINSTR("LENGTH")
   stack = cons (sexpr_int(length(car(stack))), cdr(stack));
