@@ -5,6 +5,8 @@
 (def cons : lambda x : lambda y : y x CONS)
 (def , : lambda x : x SWAP CONS)
 (def cadr : lambda x : car : cdr x)
+(def dcons : lambda x : cons x x)
+(def dcons1 : lambda x : x ARG y : cons %y %y)
 
 {
 (def car : C QUOTE : ARG x : %(x 'CAR) EXEC)
