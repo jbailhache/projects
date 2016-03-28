@@ -651,7 +651,7 @@ sexpr read (input in)
   y = cons (symbol("GET"), cons(x, nil));
   return y;
  }
- else if (rc == '$')
+ else if (rc == '&')
  {
   nextchar(in);
   x = read(in);

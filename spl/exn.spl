@@ -37,20 +37,20 @@
         NL
         %pred SETDEF)
 
-(defclause plappend (() $l $l) I)
+(defclause plappend (() &l &l) I)
 
-(defclause plappend (($x . $a) $b ($x . $c)) :
-	plappend '($a $b $c))
+(defclause plappend ((&x . &a) &b (&x . &c)) :
+	plappend '(&a &b &c))
 
 (def plappend1 :
 	ALT
-	(APPLYTO : DUP '((() $l $l) . I) :
+	(APPLYTO : DUP '((() &l &l) . I) :
 	 RENAME DUP DIVE CAR UNIFPROLOG
 	 DIVE GETH 1 CDR EXEC :
 	 GETH 1 CAR CLIMB UNIFPROLOG
 	 GETENV DUP CONSTR SETENV
 	 CLIMB VARIABLES GETENV UNBINDVENV SETENV)
-	(APPLYTO : DUP '((($x . $a) $b ($x . $c)) plappend '($a $b $c)) :
+	(APPLYTO : DUP '(((&x . &a) &b (&x . &c)) plappend '(&a &b &c)) :
 	 RENAME DUP DIVE CAR UNIFPROLOG
 	 DIVE GETH 1 CDR EXEC :
 	 GETH 1 CAR CLIMB UNIFPROLOG
@@ -58,14 +58,14 @@
 	 CLIMB VARIABLES GETENV UNBINDVENV SETENV))
 
 {
-(ALT (plappend '((a b c) (d e) $x) :
+(ALT (plappend '((a b c) (d e) &x) :
 	%x PRINT END)
 	I)
 } 
 { (a b c d e) }
 
 {
-(ALT (plappend '($x $y (a b c d e))
+(ALT (plappend '(&x &y (a b c d e))
 	%x PRIN %y PRINT END)
 	I)
 }
@@ -232,27 +232,27 @@
 )
 
 (defregle manger () :
-	fait '((chevre $()) sur (rive $r))
+	fait '((chevre &()) sur (rive &r))
 	{ "chevre sur rive " PRINTSTRING %r PRINT }
-	(ALT (fait '((loup $()) sur (rive $r)) { 'loup PRINT } )
-	     (fait '((chou $()) sur (rive $r)) { 'chou PRINT } ))
-	prolognot (fait '((homme $()) sur (rive $r)) { 'homme PRINT } )
+	(ALT (fait '((loup &()) sur (rive &r)) { 'loup PRINT } )
+	     (fait '((chou &()) sur (rive &r)) { 'chou PRINT } ))
+	prolognot (fait '((homme &()) sur (rive &r)) { 'homme PRINT } )
 )
 
 (defregle regle1-lcc (h d a) :
-	supprimer '((homme $h) sur (rive $d))
-	fait '((rive $d) proche (rive $a))
-	ajouter '((homme $h) sur (rive $a))
+	supprimer '((homme &h) sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
 	prolognot manger
         "homme traverse seul de rive " PRINTSTRING %d PRIN " vers rive " PRINTSTRING %a PRINT
 )
 
 (defregle regle2-lcc (h o d a) :
-	supprimer '((homme $h) sur (rive $d))
-	supprimer '($o sur (rive $d))
-	fait '((rive $d) proche (rive $a))
-	ajouter '((homme $h) sur (rive $a))
-	ajouter '($o sur (rive $a))
+	supprimer '((homme &h) sur (rive &d))
+	supprimer '(&o sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
+	ajouter '(&o sur (rive &a))
 	prolognot manger
         "homme traverse avec " PRINTSTRING %o PRIN " de rive " PRINTSTRING %d PRIN " vers rive " PRINTSTRING %a PRINT
 )
