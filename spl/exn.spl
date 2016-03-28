@@ -388,30 +388,6 @@
 	$x CAR $(x . l) ADDRESSES ARG l1 :
 	$x CDR $l1 ADDRESSES)
 
-{
-(def UNLINK1 : ARG l : ARG x :
-	$x NCONSPTHEN $l :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ AND $l) OR :
-	$x CAR $(x . l) UNLINK1 ARG l1 :
-	$x CDR $l1 UNLINK1)
-
-
-(def UNLINK1 : ARG n : ARG l : ARG x :
-	$x NCONSPTHEN $(l n) :
-	$l '() CONTAINS 
-		(DROP ARG (p y) : 
-		 $y $x EQ AND :
-		 $n 1 PLUS ARG np1 : 
-		 $l '() MAPCAR 
-		 (DROP ARG (p1 y1) :
-		  $y1 $x EQ THEN $(n y1) $(p1 y1))
-		 ARG l1 $(l1 np1))
-	OR :
-	$x CAR $(('() x) . l) $n UNLINK1 ARG (l1 n1) :
-	$x CDR $l1 $n1 UNLINK1)
-
-}
-
 (def UNLINK1 : ARG n : ARG l : ARG x :
 	$x NCONSPTHEN $(l n) :
 	$l '() CONTAINS 
@@ -426,27 +402,6 @@
 	OR :
 	$x CAR $(('() x) . l) $n UNLINK1 ARG (l1 n1) :
 	$x CDR $l1 $n1 UNLINK1)
-
-
-{
-(def UNLINK2 : ARG m : ARG l : ARG x : 
-	$x NCONSPTHEN $(x m) :
-	$l '() CONTAINS 
-		(DROP ARG (p y) :
-		 $p AND :
-		 $y $x EQ AND :
-		 $m '() CONTAINS 
-			(DROP ARG z :
-			 $z $x EQ AND $((('goto p)) m))
-		 OR :
-		 $x CAR $l $m UNLINK2 ARG (x1 m1) :
-		 $x CDR $l $m1 UNLINK2 ARG (x2 m2) 
-		 $((('label p) x1 . x2) m2) )
-	OR :
-	$x CAR $l $m UNLINK2 ARG (x1 m1) :
-	$x CDR $l $m UNLINK2 ARG (x2 m2) 
-	$((x1 . x2) m2) )
-}
 
 (def UNLINK2 : ARG m : ARG l : ARG x : 
 	$x NCONSPTHEN $(x m) :
@@ -470,149 +425,6 @@
 	$x '() 1 UNLINK1 ARG (l n) :
 	$x $l '() UNLINK2 ARG (y m) 
 	$y)
-
-{
-(def UNLINK1 : ARG n : ARG l : ARG x :
-	$x NCONSPTHEN $(x l n) :
-	$l '() CONTAINS 
-		(DROP ARG (p y z) : 
-		 $y $x EQ AND :
-		 $n 1 PLUS ARG n1 : 
-		 $l '() MAPCAR 
-		 (DROP ARG (p1 y1 z1) :
-		  $y1 $x EQ THEN $(n y1 z1) $(p1 y1 z1))
-		 ARG l1 $((('goto n)) l1 n1))
-	OR :
-	$x CAR $(('() x 'xxx) . l) $n UNLINK1 ARG (x1 l1 n1) :
-	$x CDR $l1 $n1 UNLINK1 ARG (x2 l2 n2) $((x1 . x2) l2 n2) )
-
-(def UNLINK1 : ARG n : ARG l : ARG x :
-	$x NCONSPTHEN $(x l n) :
-	$l '() CONTAINS 
-		(DROP ARG (p y) : 
-		 $y $x EQ AND :
-		 $n 1 PLUS ARG n1 : 
-		 $l '() MAPCAR 
-		 (DROP ARG (p1 y1) :
-		  $y1 $x EQ THEN $(n y1) $(p1 y1))
-		 ARG l1 $((('goto n)) l1 n1))
-	OR :
-	$x CAR $(('() x) . l) $n UNLINK1 ARG (x1 l1 n1) :
-	$x CDR $l1 $n1 UNLINK1 ARG (x2 l2 n2) $((x1 . x2) l2 n2) )
-}
-
-{
-(def UNLINK1 : ARG l : ARG x :
-	$x NCONSPTHEN $(x l) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN $((('goto)) l) :
-	$x CAR $(x . l) UNLINK1 ARG (x1 l1) :
-	$x CDR $l1 UNLINK1 ARG (x2 l2) $((x1 . x2) l2) )
-
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN $((('goto)) l c n) :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
-
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
-		($n 1 PLUS ARG n1 : 
-		 $(('goto n)) ARG z :
-		 $(z l ((n x) . c) n1)) :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
-}
-{
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
-		($n 1 PLUS ARG n1 : 
-		 $(('goto n)) ARG z :
-		 $(z l ((n x) . c) n1)) :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) :
-	$c2 '() CONTAINS 
-		(DROP ARG (n3 x3) : $x3 $x EQ AND :
-		 $((('label n3) x1 . x2) l2 c2 n2)) OR
-	$((x1 . x2) l2 c2 n2) )
-}
-
-{
-(def PUTLABELS : ARG c : ARG x :
-	$x NCONSPTHEN $x :
-	$x CAR $c PUTLABELS ARG x1 :
-	$x CDR $c PUTLABELS ARG x2 :
-	$c '() CONTAINS
-		(DROP ARG (n3 x3) : $x3 $x EQ AND 
-		 $(('label n3) x1 . x2))
-	OR $(x1 . x2))
-
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
-		($n 1 PLUS ARG n1 : 
-		 $(('goto n)) ARG z :
-		 $(z l ((n x) . c) n1)) :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) :
-	$(x1 . x2) ARG w :
-	$w $c PUTLABELS ARG v :
-	$(v l2 c2 n2) )
-
-(def UNLINK : ARG x :
-	$x '() '() 1 UNLINK1 CAR)
-
-}
-
-{
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS 
-		(DROP ARG y : $y $x EQ AND :
-		 $n 1 PLUS ARG n1 : 
-		 $(('goto n)) ARG z :
-		 $(z l ((n y) . c) n1)) OR :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
-}
-{
-(def UNLINK2 : ARG c : ARG x :
-	$x NCONSPTHEN $x :
-	$x CAR $c UNLINK2 ARG x1 :
-	$x CDR $c UNLINK2 ARG x2 :
-	$c '() CONTAINS (DROP ARG (n y) : $x $y EQ AND $((label n) x1 . x2)) 
-		OR $(x1 . x2)) 
-}
-{
-(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
-	$x NCONSPTHEN $(x l c n) :
-	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
-		($n 1 PLUS ARG n1 :
-		 $((('goto n)) l ((n x) . c) n1)) :
-	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
-	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
-}
-
-{
-(def UNLINK : ARG x :
-	'() ARG corresp :
-	'0 ARG nl :
-	$x UNLINK1)
-
-(def UNLINK1 : ARG x :
-	$corresp PRINT
-	$x NCONSPTHEN $x :
-	($corresp '() CONTAINS : DROP ARG ((n g a b)) : 
-         $a $x EQ THEN ( 'true $g RPLACA $(('goto n))) '()) OR :
-	$(nl '(()) x '()) ARG item :
-	$(item . corresp) SETVQ corresp 
-	$x CAR UNLINK1 ARG y1 :
-	$x CDR UNLINK1 ARG y2 :
-	$(y1 . y2) ARG y :
-	$nl 1 PLUS SETVQ nl 
-	$(y1 . y2))
-}
 
 
 { (definstr nom corps) -> (def nom : GETCTX : DROPINSTR corps SETCTXS) }
