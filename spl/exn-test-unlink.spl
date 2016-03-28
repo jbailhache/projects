@@ -1,0 +1,758 @@
+
+(
+
+
+
+(def CLAUSE : ARG args : ARG corps @:
+	CONS 'APPLYTO
+	LIST1
+	CONS 'DUP CONS 'QUOTE CONS CONS $args $corps ':
+	RENAME DUP DIVE CAR UNIFPROLOG
+	DIVE GETH 1 CDR EXEC :
+	GETH 1 CAR CLIMB UNIFPROLOG
+	GETENV DUP CONSTR SETENV
+	CLIMB VARIABLES GETENV UNBINDVENV SETENV)
+
+(def UNIFPROLOG : GETENV UNIF DUP THEN SETENV END)
+
+(def LIST1 : ARG x $(x))
+
+(def defclause : C QUOTE : C QUOTE : C QUOTE :
+		 ARG corps : ARG args : ARG pred :
+	$corps $args CLAUSE ARG clause :
+	$pred DECLSYM GETDEF NOT
+		THEN ($clause $pred SETDEF) :
+        $pred GETDEF GETTYPE 1 EQ 
+        THEN ($clause $pred SETDEF) : 
+	'() $clause CONS $pred GETDEF CONS 'ALT CONS 
+        NL
+        "defclause " PRINTSTRING 
+        $pred PRIN 
+        " " PRINTSTRING 
+        $args PRIN
+        " " PRINTSTRING
+        $corps PRIN
+        " -> " PRINTSTRING
+        DUP PRINT
+        NL
+        $pred SETDEF)
+
+(defclause plappend (() &l &l) I)
+
+(defclause plappend ((&x . &a) &b (&x . &c)) :
+	plappend '(&a &b &c))
+
+(def plappend1 :
+	ALT
+	(APPLYTO : DUP '((() &l &l) . I) :
+	 RENAME DUP DIVE CAR UNIFPROLOG
+	 DIVE GETH 1 CDR EXEC :
+	 GETH 1 CAR CLIMB UNIFPROLOG
+	 GETENV DUP CONSTR SETENV
+	 CLIMB VARIABLES GETENV UNBINDVENV SETENV)
+	(APPLYTO : DUP '(((&x . &a) &b (&x . &c)) plappend '(&a &b &c)) :
+	 RENAME DUP DIVE CAR UNIFPROLOG
+	 DIVE GETH 1 CDR EXEC :
+	 GETH 1 CAR CLIMB UNIFPROLOG
+	 GETENV DUP CONSTR SETENV
+	 CLIMB VARIABLES GETENV UNBINDVENV SETENV))
+
+{
+(ALT (plappend '((a b c) (d e) &x) :
+	$x PRINT END)
+	I)
+} 
+{ (a b c d e) }
+
+{
+(ALT (plappend '(&x &y (a b c d e))
+	$x PRIN $y PRINT END)
+	I)
+}
+
+{
+()(a b c d e)
+(a)(b c d e)
+(a b)(c d e)
+(a b c)(d e)
+(a b c d)(e)
+(a b c d e)()
+}
+
+
+(def INTERP :
+	Y :
+	DUP NCONSPTHEN EXIT :
+	DUP CAR FIRSTINSTR 'STOP EQ THEN EXIT :
+	EVOL-LCTXS)
+ 
+
+(def NCONSPTHEN : CONSP NOT THEN) 
+
+{ (def FIRSTINSTR : ARG (() (x)) $x) }
+
+(def EVOL-LCTXS :
+	DUP CAR EVOL SWAP CDR SWAP INSLCTXS)
+
+(def ONEOF :
+	DUP NCONSPTHEN END :
+	ALT CAR : CDR ONEOF)
+
+
+{ (30 149 SETREG) } 
+
+(def MOTEUR-NOTRACE : ARG objectif : ARG regles :
+	REPEAT
+		($regles ONEOF GETDEF EXEC
+		TEST-BASE THEN END I
+		 { on verifie qu'on n'est pas dans un etat deja rencontre }
+		)
+	$objectif EXEC)
+
+(def TRACE-MOTEUR '())
+
+(def MAPC : C Q : ARG _f : ARG _x : ARG _l :
+	$_l NCONSPTHEN I :
+	$_l CAR $_x $_f EXEC :
+	$_l CDR $_x '() $_f CONS Q MAPC CONS EXEC) 
+
+(def PRINTSOL : $SOL PRINTSOL1)
+
+(def PRINTSOL1 : ARG sol :
+	"Solution : " PRINTSTRING NL
+	$sol '() MAPC : ARG x : ARG (regle env) :
+	"    Regle " PRINTSTRING $regle PRIN " , env = " PRINTSTRING NL  
+	$env PRINTENVBASE)
+
+(def PRINTENV : ARG env :
+	$env '() MAPC : ARG x : ARG (var . vals) :
+	"        " PRINTSTRING $var PRIN " = " PRINTSTRING $vals PRINT)
+
+(def PRINTENVBASE : ARG env :
+	"        BASE = " PRINTSTRING
+	'BASE $env GETVENV PRINT)	
+
+(def MOTEUR : ARG objectif : ARG regles :
+	TRACE-MOTEUR THEN ("Regles : " PRINTSTRING $regles PRINT) I
+	REPEAT
+	      ( TRACE-MOTEUR THEN ("Debut repeat: Base " PRINTSTRING $BASE PRINT) I
+		TRACE-MOTEUR THEN ("regles : " PRINTSTRING $regles PRINT) I 
+		$regles ONEOF { DUP PRINT } 
+		TRACE-MOTEUR THEN (READSTRING DROP {0 SWAP CREF 115 EQ THEN STEPON I}
+				   NL "Base " PRINTSTRING $BASE PRINT
+				   "Regle " PRINTSTRING DUP PRINT) I
+		GETDEF EXEC
+		TRACE-MOTEUR THEN ("base " PRINTSTRING $BASE PRINT
+				   {"sol  " PRINTSTRING $SOL PRINT}
+				   $SOL PRINTSOL) I
+		TEST-BASE THEN 
+			("Deja rencontre" PRINTSTRING NL END)
+			(TRACE-MOTEUR THEN
+                                ("Nouveau" PRINTSTRING NL) I I)
+		 { on verifie qu'on n'est pas dans un etat deja rencontre }
+		)
+	TRACE-MOTEUR THEN ("Apres REPEAT, base " PRINTSTRING $BASE PRINT) I
+	$objectif EXEC
+	TRACE-MOTEUR THEN ("Apres objectif, base " PRINTSTRING $BASE PRINT) I)
+
+(def REPEAT : B (ALT I) (S I REPEAT))
+
+(def TEST-BASE :
+	$SOL CDR $BASE CONTIENT :
+	ARG base : ARG (regle env) :
+	'BASE $env GETVENV $base MEMES-BASES)
+
+{ (def MEMES-BASES EQUAL) }
+(def MEMES-BASES : ARG b1 : ARG b2 : 
+        ($b1 $b2 INCL) AND
+        ($b2 $b1 INCL))
+
+{
+(def CONTAINS :
+	C QUOTE : DIVE DIVE DIVE
+	(GETH 0 NCONSPTHEN '() :
+	 GETH 0 CAR GETH 1 GETH 2 EXEC :
+	 OR :
+	 GETH 0 CDR GETH 1
+	 '() GETH 2 CONS 'CONTIENT CONS EXEC)
+	CLIMBDROP CLIMBDROP CLIMBDROP)
+}
+
+{ (def OR : B (DUP THEN I) DROP) }
+
+(def defregle : C QUOTE : C QUOTE : C QUOTE :
+		ARG corps : ARG vars : ARG nom :
+	$corps $vars $nom REGLE
+	$nom DECLSYM SETDEF)
+
+(def REGLE : ARG nom : ARG vars : ARG corps :
+	$('QUOTE 'UNDEFINED 'BINDVQ vars
+	  corps
+	  ('$SOL 'QUOTE '() 'GETENV 'CONS 'QUOTE nom 'CONS 'CONS
+	   'SETVQ 'SOL)
+	   { mise a jour de la solution : ajoute (nom-regle vars) en tete }
+	   'UNBINDVQ vars))
+
+(def fait : APPLYTO :
+	$BASE ONEOF SWAP UNIFY)
+
+(def UNIFY :
+	GETENV UNIF DUP THEN SETENV END)
+
+(def ajouter : APPLYTO :
+	GETENV CONSTR
+	$BASE SWAP CONS SETVQ BASE)
+
+(def supprimer : APPLYTO :
+	DUP
+	$BASE ONEOF DUP SWAP3 UNIFY
+	$BASE SWAP REMQ SETVQ BASE)
+
+{ (def SWAP3 : ARG a : ARG b : ARG c : $a $b $c) }
+
+(def REMQ : ARG x : ARG l :
+	$l CAR $x EQ THEN ($l CDR) :
+	$l CDR $x REMQ $l CAR CONS)
+
+
+(def base-init-lcc ':
+	((homme toto) sur (rive gauche))
+	((loup loulou) sur (rive gauche))
+	((chevre blanchette) sur (rive gauche))
+	((chou chou1) sur (rive gauche))
+	((rive gauche) proche (rive droite))
+	((rive droite) proche (rive gauche))
+)
+
+(defregle objectif-lcc () :
+	fait '((homme toto) sur (rive droite))
+	fait '((loup loulou) sur (rive droite))
+	fait '((chevre blanchette) sur (rive droite))
+	fait '((chou chou1) sur (rive droite))
+)
+
+(defregle manger () :
+	fait '((chevre &()) sur (rive &r))
+	{ "chevre sur rive " PRINTSTRING $r PRINT }
+	(ALT (fait '((loup &()) sur (rive &r)) { 'loup PRINT } )
+	     (fait '((chou &()) sur (rive &r)) { 'chou PRINT } ))
+	prolognot (fait '((homme &()) sur (rive &r)) { 'homme PRINT } )
+)
+
+(defregle regle1-lcc (h d a) :
+	supprimer '((homme &h) sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
+	prolognot manger
+        "homme traverse seul de rive " PRINTSTRING $d PRIN " vers rive " PRINTSTRING $a PRINT
+)
+
+(defregle regle2-lcc (h o d a) :
+	supprimer '((homme &h) sur (rive &d))
+	supprimer '(&o sur (rive &d))
+	fait '((rive &d) proche (rive &a))
+	ajouter '((homme &h) sur (rive &a))
+	ajouter '(&o sur (rive &a))
+	prolognot manger
+        "homme traverse avec " PRINTSTRING $o PRIN " de rive " PRINTSTRING $d PRIN " vers rive " PRINTSTRING $a PRINT
+)
+
+(def LCC :
+	base-init-lcc : ARG BASE :
+	'true : ARG SOL :
+	'(regle1-lcc regle2-lcc) 'objectif-lcc MOTEUR
+	PRINTSOL
+	Y : READ EXEC)
+
+(base-init-lcc SETVQ BASE)
+
+{ (def PRINTSOL PRINT) }
+
+(def RPTN :
+	B (1 PLUS Y) : #-1 PLUS DUP ZEROP THEN (K I))
+
+(def NEW-MKCNL :
+	'() SWAP CONS
+	$('CANAL '() '()) APPEND)
+
+
+
+(def VALUEINCTX :
+	DIVE DIVE
+	(GETCTX :
+         DROPINSTR
+	 GETH 0
+		'THROW ADDINSTR
+		SWAP ADDINSTR
+		'QUOTE ADDINSTR
+		GETH 1 ADDINSTR
+	 SETCTX)
+	CLIMBDROP CLIMBDROP)
+
+(synonym KI J)
+
+(def freeze :
+	GETCTX : DROPINSTR KI)
+
+(def UNFREEZE :
+	DUP DROPINSTR SWAP FIRSTINSTR
+	VALUEINCTX)
+
+
+(def INTFROM : ARG n :
+	freeze : $n 1 PLUS INTFROM $n CONS)
+
+(def CHEMIN : ARG lab : ARG dv : ARG arr : ARG dep :
+        "chemin de " PRINTSTRING $dep PRIN " a " PRINTSTRING $arr PRIN " dv=" PRINTSTRING $dv PRINT
+	$dep $dv MEMBER THEN END :
+	$dep $arr EQUAL THEN 'true :
+	$dep $lab GETVENV ONEOF :
+	ARG (dir nv) :
+	$nv $arr $(dep . dv) $lab CHEMIN
+	$dir CONS)
+
+(def CHEMINS :
+	values CHEMIN
+	DIVE DIVE DROP DROP DROP CLIMB)
+
+(def UNCHEMIN :
+	cut : ALT CHEMIN : DROP DROP DROP DROP '())
+
+(def lab1 ':
+	(A : (e B))
+	(B : (n E) (e C))
+	(C : )
+	(D : (s A))
+	(E : (o D) (n H) (e F))
+	(F : (s C))
+	(G : (s D))
+	(H : (o G) (e I))
+	(I : (s F))
+)
+
+
+(def LINK-LABEL 'label)
+(def LINK-GOTO 'goto)
+
+(def LINK : LIST1 LINK1 CAR)
+
+(def LINK1 :
+	'() ARG labels :
+	LINK2 ARG y :
+	'() ARG linked :
+	$y LINK3
+	(Y :
+		$linked NOT THEN EXIT :
+		'() SETVQ linked
+		$y LINK3)
+	$y)
+
+(def LINK2 : ARG x :
+	$x NCONSPTHEN $x :
+	($x CAR NCONSPTHEN '() :
+	 $x CAR CAR LINK-LABEL EQ)
+	THEN ($x CDR LINK2 ARG y :
+		@(labels SETVQ
+			CONS CONS CAR CDR CAR $x CONS $y '()
+				$labels)
+		$y) :
+	@:CONS LINK2 CAR $x LINK2 CDR $x)
+
+(def LINK3 :
+	'() SETVQ LINK-DEJAVU
+	LINK4)
+
+(def LINK4 : ARG x :
+	$x $LINK-DEJAVU MEMQ THEN I :
+	$x NCONSPTHEN I :
+	$LINK-DEJAVU $x CONS SETVQ LINK-DEJAVU
+	$x CAR LINK4 $x CDR LINK4
+	($x CAR NCONSPTHEN '() :
+	 $x CAR CAR NCONSPTHEN '() :
+	 LINK-GOTO $x CAR CAR CAR EQ)
+	THEN ('true SETVQ linked
+		$x CAR CAR CDR CDR $labels GETVENV
+		$x RPLACA) :
+	($x CDR NCONSPTHEN '() :
+	 $x CDR CAR NCONSPTHEN '() :
+	 LINK-GOTO $x CDR CAR CAR EQ)
+	THEN ('true SETVQ linked
+		$x CDR CAR CDR CAR $labels GETVENV
+		$x RPLACD)
+	I)
+
+
+(def ADDRESSES : ARG l : ARG x :
+	$x NCONSPTHEN $l :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN $l :
+	$x CAR $(x . l) ADDRESSES ARG l1 :
+	$x CDR $l1 ADDRESSES)
+
+{
+(def UNLINK1 : ARG l : ARG x :
+	$x NCONSPTHEN $l :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ AND $l) OR :
+	$x CAR $(x . l) UNLINK1 ARG l1 :
+	$x CDR $l1 UNLINK1)
+
+
+(def UNLINK1 : ARG n : ARG l : ARG x :
+	$x NCONSPTHEN $(l n) :
+	$l '() CONTAINS 
+		(DROP ARG (p y) : 
+		 $y $x EQ AND :
+		 $n 1 PLUS ARG np1 : 
+		 $l '() MAPCAR 
+		 (DROP ARG (p1 y1) :
+		  $y1 $x EQ THEN $(n y1) $(p1 y1))
+		 ARG l1 $(l1 np1))
+	OR :
+	$x CAR $(('() x) . l) $n UNLINK1 ARG (l1 n1) :
+	$x CDR $l1 $n1 UNLINK1)
+
+}
+
+(def UNLINK1 : ARG n : ARG l : ARG x :
+	$x NCONSPTHEN $(l n) :
+	$l '() CONTAINS 
+		(DROP ARG (p y) : 
+		 $y $x EQ AND :
+		 $p THEN $(l n) : 
+		 $n 1 PLUS ARG np1 : 
+		 $l '() MAPCAR 
+		 (DROP ARG (p1 y1) :
+		  $y1 $x EQ THEN $(n y1) $(p1 y1))
+		 ARG l1 $(l1 np1))
+	OR :
+	$x CAR $(('() x) . l) $n UNLINK1 ARG (l1 n1) :
+	$x CDR $l1 $n1 UNLINK1)
+
+
+{
+(def UNLINK2 : ARG m : ARG l : ARG x : 
+	$x NCONSPTHEN $(x m) :
+	$l '() CONTAINS 
+		(DROP ARG (p y) :
+		 $p AND :
+		 $y $x EQ AND :
+		 $m '() CONTAINS 
+			(DROP ARG z :
+			 $z $x EQ AND $((('goto p)) m))
+		 OR :
+		 $x CAR $l $m UNLINK2 ARG (x1 m1) :
+		 $x CDR $l $m1 UNLINK2 ARG (x2 m2) 
+		 $((('label p) x1 . x2) m2) )
+	OR :
+	$x CAR $l $m UNLINK2 ARG (x1 m1) :
+	$x CDR $l $m UNLINK2 ARG (x2 m2) 
+	$((x1 . x2) m2) )
+}
+
+(def UNLINK2 : ARG m : ARG l : ARG x : 
+	$x NCONSPTHEN $(x m) :
+	$l '() CONTAINS 
+		(DROP ARG (p y) :
+		 $p AND :
+		 $y $x EQ AND :
+		 $m '() CONTAINS 
+			(DROP ARG z :
+			 $z $x EQ AND $((('goto p)) m))
+		 OR :
+		 $x CAR $l $(x . m) UNLINK2 ARG (x1 m1) :
+		 $x CDR $l $m1 UNLINK2 ARG (x2 m2) 
+		 $((('label p) x1 . x2) m2) )
+	OR :
+	$x CAR $l $m UNLINK2 ARG (x1 m1) :
+	$x CDR $l $m UNLINK2 ARG (x2 m2) 
+	$((x1 . x2) m2) )
+		 
+(def UNLINK : ARG x :
+	$x '() 1 UNLINK1 ARG (l n) :
+	$x $l '() UNLINK2 ARG (y m) 
+	$y)
+
+{
+(def UNLINK1 : ARG n : ARG l : ARG x :
+	$x NCONSPTHEN $(x l n) :
+	$l '() CONTAINS 
+		(DROP ARG (p y z) : 
+		 $y $x EQ AND :
+		 $n 1 PLUS ARG n1 : 
+		 $l '() MAPCAR 
+		 (DROP ARG (p1 y1 z1) :
+		  $y1 $x EQ THEN $(n y1 z1) $(p1 y1 z1))
+		 ARG l1 $((('goto n)) l1 n1))
+	OR :
+	$x CAR $(('() x 'xxx) . l) $n UNLINK1 ARG (x1 l1 n1) :
+	$x CDR $l1 $n1 UNLINK1 ARG (x2 l2 n2) $((x1 . x2) l2 n2) )
+
+(def UNLINK1 : ARG n : ARG l : ARG x :
+	$x NCONSPTHEN $(x l n) :
+	$l '() CONTAINS 
+		(DROP ARG (p y) : 
+		 $y $x EQ AND :
+		 $n 1 PLUS ARG n1 : 
+		 $l '() MAPCAR 
+		 (DROP ARG (p1 y1) :
+		  $y1 $x EQ THEN $(n y1) $(p1 y1))
+		 ARG l1 $((('goto n)) l1 n1))
+	OR :
+	$x CAR $(('() x) . l) $n UNLINK1 ARG (x1 l1 n1) :
+	$x CDR $l1 $n1 UNLINK1 ARG (x2 l2 n2) $((x1 . x2) l2 n2) )
+}
+
+{
+(def UNLINK1 : ARG l : ARG x :
+	$x NCONSPTHEN $(x l) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN $((('goto)) l) :
+	$x CAR $(x . l) UNLINK1 ARG (x1 l1) :
+	$x CDR $l1 UNLINK1 ARG (x2 l2) $((x1 . x2) l2) )
+
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN $((('goto)) l c n) :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
+
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
+		($n 1 PLUS ARG n1 : 
+		 $(('goto n)) ARG z :
+		 $(z l ((n x) . c) n1)) :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
+}
+{
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
+		($n 1 PLUS ARG n1 : 
+		 $(('goto n)) ARG z :
+		 $(z l ((n x) . c) n1)) :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) :
+	$c2 '() CONTAINS 
+		(DROP ARG (n3 x3) : $x3 $x EQ AND :
+		 $((('label n3) x1 . x2) l2 c2 n2)) OR
+	$((x1 . x2) l2 c2 n2) )
+}
+
+{
+(def PUTLABELS : ARG c : ARG x :
+	$x NCONSPTHEN $x :
+	$x CAR $c PUTLABELS ARG x1 :
+	$x CDR $c PUTLABELS ARG x2 :
+	$c '() CONTAINS
+		(DROP ARG (n3 x3) : $x3 $x EQ AND 
+		 $(('label n3) x1 . x2))
+	OR $(x1 . x2))
+
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
+		($n 1 PLUS ARG n1 : 
+		 $(('goto n)) ARG z :
+		 $(z l ((n x) . c) n1)) :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) :
+	$(x1 . x2) ARG w :
+	$w $c PUTLABELS ARG v :
+	$(v l2 c2 n2) )
+
+(def UNLINK : ARG x :
+	$x '() '() 1 UNLINK1 CAR)
+
+}
+
+{
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS 
+		(DROP ARG y : $y $x EQ AND :
+		 $n 1 PLUS ARG n1 : 
+		 $(('goto n)) ARG z :
+		 $(z l ((n y) . c) n1)) OR :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
+}
+{
+(def UNLINK2 : ARG c : ARG x :
+	$x NCONSPTHEN $x :
+	$x CAR $c UNLINK2 ARG x1 :
+	$x CDR $c UNLINK2 ARG x2 :
+	$c '() CONTAINS (DROP ARG (n y) : $x $y EQ AND $((label n) x1 . x2)) 
+		OR $(x1 . x2)) 
+}
+{
+(def UNLINK1 : ARG n : ARG c : ARG l : ARG x :
+	$x NCONSPTHEN $(x l c n) :
+	$l '() CONTAINS (DROP ARG y : $y $x EQ) THEN 
+		($n 1 PLUS ARG n1 :
+		 $((('goto n)) l ((n x) . c) n1)) :
+	$x CAR $(x . l) $c $n UNLINK1 ARG (x1 l1 c1 n1) :
+	$x CDR $l1 $c1 $n1 UNLINK1 ARG (x2 l2 c2 n2) $((x1 . x2) l2 c2 n2) )
+}
+
+{
+(def UNLINK : ARG x :
+	'() ARG corresp :
+	'0 ARG nl :
+	$x UNLINK1)
+
+(def UNLINK1 : ARG x :
+	$corresp PRINT
+	$x NCONSPTHEN $x :
+	($corresp '() CONTAINS : DROP ARG ((n g a b)) : 
+         $a $x EQ THEN ( 'true $g RPLACA $(('goto n))) '()) OR :
+	$(nl '(()) x '()) ARG item :
+	$(item . corresp) SETVQ corresp 
+	$x CAR UNLINK1 ARG y1 :
+	$x CDR UNLINK1 ARG y2 :
+	$(y1 . y2) ARG y :
+	$nl 1 PLUS SETVQ nl 
+	$(y1 . y2))
+}
+
+
+{ (definstr nom corps) -> (def nom : GETCTX : DROPINSTR corps SETCTXS) }
+
+
+
+(def definstr : C QUOTE : C QUOTE : ARG corps : ARG nom @:
+	SETDEF DECLSYM $nom
+	$('GETCTX ('DROPINSTR corps 'SETCTXS)))
+
+(definstr INSTR-DEUXIEME : ARG ctx :
+	$ctx POP $ctx TOP CDR CAR PUSH LIST1)
+
+(definstr instr : ARG (strat (f . prog) . sc) :
+	$(strat prog . sc) $f EXEC)
+
+(def INSTR-TROISIEME : instr : ARG ctx :
+	$ctx POP $ctx TOP CDR CDR CAR PUSH LIST1)
+
+
+(def INTERP : Y :
+ 	{ DUP LENGTH PRINT DUP CAR PRINTCTX READSTRING DROP }
+	DUP NCONSPTHEN EXIT :
+	DUP CAR FIRSTINSTR
+	DUP 'STOP EQ THEN (DROP EXIT) :
+	DUP 'META-APPLY EQ
+		THEN (DROP :
+			ARG ((strat (() f . prog) (x . bas) fh
+				. sc) . ac) :
+			$x $f EXEC : ARG y :
+			$((strat prog (y . bas) fh . sc) . ac)) :
+	DUP 'META EQ
+		THEN (DROP DUP CDR SWAP CAR DROPINSTR DUP FIRSTINSTR EXEC
+			(DROPINSTR DUP DROPINSTR DROPINSTR SWAP FIRSTINSTR
+				ADDINSTR CONS)
+			DROPINSTR DROPINSTR CONS) :
+	DUP 'GETLCTXS EQ
+		THEN (DROP ARG ((strat (() . prog) bas fh . sc) . ac) :
+			$((strat prog (((strat prog bas fh . sc)
+						. ac) . bas) fh
+				. sc) . ac)) :
+	DUP 'LEVEL EQ
+		THEN (DROP ARG ((strat (() . prog) bas fh . sc) . ac) :
+			LEVEL 1 PLUS : ARG l :
+			$((strat prog (l . bas) fh . sc) . ac)) :
+	DROP EVOL-LCTXS)
+
+
+(def EVOL-LCTXS : DUP CAR EVOL SWAP CDR SWAP INSLCTX)
+(def META-VALUE : B ('() META-APPLY) DROP)
+(def META-EXEC : META-APPLY EXEC)
+(def META-EVAL : C META-VALUE EXEC)
+(def NEW-META : B META-EVAL : P 'K 'KI)
+
+(def shiftup : GETCTX : DROPINSTR LIST1 : Y : EVOL-LCTXS)
+(def SHIFTUP1 : GETCTX : DROPINSTR LIST1 : INTERP)
+(def SHIFTUP : B GETCTX : DROPINSTR LIST1 INTERP)
+
+{
+(def GETGCTXS :
+	GETROOT CAR CDR CAR CDR
+	CDR GETCTX : DROPINSTR POP CONS)
+(def SETGCTXS : GETROOTR CAR CDR CAR RPLACD)
+(def GCUT : '() GETROOT CAR CDR CAR CDR RPLACD)
+}
+
+(def GSHIFTUP : B GETCTXS : GCUT DUP CDR SWAP CAR DROPINSTR CONS INTERP)
+
+(def SHIFTDOWN1 : GETCTX / DROPINSTR META-APPLY SETCTX)
+(def SHIFTDOWN : GETCTX : DROPINSTR META-APPLY (ALT SETCTX I) END)
+
+(def /REPEVOL :
+	INTERP
+	DUP NCONSPTHEN I :
+	DUP CDR SWAP CAR DROPINSTR CONS)
+
+(def /APPLIQ :
+	'() 'STOP CONS SWAP CONS ADDINSTR LIST1 /REPEVOL)
+
+(def /APPREMINSTR :
+	DUP DROPINSTR SWAP FIRSTINSTR /APPLIQ)
+
+(def *REPEVOL :
+	/REPEVOL
+	DUP NCONSPTHEN I :
+	DUP CDR *REPEVOL SWAP CAR CONS)
+
+(def *APPLIQ :
+	'() 'STOP CONS SWAP CONS ADDINSTR LIST1 *REPEVOL)
+
+(def *APPLIQ :
+	'() 'STOP CONS SWAP CONS ADDINSTR LIST1 *REPEVOL)
+
+(def *APPREMINSTR :
+	DUP DROPINSTR SWAP FIRSTINSTR *APPLIQ)
+
+(definstr values : ARG ctx :
+	$ctx *APPREMINSTR
+	'() MAPCAR (DROP TOP)
+	$ctx DROPINSTR SWAP PUSH LIST1)
+
+(definstr cut :
+	/APPREMINSTR CAR LIST1)
+
+(definstr bloc
+	*APPREMINSTR)
+
+(definstr hyp : ARG ctx :
+	$ctx /APPREMINSTR NCONSPTHEN '() ($ctx DROPINSTR LIST1))
+
+(definstr prolognot : ARG ctx :
+	$ctx /APPREMINSTR NCONSPTHEN ($ctx DROPINSTR LIST1) '())
+
+(definstr prologif : ARG ctx :
+	$ctx : ARG (strat (c x y . prog) . sc) :
+	$(strat prog . sc) $c *APPLIQ : ARG lctxs :
+	$lctxs NCONSPTHEN $((strat (y . prog) . sc)) :
+	$lctxs $x MAPCAR ADDINSTR)
+
+{
+(defprop META _NDF : SHIFTUP (DROP KI) META)
+(defprop META-APPLY _NDF : SHIFTUP (DROP KI) META-APPLY)
+}
+
+(def tour-reflexive1 :
+(defprop META _NDF : SHIFTUP SETCTXS META)
+(defprop META-APPLY _NDF : SHIFTUP SETCTXS META-APPLY)
+(defprop TOP _NDF I)
+(defprop LEVEL _NDF 0)
+)
+
+(def tour-reflexive2 :
+(defprop META _NDF : GSHIFTUP SETCTXS META)
+(defprop META-APPLY _NDF : GSHIFTUP SETCTXS META-APPLY)
+(defprop STOP _NDF I)
+)
+
+(defprop LEVEL _NDF 0)
+(defprop GETLCTXS _NDF GETGCTXS)
+
+
+
+)
