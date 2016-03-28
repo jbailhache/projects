@@ -1,0 +1,22 @@
+(
+
+(def car : C QUOTE : ARG x : %(x 'CAR) EXEC)
+
+(def cdr : C QUOTE : ARG x : %(x 'CDR) EXEC)
+
+(def cons : C QUOTE : C QUOTE : ARG x : ARG y : %(x y 'CONS) EXEC)
+
+(def , : C QUOTE : ARG x : %(x 'SWAP 'CONS) EXEC)
+
+(def cadr1 : C QUOTE : ARG x : %('car ('cdr x)) EXEC)
+
+(def lambda : C QUOTE : C QUOTE ((ARG b : ARG x %('C 'QUOTE : 'ARG x : 'QUOTE b 'GETENV 'CONSTR 'EXEC)) EXEC)) 
+
+(def car1 : lambda x : &x CAR)
+
+(def cadr : lambda x : car : cdr &x)
+
+{ (def list2 : lambda x : lambda y : cons &x : cons &y '()) }
+
+
+)
