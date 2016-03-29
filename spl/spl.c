@@ -68,7 +68,7 @@ sexpr props[NSTRINGS];
 #define PROPS(x) (props[UTVAL(x)])
 
 
-sexpr nil, tru;
+sexpr nil, tru, DB0, DBS, DBL, LAMBDA;
 
 sexpr instr;
 
@@ -475,6 +475,10 @@ void init ()
  stdi->f = stdif;
  nil = symbol ("nil");
  tru = symbol ("t");
+ DB0 = symbol ("#DB0");
+ DBS = symbol ("#DBS");
+ DBL = symbol ("#DBL");
+ LAMBDA = symbol ("lambda");
  rc = ' ';
 
 }
@@ -1451,6 +1455,74 @@ sexpr instr_receive (sexpr ctx)
 		  nil ));
 }
  
+sexpr dbs (sexpr x)
+{
+ return cons (DBS, cons (x, nil));
+}
+
+sexpr dbl (sexpr x)
+{
+ return cons (DBL, cons (x, nil));
+}
+
+sexpr slc_shift (sexpr u, sexpr x)
+{
+ if (equal (u, x)) return dbs(u);
+ if (!consp(x)) return x;
+ if (equal (car(x), DBL)) return dbl (slc_shift (cons(DBS,cons(u,nil)), car(cdr(x))));
+ return cons (slc_shift (u, car(x)), slc_shift (u, cdr(x)));
+}
+
+sexpr slc_subst (sexpr u, sexpr a, sexpr b)
+{
+ if (equal (a, u)) return b;
+ if (equal (a, dbs(u))) return u;
+ if (!consp(a)) return a;
+ if (eq (car(a), DBL)) 
+ {
+  if (!consp(cdr(a)))
+  {
+   printf ("Error : pair expected for cdr of ");
+   print (stdo, a, 30);
+   printf ("\n");
+   return a;
+  }
+  return dbl (slc_subst (dbs(u), car(cdr(a)), slc_shift (DB0, b)));
+ }
+ return cons (slc_subst(u,car(a),b), slc_subst(u,cdr(a),b));
+}
+
+int in (sexpr x, sexpr y)
+{
+ if (equal(x,y)) return 1;
+ if (!consp(y)) return 0;
+ if (in(x,car(y))) return 1;
+ if (in(x,cdr(y))) return 1;
+ return 0;
+}
+
+sexpr slc_dbname (sexpr u, sexpr x, sexpr y)
+{
+ if (equal(x,y)) return u;
+ if (!consp(y)) return y;
+ if (!in(x,y)) return y;
+ if (eq (car(y), DBL)) return dbl (slc_dbname (dbs(u), x, car(cdr(y))));
+ return cons (slc_dbname(u,x,car(y)), slc_dbname(u,x,cdr(y))); 
+}
+
+sexpr slc_int (sexpr x)
+{
+ if (!consp(x)) return x;
+ if (eq(car(x), LAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
+  return lambda (car(cdr(x)), car(cdr(cdr(x))));
+ cons (slc_int(car(x)), slc_int(cdr(x)));
+}
+
+sexpr lambda (sexpr a, sexpr b)
+{
+ return dbl (slc_dbname (DB0, slc_int(a), slc_int(b)));
+}
+
 #include "definstr.h" 
 
 /* #define DEFINSTR(str) } else if (!strcmp (str_sexpr(instr), str)) { */
@@ -1877,8 +1949,13 @@ void exec_instr (sexpr instr)
   envir = unbindvenv (envir, car(prog));
   prog = cdr(prog);
 
- DEFINSTR("lambda")
+ DEFINSTR("LAMBDA")
   prog = cons (subst (car(cdr(cdr(prog))), car(prog), car(cdr(prog))), cdr(cdr(cdr(prog))));
+
+ DEFINSTR("lambda")
+  prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
+ DEFINSTR("#DBL")
+  prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));
 
 /* List utilities */
  DEFINSTR("LENGTH")
@@ -1953,7 +2030,7 @@ void exec_instr (sexpr instr)
  }
 }
 
-#define TPL 16
+#define TPL 32
 
 void trace_step (void)
 {

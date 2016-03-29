@@ -7,6 +7,14 @@
 (def cadr : lambda x : car : cdr x)
 (def dcons : lambda x : cons x x)
 (def dcons1 : lambda x : x ARG y : cons %y %y)
+(def == : lambda x : x EQUAL)
+(def then THEN)
+(def unift : lambda x : lambda y : y x 'true UNIF)
+
+(def match : lambda x : 
+ x 'true UNIF DUP AND : 
+ DUP GETENV APPEND SETENV)
+
 
 {
 (def car : C QUOTE : ARG x : %(x 'CAR) EXEC)
