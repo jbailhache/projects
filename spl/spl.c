@@ -68,7 +68,7 @@ sexpr props[NSTRINGS];
 #define PROPS(x) (props[UTVAL(x)])
 
 
-sexpr nil, tru, DB0, DBS, DBL, LAMBDA;
+sexpr nil, tru, DB0, DBS, DBL, DBLS, LAMBDA;
 
 sexpr instr;
 
@@ -478,6 +478,7 @@ void init ()
  DB0 = symbol ("#DB0");
  DBS = symbol ("#DBS");
  DBL = symbol ("#DBL");
+ DBLS = symbol ("#DBLS");
  LAMBDA = symbol ("lambda");
  rc = ' ';
 
@@ -1954,8 +1955,14 @@ void exec_instr (sexpr instr)
 
  DEFINSTR("lambda")
   prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
- DEFINSTR("#DBL")
+ 
+ DEFINSTR("#DBML")
   prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));
+ DEFINSTR("#DBL")
+  prog = cons (car(cdr(prog)), cons (DBLS, cons (car(prog), cdr(cdr(prog)))));
+ DEFINSTR("#DBLS")
+  prog = cons (slc_subst (DB0, car(prog), cons(symbol("QUOTE"),cons(car(stack),nil))), cdr(prog));
+  stack = cdr(stack);
 
 /* List utilities */
  DEFINSTR("LENGTH")
