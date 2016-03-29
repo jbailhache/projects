@@ -68,7 +68,7 @@ sexpr props[NSTRINGS];
 #define PROPS(x) (props[UTVAL(x)])
 
 
-sexpr nil, tru, DB0, DBS, DBL, DBLS, LAMBDA;
+sexpr nil, tru, DB0, DBS, DBL, DBLS, DBML, LAMBDA, MLAMBDA;
 
 sexpr instr;
 
@@ -479,7 +479,9 @@ void init ()
  DBS = symbol ("#DBS");
  DBL = symbol ("#DBL");
  DBLS = symbol ("#DBLS");
+ DBML = symbol ("#DBML");
  LAMBDA = symbol ("lambda");
+ MLAMBDA = symbol ("mlambda");
  rc = ' ';
 
 }
@@ -1466,6 +1468,11 @@ sexpr dbl (sexpr x)
  return cons (DBL, cons (x, nil));
 }
 
+sexpr dbml (sexpr x)
+{
+ return cons (DBML, cons (x, nil));
+}
+
 sexpr slc_shift (sexpr u, sexpr x)
 {
  if (equal (u, x)) return dbs(u);
@@ -1508,6 +1515,7 @@ sexpr slc_dbname (sexpr u, sexpr x, sexpr y)
  if (!consp(y)) return y;
  if (!in(x,y)) return y;
  if (eq (car(y), DBL)) return dbl (slc_dbname (dbs(u), x, car(cdr(y))));
+ if (eq (car(y), DBML)) return dbml (slc_dbname (dbs(u), x, car(cdr(y))));
  return cons (slc_dbname(u,x,car(y)), slc_dbname(u,x,cdr(y))); 
 }
 
@@ -1516,12 +1524,19 @@ sexpr slc_int (sexpr x)
  if (!consp(x)) return x;
  if (eq(car(x), LAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
   return lambda (car(cdr(x)), car(cdr(cdr(x))));
+ if (eq(car(x), MLAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
+  return lambda (car(cdr(x)), car(cdr(cdr(x))));
  cons (slc_int(car(x)), slc_int(cdr(x)));
 }
 
 sexpr lambda (sexpr a, sexpr b)
 {
  return dbl (slc_dbname (DB0, slc_int(a), slc_int(b)));
+}
+
+sexpr mlambda (sexpr a, sexpr b)
+{
+ return dbml (slc_dbname (DB0, slc_int(a), slc_int(b)));
 }
 
 #include "definstr.h" 
@@ -1955,7 +1970,8 @@ void exec_instr (sexpr instr)
 
  DEFINSTR("lambda")
   prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
- 
+ DEFINSTR("mlambda")
+  prog = cons (mlambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("#DBML")
   prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("#DBL")
