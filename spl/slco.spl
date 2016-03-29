@@ -1,0 +1,30 @@
+
+(
+
+(def DB0 '(DB0))
+
+{
+(def DBS : lambda u %('DBS u))
+(def DBL : lambda x %('DBL x))
+}
+
+(def DBS : lambda u : u ARG u1 %('DBS u1))
+(def DBL : lambda x : x ARG x1 %('DBL x1))
+
+(def slc-shift : lambda u : lambda x :
+ x == u then (DBS u) :
+ x NCONSPTHEN x :
+ (car x) == 'DBL then
+  (DBL : slc-shift (DBS u) (car : cdr x)) :
+ cons (slc-shift u : car x) (slc-shift u : cdr x))
+
+(def slc-shift-unif : lambda u : lambda x :
+ x == u then (DBS u) :
+ x match '(DBL &y) then 
+  (DBL : slc-shift (DBS u) %y) :
+ x match '(&a . &d) then
+  (cons (slc-shift u %a) (slc-shift u %d))
+ x)
+
+)
+
