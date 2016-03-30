@@ -108,11 +108,11 @@
 
 (def VAR GET)
 
-(def DANS : ARG x : ARG y :
+(def IN : ARG x : ARG y :
  %x %y EQUAL THEN 'true : 
  %y NCONSPTHEN '() : 
- %y CAR %x DANS OR :
- %y CDR %x DANS)
+ %y CAR %x IN OR :
+ %y CDR %x IN)
 
 (def synonym : C QUOTE : C QUOTE : ARG b : ARG a :
  %b GETDEF %a SETDEF)
