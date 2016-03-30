@@ -475,11 +475,11 @@ void init ()
  stdi->f = stdif;
  nil = symbol ("nil");
  tru = symbol ("t");
- DB0 = symbol ("#DB0");
- DBS = symbol ("#DBS");
- DBL = symbol ("#DBL");
- DBLS = symbol ("#DBLS");
- DBML = symbol ("#DBML");
+ DB0 = symbol ("_DB0");
+ DBS = symbol ("_DBS");
+ DBL = symbol ("_DBL");
+ DBLS = symbol ("_DBLS");
+ DBML = symbol ("_DBML");
  LAMBDA = symbol ("lambda");
  MLAMBDA = symbol ("mlambda");
  rc = ' ';
@@ -1458,6 +1458,7 @@ sexpr instr_receive (sexpr ctx)
 		  nil ));
 }
  
+
 sexpr dbs (sexpr x)
 {
  return cons (DBS, cons (x, nil));
@@ -1525,7 +1526,7 @@ sexpr slc_int (sexpr x)
  if (eq(car(x), LAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
   return lambda (car(cdr(x)), car(cdr(cdr(x))));
  if (eq(car(x), MLAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
-  return lambda (car(cdr(x)), car(cdr(cdr(x))));
+  return mlambda (car(cdr(x)), car(cdr(cdr(x))));
  cons (slc_int(car(x)), slc_int(cdr(x)));
 }
 
@@ -1967,16 +1968,15 @@ void exec_instr (sexpr instr)
 
  DEFINSTR("LAMBDA")
   prog = cons (subst (car(cdr(cdr(prog))), car(prog), car(cdr(prog))), cdr(cdr(cdr(prog))));
-
  DEFINSTR("lambda")
   prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("mlambda")
   prog = cons (mlambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
- DEFINSTR("#DBML")
+ DEFINSTR("_DBML")
   prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));
- DEFINSTR("#DBL")
+ DEFINSTR("_DBL")
   prog = cons (car(cdr(prog)), cons (DBLS, cons (car(prog), cdr(cdr(prog)))));
- DEFINSTR("#DBLS")
+ DEFINSTR("_DBLS")
   prog = cons (slc_subst (DB0, car(prog), cons(symbol("QUOTE"),cons(car(stack),nil))), cdr(prog));
   stack = cdr(stack);
 

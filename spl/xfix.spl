@@ -15,6 +15,40 @@
  x 'true UNIF DUP AND : 
  DUP GETENV APPEND SETENV)
 
+(def SDBS : ARG x %('_DBS x))
+
+(def SDBL : ARG x %('_DBL x))
+
+(def SDBML : ARG x %('_DBML x))
+ 
+(def SDBNAME : ARG u : ARG x : ARG y :
+ %x %y EQUAL THEN %u :
+ %y NCONSPTHEN %y :
+ %y %x IN NOT THEN %y :
+ %y CAR '_DBL EQ THEN (%y CDR CAR %x %u SDBS SDBNAME SDBL) :
+ %y CAR '_DBML EQ THEN (%y CDR CAR %x %u SDBS SDBNAME SDBML) :
+ %y CDR %x %u SDBNAME %y CAR %x %u SDBNAME CONS)
+
+(def SINT : ARG x :
+ %x NCONSPTHEN %x :
+ (%x CAR 'slambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR SLAMBDA) :
+ (%x CAR 'smlambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR SMLAMBDA) :
+ %x CDR SINT %x CAR SINT CONS)
+
+(def SLAMBDA : ARG x : ARG a : 
+ %a SINT %x SINT '_DB0 SDBNAME SDBL)
+
+(def SMLAMBDA : ARG x : ARG a :
+ %a SINT %x SINT '_DB0 SDBNAME SDBML)
+
+(def slambda : C QUOTE : C QUOTE : 
+ SWAP SLAMBDA EXEC)
+
+(def smlambda : C QUOTE : C QUOTE : 
+ SWAP SMLAMBDA EXEC)
+
 
 {
 (def car : C QUOTE : ARG x : %(x 'CAR) EXEC)
