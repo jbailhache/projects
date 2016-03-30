@@ -84,7 +84,7 @@ void init_ctx (int load_init);
 
 void error (char *s, sexpr x)
 {
- printf ("\n*** Error : %s : ", s, x);
+ printf ("\n*** Error : %s : ", s);
  printstd (x);
  printf (" instr=");
  printstd (instr);

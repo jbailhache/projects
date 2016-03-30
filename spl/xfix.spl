@@ -10,10 +10,11 @@
 (def == : lambda x : x EQUAL)
 (def then THEN)
 (def unift : lambda x : lambda y : y x 'true UNIF)
+(def in : lambda x : x IN)
 
 (def match : lambda x : 
  x 'true UNIF DUP AND : 
- DUP GETENV APPEND SETENV)
+ DUP GETENV SWAP APPEND SETENV)
 
 (def SDBS : ARG x %('_DBS x))
 

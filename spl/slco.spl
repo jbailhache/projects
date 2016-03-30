@@ -11,20 +11,46 @@
 (def DBS : lambda u : u ARG u1 %('DBS u1))
 (def DBL : lambda x : x ARG x1 %('DBL x1))
 
-(def slc-shift : lambda u : lambda x :
+(def slc-shift1 : lambda u : lambda x :
  x == u then (DBS u) :
  x NCONSPTHEN x :
  (car x) == 'DBL then
-  (DBL : slc-shift (DBS u) (car : cdr x)) :
- cons (slc-shift u : car x) (slc-shift u : cdr x))
+  (DBL : slc-shift1 (DBS u) (car : cdr x)) :
+ cons (slc-shift1 u : car x) (slc-shift1 u : cdr x))
 
-(def slc-shift-unif : lambda u : lambda x :
+(def slc-shift : lambda u : lambda x :
  x == u then (DBS u) :
  x match '(DBL &y) then 
   (DBL : slc-shift (DBS u) %y) :
  x match '(&a . &d) then
   (cons (slc-shift u %a) (slc-shift u %d))
  x)
+
+(def slc-subst : lambda u : lambda a : lambda b :
+ a == u then b :
+ a == (DBS u) then u :
+ a NCONSPTHEN a :
+ a match '(DBL b) then (DBL : slc-subst (DBS u) (car : cdr a) (slc-shift DB0 b)) :
+ cons (slc-subst u (car a) b) (slc-subst u (cdr a) b) )
+
+(def slc-red1 : lambda x :
+ x NCONSPTHEN x :
+ x match '(APL (DBL &a) &b) 
+   then (slc-subst DB0 a b) :
+ cons (slc-red1 : car x) (slc-red1 : cdr x) )
+
+(def slc-red : ARG x : 
+ (slc-red1 x) ARG y :
+ x == %y then x :
+ slc-red %y)
+
+(def slc-dbname : lambda u : lambda x : lambda y :
+ x == y then u :
+ y NCONSPTHEN y :
+ x in y NOT then y :
+ x match '(DBL a) then
+  (DBL : slc-dbname u a y) :
+ cons (slc-dbname u x (car y)) (slc-dbname u x (cdr y)) )
 
 )
 
