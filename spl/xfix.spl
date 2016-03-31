@@ -4,17 +4,56 @@
 (def cdr : lambda x : x CDR)
 (def cons : lambda x : lambda y : y x CONS)
 (def , : lambda x : x SWAP CONS)
+(def consq : mlambda x : mlambda y : 'y 'x CONS)
 (def cadr : lambda x : car : cdr x)
 (def dcons : lambda x : cons x x)
 (def dcons1 : lambda x : x ARG y : cons %y %y)
+(def === : lambda x : x EQ)
 (def == : lambda x : x EQUAL)
 (def then THEN)
 (def unift : lambda x : lambda y : y x 'true UNIF)
-(def in : lambda x : x IN)
+(def in : lambda x : x SWAP IN)
 
+(def gettype : lambda x : x GETTYPE)
+(def getprop : lambda x : lambda y : y x GETPROP)
+(def putprop : lambda x : lambda y : lambda z : z y x PUTPROP)
+(def exec : lambda x : x EXEC)
+(def last : lambda x : x LAST)
+(def butlast : lambda x : x BUTLAST)
+(def consp : lambda x : x CONSP)
+(def print : lambda x : x PRINT)
+(def prin : lambda x : x PRIN)
+(def printstring : lambda x : x PRINTSTRING)
+(def append : lambda a : lambda b : b a APPEND)
+
+{
+(def CONTAINS : C QUOTE : ARG _f : ARG _x : ARG _l :
+        %_l NCONSPTHEN '() :
+        %_l CAR %_x %_f EXEC : DUP THEN I :
+        DROP %_l CDR %_x QUOTE () %_f CONS QUOTE CONTAINS CONS EXEC)
+}
+
+(def contains : mlambda f : ARG _x : ARG _l : 
+ %_l NCONSPTHEN '() :
+ (f %_x (car %_l)) OR :
+ (cdr %_l) %_x contains f )
+
+
+ 
+
+
+{
 (def match : lambda x : 
  x 'true UNIF DUP AND : 
  DUP GETENV SWAP APPEND SETENV)
+}
+
+(def match : lambda x : mlambda a : mlambda b :
+ x 'true UNIF DUP THEN
+  (GETENV SWAP APPEND GETENV SWAP SETENV DIVE a CLIMB SETENV)
+  (DROP b))
+  
+
 
 (def SDBS : ARG x %('_DBS x))
 

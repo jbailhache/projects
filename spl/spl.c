@@ -1479,6 +1479,7 @@ sexpr slc_shift (sexpr u, sexpr x)
  if (equal (u, x)) return dbs(u);
  if (!consp(x)) return x;
  if (equal (car(x), DBL)) return dbl (slc_shift (cons(DBS,cons(u,nil)), car(cdr(x))));
+ if (equal (car(x), DBML)) return dbml (slc_shift (cons(DBS,cons(u,nil)), car(cdr(x))));
  return cons (slc_shift (u, car(x)), slc_shift (u, cdr(x)));
 }
 
@@ -1497,6 +1498,17 @@ sexpr slc_subst (sexpr u, sexpr a, sexpr b)
    return a;
   }
   return dbl (slc_subst (dbs(u), car(cdr(a)), slc_shift (DB0, b)));
+ }
+ if (eq (car(a), DBML)) 
+ {
+  if (!consp(cdr(a)))
+  {
+   printf ("Error : pair expected for cdr of ");
+   print (stdo, a, 30);
+   printf ("\n");
+   return a;
+  }
+  return dbml (slc_subst (dbs(u), car(cdr(a)), slc_shift (DB0, b)));
  }
  return cons (slc_subst(u,car(a),b), slc_subst(u,cdr(a),b));
 }
