@@ -21,10 +21,16 @@
 (def last : lambda x : x LAST)
 (def butlast : lambda x : x BUTLAST)
 (def consp : lambda x : x CONSP)
+(def nconsp : lambda x : x CONSP NOT)
+(def not : lambda x : x NOT)
 (def print : lambda x : x PRINT)
 (def prin : lambda x : x PRIN)
 (def printstring : lambda x : x PRINTSTRING)
 (def append : lambda a : lambda b : b a APPEND)
+
+(def split ARG)
+(def is slambda)
+(def or OR)
 
 {
 (def CONTAINS : C QUOTE : ARG _f : ARG _x : ARG _l :
@@ -77,16 +83,16 @@
   (%x CDR CDR CAR %x CDR CAR SMLAMBDA) :
  %x CDR SINT %x CAR SINT CONS)
 
-(def SLAMBDA : ARG x : ARG a : 
+(def SPLAMBDA : ARG x : ARG a : 
  %a SINT %x SINT '_DB0 SDBNAME SDBL)
 
-(def SMLAMBDA : ARG x : ARG a :
+(def SPMLAMBDA : ARG x : ARG a :
  %a SINT %x SINT '_DB0 SDBNAME SDBML)
 
-(def slambda : C QUOTE : C QUOTE : 
+(def splambda : C QUOTE : C QUOTE : 
  SWAP SLAMBDA EXEC)
 
-(def smlambda : C QUOTE : C QUOTE : 
+(def spmlambda : C QUOTE : C QUOTE : 
  SWAP SMLAMBDA EXEC)
 
 

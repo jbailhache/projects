@@ -1474,12 +1474,18 @@ sexpr dbml (sexpr x)
  return cons (DBML, cons (x, nil));
 }
 
+sexpr dbls (sexpr x)
+{
+ return cons (DBLS, cons (x, nil));
+}
+
 sexpr slc_shift (sexpr u, sexpr x)
 {
  if (equal (u, x)) return dbs(u);
  if (!consp(x)) return x;
  if (equal (car(x), DBL)) return dbl (slc_shift (cons(DBS,cons(u,nil)), car(cdr(x))));
  if (equal (car(x), DBML)) return dbml (slc_shift (cons(DBS,cons(u,nil)), car(cdr(x))));
+ if (equal (car(x), DBLS)) return dbls (slc_shift (cons(DBLS,cons(u,nil)), car(cdr(x))));
  return cons (slc_shift (u, car(x)), slc_shift (u, cdr(x)));
 }
 
@@ -1510,6 +1516,17 @@ sexpr slc_subst (sexpr u, sexpr a, sexpr b)
   }
   return dbml (slc_subst (dbs(u), car(cdr(a)), slc_shift (DB0, b)));
  }
+ if (eq (car(a), DBLS)) 
+ {
+  if (!consp(cdr(a)))
+  {
+   printf ("Error : pair expected for cdr of ");
+   print (stdo, a, 30);
+   printf ("\n");
+   return a;
+  }
+  return dbls (slc_subst (dbs(u), car(cdr(a)), slc_shift (DB0, b)));
+ }
  return cons (slc_subst(u,car(a),b), slc_subst(u,cdr(a),b));
 }
 
@@ -1529,6 +1546,7 @@ sexpr slc_dbname (sexpr u, sexpr x, sexpr y)
  if (!in(x,y)) return y;
  if (eq (car(y), DBL)) return dbl (slc_dbname (dbs(u), x, car(cdr(y))));
  if (eq (car(y), DBML)) return dbml (slc_dbname (dbs(u), x, car(cdr(y))));
+ if (eq (car(y), DBLS)) return dbls (slc_dbname (dbs(u), x, car(cdr(y))));
  return cons (slc_dbname(u,x,car(y)), slc_dbname(u,x,cdr(y))); 
 }
 
@@ -1550,6 +1568,11 @@ sexpr lambda (sexpr a, sexpr b)
 sexpr mlambda (sexpr a, sexpr b)
 {
  return dbml (slc_dbname (DB0, slc_int(a), slc_int(b)));
+}
+
+sexpr slambda (sexpr a, sexpr b)
+{
+ return dbls (slc_dbname (DB0, slc_int(a), slc_int(b)));
 }
 
 #include "definstr.h" 
@@ -1984,6 +2007,8 @@ void exec_instr (sexpr instr)
   prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("mlambda")
   prog = cons (mlambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
+ DEFINSTR("slambda")
+  prog = cons (slambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("_DBML")
   prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("_DBL")
