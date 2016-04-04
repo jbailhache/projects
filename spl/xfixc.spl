@@ -1,0 +1,144 @@
+(
+
+(def CDBS : ARG x %('_DBS x))
+
+(def CDBL : ARG x %('_DBL x))
+
+(def CDBML : ARG x %('_DBML x))
+
+(def CDBLS : ARG x %('_DBLS x))
+ 
+(def CDBNAME : ARG u : ARG x : ARG y :
+ %x %y EQUAL THEN %u :
+ %y NCONSPTHEN %y :
+ %y %x IN NOT THEN %y :
+ %y CAR '_DBL EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBL) :
+ %y CAR '_DBML EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBML) :
+ %y CAR '_DBLS EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBLS) :
+ %y CDR %x %u CDBNAME %y CAR %x %u CDBNAME CONS)
+
+(def CINT : ARG x :
+ %x NCONSPTHEN %x :
+ (%x CAR 'lambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR CLAMBDA) :
+ (%x CAR 'mlambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR CMLAMBDA) :
+ (%x CAR 'slambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR CSLAMBDA) :
+ %x CDR CINT %x CAR CINT CONS)
+
+(def CLAMBDA : ARG x : ARG a : 
+ %a CINT %x CINT '_DB0 CDBNAME CDBL)
+
+(def CMLAMBDA : ARG x : ARG a :
+ %a CINT %x CINT '_DB0 CDBNAME CDBML)
+
+(def CSLAMBDA : ARG x : ARG a :
+ %a CINT %x CINT '_DB0 CDBNAME CDBLS)
+
+
+(def eclambda : C QUOTE : C QUOTE : 
+ SWAP CLAMBDA EXEC)
+
+(def ecmlambda : C QUOTE : C QUOTE : 
+ SWAP CMLAMBDA EXEC)
+
+(def ecslambda : C QUOTE : C QUOTE :
+ SWAP CSLAMBDA EXEC)
+
+
+(def lambda : C QUOTE : C QUOTE :
+ SWAP CLAMBDA)
+
+(def mlambda : C QUOTE : C QUOTE : 
+ SWAP CMLAMBDA)
+
+(def slambda : C QUOTE : C QUOTE :
+ SWAP CSLAMBDA)
+
+
+(def define : C QUOTE : C QUOTE : SWAP DIVE EXEC CLIMB SETDEF)
+
+
+(define car : lambda x : x CAR)
+(define cdr : lambda x : x CDR)
+(define cons : lambda x : lambda y : y x CONS)
+(define , : lambda x : x SWAP CONS)
+(define consq : mlambda x : mlambda y : 'y 'x CONS)
+(define cadr : lambda x : car : cdr x)
+(define dcons : lambda x : cons x x)
+(define dcons1 : lambda x : x ARG y : cons %y %y)
+(define === : lambda x : x EQ)
+(define == : lambda x : x EQUAL)
+(def then THEN)
+(define unift : lambda x : lambda y : y x 'true UNIF)
+(define in : lambda x : x SWAP IN)
+
+(define gettype : lambda x : x GETTYPE)
+(define getprop : lambda x : lambda y : y x GETPROP)
+(define putprop : lambda x : lambda y : lambda z : z y x PUTPROP)
+(define exec : lambda x : x EXEC)
+(define last : lambda x : x LAST)
+(define butlast : lambda x : x BUTLAST)
+(define consp : lambda x : x CONSP)
+(define nconsp : lambda x : x CONSP NOT)
+(define not : lambda x : x NOT)
+(define print : lambda x : x PRINT)
+(define prin : lambda x : x PRIN)
+(define printstring : lambda x : x PRINTSTRING)
+(define append : lambda a : lambda b : b a APPEND)
+
+(def split ARG)
+(def is _slambda)
+(def or OR)
+
+{
+(def CONTAINS : C QUOTE : ARG _f : ARG _x : ARG _l :
+        %_l NCONSPTHEN '() :
+        %_l CAR %_x %_f EXEC : DUP THEN I :
+        DROP %_l CDR %_x QUOTE () %_f CONS QUOTE CONTAINS CONS EXEC)
+}
+
+(define contains : mlambda f : ARG _x : ARG _l : 
+ %_l NCONSPTHEN '() :
+ (f %_x (car %_l)) OR :
+ (cdr %_l) %_x contains f )
+
+
+ 
+
+
+{
+(def match : _lambda x : 
+ x 'true UNIF DUP AND : 
+ DUP GETENV SWAP APPEND SETENV)
+}
+
+(define match : lambda x : mlambda a : mlambda b :
+ x 'true UNIF DUP THEN
+  (GETENV SWAP APPEND GETENV SWAP SETENV DIVE a CLIMB SETENV)
+  (DROP b))
+  
+
+
+
+{
+(def car : C QUOTE : ARG x : %(x 'CAR) EXEC)
+(def cdr : C QUOTE : ARG x : %(x 'CDR) EXEC)
+(def cons : C QUOTE : C QUOTE : ARG x : ARG y : %(x y 'CONS) EXEC)
+(def , : C QUOTE : ARG x : %(x 'SWAP 'CONS) EXEC)
+(def cadr1 : C QUOTE : ARG x : %('car ('cdr x)) EXEC)
+}
+
+{
+(def _lambda : C QUOTE : C QUOTE ((ARG b : ARG x %('C 'QUOTE : 'ARG x : 'QUOTE b 'GETENV 'CONSTR 'EXEC)) EXEC)) 
+
+(def car1 : _lambda x : &x CAR)
+
+(def cadr : _lambda x : car : cdr &x)
+}
+
+{ (def list2 : _lambda x : _lambda y : cons &x : cons &y '()) }
+
+
+)
