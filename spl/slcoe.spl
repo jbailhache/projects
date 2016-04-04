@@ -1,0 +1,195 @@
+
+(
+
+(def DB0 '(DB0))
+
+{
+(def DBS : lambda u %('DBS u))
+(def DBL : lambda x %('DBL x))
+}
+
+(define DBS : clambda u : u ARG u1 %('DBS u1))
+(define DBL : clambda x : x ARG x1 %('DBL x1))
+
+(define slc-shift1 : clambda u : clambda x :
+ x == u then (DBS u) :
+ nconsp x then x :
+ car x == 'DBL then
+  (DBL : slc-shift1 (DBS u) (car : cdr x)) :
+ cons (slc-shift1 u : car x) (slc-shift1 u : cdr x))
+
+(define slc-shift : clambda u : clambda x :
+ x == u then (DBS u) :
+ x match '(DBL &y) 
+  (DBL : slc-shift (DBS u) %y) :
+ x match '(&a . &d) 
+  (cons (slc-shift u %a) (slc-shift u %d))
+ x)
+
+(define slc-subst : clambda u : clambda a : clambda b :
+ a == u then b :
+ a == (DBS u) then u :
+ nconsp a then a :
+ a match '(DBL &b) (DBL : slc-subst (DBS u) (car : cdr a) (slc-shift DB0 %b)) :
+ cons (slc-subst u (car a) b) (slc-subst u (cdr a) b) )
+
+(define slc-red1 : clambda x :
+ nconsp x then x :
+ x match '(APL (DBL &a) &b) 
+  (slc-subst DB0 %a %b) :
+ cons (slc-red1 : car x) (slc-red1 : cdr x) )
+
+(define slc-red : clambda x : 
+ slc-red1 x is y :
+ x == y then x :
+ slc-red y)
+
+(define slc-dbname : clambda u : clambda x : clambda y :
+ x == y then u :
+ nconsp y then y :
+ not (x in y) then y :
+ y match '(DBL &a) 
+  (DBL : slc-dbname (DBS u) x %a) :
+ cons (slc-dbname u x (car y)) (slc-dbname u x (cdr y)) )
+
+(define slc-side : clambda t : clambda s : clambda x :
+ nconsp x then x :
+ car x is node :
+ (gettype node) === (gettype 'a) then (getprop node 'SLC-SIDE) '() is prop :
+ prop then (exec prop t s x) :
+ cons (slc-side t s (car x)) (slc-side t s (cdr x)) )
+
+(define def-slc-side : cmlambda node : cmlambda f : 
+ putprop 'node 'SLC-SIDE (exec 'f))
+
+(def-slc-side AXM : clambda t : clambda s : clambda a :
+ s then (car t) (car : cdr t) )
+
+(def-slc-side EQUAL : clambda t : clambda s : clambda x :
+ x split (() a b) :
+ s then %a %b )
+
+(def-slc-side LTR : clambda t : clambda s : clambda x :
+ x split (() a b) :
+ (slc-red : slc-side t 'true %a) == (slc-red : slc-side t 'true %b) 
+  then (slc-red : slc-side t '() : s then %a %b) 
+ x)
+
+(define slc-int : clambda x :
+ nconsp x then
+  ((gettype x) === (gettype 'a) then (getprop x 'SLC-DEF) '() OR x) :
+ car x is node :
+ (gettype node) === (gettype 'a) then (getprop node 'SLC-INT) '() is prop :
+ prop then (exec prop x) :
+ cons (slc-int : car x) (slc-int : cdr x) )
+
+(define def-slc-int : cmlambda node : cmlambda f :
+ putprop 'node 'SLC-INT (exec 'f))
+
+(def-slc-int slc-lambda : clambda x :
+ x split (() a b) :
+ DBL : slc-dbname DB0 (slc-int %a) (slc-int %b) )
+
+(define apn : clambda l :
+ nconsp l then DB0 :
+ nconsp (cdr l) then (slc-int : car l) :
+ cons 'APL : cons (apn : butlast l) : cons (slc-int : car : last l) '() )
+
+(def-slc-int APN : clambda x :
+ apn : cdr x)
+
+('() SETVQ SLC-DEFS)
+
+(def t0 '(AXL AXR))
+
+(define slc-ext : clambda x :
+ (%SLC-DEFS '() contains : lambda x : lambda name :
+  (getprop name 'SLC-DEF) is val :
+  val == x then name '() ) or :
+ nconsp x then x :
+ car x is node :
+ (gettype node) == (gettype 'a) then (getprop node 'SLC-EXT) '() is prop :
+ prop then (exec prop x) :
+ cons (slc-ext : car x) (slc-ext : cdr x) )
+
+(define def-slc-ext : cmlambda node : cmlambda f :
+ putprop 'node 'SLC-EXT (exec 'f))
+
+(def-slc-ext APL : clambda x :
+ x split (() a1 b1) :
+ (slc-ext %a1) is a :
+ (slc-ext %b1) is b :
+ nconsp %a then %('APL a b) :
+ car a === 'APL then
+  (cons 'APN : cons (slc-ext : car : cdr a) : cons (slc-ext : car : cdr : cdr a) : cons (slc-ext b) '()) :
+ car a === 'APN then
+  (cons 'APN : append (slc-ext : cdr a) : cons (slc-ext b) '()) 
+ %('APL a b) )
+
+(define slc-equal : clambda t : clambda x :
+ cons 'EQUAL : cons (slc-side t 'true x) : cons (slc-side t '() x) '() )
+
+(define def-slc : cmlambda name : cmlambda val :
+ (cons 'name %SLC-DEFS) SETVQ SLC-DEFS
+ (slc-int 'val) is intval :
+ putprop 'name 'SLC-DEF intval
+ prin 'name
+ printstring " : "
+ (slc-equal t0 : slc-int 'name) is e :
+ %e SETVQ SLCRES
+ prin (slc-ext : car : cdr e)
+ printstring " = "
+ print (slc-ext : car : cdr : cdr e) )
+
+(def top :
+ printstring "SLC toplevel
+"
+ Y :
+ READ 
+ DUP == 'quit then (print 'Bye K I) :
+ is x :
+ slc-int x is y :
+ slc-equal t0 y is e :
+ e SETVQ SLCRES
+ prin (slc-ext : car : cdr e)
+ printstring " = "
+ print (slc-ext : car : cdr : cdr e)
+ print y )
+
+(def topred :
+ printstring "SLC reduction
+"
+ Y :
+ READ 
+ DUP == 'quit then (print 'Bye K I) :
+ is x :
+ printstring " -> "
+ print (slc-red : slc-int x) )
+
+(def-slc I : slc-lambda a a)
+(def-slc K : slc-lambda a : slc-lambda b a)
+(def-slc S : slc-lambda a : slc-lambda b : slc-lambda c : APL (APL a c) (APL b c))
+(def-slc KI : slc-lambda a : slc-lambda b b)
+(def-slc P : slc-lambda a : slc-lambda b : slc-lambda c : APL (APL c a) b)
+
+(def-slc gp-rule1 : slc-lambda x : slc-lambda y : slc-lambda z :
+ EQUAL (APL (parent x y) : APL (parent y z) : gdparent x z) I )
+(def-slc gp-axiom1 : EQUAL (parent Allan Brenda) I)
+(def-slc gp-axiom2 : EQUAL (parent Brenda Charles) I)
+
+(def-slc gp-theorem1b : 
+ LTR
+ (APL gp-axiom2 : gdparent Allan Charles)
+ (LTR
+  (APL gp-axiom1 : APL (parent Brenda Charles) : gdparent Allan Charles)
+  (APN gp-rule1 Allan Brenda Charles) ) )
+
+(def-slc gp-lemma1c : APN gp-rule1 Allan Brenda Charles)
+(def-slc gp-lemma2c : APL gp-axiom1 : APL (parent Brenda Charles) : gdparent Allan Charles)
+(def-slc gp-lemma3c : LTR gp-lemma2c gp-lemma1c)
+(def-slc gp-lemma4c : APL gp-axiom2 : gdparent Allan Charles)
+(def-slc gp-theorem1c : LTR gp-lemma4c gp-lemma3c)
+
+
+)
+
