@@ -68,7 +68,7 @@ sexpr props[NSTRINGS];
 #define PROPS(x) (props[UTVAL(x)])
 
 
-sexpr nil, tru, DB0, DBS, DBL, DBLS, DBML, LAMBDA, MLAMBDA;
+sexpr nil, tru, DB0, DBS, DBL, DBLS, DBML, LAMBDA, MLAMBDA, SLAMBDA;
 
 sexpr instr;
 
@@ -480,8 +480,9 @@ void init ()
  DBL = symbol ("_DBL");
  DBLS = symbol ("_DBLS");
  DBML = symbol ("_DBML");
- LAMBDA = symbol ("lambda");
- MLAMBDA = symbol ("mlambda");
+ LAMBDA = symbol ("_lambda");
+ MLAMBDA = symbol ("_mlambda");
+ SLAMBDA = symbol ("_slambda");
  rc = ' ';
 
 }
@@ -1557,6 +1558,8 @@ sexpr slc_int (sexpr x)
   return lambda (car(cdr(x)), car(cdr(cdr(x))));
  if (eq(car(x), MLAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
   return mlambda (car(cdr(x)), car(cdr(cdr(x))));
+ if (eq(car(x), SLAMBDA) && consp(cdr(x)) && consp(cdr(cdr(x))))
+  return slambda (car(cdr(x)), car(cdr(cdr(x))));
  cons (slc_int(car(x)), slc_int(cdr(x)));
 }
 
@@ -2003,11 +2006,11 @@ void exec_instr (sexpr instr)
 
  DEFINSTR("LAMBDA")
   prog = cons (subst (car(cdr(cdr(prog))), car(prog), car(cdr(prog))), cdr(cdr(cdr(prog))));
- DEFINSTR("lambda")
+ DEFINSTR("_lambda")
   prog = cons (lambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
- DEFINSTR("mlambda")
+ DEFINSTR("_mlambda")
   prog = cons (mlambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
- DEFINSTR("slambda")
+ DEFINSTR("_slambda")
   prog = cons (slambda(car(prog),car(cdr(prog))), cdr(cdr(prog)));
  DEFINSTR("_DBML")
   prog = cons (slc_subst (DB0, car(prog), car(cdr(prog))), cdr(cdr(prog)));

@@ -8,17 +8,17 @@
 (def DBL : lambda x %('DBL x))
 }
 
-(def DBS : lambda u : u ARG u1 %('DBS u1))
-(def DBL : lambda x : x ARG x1 %('DBL x1))
+(define DBS : lambda u : u ARG u1 %('DBS u1))
+(define DBL : lambda x : x ARG x1 %('DBL x1))
 
-(def slc-shift1 : lambda u : lambda x :
+(define slc-shift1 : lambda u : lambda x :
  x == u then (DBS u) :
  nconsp x then x :
  car x == 'DBL then
   (DBL : slc-shift1 (DBS u) (car : cdr x)) :
  cons (slc-shift1 u : car x) (slc-shift1 u : cdr x))
 
-(def slc-shift : lambda u : lambda x :
+(define slc-shift : lambda u : lambda x :
  x == u then (DBS u) :
  x match '(DBL &y) 
   (DBL : slc-shift (DBS u) %y) :
@@ -26,25 +26,25 @@
   (cons (slc-shift u %a) (slc-shift u %d))
  x)
 
-(def slc-subst : lambda u : lambda a : lambda b :
+(define slc-subst : lambda u : lambda a : lambda b :
  a == u then b :
  a == (DBS u) then u :
  nconsp a then a :
  a match '(DBL &b) (DBL : slc-subst (DBS u) (car : cdr a) (slc-shift DB0 %b)) :
  cons (slc-subst u (car a) b) (slc-subst u (cdr a) b) )
 
-(def slc-red1 : lambda x :
+(define slc-red1 : lambda x :
  nconsp x then x :
  x match '(APL (DBL &a) &b) 
   (slc-subst DB0 %a %b) :
  cons (slc-red1 : car x) (slc-red1 : cdr x) )
 
-(def slc-red : lambda x : 
+(define slc-red : lambda x : 
  slc-red1 x is y :
  x == y then x :
  slc-red y)
 
-(def slc-dbname : lambda u : lambda x : lambda y :
+(define slc-dbname : lambda u : lambda x : lambda y :
  x == y then u :
  nconsp y then y :
  not (x in y) then y :
@@ -52,15 +52,15 @@
   (DBL : slc-dbname (DBS u) x %a) :
  cons (slc-dbname u x (car y)) (slc-dbname u x (cdr y)) )
 
-(def slc-side : lambda t : lambda s : lambda x :
+(define slc-side : lambda t : lambda s : lambda x :
  nconsp x then x :
  car x is node :
  (gettype node) === (gettype 'a) then (getprop node 'SLC-SIDE) '() is prop :
  prop then (exec prop t s x) :
  cons (slc-side t s (car x)) (slc-side t s (cdr x)) )
 
-(def def-slc-side : mlambda node : mlambda f : 
- putprop 'node 'SLC-SIDE 'f)
+(define def-slc-side : mlambda node : mlambda f : 
+ putprop 'node 'SLC-SIDE (exec 'f))
 
 (def-slc-side AXM : lambda t : lambda s : lambda a :
  s then (car t) (car : cdr t) )
@@ -75,7 +75,7 @@
   then (slc-red : slc-side t '() : s then %a %b) 
  x)
 
-(def slc-int : lambda x :
+(define slc-int : lambda x :
  nconsp x then
   ((gettype x) === (gettype 'a) then (getprop x 'SLC-DEF) '() OR x) :
  car x is node :
@@ -83,14 +83,14 @@
  prop then (exec prop x) :
  cons (slc-int : car x) (slc-int : cdr x) )
 
-(def def-slc-int : mlambda node : mlambda f :
- putprop 'node 'SLC-INT 'f)
+(define def-slc-int : mlambda node : mlambda f :
+ putprop 'node 'SLC-INT (exec 'f))
 
 (def-slc-int slc-lambda : lambda x :
  x split (() a b) :
  DBL : slc-dbname DB0 (slc-int %a) (slc-int %b) )
 
-(def apn : lambda l :
+(define apn : lambda l :
  nconsp l then DB0 :
  nconsp (cdr l) then (slc-int : car l) :
  cons 'APL : cons (apn : butlast l) : cons (slc-int : car : last l) '() )
@@ -102,7 +102,7 @@
 
 (def t0 '(AXL AXR))
 
-(def slc-ext : lambda x :
+(define slc-ext : lambda x :
  (%SLC-DEFS '() contains : lambda x : lambda name :
   (getprop name 'SLC-DEF) is val :
   val == x then name '() ) or :
@@ -112,8 +112,8 @@
  prop then (exec prop x) :
  cons (slc-ext : car x) (slc-ext : cdr x) )
 
-(def def-slc-ext : mlambda node : mlambda f :
- putprop 'node 'SLC-EXT 'f)
+(define def-slc-ext : mlambda node : mlambda f :
+ putprop 'node 'SLC-EXT (exec 'f))
 
 (def-slc-ext APL : lambda x :
  x split (() a1 b1) :
@@ -126,10 +126,10 @@
   (cons 'APN : append (slc-ext : cdr a) : cons (slc-ext b) '()) 
  %('APL a b) )
 
-(def slc-equal : lambda t : lambda x :
+(define slc-equal : lambda t : lambda x :
  cons 'EQUAL : cons (slc-side t 'true x) : cons (slc-side t '() x) '() )
 
-(def def-slc : mlambda name : mlambda val :
+(define def-slc : mlambda name : mlambda val :
  (cons 'name %SLC-DEFS) SETVQ SLC-DEFS
  (slc-int 'val) is intval :
  putprop 'name 'SLC-DEF intval

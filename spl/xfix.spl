@@ -1,35 +1,35 @@
 (
 
-(def car : lambda x : x CAR)
-(def cdr : lambda x : x CDR)
-(def cons : lambda x : lambda y : y x CONS)
-(def , : lambda x : x SWAP CONS)
-(def consq : mlambda x : mlambda y : 'y 'x CONS)
-(def cadr : lambda x : car : cdr x)
-(def dcons : lambda x : cons x x)
-(def dcons1 : lambda x : x ARG y : cons %y %y)
-(def === : lambda x : x EQ)
-(def == : lambda x : x EQUAL)
+(def car : _lambda x : x CAR)
+(def cdr : _lambda x : x CDR)
+(def cons : _lambda x : _lambda y : y x CONS)
+(def , : _lambda x : x SWAP CONS)
+(def consq : _mlambda x : _mlambda y : 'y 'x CONS)
+(def cadr : _lambda x : car : cdr x)
+(def dcons : _lambda x : cons x x)
+(def dcons1 : _lambda x : x ARG y : cons %y %y)
+(def === : _lambda x : x EQ)
+(def == : _lambda x : x EQUAL)
 (def then THEN)
-(def unift : lambda x : lambda y : y x 'true UNIF)
-(def in : lambda x : x SWAP IN)
+(def unift : _lambda x : _lambda y : y x 'true UNIF)
+(def in : _lambda x : x SWAP IN)
 
-(def gettype : lambda x : x GETTYPE)
-(def getprop : lambda x : lambda y : y x GETPROP)
-(def putprop : lambda x : lambda y : lambda z : z y x PUTPROP)
-(def exec : lambda x : x EXEC)
-(def last : lambda x : x LAST)
-(def butlast : lambda x : x BUTLAST)
-(def consp : lambda x : x CONSP)
-(def nconsp : lambda x : x CONSP NOT)
-(def not : lambda x : x NOT)
-(def print : lambda x : x PRINT)
-(def prin : lambda x : x PRIN)
-(def printstring : lambda x : x PRINTSTRING)
-(def append : lambda a : lambda b : b a APPEND)
+(def gettype : _lambda x : x GETTYPE)
+(def getprop : _lambda x : _lambda y : y x GETPROP)
+(def putprop : _lambda x : _lambda y : _lambda z : z y x PUTPROP)
+(def exec : _lambda x : x EXEC)
+(def last : _lambda x : x LAST)
+(def butlast : _lambda x : x BUTLAST)
+(def consp : _lambda x : x CONSP)
+(def nconsp : _lambda x : x CONSP NOT)
+(def not : _lambda x : x NOT)
+(def print : _lambda x : x PRINT)
+(def prin : _lambda x : x PRIN)
+(def printstring : _lambda x : x PRINTSTRING)
+(def append : _lambda a : _lambda b : b a APPEND)
 
 (def split ARG)
-(def is slambda)
+(def is _slambda)
 (def or OR)
 
 {
@@ -39,7 +39,7 @@
         DROP %_l CDR %_x QUOTE () %_f CONS QUOTE CONTAINS CONS EXEC)
 }
 
-(def contains : mlambda f : ARG _x : ARG _l : 
+(def contains : _mlambda f : ARG _x : ARG _l : 
  %_l NCONSPTHEN '() :
  (f %_x (car %_l)) OR :
  (cdr %_l) %_x contains f )
@@ -49,51 +49,76 @@
 
 
 {
-(def match : lambda x : 
+(def match : _lambda x : 
  x 'true UNIF DUP AND : 
  DUP GETENV SWAP APPEND SETENV)
 }
 
-(def match : lambda x : mlambda a : mlambda b :
+(def match : _lambda x : _mlambda a : _mlambda b :
  x 'true UNIF DUP THEN
   (GETENV SWAP APPEND GETENV SWAP SETENV DIVE a CLIMB SETENV)
   (DROP b))
   
 
 
-(def SDBS : ARG x %('_DBS x))
+(def CDBS : ARG x %('_DBS x))
 
-(def SDBL : ARG x %('_DBL x))
+(def CDBL : ARG x %('_DBL x))
 
-(def SDBML : ARG x %('_DBML x))
+(def CDBML : ARG x %('_DBML x))
+
+(def CDBLS : ARG x %('_DBLS x))
  
-(def SDBNAME : ARG u : ARG x : ARG y :
+(def CDBNAME : ARG u : ARG x : ARG y :
  %x %y EQUAL THEN %u :
  %y NCONSPTHEN %y :
  %y %x IN NOT THEN %y :
- %y CAR '_DBL EQ THEN (%y CDR CAR %x %u SDBS SDBNAME SDBL) :
- %y CAR '_DBML EQ THEN (%y CDR CAR %x %u SDBS SDBNAME SDBML) :
- %y CDR %x %u SDBNAME %y CAR %x %u SDBNAME CONS)
+ %y CAR '_DBL EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBL) :
+ %y CAR '_DBML EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBML) :
+ %y CAR '_DBLS EQ THEN (%y CDR CAR %x %u CDBS CDBNAME CDBLS) :
+ %y CDR %x %u CDBNAME %y CAR %x %u CDBNAME CONS)
 
-(def SINT : ARG x :
+(def CINT : ARG x :
  %x NCONSPTHEN %x :
+ (%x CAR 'lambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR CLAMBDA) :
+ (%x CAR 'mlambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
+  (%x CDR CDR CAR %x CDR CAR CMLAMBDA) :
  (%x CAR 'slambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
-  (%x CDR CDR CAR %x CDR CAR SLAMBDA) :
- (%x CAR 'smlambda EQ AND : %x CDR CONSP AND : %x CDR CDR CONSP) THEN
-  (%x CDR CDR CAR %x CDR CAR SMLAMBDA) :
- %x CDR SINT %x CAR SINT CONS)
+  (%x CDR CDR CAR %x CDR CAR CSLAMBDA) :
+ %x CDR CINT %x CAR CINT CONS)
 
-(def SPLAMBDA : ARG x : ARG a : 
- %a SINT %x SINT '_DB0 SDBNAME SDBL)
+(def CLAMBDA : ARG x : ARG a : 
+ %a CINT %x CINT '_DB0 CDBNAME CDBL)
 
-(def SPMLAMBDA : ARG x : ARG a :
- %a SINT %x SINT '_DB0 SDBNAME SDBML)
+(def CMLAMBDA : ARG x : ARG a :
+ %a CINT %x CINT '_DB0 CDBNAME CDBML)
 
-(def splambda : C QUOTE : C QUOTE : 
- SWAP SLAMBDA EXEC)
+(def CSLAMBDA : ARG x : ARG a :
+ %a CINT %x CINT '_DB0 CDBNAME CDBLS)
 
-(def spmlambda : C QUOTE : C QUOTE : 
- SWAP SMLAMBDA EXEC)
+
+(def eclambda : C QUOTE : C QUOTE : 
+ SWAP CLAMBDA EXEC)
+
+(def ecmlambda : C QUOTE : C QUOTE : 
+ SWAP CMLAMBDA EXEC)
+
+(def ecslambda : C QUOTE : C QUOTE :
+ SWAP CSLAMBDA EXEC)
+
+
+(def lambda : C QUOTE : C QUOTE :
+ SWAP CLAMBDA)
+
+(def mlambda : C QUOTE : C QUOTE : 
+ SWAP CMLAMBDA)
+
+(def slambda : C QUOTE : C QUOTE :
+ SWAP CSLAMBDA)
+
+
+(def define : C QUOTE : C QUOTE : SWAP DIVE EXEC CLIMB SETDEF)
 
 
 {
@@ -105,14 +130,14 @@
 }
 
 {
-(def lambda : C QUOTE : C QUOTE ((ARG b : ARG x %('C 'QUOTE : 'ARG x : 'QUOTE b 'GETENV 'CONSTR 'EXEC)) EXEC)) 
+(def _lambda : C QUOTE : C QUOTE ((ARG b : ARG x %('C 'QUOTE : 'ARG x : 'QUOTE b 'GETENV 'CONSTR 'EXEC)) EXEC)) 
 
-(def car1 : lambda x : &x CAR)
+(def car1 : _lambda x : &x CAR)
 
-(def cadr : lambda x : car : cdr &x)
+(def cadr : _lambda x : car : cdr &x)
 }
 
-{ (def list2 : lambda x : lambda y : cons &x : cons &y '()) }
+{ (def list2 : _lambda x : _lambda y : cons &x : cons &y '()) }
 
 
 )
