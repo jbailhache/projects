@@ -1,0 +1,9 @@
+Versions SPL
+
+20160404c6 : clambda, edef, slcoe
+
+20160404d7 : 
+ spl.c : lambda -> _lambda
+ xfix.c : edef -> define, clambda -> lambda
+ slco.spl : (define f : lambda x : ... )
+
