@@ -1,19 +1,13 @@
 module Sslc where
 
  data Proof = AXM
-			| SMB 
-  			| DB0 
-  			| DBS Proof
-  			| DBL Proof
-  			| APL Proof Proof
-  			| LTR Proof Proof
+            | SMB 
+            | DB0 
+            | DBS Proof
+            | DBL Proof
+            | APL Proof Proof
+            | LTR Proof Proof
 	deriving (Eq, Show)
-
- data ProofWithEq = ProofWithEq Proof [Proof]
-	deriving (Eq, Show)
-
- proofWithoutEq :: ProofWithEq -> Proof
- proofWithoutEq (ProofWithEq x l) = x
 
  data Side = LeftSide | RightSide
 	deriving (Eq, Show)
@@ -48,15 +42,18 @@ module Sslc where
  red1 (APL x y) = APL (red1 x) (red1 y)
  red1 (LTR x y) = LTR (red1 x) (red1 y)
 
- red2 :: ProofWithEq -> ProofWithEq
- red2 (ProofWithEq x l) = ProofWithEq (red1 x) (x : l)
+ red2 :: [Proof] -> [Proof]
+ red2 [] = []
+ red2 (x : l) = (red1 x) : (x : l)
 
- red3 :: ProofWithEq -> ProofWithEq
- red3 (ProofWithEq x l) = if elem x l then ProofWithEq x l else red3 (red2 (ProofWithEq x l))
+ red3 :: [Proof] -> [Proof]
+ red3 [] = []
+ red3 (x : l) = if elem x l then (x : l) else red3 (red2 (x : l))
 
  red :: Proof -> Proof
- red x = proofWithoutEq (red3 (ProofWithEq x []))
- -- red x = let (ProofWithEq x l) = red3 (ProofWithEq x []) in x
+ red x = case red3 (x : []) of
+		[] -> x
+		y : m -> y
  -- red x = if red1 x == x then x else red (red1 x)
 
  side :: Side -> Proof -> Proof -> Proof -> Proof
@@ -78,8 +75,21 @@ module Sslc where
  proves x = do
   putStrLn ("The proof " ++ show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x))
 
+ reducesTo x = do
+  putStrLn (show x ++ " reduces to " ++ show (red x))
+
+ ident = DBL DB0
+ auto = DBL (APL DB0 DB0)
+ comp f g = DBL (APL f (APL g DB0))
+ fix f = APL auto (comp f auto)
+
  test = do
   proves (LTR (LTR AXM SMB) (APL SMB AXM))
   proves (LTR (LTR AXM SMB) (APL AXM SMB))
   proves (LTR (LTR AXM SMB) (APL AXM AXM))
+  reducesTo (APL (APL (DBL DB0) (DBL DB0)) (APL (DBL DB0) SMB))
+  reducesTo (fix ident)
+  
+
+
 
