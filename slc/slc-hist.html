@@ -1,0 +1,649 @@
+<html>
+<head>
+<title>From Combinatory Logic to Symbolic Lambda Calculus</title>
+</head>
+<body>
+<h2>From Combinatory Logic to Symbolic Lambda Calculus</h2>
+<br>
+By Jacques Bailhache ( jacques.bailhache@gmail.com )
+<br><br>
+
+Combinatory Logic is a theory which formalizes the foundations of information processing. It considers functions not as a set of couples (argument, result) but as a process which permits to get the result from the argument. 
+<br>
+We can consider only functions with one argument, since functions with two arguments may be considered as functions which, when applied to the first argument, gives another function which, when applied to the second argument, gives the result, and so on.
+<br>The application of a function f to an argument a is written "f a", with the convention "f a b = (f a) b".
+<br>
+There are three possible case for a function with one argument :
+<ul>
+<li> The result is the argument itself : the function is the identity represented by I.
+<li> The result is different from the argument and "atomic" i.e. is not the application of a function to an argument : the function is represented by "K x" where x is the result
+<li> The result is the application of a function f to an argument a, this function and this argument eventually depending on the first argument : the function is represented by "S x y" where x and y are the functions which respectively gives f and a when applied to the first argument.
+</ul>
+We can define three primitive functions called combinators corresponding to these three cases by :
+<ul>
+<li> I x = x
+<li> K x y = x
+<li> S x y z = x z (y z)
+</ul>
+These are the rules defining the basic combinators, to which we must add the rules of equality : reflexivity, symmetry, transitivity, and the rules concerning equalities of applications, to get what is called
+the Equational Calculus for Combinatory Logic (CL) ( see for example <a href="http://plato.stanford.edu/entries/logic-combinatory/">http://plato.stanford.edu/entries/logic-combinatory/</a> )
+<br>
+We will start with a formalization of Equational Calculus for CL in which there are two kinds of propositions :
+<ul>
+<li> term(x) means that x is a term of the considered theory
+<li> x = y means that x and y are terms of the considered theory and are equal
+</ul>
+<!--
+CL terms are defined by these rules :
+<ul>
+<li> K is a CL term
+<li> S is a CL term
+<li> If a and b are CL terms then a b is a CL term (the application of a to b)
+</ul>
+<br>
+Equalities between CL terms are defined by these axioms and rules :
+<ul>
+<li> |- a = a (reflexivity of equality)
+<li> a = b |- b = a (symmetry of equality)
+<li> a = b, b = c |- a = c (transitivity of equality)
+<li> a = b |- a c = b c
+<li> a = b |- c a = c b
+<li> |- K a b = a
+<li> |- S a b c = a c (b c)
+</ul>
+-->
+<br>
+The Equational Calculus for CL theory can be formalized by these axioms ( |- ... ) and rules ( ... |- ... ) :
+<br>
+<ul>
+<li> |- term(I) 
+<li> |- term(K)
+<li> |- term(S)
+<li> term(a), term(b) |- term(a b) , a b representing the application of a to b with the convention a b c = (a b) c
+<li> term(a) |- a = a (reflexivity of equality)
+<li> a = b |- b = a (symmetry of equality)
+<li> a = b, b = c |- a = c (transitivity of equality)
+<li> a = b |- a c = b c
+<li> a = b |- c a = c b
+<li> term(a) |- I a = a
+<li> term(a), term(b) |- K a b = a
+<li> term(a), term(b), term(c) |- S a b c = a c (b c)
+</ul>
+<br>
+The axioms concerning I are not necessary since the combinator I can be defined from combinators K and S by I = S K K.
+<br>
+This system may be extended by adding symbols Z1 ... Zn and associated axioms which formalize  one particular theory. This gives what we will call Symbolic Combinatory Logic (SCL). So the first formalization of SCL is :
+<br>
+SCL terms are defined by these rules :
+<!--
+<ul>
+<li> K is a SCL term
+<li> S is a SCL term
+<li> Z1 is a SCL term
+<li> ...
+<li> Zn is a SCL term
+<li> If a and b are SCL terms then a b is a SCL term (the application of a to b)
+</ul>
+<br>
+Equalities between SCL terms are defined by these axioms and rules :
+<ul>
+<li> |- a = a (reflexivity of equality)
+<li> a = b |- b = a (symmetry of equality)
+<li> a = b, b = c |- a = c (transitivity of equality)
+<li> a = b |- a c = b c
+<li> a = b |- c a = c b
+<li> |- K a b = a
+<li> |- S a b c = a c (b c)
+<li> |- f1 Z1 ... Zn = g1 Z1 ... Zn
+<li> ...
+<li> |- fp Z1 ... ZN = gp Z1 ... Zn
+</ul> 
+-->
+<br>
+<ul>
+<li> |- term(I) 
+<li> |- term(K)
+<li> |- term(S)
+<li> |- term(Z1)
+<li> ...
+<li> |- term(Zn)
+<li> term(a), term(b) |- term(a b) 
+<li> term(a) |- a = a 
+<li> a = b |- b = a 
+<li> a = b, b = c |- a = c 
+<li> a = b |- a c = b c
+<li> a = b |- c a = c b
+<li> term(a) |- I a = a
+<li> term(a), term(b) |- K a b = a
+<li> term(a), term(b), term(c) |- S a b c = a c (b c)
+<li> |- a1 = b1
+<li> ...
+<li> |- ap = bp
+</ul>
+<br>
+<!--f1, g1, ..., fp, gp are combinators (combinations by application of k and S) which depend on the theory we want to formalize.
+-->
+a1, ... ap, b1, ... bp are terms which depend on the theory we want to formalize ; " |- a1 = b1 " ... " |- ap = bp " are the specific axioms formalizing a particular theory.
+<br>
+This set of axioms and rules can be simplified.
+<br>
+The two rules " a = b |- a c = b c " and " a = b |- c a = b a " may be merged into one rule " a = b, c = d |- a c = b d ". This gives the following system :
+<br>
+<!--
+SCL terms are defined by these rules :
+<ul>
+<li> K is a SCL term
+<li> S is a SCL term
+<li> Z1 is a SCL term
+<li> ...
+<li> Zn is a SCL term
+<li> If a and b are SCL terms then a b is a SCL term (the application of a to b)
+</ul>
+<br>
+Equalities between SCL terms are defined by these axioms and rules :
+<ul>
+<li> |- a = a (reflexivity of equality)
+<li> a = b |- b = a (symmetry of equality)
+<li> a = b, b = c |- a = c (transitivity of equality)
+<li> a = b, c = d |- a c = b d
+<li> |- K a b = a
+<li> |- S a b c = a c (b c)
+<li> |- f1 Z1 ... Zn = g1 Z1 ... Zn
+<li> ...
+<li> |- fp Z1 ... ZN = gp Z1 ... Zn
+</ul> 
+<br>
+-->
+<br>
+<ul>
+<li> |- term(I) 
+<li> |- term(K)
+<li> |- term(S)
+<li> |- term(Z1)
+<li> ...
+<li> |- term(Zn)
+<li> term(a), term(b) |- term(a b) 
+<li> term(a) |- a = a 
+<li> a = b |- b = a 
+<li> a = b, b = c |- a = c 
+<li> a = b, c = d |- a c = b d
+<li> term(a) |- I a = a
+<li> term(a), term(b) |- K a b = a
+<li> term(a), term(b), term(c) |- S a b c = a c (b c)
+<li> |- a1 = b1
+<li> ...
+<li> |- ap = bp
+</ul>
+<br>
+Instead of having two kinds of propositions term(x) and x = y, we may represent the proposition term(x) by x = x. With this convention, we automatically get reflexivity ("a = a |- a = a"). The rule "term(a), term(b) |- term(a b)" becomes a particular case of the rule "a = b, c = d |- a c = b d" : "a = a, b = b |- a b = a b".
+<BR>
+The new system becomes :
+<br>
+<ul>
+<li> |- I = I 
+<li> |- K = K
+<li> |- S = S
+<li> |- Z1 = Z1
+<li> ...
+<li> |- Zn = Zn
+<li> a = b, c = d |- a c = b d
+<li> a = b |- b = a 
+<li> a = b, b = c |- a = c 
+<li> a = a |- I a = a
+<li> a = a, b = b |- K a b = a
+<li> a = a, b = b, c = c |- S a b c = a c (b c)
+<li> |- a1 = b1
+<li> ...
+<li> |- ap = bp
+</ul>
+<br>
+Concerning the rule "a = a |- I a = a", the restriction to premises with left and right sides identical is not necessary since the rule may be generalized to "a = a' |- I a = a'", and similarily for the rules defining K and S. So we get the following system ( see also <a href=lcs.htm>here</a> ) :
+<br>
+<ul>
+<li> |- I = I 
+<li> |- K = K
+<li> |- S = S
+<li> |- Z1 = Z1
+<li> ...
+<li> |- Zn = Zn
+<li> a = b, c = d |- a c = b d
+<li> a = b |- b = a 
+<li> a = b, b = c |- a = c 
+<li> a = a' |- I a = a'
+<li> a = a', b = b' |- K a b = a'
+<li> a = a', b = b', c = c' |- S a b c = a' c' (b' c')
+<li> |- a1 = b1
+<li> ...
+<li> |- ap = bp
+</ul>
+<br>
+Symmetry and transitivity of equality may be merged into one rule, either left transitivity-symmetry : " a = b, a = c |- b = c ", or right transitivity-symmetry " a = c, b = c |- a = b ". From this rule, using reflexivity, symmetry can be easily deduced : " a = b, a = a |- b = a ", and from symmetry and transitivity-symmetry, transitivity can easily be deduced. For example :
+<ul>
+<li> (1) a = b
+<li> (2) b = c
+<li> (3) a = a by reflexivity
+<li> (4) b = a by left transitivity-symmetry(1,3)
+<li> (5) a = c by left transitivity-symmetry(4,2)
+</ul>
+Reciprocally, transitivity and symmetry obviously imply (left and right) transitivity-symmetry by combining transitivity and symmetry.
+<br>
+The new axiomatization of SCL becomes (for example with left transitivity-symmetry) :
+<!--
+<br>
+SCL terms are defined by these rules :
+<ul>
+<li> K is a SCL term
+<li> S is a SCL term
+<li> Z1 is a SCL term
+<li> ...
+<li> Zn is a SCL term
+<li> If a and b are SCL terms then a b is a SCL term (the application of a to b)
+</ul>
+<br>
+Equalities between SCL terms are defined by these axioms and rules :
+<ul>
+<li> |- a = a (reflexivity of equality)
+<li> a = b, a = c |- b = c (left transitivity-symmetry of equality)
+<li> a = b, c = d |- a c = b d
+<li> |- K a b = a
+<li> |- S a b c = a c (b c)
+<li> |- f1 Z1 ... Zn = g1 Z1 ... Zn
+<li> ...
+<li> |- fp Z1 ... ZN = gp Z1 ... Zn
+</ul> 
+<br>
+-->
+<br>
+<ul>
+<li> |- I = I 
+<li> |- K = K
+<li> |- S = S
+<li> |- Z1 = Z1
+<li> ...
+<li> |- Zn = Zn
+<li> a = b, c = d |- a c = b d
+<li> a = b, a = c |- b = c
+<li> a = a' |- I a = a'
+<li> a = a', b = b' |- K a b = a'
+<li> a = a', b = b', c = c' |- S a b c = a' c' (b' c')
+<li> |- a1 = b1
+<li> ...
+<li> |- ap = bp
+</ul>
+<br>
+
+<!--
+The reflexivity axiom scheme " |- a = a " may be replaced by a set of axioms " |- K = K ", " |- S = S ", " |- Z1 = Z1 ", ..., " |- Zn = Zn ". The reflexivity for any term can then be built from these axioms and the rule " a = b, c = d |- a c = b d ". This gives the following system :
+<br>
+SCL terms are defined by these rules :
+<ul>
+<li> K is a SCL term
+<li> S is a SCL term
+<li> Z1 is a SCL term
+<li> ...
+<li> Zn is a SCL term
+<li> If a and b are SCL terms then a b is a SCL term (the application of a to b)
+</ul>
+<br>
+Equalities between SCL terms are defined by these axioms and rules :
+<ul>
+<li> |- K = K
+<li> |- S = S
+<li> |- Z1 = Z1
+<li> ...
+<li> |- Zn = Zn
+<li> a = b, a = c |- b = c (left transitivity-symmetry of equality)
+<li> a = b, c = d |- a c = b d
+<li> |- K a b = a
+<li> |- S a b c = a c (b c)
+<li> |- f1 Z1 ... Zn = g1 Z1 ... Zn
+<li> ...
+<li> |- fp Z1 ... ZN = gp Z1 ... Zn
+</ul> 
+<br>
+In the axiom scheme " |- K a b = a ", a and b may be replaced by any SCL term. But for any SCL terms a and b, we have reflexivity : a = a and b = b. So this axiom scheme may also be written : " a = a, b = b |- K a b = a ". This rule may also be generalized to " a = a', b = b' |- K a b = a' ". In the same way, the axiom scheme " S a b c = a c (b c) " may be written " a = a', b = b', c = c' |- S a b c = a' c' (b' c') ". 
+<br>
+This gives the following system :
+<br>
+SCL terms are defined by these rules :
+<ul>
+<li> K is a SCL term
+<li> S is a SCL term
+<li> Z1 is a SCL term
+<li> ...
+<li> Zn is a SCL term
+<li> If a and b are SCL terms then a b is a SCL term (the application of a to b)
+</ul>
+<br>
+Equalities between SCL terms are defined by these axioms and rules :
+<ul>
+<li> (K) |- K = K
+<li> (S) |- S = S
+<li> (Z1) |- Z1 = Z1
+<li> ...
+<li> (Zn) |- Zn = Zn
+<li> (LTS) a = b, a = c |- b = c (left transitivity-symmetry of equality)
+<li> (APL) a = b, c = d |- a c = b d
+<li> (APK) a = a', b = b' |- K a b = a'
+<li> (APS) a = a', b = b', c = c'|- S a b c = a' c' (b' c')
+<li> (AX1) |- f1 Z1 ... Zn = g1 Z1 ... Zn
+<li> ...
+<li> (AXp) |- fp Z1 ... ZN = gp Z1 ... Zn
+</ul> 
+<br>
+
+At this step, we see some similarity between definitions of terms and some of the axioms and rules, for example "K is a SCL term" and " |- K = K ", or "If a and b are SCL terms then a b is a SCL term" and "a = b, c = d |- a c = b d". This similarity yields to the idea of merging the concepts of term and equality, identifying a term with the axiom saying that this term equals itself. Each term is considered as a proof of two terms called its "left" and its "right". For example, K is a proof of K = K, so left(K) = K and right(K) = K. "a proves b = c" is equivalent to "left(a) = b and right(a) = c".
+<br>
+This gives the following system :
+<ul>
+<li> K is a SCL term which proves K = K
+<li> S is a SCL term which proves S = S
+<li> Z1 is a SCL term which proves Z1 = Z1
+<li> ...
+<li> Zn is a SCL term which proves Zn = Zn
+<li> If x is a SCL term which proves a = b and y is a SCL term which proves c = d, then APL x y is a SCL term which proves APL a c = APL b d
+<li> If x is a SCL term which proves a = b and y is a SCL term which proves c = d, then if a and c are identical, then LTS x y is a SCL term which proves b = d, otherwise LTS x y is a SCL term which proves LTS x y = LTS x y
+<li> If x is a SCL term which proves a = a' and y is a SCL term which proves b = b', then APK x y is a SCL term which proves APL (APL K a) b = a'
+<li> If x is a SCL term which proves a=a', y is a SCL term which proves b = b', and z is a SCL term which proves c = c', then APS x y z is a SCL term which proves APL (APL (APL S) a) b) c = APL (APL a' c') (APL b' c')
+<li> AX1 is a SCL term which proves APL ... (APL f1 Z1) ... Zn = APL ... (APL g1 Z1) ... Zn
+<li> ...
+<li> AXp is a SCL term which proves APL ... (APL fp Z1) ... Zn = APL ... (APL gp Z1) ... Zp
+</ul>
+-->
+
+We will now give a name to each axiom and rule of this system :
+<br>
+<ul>
+<li> TI : |- I = I 
+<li> TK : |- K = K
+<li> TS : |- S = S
+<li> TZ1 : |- Z1 = Z1
+<li> ...
+<li> TZn : |- Zn = Zn
+<li> APL : a = b, c = d |- a c = b d
+<li> LTS : a = b, a = c |- b = c
+<li> DFI : a = a' |- I a = a'
+<li> DFK : a = a', b = b' |- K a b = a'
+<li> DFS : a = a', b = b', c = c' |- S a b c = a' c' (b' c')
+<li> AX1 : |- a1 = b1
+<li> ...
+<li> AXp : |- ap = bp
+</ul>
+<br>
+
+A proof can be represented by a combination of axioms and rules, and it proves an equality between two terms.
+For example, the proof DFI TK proves I K = K, and the proof APL TK TI proves K I = K I. 
+<br>
+More generally, any term can be associated to a corresponding proof which proves the equality of this term to itself by the correspondance : I -> TI, K -> TK, S -> TS, Z1 -> TZ1, ... Zn -> TZn, application -> APL.
+<br>
+The next step consists in identifying terms with corresponding proofs : I = TI, K = TK, S = TS, Z1 = TZ1, ... Zn = TZn, and application of a to b is identified with APL a b.
+<br>
+With this convention, each term x which is also a proof proves the equality between two terms a and b which we will call respectively left and right of x. So "x proves a = b" is equivalent to "left(x) = a and right(x) = b".
+<br>
+We can represent this system by a set of rules in the form " XXX : x1 = y1, ..., xq = yq |- x = y " which means that if z1 proves x1 = y1, ..., zq proves xq = yq then XXX z1 ... zq proves x = y.
+<br>
+<ul>
+<li> I : |- I = I 
+<li> K : |- K = K
+<li> S : |- S = S
+<li> Z1 : |- Z1 = Z1
+<li> ...
+<li> Zn : |- Zn = Zn
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTS : a = b, a = c |- b = c
+<li> DFI : a = a' |- APL I a = a'
+<li> DFK : a = a', b = b' |- APL (APL K a) b = a'
+<li> DFS : a = a', b = b', c = c' |- APL (APL (APL S a) b) c = APL (APL a' c') (APL b' c')
+<li> AX1 : |- a1 = b1
+<li> ...
+<li> AXp : |- ap = bp
+</ul>
+<br>
+We must also define left and right of LTS x y when left(x) differs from left(y). We may for example say that in this case LTS x y proves LTS x y = LTS x y.
+<br>
+
+When we implement such a system, it appears to be slow, because of the inefficiency of CL. Lambda calculus has better efficiency, but the inconvenient of arbitrary naming of variables. For example, lambda x . x and lambda y . y represent the same function but are syntactically different. De Bruijn indexes has both advantages of efficiency and avoiding the problem of variables naming, so we will use it. For more lisibility, Lambda Calculus ma be used as an external notation for De Bruijn expressions. 
+<br>
+The principle of De Bruijn indexes is that lambda expressions are not associated to variable names, and variables are numberedd with an index representing the nesting level of the corresponding lambda expression. For example, "lambda x . x" is represented by "lambda . V0", "lambda x . lambda y . x" by "lambda . lambda . V1".
+<br>
+With this notation, K and S disappear as primitive terms, and new primitive terms are introduced for variables and lambda expressions. A new proof constructor must also be introduced to substitute variables when a lambda expression is applied to a term.
+<br>
+This gives this new system, which we will call Symbolic Lambda Calculus (SLC) (see also <a href=slc.txt>here</a>) :
+<!--
+<ul>
+<li> Z1 is a SLC term which proves Z1 = Z1
+<li> ...
+<li> Zn is a SLC term which proves Zn = Zn
+<li> DBV n (where n is a natural number) is a SLC term which proves DBV n = DBV n
+<li> If x is a SLC term which proves a = b, then DBL x is a SLC term which proves DBL a = DBL b
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then APL x y is a SLC term which proves APL a c = APL b d
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then if a and c are identical, then LTS x y is a SLC term which proves b = d, otherwise LTS x y is a SLC term which proves LTS x y = LTS x y
+<li> If x and y are SLC terms, then SUB x y is a SLC term which proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AX1 is a SLC term which proves APL ... (APL f1 Z1) ... Zn = APL ... (APL g1 Z1) ... Zn
+<li> ...
+<li> AXp is a SLC term which proves APL ... (APL fp Z1) ... Zn = APL ... (APL gp Z1) ... Zp
+</ul>
+<br>
+-->
+<br>
+<ul>
+<li> Z1 : |- Z1 = Z1
+<li> ...
+<li> Zn : |- Zn = Zn
+<li> DBV i : |- DBV i = DBV i where i is a natural number
+<li> DBL : a = b |- DBL a = DBL b
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTS : a = b, a = c |- b = c
+<li> SUB x y proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AX1 : |- a1 = b1
+<li> ...
+<li> AXp : |- ap = bp
+</ul>
+<br>
+Variables might be represented by one primitive variable DB0 = DBV 0 and a constructor DBS to define other variables (DBV 1 = DBS DB0, DBV 2 = DBS (DBS DB0), ...)
+<br>
+This gives the following system :
+<!--
+<br>
+<ul>
+<li> Z1 is a SLC term which proves Z1 = Z1
+<li> ...
+<li> Zn is a SLC term which proves Zn = Zn
+<li> DB0 is a SLC term which proves DB0 = DB0
+<li> If x is a SLC term which proves a = b, then DBS x is a SLC term which proves DBS a = DBS b
+<li> If x is a SLC term which proves a = b, then DBL x is a SLC term which proves DBL a = DBL b
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then APL x y is a SLC term which proves APL a c = APL b d
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then if a and c are identical, then LTS x y is a SLC term which proves b = d, otherwise LTS x y is a SLC term which proves LTS x y = LTS x y
+<li> If x and y are SLC terms, then SUB x y is a SLC term which proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AX1 is a SLC term which proves APL ... (APL f1 Z1) ... Zn = APL ... (APL g1 Z1) ... Zn
+<li> ...
+<li> AXp is a SLC term which proves APL ... (APL fp Z1) ... Zn = APL ... (APL gp Z1) ... Zp
+</ul>
+<br>
+-->
+<br>
+<ul>
+<li> Z1 : |- Z1 = Z1
+<li> ...
+<li> Zn : |- Zn = Zn
+<li> DB0 : |- DB0 = DB0 
+<li> DBS : a = b |- DBS a = DBS b
+<li> DBL : a = b |- DBL a = DBL b
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTS : a = b, a = c |- b = c
+<li> SUB x y proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AX1 : |- a1 = b1
+<li> ...
+<li> AXp : |- ap = bp
+</ul>
+<br>
+Any theory can be reformulated with one symbol and one axiom. For example, we can define three symbols Z1, Z2, Z3 by :
+<ul>
+<li> Z1 = APL SMB (DBL (DBL (DBL (DBS (DBS DB0)))))
+<li> Z2 = APL SMB (DBL (DBL (DBL (DBS DB0))))
+<li> Z3 = APL SMB (DBL (DBL (DBL DB0)))
+</ul>
+and the three axioms "|- a1 = b1", "|- a2 = b2", "|- a3 = b3" are equivalent to the axiom "|- DBL (APL (APL (APL DB0 a1) a2) a3) = DBL (APL (APL (APL DB0 b1) b2) b3)".
+<br>
+With one symbol and one axiom, we get the following system :
+<!--
+<ul>
+<li> SMB is a SLC term which proves SMB = SMB
+<li> DB0 is a SLC term which proves DB0 = DB0
+<li> If x is a SLC term which proves a = b, then DBS x is a SLC term which proves DBS a = DBS b
+<li> If x is a SLC term which proves a = b, then DBL x is a SLC term which proves DBL a = DBL b
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then APL x y is a SLC term which proves APL a c = APL b d
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then if a and c are identical, then LTS x y is a SLC term which proves b = d, otherwise LTS x y is a SLC term which proves LTS x y = LTS x y
+<li> If x and y are SLC terms, then SUB x y is a SLC term which proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AXM is a SLC term which proves AXL = AXR (AXL and AXR being SLC terms (eventually containing SMB) depending on the formalized theory)
+</ul>
+<br>
+-->
+<br>
+<ul>
+<li> SMB : |- SMB = SMB
+<li> DB0 : |- DB0 = DB0 
+<li> DBS : a = b |- DBS a = DBS b
+<li> DBL : a = b |- DBL a = DBL b
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTS : a = b, a = c |- b = c
+<li> SUB x y proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+<li> AXM : |- AXL = AXR ( where AXL and AXR are terms specific to the particular theory formalized )
+</ul>
+<br>
+We can define the reduction of a term red(x) by repeating substitution of APL (DBL x) y by the result of the substitution in x of variables whose index equals the nesting level in DBL terms by y.
+<br>
+Proofs can be simplified if we introduce a constructor LTR (left transitivity-symmetry with reduction) defined by :
+<ul>
+<!--
+<li> If x is a SLC term which proves a = b, y is a SLC term which proves c = d, a reduces to e, c reduces to e, b reduces to f, d reduces to g, then LTR x y proves f = g, otherwise LTR x y proves LTR x y = LTR x y
+-->
+<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) = red(c), otherwise LTR x y proves LTR x y = LTR x y
+</ul>
+It appears that with this constructor, the LTS and SUB constructor are not needed.
+<br>
+This gives the Simplified Symbolic Lambda Calculus system (see also <a href=sslc.txt>here</a>) :
+<!--
+<br>
+<ul>
+<li> SMB is a SLC term which proves SMB = SMB
+<li> DB0 is a SLC term which proves DB0 = DB0
+<li> If x is a SLC term which proves a = b, then DBS x is a SLC term which proves DBS a = DBS b
+<li> If x is a SLC term which proves a = b, then DBL x is a SLC term which proves DBL a = DBL b
+<li> If x is a SLC term which proves a = b and y is a SCL term which proves c = d, then APL x y is a SLC term which proves APL a c = APL b d
+<li> If x is a SLC term which proves a = b, y is a SLC term which proves c = d, a reduces to e, c reduces to e, b reduces to f, d reduces to g, then LTR x y proves f = g, otherwise LTR x y proves LTR x y = LTR x y
+<li> AXM is a SLC term which proves AXL = AXR (AXL and AXR being SLC terms (eventually containing SMB) depending on the formalized theory)
+</ul>
+<br>
+-->
+<br>
+<ul>
+<li> SMB : |- SMB = SMB
+<li> DB0 : |- DB0 = DB0 
+<li> DBS : a = b |- DBS a = DBS b
+<li> DBL : a = b |- DBL a = DBL b
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) = red(c), otherwise LTR x y proves LTR x y = LTR x y
+<li> AXM : |- AXL = AXR 
+</ul>
+<br>
+Here is a Haskell implementation of Simplified Symbolic Lambda Calculus with an example of theory with the specific axiom "SMB = APL SMB SMB" and some proofs derived in this system :
+<pre>
+*Sslc> test
+The proof LTR (LTR AXM SMB) (APL SMB AXM) proves SMB = APL SMB (APL SMB SMB)
+The proof LTR (LTR AXM SMB) (APL AXM SMB) proves SMB = APL (APL SMB SMB) SMB
+The proof LTR (LTR AXM SMB) (APL AXM AXM) proves SMB = APL (APL SMB SMB) (APL SMB SMB)
+*Sslc> 
+</pre>
+Here is the Haskell source code :
+<pre>
+module Sslc where
+
+ data Proof = AXM
+			| SMB 
+  			| DB0 
+  			| DBS Proof
+  			| DBL Proof
+  			| APL Proof Proof
+  			| LTR Proof Proof
+	deriving (Eq, Show)
+
+ data ProofWithEq = ProofWithEq Proof [Proof]
+	deriving (Eq, Show)
+
+ proofWithoutEq :: ProofWithEq -> Proof
+ proofWithoutEq (ProofWithEq x l) = x
+
+ data Side = LeftSide | RightSide
+	deriving (Eq, Show)
+
+ shift :: Proof -> Proof -> Proof
+ shift _ AXM = AXM
+ shift _ SMB = SMB
+ shift _ DB0 = DB0
+ shift u (DBS x) = if u == DBS x then DBS u else DBS (shift u x)
+ shift u (DBL x) = DBL (shift (DBS u) x)
+ shift u (APL x y) = APL (shift u x) (shift u y)
+ shift u (LTR x y) = LTR (shift u x) (shift u y)
+
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if DBS u == a then u else subst1 u a b)
+ subst1 _ AXM b = AXM
+ subst1 _ SMB _ = SMB
+ subst1 _ DB0 _ = DB0
+ subst1 u (DBS x) b = DBS (subst u x b)
+ subst1 u (DBL x) b = DBL (subst (DBS u) x (shift DB0 b))
+ subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
+ subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
+
+ red1 :: Proof -> Proof
+ red1 AXM = AXM
+ red1 SMB = SMB
+ red1 DB0 = DB0
+ red1 (DBS x) = DBS (red1 x)
+ red1 (DBL x) = DBL (red1 x)
+ red1 (APL (DBL x) y) = subst DB0 x y
+ red1 (APL x y) = APL (red1 x) (red1 y)
+ red1 (LTR x y) = LTR (red1 x) (red1 y)
+
+ red2 :: ProofWithEq -> ProofWithEq
+ red2 (ProofWithEq x l) = ProofWithEq (red1 x) (x : l)
+
+ red3 :: ProofWithEq -> ProofWithEq
+ red3 (ProofWithEq x l) = if elem x l then ProofWithEq x l else red3 (red2 (ProofWithEq x l))
+
+ red :: Proof -> Proof
+ red x = proofWithoutEq (red3 (ProofWithEq x []))
+ -- red x = let (ProofWithEq x l) = red3 (ProofWithEq x []) in x
+ -- red x = if red1 x == x then x else red (red1 x)
+
+ side :: Side -> Proof -> Proof -> Proof -> Proof
+ side LeftSide a b AXM = a
+ side RightSide a b AXM = b
+ side _ _ _ SMB = SMB
+ side _ _ _ DB0 = DB0
+ side s a b (DBS x) = DBS (side s a b x)
+ side s a b (DBL x) = DBL (side s a b x)
+ side s a b (APL x y) = APL (side s a b x) (side s a b y)
+ side s a b (LTR x y) = if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
+
+ axl = SMB
+ axr = APL SMB SMB
+
+ left = side LeftSide axl axr
+ right = side RightSide axl axr
+
+ proves x = do
+  putStrLn ("The proof " ++ show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x))
+
+ test = do
+  proves (LTR (LTR AXM SMB) (APL SMB AXM))
+  proves (LTR (LTR AXM SMB) (APL AXM SMB))
+  proves (LTR (LTR AXM SMB) (APL AXM AXM))
+
+</pre>
+
+</body>
+</html>
+
