@@ -80,7 +80,15 @@ module Sslc where
  side s a b (DBS x) = DBS (side s a b x)
  side s a b (DBL x) = DBL (side s a b x)
  side s a b (APL x y) = APL (side s a b x) (side s a b y)
- side s a b (LTR x y) = if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
+ side s a b (LTR x y) = 
+	let lx = side LeftSide a b x
+	    ly = side LeftSide a b y
+	in let rlx = red lx
+	       rly = red ly
+	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	      then (side RightSide a b (if s == LeftSide then x else y))
+	      else LTR x y
+ -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
 
  axl = SMB
  axr = APL SMB SMB
