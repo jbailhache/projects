@@ -1,4 +1,6 @@
 module Sslc where
+ 
+ import Data.List
 
  data Proof = AXM
             | SMB 
@@ -32,6 +34,17 @@ module Sslc where
  subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
  subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
 
+ cont :: Proof -> Proof -> Bool
+ cont1 :: Proof -> Proof -> Bool
+ cont x y = if x == y then True else cont1 x y
+ cont1 AXM _ = False
+ cont1 SMB _ = False
+ cont1 DB0 _ = False
+ cont1 (DBS x) y = cont x y
+ cont1 (DBL x) y = cont x y
+ cont1 (APL x y) z = (cont x z) || (cont y z)
+ cont1 (LTR x y) z = (cont x z) || (cont y z)
+
  red1 :: Proof -> Proof
  red1 AXM = AXM
  red1 SMB = SMB
@@ -48,7 +61,10 @@ module Sslc where
 
  red3 :: [Proof] -> [Proof]
  red3 [] = []
- red3 (x : l) = if elem x l then (x : l) else red3 (red2 (x : l))
+ -- red3 (x : l) = if elem x l then (x : l) else red3 (red2 (x : l))
+ red3 (x : l) = case find (\y -> cont x y) l of
+	Nothing -> red3 (red2 (x : l))
+	Just _ -> x : l
 
  red :: Proof -> Proof
  red x = case red3 (x : []) of
@@ -89,7 +105,5 @@ module Sslc where
   proves (LTR (LTR AXM SMB) (APL AXM AXM))
   reducesTo (APL (APL (DBL DB0) (DBL DB0)) (APL (DBL DB0) SMB))
   reducesTo (fix ident)
-  
-
-
+  reducesTo (fix (DBL (APL SMB DB0)))  
 
