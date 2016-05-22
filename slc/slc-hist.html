@@ -33,6 +33,9 @@ We will start with a formalization of Equational Calculus for CL in which there 
 <li> term(x) means that x is a term of the considered theory
 <li> x = y means that x and y are terms of the considered theory and are equal
 </ul>
+<br>
+The semantic equality "=" must be distinguished from the syntactic (literal) equality which will be represented by "==".
+<br>
 <!--
 CL terms are defined by these rules :
 <ul>
@@ -511,14 +514,17 @@ With one symbol and one axiom, we get the following system :
 <li> AXM : |- AXL = AXR ( where AXL and AXR are terms specific to the particular theory formalized )
 </ul>
 <br>
+<!--
 We can define the reduction of a term red(x) by repeating substitution of APL (DBL x) y by the result of the substitution in x of variables whose index equals the nesting level in DBL terms by y.
 <br>
 Proofs can be simplified if we introduce a constructor LTR (left transitivity-symmetry with reduction) defined by :
+-->
+Proofs can be made shorter by defining a reduction function "red" which repeats substitution of APL (DBL x) y by the result of the substitution in x of variables whose index equals the nesting level in DBL terms by y., and introducing a constructor LTR defined by :
 <ul>
 <!--
 <li> If x is a SLC term which proves a = b, y is a SLC term which proves c = d, a reduces to e, c reduces to e, b reduces to f, d reduces to g, then LTR x y proves f = g, otherwise LTR x y proves LTR x y = LTR x y
 -->
-<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) = red(c), otherwise LTR x y proves LTR x y = LTR x y
+<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) == red(c), otherwise LTR x y |- LTR x y = LTR x y
 </ul>
 It appears that with this constructor, the LTS and SUB constructor are not needed.
 <br>
@@ -543,7 +549,31 @@ This gives the Simplified Symbolic Lambda Calculus system (see also <a href=sslc
 <li> DBS : a = b |- DBS a = DBS b
 <li> DBL : a = b |- DBL a = DBL b
 <li> APL : a = b, c = d |- APL a c = APL b d
-<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) = red(c), otherwise LTR x y proves LTR x y = LTR x y
+<li> LTR : a = b, c = d |- red(b) = red(d) if red(a) = red(c), otherwise LTR x y |- LTR x y = LTR x y
+<li> AXM : |- AXL = AXR 
+</ul>
+<br>
+We must now give a precise definition of the "red" function.
+<br>
+One idea is to define a function "red1" which does one step of reduction, and repeat the application of this function until no more reduction is possible, i.e. we get a x such that red1(x) == x.
+<br>
+The problem with this definition is that there exist some terms (such that the fixed point of identity for example) such that iterated steps of reduction falls into a loop. To avoid this problem, we can define a "red" function which stops when a previously got result is got again.
+<br>
+But there also exist other terms for which iterated steps of reduction gives a succession of terms of increasing size. This can be detected if at some time we get a term which contains a previously got term. We can stop reduction at this time to avoid looping.
+<br>
+Since in some cases reduction could be continued but must be stopped to avoid looping, the consequence is that if x = y, we do not necessarily have red(x) == red(y). This limits the conditions of application of the LTR constructor. These conditions can be generalized by modifying the definition of this constructor :
+<ul>
+<li> LTR : a = b, c = d |- red(b) = red(d) if one of a and red(a) is syntactically equal to one of c and red(c), otherwise LTR x y |- LTR x y = LTR x y
+</ul>
+The complete system becomes :
+<br>
+<ul>
+<li> SMB : |- SMB = SMB
+<li> DB0 : |- DB0 = DB0 
+<li> DBS : a = b |- DBS a = DBS b
+<li> DBL : a = b |- DBL a = DBL b
+<li> APL : a = b, c = d |- APL a c = APL b d
+<li> LTR : a = b, c = d |- red(b) = red(d) if one of a and red(a) is syntactically equal to one of c and red(c), otherwise LTR x y |- LTR x y = LTR x y
 <li> AXM : |- AXL = AXR 
 </ul>
 <br>
@@ -642,7 +672,15 @@ module Sslc where
  side s a b (DBS x) = DBS (side s a b x)
  side s a b (DBL x) = DBL (side s a b x)
  side s a b (APL x y) = APL (side s a b x) (side s a b y)
- side s a b (LTR x y) = if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
+ side s a b (LTR x y) = 
+	let lx = side LeftSide a b x
+	    ly = side LeftSide a b y
+	in let rlx = red lx
+	       rly = red ly
+	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	      then (side RightSide a b (if s == LeftSide then x else y))
+	      else LTR x y
+ -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
 
  axl = SMB
  axr = APL SMB SMB
