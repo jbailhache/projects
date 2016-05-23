@@ -86,7 +86,8 @@ module Sslc where
 	in let rlx = red lx
 	       rly = red ly
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      then (side RightSide a b (if s == LeftSide then x else y))
+	      -- then red (side RightSide a b (if s == LeftSide then x else y))
+          then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
 	      else LTR x y
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
 
@@ -97,15 +98,16 @@ module Sslc where
  right = side RightSide axl axr
 
  proves x = do
-  putStrLn ("The proof " ++ show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x))
+  putStr ("\nThe proof\n  " ++ show x ++ " \nproves\n  " ++ show (left x) ++ "\n= " ++ show (right x) ++ "\n")
 
  reducesTo x = do
-  putStrLn (show x ++ " reduces to " ++ show (red x))
+  putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (red x) ++ "\n")
 
  ident = DBL DB0
  auto = DBL (APL DB0 DB0)
  comp f g = DBL (APL f (APL g DB0))
  fix f = APL auto (comp f auto)
+ ias = fix (DBL (APL SMB DB0))
 
  test = do
   proves (LTR (LTR AXM SMB) (APL SMB AXM))
