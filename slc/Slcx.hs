@@ -220,7 +220,9 @@ module Slcx where
  gpLemma2c = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
  gpLemma3c = LTR gpLemma2c gpLemma1c
  gpLemma4c = APL gpAxiom2 $ apl2 gdparent allan charles
- gpTheorem1c = LTR gpLemma4c gpLemma3c
+ gpLemma5c = LTR gpLemma4c gpLemma3c
+ gpLemma6c = LTR gpLemma4c gpLemma4c
+ gpTheorem1c = LTR gpLemma6c gpLemma5c
 
  imp = SMB "imp"
  false = SMB "false"
