@@ -103,7 +103,6 @@ module Slcn where
 	      -- then reduce (side RightSide a b (if s == LeftSide then x else y))
           then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
 	      else Proof2 LTR x y
-
  side s a b (Proof2 LT2 x y) = 
 	let lx = side LeftSide a b x
 	    ly = side LeftSide a b y
