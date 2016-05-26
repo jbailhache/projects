@@ -252,7 +252,6 @@ module Slcn where
   proves (red (rfl (equ (apl (dbl db0) a) (apl (dbl db0) b))))
   proves (evr (rdr (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c)))
   proves (evr (red (rfl (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c))))
-
-
-
+  proves (evr $ red $ rfl $ apl2 ltr2 gpLemma4c gpLemma3c)
+  proves (lt2 gpLemma4c gpLemma3c)
 
