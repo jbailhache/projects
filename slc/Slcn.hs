@@ -1,17 +1,18 @@
 module Slcn where
 
  import Data.List
+ import Data.Char
 
  data Proof = Proof0 Rule0 | Proof1 Rule1 Proof | Proof2 Rule2 Proof Proof
-  deriving (Eq, Show)
+  deriving (Eq)
 
  data Rule0 = AXM | DB0 | SMB String
   deriving (Eq, Show)
 
- data Rule1 = DBS | DBL | RED | LFT | RGT | RFL
+ data Rule1 = DBS | DBL | RED | RD2 | RDR | LFT | RGT | RFL | EVL | EVR
   deriving (Eq, Show)
 
- data Rule2 = EQU | APL | LTR | LTS | SUB
+ data Rule2 = EQU | APL | LTR | LT2 | LTS | SUB
   deriving (Eq, Show)
 
  axm = Proof0 AXM
@@ -20,14 +21,25 @@ module Slcn where
  dbs x = Proof1 DBS x
  dbl x = Proof1 DBL x
  red x = Proof1 RED x
+ rd2 x = Proof1 RD2 x
+ rdr x = Proof1 RDR x
  lft x = Proof1 LFT x
  rgt x = Proof1 RGT x
  rfl x = Proof1 RFL x
+ evl x = Proof1 EVL x
+ evr x = Proof1 EVR x
  equ x y = Proof2 EQU x y
  apl x y = Proof2 APL x y
  ltr x y = Proof2 LTR x y
+ lt2 x y = Proof2 LT2 x y
  lts x y = Proof2 LTS x y
  sub x y = Proof2 SUB x y
+
+ instance Show Proof where
+  show (Proof0 (SMB s)) = s
+  show (Proof0 r) = map toLower(show r) 
+  show (Proof1 r x) = "(" ++ map toLower(show r) ++ " " ++ show x ++ ")"
+  show (Proof2 r x y) = "(" ++ map toLower(show r) ++ " " ++ show x ++ " " ++ show y ++ ")"
 
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
@@ -91,14 +103,29 @@ module Slcn where
 	      -- then reduce (side RightSide a b (if s == LeftSide then x else y))
           then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
 	      else Proof2 LTR x y
+
+ side s a b (Proof2 LT2 x y) = 
+	let lx = side LeftSide a b x
+	    ly = side LeftSide a b y
+	in let rlx = reduce lx
+	       rly = reduce ly
+	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	      then reduce (side RightSide a b (if s == LeftSide then x else y))
+          -- then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
+	      else Proof2 LT2 x y
  side s a b (Proof2 LTS x y) = if (side LeftSide a b x) == (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else Proof2 LTR x y
  side LeftSide a b (Proof2 SUB x y) = Proof2 APL (Proof1 DBL (side LeftSide a b x)) (side LeftSide a b y)
  side RightSide a b (Proof2 SUB x y) = subst (Proof0 DB0) (side RightSide a b x) (side RightSide a b y)
  side LeftSide a b (Proof1 RED x) = side LeftSide a b x
  side RightSide a b (Proof1 RED x) = reduce (side RightSide a b x)
+ side s a b (Proof1 RD2 x) = reduce (side s a b x)
+ side LeftSide a b (Proof1 RDR x) = x
+ side RightSide a b (Proof1 RDR x) = reduce x
  side _ a b (Proof1 LFT x) = side LeftSide a b x
  side _ a b (Proof1 RGT x) = side RightSide a b x
  side _ _ _ (Proof1 RFL x) = x   
+ side s a b (Proof1 EVL x) = side s a b (side LeftSide a b x)
+ side s a b (Proof1 EVR x) = side s a b (side RightSide a b x)
  side _ _ _ (Proof0 r) = Proof0 r
  side s a b (Proof1 r x) = Proof1 r (side s a b x)
  side s a b (Proof2 r x y) = Proof2 r (side s a b x) (side s a b y)
@@ -150,9 +177,9 @@ module Slcn where
 
  parent = smb "parent"
  gdparent = smb "gdparent"
- allan = smb "Allan"
- brenda = smb "Brenda"
- charles = smb "Charles"
+ allan = smb "allan"
+ brenda = smb "brenda"
+ charles = smb "charles"
 
  gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
   equ (apl (apl2 parent (var "x") (var "y")) $
@@ -170,41 +197,46 @@ module Slcn where
  gpLemma6c = ltr gpLemma4c gpLemma4c
  gpTheorem1c = ltr gpLemma6c gpLemma5c
 
-{-
- imp = SMB "imp"
- false = SMB "false"
- al = SMB "all"
- some = SMB "some"
- p = SMB "p"
 
- propMp = lambda "p" $ lambda "q" $ EQU (APL (apl2 imp (var "p") (var "q")) $ APL (var "p") (var "q")) ident
- propAk = lambda "p" $ lambda "q" $ EQU (apl2 imp (var "p") (apl2 imp (var "q") (var "p"))) ident
+ imp = smb "imp"
+ false = smb "false"
+ al = smb "all"
+ some = smb "some"
+ p = smb "p"
+
+ propMp = lambda "p" $ lambda "q" $ equ (apl (apl2 imp (var "p") (var "q")) $ apl (var "p") (var "q")) ident
+ propAk = lambda "p" $ lambda "q" $ equ (apl2 imp (var "p") (apl2 imp (var "q") (var "p"))) ident
  propAs = lambda "p" $ lambda "q" $ lambda "r" $ 
-  EQU (apl2 imp (apl2 imp (var "p") (apl2 imp (var "q") (var "r"))) (apl2 imp (apl2 imp (var "p") (var "q")) (apl2 imp (var "p") (var "r")))) ident
- propEfq = lambda "p" $ EQU (apl2 imp false (var "p")) ident 
- propRaa = lambda "p" $ EQU (apl2 imp (apl2 imp (apl2 imp (var "p") false) false) (var "p")) ident
- predGen = lambda "p" $ EQU (APL (var "p") (APL al (DBL (var "p")))) ident
- predPart = lambda "p" $ lambda "t" $ EQU (apl2 imp (APL al (var "p")) (APL (var "p") (var "t"))) ident
- predPermut = lambda "p" $ lambda "q" $ EQU (apl2 imp (APL al $ lambda "x" $ apl2 imp (var "p") (APL (var "q") (var "x"))) (apl2 imp (var "p") (APL al (var "q")))) ident
- predSome = lambda "p" $ EQU (apl2 imp (apl2 imp (APL al (var "p")) false) (apl2 imp (APL (var "p") (APL some $ lambda "x" $ apl2 imp (APL (var "p") (var "x")) false)) false)) ident
+  equ (apl2 imp (apl2 imp (var "p") (apl2 imp (var "q") (var "r"))) (apl2 imp (apl2 imp (var "p") (var "q")) (apl2 imp (var "p") (var "r")))) ident
+ propEfq = lambda "p" $ equ (apl2 imp false (var "p")) ident 
+ propRaa = lambda "p" $ equ (apl2 imp (apl2 imp (apl2 imp (var "p") false) false) (var "p")) ident
+ predGen = lambda "p" $ equ (apl (var "p") (apl al (dbl (var "p")))) ident
+ predPart = lambda "p" $ lambda "t" $ equ (apl2 imp (apl al (var "p")) (apl (var "p") (var "t"))) ident
+ predPermut = lambda "p" $ lambda "q" $ equ (apl2 imp (apl al $ lambda "x" $ apl2 imp (var "p") (apl (var "q") (var "x"))) (apl2 imp (var "p") (apl al (var "q")))) ident
+ predSome = lambda "p" $ equ (apl2 imp (apl2 imp (apl al (var "p")) false) (apl2 imp (apl (var "p") (apl some $ lambda "x" $ apl2 imp (apl (var "p") (var "x")) false)) false)) ident
 
  propLemma1 = apl3 propAs p (apl2 imp p p) p
  propLemma2 = apl2 propAk p (apl2 imp p p)
  propLemma3 = apl2 propMp (apl2 imp p (apl2 imp (apl2 imp p p) p)) (apl2 imp (apl2 imp p (apl2 imp p p)) (apl2 imp p p))
- propLemma4 = APL propLemma1 (APL (apl2 imp p (apl2 imp (apl2 imp p p) p)) (apl2 imp (apl2 imp p (apl2 imp p p)) (apl2 imp p p)))
- propLemma5 = LTR propLemma4 propLemma3
- propLemma6 = APL propLemma2 (apl2 imp (apl2 imp p (apl2 imp p p)) (apl2 imp p p))
- propLemma7 = LTR propLemma6 propLemma5
+ propLemma4 = apl propLemma1 (apl (apl2 imp p (apl2 imp (apl2 imp p p) p)) (apl2 imp (apl2 imp p (apl2 imp p p)) (apl2 imp p p)))
+ propLemma5 = ltr propLemma4 propLemma3
+ propLemma6 = apl propLemma2 (apl2 imp (apl2 imp p (apl2 imp p p)) (apl2 imp p p))
+ propLemma7 = ltr propLemma6 propLemma5
  propLemma8 = apl2 propAk p p
  propLemma9 = apl2 propMp (apl2 imp p (apl2 imp p p)) (apl2 imp p p)
- propLemma10 = APL propLemma7 (APL (apl2 imp p (apl2 imp p p)) (apl2 imp p p))
- propLemma11 = LTR propLemma10 propLemma9
- propLemma12 = APL propLemma8 (apl2 imp p p)
+ propLemma10 = apl propLemma7 (apl (apl2 imp p (apl2 imp p p)) (apl2 imp p p))
+ propLemma11 = ltr propLemma10 propLemma9
+ propLemma12 = apl propLemma8 (apl2 imp p p)
  -- propTheorem1 = LTR propLemma12 propLemma11
- propLemma13 = LTR propLemma12 propLemma12
- propLemma14 = LTR propLemma12 propLemma11
- propTheorem1 = LTR propLemma13 propLemma14 
--}
+ propLemma13 = ltr propLemma12 propLemma12
+ propLemma14 = ltr propLemma12 propLemma11
+ propTheorem1 = ltr propLemma13 propLemma14 
+
+ a = smb "a"
+ b = smb "b"
+ c = smb "c"
+
+ ltr2 = dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0))) 
 
  test = do
   proves (ltr (ltr axm (smb "SMB")) (apl (smb "SMB") axm))
@@ -214,5 +246,13 @@ module Slcn where
   reducesTo (fix ident)
   reducesTo (fix (dbl (apl (smb "SMB") db0)))  
   proves gpTheorem1c
-  -- proves propTheorem1
+  proves propTheorem1
+  proves (red (equ (apl (dbl db0) a) (apl (dbl db0) b)))
+  proves (rdr (equ (apl (dbl db0) a) (apl (dbl db0) b)))
+  proves (red (rfl (equ (apl (dbl db0) a) (apl (dbl db0) b))))
+  proves (evr (rdr (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c)))
+  proves (evr (red (rfl (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c))))
+
+
+
 
