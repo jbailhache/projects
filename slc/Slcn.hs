@@ -9,10 +9,10 @@ module Slcn where
  data Rule0 = AXM | DB0 | SMB String
   deriving (Eq, Show)
 
- data Rule1 = DBS | DBL | RED | RD2 | RDR | LFT | RGT | RFL | EVL | EVR
+ data Rule1 = DBS | DBL | SYM | RED | RD2 | RDR | ERR | LFT | RGT | RFL | EVL | EVR | NOP
   deriving (Eq, Show)
 
- data Rule2 = EQU | APL | LTR | LT2 | LTS | SUB
+ data Rule2 = EQU | APL | LTR | LT2 | LTS | TRN | SUB
   deriving (Eq, Show)
 
  axm = Proof0 AXM
@@ -20,19 +20,23 @@ module Slcn where
  smb s = Proof0 (SMB s)
  dbs x = Proof1 DBS x
  dbl x = Proof1 DBL x
+ sym x = Proof1 SYM x
  red x = Proof1 RED x
  rd2 x = Proof1 RD2 x
  rdr x = Proof1 RDR x
+ err x = Proof1 ERR x
  lft x = Proof1 LFT x
  rgt x = Proof1 RGT x
  rfl x = Proof1 RFL x
  evl x = Proof1 EVL x
  evr x = Proof1 EVR x
+ nop x = Proof1 NOP x
  equ x y = Proof2 EQU x y
  apl x y = Proof2 APL x y
  ltr x y = Proof2 LTR x y
  lt2 x y = Proof2 LT2 x y
  lts x y = Proof2 LTS x y
+ trn x y = Proof2 TRN x y
  sub x y = Proof2 SUB x y
 
  instance Show Proof where
@@ -112,7 +116,9 @@ module Slcn where
 	      then reduce (side RightSide a b (if s == LeftSide then x else y))
           -- then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
 	      else Proof2 LT2 x y
- side s a b (Proof2 LTS x y) = if (side LeftSide a b x) == (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else Proof2 LTR x y
+ side s a b (Proof2 LTS x y) = if (side LeftSide a b x) == (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else Proof2 LTS x y
+ side s a b (Proof2 TRN x y) = if (side RightSide a b x) == (side LeftSide a b y) then (if s == LeftSide then (side LeftSide a b x) else (side RightSide a b y)) else Proof2 TRN x y
+ side s a b (Proof1 SYM x) = side (if s == LeftSide then RightSide else LeftSide) a b x
  side LeftSide a b (Proof2 SUB x y) = Proof2 APL (Proof1 DBL (side LeftSide a b x)) (side LeftSide a b y)
  side RightSide a b (Proof2 SUB x y) = subst (Proof0 DB0) (side RightSide a b x) (side RightSide a b y)
  side LeftSide a b (Proof1 RED x) = side LeftSide a b x
@@ -120,11 +126,13 @@ module Slcn where
  side s a b (Proof1 RD2 x) = reduce (side s a b x)
  side LeftSide a b (Proof1 RDR x) = x
  side RightSide a b (Proof1 RDR x) = reduce x
+ side s a b (Proof1 ERR x) = side s a b (reduce x)
  side _ a b (Proof1 LFT x) = side LeftSide a b x
  side _ a b (Proof1 RGT x) = side RightSide a b x
  side _ _ _ (Proof1 RFL x) = x   
  side s a b (Proof1 EVL x) = side s a b (side LeftSide a b x)
  side s a b (Proof1 EVR x) = side s a b (side RightSide a b x)
+ side s a b (Proof1 NOP x) = side s a b x
  side _ _ _ (Proof0 r) = Proof0 r
  side s a b (Proof1 r x) = Proof1 r (side s a b x)
  side s a b (Proof2 r x y) = Proof2 r (side s a b x) (side s a b y)
@@ -252,5 +260,6 @@ module Slcn where
   proves (evr (rdr (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c)))
   proves (evr (red (rfl (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c))))
   proves (evr $ red $ rfl $ apl2 ltr2 gpLemma4c gpLemma3c)
+  proves (err (apl2 ltr2 gpLemma4c gpLemma3c))
   proves (lt2 gpLemma4c gpLemma3c)
 
