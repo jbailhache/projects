@@ -12,7 +12,7 @@ module Slcn where
  data Rule1 = DBS | DBL | SYM | RED | RD2 | RDR | ERR | LFT | RGT | RFL | EVL | EVR | NOP
   deriving (Eq, Show)
 
- data Rule2 = EQU | APL | LTR | LT2 | LTS | TRN | SUB
+ data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB
   deriving (Eq, Show)
 
  axm = Proof0 AXM
@@ -34,6 +34,7 @@ module Slcn where
  equ x y = Proof2 EQU x y
  apl x y = Proof2 APL x y
  ltr x y = Proof2 LTR x y
+ ltn x y = Proof2 LTN x y
  lt2 x y = Proof2 LT2 x y
  lts x y = Proof2 LTS x y
  trn x y = Proof2 TRN x y
@@ -98,7 +99,11 @@ module Slcn where
  side RightSide a b (Proof0 AXM) = b
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
- side s a b (Proof2 LTR x y) = 
+ side s a b (Proof2 LTR x y) =
+	if reduce (left x) == reduce (left y) 
+	then reduce (side RightSide a b (if s == LeftSide then x else y)) 
+    else Proof2 LTR x y
+ side s a b (Proof2 LTN x y) = 
 	let lx = side LeftSide a b x
 	    ly = side LeftSide a b y
 	in let rlx = reduce lx
@@ -106,7 +111,7 @@ module Slcn where
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
 	      -- then reduce (side RightSide a b (if s == LeftSide then x else y))
           then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
-	      else Proof2 LTR x y
+	      else Proof2 LTN x y
  side s a b (Proof2 LT2 x y) = 
 	let lx = side LeftSide a b x
 	    ly = side LeftSide a b y
