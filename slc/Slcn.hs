@@ -7,13 +7,43 @@ module Slcn where
   deriving (Eq)
 
  data Rule0 = AXM | DB0 | SMB String
-  deriving (Eq, Show)
+  deriving (Eq)
 
- data Rule1 = DBS | DBL | SYM | RED | RD2 | RDR | ERR | LFT | RGT | RFL | EVL | EVR | NOP
-  deriving (Eq, Show)
+ data Rule1 = DBS | DBL | SYM | RED | RD2 | RDQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
+  deriving (Eq)
 
  data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB
-  deriving (Eq, Show)
+  deriving (Eq)
+
+ instance Show Rule0 where
+  show AXM = "AXM"
+  show DB0 = "DB0"
+  show (SMB s) = s
+
+ instance Show Rule1 where
+  show DBS = "+"
+  show DBL = "\\  "
+  show SYM = "SYM"
+  show RED = "RED"
+  show RD2 = "RD2"
+  show ERQ = "ERQ"
+  show LFT = "LFT"
+  show RGT = "RGT"
+  show QOT = "QOT"
+  show RFE = "RFE"
+  show EVL = "EVL"
+  show NOP = "NOP"
+
+ instance Show Rule2 where
+  show EQU = "==="
+  show APL = "-  "
+  show LTR = "&  "
+  show LTN = "LTN"
+  show LT2 = "LT2"
+  show LTS = "LTS"
+  show TRN = "TRN"
+  show SUB = "SUB"
+ 
 
  axm = Proof0 AXM
  db0 = Proof0 DB0
@@ -23,11 +53,12 @@ module Slcn where
  sym x = Proof1 SYM x
  red x = Proof1 RED x
  rd2 x = Proof1 RD2 x
- rdr x = Proof1 RDR x
- err x = Proof1 ERR x
+ rdq x = Proof1 RDQ x
+ erq x = Proof1 ERQ x
  lft x = Proof1 LFT x
  rgt x = Proof1 RGT x
- rfl x = Proof1 RFL x
+ qot x = Proof1 QOT x
+ rfe x = Proof1 RFE x
  evl x = Proof1 EVL x
  evr x = Proof1 EVR x
  nop x = Proof1 NOP x
@@ -40,11 +71,37 @@ module Slcn where
  trn x y = Proof2 TRN x y
  sub x y = Proof2 SUB x y
 
+ {-
  instance Show Proof where
   show (Proof0 (SMB s)) = s
   show (Proof0 r) = map toLower(show r) 
   show (Proof1 r x) = "(" ++ map toLower(show r) ++ " " ++ show x ++ ")"
   show (Proof2 r x y) = "(" ++ map toLower(show r) ++ " " ++ show x ++ " " ++ show y ++ ")"
+ -}
+
+ {-
+ showlevel :: Int -> Proof -> String
+ showlevel l (Proof0 (SMB s)) = concat (replicate l "    ") ++ s 
+ showlevel l (Proof0 r) = concat (replicate l "    ") ++ show r
+ showlevel l (Proof1 r x) = concat (replicate l "    ") ++ show r ++ "\n" ++ showlevel (l+1) x 
+ showlevel l (Proof2 r x y) = concat (replicate l "    ") ++ show r ++ "\n" ++ showlevel (l+1) x ++ "\n" ++ showlevel (l+1) y 
+ -}
+
+ showlevel :: Int -> Int -> Proof -> String
+ showlevel i l (Proof0 (SMB s)) = concat (replicate (i*l) "    ") ++ s 
+ showlevel i l (Proof0 r) = concat (replicate (i*l) "    ") ++ show r
+ showlevel i l (Proof1 r x) = concat (replicate (i*l) "    ") ++ show r  ++ " " ++ showlevel 0 (l+1) x 
+ showlevel i l (Proof2 r x y) = concat (replicate (i*l) "    ") ++ show r ++ " " ++ showlevel 0 (l+1) x ++ "\n" ++ showlevel 1 (l+1) y 
+
+ {-
+ showlevel :: Int -> Proof -> String
+ showlevel l (Proof0 (SMB s)) = concat (replicate l "    ") ++ s 
+ showlevel l (Proof0 r) = concat (replicate l "    ") ++ show r
+ showlevel l (Proof1 r x) = concat (replicate l "    ") ++ show r ++ " " ++ showlevel 0 x 
+ showlevel l (Proof2 r x y) = concat (replicate l "    ") ++ show r ++ "\n" ++ showlevel (l+1) x ++ "\n" ++ showlevel (l+1) y 
+ -}
+ instance Show Proof where
+  show x = showlevel 1 0 x
 
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
@@ -94,53 +151,82 @@ module Slcn where
 		y : m -> y
  -- reduce x = if red1 x == x then x else reduce (red1 x)
 
+ rered1 :: Int -> Proof -> Proof
+ rered1 n x = if (n == 0) then x else rered1 (n - 1) (red1 x)
+
  side :: Side -> Proof -> Proof -> Proof -> Proof
- side LeftSide a b (Proof0 AXM) = a
- side RightSide a b (Proof0 AXM) = b
+ -- AXM |- u = v
+ side LeftSide u v (Proof0 AXM) = u
+ side RightSide u v (Proof0 AXM) = v
+ -- EQU : a, b |- a = b
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
- side s a b (Proof2 LTR x y) =
-	if reduce (left x) == reduce (left y) 
-	then reduce (side RightSide a b (if s == LeftSide then x else y)) 
+ -- LTR : a = b, c = d |- if reduce(a) == reduce(c) then reduce(b) = reduce(d)  
+ side s u v (Proof2 LTR x y) =
+	if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
+	then reduce (side RightSide u v (if s == LeftSide then x else y)) 
     else Proof2 LTR x y
- side s a b (Proof2 LTN x y) = 
-	let lx = side LeftSide a b x
-	    ly = side LeftSide a b y
+ -- LTN : a = b, c = d |- if a or reduce(a) == c or reduce(c) then b = reduce(d)
+ side s u v (Proof2 LTN x y) = 
+	let lx = side LeftSide u v x
+	    ly = side LeftSide u v y
 	in let rlx = reduce lx
 	       rly = reduce ly
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      -- then reduce (side RightSide a b (if s == LeftSide then x else y))
-          then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
+	      -- then reduce (side RightSide u v (if s == LeftSide then x else y))
+          then (if s == LeftSide then (side RightSide u v x) else reduce (side RightSide u v y))
 	      else Proof2 LTN x y
- side s a b (Proof2 LT2 x y) = 
-	let lx = side LeftSide a b x
-	    ly = side LeftSide a b y
+ -- LT2 : a = b, c = d |- if a or reduce(a) == c or reduce(c) then reduce(b) = reduce(d)
+ side s u v (Proof2 LT2 x y) = 
+	let lx = side LeftSide u v x
+	    ly = side LeftSide u v y
 	in let rlx = reduce lx
 	       rly = reduce ly
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      then reduce (side RightSide a b (if s == LeftSide then x else y))
-          -- then (if s == LeftSide then (side RightSide a b x) else reduce (side RightSide a b y))
+	      then reduce (side RightSide u v (if s == LeftSide then x else y))
+          -- then (if s == LeftSide then (side RightSide u v x) else reduce (side RightSide u v y))
 	      else Proof2 LT2 x y
- side s a b (Proof2 LTS x y) = if (side LeftSide a b x) == (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else Proof2 LTS x y
- side s a b (Proof2 TRN x y) = if (side RightSide a b x) == (side LeftSide a b y) then (if s == LeftSide then (side LeftSide a b x) else (side RightSide a b y)) else Proof2 TRN x y
- side s a b (Proof1 SYM x) = side (if s == LeftSide then RightSide else LeftSide) a b x
- side LeftSide a b (Proof2 SUB x y) = Proof2 APL (Proof1 DBL (side LeftSide a b x)) (side LeftSide a b y)
- side RightSide a b (Proof2 SUB x y) = subst (Proof0 DB0) (side RightSide a b x) (side RightSide a b y)
- side LeftSide a b (Proof1 RED x) = side LeftSide a b x
- side RightSide a b (Proof1 RED x) = reduce (side RightSide a b x)
- side s a b (Proof1 RD2 x) = reduce (side s a b x)
- side LeftSide a b (Proof1 RDR x) = x
- side RightSide a b (Proof1 RDR x) = reduce x
- side s a b (Proof1 ERR x) = side s a b (reduce x)
- side _ a b (Proof1 LFT x) = side LeftSide a b x
- side _ a b (Proof1 RGT x) = side RightSide a b x
- side _ _ _ (Proof1 RFL x) = x   
- side s a b (Proof1 EVL x) = side s a b (side LeftSide a b x)
- side s a b (Proof1 EVR x) = side s a b (side RightSide a b x)
- side s a b (Proof1 NOP x) = side s a b x
+ -- LTS : a = b, a = c |- b = c
+ side s u v (Proof2 LTS x y) = if (side LeftSide u v x) == (side LeftSide u v y) then (side RightSide u v (if s == LeftSide then x else y)) else Proof2 LTS x y
+ -- TRN : a = b, b = c |- a = c
+ side s u v (Proof2 TRN x y) = if (side RightSide u v x) == (side LeftSide u v y) then (if s == LeftSide then (side LeftSide u v x) else (side RightSide u v y)) else Proof2 TRN x y
+ -- SYM : a = b |- b = a
+ side s u v (Proof1 SYM x) = side (if s == LeftSide then RightSide else LeftSide) u v x
+ -- SUB : a = b, c = d |- APL (DBL a) c = subst (DB0, b, d)
+ side LeftSide u v (Proof2 SUB x y) = Proof2 APL (Proof1 DBL (side LeftSide u v x)) (side LeftSide u v y)
+ side RightSide u v (Proof2 SUB x y) = subst (Proof0 DB0) (side RightSide u v x) (side RightSide u v y)
+ -- RED : a = b |- a = reduce(b)
+ side LeftSide u v (Proof1 RED x) = side LeftSide u v x
+ side RightSide u v (Proof1 RED x) = reduce (side RightSide u v x)
+ -- RD2 : a = b |- reduce(a) = reduce(b)
+ side s u v (Proof1 RD2 x) = reduce (side s u v x)
+ -- RDQ : x |- x = reduce(x)
+ -- RDQ x = RED (QOT x)
+ side LeftSide u v (Proof1 RDQ x) = x
+ side RightSide u v (Proof1 RDQ x) = reduce x
+ -- ERQ : x |- left(reduce(x)) = right(reduce(x))
+ -- ERQ x = EVR (RED (QOT x))
+ side s u v (Proof1 ERQ x) = side s u v (reduce x)
+ -- LFT : a = b |- a = a
+ side _ u v (Proof1 LFT x) = side LeftSide u v x
+ -- RGT : a = b |- b = b
+ side _ u v (Proof1 RGT x) = side RightSide u v x
+ -- QOT : x |- x = x
+ side _ _ _ (Proof1 QOT x) = x   
+ -- RFE : a = b |- (a = b) = (a = b)
+ side s u v (Proof1 RFE x) = equ (side LeftSide u v x) (side RightSide u v x)
+ -- EVL : (a = b) = (c = d) |- a = b
+ -- EVL (QOT x) = x
+ side s u v (Proof1 EVL x) = side s u v (side LeftSide u v x)
+ -- EVR : (a = b) = (c = d) |- c = d 
+ -- EVR (QOT x) = x
+ side s u v (Proof1 EVR x) = side s u v (side RightSide u v x)
+ -- NOP : a = b |- a = b
+ -- NOP x = x
+ side s u v (Proof1 NOP x) = side s u v x
  side _ _ _ (Proof0 r) = Proof0 r
- side s a b (Proof1 r x) = Proof1 r (side s a b x)
- side s a b (Proof2 r x y) = Proof2 r (side s a b x) (side s a b y)
+ side s u v (Proof1 r x) = Proof1 r (side s u v x)
+ side s u v (Proof2 r x y) = Proof2 r (side s u v x) (side s u v y)
 
  var :: String -> Proof
  var x = Proof0 (SMB x)
@@ -168,6 +254,18 @@ module Slcn where
 
  apl3 :: Proof -> Proof -> Proof -> Proof -> Proof
  apl3 f x1 x2 x3 = apl (apl (apl f x1) x2) x3
+
+ apl4 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof
+ apl4 f x1 x2 x3 x4 = apl (apl (apl (apl f x1) x2) x3) x4
+
+ apl5 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof
+ apl5 f x1 x2 x3 x4 x5 = apl (apl (apl (apl (apl f x1) x2) x3) x4) x5
+
+ apl6 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof
+ apl6 f x1 x2 x3 x4 x5 x6 = apl (apl (apl (apl (apl (apl f x1) x2) x3) x4) x5) x6
+
+ apl7 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof
+ apl7 f x1 x2 x3 x4 x5 x6 x7 = apl (apl (apl (apl (apl (apl (apl f x1) x2) x3) x4) x5) x6) x7
 
  axl = smb "SMB"
  axr = apl (smb "SMB") (smb "SMB")
@@ -247,6 +345,7 @@ module Slcn where
  a = smb "a"
  b = smb "b"
  c = smb "c"
+ d = smb "d"
 
  ltr2 = dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0))) 
 
@@ -260,11 +359,13 @@ module Slcn where
   proves gpTheorem1c
   proves propTheorem1
   proves (red (equ (apl (dbl db0) a) (apl (dbl db0) b)))
-  proves (rdr (equ (apl (dbl db0) a) (apl (dbl db0) b)))
-  proves (red (rfl (equ (apl (dbl db0) a) (apl (dbl db0) b))))
-  proves (evr (rdr (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c)))
-  proves (evr (red (rfl (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c))))
-  proves (evr $ red $ rfl $ apl2 ltr2 gpLemma4c gpLemma3c)
-  proves (err (apl2 ltr2 gpLemma4c gpLemma3c))
+  proves (rdq (equ (apl (dbl db0) a) (apl (dbl db0) b)))
+  proves (red (qot (equ (apl (dbl db0) a) (apl (dbl db0) b))))
+
+  proves (ltr (ltr gpLemma4c gpLemma4c) (ltr gpLemma4c gpLemma3c))
+  proves (evr (rdq (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c)))
+  proves (evr (red (qot (apl (apl (dbl (dbl (ltr (ltr (dbs db0) (dbs db0)) (ltr (dbs db0) db0)))) gpLemma4c) gpLemma3c))))
+  proves (evr $ red $ qot $ apl2 ltr2 gpLemma4c gpLemma3c)
+  proves (erq (apl2 ltr2 gpLemma4c gpLemma3c))
   proves (lt2 gpLemma4c gpLemma3c)
 
