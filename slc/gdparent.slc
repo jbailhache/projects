@@ -1,0 +1,22 @@
+
+: gpRule1 
+ ^ x ^ y ^ z 
+ EQU - - - parent x y 
+     - - - parent y z 
+     - - gdparent x z 
+     \ $
+ 
+: gpAxiom1 
+ EQU - - parent allan brenda 
+     \ $
+
+: gpAxiom2 
+ EQU - - parent brenda charles 
+     \ $ 
+
+LTR 
+ - gpAxiom2 - - gdparent allan charles 
+ LTR 
+  - gpAxiom1 - - - parent brenda charles - - gdparent allan charles 
+  - - - gpRule1 allan brenda charles 
+

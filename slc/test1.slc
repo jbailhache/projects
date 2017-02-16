@@ -1,0 +1,14 @@
+LET gpRule1 
+ LBD x LBD y LBD z 
+ EQU APL APL APL parent x y 
+     APL APL APL parent y z 
+     APL APL gdparent x z 
+ DBL DB0 
+LET gpAxiom1 EQU APL APL parent allan brenda DBL DB0 
+LET gpAxiom2 EQU APL APL parent brenda charles DBL DB0 
+LTR 
+ APL gpAxiom2 APL APL gdparent allan charles 
+ LTR 
+  APL gpAxiom1 APL APL APL parent brenda charles APL APL gdparent allan charles 
+  APL APL APL gpRule1 allan brenda charles 
+
