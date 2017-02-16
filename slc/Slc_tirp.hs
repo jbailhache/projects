@@ -36,6 +36,11 @@ Any SSLC term proves that its left equals its right. In a theory t with axiom u 
  - (LTR x y) proves f = g if x proves a = b, y proves c = d, a reduces to e, c reduces to e, b reduces to f and d reduces to g, otherwise it proves (LTR x y) = (LTR x y)
  - (AXM) proves u = v.
 
+
+Example of running with hugs :
+
+$ (echo ':load Slc_tirp'; echo 'test'; echo 'run "gdparent.slc"'; echo 'run "prop.slc"') | hugs -h10000k
+
 -}
 
 module Slc_tirp where
