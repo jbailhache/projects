@@ -9,10 +9,10 @@ module Slcn where
  data Rule0 = AXM | DB0 | SMB String
   deriving (Eq)
 
- data Rule1 = DBS | DBL | SYM | RED | RD2 | RDQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
+ data Rule1 = DBS | DBP | NXT | DBL | SYM | RED | RD2 | RDQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
   deriving (Eq)
 
- data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB
+ data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB | LBD
   deriving (Eq)
 
  instance Show Rule0 where
@@ -22,34 +22,48 @@ module Slcn where
 
  instance Show Rule1 where
   show DBS = "+"
-  show DBL = "\\  "
+  show DBP = "P"
+  show NXT = "*"
+  show DBL = "\\"
   show SYM = "SYM"
   show RED = "RED"
   show RD2 = "RD2"
+  show RDQ = "RDQ"
   show ERQ = "ERQ"
   show LFT = "LFT"
   show RGT = "RGT"
   show QOT = "QOT"
   show RFE = "RFE"
   show EVL = "EVL"
+  show EVR = "EVR"
   show NOP = "NOP"
 
  instance Show Rule2 where
-  show EQU = "==="
-  show APL = "-  "
-  show LTR = "&  "
+  show EQU = "="
+  show APL = "-"
+  show LTR = "&"
   show LTN = "LTN"
   show LT2 = "LT2"
   show LTS = "LTS"
   show TRN = "TRN"
   show SUB = "SUB"
+  show LBD = "^"
  
+ -- dbv = Proof1 NXT $ Proof0 DB0
+ dbv = Proof0 DB0
 
  axm = Proof0 AXM
- db0 = Proof0 DB0
+ -- db0 = Proof0 DB0
+ db0i = Proof0 DB0
+ db0 = dbv
  smb s = Proof0 (SMB s)
  dbs x = Proof1 DBS x
+ dbp x = Proof1 DBP x
+ nxt x = Proof1 NXT x
  dbl x = Proof1 DBL x
+ -- dbl x = Proof2 LBD (Proof0 DB0) x
+ dbli x = Proof1 DBL x
+ -- dbl x = Proof2 LBD dbv x
  sym x = Proof1 SYM x
  red x = Proof1 RED x
  rd2 x = Proof1 RD2 x
@@ -70,6 +84,7 @@ module Slcn where
  lts x y = Proof2 LTS x y
  trn x y = Proof2 TRN x y
  sub x y = Proof2 SUB x y
+ lbd x y = Proof2 LBD x y
 
  {-
  instance Show Proof where
@@ -87,11 +102,12 @@ module Slcn where
  showlevel l (Proof2 r x y) = concat (replicate l "    ") ++ show r ++ "\n" ++ showlevel (l+1) x ++ "\n" ++ showlevel (l+1) y 
  -}
 
+ spaces = "  "
  showlevel :: Int -> Int -> Proof -> String
- showlevel i l (Proof0 (SMB s)) = concat (replicate (i*l) "    ") ++ s 
- showlevel i l (Proof0 r) = concat (replicate (i*l) "    ") ++ show r
- showlevel i l (Proof1 r x) = concat (replicate (i*l) "    ") ++ show r  ++ " " ++ showlevel 0 (l+1) x 
- showlevel i l (Proof2 r x y) = concat (replicate (i*l) "    ") ++ show r ++ " " ++ showlevel 0 (l+1) x ++ "\n" ++ showlevel 1 (l+1) y 
+ showlevel i l (Proof0 (SMB s)) = concat (replicate (i*l) spaces) ++ s 
+ showlevel i l (Proof0 r) = concat (replicate (i*l) spaces) ++ show r
+ showlevel i l (Proof1 r x) = concat (replicate (i*l) spaces) ++ show r  ++ " " ++ showlevel 0 (l+1) x 
+ showlevel i l (Proof2 r x y) = concat (replicate (i*l) spaces) ++ show r ++ " " ++ showlevel 0 (l+1) x ++ "\n" ++ showlevel 1 (l+1) y 
 
  {-
  showlevel :: Int -> Proof -> String
@@ -103,23 +119,13 @@ module Slcn where
  instance Show Proof where
   show x = showlevel 1 0 x
 
+ size :: Proof -> Int
+ size (Proof0 r) = 1
+ size (Proof1 r x) = 1 + (size x)
+ size (Proof2 r x y) = 1 + (size x) + (size y)
+
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
-
- shift :: Proof -> Proof -> Proof
- shift u (Proof1 DBS x) = if u == Proof1 DBS x then Proof1 DBS u else Proof1 DBS (shift u x)
- shift u (Proof1 DBL x) = Proof1 DBL (shift (Proof1 DBS u) x)
- shift _ (Proof0 r) = Proof0 r
- shift u (Proof1 r x) = Proof1 r (shift u x)
- shift u (Proof2 r x y) = Proof2 r (shift u x) (shift u y)
-
- subst :: Proof -> Proof -> Proof -> Proof
- subst1 :: Proof -> Proof -> Proof -> Proof
- subst u a b = if u == a then b else (if Proof1 DBS u == a then u else subst1 u a b)
- subst1 u (Proof1 DBL x) b = Proof1 DBL (subst (Proof1 DBS u) x (shift (Proof0 DB0) b))
- subst1 _ (Proof0 r) _ = Proof0 r
- subst1 u (Proof1 r x) b = Proof1 r (subst u x b)
- subst1 u (Proof2 r x y) b = Proof2 r (subst u x b) (subst u y b)
 
  cont :: Proof -> Proof -> Bool
  cont1 :: Proof -> Proof -> Bool
@@ -128,11 +134,56 @@ module Slcn where
  cont1 (Proof1 r x) y = cont x y
  cont1 (Proof2 r x y) z = (cont x z) || (cont y z) 
 
+ {-
+ shift :: Proof -> Proof -> Proof
+ shift u (Proof1 DBS x) = if u == Proof1 DBS x then Proof1 DBS u else Proof1 DBS (shift u x)
+ shift u (Proof1 DBL x) = Proof1 DBL (shift (Proof1 DBS u) x)
+ shift _ (Proof0 r) = Proof0 r
+ shift u (Proof1 r x) = Proof1 r (shift u x)
+ shift u (Proof2 r x y) = Proof2 r (shift u x) (shift u y)
+ -}
+
+ shift :: Proof -> Proof -> Proof
+ shift1 :: Proof -> Proof -> Proof
+ shift u x = if u == x then Proof1 DBS x else shift1 u x
+ shift1 u (Proof1 DBL x) = Proof1 DBL (shift (Proof1 DBS u) x)
+ shift1 u (Proof2 LBD v x) = Proof2 LBD v (shift (Proof1 DBS u) x)
+ shift1 _ (Proof0 r) = Proof0 r
+ shift1 u (Proof1 r x) = Proof1 r (shift u x)
+ shift1 u (Proof2 r x y) = Proof2 r (shift u x) (shift u y)
+
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if Proof1 DBS u == a then u else subst1 u a b)
+ -- subst1 u (Proof1 DBL x) b = Proof1 DBL (subst (Proof1 DBS u) x (shift (Proof0 DB0) b))
+ subst1 u (Proof1 DBL x) b = Proof1 DBL (subst (Proof1 DBS u) x (shift u b))
+ -- subst1 u (Proof1 DBL x) b = if u == Proof0 DB0 then Proof1 DBL (subst (Proof1 DBS u) x (shift (Proof0 DB0) b)) else Proof1 DBL (subst u x b)
+ -- subst1 u (Proof2 LBD v x) b = Proof2 LBD v (subst (Proof1 DBS u) x (shift v b))
+ subst1 u (Proof2 LBD v x) b = Proof2 LBD v (subst (Proof1 DBS u) x (shift u b))
+ -- subst1 u (Proof2 LBD v x) b = if u == v then Proof2 LBD v (subst (Proof1 DBS u) x (shift u b)) else Proof2 LBD v (subst u x b)
+ -- subst1 u (Proof2 LBD v x) b = if cont u v then Proof2 LBD v (subst (Proof1 DBS u) x (shift u b)) else Proof2 LBD v (subst u x b)
+ -- subst1 u (Proof1 DBP (Proof1 DBS x)) b = subst1 u x b
+ subst1 _ (Proof0 r) _ = Proof0 r
+ subst1 u (Proof1 r x) b = Proof1 r (subst u x b)
+ subst1 u (Proof2 r x y) b = Proof2 r (subst u x b) (subst u y b)
+
  red1 :: Proof -> Proof
  red1 (Proof2 APL (Proof1 DBL x) y) = subst (Proof0 DB0) x y
+ red1 (Proof2 APL (Proof2 LBD v x) y) = subst v x y
+ -- red1 (Proof2 APL (Proof1 DBL x) y) = subst (Proof0 DB0) (red1 x) (red1 y)
+ -- red1 (Proof1 DBS (Proof1 DBP x)) = x
+ red1 (Proof1 DBP (Proof1 DBS x)) = x
+ -- red1 (Proof1 DBP (Proof1 DBP x)) = Proof1 DBP x
+ red1 (Proof1 DBP (Proof1 DBL x)) = Proof1 DBL (Proof1 DBP x)
+ -- red1 (Proof1 DBP (Proof2 APL x y)) = Proof2 APL (Proof1 DBP x) (Proof1 DBP y)
+ -- red1 (Proof1 DBP (Proof1 r x)) = Proof1 r (Proof1 DBP x)
+ -- red1 (Proof1 DBP (Proof2 r x y)) = Proof2 r (Proof1 DBP x) (Proof1 DBP y)
  red1 (Proof0 r) = Proof0 r
  red1 (Proof1 r x) = Proof1 r (red1 x)
- red1 (Proof2 r x y) = Proof2 r (red1 x) (red1 y)
+ -- red1 (Proof2 r x y) = Proof2 r (red1 x) (red1 y)
+ red1 (Proof2 r x y) =
+  let x1 = red1 x in
+   if x == x1 then Proof2 r x (red1 y) else Proof2 r x1 y
 
  red2 :: [Proof] -> [Proof]
  red2 [] = []
@@ -151,8 +202,12 @@ module Slcn where
 		y : m -> y
  -- reduce x = if red1 x == x then x else reduce (red1 x)
 
+ r = reduce
+
  rered1 :: Int -> Proof -> Proof
  rered1 n x = if (n == 0) then x else rered1 (n - 1) (red1 x)
+
+ rered1xn x n = rered1 n x
 
  side :: Side -> Proof -> Proof -> Proof -> Proof
  -- AXM |- u = v
@@ -242,12 +297,15 @@ module Slcn where
  abstr d v x = if (contSmb x v) then (abstr1 d v x) else x
  abstr1 d v (Proof0 (SMB s)) = if v == s then d else (Proof0 (SMB s))
  abstr1 d v (Proof1 DBL x) = Proof1 DBL (abstr (Proof1 DBS d) v x)
+ abstr1 d v (Proof2 LBD w x) = Proof2 LBD w (abstr (Proof1 DBS d) v x)
  abstr1 _ _ (Proof0 r) = Proof0 r
  abstr1 d v (Proof1 r x) = Proof1 r (abstr d v x)
  abstr1 d v (Proof2 r x y) = Proof2 r (abstr d v x) (abstr d v y)
 
  lambda :: String -> Proof -> Proof
- lambda v x = Proof1 DBL (abstr (Proof0 DB0) v x)
+ -- lambda v x = Proof1 DBL (abstr (Proof0 DB0) v x)
+ -- lambda v x = dbl (abstr db0 v x)
+ lambda v x = dbl (abstr dbv v x)
 
  apl2 :: Proof -> Proof -> Proof -> Proof
  apl2 f x1 x2 = apl (apl f x1) x2
@@ -266,6 +324,10 @@ module Slcn where
 
  apl7 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof
  apl7 f x1 x2 x3 x4 x5 x6 x7 = apl (apl (apl (apl (apl (apl (apl f x1) x2) x3) x4) x5) x6) x7
+
+ apl8 :: Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof -> Proof
+ apl8 f x1 x2 x3 x4 x5 x6 x7 x8  = apl (apl (apl (apl (apl (apl (apl (apl f x1) x2) x3) x4) x5) x6) x7) x8
+
 
  axl = smb "SMB"
  axr = apl (smb "SMB") (smb "SMB")

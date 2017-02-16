@@ -1,0 +1,17 @@
+
+red (APL (DBL x) y = subst DB0 x y
+
+subst v x y :
+ remplace v par y dans x
+ remplace DBS v par v
+ dans DBL : remplace DBS v par shift DB0 y = y avec DB0 remplacé par DBS DB0
+
+shift u u = DBS u
+shift u (DBL x) = DBL (shift (DBS u) x)
+
+lambda v x = DBL (abstr DB0 v x)
+
+abstr d v x = x si x ne contient pas v
+abstr d v (SMB v) = d
+abstr d v (DBL x) = DBL (abstr (DBS d) v x)
+
