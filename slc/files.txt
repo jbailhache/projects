@@ -1,0 +1,18 @@
+Symbolic Lambda Calculus
+
+Files :
+
+Slcn.hs		Symbolic Lambda Calculus (SLC) with extensions
+Refl.hs		Reflection
+Slc_tirp.hs	SLC with reflection and transfinite iteration of reflection principle, cleaned version
+Slcnc.hs	SLC with compilation
+Slc_synt.hs	Syntactic analysis of SLC
+Slc_syntax.hs	Another syntactic analysis of SLC
+Slcncs.hs	SLC with compilation and syntactic analysis
+Refls.hs	Reflection with syntactic analysis
+gdparent.slc	Theorem proving example in SLC
+prop.slc	Propositional logic theorem in SLC
+Split.hs	Split string
+Test_callCC.hs	Test of callCC
+compil.c	Test of combinator compilation in C
+
