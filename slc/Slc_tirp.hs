@@ -267,8 +267,28 @@ module Slc_tirp where
  reducesTo x = do
   putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (reduce x) ++ "\n")
 
+{-
  pr1 x y = do
   putStr ("\nThe proof\n" ++ show x ++ "\nreduces to\n" ++ show y ++ "\nwhich proves\n" ++ show (left y) ++ "\nequals\n" ++ show (right y) ++ "\n")
+-}
+
+ pr1 x y = do
+  pr2 x y (left y) (right y)
+
+ pr2 x y l r = do
+  putStr ("\nThe proof\n" ++
+   show x ++
+   "\nreduces to\n" ++
+   show y ++
+   "\nwhich proves\n" ++
+   show l ++
+   "\nequals\n" ++
+   show r ++
+   "\nwhich reduces to\n" ++
+   show (reduce l) ++
+   "\nequals\n" ++
+   show (reduce r) ++
+   "\n")
 
  pr x = do
   pr1 x (reduce x)
