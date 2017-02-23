@@ -6,7 +6,7 @@ LET EFQ ^p = (false => p) \$
 LET RAA ^p = (((p => false) => false) => p) \$
 LET GEN ^p = - p (all ^x p) \$
 LET PART ^p ^t = ((all p) => (p t)) \$
-LET PERMUT ^p ^q = ((all ^x  :  p => (q x )) => (p => (all q))) \$
+LET PERMUT ^p ^q = ((all ^x  :  p => (q x)) => (p => (all q))) \$
 LET SOME ^p = (((all p) => false) => 
                    ((p (some ^x ((p x) => false))) => false)) 
                \$
@@ -16,16 +16,16 @@ LET lemma1 (AS p (p => p) p)
 LET lemma2 (AK p (p => p))
 
 LET lemma3 (MP (p => ((p => p) => p))
-               ((p => ( p => p))  => (p => p)))
+               ((p => (p => p)) => (p => p)))
 
-LET lemma4 - lemma1 - (p => ( (p => p) => p))
-                      ((p => ( p => p)) => ( p => p)) 
+LET lemma4 - lemma1 - (p => ((p => p) => p))
+                      ((p => (p => p)) => (p => p)) 
 
 LET lemma5 LTR lemma4 lemma3
 
 LET lemma6 - lemma2 
-              (( p => ( p => p)) =>
-               ( p => p) )
+              ((p => (p => p)) =>
+               (p => p))
 
 LET lemma7 LTR lemma6 lemma5
 
