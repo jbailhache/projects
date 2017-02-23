@@ -1,50 +1,49 @@
 
-: MP ^ p ^ q EQU - - - imp p q - p q \ $
-: AK ^ p ^ q EQU - - imp p - - imp q p \ $
-: AS ^ p ^ q ^ r EQU - - imp - - imp p - - imp q r - - imp - - imp p q - - imp p r \ $
-: EFQ ^ p EQU - - imp false p \ $ 
-: RAA ^ p EQU - - imp - - imp - - imp p false false p \ $
-: GEN ^ p EQU - p - all ^ x p \ $
-: PART ^ p ^ t EQU - - imp - all p - p t \ $
-: PERMUT ^ p ^ q EQU - - imp - all ^ x - - imp p - q x - - imp p - all q \ $
-: SOME ^ p EQU - - imp - - imp - all p false - - imp - p - some ^ x - - imp - p x false false \ $
+LET MP ^p ^q = - (imp p q) - p q \$
+LET AK ^p ^q = (imp p (imp q p)) \$
+LET AS ^p ^q ^r = (imp (imp p (imp q r)) (imp (imp p q) (imp p r))) \$
+LET EFQ ^p = (imp false p) \$
+LET RAA ^p = (imp (imp (imp p false) false) p) \$
+LET GEN ^p = - p (all ^x p) \$
+LET PART ^p ^t = (imp (all p) (p t)) \$
+LET PERMUT ^p ^q = (imp (all ^x  : imp p (q x )) (imp p (all q))) \$
+LET SOME ^p = (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)) 
+               \$
 
-: lemma1 - - - AS 
-   p 
-   - - imp p p 
-   p
+LET lemma1 (AS p (imp p p) p)
 
-: lemma2 - - AK 
-   p 
-   - - imp p p
+LET lemma2 (AK p (imp p p))
 
-: lemma3 - - MP 
-   - - imp p - - imp - - imp p p p 
-   - - imp - - imp p - - imp p p - - imp p p
+LET lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
 
-: lemma4 - lemma1 - - - imp p - - imp - - imp p p p - - imp - - imp p - - imp p p - - imp p p
+LET lemma4 - lemma1 - (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) 
 
-: lemma5 LTR lemma4 lemma3
+LET lemma5 LTR lemma4 lemma3
 
-: lemma6 - lemma2 - - imp 
-   - - imp p - - imp p p 
-   - - imp p p
+LET lemma6 - lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) )
 
-: lemma7 LTR lemma6 lemma5
+LET lemma7 LTR lemma6 lemma5
 
-: lemma8 - - AK p p
+LET lemma8 (AK p p)
 
-: lemma9 - - MP 
-   - - imp p - - imp p p 
-   - - imp p p
+LET lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p))
 
-: lemma10 - lemma7 - - - imp p - - imp p p - - imp p p
+LET lemma10 - lemma7 - (imp p (imp p p)) (imp p p)
 
-: lemma11 LTR lemma10 lemma9
+LET lemma11 LTR lemma10 lemma9
 
-: lemma12 - lemma8 - - imp p p
+LET lemma12 - lemma8 (imp p p)
 
-: theorem1 LTR lemma12 lemma11
+LET theorem1 LTR lemma12 lemma11
 
 theorem1
 

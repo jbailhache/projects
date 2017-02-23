@@ -1,0 +1,6 @@
+
+LET I ^a a
+LET K ^a ^b a
+LET S ^a ^b ^c (a c (b c))
+(S K K)
+

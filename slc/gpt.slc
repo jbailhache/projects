@@ -1,0 +1,23 @@
+
+LET gpRule1 
+ ^ x ^ y ^ z 
+ EQU - ( parent x y ) 
+     - ( parent y z )
+     ( gdparent x z )
+     \ $
+ 
+LET gpAxiom1 
+ EQU ( parent allan brenda ) \ $
+
+LET gpAxiom2 
+ EQU ( parent brenda charles ) \ $ 
+
+LET gpTheorem1
+ LTR
+  - gpAxiom2 ( gdparent allan charles )
+  LTR
+   - gpAxiom1 - ( parent brenda charles ) ( gdparent allan charles )
+   ( gpRule1 allan brenda charles )
+
+gpTheorem1
+
