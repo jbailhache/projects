@@ -63,27 +63,42 @@ module Slc_tirp where
 
  instance Show Rule0 where
   show AXM = "AXM"
-  show DB0 = "DB0"
+  -- show DB0 = "DB0"
+  show DB0 = "@"
   show (SMB s) = s
 
  instance Show Rule1 where
-  show DBS = "+"
+  -- show DBS = "+"
+  show DBS = "'"
   show DBL = "\\"
  
  instance Show Rule2 where
   show EQU = "="
   show APL = "-"
-  show LTR = "&"
+  show LTR = "LTR"
 
  spaces = "  "
+
  showlevel :: Int -> Int -> Proof -> String
  showlevel i l (Proof0 (SMB s)) = concat (replicate (i*l) spaces) ++ s 
  showlevel i l (Proof0 r) = concat (replicate (i*l) spaces) ++ show r
- showlevel i l (Proof1 r x) = concat (replicate (i*l) spaces) ++ show r  ++ " " ++ showlevel 0 (l+1) x 
+ showlevel i l (Proof1 r x) = concat (replicate (i*l) spaces) ++ show r ++ " " ++ showlevel 0 (l+1) x 
  showlevel i l (Proof2 r x y) = concat (replicate (i*l) spaces) ++ show r ++ " " ++ showlevel 0 (l+1) x ++ "\n" ++ showlevel 1 (l+1) y 
 
+ showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " : " ++ showapl z t
+ showapl (Proof2 APL x y) z = showapl x y ++ " " ++ show z
+ showapl x (Proof2 APL y z) = show x ++ " : " ++ showapl y z
+ showapl x y = show x ++ " " ++ show y
+
+ showproof (Proof0 (SMB s)) = s
+ showproof (Proof2 APL x y) = "(" ++ showapl x y ++ ")"
+ showproof (Proof0 r) = show r
+ showproof (Proof1 r x) = show r ++ showproof x
+ showproof (Proof2 r x y) = show r ++ " " ++ showproof x ++ " " ++ showproof y
+
  instance Show Proof where
-  show x = showlevel 1 0 x
+  -- show x = showlevel 1 0 x
+  show x = showproof x
 
  axm = Proof0 AXM
  db0 = Proof0 DB0
@@ -105,7 +120,7 @@ module Slc_tirp where
         then split1 b d [] s 
         else w : split1 b d [] s) 
   else if elem x d 
-  then (if w == [] then [x] : split1 b d [] s else w : [x] : split1 b d [] s) 
+  then (if w == [] then [x] : split1 b d [] s else w : [x] : split1 b d [] s)
   else split1 b d (w ++ [x]) s
 
  split n d s = split1 n d [] s
