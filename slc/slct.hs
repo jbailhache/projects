@@ -129,6 +129,7 @@ module Slc_tirp where
  slc1 ("AXM" : s) = (axm, s)
  slc1 ("DB0" : s) = (db0, s)
  slc1 ("$"   : s) = (db0, s)
+ slc1 ("@"   : s) = (db0, s)
  slc1 ("DBS" : s) = let (x, t) = slc1 s in (dbs x, t)
  slc1 ("+"   : s) = let (x, t) = slc1 s in (dbs x, t)
  slc1 ("'"   : s) = let (x, t) = slc1 s in (dbs x, t)
