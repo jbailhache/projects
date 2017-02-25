@@ -164,16 +164,22 @@ module Slc_tirp where
  axioms = [
   slc "^x ^y ^z =  - (parent x y) - (parent y z) (gdparent x z) \\@",
   slc "= (parent allan brenda) \\@",
-  slc "= (parent brenda charles) \\@"]
+  slc "= (parent brenda charles) \\@",
+  smb "parent",
+  smb "gdparent",
+  smb "allan",
+  smb "brenda",
+  smb "charles"]
 
  naxm = length axioms
 
  -- nthproof 0 = axm
  nthproof n = if n < naxm then axioms !! n else nthproof1 (n - naxm)
 
+ -- nthproof1 0 = axm
  nthproof1 0 = db0
- nthproof1 1 = smb "SMB"
- nthproof1 (n+2) = let p = div n 4 in case mod n 4 of
+ -- nthproof1 1 = smb "SMB"
+ nthproof1 (n+1) = let p = div n 4 in case mod n 4 of
   0 -> dbs $ nthproof p
   1 -> dbl $ nthproof p
   2 -> apl (nthproof $ first p) (nthproof $ second p)
