@@ -188,7 +188,7 @@ module Slc_tirp where
  show1 x = show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x)
 
  show_proofs n 0 = ""
- show_proofs n (p+1) = show1 (nthproof n) ++ "\n" ++ show_proofs (n+1) p
+ show_proofs n (p+1) = show n ++ ": " ++ show1 (nthproof n) ++ "\n" ++ show_proofs (n+1) p
 
  display_proofs n = putStr (show_proofs 0 n)
 
