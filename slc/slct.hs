@@ -196,7 +196,7 @@ module Slc_tirp where
 
  prove1 n a b = let x = nthproof n in if (((left x) == a) && ((right x) == b)) then x else prove1 (n+1) a b
 
- testprove = prove (slc "gdparent allan brenda") (dbl db0)
+ testprove = prove (slc "gdparent allan charles") (dbl db0)
 
 
 {-
