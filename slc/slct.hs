@@ -112,6 +112,98 @@ module Slc_tirp where
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
 
+ intfrom n = n : (intfrom (n+1))
+
+ append [] l = l
+ append (x : l1) l2 = x : append l1 l2
+
+ maplfa [] f = []
+ maplfa (x : l) f = (f x) ++ (maplfa l f)
+
+ merge [] l2 = l2
+ merge l1 [] = l1
+ merge (x1 : l1) (x2 : l2) = x1 : x2 : merge l1 l2 
+
+ maplfm [] f = []
+ maplfm (x : l) f = merge (f x) (maplfm l f)
+
+ firsts n l = if n == 0 then [] else (head l) : firsts (n-1) (tail l)
+
+ showlist [] = ""
+ showlist (x : l) = show x ++ "\n" ++ showlist l
+
+ proofs = axm : db0 : smb "SMB" :
+  (maplfa proofs $ \x -> 
+    dbs x : 
+    dbl x : 
+    (maplfa proofs $ \y ->
+      apl x y :
+      ltr x y :
+      [] ) )
+ 
+ suc_digits [] = [1]
+ suc_digits (0 : l) = 1 : l
+ suc_digits (1 : l) = 0 : suc_digits l
+ 
+ -- digits :: Nat -> [Nat]
+ digits :: Int -> [Int]
+ digits 0 = [0]
+ digits (n+1) = suc_digits (digits n)
+
+ nat_of_digits :: [Int] -> Int 
+ nat_of_digits [] = 0
+ nat_of_digits (b : l) = b + 2 * nat_of_digits l
+
+ even_items [] = []
+ even_items (x : []) = [x]
+ even_items (x : _ : l) = x : even_items l
+
+ first = nat_of_digits . even_items . digits 
+ second = nat_of_digits . even_items . tail . digits
+ 
+ axioms = [
+  slc "^x ^y ^z =  - (parent x y) - (parent y z) (gdparent x z) \\@",
+  slc "= (parent allan brenda) \\@",
+  slc "= (parent brenda charles) \\@"]
+
+ naxm = length axioms
+
+ -- nthproof 0 = axm
+ nthproof n = if n < naxm then axioms !! n else nthproof1 (n - naxm)
+
+ nthproof1 0 = db0
+ nthproof1 1 = smb "SMB"
+ nthproof1 (n+2) = let p = div n 4 in case mod n 4 of
+  0 -> dbs $ nthproof p
+  1 -> dbl $ nthproof p
+  2 -> apl (nthproof $ first p) (nthproof $ second p)
+  3 -> ltr (nthproof $ first p) (nthproof $ second p)
+
+ show1 x = show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x)
+
+ show_proofs n 0 = ""
+ show_proofs n (p+1) = show1 (nthproof n) ++ "\n" ++ show_proofs (n+1) p
+
+ display_proofs n = putStr (show_proofs 0 n)
+
+ prove a b = prove1 0 a b
+
+ prove1 n a b = let x = nthproof n in if (((left x) == a) && ((right x) == b)) then x else prove1 (n+1) a b
+
+ testprove = prove (slc "gdparent allan brenda") (dbl db0)
+
+
+{-
+ print_proof n = do
+  putStrLn $ show $ nthproof n 
+
+ print_proofs n p = do
+  if n > p then return else do
+   print_proof n
+   print_proofs (n+1) p
+   return
+-}
+
 
  split1 b d w [] = [w]
  split1 b d w (x : s) = 
