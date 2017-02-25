@@ -112,6 +112,12 @@ module Slc_tirp where
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
 
+
+ size (Proof0 _) = 1
+ size (Proof1 _ x) = size x + 1
+ size (Proof2 _ x y) = size x + size y + 1
+
+
  intfrom n = n : (intfrom (n+1))
 
  append [] l = l
@@ -185,7 +191,7 @@ module Slc_tirp where
   2 -> apl (nthproof $ first p) (nthproof $ second p)
   3 -> ltr (nthproof $ first p) (nthproof $ second p)
 
- show1 x = show x ++ " proves " ++ show (left x) ++ " = " ++ show (right x)
+ show1 x = show x ++ "  proves  " ++ show (left x) ++ "  ==  " ++ show (right x) ++ "\n"
 
  show_proofs n 0 = ""
  show_proofs n (p+1) = show n ++ ": " ++ show1 (nthproof n) ++ "\n" ++ show_proofs (n+1) p
@@ -197,6 +203,11 @@ module Slc_tirp where
  prove1 n a b = let x = nthproof n in if (left x == a) && (right x == b) then (n, x) else prove1 (n+1) a b
 
  testprove = prove (slc "gdparent allan charles") (dbl db0)
+
+
+ first_size s = first_size1 0 s
+
+ first_size1 n s = let s1 = size (nthproof n) in if s1 >= s then (n,s1) else first_size1 (n+1) s
 
 
 {-
