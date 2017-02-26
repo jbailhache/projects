@@ -239,11 +239,13 @@ module Slc_tirp where
  slc1 ("DB0" : s) = (db0, s)
  slc1 ("$"   : s) = (db0, s)
  slc1 ("@"   : s) = (db0, s)
+ slc1 ("*"   : s) = (db0, s)
  slc1 ("DBS" : s) = let (x, t) = slc1 s in (dbs x, t)
  slc1 ("+"   : s) = let (x, t) = slc1 s in (dbs x, t)
  slc1 ("'"   : s) = let (x, t) = slc1 s in (dbs x, t)
  slc1 ("DBL" : s) = let (x, t) = slc1 s in (dbl x, t)
  slc1 ("\\"  : s) = let (x, t) = slc1 s in (dbl x, t)
+ slc1 ("/"   : s) = let (x, t) = slc1 s in (dbl x, t)
  slc1 ("APL" : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl x y, u)
  slc1 ("-"   : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl x y, u)
  slc1 ("LTR" : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (ltr x y, u)
@@ -254,14 +256,29 @@ module Slc_tirp where
  -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
  slc1 ("LBD" : v : s) = let (x, t) = slc1 s in (lambda v x, t)
  slc1 ("^"   : v : s) = let (x, t) = slc1 s in (lambda v x, t)
- slc1 ("("   : s) = slc2 s (dbl db0) False 
- slc1 (":"   : s) = slc2 s (dbl db0) True
+ slc1 ("("   : s) = slc2 s (dbl db0) False
+ slc1 (":"   : s) = slc2 s (dbl db0) True 
+ slc1 ("["   : s) = let (x, t) = slc3 s (dbl db0) in (dbl x, t)
  slc1 (w : s) = (smb w, s)
 
  slc2 (")" : s) x False = (x, s)
  slc2 (")" : s) x True = (x, ")" : s)
  slc2 s (Proof1 DBL (Proof0 DB0)) c = let (y, t) = slc1 s in slc2 t y c
  slc2 s x c = let (y, t) = slc1 s in slc2 t (apl x y) c
+
+ slc3 ("]" : s) x = (x, s)
+ slc3 s (Proof1 DBL (Proof0 DB0))  = let (y, t) = slc1 s in slc3 t y 
+ slc3 s x = let (y, t) = slc1 s in slc3 t (apl x y) 
+
+
+ -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
+
+ blank = " \t\n"
+ delim = "@$*'\\/^()[]"
+
+ slc s = let (x, t) = slc1 (split blank delim ("( " ++ s ++ " )")) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+
+ -- slc s = let (x, t) = slc2 (split " \t\n" s) [] in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 
 {-
  slc1 :: [[Char]] -> [Proof] -> (Proof, [[Char]], [Proof])
@@ -355,10 +372,6 @@ module Slc_tirp where
  slc2 (")" : s, x :l) = (x, s)
  slc2 (s, []) = slc1 (s)
 -}
-
- -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
- slc s = let (x, t) = slc1 (split " \t\n" "@$'\\^()" ("( " ++ s ++ " )")) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
- -- slc s = let (x, t) = slc2 (split " \t\n" s) [] in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 
  -- x contains y ?
  cont :: Proof -> Proof -> Bool
