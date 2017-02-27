@@ -64,7 +64,8 @@ module Slc_tirp where
  instance Show Rule0 where
   show AXM = "AXM"
   -- show DB0 = "DB0"
-  show DB0 = "@"
+  -- show DB0 = "@"
+  show DB0 = "*"
   show (SMB s) = s
 
  instance Show Rule1 where
@@ -91,6 +92,8 @@ module Slc_tirp where
  showapl x y = show x ++ " " ++ show y
 
  showproof (Proof0 (SMB s)) = s
+ showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y ++ "]"
+ showproof (Proof1 DBL x) = "[" ++ showproof x ++ "]"
  showproof (Proof2 APL x y) = "(" ++ showapl x y ++ ")"
  showproof (Proof0 r) = show r
  showproof (Proof1 r x) = show r ++ showproof x
@@ -235,32 +238,57 @@ module Slc_tirp where
  split n d s = split1 n d [] s
 
 
- slc1 ("AXM" : s) = (axm, s)
- slc1 ("DB0" : s) = (db0, s)
- slc1 ("$"   : s) = (db0, s)
- slc1 ("@"   : s) = (db0, s)
- slc1 ("*"   : s) = (db0, s)
- slc1 ("DBS" : s) = let (x, t) = slc1 s in (dbs x, t)
- slc1 ("+"   : s) = let (x, t) = slc1 s in (dbs x, t)
- slc1 ("'"   : s) = let (x, t) = slc1 s in (dbs x, t)
- slc1 ("DBL" : s) = let (x, t) = slc1 s in (dbl x, t)
- slc1 ("\\"  : s) = let (x, t) = slc1 s in (dbl x, t)
- slc1 ("/"   : s) = let (x, t) = slc1 s in (dbl x, t)
- slc1 ("APL" : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl x y, u)
- slc1 ("-"   : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl x y, u)
- slc1 ("LTR" : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (ltr x y, u)
- slc1 ("&"   : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (ltr x y, u)
- slc1 ("EQU" : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (equ x y, u)
- slc1 ("="   : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (equ x y, u)
- slc1 ("LET" : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
+ slc1 ("AXM" : s) e = (axm, s)
+ slc1 ("DB0" : s) e = (db0, s)
+ slc1 ("$"   : s) e = (db0, s)
+ slc1 ("@"   : s) e = (db0, s)
+ slc1 ("*"   : s) e = (db0, s)
+ slc1 ("DBS" : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("+"   : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("'"   : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("DBL" : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("\\"  : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("/"   : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("APL" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl x y, u)
+ slc1 ("-"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl x y, u)
+ slc1 ("LTR" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
+ slc1 ("&"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
+ slc1 ("EQU" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
+ slc1 ("="   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
+ slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl (lambda v y) x, u)
  -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
- slc1 ("LBD" : v : s) = let (x, t) = slc1 s in (lambda v x, t)
- slc1 ("^"   : v : s) = let (x, t) = slc1 s in (lambda v x, t)
- slc1 ("("   : s) = slc2 s (dbl db0) False
- slc1 (":"   : s) = slc2 s (dbl db0) True 
- slc1 ("["   : s) = let (x, t) = slc3 s (dbl db0) in (dbl x, t)
- slc1 (w : s) = (smb w, s)
+ slc1 ("LBD" : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
+ slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
+ slc1 ("("   : s) e = slc2 s ")" (dbl db0) False 
+ slc1 (":"   : s) e = slc2 s e (dbl db0) True
+ slc1 ("["   : s) e = let (x, t) = slc2 s "]" (dbl db0) False in (dbl x, t)
+ slc1 (w : s) e = (smb w, s)
 
+
+ slc2 (w : t) e x c =
+  if w == e then
+   case c of
+    False -> (x, t)
+    True -> (x, w : t)
+  else
+   slc3 (w : t) e x c
+ slc2 s e x c = slc3 s e x c
+ slc3 s e (Proof1 DBL (Proof0 DB0)) c = let (y, t) = slc1 s e in slc2 t e y c
+ slc3 s e x c = let (y, t) = slc1 s e in slc2 t e (apl x y) c
+
+{-
+ slc2 s e x c = 
+  case s of
+   e : t -> case c of
+    False -> (x, t)
+    True -> (x, s)
+   _ -> case x of
+    Proof1 DBL (Proof0 DB0) -> let (y, t) = slc1 s e in slc2 t e y c
+    _ -> let (y, t) = slc1 s e in slc2 t e (apl x y) c
+-}
+
+
+{-
  slc2 (")" : s) x False = (x, s)
  slc2 (")" : s) x True = (x, ")" : s)
  slc2 s (Proof1 DBL (Proof0 DB0)) c = let (y, t) = slc1 s in slc2 t y c
@@ -269,14 +297,14 @@ module Slc_tirp where
  slc3 ("]" : s) x = (x, s)
  slc3 s (Proof1 DBL (Proof0 DB0))  = let (y, t) = slc1 s in slc3 t y 
  slc3 s x = let (y, t) = slc1 s in slc3 t (apl x y) 
-
+-}
 
  -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
 
  blank = " \t\n"
  delim = "@$*'\\/^()[]"
 
- slc s = let (x, t) = slc1 (split blank delim ("( " ++ s ++ " )")) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+ slc s = let (x, t) = slc1 (split blank delim ("( " ++ s ++ " )")) ")" in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 
  -- slc s = let (x, t) = slc2 (split " \t\n" s) [] in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 
