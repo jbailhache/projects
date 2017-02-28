@@ -112,6 +112,9 @@ module Slc_tirp where
  ltr x y = Proof2 LTR x y
  equ x y = Proof2 EQU x y
 
+ apply (Proof1 DBL (Proof0 DB0)) y = y
+ apply x y = apl x y
+
  data Side = LeftSide | RightSide
   deriving (Eq, Show)
 
@@ -255,7 +258,7 @@ module Slc_tirp where
  slc1 ("&"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
  slc1 ("EQU" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
  slc1 ("="   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
- slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl (lambda v y) x, u)
+ slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
  -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
  slc1 ("LBD" : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
  slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
@@ -566,7 +569,12 @@ module Slc_tirp where
  pr x = do
   pr1 x (reduce x)
 
+ run1 filename = do
+  readFile filename >>= \s -> proves $ slc s
+
  run filename = do
+  -- readFile filename >>= \s -> proves $ slc s
+  -- readFile filename >>= \s -> proves (let x = slc s in ltr x x)
   -- readFile filename >>= \s -> proves $ reduce $ slc s
   readFile filename >>= \s -> pr $ slc s
 
