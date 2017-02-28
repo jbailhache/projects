@@ -2,7 +2,7 @@ module Slcncs where
 
  import Data.List
  import Data.Char
- import Control.Monad.Cont
+ -- import Control.Monad.Cont
 
  -- strReadFile filename = do
  --  readFile filename >>= \s -> print s
@@ -37,31 +37,35 @@ module Slcncs where
 
  instance Show Rule0 where
   show AXM = "AXM"
-  show DB0 = "DB0"
+  -- show DB0 = "DB0"
+  show DB0 = "*"
   show (SMB s) = s
 
  instance Show Rule1 where
-  show DBS = "+"
-  show DBP = "P"
+  -- show DBS = "+"
+  show DBS = "'"
+  -- show DBP = "P"
+  show DBP = "DBP "
   show NXT = "*"
   show DBL = "\\"
-  show SYM = "SYM"
-  show RED = "RED"
-  show RD2 = "RD2"
-  show RDQ = "RDQ"
-  show ERQ = "ERQ"
-  show LFT = "LFT"
-  show RGT = "RGT"
-  show QOT = "QOT"
-  show RFE = "RFE"
-  show EVL = "EVL"
-  show EVR = "EVR"
-  show NOP = "NOP"
+  show SYM = "SYM "
+  show RED = "RED "
+  show RD2 = "RD2 "
+  show RDQ = "RDQ "
+  show ERQ = "ERQ "
+  show LFT = "LFT "
+  show RGT = "RGT "
+  show QOT = "QOT "
+  show RFE = "RFE "
+  show EVL = "EVL "
+  show EVR = "EVR "
+  show NOP = "NOP "
 
  instance Show Rule2 where
   show EQU = "="
   show APL = "-"
-  show LTR = "&"
+  -- show LTR = "&"
+  show LTR = "LTR"
   show LTN = "LTN"
   show LT2 = "LT2"
   show LTS = "LTS"
@@ -106,6 +110,11 @@ module Slcncs where
  sub x y = Proof2 SUB x y
  lbd x y = Proof2 LBD x y
 
+
+ apply (Proof1 DBL (Proof0 DB0)) y = y
+ apply x y = apl x y
+
+
  {-
  instance Show Proof where
   show (Proof0 (SMB s)) = s
@@ -137,14 +146,151 @@ module Slcncs where
  showlevel l (Proof1 r x) = concat (replicate l "    ") ++ show r ++ " " ++ showlevel 0 x 
  showlevel l (Proof2 r x y) = concat (replicate l "    ") ++ show r ++ "\n" ++ showlevel (l+1) x ++ "\n" ++ showlevel (l+1) y 
  -}
+
+
+ showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " : " ++ showapl z t
+ showapl (Proof2 APL x y) z = showapl x y ++ " " ++ show z
+ showapl x (Proof2 APL y z) = show x ++ " : " ++ showapl y z
+ showapl x y = show x ++ " " ++ show y
+
+ showproof (Proof0 (SMB s)) = s
+ showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y ++ "]"
+ showproof (Proof1 DBL x) = "[" ++ showproof x ++ "]"
+ showproof (Proof2 APL x y) = "(" ++ showapl x y ++ ")"
+ showproof (Proof0 r) = show r
+ showproof (Proof1 r x) = show r ++ showproof x
+ -- showproof (Proof1 r x) = show r ++ " " ++ showproof x
+ showproof (Proof2 r x y) = show r ++ " " ++ showproof x ++ " " ++ showproof y
+
  instance Show Proof where
-  show x = showlevel 1 0 x
+  -- show x = showlevel 1 0 x
+  show x = showproof x
 
 
+
+ intfrom n = n : (intfrom (n+1))
+
+ append [] l = l
+ append (x : l1) l2 = x : append l1 l2
+
+ maplfa [] f = []
+ maplfa (x : l) f = (f x) ++ (maplfa l f)
+
+ merge [] l2 = l2
+ merge l1 [] = l1
+ merge (x1 : l1) (x2 : l2) = x1 : x2 : merge l1 l2 
+
+ maplfm [] f = []
+ maplfm (x : l) f = merge (f x) (maplfm l f)
+
+ firsts n l = if n == 0 then [] else (head l) : firsts (n-1) (tail l)
+
+ showlist [] = ""
+ showlist (x : l) = show x ++ "\n" ++ showlist l
+
+ proofs = axm : db0 : smb "SMB" :
+  (maplfa proofs $ \x -> 
+    dbs x : 
+    dbl x : 
+    (maplfa proofs $ \y ->
+      apl x y :
+      ltr x y :
+      [] ) )
+ 
+ suc_digits [] = [1]
+ suc_digits (0 : l) = 1 : l
+ suc_digits (1 : l) = 0 : suc_digits l
+ 
+ -- digits :: Nat -> [Nat]
+ digits :: Int -> [Int]
+ digits 0 = [0]
+ digits (n+1) = suc_digits (digits n)
+
+ nat_of_digits :: [Int] -> Int 
+ nat_of_digits [] = 0
+ nat_of_digits (b : l) = b + 2 * nat_of_digits l
+
+ even_items [] = []
+ even_items (x : []) = [x]
+ even_items (x : _ : l) = x : even_items l
+
+ first = nat_of_digits . even_items . digits 
+ second = nat_of_digits . even_items . tail . digits
+ 
+ axioms = [
+  slc "^x ^y ^z =  - (parent x y) - (parent y z) (gdparent x z) \\@",
+  slc "= (parent allan brenda) \\@",
+  slc "= (parent brenda charles) \\@",
+  smb "parent",
+  smb "gdparent",
+  smb "allan",
+  smb "brenda",
+  smb "charles"]
+
+ naxm = length axioms
+
+ -- nthproof 0 = axm
+ nthproof n = if n < naxm then axioms !! n else nthproof1 (n - naxm)
+
+ -- nthproof1 0 = axm
+ nthproof1 0 = db0
+ -- nthproof1 1 = smb "SMB"
+ nthproof1 (n+1) = let p = div n 4 in case mod n 4 of
+  0 -> dbs $ nthproof p
+  1 -> dbl $ nthproof p
+  2 -> apl (nthproof $ first p) (nthproof $ second p)
+  3 -> ltr (nthproof $ first p) (nthproof $ second p)
+
+ show1 x = show x ++ "  proves  " ++ show (left x) ++ "  ==  " ++ show (right x) ++ "\n"
+
+ show_proofs n 0 = ""
+ show_proofs n (p+1) = show n ++ ": " ++ show1 (nthproof n) ++ "\n" ++ show_proofs (n+1) p
+
+ display_proofs n = putStr (show_proofs 0 n)
+
+ prove a b = prove1 0 a b
+
+ prove1 n a b = let x = nthproof n in if (left x == a) && (right x == b) then (n, x) else prove1 (n+1) a b
+
+ testprove = prove (slc "gdparent allan charles") (dbl db0)
+
+
+ first_size s = first_size1 0 s
+
+ first_size1 n s = let s1 = size (nthproof n) in if s1 >= s then (n,s1) else first_size1 (n+1) s
+
+
+{-
+ print_proof n = do
+  putStrLn $ show $ nthproof n 
+
+ print_proofs n p = do
+  if n > p then return else do
+   print_proof n
+   print_proofs (n+1) p
+   return
+-}
+
+{-
  split1 d w [] = [w]
  split1 d w (x : s) = if elem x d then (if w == [] then split1 d [] s else w : split1 d [] s) else split1 d (w ++ [x]) s
 
  split d s = split1 d [] s
+-}
+
+
+ split1 b d w [] = [w]
+ split1 b d w (x : s) = 
+  if elem x b 
+  then (if w == [] 
+        then split1 b d [] s 
+        else w : split1 b d [] s) 
+  else if elem x d 
+  then (if w == [] then [x] : split1 b d [] s else w : [x] : split1 b d [] s)
+  else split1 b d (w ++ [x]) s
+
+ split n d s = split1 n d [] s
+
 
 {-
  slc "" = (smb "?", "")
@@ -162,7 +308,7 @@ module Slcncs where
  slc (c : s) = (smb (c : ""), s)
 -}
 
-
+{-
  slc1 ("AXM" : s) = (axm, s)
  slc1 ("DB0" : s) = (db0, s)
  slc1 ("$"   : s) = (db0, s)
@@ -182,9 +328,107 @@ module Slcncs where
  slc1 ("LBD" : v : s) = let (x, t) = slc1 s in (lambda v x, t)
  slc1 ("^"   : v : s) = let (x, t) = slc1 s in (lambda v x, t)
  slc1 (w : s) = (smb w, s)
+-}
 
  -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
- slc s = let (x, t) = slc1 (split " \t\n" s) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+ -- slc s = let (x, t) = slc1 (split " \t\n" s) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+
+
+
+ slc1 ("AXM" : s) e = (axm, s)
+ slc1 ("DB0" : s) e = (db0, s)
+ slc1 ("$"   : s) e = (db0, s)
+ slc1 ("@"   : s) e = (db0, s)
+ slc1 ("*"   : s) e = (db0, s)
+ slc1 ("DBS" : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("+"   : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("'"   : s) e = let (x, t) = slc1 s e in (dbs x, t)
+ slc1 ("DBL" : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("\\"  : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("/"   : s) e = let (x, t) = slc1 s e in (dbl x, t)
+ slc1 ("APL" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl x y, u)
+ slc1 ("-"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apl x y, u)
+ slc1 ("LTR" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
+ slc1 ("&"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
+ slc1 ("EQU" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
+ slc1 ("="   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
+ slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
+ -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
+ slc1 ("LBD" : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
+ slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
+ slc1 ("("   : s) e = slc2 s ")" (dbl db0) False 
+ slc1 (":"   : s) e = slc2 s e (dbl db0) True
+ slc1 ("["   : s) e = let (x, t) = slc2 s "]" (dbl db0) False in (dbl x, t)
+
+ slc1 ("DBP" : s) e = let (x, t) = slc1 s e in (dbp x, t)
+ slc1 ("NXT" : s) e = let (x, t) = slc1 s e in (nxt x, t)
+ slc1 ("SYM" : s) e = let (x, t) = slc1 s e in (sym x, t)
+ slc1 ("RED" : s) e = let (x, t) = slc1 s e in (red x, t)
+ slc1 ("RD2" : s) e = let (x, t) = slc1 s e in (rd2 x, t)
+ slc1 ("ERQ" : s) e = let (x, t) = slc1 s e in (erq x, t)
+ slc1 ("LFT" : s) e = let (x, t) = slc1 s e in (lft x, t)
+ slc1 ("RGT" : s) e = let (x, t) = slc1 s e in (rgt x, t)
+ slc1 ("QOT" : s) e = let (x, t) = slc1 s e in (qot x, t)
+ slc1 ("RFE" : s) e = let (x, t) = slc1 s e in (rfe x, t)
+ slc1 ("EVL" : s) e = let (x, t) = slc1 s e in (evl x, t)
+ slc1 ("EVR" : s) e = let (x, t) = slc1 s e in (evr x, t)
+ slc1 ("NOP" : s) e = let (x, t) = slc1 s e in (nop x, t)
+
+ slc1 ("LTN" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltn x y, u)
+ slc1 ("LT2" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (lt2 x y, u)
+ slc1 ("LTS" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (lts x y, u)
+ slc1 ("TRN" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (trn x y, u)
+ slc1 ("SUB" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (sub x y, u)
+ slc1 ("LBD" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (lbd x y, u) 
+
+ slc1 (w : s) e = (smb w, s)
+
+
+ slc2 (w : t) e x c =
+  if w == e then
+   case c of
+    False -> (x, t)
+    True -> (x, w : t)
+  else
+   slc3 (w : t) e x c
+ slc2 s e x c = slc3 s e x c
+ slc3 s e (Proof1 DBL (Proof0 DB0)) c = let (y, t) = slc1 s e in slc2 t e y c
+ slc3 s e x c = let (y, t) = slc1 s e in slc2 t e (apl x y) c
+
+{-
+ slc2 s e x c = 
+  case s of
+   e : t -> case c of
+    False -> (x, t)
+    True -> (x, s)
+   _ -> case x of
+    Proof1 DBL (Proof0 DB0) -> let (y, t) = slc1 s e in slc2 t e y c
+    _ -> let (y, t) = slc1 s e in slc2 t e (apl x y) c
+-}
+
+
+{-
+ slc2 (")" : s) x False = (x, s)
+ slc2 (")" : s) x True = (x, ")" : s)
+ slc2 s (Proof1 DBL (Proof0 DB0)) c = let (y, t) = slc1 s in slc2 t y c
+ slc2 s x c = let (y, t) = slc1 s in slc2 t (apl x y) c
+
+ slc3 ("]" : s) x = (x, s)
+ slc3 s (Proof1 DBL (Proof0 DB0))  = let (y, t) = slc1 s in slc3 t y 
+ slc3 s x = let (y, t) = slc1 s in slc3 t (apl x y) 
+-}
+
+ -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
+
+ blank = " \t\n"
+ delim = "@$*'\\/^()[]"
+
+ slc s = let (x, t) = slc1 (split blank delim ("( " ++ s ++ " )")) ")" in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+
+ -- slc s = let (x, t) = slc2 (split " \t\n" s) [] in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
+
+
+
 
 
  size :: Proof -> Int
@@ -443,11 +687,47 @@ module Slcncs where
   -- putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (reduce x) ++ "\n")
   putStr ("\n" ++ show x ++ "\nreduces to\n" ++ show (reduce x) ++ "\n")
 
+{-
  pr1 x y = do
   putStr ("\nThe proof\n" ++ show x ++ "\nreduces to\n" ++ show y ++ "\nwhich proves\n" ++ show (left y) ++ "\nequals\n" ++ show (right y) ++ "\n")
 
  pr x = do
   pr1 x (reduce x)
+-}
+
+ pr1 x y = do
+  pr2 x y (left y) (right y)
+
+ pr2 x y l r = do
+  putStr ("\nThe proof\n" ++
+   show x ++
+   "\nreduces to\n" ++
+   show y ++
+   "\nwhich proves\n" ++
+   show l ++
+   "\nequals\n" ++
+   show r ++
+   "\nwhich reduces to\n" ++
+   show (reduce l) ++
+   "\nequals\n" ++
+   show (reduce r) ++
+   "\n")
+
+ pr x = do
+  pr1 x (reduce x)
+
+
+ run1 filename = do
+  readFile filename >>= \s -> proves $ slc s
+
+ run filename = do
+  -- readFile filename >>= \s -> proves $ slc s
+  -- readFile filename >>= \s -> proves (let x = slc s in ltr x x)
+  -- readFile filename >>= \s -> proves $ reduce $ slc s
+  readFile filename >>= \s -> pr $ slc s
+
+ check filename = do
+  readFile filename >>= \s -> proves $ slc s
 
  ident = dbl db0
  auto = dbl (apl db0 db0)
@@ -455,12 +735,6 @@ module Slcncs where
  fix f = apl auto (comp f auto)
  ias = fix (dbl (apl (smb "SMB") db0))
 
- run filename = do
-  -- readFile filename >>= \s -> proves $ reduce $ slc s
-  readFile filename >>= \s -> pr $ slc s
-
- check filename = do
-  readFile filename >>= \s -> proves $ slc s
 
  parent = smb "parent"
  gdparent = smb "gdparent"
