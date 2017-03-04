@@ -560,6 +560,13 @@ module Slcncs where
  -- EQU : a, b |- a = b
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
+ -- APL : reduce ; a = b, c = d |- a c = b d
+ -- side s u v (Proof2 APL x y) = side s u v (reduce (Proof2 APL x y))
+ side s u v (Proof2 APL x y) = 
+  let z = reduce (Proof2 APL x y) in
+  if z == Proof2 APL x y
+  then Proof2 APL (side s u v x) (side s u v y)
+  else side s u v z
  -- LTR : a = b, c = d |- if reduce(a) == reduce(c) then reduce(b) = reduce(d)  
  side s u v (Proof2 LTR x y) =
 	if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
