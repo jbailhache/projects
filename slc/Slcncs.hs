@@ -569,8 +569,8 @@ module Slcncs where
   else side s u v z
  -- LTR : a = b, c = d |- if reduce(a) == reduce(c) then reduce(b) = reduce(d)  
  side s u v (Proof2 LTR x y) =
-	if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
-	then reduce (side RightSide u v (if s == LeftSide then x else y)) 
+    if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
+    then reduce (side RightSide u v (if s == LeftSide then x else y)) 
     else Proof2 LTR x y
  -- LTN : a = b, c = d |- if a or reduce(a) == c or reduce(c) then b = reduce(d)
  side s u v (Proof2 LTN x y) = 
