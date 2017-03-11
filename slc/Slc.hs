@@ -60,7 +60,7 @@ module Slc where
  apply (Proof1 DBL (Proof0 DB0)) y = y
  apply x y = apl x y
 
- showapl (Proof2 APL x y) (Proof2 APL z t) True = showapl x y True ++ " : " ++ showapl z t True
+ showapl (Proof2 APL x y) (Proof2 APL z t) True = showapl x y False ++ " : " ++ showapl z t True
  showapl (Proof2 APL x y) (Proof2 APL z t) False = showapl x y False ++ " (" ++ showapl z t True ++ ")"
  showapl (Proof2 APL x y) z _ = showapl x y False ++ " " ++ show z
  showapl x (Proof2 APL y z) True = show x ++ " : " ++ showapl y z True
@@ -599,7 +599,8 @@ module Slc where
   "a b c : d e f",
   "a b c : d e f : g h i",
   "a b (c d : e f) g h : i j",
-  "a b (c d : e f : g h) i j : k l : m n"
+  "a b (c d : e f : g h) i j : k l : m n",
+  "a (b c) : d e"
   ]
  
 
