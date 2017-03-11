@@ -60,17 +60,17 @@ module Slc where
  apply (Proof1 DBL (Proof0 DB0)) y = y
  apply x y = apl x y
 
- -- showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " : " ++ showapl z t
- showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " (" ++ showapl z t ++ ")"
- showapl (Proof2 APL x y) z = showapl x y ++ " " ++ show z
- -- showapl x (Proof2 APL y z) = show x ++ " : " ++ showapl y z
- showapl x (Proof2 APL y z) = show x ++ " (" ++ showapl y z ++ ")"
- showapl x y = show x ++ " " ++ show y
+ showapl (Proof2 APL x y) (Proof2 APL z t) True = showapl x y True ++ " : " ++ showapl z t True
+ showapl (Proof2 APL x y) (Proof2 APL z t) False = showapl x y False ++ " (" ++ showapl z t True ++ ")"
+ showapl (Proof2 APL x y) z _ = showapl x y False ++ " " ++ show z
+ showapl x (Proof2 APL y z) True = show x ++ " : " ++ showapl y z True
+ showapl x (Proof2 APL y z) False = show x ++ " (" ++ showapl y z True ++ ")"
+ showapl x y _ = show x ++ " " ++ show y
 
  showproof (Proof0 (SMB s)) = s
- showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y ++ "]"
+ showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y True ++ "]"
  showproof (Proof1 DBL x) = "[" ++ showproof x ++ "]"
- showproof (Proof2 APL x y) = "(" ++ showapl x y ++ ")"
+ showproof (Proof2 APL x y) = "(" ++ showapl x y True ++ ")"
  showproof (Proof0 r) = show r
  showproof (Proof1 r x) = show r ++ showproof x
  -- showproof (Proof1 r x) = show r ++ " " ++ showproof x
@@ -577,4 +577,29 @@ module Slc where
   proves gpTheorem1c
   proves propTheorem1
   proves (ltr (ltr gpLemma4c gpLemma4c) (ltr gpLemma4c gpLemma3c))
+
+ testSyntaxList [] = do
+  -- putStr "Done\n"
+  return ()
+
+ testSyntaxList (s : l) = do
+  putStr (s ++ " -> " ++ show (slc s) ++ "\n")
+  testSyntaxList l
+
+ testSyntax = testSyntaxList [
+  "a",
+  "a b",
+  "a b c",
+  "a : b",
+  "a : b : c",
+  "a (b c) d",
+  "a (b : c) d",
+  "a (b : c) d : e",
+  "a (b : c) (d : e) f",
+  "a b c : d e f",
+  "a b c : d e f : g h i",
+  "a b (c d : e f) g h : i j",
+  "a b (c d : e f : g h) i j : k l : m n"
+  ]
+ 
 
