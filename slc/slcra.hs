@@ -148,17 +148,17 @@ module Slcncs where
  -}
 
 
- -- showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " : " ++ showapl z t
- showapl (Proof2 APL x y) (Proof2 APL z t) = showapl x y ++ " (" ++ showapl z t ++ ")"
- showapl (Proof2 APL x y) z = showapl x y ++ " " ++ show z
- -- showapl x (Proof2 APL y z) = show x ++ " : " ++ showapl y z
- showapl x (Proof2 APL y z) = show x ++ " (" ++ showapl y z ++ ")"
- showapl x y = show x ++ " " ++ show y
+ showapl (Proof2 APL x y) (Proof2 APL z t) True = showapl x y False ++ " : " ++ showapl z t True
+ showapl (Proof2 APL x y) (Proof2 APL z t) False = showapl x y False ++ " (" ++ showapl z t True ++ ")"
+ showapl (Proof2 APL x y) z _ = showapl x y False ++ " " ++ show z
+ showapl x (Proof2 APL y z) True = show x ++ " : " ++ showapl y z True
+ showapl x (Proof2 APL y z) False = show x ++ " (" ++ showapl y z True ++ ")"
+ showapl x y _ = show x ++ " " ++ show y
 
  showproof (Proof0 (SMB s)) = s
- showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y ++ "]"
+ showproof (Proof1 DBL (Proof2 APL x y)) = "[" ++ showapl x y True ++ "]"
  showproof (Proof1 DBL x) = "[" ++ showproof x ++ "]"
- showproof (Proof2 APL x y) = "(" ++ showapl x y ++ ")"
+ showproof (Proof2 APL x y) = "(" ++ showapl x y True ++ ")"
  showproof (Proof0 r) = show r
  showproof (Proof1 r x) = show r ++ showproof x
  -- showproof (Proof1 r x) = show r ++ " " ++ showproof x
