@@ -383,6 +383,7 @@ module Slcr where
  slc1 ("SYM" : s) e = let (x, t) = slc1 s e in (sym x, t)
  slc1 ("STL" : s) e = let (x, t) = slc1 s e in (stl x, t)
  slc1 ("STR" : s) e = let (x, t) = slc1 s e in (str x, t)
+ slc1 ("STB" : s) e = let (x, t) = slc1 s e in (st2 x, t)
  slc1 ("ST2" : s) e = let (x, t) = slc1 s e in (st2 x, t)
  slc1 ("SLQ" : s) e = let (x, t) = slc1 s e in (slq x, t)
  slc1 ("SRQ" : s) e = let (x, t) = slc1 s e in (srq x, t)
@@ -390,6 +391,7 @@ module Slcr where
  slc1 ("RDL" : s) e = let (x, t) = slc1 s e in (rdl x, t)
  slc1 ("RDR" : s) e = let (x, t) = slc1 s e in (red x, t)
  slc1 ("RED" : s) e = let (x, t) = slc1 s e in (red x, t)
+ slc1 ("RDB" : s) e = let (x, t) = slc1 s e in (rd2 x, t)
  slc1 ("RD2" : s) e = let (x, t) = slc1 s e in (rd2 x, t)
  slc1 ("RLQ" : s) e = let (x, t) = slc1 s e in (rlq x, t)
  slc1 ("RRQ" : s) e = let (x, t) = slc1 s e in (rdq x, t)
@@ -591,14 +593,17 @@ module Slcr where
  -- EQU : a, b |- a = b
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
- -- APL : reduce ; a = b, c = d |- a c = b d
- -- side s u v (Proof2 APL x y) = side s u v (reduce (Proof2 APL x y))
+ -- APL : redstep ; a = b, c = d |- a c = b d
+ -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
  -- Uncomment 5 lines below to activate APL reduction
  -- side s u v (Proof2 APL x y) = 
- --  let z = reduce (Proof2 APL x y) in
+ --  let z = redstep (Proof2 APL x y) in
  --  if z == Proof2 APL x y
  --  then Proof2 APL (side s u v x) (side s u v y)
  --  else side s u v z
+  -- else case z of
+  --  Proof2 APL x1 y1 -> Proof2 APL (side s u v x1) (side s u v y1)
+  --  _ -> side s u v z
  -- LTR : a = b, c = d |- if reduce(a) == reduce(c) then reduce(b) = reduce(d)  
  side s u v (Proof2 LTR x y) =
     if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
@@ -781,9 +786,29 @@ module Slcr where
    show (reduce r) ++
    "\n")
 
+ pr3 x y n = do
+  pr4 x y (left y) (right y) n
+
+ pr4 x y l r n = do
+  putStr ("\nThe proof\n" ++
+   show x ++
+   "\nreduces to\n" ++
+   show y ++
+   "\nwhich proves\n" ++
+   show l ++
+   "\nequals\n" ++
+   show r ++
+   "\nwhich reduces to\n" ++
+   show (rered1xn l n) ++
+   "\nequals\n" ++
+   show (rered1xn r n) ++
+   "\n")
+
  pr x = do
   pr1 x (reduce x)
 
+ prn x n = do
+  pr3 x (rered1xn x n) n
 
  run1 filename = do
   readFile filename >>= \s -> proves $ slc s
@@ -793,6 +818,9 @@ module Slcr where
   -- readFile filename >>= \s -> proves (let x = slc s in ltr x x)
   -- readFile filename >>= \s -> proves $ reduce $ slc s
   readFile filename >>= \s -> pr $ slc s
+
+ rn filename n = do
+  readFile filename >>= \s -> prn (slc s) n
 
  check filename = do
   readFile filename >>= \s -> proves $ slc s
