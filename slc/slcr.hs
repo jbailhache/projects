@@ -595,7 +595,7 @@ module Slcr where
  side RightSide _ _ (Proof2 EQU x y) = y
  -- APL : redstep ; a = b, c = d |- a c = b d
  -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
- -- Uncomment lines below to activate APL reduction
+ -- Uncomment 5 lines below to activate APL reduction
  -- side s u v (Proof2 APL x y) = 
  --  let z = redstep (Proof2 APL x y) in
  --  if z == Proof2 APL x y
