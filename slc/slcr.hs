@@ -596,14 +596,21 @@ module Slcr where
  -- APL : redstep ; a = b, c = d |- a c = b d
  -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
  -- Uncomment 5 lines below to activate APL reduction
- -- side s u v (Proof2 APL x y) = 
- --  let z = redstep (Proof2 APL x y) in
- --  if z == Proof2 APL x y
- --  then Proof2 APL (side s u v x) (side s u v y)
- --  else side s u v z
-  -- else case z of
-  --  Proof2 APL x1 y1 -> Proof2 APL (side s u v x1) (side s u v y1)
-  --  _ -> side s u v z
+ side s u v (Proof2 APL x y) = 
+  let z = redstep (Proof2 APL x y) in
+  if z == Proof2 APL x y
+  then Proof2 APL (side s u v x) (side s u v y)
+  -- else side s u v z
+  else case z of
+   Proof2 APL x1 y1 -> Proof2 APL (side s u v x1) (side s u v y1)
+   -- let z1 = redstep (Proof2 APL x1 y1) in
+   --  case z1 of
+   --   Proof2 APL x2 y2 -> Proof2 APL (side s u v x2) (side s u v y2)
+   --   _ -> side s u v z1
+   --  -- if z1 == Proof2 APL x1 y1
+   --  -- then Proof2 APL (side s u v x1) (side s u v y1)
+   --  -- else side s u v z1
+   _ -> side s u v z
  -- LTR : a = b, c = d |- if reduce(a) == reduce(c) then reduce(b) = reduce(d)  
  side s u v (Proof2 LTR x y) =
     if reduce (side LeftSide u v x) == reduce (side LeftSide u v y) 
@@ -657,7 +664,7 @@ module Slcr where
  side RightSide u v (Proof1 SRQ x) = redstep x
  -- ESQ : x |- left(redstep(x)) = right(redstep(x))
  -- ESQ x = EVR (STR (QOT x))
- side s u v (Proof1 ERQ x) = side s u v (redstep x)
+ side s u v (Proof1 ESQ x) = side s u v (redstep x)
 
  -- RDL : a = b |- reduce(a) = b
  side LeftSide u v (Proof1 RDL x) = reduce (side LeftSide u v x)
