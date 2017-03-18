@@ -1,25 +1,23 @@
 
-ESQ ESQ ESQ ESQ ESQ ESQ
-
-LET gpRule1 
- ^ x ^ y ^ z 
- EQU - ( parent x y ) 
-     - ( parent y z )
-     ( gdparent x z )
-     \ $
+ESQ LET gpRule1 
+ ^x ^y ^z 
+ EQU - (parent x y) 
+     - (parent y z)
+     (gdparent x z)
+     [*]
  
-LET gpAxiom1 
- EQU ( parent allan brenda ) \ $
+ESQ LET gpAxiom1 
+ EQU (parent allan brenda) [*]
 
-LET gpAxiom2 
- EQU ( parent brenda charles ) \ $ 
+ESQ LET gpAxiom2 
+ EQU (parent brenda charles) [*]
 
-LET gpTheorem1
- LTS
-  STB - gpAxiom2 ( gdparent allan charles )
-  STB LTS
-   - gpAxiom1 - ( parent brenda charles ) ( gdparent allan charles )
-   ( gpRule1 allan brenda charles )
+ESQ LET gpTheorem1
+ ESQ LTS
+  STB (gpAxiom2 : gdparent allan charles)
+  STB ESQ LTS
+   (gpAxiom1 - (parent brenda charles) (gdparent allan charles))
+   (gpRule1 allan brenda charles)
 
 gpTheorem1
 
