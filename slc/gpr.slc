@@ -14,7 +14,7 @@ ESQ LET gpAxiom2
 
 ESQ LET gpTheorem1
  ESQ LTS
-  STB (gpAxiom2 : gdparent allan charles)
+  STB (gpAxiom2 (gdparent allan charles))
   STB ESQ LTS
    (gpAxiom1 - (parent brenda charles) (gdparent allan charles))
    (gpRule1 allan brenda charles)
