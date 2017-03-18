@@ -21,9 +21,9 @@ ESQ LET cicecicif (imp c cecif)
 ESQ LET cicif LTS LTS cic cicecicif [*]
       
 ESQ LET cif  
-    LTS (cic (imp c false))
-    LTS (cicif ((imp c c) (imp c false)))
-    (AS (imp c (imp c false)) (imp c c) (imp c false))
+    LTS STB (cic (imp c false))
+    STB LTS STB (cicif ((imp c c) (imp c false)))
+    STB (AS (imp c (imp c false)) (imp c c) (imp c false))
 
 ESQ LET ct TRN cecif cif
 
@@ -32,5 +32,5 @@ ESQ LET contrad
         LTS (cif c false)
             (MP (imp c false) c)
 
-cicif
+cif
 
