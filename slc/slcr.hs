@@ -21,7 +21,7 @@ module Slcr where
  data Rule0 = AXM | DB0 | SMB String | FNC (Proof -> Proof)
   -- deriving (Eq)
 
- data Rule1 = DBS | DBP | NXT | DBL | SYM | STL | STR | ST2 | SLQ | SRQ | ESQ | RDL | RED | RD2 | RLQ | RDQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
+ data Rule1 = DBS | DBP | NXT | DBL | SYM | STL | STR | ST2 | SLQ | SRQ | SBQ | ESQ | RDL | RED | RD2 | RLQ | RDQ | RBQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
   deriving (Eq)
 
  data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB | LBD
@@ -54,12 +54,14 @@ module Slcr where
   show ST2 = "ST2 "
   show SLQ = "SLQ "
   show SRQ = "SRQ "
+  show SBQ = "SBQ "
   show ESQ = "ESQ "
   show RDL = "RDL "
   show RED = "RED "
   show RD2 = "RD2 "
   show RLQ = "RLQ "
   show RDQ = "RDQ "
+  show RBQ = "RBQ "
   show ERQ = "ERQ "
   show LFT = "LFT "
   show RGT = "RGT "
@@ -102,12 +104,14 @@ module Slcr where
  st2 x = Proof1 ST2 x
  slq x = Proof1 SLQ x
  srq x = Proof1 SRQ x
+ sbq x = Proof1 SBQ x
  esq x = Proof1 ESQ x
  rdl x = Proof1 RDL x
  red x = Proof1 RED x
  rd2 x = Proof1 RD2 x
  rlq x = Proof1 RLQ x
  rdq x = Proof1 RDQ x
+ rbq x = Proof1 RBQ x
  erq x = Proof1 ERQ x
  lft x = Proof1 LFT x
  rgt x = Proof1 RGT x
@@ -387,6 +391,7 @@ module Slcr where
  slc1 ("ST2" : s) e = let (x, t) = slc1 s e in (st2 x, t)
  slc1 ("SLQ" : s) e = let (x, t) = slc1 s e in (slq x, t)
  slc1 ("SRQ" : s) e = let (x, t) = slc1 s e in (srq x, t)
+ slc1 ("SBQ" : s) e = let (x, t) = slc1 s e in (sbq x, t)
  slc1 ("ESQ" : s) e = let (x, t) = slc1 s e in (esq x, t)
  slc1 ("RDL" : s) e = let (x, t) = slc1 s e in (rdl x, t)
  slc1 ("RDR" : s) e = let (x, t) = slc1 s e in (red x, t)
@@ -396,6 +401,7 @@ module Slcr where
  slc1 ("RLQ" : s) e = let (x, t) = slc1 s e in (rlq x, t)
  slc1 ("RRQ" : s) e = let (x, t) = slc1 s e in (rdq x, t)
  slc1 ("RDQ" : s) e = let (x, t) = slc1 s e in (rdq x, t)
+ slc1 ("RBQ" : s) e = let (x, t) = slc1 s e in (rbq x, t)
  slc1 ("ERQ" : s) e = let (x, t) = slc1 s e in (erq x, t)
  slc1 ("LFT" : s) e = let (x, t) = slc1 s e in (lft x, t)
  slc1 ("RGT" : s) e = let (x, t) = slc1 s e in (rgt x, t)
@@ -662,6 +668,8 @@ module Slcr where
  -- SRQ x = STR (QOT x)
  side LeftSide u v (Proof1 SRQ x) = x
  side RightSide u v (Proof1 SRQ x) = redstep x
+ -- SBQ : x |- redstep(x) = redstep(x)
+ side _ u v (Proof1 SBQ x) = redstep x
  -- ESQ : x |- left(redstep(x)) = right(redstep(x))
  -- ESQ x = EVR (STR (QOT x))
  side s u v (Proof1 ESQ x) = side s u v (redstep x)
@@ -682,6 +690,8 @@ module Slcr where
  -- RDQ x = RED (QOT x)
  side LeftSide u v (Proof1 RDQ x) = x
  side RightSide u v (Proof1 RDQ x) = reduce x
+ -- RBQ : x |- reduce(x) = reduce(x)
+ side _ u v (Proof1 RBQ x) = reduce x
  -- ERQ : x |- left(reduce(x)) = right(reduce(x))
  -- ERQ x = EVR (RED (QOT x))
  side s u v (Proof1 ERQ x) = side s u v (reduce x)
