@@ -1,0 +1,36 @@
+
+ESQ LET Y [[* *] ['* (* *)]]
+
+ESQ LET MP ^p ^q = - (imp p q) - p q [*]
+ESQ LET AI ^p = (imp p p) [*]
+ESQ LET AK ^p ^q = (imp p (imp q p)) [*]
+ESQ LET AS ^p ^q ^r = (imp (imp p (imp q r)) (imp (imp p q) (imp p r))) [*]
+ESQ LET EFQ ^p = (imp false p) [*]
+ESQ LET RAA ^p = (imp (imp (imp p false) false) p) [*]
+
+ESQ LET c (Y [imp * false])
+
+ESQ LET cecif
+ LTS STL STL STL STL c
+     STL STL (imp c false)
+
+ESQ LET cic ESQ (AI c)
+
+ESQ LET cicecicif (imp c cecif)
+
+ESQ LET cicif LTS LTS cic cicecicif [*]
+      
+ESQ LET cif  
+    LTS (cic (imp c false))
+    LTS (cicif ((imp c c) (imp c false)))
+    (AS (imp c (imp c false)) (imp c c) (imp c false))
+
+ESQ LET ct TRN cecif cif
+
+ESQ LET contrad
+    LTS (ct false) 
+        LTS (cif c false)
+            (MP (imp c false) c)
+
+cicif
+
