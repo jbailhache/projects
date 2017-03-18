@@ -32,5 +32,5 @@ ESQ LET contrad
         LTS (cif c false)
             (MP (imp c false) c)
 
-cif
+cicif
 
