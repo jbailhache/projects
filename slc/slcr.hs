@@ -671,7 +671,7 @@ module Slcr where
  -- SBQ : x |- redstep(x) = redstep(x)
  side _ u v (Proof1 SBQ x) = redstep x
  -- ESQ : x |- left(redstep(x)) = right(redstep(x))
- -- ESQ x = EVR (STR (QOT x))
+ -- ESQ x = EVL (STL (QOT x)) =  EVR (STR (QOT x))
  side s u v (Proof1 ESQ x) = side s u v (redstep x)
 
  -- RDL : a = b |- reduce(a) = b
@@ -693,7 +693,7 @@ module Slcr where
  -- RBQ : x |- reduce(x) = reduce(x)
  side _ u v (Proof1 RBQ x) = reduce x
  -- ERQ : x |- left(reduce(x)) = right(reduce(x))
- -- ERQ x = EVR (RED (QOT x))
+ -- ERQ x = EVL (RDL (QOT x)) = EVR (RED (QOT x))
  side s u v (Proof1 ERQ x) = side s u v (reduce x)
 
  -- LFT : a = b |- a = a
