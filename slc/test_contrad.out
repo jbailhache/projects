@@ -1,0 +1,9 @@
+Slcr> run1 "contrad.slc"
+
+The proof
+ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ([ESQ ESQ ESQ (''''''''''* (imp '''''''* : imp '''''''* false) (imp '''''''* '''''''*) : imp '''''''* false)] LTS (* false) LTS ('* ''''''* false) (''''''''''''* (imp ''''''* false) ''''''*))] TRN ''''* *)] LTS ST2 (''* : imp ''''* false) ST2 LTS ST2 (* : imp ''''* ''''* : imp ''''* false) ST2 ('''''''* (imp ''''* : imp ''''* false) (imp ''''* ''''*) : imp ''''* false))] LTS LTS '* * [*])] : imp ''* '*)] ESQ (''''''* '*))] LTS STL STL STL STL * STL STL (imp * false))] : ''''''* [imp * false])] [= (imp (imp (imp * false) false) *) [*]])] [= (imp false *) [*]])] [[[= (imp (imp ''* : imp '* *) : imp (imp ''* '*) : imp ''* *) [*]]]])] [[= (imp '* : imp * '*) [*]]])] [= (imp * *) [*]])] [[= (imp '* * : '* *) [*]]])] [[* *] ['* : * *]])
+proves
+(imp (imp (imp ([[* *] ['* : * *]] [imp * false]) : imp ([[* *] ['* : * *]] [imp * false]) false) : imp (imp ([[* *] ['* : * *]] [imp * false]) : [[* *] ['* : * *]] [imp * false]) : imp ([[* *] ['* : * *]] [imp * false]) false) : imp (imp (imp ([[* *] ['* : * *]] [imp * false]) : imp ([[* *] ['* : * *]] [imp * false]) false) : imp ([[* *] ['* : * *]] [imp * false]) : [[* *] ['* : * *]] [imp * false]) : imp (imp ([[* *] ['* : * *]] [imp * false]) : imp ([[* *] ['* : * *]] [imp * false]) false) : imp ([[* *] ['* : * *]] [imp * false]) false)
+equals
+[*]
+

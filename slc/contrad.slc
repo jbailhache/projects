@@ -20,17 +20,45 @@ ESQ LET cicecicif (imp c cecif)
 
 ESQ LET cicif LTS LTS cic cicecicif [*]
       
-ESQ LET cif  
-    LTS STB (cic (imp c false))
-    STB LTS STB (cicif ((imp c c) (imp c false)))
-    STB (AS (imp c (imp c false)) (imp c c) (imp c false))
+ESQ LET instas ESQ ESQ ESQ (AS c c false)
 
-ESQ LET ct TRN cecif cif
+ESQ LET instmp ESQ ESQ (MP (imp c (imp c false)) (imp (imp c c) (imp c false)))
 
-ESQ LET contrad
-    LTS (ct false) 
-        LTS (cif c false)
-            (MP (imp c false) c)
+ESQ LET l1 (instas (imp c (imp c false) (imp (imp c c) (imp c false))))
+               
+ESQ LET l2 LTS l1 instmp
 
-cicif
+ESQ LET l3 (cicif (imp (imp c c) (imp c false)))
+
+ESQ LET l4 LTS l3 STB l2
+
+ESQ LET l5 ESQ ESQ (MP (imp c c) (imp c false))
+
+ESQ LET l6 (l4 ((imp c c) (imp c false)))
+
+ESQ LET l7 LTS STB l6 l5
+
+ESQ LET l8 (cic (imp c false))
+
+ESQ LET l9 LTS l8 l7
+
+ESQ LET cifec LTS cecif c
+
+ESQ LET l10 LTS cifec STB l9
+
+ESQ LET l11 ESQ ESQ (MP c false)
+
+ESQ LET l12 (l9 (c false))
+
+ESQ LET l13 LTS STB l12 l11
+
+ESQ LET l14 (l10 false)
+
+ESQ LET l15 LTS l14 l13
+
+ESQ LET l16 STR - [*] false
+
+LET contrad LTS l16 l15
+
+contrad
 

@@ -1,0 +1,173 @@
+
+l1
+
+(imp (imp c : imp c false) (imp (imp c c) : imp c false) (imp c : imp c false) : imp (imp c c) : imp c false)
+
+(imp (imp c : imp c false) (imp (imp c c) : imp c false) : imp c (imp c false) : imp (imp c : c) : imp c false)
+
+
+instmp
+
+(imp (imp c : imp c false) (imp (imp c c) : imp c false) : imp c (imp c false) : imp (imp c c) : imp c false)
+
+(imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+
+([imp ([* *] [[imp * false] : * *]) (imp (c) false) : imp (imp (c) : c) : imp (c) false] : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+([imp (imp (c) : c) : imp (c) false] [*])
+
+l2:
+(imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+[*]
+
+l3:
+([*] (imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false) : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+([*] : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+
+l3:
+(imp (c) (imp (c) false) (imp (imp (c) : c) : imp (c) false) : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+(imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+
+instmp:
+(imp (imp (c) : imp (c) false) (imp (imp (c) : c) : imp (c) false) : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+[*]
+
+l3:
+(imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+([*] : imp (imp (c) : c) : imp (c) false)
+
+l3:
+(imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+([*] : imp (imp (c) : c) : imp (c) false)
+
+l2:
+([*] : imp (c) (imp (c) false) : imp (imp (c) : c) : imp (c) false)
+equals
+[*]
+
+l4:
+([*] : imp (imp (c) : c) : imp (c) false)
+equals
+[*]
+
+l5:
+(imp (imp ([* *] [[imp * false] : * *]) : c) (imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+[*]
+
+l5:
+(imp (imp (c) : c) (imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+[*]
+
+l5:
+([imp (imp (c) : c) (imp (c) false) : imp (c) (c) : imp (c) false] : [*] (imp (imp (c) : c) : imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+([[*]] : [*] : imp (c) (c) : imp (c) false)
+
+l5:
+(imp (imp (c) : c) (imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+[*]
+
+
+l6:
+([*] (imp (imp (c) : c) : imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+([*] : imp (c) (c) : imp (c) false)
+
+l6:
+([*] : [*] (imp (imp (c) : c) : imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+([*] : [*] : imp (c) (c) : imp (c) false)
+
+l6:
+([*] (imp (imp (c) : c) : imp (c) false) : imp (c) (c) : imp (c) false)
+equals
+([*] : imp (c) (c) : imp (c) false)
+
+l7:
+(imp (c) (c) : imp (c) false)
+equals
+[*]
+
+l8:
+(imp (c) (c) : imp (c) false)
+equals
+([*] : imp (c) false)
+
+l9:
+([*] : imp (c) false)
+equals
+[*]
+
+l9:
+([[*] : imp (c) false] : imp (c) false)
+equals
+([[*]] : c)
+
+cifec:
+(imp (c) false)
+equals
+(c)
+
+l11:
+(imp (c) false : c false)
+equals
+[*]
+
+l11:
+([imp (c) false : c false] : [*] (imp (c) false) : c false)
+equals
+([[*]] : [*] : c false)
+
+l11:
+([imp ([* *] [[imp * false] : * *]) false : c false] : [*] (imp (c) false) : c false)
+equals
+([[*]] : [*] : c false)
+
+l11:
+([imp (c) false : c false] : [*] (imp (c) false) : c false)
+equals
+([[*]] : [*] : c false)
+
+l11:
+(imp (c) false : c false)
+equals
+[*]
+
+
+
+l12:
+([*] (imp (c) false) : c false)
+equals
+([*] : c false)
+
+l12:
+([*] : [*] (imp (c) false) : c false)
+equals
+([*] : [*] : c false)
+
+l12:
+([*] (imp (c) false) : c false)
+equals
+([*] : c false)
+
+l13:
+(c false)
+equals
+[*]
+
+l14:
+(c false)
+equals
+([*] false)
+
+
+
