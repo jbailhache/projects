@@ -355,7 +355,10 @@ module Slcr where
  -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
  -- slc s = let (x, t) = slc1 (split " \t\n" s) in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 
+ skip_comment ("}" : s) e = slc1 s e
+ skip_comment (_ : s) e = skip_comment s e
 
+ slc1 ("{"   : s) e = skip_comment s e
 
  slc1 ("AXM" : s) e = (axm, s)
  slc1 ("DB0" : s) e = (db0, s)
@@ -458,7 +461,7 @@ module Slcr where
  -- slc s = let (x, t) = slc1 (split " " s) in if t == [] then Just x else Nothing
 
  blank = " \t\n"
- delim = "@$*'\\/^()[]"
+ delim = "@$*'\\/^()[]{}"
 
  slc s = let (x, t) = slc1 (split blank delim ("( " ++ s ++ " )")) ")" in if t == [] || head t == "" then x else smb ("Error : Unexpected '" ++ concat (map (\x -> x ++ " ") t) ++ "'")
 

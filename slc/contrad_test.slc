@@ -1,4 +1,6 @@
 
+STL 
+
 ESQ LET Y [[* *] ['* (* *)]]
 
 ESQ LET MP ^p ^q = - (imp p q) - p q [*]
@@ -54,11 +56,8 @@ ESQ LET l13 LTS STL STR l12 l11
 
 ESQ LET l14 (l10 false)
 
-ESQ LET l15 LTS l14 l13
+LET l15 LTS l14 l13
 
-ESQ LET l16 STR - [*] false
+l15
 
-LET contrad LTS l16 l15
-
-contrad
 
