@@ -21,7 +21,7 @@ module Slcr where
  data Rule0 = AXM | DB0 | SMB String | FNC (Proof -> Proof)
   -- deriving (Eq)
 
- data Rule1 = DBS | DBP | NXT | DBL | SYM | STL | STR | ST2 | SLQ | SRQ | SBQ | ESQ | RDL | RED | RD2 | RLQ | RDQ | RBQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP
+ data Rule1 = DBS | DBP | NXT | DBL | SYM | STL | STR | ST2 | SLQ | SRQ | SBQ | ESQ | RDL | RED | RD2 | RLQ | RDQ | RBQ | ERQ | LFT | RGT | QOT | RFE | EVL | EVR | NOP | NRD
   deriving (Eq)
 
  data Rule2 = EQU | APL | LTR | LTN | LT2 | LTS | TRN | SUB | LBD
@@ -70,6 +70,7 @@ module Slcr where
   show EVL = "EVL "
   show EVR = "EVR "
   show NOP = "NOP "
+  show NRD = "NRD "
 
  instance Show Rule2 where
   show EQU = "="
@@ -120,6 +121,7 @@ module Slcr where
  evl x = Proof1 EVL x
  evr x = Proof1 EVR x
  nop x = Proof1 NOP x
+ nrd x = Proof1 NRD x
  equ x y = Proof2 EQU x y
  apl x y = Proof2 APL x y
  ltr x y = Proof2 LTR x y
@@ -378,9 +380,11 @@ module Slcr where
  slc1 ("EQU" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
  slc1 ("="   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
  slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
+ -- slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (esq (apply (lambda v y) x), u)
  -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
  slc1 ("LBD" : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
  slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
+ -- slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (esq (lambda v x), t)
  slc1 ("("   : s) e = slc2 s ")" (dbl db0) False 
  slc1 (":"   : s) e = slc2 s e (dbl db0) True
  slc1 ("["   : s) e = let (x, t) = slc2 s "]" (dbl db0) False in (dbl x, t)
@@ -413,6 +417,7 @@ module Slcr where
  slc1 ("EVL" : s) e = let (x, t) = slc1 s e in (evl x, t)
  slc1 ("EVR" : s) e = let (x, t) = slc1 s e in (evr x, t)
  slc1 ("NOP" : s) e = let (x, t) = slc1 s e in (nop x, t)
+ slc1 ("NRD" : s) e = let (x, t) = slc1 s e in (nrd x, t)
 
  slc1 ("LTN" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltn x y, u)
  slc1 ("LT2" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (lt2 x y, u)
@@ -578,6 +583,7 @@ module Slcr where
  red3 :: [Proof] -> [Proof]
  red3 [] = []
  -- red3 (x : l) = if elem x l then (x : l) else red3 (red2 (x : l))
+ red3 (Proof1 NRD x : l) = x : l
  red3 (x : l) = case find (\y -> cont x y) l of
 	Nothing -> red3 (red2 (x : l))
 	Just _ -> x : l
@@ -603,13 +609,15 @@ module Slcr where
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
  -- APL : redstep ; a = b, c = d |- a c = b d
+ -- side s u v (Proof2 APL x y) = Proof2 APL (side s u v x) (side s u v y)
  -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
+ -- side s u v (Proof2 APL x y) = redstep $ Proof2 APL (side s u v x) (side s u v y)
  -- Uncomment 5 lines below to activate APL reduction
  -- side s u v (Proof2 APL x y) = 
  --  let z = redstep (Proof2 APL x y) in
  --  if z == Proof2 APL x y
  --  then Proof2 APL (side s u v x) (side s u v y)
-  -- else side s u v z
+ --  else side s u v z
  --  else case z of
  --   Proof2 APL x1 y1 -> Proof2 APL (side s u v x1) (side s u v y1)
    -- let z1 = redstep (Proof2 APL x1 y1) in
