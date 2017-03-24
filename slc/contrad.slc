@@ -15,47 +15,26 @@ ESQ LET cecif
      STL STL (imp c false)
 
 ESQ LET cic ESQ (AI c)
-
 ESQ LET cicecicif (imp c cecif)
-
-ESQ LET cicif LTS LTS cic cicecicif [*]
-      
+ESQ LET cicif LTS LTS cic cicecicif [*]      
 ESQ LET instas ESQ ESQ ESQ (AS c c false)
-
 ESQ LET instmp ESQ ESQ (MP (imp c (imp c false)) (imp (imp c c) (imp c false)))
-
-ESQ LET l1 (instas (imp c (imp c false) (imp (imp c c) (imp c false))))
-               
+ESQ LET l1 (instas (imp c (imp c false) (imp (imp c c) (imp c false))))               
 ESQ LET l2 LTS l1 instmp
-
 ESQ LET l3 (cicif (imp (imp c c) (imp c false)))
-
 ESQ LET l4 LTS l3 STL l2
-
 ESQ LET l5 ESQ ESQ (MP (imp c c) (imp c false))
-
 ESQ LET l6 (l4 ((imp c c) (imp c false)))
-
 ESQ LET l7 LTS STL STR l6 l5
-
 ESQ LET l8 (cic (imp c false))
-
 ESQ LET l9 LTS l8 l7
-
 ESQ LET cifec LTS cecif c
-
 ESQ LET l10 LTS cifec STL l9
-
 ESQ LET l11 ESQ ESQ (MP c false)
-
 ESQ LET l12 (l9 (c false))
-
 ESQ LET l13 LTS STL STR l12 l11
-
 ESQ LET l14 (l10 false)
-
 ESQ LET l15 LTS l14 l13
-
 ESQ LET l16 STR - [*] false
 
 LET contrad LTS l16 l15
