@@ -601,6 +601,9 @@ module Slcr where
 
  rered1xn x n = rered1 n x
 
+ nreduce (Proof1 NRD x) = x
+ nreduce x = let y = red1 x in if y == x then x else nreduce y
+
  side :: Side -> Proof -> Proof -> Proof -> Proof
  -- AXM |- u = v
  side LeftSide u v (Proof0 AXM) = u
