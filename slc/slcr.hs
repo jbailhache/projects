@@ -613,6 +613,7 @@ module Slcr where
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
  -- APL : redstep ; a = b, c = d |- a c = b d
+ -- side s u v (Proof2 APL (Proof1 DBL x) y) = side s u v (red1 (Proof2 APL (Proof1 DBL x) y))
  -- side s u v (Proof2 APL x y) = Proof2 APL (side s u v x) (side s u v y)
  -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
  -- side s u v (Proof2 APL x y) = redstep $ Proof2 APL (side s u v x) (side s u v y)
