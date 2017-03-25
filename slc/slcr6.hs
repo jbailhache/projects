@@ -556,7 +556,6 @@ module Slcr where
  subst1 u (Proof2 r x y) b = Proof2 r (subst u x b) (subst u y b)
 
  red1 :: Proof -> Proof
- red1 (Proof1 NRD x) = Proof1 NRD x
  red1 (Proof2 APL (Proof0 (FNC f)) y) = f y
  red1 (Proof2 APL (Proof1 DBL x) y) = subst (Proof0 DB0) x y
  red1 (Proof2 APL (Proof2 LBD v x) y) = subst v x y
@@ -601,9 +600,6 @@ module Slcr where
  rered1 n x = if (n == 0) then x else rered1 (n - 1) (red1 x)
 
  rered1xn x n = rered1 n x
-
- nreduce (Proof1 NRD x) = x
- nreduce x = let y = red1 x in if y == x then x else nreduce y
 
  side :: Side -> Proof -> Proof -> Proof -> Proof
  -- AXM |- u = v

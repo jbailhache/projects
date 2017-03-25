@@ -556,7 +556,6 @@ module Slcr where
  subst1 u (Proof2 r x y) b = Proof2 r (subst u x b) (subst u y b)
 
  red1 :: Proof -> Proof
- red1 (Proof1 NRD x) = Proof1 NRD x
  red1 (Proof2 APL (Proof0 (FNC f)) y) = f y
  red1 (Proof2 APL (Proof1 DBL x) y) = subst (Proof0 DB0) x y
  red1 (Proof2 APL (Proof2 LBD v x) y) = subst v x y
@@ -613,6 +612,7 @@ module Slcr where
  side LeftSide _ _ (Proof2 EQU x y) = x
  side RightSide _ _ (Proof2 EQU x y) = y
  -- APL : redstep ; a = b, c = d |- a c = b d
+ side s u v (Proof2 APL (Proof1 DBL x) y) = side s u v (red1 (Proof2 APL (Proof1 DBL x) y)) 
  -- side s u v (Proof2 APL x y) = Proof2 APL (side s u v x) (side s u v y)
  -- side s u v (Proof2 APL x y) = side s u v (redstep (Proof2 APL x y))
  -- side s u v (Proof2 APL x y) = redstep $ Proof2 APL (side s u v x) (side s u v y)
