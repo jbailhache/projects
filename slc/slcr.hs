@@ -624,6 +624,9 @@ module Slcr where
   then x 
   else (if b then y else nreduce y)
 
+ -- Slcr> let x = slc "[[* *] ['* NRD (* *)]] f" in nreduce x
+ -- (f : [f NRD (* *)] [f NRD (* *)])
+
  side :: Side -> Proof -> Proof -> Proof -> Proof
  -- AXM |- u = v
  side LeftSide u v (Proof0 AXM) = u
