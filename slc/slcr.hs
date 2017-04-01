@@ -379,8 +379,9 @@ module Slcr where
  slc1 ("&"   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (ltr x y, u)
  slc1 ("EQU" : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
  slc1 ("="   : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (equ x y, u)
- slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
- -- slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (esq (apply (lambda v y) x), u)
+ slc1 ("LT1" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
+ -- slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (apply (lambda v y) x, u)
+ slc1 ("LET" : v : s) e = let (x, t) = slc1 s e in let (y, u) = slc1 t e in (esq (apply (lambda v y) x), u)
  -- slc1 (":"   : v : s) = let (x, t) = slc1 s in let (y, u) = slc1 t in (apl (lambda v y) x, u)
  slc1 ("LBD" : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
  slc1 ("^"   : v : s) e = let (x, t) = slc1 s e in (lambda v x, t)
@@ -589,8 +590,8 @@ module Slcr where
 	Nothing -> red3 (red2 (x : l))
 	Just _ -> x : l
 
- reduce :: Proof -> Proof
- reduce x = case red3 (x : []) of
+ oreduce :: Proof -> Proof
+ oreduce x = case red3 (x : []) of
 		[] -> x
 		y : m -> y
  -- reduce x = if red1 x == x then x else reduce (red1 x)
@@ -623,6 +624,8 @@ module Slcr where
   if y == x 
   then x 
   else (if b then y else nreduce y)
+
+ reduce x = nreduce x 
 
  -- Slcr> let x = slc "[[* *] ['* NRD (* *)]] f" in nreduce x
  -- (f : [f NRD (* *)] [f NRD (* *)])
