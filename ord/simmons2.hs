@@ -1,0 +1,59 @@
+module Simmons where
+
+ -- Natural numbers
+ data Nat 
+  = ZeroN
+  | SucN Nat
+
+ -- Ordinals
+ data Ord 
+  = Zero
+  | Suc Ord
+  | Lim (Nat -> Ord)
+
+ -- Ordinal corresponding to a given natural
+ ordOfNat ZeroN = Zero
+ ordOfNat (SucN n) = Suc (ordOfNat n)
+
+ -- omega
+ w = Lim ordOfNat
+
+ -- f^a(x)
+ fpower f Zero x = x
+ fpower f (Suc a) x = f (fpower f a x)
+ fpower f (Lim s) x = Lim (\n -> fpower f (s n) x)
+
+ -- fix f z = least fixed point of f which is > z
+ fix f z = fpower f w (Suc z) -- Lim (\n -> fpower f (ordOfNat n) (Suc z))
+
+ -- cantor b a = a + w^b
+ cantor Zero a = Suc a
+ cantor (Suc b) a = fix (cantor b) a
+ cantor (Lim s) a = Lim (\n -> cantor (s n) a)
+ 
+ -- expw a = w^a
+ expw a = cantor a Zero
+
+ -- next a = least epsilon_b > a
+ next = fix expw
+
+ -- [0]
+ simmons0 h = fix (\a -> fpower h a Zero)
+
+ fpower1 f1 Zero f0 x = f0 x
+ fpower1 f1 (Suc a) f0 x = f1 (fpower1 f1 a f0) x
+ fpower1 f1 (Lim s) f0 x = Lim (\n -> fpower1 f1 (s n) f0 x)
+
+ -- [1]
+ simmons1 h1 h0 = fix (\a -> fpower1 h1 a h0 Zero)
+
+ fpower2 f2 Zero f1 f0 x = f1 f0 x
+ fpower2 f2 (Suc a) f1 f0 x = f2 (fpower2 f2 a f1) f0 x
+ fpower2 f2 (Lim s) f1 f0 x = Lim (\n -> fpower2 f2 (s n) f1 f0 x)
+
+ -- [2]
+ simmons2 h2 h1 h0 = fix (\a -> fpower2 h2 a h1 h0 Zero)
+ 
+ -- Large Veblen ordinal 
+ lvo = simmons2 simmons1 simmons0 next w
+
