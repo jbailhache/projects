@@ -58,6 +58,8 @@ module Taranovsky where
 
  epsilon_0 = tc (Ext (\x -> x)) Zero
 
+ bho = tc (tc (Ext (\x -> x)) (Ext (\x -> x))) Zero
+
   -- expw a = w^a
  expw a = tc a Zero 
 

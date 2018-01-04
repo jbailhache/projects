@@ -56,10 +56,6 @@ module Taranovsky where
  cantor a (Ext f) = opItw (\x -> cantor a (f x)) Zero
  -- cantor a (Ext f) = cantor a (opItw (\x -> f (cantor a x)) Zero)
 
- epsilon_0 = cantor Zero (Ext (\x -> x))
-
- bho = cantor Zero (cantor (Ext (\x -> x)) (Ext (\x -> x)))
-
   -- expw a = w^a
  expw = cantor Zero 
 

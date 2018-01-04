@@ -41,7 +41,13 @@ module Taranovsky where
  tc (Ext f z) a = opItw (\x -> tc (f x) a) z 
  -- tc (Ext f) a = tc (opItw (\x -> f (tc x a)) Zero) a
 
- epsilon_0 = tc (Ext (\x -> x) Zero) Zero
+ oW = Ext (\x -> x) Zero
+
+ -- epsilon_0 = tc (Ext (\x -> x) Zero) Zero
+ epsilon_0 = tc oW Zero
+
+ -- bho = tc (tc (Ext (\x -> x)) (Ext (\x -> x))) Zero
+ bho = tc (Ext (\x -> x) oW) oW
 
   -- expw a = w^a
  expw a = tc a Zero 
