@@ -1,0 +1,118 @@
+\documentclass[8pt]{article}
+\title{Les ordinaux transfinis}
+\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\begin{document}
+
+\setlength{\parindent}{0pt}
+
+\vspace{-0.4cm}
+
+\begin{center}
+\textbf{LES ORDINAUX TRANSFINIS}
+\end{center}
+
+\vspace{-0.3cm}
+
+Un ordinal est soit 0, soit le successeur d'un ordinal, soit la limite ou la borne supérieure de f(0), f(1), f(2), ...
+\vspace{-0.6cm}
+
+\section{Ma notation}
+\vspace{-0.4cm}
+On part de 0, si on ne voit aucune régularité on prend le successeur, si on voit une régularité, si on a une notation pour cette régularité on l'utilise sinon on l'invente, puis on saute à la limite.
+\vspace{-0.4cm}
+
+\section{Notation algébrique}
+\vspace{-0.4cm}
+On définit les opérations arithmétiques sur les ordinaux :
+\vspace{-0.4cm}
+\smallskip
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
+\item multiplication : \( \alpha \times 0 = \alpha ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
+\end{itemize}
+\vspace{-0.6cm}
+
+\section{Fonctions de Veblen}
+\vspace{-0.4cm}
+Ces fonctions procèdent par énumération de points fixes : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) représente le \((1+\gamma)^{eme}\) point fixe commun aux fonctions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) pour tous les \(\delta < \beta\).
+\vspace{-0.4cm}
+
+\section{Notation de Simmons}
+\vspace{-0.4cm}
+\( Fix f z = f^w(z+1)\) = plus petit point fixe de f strictement supérieur à z.
+
+\( [0] h = Fix (a \mapsto h^a 0) \)
+
+\( [1] H h = Fix (a \mapsto H^a h 0) \)
+
+\( [2] H h g = Fix (a \mapsto H^a h g 0) \), etc...
+
+\vspace{-0.4cm}
+
+\section{Fonctions effondrantes ordinales (Ordinal collapsing functions)}
+\vspace{-0.4cm}
+Ces fonctions utilisent des ordinaux non dénombrables pour définir des ordinaux dénombrables. 
+
+On définit des ensembles d'ordinaux qui peuvent être construits à partir de certains ordinaux et de certaines opérations, puis on définit le plus petit ordinal qui n'appartient pas à cet ensemble, ou le plus petit ordinal qui est plus grand que tous les ordinaux dénombrables de cet ensemble.
+
+Ces fonctions sont des extensions de fonctions sur des ordinaux dénombrables, dont on peut atteindre le point fixe en les appliquant à un ordinal non dénombrable, puis le dépasser en les appliquant à des ordinaux non dénombrables plus grands.
+
+Exemples :
+\vspace{-0.4cm}
+\smallskip
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(\psi\) de Madore : \(\psi(\alpha) = \varepsilon_\alpha \) pour \(\alpha < \zeta_0 ; \psi(\Omega) = \zeta_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \).
+\item C de Taranovsky : \( C(\alpha,\beta) = \beta+\omega^\alpha \) si \( \alpha \) est dénombrable; \( C(\Omega_1,0) = \varepsilon_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \omega^\alpha \).
+\end{itemize}
+
+\vspace{0.2cm}
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Nom		& Symbole		& Ma notation		& Algébrique			& Veblen			& Simmons			& Madore				& Taranovsky 			\\
+\hline
+Zero		& 0			& 0			& 0				& 				& 				& 					& 0				\\ \hline
+Un		& 1			& suc 0			& 1				& \(\varphi(0,0)\)		& 				& 					& C(0,0)			\\ \hline
+Deux		& 2			& suc (suc 0)		& 2				& 				& 				& 					& C(0,C(0,0))			\\ \hline
+omega		& \(\omega\)		& H suc 0		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& 					& C(1,0)			\\ \hline
+		& 			& suc (H suc 0)		& \(\omega+1\)			& 				& 				& 					& C(0,C(1,0))			\\ \hline
+		&			& H suc (H suc 0)	& \(\omega\times2\)		&				& 				& 					& C(1,C(1,0))			\\ \hline
+		&			& H (H suc) 0		& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& 					& C(C(0,C(0,0)),0)		\\ \hline
+		&			& H H suc 0		& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& 					& C(C(1,0),0)			\\ \hline
+		&			& H H H suc 0		& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				&					& C(C(C(1,0),0),0)		\\ \hline
+Epsilon zero	& \(\varepsilon_0\)	& \(R_1 H suc\ 0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
+		& 			& \(R_1 (R_1 H) suc\ 0\)& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& 				& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
+		& 			& \(H R_1 H suc\ 0\)	& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	&				& \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
+		& 			& \(R_1 H R_1 H suc\ 0\)&\(\varepsilon_{\varepsilon_0}\)& \(\varphi(1,\varphi(1,0))\)	&				& \(\psi(\psi(0))\)			& \(C(C(C(\Omega_1,0),\Omega_1),0)\)\\ \hline
+Zeta zero	& \(\zeta_0\)		& \(R_2 R_1 H suc\ 0\)	& \(\zeta_0\)			& \(\varphi(2,0)\)		& \([0] Next\ \omega\)		& \(\psi(\Omega)\)			& \(C(C(\Omega_1,\Omega_1),0)\)	\\ \hline
+Eta zero	& \(\eta_0\)		& \(R_3 R_2 R_1 H suc\ 0\)& \(\eta_0\)			& \(\varphi(3,0)\)		&				&					& \(C(C(\Omega,C(\Omega,\Omega)),0)\) \\ \
+		&			& \(= R_{3 \ldots 1} H suc\ 0\)&			&				&				&					&				\\ \hline
+		&			& \(R_{\omega \ldots 1} H suc\ 0\)&			& \(\varphi(\omega,0)\)		&				&					& \(C(C(C(0,\Omega_1),\Omega_1),0)\) \\ \hline
+Feferman	& \(\Gamma_0\)		& \(H (x \mapsto R_{x \ldots 1} H suc\ 0) 0\)
+								& \(\Gamma_0\)			& \(\varphi(1,0,0)\)		& \([1] [0] Next\ \omega\)	& \(\psi(\Omega^\Omega)\)		& \(C(C(C(\Omega_1,\Omega_1),\) \\ 
+-Schütte	&			&			&				& \(=\varphi(2 \mapsto 1)\)	&				& 					& \(\Omega_1),0)\)		\\ \hline
+Ackermann	&			&			&				& \(\varphi(1,0,0,0)\)		&				& \(\psi(\Omega^{\Omega^2})\)		&				\\ 
+		&			&			&				& \(=\varphi(3 \mapsto 1)\)	&				&					&				\\ \hline
+Petit ordinal	&			&			&				& \(\varphi(\omega \mapsto 1)\)	&				& \(\psi(\Omega^{\Omega^\omega})\)	& \(C(\Omega_1^\omega,0)\)	\\
+de Veblen	&			&			&				&				&				&					& \(=C(C(C(C(0,\Omega_1), \)	\\ 
+		&			&			&				&				&				&					& \(\Omega_1),\Omega_1),0)\)	\\ \hline
+Grand ordinal	&			&			&				& + petit ord.	 	 	& \([2] [1] [0] Next\ \omega\)	& \(\psi(\Omega^{\Omega^\Omega})\)	& \(C(\Omega_1^{\Omega_1},0)\)	\\
+de Veblen	&			&			&				& non rep.			&				&					& \(=C(C(C(C(\Omega_1,\Omega_1),\) \\ 
+		&			&			&				&				&				&					& \( \Omega_1),\Omega_1),0) \)	\\ \hline
+Ordinal de	&			&			&				&				& + petit ord.			& \(\psi(\varepsilon_{\Omega+1})\)	& \(C(C(\Omega_2,\Omega_1),0)\)	\\
+Bachmann-	&			&			&				&				& non rep.			&					&				\\ 
+Howard		&			&			&				&				&				&					&				\\ \hline
+  
+\end{tabular}
+
+
+\end{document}
+
