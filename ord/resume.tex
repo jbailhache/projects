@@ -22,7 +22,7 @@ Un ordinal est soit 0, soit le successeur d'un ordinal, soit la limite ou la bor
 \section{Ma notation}
 \vspace{-0.4cm}
 On part de 0, si on ne voit aucune régularité on prend le successeur, si on voit une régularité, si on a une notation pour cette régularité on l'utilise sinon on l'invente, puis on saute à la limite.
-\vspace{-0.4cm}
+\vspace{-0.6cm}
 
 \section{Notation algébrique}
 \vspace{-0.4cm}
@@ -34,7 +34,9 @@ On définit les opérations arithmétiques sur les ordinaux :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
+\vspace{-0.1cm}
 \item multiplication : \( \alpha \times 0 = \alpha ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
+\vspace{-0.1cm}
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
 \vspace{-0.8cm}
@@ -42,7 +44,7 @@ On définit les opérations arithmétiques sur les ordinaux :
 \section{Fonctions de Veblen}
 \vspace{-0.4cm}
 Ces fonctions procèdent par énumération de points fixes : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) représente le \((1+\gamma)^{eme}\) point fixe commun aux fonctions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) pour tous les \(\delta < \beta\).
-\vspace{-0.4cm}
+\vspace{-0.6cm}
 
 \section{Notation de Simmons}
 \vspace{-0.4cm}
@@ -56,7 +58,7 @@ Ces fonctions procèdent par énumération de points fixes : \(\varphi(\ldots,\b
 
 \( [2] H h g = Fix (a \mapsto H^a h g 0) \), etc...
 
-\vspace{-0.4cm}
+\vspace{-0.6cm}
 
 \section{Fonctions effondrantes ordinales (Ordinal collapsing functions)}
 \vspace{-0.4cm}
@@ -73,11 +75,14 @@ Exemples :
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item \(\psi\) de Madore : \(\psi(\alpha) = \varepsilon_\alpha \) pour \(\alpha < \zeta_0 ; \psi(\Omega) = \zeta_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \).
+\item \(\psi\) de Madore : \(\psi(\alpha) = \varepsilon_\alpha \) si \(\alpha < \zeta_0 ; \psi(\Omega) = \zeta_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \).
+\vspace{-0.1cm}
+\item \(\theta\) de Feferman : \(\theta(\alpha,\beta) = \varphi(\alpha,\beta) \) si \( \alpha < \Gamma_0 \) et \( \beta < \Gamma_0 ; \theta(\Omega,0) = \Gamma_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varphi(\alpha,0) \).
+\vspace{-0.1cm}
 \item C de Taranovsky : \( C(\alpha,\beta) = \beta+\omega^\alpha \) si \( \alpha \) est dénombrable; \( C(\Omega_1,0) = \varepsilon_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \omega^\alpha \).
 \end{itemize}
 
-\vspace{0.2cm}
+\vspace{0.1cm}
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
