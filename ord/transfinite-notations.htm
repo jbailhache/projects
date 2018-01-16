@@ -99,6 +99,23 @@ phi(an,...,a(i+1),a,0,...,0,c) = c-th fixed point of
 \x.phi(an,...,a(i+1),b,x,0,...,0) for all b&lt;a<br>
 see <a href="http://en.wikipedia.org/wiki/Veblen_function">http://en.wikipedia.org/wiki/Veblen_function</a><br>
 <br>
+This function can be generalized to transfinitely many variables.
+<br><br>
+
+<span style="font-weight: bold;">Schütte brackets or Klammersymbols</span><br>
+<br>
+Schütte brackets or Klammersymbols are another way to write Veblen fuctions with transfinitely many variables. A Schütte bracket consists in a matrix with two lines, with the positions of the variables in the second line in increasing order, and the corresponding values in the first line. This matrix is preceded by the function x -> phi(x). If we take x -> w^x, we get the equivalent of the Veblen function.
+For example :
+<pre>
+phi(a,b,c) = (x -> w^x) ( c  b  a )
+                        ( 0  1  2 )
+
+Small Veblen ordinal = (x -> w^x) ( 1 )
+                                  ( w )
+</pre>
+See <a href="https://core.ac.uk/download/pdf/33091421.pdf">https://core.ac.uk/download/pdf/33091421.pdf</a> for more information.
+
+<br><br>
 
 <span style="font-weight: bold;">Beyond Veblen function</span>
 <p>
@@ -228,6 +245,8 @@ phi(d,c,b,a) = ([0]^b (([1] [0])^c (([1]^2 [0])^d Next)))^(1+a) 0
 Small Veblen ordinal = [1]^w [0] Next 0
 Large Veblen ordinal = [2] [1] [0] Next 0
 </pre>
+See also <a href="http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf">http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf</a>.
+<br><br>
 Extension
 <pre>
 Large Veblen ordinal = [2...0] Next 0
