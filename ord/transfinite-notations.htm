@@ -590,6 +590,52 @@ It gives the following sequence :
 <li> R2 Rw->1 H suc 0 : invent notation Rw+1->1 H suc 0
 <li> ...
 </ul>
+<br>
+To progress faster, we can use the following rule : <br>
+If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), we may produce an ordinal c = f ([suc->s,0->z] a) where [suc->f,0->x] a means the ordinal obtained by replacing suc by f and 0 by x in a.
+<br>
+For example :
+<pre>
+a = R1 H suc 0
+b = R1 H (R1 H suc) 0
+s = R1 H
+z = suc
+f x = x 0
+[suc->R1 H,0->suc] a = R1 H (R1 H) suc
+c = g ([suc->R1 H,0->suc) a) = R1 H (R1 H) suc 0
+</pre>
+With the following rules :
+<ul>
+<li> 0 : -> 0
+<li> suc : x -> suc x
+<li> H : f (f x) -> H f x
+<li> R1 : f f -> R1 f
+<li> R2 : f g f g -> R2 f g
+<li> R3 : f g h f g h -> R3 f g h
+<li> ...
+<li> Repl : a, f (s (s z)) -> f([suc->s,0->z] a)
+</ul>
+we can produce the following sequence of ordinals :
+<ul>
+<li> 0 : 0 : 0
+<li> 1 : suc 0 : suc 0
+<li> 2 : suc 1 : suc (suc 0)
+<li> 3 : H 2 : H suc 0
+<li> 4 : suc 3 : suc (H suc 0)
+<li> 5 : suc 4 : suc (suc (H suc 0))
+<li> 6 : H 5 : H suc (H suc 0)
+<li> 7 : H 6 : H (H suc) 0
+<li> 8 : H 7 : H H suc 0
+<li> 9 : R1 8 : R1 H suc 0
+<li> 10 : suc 9 : suc (R1 H suc 0)
+<li> 11 : suc 10 : suc (suc (R1 H suc 0))
+<li> 12 : Repl 9 11 [suc->suc,0->R1 H suc 0] : R1 H suc (R1 H suc 0)
+<li> 13 : Repl 9 12 [suc->R1 H suc,0->0] : R1 H (R1 H suc) 0
+<li> 14 : Repl 9 13 [suc->R1 H,0->suc] : R1 H (R1 H) suc 0
+<li> 15 : R1 14 : R1 (R1 H) suc 0
+<li> 16 : Repl 9 15 [suc->R1,0->H] : R1 H R1 H suc 0
+<li> 17 : R2 16 : R2 R1 H suc 0
+</ul>
 
 <br>
 More formally, this notation uses combinatory logic with&nbsp;De Bruijn indexes. <br>
@@ -601,7 +647,8 @@ L n f = tuple n [ L0 [ ** (f *) ]]<br>
 L n = [ tuple n [ L0 [ ** (*** *) ]]]<br>L = [[ tuple ** [ L0 [ ** (*** *) ]]]<br>
 &nbsp;= \n \f (tuple n \a (L0 \i (a (f i)) ) )<br>
 &nbsp;<br>
-<br>
+To represent the replacement [suc->s,0->z] we can represent ordinals by ordinal functions which, when applyed to suc and 0, give the considered ordinal. For example, R1 H suc 0 is represented by the ordinal function s -> z -> R1 H s z, R1 H (R1 H suc) 0 by s -> z -> R1 H (R1 H s) z. From these ordinals, with the replacement [suc->R1 H,0->suc] we can produce a new ordinal represented by s -> z -> ((s -> z -> R1 H s z) (R1 H) s z) = s -> z -> R1 H (R1 H) s z) which, when applied to suc and 0, gives R1 H (R1 H) suc 0.
+<br><br><br>
 Correspondence between basic notation systems and their collapsing extensions based on formula : least fixed point of f = f(W)
 <br><br>
 <table style="text-align: left; width: 100%;" rules="all" border="2" cellpadding="2" cellspacing="2">
