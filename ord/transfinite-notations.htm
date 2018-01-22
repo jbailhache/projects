@@ -636,8 +636,30 @@ we can produce the following sequence of ordinals :
 <li> 16 : Repl 9 15 [suc->R1,0->H] : R1 H R1 H suc 0
 <li> 17 : R2 16 : R2 R1 H suc 0
 </ul>
+The rules R1, R2, R3, ... may be replaced by H or Repl if f1 ... fn ... f1 ... fn is reformulated in &lt;f1,...,fn&gt; ( ... (&lt;f1,...,fn&gt; I)...) with &lt;f1,...,fn&gt; g = g f1 ... fn : 
+<ul>
+<li> 0 : 0 : 0
+<li> 1 : suc 0 : suc 0
+<li> 2 : suc 1 : suc (suc 0)
+<li> 3 : H 2 : H suc 0
+<li> 4 : suc 3 : suc (H suc 0)
+<li> 5 : suc 4 : suc (suc (H suc 0))
+<li> 6 : Repl 3 5 [suc->suc,0->H suc 0] : H suc (H suc 0)
+<li> 7 : Repl 3 6 [suc->H suc,0->0] : H (H suc) 0
+<li> 8 : Repl 3 7 [suc->H,0->suc] : H H suc 0 = &lt;H&gt; (&lt;H&gt; I) suc 0
+<li> 9 : Repl 3 8 [suc->&lt;H&gt;,0->I] : H &lt;H&gt; I suc 0
+<li> 10 : suc 9 : suc (H &lt;H&gt; I suc 0)
+<li> 11 : suc 10 : suc (suc (H &lt;H&gt; I suc 0))
+<li> 12 : Repl 9 10 [suc->suc,0->H &lt;H&gt; I suc 0] : H &lt;H&gt; I suc (H &lt;H&gt; I suc 0)
+<li> 13 : Repl 9 12 [suc->H &lt;H&gt: I suc,0->0] : H &lt;H&gt; I (H &lt;H&gt; I suc) 0
+<li> 14 : Repl 9 13 [suc->H &lt;H&gt; I,0->suc] : H &lt;H&gt; I (H &lt;H&gt; I) suc 0 = &lt;H &lt;H&gt; I&gt; (&lt;H &lt;H&gt; I&gt; I) suc 0
+<li> 15 : Repl 3 14 [suc->&lt;H &lt;H&gt; I&gt;,0->I] : H &lt;H &lt;H&gt; I&gt; I suc 0 = [H &lt;*&gt; I] ([H &lt;*&gt; I] H) suc 0
+<li> 16 : Repl 9 15 [suc->[H &lt;*&gt; I],0->H] : H &lt;H&gt; I [H &lt;*&gt; I] H suc 0 = [H &lt;*&gt; I] H [H &lt;*&gt; I] H suc 0 = &lt;[H &lt;*&gt; I],H&gt; (&lt;[H &lt;*&gt; I], H&gt; I) suc 0
+<li> 17 : Repl 3 16 [suc->&lt;[H &lt;*&gt; I],H&gt;,0->I] : H &lt;[H &lt;*&gt; I], H&gt; I suc 0
 
-<br>
+</ul>
+
+<br><br>
 More formally, this notation uses combinatory logic with&nbsp;De Bruijn indexes. <br>
 lambda.x is written [ x ] and variables are written *, **, ***..., for example [ ... * ... ] = \x ( ... x ... )&nbsp;<br>
 <br>CI = C I is defined by CI x f = f x.<br>CI x = &lt;x&gt;<br>&lt;x1,...,xn&gt; f = f x1 ... xn<br>tuple n f x1 ... xn = f &lt;x1,...,xn&gt;<br>tuple 0 = &lt;I&gt;<br>tuple (n+1) f x0 = tuple n [ f (insert x0 *) ]<br>with insert x0 a f &nbsp;= a (f x0)<br><br>r 0 f x = x<br>r (n+1) f x = f (r n f x)<br>r (lim g) f x = lim [r * f x]<br><br>H f x represents the limit of x, f x, f (f x), ...<br>H f x = r w f x<br><br>R1 = [H &lt;*&gt; I] = tuple 1 [H * I]<br>R2 = [[H &lt;**,*&gt; I]] = tuple 2 [H * I]<br>R3 = [[[H &lt;***,**,*&gt; I]]] = tuple 3 [H * I]<br>Rn = tuple n [H * I]<br>R(n-&gt;1) = Rn ... R1<br>S(n-&gt;1) = [S(*-&gt;1)] n = &lt;Rn,...,R1&gt;<br>R(n-&gt;1) = S(n-&gt;1) I<br>[S(*-&gt;1)] 0 = I<br>[S(*-&gt;1)] (n+1) = insert (tuple (n+1) [H * I]) ([S(*-&gt;1)] n)<br><br>L f = lim f 0, f 1, ...<br>L f x = L [f * x]<br>H = [[L [r * *** **]]]<br>
@@ -648,6 +670,18 @@ L n = [ tuple n [ L0 [ ** (*** *) ]]]<br>L = [[ tuple ** [ L0 [ ** (*** *) ]]]<b
 &nbsp;= \n \f (tuple n \a (L0 \i (a (f i)) ) )<br>
 &nbsp;<br>
 To represent the replacement [suc->s,0->z] we can represent ordinals by ordinal functions which, when applied to suc and 0, give the considered ordinal. For example, R1 H suc 0 is represented by the ordinal function s -> z -> R1 H s z, R1 H (R1 H suc) 0 by s -> z -> R1 H (R1 H s) z. From these ordinals, with the replacement [suc->R1 H,0->suc] we can produce a new ordinal represented by s -> z -> ((s -> z -> R1 H s z) (R1 H) s z) = s -> z -> R1 H (R1 H) s z) which, when applied to suc and 0, gives R1 H (R1 H) suc 0.
+<br><br>
+Operations can be represented with replacements : 
+<ul>
+<li>a+b = [0->a] b
+<li>a.b = [suc->[*+a]] b = [suc->[[0->**] a]] b
+<li>a^b = [suc->[*.a], 0->1] b = [suc->[[suc->[[0->**] ***]] a], 0->suc 0] b
+<li>w^a = [suc->[suc->H suc], 0->suc 0] b = [suc->H,0->suc] b 0
+<li>epsilon_0^a = [suc->R1 H,0->suc] a 0
+<li>epsilon_a = [suc->R1, 0->H] (1+a) suc 0
+<li>1+a = [0->suc 0] a
+</ul>
+
 <br><br><br>
 Correspondence between basic notation systems and their collapsing extensions based on formula : least fixed point of f = f(W)
 <br><br>
