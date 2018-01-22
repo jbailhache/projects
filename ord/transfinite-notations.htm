@@ -592,7 +592,7 @@ It gives the following sequence :
 </ul>
 <br>
 To progress faster, we can use the following rule : <br>
-If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), we may produce an ordinal c = f ([suc->s,0->z] a) where [suc->f,0->x] a means the ordinal obtained by replacing suc by f and 0 by x in a.
+If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), we may produce an ordinal c = f ([suc->s,0->z] a) where [suc->f,0->x] a means the ordinal obtained by replacing suc by z and 0 by z in a.
 <br>
 For example :
 <pre>
@@ -647,7 +647,7 @@ L n f = tuple n [ L0 [ ** (f *) ]]<br>
 L n = [ tuple n [ L0 [ ** (*** *) ]]]<br>L = [[ tuple ** [ L0 [ ** (*** *) ]]]<br>
 &nbsp;= \n \f (tuple n \a (L0 \i (a (f i)) ) )<br>
 &nbsp;<br>
-To represent the replacement [suc->s,0->z] we can represent ordinals by ordinal functions which, when applyed to suc and 0, give the considered ordinal. For example, R1 H suc 0 is represented by the ordinal function s -> z -> R1 H s z, R1 H (R1 H suc) 0 by s -> z -> R1 H (R1 H s) z. From these ordinals, with the replacement [suc->R1 H,0->suc] we can produce a new ordinal represented by s -> z -> ((s -> z -> R1 H s z) (R1 H) s z) = s -> z -> R1 H (R1 H) s z) which, when applied to suc and 0, gives R1 H (R1 H) suc 0.
+To represent the replacement [suc->s,0->z] we can represent ordinals by ordinal functions which, when applied to suc and 0, give the considered ordinal. For example, R1 H suc 0 is represented by the ordinal function s -> z -> R1 H s z, R1 H (R1 H suc) 0 by s -> z -> R1 H (R1 H s) z. From these ordinals, with the replacement [suc->R1 H,0->suc] we can produce a new ordinal represented by s -> z -> ((s -> z -> R1 H s z) (R1 H) s z) = s -> z -> R1 H (R1 H) s z) which, when applied to suc and 0, gives R1 H (R1 H) suc 0.
 <br><br><br>
 Correspondence between basic notation systems and their collapsing extensions based on formula : least fixed point of f = f(W)
 <br><br>
