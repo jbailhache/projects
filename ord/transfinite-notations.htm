@@ -215,6 +215,11 @@ Next = Fix [w^*] = "next epsilon_a"
 [0] h = Fix (a → h^a 0) 
 [1] H h = Fix (a → H^a h 0)
 [2] H h g = Fix (a → H^a h g 0)
+or
+[0] h = Fix (a → h^a w) 
+[1] H h = Fix (a → H^a h w)
+[2] H h g = Fix (a → H^a h g w)
+
 …
 Delta[0] = w
 Delta[1] = Next w = epsilon 0
@@ -232,7 +237,7 @@ Delta[4] = [2] [1] [0] Next w = least v with v = [1]^v [0] Next w = large Veblen
 </pre>
 Correspondence with Veblen function
 <pre>
-epsilon_a = phi(1,a) = Next^(1+a) 0
+epsilon_a = phi(1,a) = Next^(1+a) 0 = Next^(1+a) w
 zeta_0 = phi(2,0) = least fixed point of (x → epsilon_x) = Fix (x → epsilon_x) 0 = Fix (x → Next^(1+x) 0] 0 = Fix (x → Next^x 0) 0 = [0] Next 0
 Next fixed point : zeta_1 = phi(2,1) = Fix (x → Next^x 0) ([0] Next 0) = [0] Next ([0] Next 0) = ([0] Next)^2 0
 zeta_a = phi(2,a) = ([0] Next)^(1+a) 0
@@ -243,7 +248,7 @@ Gamma_0 = phi(1,0,0) = least fixed point of x → phi(x,0) = Fix (x → phi(x,0)
 phi(c,b,a) = ([0]^b (([1] [0])^c Next))^(1+a) 0
 phi(d,c,b,a) = ([0]^b (([1] [0])^c (([1]^2 [0])^d Next)))^(1+a) 0
 Small Veblen ordinal = [1]^w [0] Next 0
-Large Veblen ordinal = [2] [1] [0] Next 0
+Large Veblen ordinal = [2] [1] [0] Next 0 = [2] [1] [0] Next w
 </pre>
 See also <a href="http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf">http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf</a>.
 <br><br>
@@ -521,7 +526,7 @@ children having the most weight, i.e., either B has more children than
 A, or if A' and B' are the leftmost children on which they differ then
 A' &lt; B').<br>This is a well-order.<br><br>
 
-<span style="font-weight: bold;">Combinatory notation</span><br>
+<span style="font-weight: bold;">Combinatory or RHS0 notation</span><br>
 <br>
 This method is based on combinatory logic and lambda calculus formalism.
 <br>
@@ -584,10 +589,10 @@ It gives the following sequence :
 <li> ...
 <li> R1 H R1 H suc 0 : invent notation R2 R1 H suc 0 = limit of suc 0, R1 H suc 0, R1 H R1 H suc 0, ...
 <li> ...
-<li> R3 R2 R1 H suc 0 : invent notation R3->1 H suc 0 and jump to limit
-<li> Rw->1 H suc 0
+<li> R3 R2 R1 H suc 0 : invent notation R3...1 H suc 0 and jump to limit
+<li> Rw...1 H suc 0
 <li> ...
-<li> R2 Rw->1 H suc 0 : invent notation Rw+1->1 H suc 0
+<li> R2 Rw...1 H suc 0 : invent notation Rw+1...1 H suc 0
 <li> ...
 </ul>
 <br>
@@ -662,7 +667,7 @@ The rules R1, R2, R3, ... may be replaced by H or Repl if f1 ... fn ... f1 ... f
 <br><br>
 More formally, this notation uses combinatory logic with&nbsp;De Bruijn indexes. <br>
 lambda.x is written [ x ] and variables are written *, **, ***..., for example [ ... * ... ] = \x ( ... x ... )&nbsp;<br>
-<br>CI = C I is defined by CI x f = f x.<br>CI x = &lt;x&gt;<br>&lt;x1,...,xn&gt; f = f x1 ... xn<br>tuple n f x1 ... xn = f &lt;x1,...,xn&gt;<br>tuple 0 = &lt;I&gt;<br>tuple (n+1) f x0 = tuple n [ f (insert x0 *) ]<br>with insert x0 a f &nbsp;= a (f x0)<br><br>r 0 f x = x<br>r (n+1) f x = f (r n f x)<br>r (lim g) f x = lim [r * f x]<br><br>H f x represents the limit of x, f x, f (f x), ...<br>H f x = r w f x<br><br>R1 = [H &lt;*&gt; I] = tuple 1 [H * I]<br>R2 = [[H &lt;**,*&gt; I]] = tuple 2 [H * I]<br>R3 = [[[H &lt;***,**,*&gt; I]]] = tuple 3 [H * I]<br>Rn = tuple n [H * I]<br>R(n-&gt;1) = Rn ... R1<br>S(n-&gt;1) = [S(*-&gt;1)] n = &lt;Rn,...,R1&gt;<br>R(n-&gt;1) = S(n-&gt;1) I<br>[S(*-&gt;1)] 0 = I<br>[S(*-&gt;1)] (n+1) = insert (tuple (n+1) [H * I]) ([S(*-&gt;1)] n)<br><br>L f = lim f 0, f 1, ...<br>L f x = L [f * x]<br>H = [[L [r * *** **]]]<br>
+<br>CI = C I is defined by CI x f = f x.<br>CI x = &lt;x&gt;<br>&lt;x1,...,xn&gt; f = f x1 ... xn<br>tuple n f x1 ... xn = f &lt;x1,...,xn&gt;<br>tuple 0 = &lt;I&gt;<br>tuple (n+1) f x0 = tuple n [ f (insert x0 *) ]<br>with insert x0 a f &nbsp;= a (f x0)<br><br>r 0 f x = x<br>r (n+1) f x = f (r n f x)<br>r (lim g) f x = lim [r * f x]<br><br>H f x represents the limit of x, f x, f (f x), ...<br>H f x = r w f x<br><br>R1 = [H &lt;*&gt; I] = tuple 1 [H * I]<br>R2 = [[H &lt;**,*&gt; I]] = tuple 2 [H * I]<br>R3 = [[[H &lt;***,**,*&gt; I]]] = tuple 3 [H * I]<br>Rn = tuple n [H * I]<br>R(n...1) = Rn ... R1<br>S(n...1) = [S(*...1)] n = &lt;Rn,...,R1&gt;<br>R(n...1) = S(n...1) I<br>[S(*...1)] 0 = I<br>[S(*...1)] (n+1) = insert (tuple (n+1) [H * I]) ([S(*...1)] n)<br><br>L f = lim f 0, f 1, ...<br>L f x = L [f * x]<br>H = [[L [r * *** **]]]<br>
 or<br>
 L0 = lim f 0, f 1, ...<br>
 L n f = tuple n [ L0 [ ** (f *) ]]<br>
@@ -681,6 +686,59 @@ Operations can be represented with replacements :
 <li>epsilon_a = [suc->R1, 0->H] (1+a) suc 0
 <li>1+a = [0->suc 0] a
 </ul>
+<br>
+The ordinal ascension can be continued after Ra...1 H suc 0 by taking the fixed point :
+<br>
+H [ R(*-&gt;1) H suc 0 ] 0<br>
+= R(1;1) H suc 0<br>
+with R(1;1) = [[[ H [ R(*...1) **** *** ** ] 0 ]]]<br>
+= tuple 3 [ H [ ** R(*...1) ] 0]<br>
+with tuple n f x1 ... xn = f &lt;x1, ... , xn&gt;<br>
+and &lt;x1, ... , xn&gt; f = f x1 ... xn
+<br>
+and then we can go on with :
+<ul>
+<li> H [R*...1 H suc 0] 0 = R(1;1) H suc 0
+<li> R(1;1) (R(1;1) H) suc 0
+<li> H R(1;1) H suc 0
+<li> R(1;1) H R(1;1) H suc 0
+<li> R2 R(1;1) H suc 0
+<li> R3 R2 R(1;1) H suc 0 = R(3...2) R(1;1) H suc 0
+<li> H [ R(*...2) R(1;1) H suc 0 ] 0 = R(1;2) R(1;1) H suc 0 with R(1;2) = [[[[H[R(*...2) ***** **** *** **]0]]]] = R(1;2...1) H suc 0
+<li> R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3...1) H suc 0
+<li> H [ R(1;*...1) H suc 0 ] 0 = R(2;1) H suc 0 with R(2;1) = [[[ H [ R(1;*...1) **** *** ** ] 0 ]]]
+<li> R(3;1) H suc 0
+<li> R(w;1) H suc 0
+<li> H [ R(*;1) H suc 0] 0 = R(W;1) H suc 0 or R(1,0;1) H suc 0 with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]] or R(1:1;1) H suc 0
+<li> R(1,1;1) H suc 0 = R(1:1,0:1;1)
+<li> R(1,2;1) H suc 0 = R(1:1,0:2;1) H suc 0
+<li> R(2,0;1) H suc 0 = R(1:2;1) H suc 0
+<li> R(1,0,0;1) H suc 0 = R(2:1;1) H suc 0
+<li> R(1,0,...,0;1) H suc 0 = R(H suc 0:1;1) H suc 0
+<li> H [ R(*:1;1) H suc 0 ] 0 = [[[ H [ R(*:1;1) **** *** ** ] 0 ]]] H suc 0 = R(1,0:1;1) H suc 0 = R(1:1:1;1) H suc 0
+<li> R(1,0,0:1;1) H suc 0 = R(2:1:1;1) H suc 0
+<li> R(w:1:1;1) H suc 0 (?) with a:b:c = (a:b):c
+<li> R(1:1:1:1;1) H suc 0 = R(1::3::1;1) H suc 0 = R(r 3 [*:1] 1;1) H suc 0 
+<li> R(1:1:1:1:1;1) H suc 0 = R(1::4::1;1) H suc 0 = R(r 4 [*:1] 1;1) H suc 0
+<li> H [R(1::*::1;1) H suc 0] 0 = H [R(r * [*:1] 1;1) H suc 0] 0
+<li> ...
+</ul>
+
+Correspondence with Simmons notation :
+<br>
+The RHS0 notation can be obtained from the Simmons notation (ending with w) by replacing w by H, Next by R1, [0] by R2, [1] by R3, [2] by R4, and so on, and putting suc 0 at the end.
+<br>
+For example :
+<ul>
+<li> w = H suc 0
+<li> epsilon_0 = Next w = R1 H suc 0
+<li> epsilon_1 = Next² w = Next (Next w) = R1 (R1 H) suc 0
+<li> zeta_0 = [0] Next w = R2 R1 H suc 0
+<li> Gamma_0 = [1] [0] Next w = R3 R2 R1 H suc 0
+<li> LVO = [2] [1] [0] Next w = R4 R3 R2 R1 H suc 0
+</ul>
+<br>
+
 
 <br><br><br>
 Correspondence between basic notation systems and their collapsing extensions based on formula : least fixed point of f = f(W)
@@ -1003,7 +1061,7 @@ with R1 = [ H (CI *) I ] <br>= [H &lt;*&gt; I]<br>= tuple 1 [H * I]<br>or \f (H 
 <td>psi(W)</td>
 <td>C(C(W,W),0) = C(W*2,0) with W*2 = C(W,W)</td>
 <td>(()(())())</td>
-<td>R(2-&gt;1) H suc 0 = R2 R1 H suc 0<br>= [[r w &lt;**,*&gt; I]] [r w &lt;*&gt; I] (r w) suc 0<br>
+<td>R(2...1) H suc 0 = R2 R1 H suc 0<br>= [[r w &lt;**,*&gt; I]] [r w &lt;*&gt; I] (r w) suc 0<br>
 with R2 = [[ H (B (CI *) (CI **)) I ]]<br>= [[ H &lt;**,*&gt; I ]]<br>= tuple 2 [H * I]</td>
 </tr>
 <tr>
@@ -1020,9 +1078,14 @@ with R2 = [[ H (B (CI *) (CI **)) I ]]<br>= [[ H &lt;**,*&gt; I ]]<br>= tuple 2 
 <td>psi(W^2)</td>
 <td>C(W*3,0) with W*3 = C(W,C(W,W))</td>
 <td>(()((()))())</td>
-<td>(Correspondences after zeta 0 are not certain)<br>R(3-&gt;1) H suc 0 = R3 R2 R1 H suc 0<br>
-with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<br>= tuple 3 [H * I]</td>
+<td>R2 (R2 R1) H suc 0
+<!--
+(Correspondences after zeta 0 are not certain)<br>R(3...1) H suc 0 = R3 R2 R1 H suc 0<br>
+with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<br>= tuple 3 [H * I]
+-->
+</td>
 </tr>
+<!--
 <tr><td><br>
 </td><td><br>
 </td><td><br>
@@ -1123,6 +1186,7 @@ with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<
 </td><td><br>
 </td><td><br>
 </td><td>R2 R(w-&gt;1) H suc 0 = R(w+1-&gt;1) H suc 0</td></tr><tr>
+-->
 <td>Feferman-Schütte</td>
 <td>Gamma 0</td>
 <td><br>
@@ -1134,12 +1198,17 @@ with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<
 <td>psi(W^W)</td>
 <td>C(C(W*2,W),0) = C(W^2,0) with W² = C(W*2,0)</td>
 <td>((())()())</td>
-<td>H [ R(*-&gt;1) H suc 0 ] 0<br>
+<td>
+R(3...1) H suc 0 = R3 R2 R1 H suc 0<br>
+with R3 = [[[H(B(CI *)(B(CI **)(CI ***)))I]]]<br>= [[[ H &lt;***,**,*&gt; I ]]]<br>= tuple 3 [H * I]
+<!--
+H [ R(*-&gt;1) H suc 0 ] 0<br>
 = R(1;1) H suc 0<br>
-with R(1;1) = [[[ H [ R(*-&gt;1) **** *** ** ] 0 ]]]<br>
-= tuple 3 [ H [ ** R(*-&gt;1) ] 0]<br>
+with R(1;1) = [[[ H [ R(*...1) **** *** ** ] 0 ]]]<br>
+= tuple 3 [ H [ ** R(*...1) ] 0]<br>
 with tuple n f x1 ... xn = f &lt;x1, ... , xn&gt;<br>
-and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
+and &lt;x1, ... , xn&gt; f = f x1 ... xn
+--></td>
 </tr>
 <tr>
 <td><br>
@@ -1155,7 +1224,8 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^W*2)</td>
 <td></td>
 <td>((())()(()))</td>
-<td><!--(Correspondences after Gamma 0 are not certain)-->R(1;1) (R(1;1) H) suc 0</td>
+<td>R3 R2 R1 (R3 R2 R1 H) suc 0
+<!--(Correspondences after Gamma 0 are not certain)--><!--R(1;1) (R(1;1) H) suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1170,7 +1240,8 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^W*w)</td>
 <td>C(W^2+1,0)</td>
 <td>((())()(()()))</td>
-<td>H R(1;1) H suc 0</td>
+<td>H (R3 R3 R1) H suc 0
+<!--H R(1;1) H suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1186,7 +1257,7 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^W*Gamma 0)</td>
 <td></td>
 <td>((())()((())()()))</td>
-<td>R(1;1) H R(1;1) H suc 0</td>
+<td>R1 H (R3 R2 R1) H suc 0<!--R(1;1) H R(1;1) H suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1202,7 +1273,7 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^(W+1))</td>
 <td></td>
 <td>((())(())())</td>
-<td>R2 R(1;1) H suc 0</td>
+<td>R2 (R3 R2 R1) H suc 0 <!--R2 R(1;1) H suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1218,8 +1289,8 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^(W+2))</td>
 <td></td>
 <td>((())((()))())</td>
-<td>R3 R2 R(1;1) H suc 0 <br>
-= R(3-&gt;2) R(1;1) H suc 0</td>
+<td>R2 (R2 (R3 R2 R1)) H suc 0 <!--R3 R2 R(1;1) H suc 0<br>
+= R(3-&gt;2) R(1;1) H suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1235,10 +1306,12 @@ and &lt;x1, ... , xn&gt; f = f x1 ... xn</td>
 <td>psi(W^(W*2))</td>
 <td></td>
 <td>(((()))()())</td>
-<td>H [ R(*-&gt;2) R(1;1) H suc 0 ] 0<br>
+<td>
+R3 R2 (R3 R2 R1) H suc 0
+<!--H [ R(*-&gt;2) R(1;1) H suc 0 ] 0<br>
 =R(1;2) R(1;1) H suc 0<br>
 with R(1;2) = [[[[H[R(*-&gt;2) ***** **** *** **]0]]]]<br>
-= R(1;2-&gt;1) H suc 0</td>
+= R(1;2-&gt;1) H suc 0--></td>
 </tr>
 <tr>
 <td><br>
@@ -1254,7 +1327,8 @@ with R(1;2) = [[[[H[R(*-&gt;2) ***** **** *** **]0]]]]<br>
 <td>psi(W^(W*3))</td>
 <td></td>
 <td>((((())))()())</td>
-<td>R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3-&gt;1) H suc 0</td>
+<td>R3 R2 (R3 R2 (R3 R2 R1))) H suc 0
+<!--R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3-&gt;1) H suc 0--></td>
 </tr>
 <tr>
 <td>Ackermann</td>
@@ -1270,9 +1344,10 @@ with R(1;2) = [[[[H[R(*-&gt;2) ***** **** *** **]0]]]]<br>
 <td>psi(W^W^2)</td>
 <td></td>
 <td>(()()()())</td>
-<td>H [ R(1;*-&gt;1) H suc 0 ] 0<br>
+<td>R3 (R3 R2) R1 H suc 0
+<!--H [ R(1;*-&gt;1) H suc 0 ] 0<br>
 = R(2;1) H suc 0<br>
-with R(2;1) = [[[ H [ R(1;*-&gt;1) **** *** ** ] 0 ]]]</td>
+with R(2;1) = [[[ H [ R(1;*-&gt;1) **** *** ** ] 0 ]]]--></td>
 </tr>
 <tr>
 <td><br>
@@ -1288,7 +1363,8 @@ with R(2;1) = [[[ H [ R(1;*-&gt;1) **** *** ** ] 0 ]]]</td>
 <td>psi(W^W^3)</td>
 <td></td>
 <td>(()()()()())</td>
-<td>R(3;1) H suc 0</td>
+<td>R3 (R3 (R3 R2)) R1 H suc 0
+<!--R(3;1) H suc 0--></td>
 </tr>
 <tr>
 <td>small Veblen</td>
@@ -1305,7 +1381,8 @@ with R(2;1) = [[[ H [ R(1;*-&gt;1) **** *** ** ] 0 ]]]</td>
 <td>C(W^w,0)</td>
 <td>no representation <br>
 for a&gt;=small Veblen ordinal</td>
-<td>R(w;1) H suc 0</td>
+<td>H R3 R2 R1 H suc 0
+<!--R(w;1) H suc 0--></td>
 </tr>
 <tr>
 <td>large Veblen</td>
@@ -1321,10 +1398,12 @@ for a&gt;=small Veblen ordinal</td>
 <td>C(W^W,0)</td>
 <td><br>
 </td>
-<td>H [ R(*;1) H suc 0] 0<br>
+<td>R4 R3 R2 R1 H suc 0
+<!--H [ R(*;1) H suc 0] 0<br>
 = R(W;1) H suc 0 or R(1,0;1) H suc 0<br>
-with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc 0</td>
+with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc 0--></td>
 </tr>
+<!--
 <tr><td><br>
 </td><td><br>
 </td><td><br>
@@ -1361,7 +1440,9 @@ with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc
 </td><td><br>
 </td><td><br>
 </td><td><br>
-</td><td>R(1,0,0;1) H suc 0<br>= R(2:1;1) H suc 0</td></tr><tr><td>Bachmann-Howard</td><td><br>
+</td><td>R(1,0,0;1) H suc 0<br>= R(2:1;1) H suc 0</td></tr>
+-->
+<tr><td>Bachmann-Howard</td><td><br>
 </td><td><br>
 </td><td><br>
 </td><td>phi(epsilon (W+1),0)<br>with epsilon(W+1)=W^...^W</td>
@@ -1369,7 +1450,11 @@ with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc
 <td>psi(epsilon(W+1))</td>
 <td>C(C(W2,W),0)</td>
 <td><br>
-</td><td>R(1,0,...,0;1) H suc 0<br>= R(H suc 0:1;1) H suc 0</td></tr><tr><td><br>
+</td><td>
+Rw...1 H suc 0
+<!--R(1,0,...,0;1) H suc 0<br>= R(H suc 0:1;1) H suc 0--></td></tr>
+<!--
+<tr><td><br>
 </td><td><br>
 </td><td><br>
 </td><td><br>
@@ -1405,6 +1490,7 @@ with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc
 = R(2:1:1;1) H suc 0<br>
       </td>
     </tr>
+-->
 <tr>
       <td style="vertical-align: top;">Takeuti-Feferman-Buchholz<br>
       </td>
@@ -1424,9 +1510,10 @@ with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc
       </td>
       <td style="vertical-align: top;"><br>
       </td>
-      <td style="vertical-align: top;">R(w:1:1;1) H suc 0 (?)<br>with a:b:c = (a:b):c<br>
+      <td style="vertical-align: top;">H [R*...1 H suc 0] 0 ? <!--R(w:1:1;1) H suc 0 (?)<br>with a:b:c = (a:b):c--><br>
       </td>
     </tr>
+<!--
     <tr>
       <td style="vertical-align: top;"><br>
       </td>
@@ -1480,7 +1567,9 @@ with R(W;1) = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]]<br>or R(1:1;1) H suc
 </td><td><br>
 </td><td><br>
 </td><td><br>
-</td><td>H [R(1::*::1;1) H suc 0] 0<br>= H [R(r * [*:1] 1;1) H suc 0] 0</td></tr><tr>
+</td><td>H [R(1::*::1;1) H suc 0] 0<br>= H [R(r * [*:1] 1;1) H suc 0] 0</td></tr>
+-->
+<tr>
 <td>Church-Kleene</td>
 <td>wCK1</td>
 <td>Smallest non recursive ordinal</td>
@@ -2141,8 +2230,6 @@ Buchholz psi functions</a> on Wikipedia<br>
 
 <a href="http://www.madore.org/%7Edavid/math/ordtrees.pdf">
 Ordinal trees</a><br>
-
-<a href="https://medium.com/@joshkerr/mind-blown-the-fast-growing-hierarchy-for-laymen-aka-enormous-numbers-d9a865c6443b">Mind blown: the fast growing hierarchy for laymen — aka enormous numbers</a><br>
 
 <a href="https://sites.google.com/site/largenumbers/home">
 Sbiis Saibian's Large Number Site</a><br>
