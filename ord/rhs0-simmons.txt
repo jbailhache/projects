@@ -1,0 +1,26 @@
+rhs0-simmons
+Rw...1 H suc 0
+= Rw...2 R1 H suc 0 = [w...0] Next w
+R2 (Rw...2 R1) H suc 0 = [0] ([w...0] Next) w
+R1 (Rw...1 H) suc 0
+R3 Rw...2 R1 H suc 0 = [1] [w...0] Next w
+Rw...2 R1 H Rw...2 R1 H suc 0
+
+[w...0] Next w                   = Rw...2 R1 H suc 0 = Rw...1 H suc 0         
+[w...0] Next ([w...0] Next w)    = Rw...2 R1 (Rw...2 R1 H) suc 0
+= ([w...0] Next)^2 w
+Fix [[w...0] Next)^* w] w
+= [0] ([w...0] Next) w           = R2 (Rw...2 R1) H suc 0
+Fix [([0] ([w...0] Next))^* w] w
+= [0] ([0] ([w...0] Next)) w     = R2 (R2 (Rw...2 R1)) H suc 0
+= [0]^2 ([w...0] Next) w
+Fix [[0]^* ([w...0] Next) w] w
+= [1] [0] ([w...0] Next) w       = R3 R2 (Rw..2 R1) H suc 0
+[w...0] ([w...0] Next) w         = Rw...2 (Rw..2 R1) H suc 0 = Rw...2 Rw...1 H suc 0
+= [w...0]^2 Next w
+                                   H Rw...2 R1 H suc 0
+                                   R1 H Rw...2 R1 H suc 0
+                                   Rw...2 R1 H Rw...2 R1 H suc 0
+Fix [[w...0]^* Next w] w
+= [1] [w...0] Next w             = R3 Rw...2 R1 H suc 0
+
