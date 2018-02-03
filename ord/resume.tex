@@ -92,38 +92,38 @@ Exemples :
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
-Nom		& Symbole		& RHS0		& Algébrique			& Veblen			& Simmons			& Madore				& Taranovsky 			\\
+Nom		& Symbole		& Algébrique			& Veblen			& Simmons			& RHS0		& Madore				& Taranovsky 			\\
 \hline
-Zero		& 0			& 0			& 0				& 				& 				& 					& 0				\\ \hline
-Un		& 1			& suc 0			& 1				& \(\varphi(0,0)\)		& 				& 					& C(0,0)			\\ \hline
-Deux		& 2			& suc (suc 0)		& 2				& 				& 				& 					& C(0,C(0,0))			\\ \hline
-Omega		& \(\omega\)		& H suc 0		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& 					& C(1,0)			\\ \hline
-		& 			& suc (H suc 0)		& \(\omega+1\)			& 				& 				& 					& C(0,C(1,0))			\\ \hline
-		&			& H suc (H suc 0)	& \(\omega\times2\)		&				& 				& 					& C(1,C(1,0))			\\ \hline
-		&			& H (H suc) 0		& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& 					& C(C(0,C(0,0)),0)		\\ \hline
-		&			& H H suc 0		& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& 					& C(C(1,0),0)			\\ \hline
-		&			& H H H suc 0		& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				&					& C(C(C(1,0),0),0)		\\ \hline
-Epsilon zero	& \(\varepsilon_0\)	& \(R_1 H suc\ 0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
-		& 			& \(R_1 (R_1 H) suc\ 0\)& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& \(Next^2 \omega\)	& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
-		& 			& \(H R_1 H suc\ 0\)	& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	& \(Next^\omega \omega\) & \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
-		& 			& \(R_1 H R_1 H suc\ 0\)&\(\varepsilon_{\varepsilon_0}\)& \(\varphi(1,\varphi(1,0))\)	& \(Next^{Next \omega} \omega \) & \(\psi(\psi(0))\)			& \(C(C(C(\Omega_1,0),\Omega_1),0)\)\\ \hline
-Zeta zero	& \(\zeta_0\)		& \(R_2 R_1 H suc\ 0\)	& \(\zeta_0\)			& \(\varphi(2,0)\)		& \([0] Next\ \omega\)		& \(\psi(\Omega)\)			& \(C(C(\Omega_1,\Omega_1),0)\)	\\ \hline
-Eta zero	& \(\eta_0\)		& \(R_2 (R_2 R_1) H suc\ 0\)& \(\eta_0\)			& \(\varphi(3,0)\)		& \([0]^2 Next\ \omega\) 	&					& \(C(C(\Omega,C(\Omega,\Omega)),0)\) \\ \hline
-		&			& \(H R_2 R_1 H suc\ 0\)&			& \(\varphi(\omega,0)\)		& \([0]^\omega Next\ \omega\) &					& \(C(C(C(0,\Omega_1),\Omega_1),0)\) \\ \hline
+Zero		& 0			& 0				& 				& 				& 0			& 					& 0				\\ \hline
+Un		& 1			& 1				& \(\varphi(0,0)\)		& 				& suc 0			& 					& C(0,0)			\\ \hline
+Deux		& 2			& 2				& 				& 				& suc (suc 0)		& 					& C(0,C(0,0))			\\ \hline
+Omega		& \(\omega\)		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& H suc 0		& 					& C(1,0)			\\ \hline
+		& 			& \(\omega+1\)			& 				& 				& suc (H suc 0)		& 					& C(0,C(1,0))			\\ \hline
+		&			& \(\omega\times2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
+		&			& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& H (H suc) 0		& 					& C(C(0,C(0,0)),0)		\\ \hline
+		&			& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& H H suc 0		& 					& C(C(1,0),0)			\\ \hline
+		&			& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				& H H H suc 0		&					& C(C(C(1,0),0),0)		\\ \hline
+Epsilon zero	& \(\varepsilon_0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(R_1 H suc\ 0\)	& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
+		& 			& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& \(Next^2 \omega\)	& \(R_1 (R_1 H) suc\ 0\)& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
+		& 			& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	& \(Next^\omega \omega\) & \(H R_1 H suc\ 0\)	& \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
+		& 			&\(\varepsilon_{\varepsilon_0}\)& \(\varphi(1,\varphi(1,0))\)	& \(Next^{Next \omega} \omega \) & \(R_1 H R_1 H suc\ 0\)& \(\psi(\psi(0))\)			& \(C(C(C(\Omega_1,0),\Omega_1),0)\)\\ \hline
+Zeta zero	& \(\zeta_0\)		& \(\zeta_0\)			& \(\varphi(2,0)\)		& \([0] Next\ \omega\)		& \(R_2 R_1 H suc\ 0\)	& \(\psi(\Omega)\)			& \(C(C(\Omega_1,\Omega_1),0)\)	\\ \hline
+Eta zero	& \(\eta_0\)		& \(\eta_0\)			& \(\varphi(3,0)\)		& \([0]^2 Next\ \omega\) 	& \(R_2 (R_2 R_1) H suc\ 0\)&					& \(C(C(\Omega,C(\Omega,\Omega)),0)\) \\ \hline
+		&			&			& \(\varphi(\omega,0)\)		& \([0]^\omega Next\ \omega\) & \(H R_2 R_1 H suc\ 0\)&					& \(C(C(C(0,\Omega_1),\Omega_1),0)\) \\ \hline
 Feferman	& \(\Gamma_0\)		& \(R_3 R_2 R_1 H suc\ 0\)
 								& \(\Gamma_0\)			& \(\varphi(1,0,0)\)		& \([1] [0] Next\ \omega\)	& \(\psi(\Omega^\Omega)\)		& \(C(C(C(\Omega_1,\Omega_1),\) \\ 
--Schütte	&			& \(= R_{3 \ldots 1} H suc\ 0\) &				& \(=\varphi(2 \mapsto 1)\)	&				& 					& \(\Omega_1),0)\)		\\ \hline
-Ackermann	&			& \(R_3 (R_3 R_2) R_1 H suc\ 0\) &				& \(\varphi(1,0,0,0)\)		& \([1]^2 [0] Next\ \omega\) & \(\psi(\Omega^{\Omega^2})\)		&				\\ 
-		&			&			&				& \(=\varphi(3 \mapsto 1)\)	&				&					&				\\ \hline
-Small Veblen	&			& \(H R_3 R_2 R_1 H suc\ 0\) &				& \(\varphi(\omega \mapsto 1)\)	& \([1]^\omega [0] Next\ \omega\) & \(\psi(\Omega^{\Omega^\omega})\)	& \(C(\Omega_1^\omega,0)\)	\\
-ordinal		&			&			&				&				&				&					& \(=C(C(C(C(0,\Omega_1), \)	\\ 
-		&			&			&				&				&				&					& \(\Omega_1),\Omega_1),0)\)	\\ \hline
-Large Veblen	&			& \(R_4 R_3 R_2 R_1 H suc\ 0\) &				& + petit ord.	 	 	& \([2] [1] [0] Next\ \omega\)	& \(\psi(\Omega^{\Omega^\Omega})\)	& \(C(\Omega_1^{\Omega_1},0)\)	\\
-ordinal		&			& \(= R_{4 \ldots 1} H suc\ 0\) &				& non rep.			&				&					& \(=C(C(C(C(\Omega_1,\Omega_1),\) \\ 
-		&			&			&				&				&				&					& \( \Omega_1),\Omega_1),0) \)	\\ \hline
-Bachmann-	&			& \(R_{\omega \ldots 1} H suc\ 0\) &				&				& + petit ord.			& \(\psi(\varepsilon_{\Omega+1})\)	& \(C(C(\Omega_2,\Omega_1),0)\)	\\
-Howard		&			&			&				&				& non rep.			&					&				\\ 
-ordinal		&			&			&				&				&				&					&				\\ \hline
+-Schütte	&			&				& \(=\varphi(2 \mapsto 1)\)	&				& \(= R_{3 \ldots 1} H suc\ 0\) & 					& \(\Omega_1),0)\)		\\ \hline
+Ackermann	&			&				& \(\varphi(1,0,0,0)\)		& \([1]^2 [0] Next\ \omega\) & \(R_3 (R_3 R_2) R_1 H suc\ 0\) & \(\psi(\Omega^{\Omega^2})\)		&				\\ 
+		&			&				& \(=\varphi(3 \mapsto 1)\)	&				&			&					&				\\ \hline
+Small Veblen	&			&				& \(\varphi(\omega \mapsto 1)\)	& \([1]^\omega [0] Next\ \omega\) & \(H R_3 R_2 R_1 H suc\ 0\) & \(\psi(\Omega^{\Omega^\omega})\)	& \(C(\Omega_1^\omega,0)\)	\\
+ordinal		&			&				&				&				&			&					& \(=C(C(C(C(0,\Omega_1), \)	\\ 
+		&			&				&				&				&			&					& \(\Omega_1),\Omega_1),0)\)	\\ \hline
+Large Veblen	&			&				& + petit ord.	 	 	& \([2] [1] [0] Next\ \omega\)	& \(R_4 R_3 R_2 R_1 H suc\ 0\) & \(\psi(\Omega^{\Omega^\Omega})\)	& \(C(\Omega_1^{\Omega_1},0)\)	\\
+ordinal		&			&				& non rep.			&				& \(= R_{4 \ldots 1} H suc\ 0\) &					& \(=C(C(C(C(\Omega_1,\Omega_1),\) \\ 
+		&			&				&				&				&			&					& \( \Omega_1),\Omega_1),0) \)	\\ \hline
+Bachmann-	&			&				&				& + petit ord.			& \(R_{\omega \ldots 1} H suc\ 0\) & \(\psi(\varepsilon_{\Omega+1})\)	& \(C(C(\Omega_2,\Omega_1),0)\)	\\
+Howard		&			&				&				& non rep.			&			&					&				\\ 
+ordinal		&			&				&				&				&			&					&				\\ \hline
   
 \end{tabular}
 
