@@ -19,6 +19,9 @@ by Jacques Bailhache, January-february 2018
 
 Natural numbers can be represented by sets. Each number is represented by the set of all numbers smaller than it.
 \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 \item \( 0 = \lbrace\rbrace \) (the empty set)
 \item \( 1 = \lbrace 0 \rbrace = \lbrace\lbrace\rbrace\rbrace \)
 \item \( 2 = \lbrace 0, 1 \rbrace = \lbrace\lbrace\rbrace,\lbrace\lbrace\rbrace\rbrace\rbrace \)
@@ -46,13 +49,21 @@ Then we can go on building greater and greater ordinals : \( \omega \cdot 3, \ld
 The definitions of arithmetical operations can be generalized to ordinals :
 
 \begin{itemize}
-
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
 \vspace{-0.1cm}
-\item multiplication : \( \alpha \cdot 0 = \alpha ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
+\item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
 \vspace{-0.1cm}
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
+
+\section{Veblen functions}
+
+The next step is the limit or least upper bound of \( \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \) which is called \( \epsilon_0 \).
+
+
 
 \section{Summary}
 
@@ -71,7 +82,7 @@ We define the following operations on ordinals :
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
 \vspace{-0.1cm}
-\item multiplication : \( \alpha \times 0 = \alpha ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
+\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
 \vspace{-0.1cm}
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
