@@ -1,0 +1,37 @@
+The ordinal numbers start with ordinary natural numbers 0, 1, 2, 3, ... which are followed by w which represents the "simple" infinity. Then the transfinite ordinals go further with w+1, w+2, w+3, ... w+w = w*2, w*2+1, ..., w*3, ... w*w = w^2, ..., w^3, ... w^w, ... w^(w^w), ..., epsilon 0.
+epsilon 0 is the least fixed point of the function a -> w^a, which means the least ordinal such as a = w^a. It is the limit of the sequence 0, w^0, w^(w^0), ...
+Then we can go further by searching for the next fixed points of this function. The next one can be obtained by iterating application of function a -> w^a starting with an ordinal which is certainly greater than epsilon 0, for example epsilon 0 + 1. We get the second fixed point called epsilon 1 which is the limit of epsilon 0 + 1, w^(epsilon 0 + 1), w^(w^(epsilon 0 + 1)), ...
+We can go on the same way to obtain epsilon 2, epsilon 3, ...
+We can consider epsilon as a function a -> epsilon a and say that this function enumerates the fixed points of the function a -> w^a.
+Then epsilon w can be defined as the limit of epsilon 0, epsilon 1, epsilon 2, ...
+And we can go on with epsilon (omega+1), ..., epsilon (epsilon 0), ... zeta 0.
+zeta 0 is the least fixed point of the function epsilon.
+Like for epsilon, the function zeta (a -> zeta a) enumerates the fixed points of the function epsilon.
+Then there is the function eta which enumerates the fixed points of zeta.
+We could go on using successive greek letters, but it is better to number these functions, defining :
+phi0(a) = omega^a
+phi1(a) = epsilon a
+phi2(a) = zeta a
+phi3(a) = eta a
+and so on.
+We can also consider a function phi of two variables (called the binary Veblen function) :
+phi(0,a) = omega^a
+phi(1,a) = epsilon a
+phi(2,a) = zeta a
+phi(3,a) = eta a
+and so on.
+The least ordinal which cannot be obtained with this binary Veblen function is the least fixed point of a -> phi(a,0) which is called Gamma 0. It can still be represented with the phi function if we add a variable to it : Gamma 0 = phi(1,0,0).
+We can generalize it with any number of variables : phi(1,0,0,0), ...
+An other way to represent an application of the phi function to some ordinals is to indicate the position of the variable (from 0 for the last one) and the corresponding value, only for those which are different from 0, for example :
+phi(1,0,5,4) = phi (3:0, 1:5, 0:4)
+With this notation it is possible to write easily expressions which would be difficult to write with the complete list of variables, for example phi(1000:1) = phi(1,0,...,0) with 1000 0s.
+And even phi(w:1) which can be defined as the limit of phi(0:1) = phi(0,1), phi(1:1) = phi(1,0), phi(2,1) = phi(1,0,0), ... This ordinal is called the small Veblen ordinal.
+The smallest ordinal which cannot be represented with this notation is called the large Veblen ordinal. It is the least fixed point of the function a -> phi(a:1), the limit of 0, phi(0:1) = phi(0,1) = w^1 = w, phi(phi(0:1):1) = phi(w:1), phi(phi(phi(0:1):1):1), ...
+
+References :
+ - Veblen function on Wikipedia : https://en.wikipedia.org/wiki/Veblen_function
+ - The fast growing hierarchy : https://sites.google.com/site/largenumbers/home/4-2/fgh_gamma0 
+ - Larger countable ordinals : http://quibb.blogspot.fr/2012/03/infinity-larger-countable-ordinals.html
+ - Veblen's article : http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-1500814-9/S0002-9947-1908-1500814-9.pdf
+ - Notations for transfinite ordinals : http://log.chez.com/text/logic/transfinite-notations.htm 
+
