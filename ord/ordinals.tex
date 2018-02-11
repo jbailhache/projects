@@ -235,16 +235,17 @@ Here is an Agda implementation of this notation :
 
     (2) phi(0,an-1,...,a0)=phi(an-1,...,a0), and
 
-    (3) for a>0, c->phi(an,...,ai+1,a,0,...,0,c) is the function enumerating the common fixed points of the functions 
-        x->phi(an,...,ai+1,b,x,0,...,0) for all b<a.
+    (3) for a>0, c->phi(an,...,ai+1,a,0,...,0,c) is the function enumerating the common fixed points of the
+        functions x->phi(an,...,ai+1,b,x,0,...,0) for all b<a.
 
-    (4) Let a be a transfinite sequence of ordinals (i.e., an ordinal function with finite support) which ends in zero 
-        (i.e., such that a0=0), and let a[0->c] denote the same function where the final 0 has been replaced by c. 
-        Then c->phi(a[0->c]) is defined as the function enumerating the common fixed points of all functions x->phi(b)      
-        where b ranges over all sequences which are obtained by decreasing the smallest-indexed nonzero value of a 
-        and replacing some smaller-indexed value with the indeterminate x (i.e., b=a[i0->z,i->x] meaning that 
-        for the smallest index i0 such that ai0 is nonzero the latter has been replaced by some value z<ai0 
-        and that for some smaller index i<i0, the value ai=0 has been replaced with x).
+    (4) Let a be a transfinite sequence of ordinals (i.e., an ordinal function with finite support) which ends in 
+        zero  (i.e., such that a0=0), and let a[0->c] denote the same function where the final 0 has been replaced 
+        by c. 
+        Then c->phi(a[0->c]) is defined as the function enumerating the common fixed points of all functions 
+        x->phi(b) where b ranges over all sequences which are obtained by decreasing the smallest-indexed nonzero 
+        value of a  and replacing some smaller-indexed value with the indeterminate x (i.e., b=a[i0->z,i->x] 
+        meaning that for the smallest index i0 such that ai0 is nonzero the latter has been replaced by some value 
+        z<ai0 and that for some smaller index i<i0, the value ai=0 has been replaced with x).
 
 -}
 
