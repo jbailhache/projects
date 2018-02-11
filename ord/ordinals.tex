@@ -75,14 +75,25 @@ These two fundamental sequences are examples of two ways of ascending ordinals :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item Build greater ordinals by combining known ordinals with arithmetic operations.
-\item When we have found a function that, when applied to a given ordinal, gives a greater one (for example \( \alpha \mapsto \omega^\alpha \)), enumerate the fixed points of this function. A fixed point of a function f is a value (for example an ordinal) \( \alpha \) with \( f(\alpha) = \alpha \). Under some conditions, the least fixed point of f is the limit of 0, f(0), f(f(0)), f(f(f(0))), ... If it is called \( \alpha \), the next fixed point is the limit of \( \alpha+1, f(\alpha+1), f(f(\alpha+1)), f(f(f(\alpha+1))), \ldots \).
+\item When we have found a function that, when applied to a given ordinal, gives a greater one (for example \( \alpha \mapsto \omega^\alpha \)), enumerate the fixed points of this function. A fixed point of a function f is a value (for example an ordinal) \( \alpha \) with \( f(\alpha) = \alpha \). Under some conditions (see below), the least fixed point of f is the limit of 0, f(0), f(f(0)), f(f(f(0))), ... If it is called \( \alpha \), the next fixed point is the limit of \( \alpha+1, f(\alpha+1), f(f(\alpha+1)), f(f(f(\alpha+1))), \ldots \).
 More generally, the least fixed point of f that is greater or equal to \( \zeta \) is the limit of \( \zeta, f(\zeta), f(f(\zeta)), \ldots\).
 The Veblen functions use this method.
 
 \end{itemize}
 
+The required conditions are described for example in http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/Fruitful.pdf page 8 lemma 3.9 : 
 
-Proof by induction : 
+For each fruitful function f and each ordinal \( \zeta, f^\omega(\zeta+1) \) is the least ordinal \( \nu \) such that \( \zeta < \nu = f(\nu) \), or the least fixed point of f that is strictly greater than \( \zeta \) (or greater than or equal to \( \zeta+1 \)). 
+
+\( f^\omega(\zeta+1) \) is the limit of \( \zeta+1, f(\zeta+1), f(f(\zeta+1)), \ldots \). 
+
+A fruitful function is a function that is inflationary, monotone, big, and continuous.
+
+A function f is inflationary if \( \alpha \leq f(\alpha) \), monotone if \( \alpha \leq \beta \Rightarrow f(\alpha) \leq f(\beta) \), big if \( \omega^\alpha \leq f(\alpha) \) except possibly for \( \alpha = 0 \), continuous if f(VA) = Vf[A] where VA is the pointwise supremum of the set A.
+
+\bigskip
+
+We will now prove by induction the equivalence of the two fundamental sequences above.
 
 We will use the notation \( \alpha^{\vdots^{\alpha^\beta}} \) for an an "exponential tower" with \( \alpha \) repeated n times. 
 
