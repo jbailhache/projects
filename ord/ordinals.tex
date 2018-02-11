@@ -3,6 +3,7 @@
 \usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 \begin{document}
 
 \setlength{\parindent}{0pt}
@@ -206,8 +207,17 @@ For limit ordinals \(\alpha<SVO\), written in normal form for the finitary Veble
 
 \end{itemize}
 
+The Veblen function can be generalized to transfinitely many variables. Instead of writing the list of all the variable of the Veblen function, we can write only the non zero variables with position as indice, for example \( \varphi(\alpha,0,\beta,\gamma) = \varphi(\alpha_3,\beta_1,\gamma_0) \). We can then generalize the Veblen function by allowing any ordinal as indices, writing for example \( SVO = \varphi(1_\omega) \). 
 
+Schütte brackets or Klammersymbols are another way to write Veblen fuctions with transfinitely many variables. A Schütte bracket consists in a matrix with two lines, with the positions of the variables in the second line in increasing order, and the corresponding values in the first line. This matrix is preceded by the function  \( \xi  \mapsto \varphi(\xi) \). If we take \( \xi \mapsto \omega^\xi \), we get the equivalent of the Veblen function. With this notation, the previous example is written : 
 
+\[
+( \xi \mapsto \omega^\xi ) 
+  \begin{pmatrix}
+    \gamma & \beta & \alpha \\
+    0 & 1 & 3
+  \end{pmatrix}
+\]
 
 
 \section{Summary}
