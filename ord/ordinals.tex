@@ -410,6 +410,12 @@ More generally, \( \varphi(1+\beta,\alpha) = ([0]^\beta Next)^{1+\alpha} 0 \) or
 
 \( \Gamma_0 = \varphi(1,0,0) \) is the least fixed point (greater than 0) of the function \( \alpha \mapsto \varphi(\alpha,0) \) or \( \alpha \mapsto \varphi(1+\alpha,0) \) (for the same reason of "absorbsion" of "1+" than previously), so \( \Gamma_0 = Fix (\alpha \mapsto \varphi(1+\alpha,0) 0 = Fix (\alpha \mapsto ([0]^\alpha Next)^(1+0) 0) 0 = Fix (\alpha \mapsto [0]^\alpha Next\ 0) 0 = [1] [0] Next\ 0 \).
 
+\( \Gamma_1 = \varphi(1,0,1) \) is the next fixed point : \( \Gamma_1 = Fix (\alpha \mapsto [0]^\alpha Next\ 0) \Gamma_0 = [1] [0] Next\ \Gamma_0 = [1] [0] Next\ ([1] [0] Next\ 0) = ([1] [0] Next)^2 0 \).
+
+More generally, we have \( \varphi(1,0,\alpha) = ([1] [0] Next)^{1+\alpha} 0 \).
+
+
+
 With similar computations it can be shown that \( \varphi(\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega, \varphi(\delta,\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} 0 \) and so on, the limit being the small Veblen ordinal which is \( [1]^\omega [0] Next\ 0 \) or \( [1]^\omega [0] Next\ \omega \).
 
 Allowing variables at any finite or transfinite positions gives ordinals smaller than the large Veblen ordinal which is \( [2] [1] [0] Next\ 0 \) or \( [2] [1] [0] Next\ \omega \). 
@@ -436,6 +442,85 @@ phi(c,b,a) = ([0]^b (([1] [0])^c Next))^(1+a) 0
 phi(d,c,b,a) = ([0]^b (([1] [0])^c (([1]^2 [0])^d Next)))^(1+a) 0
 Small Veblen ordinal = [1]^w [0] Next 0
 Large Veblen ordinal = [2] [1] [0] Next 0 = [2] [1] [0] Next w
+
+
+Fix f z = f^w (z+1) = H f (suc z)
+Next = Fix [w^*]
+epsilon_a = phi(1,a) = Next^(1+a) 0
+[0] h = Fix [h^* 0]
+zeta0 = phi(2,0) = least fixed point of [epsilon_*] = Fix [epsilon_*] 0 = Fix [Next^(1+*) 0] 0 = Fix [Next^* 0] 0 = [0] Next 0
+Fix [Next^* 0] 0 = lim 1, Next 0 = epsilon0, Next^epsilon0 0 =Next^(1+epsilon0) 0 = epsilon_epsilon0, ... = epsilon_..._epsilon0 = zeta0
+Fix [Next^(1+*) 0] 0 = lim 1, Next^2 0 = Next (Next 0) = epsilon1, ... epsilon_..._epsilon1 = zeta0 
+zeta1 = phi(2,1) = second fixed point of [epsilon_*] = Fix [epsilon_*] (zeta0 + 1) = Fix [Next^(1+*) 0] ([0] Next 0) = Fix [Next^* 0] ([0] Next 0)
+ = [0] Next ([0] Next 0)
+zeta_a = phi(2,a) = ([0] Next)^(1+a) 0
+eta0 = phi(3,0) = least fixed point of [zeta_*] = Fix [zeta_*] 0 = Fix [([0] Next)^(1+*) 0] 0 = Fix [([0] Next)^* 0] 0 = [0] ([0] Next) 0 = [0]^2 Next 0
+eta1 = phi(3,1) = next fixed point = Fix [zeta_*] ([0]^2 Next 0) = Fix [([0] Next)^(1+*) 0] ([0]^2 Next 0) = Fix [([0] Next)^* 0] ([0]^2 Next 0)
+ = [0] ([0] Next) ([0]^2 Next 0) = [0]^2 Next ([0]^2 Next 0) = ([0]^2 Next)^2 0
+eta_a = phi(3,a) = ([0]^2 Next)^(1+a) 0
+
+phi(1,a) = Next^(1+a) 0
+phi(2,a) = ([0] Next)^(1+a) 0
+phi(3,a) = ([0]^2 Next)^(1+a) 0
+phi(1+b,a) = ([0]^b Next)^(1+a) 0
+
+Gamma0 = phi(1,0,0) = least fixed point of [phi(*,0)] = least fixed point of [phi(1+*,0)] 
+ = Fix [phi(1+*,0)] 0
+ = Fix [[0]^* Next 0] 0
+ = [1] [0] Next 0
+with [1] h g = Fix [h^* g 0]
+phi(1,0,1) = next fixed point = Fix [[0]^* Next 0] ([1] [0] Next 0) = [1] [0] Next ([1] [0] Next 0) = ([1] [0] Next)^2 0
+phi(1,0,a) = ([1] [0] Next)^(1+a) 0
+phi(1,1,0) = least fixed point of [phi(1,0,*)] = Fix [phi(1,0,*)] 0 = Fix [([1] [0] Next)^(1+*) 0] 0 = Fix [([1] [0] Next)^* 0] 0 = [0] ([1] [0] Next) 0
+phi(1,1,1) = next fixed point = Fix [([1] [0] Next)^* 0] ([0] ([1] [0] Next) 0) = [0] ([1] [0] Next) ([0] ([1] [0] Next) 0) = ([0] ([1] [0] Next))^2 0
+phi(1,1,a) = ([0] ([1] [0] Next))^(1+a) 0
+phi(1,2,0) = least fixed point of [phi(1,1,*)] = Fix [([0] ([1] [0] Next))^(1+*) 0] 0 = Fix [([0] ([1] [0] Next))^* 0] 0 = [0] ([0] ([1] [0] Next)) 0 
+ = [0]^2 ([1] [0] Next) 0
+phi(1,2,1) = next fixed point ...
+phi(1,2,a) = ([0]^2 ([1] [0] Next))^(1+a) 0
+
+phi(1,0,a) = ([1] [0] Next)^(1+a) 0
+phi(1,1,a) = ([0] ([1] [0] Next))^(1+a) 0
+phi(1,2,a) = ([0]^2 ([1] [0] Next))^(1+a) 0
+phi(1,b,a) = ([0]^b ([1] [0] Next))^(1+a) 0
+
+phi(2,0,0) = least fixed point of [phi(1,*,0)] = Fix [phi(1,*,0)] 0 = Fix [[0]^* ([1] [0] Next) 0] 0 = [1] [0] ([1] [0] Next) 0) = ([1] [0])^2 Next 0
+phi(2,0,a) = (([1] [0])^2 Next)^(1+a) 0
+phi(2,1,0) = least fixed point of [phi(2,1,*)] = Fix [phi(2,1,*)] 0 = Fix [(([1] [0])^2 Next)^* 0] 0 = [0] (([1] [0])^2 Next) 0
+phi(2,1,a) = ([0] (([1] [0])^2 Next))^(1+a) 0
+phi(2,b,a) = ([0]^b (([1] [0])^2 Next))^(1+a) 0
+phi(c,b,a) = ([0]^b (([1] [0])^c Next))^(1+a) 0
+
+phi(1,0,0,0) = least fixed point of [phi(*,0,0)] = Fix [phi(*,0,0)] 0 = Fix [([1] [0])^* Next 0] 0 = [1] ([1] [0]) Next 0 = [1]^2 [0] Next 0
+phi(1,0,0,a) = ([1]^2 [0] Next)^(1+a) 0
+phi(1,0,1,0) = Fix [([1]^2 [0] Next)^* 0] 0 = [0] ([1]^2 [0]) 0
+phi (1,0,1,a) = ([0] ([1]^2 [0] Next))^(1+a) 0
+phi(1,0,b,a) = ([0]^b ([1]^2 [0] Next))^(1+a) 0
+phi(1,1,0,0) = Fix [phi(1,0,*,0)] 0 = Fix [[0]^* ([1]^2 [0] Next) 0] 0 = [1] [0] ([1]^2 [0] Next) 0
+phi(1,1,0,a) = ([1] [0] ([1]^2 [0] Next))^(1+a) 0
+phi(1,1,1,0) = Fix [phi(1,1,0,*)] 0 = Fix [([1] [0] ([1]^2 [0] Next))^* 0] 0 = [0] ([1] [0] ([1]^2 [0] Next)) 0
+phi(1,1,1,a) = ([0] ([1] [0] ([1]^2 [0] next)))^(1+a) 0
+phi(1,1,b,a) = ([0]^b ([1] [0] ([1]^2 [0] Next)))^(1+a) 0
+phi(1,2,0,0) = Fix [phi(1,1,*,0)] 0 = Fix [[0]^* ([1] [0] ([1]^2 [0] next)) 0] 0 = [1] [0] ([1] [0] ([1]^2 [0] Next)) 0 = ([1] [0])^2 ([1]^2 [0] Next) 0
+
+phi(1,0,0,0) = [1]^2 [0] Next 0
+phi(1,1,0,0) = [1] [0] ([1]^2 [0] Next) 0
+phi(1,2,0,0) = ([1] [0])^2 ([1]^2 [0] Next) 0
+phi(1,c,0,0) = ([1] [0])^c ([1]^2 [0] Next) 0
+phi(1,c,b,a) = ([0]^b (([1] [0])^c ([1]^2 [0] Next)))^(1+a) 0
+phi(2,0,0,0) = Fix [phi(1,*,0,0)] 0 = Fix [([1] [0])^* ([1]^2 [0] Next) 0] 0 = [1] ([1] [0]) ([1]^2 [0] Next) 0 = [1]^2 [0] ([1]^2 [0] Next) 0 = ([1]^2 [0])^2 Next 0
+phi(d,0,0,0) = ([1]^2 [0])^d Next 0
+phi(d,c,b,a) = ([0]^b (([1] [0])^c (([1]^2 [0])^d Next)))^(1+a) 0 = (([1]^0 [0])^b (([1]^1 [0])^c (([1]^2 [0])^d Next)))^(1+a) 0
+
+phi(1,0) = Next 0
+phi(1,0,0) = [1] [0] Next 0
+phi(1,0,0,0) = [1]^2 [0] Next 0
+...
+SVO = [1]^w [0] Next 0
+LVO = [2] [1] [0] Next 0 = [2...0] Next 0
+BHO = [w...0] Next 0
+[1] [w..0] Next 0 = [w+1...0] Next 0
+Fix [[*...0] Next 0] 0
 
 \end{verbatim}
 
