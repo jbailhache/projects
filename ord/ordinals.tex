@@ -54,9 +54,9 @@ The definitions of arithmetical operations can be generalized to ordinals :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
-\vspace{-0.1cm}
+
 \item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
-\vspace{-0.1cm}
+
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
 
@@ -66,7 +66,7 @@ Remark that the addition and the multiplication are not commutative, for example
 
 The next step is the limit or least upper bound of \( \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \) which is called \( \varepsilon_0 \). Note that we have \( \omega^{\varepsilon_0} = \varepsilon_0 \). We say that \( \varepsilon_0 \) is a fixed point (the least one) of the function \( \alpha \mapsto \omega^\alpha \).
 
-Then we can go on with \( \varepsilon_0+1, \varepsilon_0+2, \ldots, \varepsilon_0+\varepsilon_0 = \varepsilon_0 \cdot 2, \ldots, \varepsilon_0 \cdot \varepsilon_0 = \varepsilon_0^2, \varepsilon_0^{\varepsilon_0}, ...\)
+Then we can go on with \( \varepsilon_0+1, \varepsilon_0+2, \ldots, \varepsilon_0+\varepsilon_0 = \varepsilon_0 \cdot 2, \ldots, \varepsilon_0 \cdot \varepsilon_0 = {\varepsilon_0}^2, \varepsilon_0^{\varepsilon_0}, ...\)
 
 The limit of \( \varepsilon_0, \varepsilon_0^{\varepsilon_0}, \varepsilon_0^{\varepsilon_0^{\varepsilon_0}}, \ldots \) is called \( \varepsilon_1 \). It can be shown that it is also the limit of \( \varepsilon_0+1, \omega^{\varepsilon_0+1}, \omega^{\omega^{\varepsilon_0+1}}, \ldots \) (see proof below).
 
@@ -140,7 +140,8 @@ We could go on using successively different greek letters, or define a function 
 
 \end{itemize}
 
-Then we can enumerate the fixed points of the function \( \alpha \mapsto \varphi(\alpha,0) \) and define \( \varphi(1,0,\xi) \) as the \( (1+\xi) \) th fixed point of this function.
+Then we can enumerate the fixed points of the function \( \alpha \mapsto \varphi(\alpha,0) \) and define \( \Gamma_\alpha \) as the \( (1+\alpha) \)-th fixed point of this function, or add another variable to the \( \varphi \) function 
+and define \( \varphi(1,0,\alpha) \) as the \( (1+\alpha) \)-th fixed point of this function. So we have \( \Gamma_\alpha = \varphi(1,0,\alpha) \).
 
 More generally, we can define \( \varphi(\alpha_n, \alpha_{n-1}, \ldots, \alpha_1, \alpha_0) \). 
 
@@ -209,7 +210,11 @@ For limit ordinals \(\alpha<SVO\), written in normal form for the finitary Veble
 
 The Veblen function can be generalized to transfinitely many variables with a finite number different from 0. Instead of writing the list of all the variable of the Veblen function, we can write only the non zero variables with position as indice, for example \( \varphi(\alpha,0,\beta,\gamma) = \varphi(\alpha_3,\beta_1,\gamma_0) \). We can then generalize the Veblen function by allowing any ordinal as indices, writing for example \( SVO = \varphi(1_\omega) \). The limit of the ordinals that can be written with this notation is called the large Veblen ordinal (LVO).
 
+\bigskip
+
 According to Wikipedia, "The definition can be given as follows: let \(\alpha\) be a transfinite sequence of ordinals (i.e., an ordinal function with finite support) which ends in zero (i.e., such that \(\alpha_0\)=0), and let \(\alpha[0\mapsto\gamma]\) denote the same function where the final 0 has been replaced by \(\gamma\). Then \(\gamma\mapsto\varphi(\alpha[0\mapsto\gamma])\) is defined as the function enumerating the common fixed points of all functions \( \xi \mapsto \varphi(\beta) \) where \( \beta \) ranges over all sequences which are obtained by decreasing the smallest-indexed nonzero value of \( \alpha \) and replacing some smaller-indexed value with the indeterminate \( \xi \) (i.e., \( \beta = \alpha [\iota_0 \mapsto \zeta, \iota \mapsto \xi ] \) meaning that for the smallest index \( \iota_0 \)  such that \( \alpha_{\iota_0} \)  is nonzero the latter has been replaced by some value \( \zeta < \alpha_{\iota_0} \)  and that for some smaller index \( \iota < \iota_0 \) , the value \( \alpha_\iota = 0 \) has been replaced with \( \xi \) )."
+
+\bigskip
 
 Schütte brackets or Klammersymbols are another way to write Veblen fuctions with transfinitely many variables. A Schütte bracket consists in a matrix with two lines, with the positions of the variables in the second line in increasing order, and the corresponding values in the first line. This matrix is preceded by the function  \( \xi  \mapsto \varphi(\xi) \). If we take \( \xi \mapsto \omega^\xi \), we get the equivalent of the Veblen function. With this notation, the previous example is written : 
 
@@ -220,6 +225,17 @@ Schütte brackets or Klammersymbols are another way to write Veblen fuctions wit
     0 & 1 & 3
   \end{pmatrix}
 \]
+
+When the function at the left of the matrix is \( \xi \mapsto \omega^\xi \), it is sometimes omitted. Example :
+
+\[
+  \begin{pmatrix}
+    \gamma & \beta & \alpha \\
+    0 & 1 & 3
+  \end{pmatrix}
+\]
+
+The corresponding fundamental sequences can be found in https://sites.google.com/site/travelingtotheinfinity/fundamental-sequences-for-extended-veblen-function .
 
 Here is an Agda implementation of this notation :
 
@@ -367,7 +383,65 @@ He uses tho notation \( x \mapsto y \) to represent the function which, when app
 
 ... and so on ...
 
-\bigskip
+
+\subsection{Correspondence with Veblen functions}
+
+\( \varepsilon_0 \) is the next \( \varepsilon_\alpha \) after 0 (or after \( \omega \), or after any ordinal less than \( \varepsilon_0 \), so we have \( \varepsilon_0 = Next\ 0 = Next\ \omega \).
+
+\( \varepsilon_1 \) is the next \( \varepsilon_\alpha \) after \( \varepsilon_0 \), so we have \( \varepsilon_1 = Next\ \varepsilon_0 = Next\ (Next\ 0) = Next^2 0 = Next\ (Next\ \omega) = Next^2 \omega \).
+
+\( \varepsilon_2 \) is the next \( \varepsilon_\alpha \) after \( \varepsilon_1 \), so we have \( \varepsilon_2 = Next\ \varepsilon_1 = Next\ (Next\ (Next\ 0)) = Next^3 0 = Next\ (Next\ (Next\ \omega)) = Next^3 \omega \).
+
+...
+
+\( \varepsilon_\omega \) is the limit of \( \varepsilon_0, \varepsilon_1, \varepsilon_2, \ldots \). It is the limit of \( Next^1 0, Next^2 0, Next^3 0, ... \) which is \( Next^\omega 0 \).
+
+More generally, we have \( \varepsilon_\alpha = \varphi(1,\alpha) = Next^{1+\alpha} 0 = Next^{1+\alpha} \omega \).
+
+\( \zeta_0 = \varphi(2,0) \) is the least fixed point of \( \alpha \mapsto \epsilon_\alpha \) (greater than 0), so \( \zeta_0 = Fix (\alpha \mapsto \epsilon_\alpha) 0 = Fix (\alpha \mapsto Next^{1+\alpha} 0) 0 = Fix (\alpha \mapsto Next^\alpha 0) 0 \) (because the "1+" is "absorbed" after a few iterations) \( = [0] Next\ 0 \). Since \( \zeta_0 \) is also greater than \( \omega \), it is also \( [0] Next\ \omega \) according to a similar computation. 
+
+\( \zeta_1 = \varphi(2,1) \) is the next fixed point of \( \alpha \mapsto \epsilon_\alpha \), the least one which is strictly greater than \( \zeta_0 \), so \( \zeta_1 = Fix (\alpha \mapsto \epsilon_\alpha) \zeta_0 = Fix (\alpha \mapsto Next^\alpha 0) \zeta_0 = [0] Next\ \zeta_0 = [0] Next ([0] Next\ 0) = ([0] Next)^2 0 \).
+
+More generally, \( \zeta_\alpha = ([0] Next)^{1+\alpha} 0 \).
+
+Similar computations give \( \eta_0 = \varphi(3,0) = [0]^2 Next\ 0 \) and \( \eta_\alpha = ([0]^2 Next)^{1+\alpha} 0 \).
+
+More generally, \( \varphi(1+\beta,\alpha) = ([0]^\beta Next)^{1+\alpha} 0 \) or \( ([0]^\beta Next)^{1+\alpha} \omega \).
+
+\( \Gamma_0 = \varphi(1,0,0) \) is the least fixed point (greater than 0) of the function \( \alpha \mapsto \varphi(\alpha,0) \) or \( \alpha \mapsto \varphi(1+\alpha,0) \) (for the same reason of "absorbsion" of "1+" than previously), so \( \Gamma_0 = Fix (\alpha \mapsto \varphi(1+\alpha,0) 0 = Fix (\alpha \mapsto ([0]^\alpha Next)^(1+0) 0) 0 = Fix (\alpha \mapsto [0]^\alpha Next\ 0) 0 = [1] [0] Next\ 0 \).
+
+With similar computations it can be shown that \( \varphi(\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega, \varphi(\delta,\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} 0 \) and so on, the limit being the small Veblen ordinal which is \( [1]^\omega [0] Next\ 0 \) or \( [1]^\omega [0] Next\ \omega \).
+
+Allowing variables at any finite or transfinite positions gives ordinals smaller than the large Veblen ordinal which is \( [2] [1] [0] Next\ 0 \) or \( [2] [1] [0] Next\ \omega \). 
+
+The limit of Next 0, [0] Next 0, [1] [0] Next 0, [2] [1] [0] Next 0, [3] [2] [1] [0] Next 0, ... is called the Bachmann-Howard ordinal (BHO). 
+
+
+
+
+\begin{verbatim}
+
+epsilon_a = phi(1,a) = Next^(1+a) 0 = Next^(1+a) w
+zeta_0 = phi(2,0) = least fixed point of (x -> epsilon_x) = Fix (x -> epsilon_x) 0 
+ = Fix (x -> Next^(1+x) 0] 0 = Fix (x -> Next^x 0) 0 = [0] Next 0
+Next fixed point : zeta_1 = phi(2,1) = Fix (x -> Next^x 0) ([0] Next 0) = [0] Next ([0] Next 0) = ([0] Next)^2 0
+zeta_a = phi(2,a) = ([0] Next)^(1+a) 0
+eta_0 = phi(3,0) = Fix (x -> zeta_x) 0 = Fix (x -> ([0] Next)^(1+x) 0) 0 = Fix (x -> ([0] Next)^x 0) 0 
+ = [0] ([0] Next) 0 = [0]^2 Next 0
+eta_a = phi(3,a) = ([0]^2 Next)^(1+a) 0
+phi(1+b,a) = ([0]^b Next)^(1+a) 0
+Gamma_0 = phi(1,0,0) = least fixed point of x -> phi(x,0) = Fix (x -> phi(x,0)) 0 = Fix (x -> [0]^x Next 0) 0 
+ = [1] [0] Next 0
+phi(c,b,a) = ([0]^b (([1] [0])^c Next))^(1+a) 0
+phi(d,c,b,a) = ([0]^b (([1] [0])^c (([1]^2 [0])^d Next)))^(1+a) 0
+Small Veblen ordinal = [1]^w [0] Next 0
+Large Veblen ordinal = [2] [1] [0] Next 0 = [2] [1] [0] Next w
+
+\end{verbatim}
+
+
+
+\subsection{Implementation}
 
 Here is an implementation of the Simmons hierarchy in Haskell :
 
