@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  15 FEB 2018 18:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  15 FEB 2018 23:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,37 +540,103 @@ http://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf
  []
 
 [12] [13]
-Overfull \hbox (9.18939pt too wide) in paragraph at lines 1105--1141
+Overfull \hbox (102.28429pt too wide) in paragraph at lines 1049--1050
+\OT1/cmr/m/n/10 This or-di-nal col-laps-ing func-tion is de-scribed in https://
+en.wikipedia.org/wiki/Ordinal[]collapsing[]function and http://quibb.blogspot.f
+r/2012/03/infinity-
+ []
+
+[14]
+Overfull \hbox (303.60298pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 There is a limit element d <= a such that for every c in S, 
+c has degree a' iff it has degree a and either c <= d or c is a limit of elemen
+ts of degree a (or both).[] 
+ []
+
+
+Overfull \hbox (1049.09648pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 Note: The third condition can be equivalently written as \fo
+rall a (Ca+1 = lim(Ca)  \vee  \exists d \in  lim(S) \cap (a+1) Ca+1 = lim(Ca)  
+\cup  (Ca \cap (d+1))), where S is identified with an ordinal (so a+1 consists 
+of ordinals <=a), Ca is the set of elements that have degree a, and lim is limi
+t points.[] 
+ []
+
+
+Overfull \hbox (487.35138pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 In other terms : Let  \eta  \eta  be an ordinal, and let 0S 
+and let Ld(a,b) be the statement that aa is a limit of ordinals c such that (c,
+b)\in D. Let D be the following binary relation over  \eta :[] 
+ []
+
+
+Overfull \hbox (41.10527pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 \forall b:\exists d\in Lim \cup  \eta :d<=b \Rightarrow \for
+all c:(c,a+1)\in D \Leftrightarrow (c<=d \vee Ld(c,b))[] 
+ []
+
+
+Overfull \hbox (954.5973pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 For ordinals in the standard representation written in the p
+ostfix form, the comparison is done in the lexicographical order where 'C' < '0
+' < ' \omega': For example, C(C(0,0),0) < C( \omega, 0) because 000CC < 0 \omeg
+aC. (This does not hold for non-standard representations of ordinals.)[] 
+ []
+
+
+Overfull \hbox (671.09978pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 The fundamental sequences of Taranovsky's notation can be ea
+sily defined.[3] Let L( \alpha ) be the amount of C's in standard representatio
+n of  \alpha , then  \alpha [n]=max{ \beta | \beta < \alpha  \wedge L( \beta )<
+=L( \alpha )+n}.[] 
+ []
+
+
+Overfull \hbox (14.8555pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 Here is a summary of the system by Taranovsky (see https://c
+s.nyu.edu/pipermail/fom/2012-March/016349.html) :[] 
+ []
+
+[15] [16]
+Overfull \hbox (219.60371pt too wide) in paragraph at lines 1269--1269
+[]\OT1/cmtt/m/n/10 See http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm 
+and https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ for more inf
+ormation.[] 
+ []
+
+[17]
+Overfull \hbox (9.18939pt too wide) in paragraph at lines 1351--1387
 [][] 
  []
 
-[14] [15] (./ordinals.aux) ) 
+[18] (./ordinals.aux) ) 
 Here is how much of TeX's memory you used:
- 1641 strings out of 495020
- 20093 string characters out of 6181324
- 100938 words of memory out of 5000000
- 4867 multiletter control sequences out of 15000+600000
- 7025 words of font info for 28 fonts, out of 8000000 for 9000
+ 1666 strings out of 495020
+ 20355 string characters out of 6181324
+ 98938 words of memory out of 5000000
+ 4884 multiletter control sequences out of 15000+600000
+ 11372 words of font info for 45 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,9n,24p,1082b,244s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-symbols/msbm10.pfb>
-Output written on ordinals.pdf (15 pages, 215689 bytes).
+ 27i,9n,24p,1082b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+tt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msb
+m10.pfb>
+Output written on ordinals.pdf (18 pages, 237856 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 77 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
