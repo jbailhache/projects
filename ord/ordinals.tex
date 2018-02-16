@@ -490,7 +490,35 @@ He also uses the notation \( \omega^\bullet \) for \( \alpha \mapsto \omega^\alp
 
 \bigskip
 
-Simmons defines the following functions :
+More precisely, Simmons gives the following definitions in http://www.cs.man.ac.uk/~hsimmons/TEMP/OrdNotes.pdf page 11 : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( g^0 \zeta = \zeta \)
+\item \( g^{\alpha+1} \zeta = g (g^\alpha \zeta) \)
+\item \( g^\lambda \zeta = V \lbrace g^\alpha \zeta | \alpha < \lambda \rbrace \) (if \( \lambda \) is a limit ordinal, where V denotes the poinwise supremum)
+\end{itemize}
+
+and the following equivalent definitions in http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/Fruitful.pdf page 4 :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( g^0 = id \)
+\item \( g^{\alpha+1} = g \circ g^\alpha \)
+\item \( g^\lambda = V \lbrace g^\alpha | \alpha < \lambda \rbrace \)
+\end{itemize}
+
+\bigskip
+
+and he generalizes these definitions to higher order functions.
+
+\bigskip
+
+Then Simmons defines the following functions :
 
 
 \( Fix\ f \zeta = f^\omega (\zeta+1) \) = limit of \( \zeta+1, f (\zeta+1), f (f (\zeta+1)), \ldots \) is the least fixed point of the function f which is strictly greater than \( \zeta \), which means the least ordinal \( \nu \) satisfying \( f\ \nu = \nu \) and \( \nu > \zeta \).
