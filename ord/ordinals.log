@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  15 FEB 2018 23:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  16 FEB 2018 19:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -410,91 +410,91 @@ tp://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/Fruitful.pdf
  []
 
 [2] [3]
-Overfull \hbox (4.35559pt too wide) in paragraph at lines 400--400
+Overfull \hbox (4.35559pt too wide) in paragraph at lines 402--402
 []    \OT1/cmtt/m/n/10 (3) for a>0, c->phi(an,...,ai+1,a,0,...,0,c) is the func
 tion enumerating the common fixed points of the[] 
  []
 
 
-Overfull \hbox (35.85532pt too wide) in paragraph at lines 400--400
+Overfull \hbox (35.85532pt too wide) in paragraph at lines 402--402
 []    \OT1/cmtt/m/n/10 (4) Let a be a transfinite sequence of ordinals (i.e., a
 n ordinal function with finite support) which ends in[] 
  []
 
 
-Overfull \hbox (41.10527pt too wide) in paragraph at lines 400--400
+Overfull \hbox (41.10527pt too wide) in paragraph at lines 402--402
 []        \OT1/cmtt/m/n/10 zero  (i.e., such that a0=0), and let a[0->c] denote
  the same function where the final 0 has been replaced[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 400--400
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 402--402
 []        \OT1/cmtt/m/n/10 Then c->phi(a[0->c]) is defined as the function enum
 erating the common fixed points of all functions[] 
  []
 
 
-Overfull \hbox (35.85532pt too wide) in paragraph at lines 400--400
+Overfull \hbox (35.85532pt too wide) in paragraph at lines 402--402
 []        \OT1/cmtt/m/n/10 x->phi(b) where b ranges over all sequences which ar
 e obtained by decreasing the smallest-indexed nonzero[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 400--400
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 402--402
 []        \OT1/cmtt/m/n/10 value of a  and replacing some smaller-indexed value
  with the indeterminate x (i.e., b=a[i0->z,i->x][] 
  []
 
 
-Overfull \hbox (41.10527pt too wide) in paragraph at lines 400--400
+Overfull \hbox (41.10527pt too wide) in paragraph at lines 402--402
 []        \OT1/cmtt/m/n/10 meaning that for the smallest index i0 such that ai0
  is nonzero the latter has been replaced by some value[] 
  []
 
 [4]
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 400--400
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 -- Usage : phi al, where al is the associative list of coup
 les index => value ordered by increasing values,[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 400--400
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 phi (Zero => a & Zero => b & al) = phi (Zero => a & al) -- 
 should not appear but necessary for completeness[] 
  []
 
 
-Overfull \hbox (20.10545pt too wide) in paragraph at lines 400--400
+Overfull \hbox (20.10545pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Suc k => Suc b & al) = fix (\x -> phi 
 (k => x & Suc k => b & al)) (Suc (phi (Zero => a &[] 
  []
 
-
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 400--400
+[5]
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Suc k => Lim f & al) = Lim (\n -> phi 
 (k => Suc (phi (Zero => a & Suc k => Lim f & al)) &[] 
  []
 
-[5]
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 400--400
+
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Lim f => Suc b & al) = Lim (\n -> phi 
 (f n => phi (Zero => a & Lim f => Suc b & al) & Lim[] 
  []
 
 
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 400--400
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 402--402
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Lim f => Lim g & al) = Lim (\n -> phi 
 (f n => phi (Zero => a & Lim f => Lim g & al) & Lim[] 
  []
 
 
-Overfull \hbox (109.35468pt too wide) in paragraph at lines 400--400
+Overfull \hbox (109.35468pt too wide) in paragraph at lines 402--402
 []\OT1/cmtt/m/n/10 Normally it should terminate because the parameter of phi le
 xicographically decreases, but Agda is not clever enough to see it,[] 
  []
 
-[6] [7] [8]
-Overfull \hbox (7.41852pt too wide) in paragraph at lines 642--643
+[6] [7] [8] [9]
+Overfull \hbox (7.41852pt too wide) in paragraph at lines 681--682
 []$\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML
 /cmm/m/it/10 ; \OT1/cmr/m/n/10 0)$ is the least fixed point (greater than 0) of
  the func-tion $\OML/cmm/m/it/10  \OMS/cmsy/m/n/10 7! \OML/cmm/m/it/10 '\OT1/c
@@ -505,8 +505,8 @@ ML/cmm/m/it/10 ; \OT1/cmr/m/n/10 ))0 = \OML/cmm/m/it/10 Fix\OT1/cmr/m/n/10 ([0
 ]([1][0]\OML/cmm/m/it/10 Next\OT1/cmr/m/n/10 )[]0)0 =
  []
 
-[9]
-Overfull \hbox (41.32146pt too wide) in paragraph at lines 666--667
+
+Overfull \hbox (41.32146pt too wide) in paragraph at lines 705--706
 []\OT1/cmr/m/n/10 All of these com-pu-ta-tions could be done with $\OML/cmm/m/i
 t/10 !$ \OT1/cmr/m/n/10 in-stead of 0 at the end of the for-mu-las so we also h
 ave $\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^M; ^^L; \OT1/cmr/m/
@@ -515,7 +515,7 @@ t/10 !$\OT1/cmr/m/n/10 .
  []
 
 
-Overfull \hbox (6.02142pt too wide) in paragraph at lines 688--689
+Overfull \hbox (6.02142pt too wide) in paragraph at lines 727--728
 []$\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML
 /cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0) = \OML/cm
 m/m/it/10 Fix\OT1/cmr/m/n/10 (\OML/cmm/m/it/10  \OMS/cmsy/m/n/10 7! \OML/cmm/m
@@ -526,117 +526,59 @@ next\OT1/cmr/m/n/10 ))0)0 = [1][0]([1][0]([1][][0]\OML/cmm/m/it/10 Next\OT1/cmr
 /m/n/10 ))0 = ([1][0])[]([1][][0]\OML/cmm/m/it/10 Next\OT1/cmr/m/n/10 )0$ 
  []
 
-
-Overfull \hbox (142.05629pt too wide) in paragraph at lines 725--726
+[10]
+Overfull \hbox (142.05629pt too wide) in paragraph at lines 764--765
 []\OT1/cmr/m/n/10 The con-ver-sion rule from Sch^^?utte Klam-mer-sym-bol to Sim
 -mons no-ta-tion are de-scribed by Sim-mons in his pa-per : http://www.cs.man.a
 c.uk/ hsimmons/ORDINAL-
  []
 
-[10] [11]
-Overfull \hbox (19.63939pt too wide) in paragraph at lines 859--860
+[11]
+Overfull \hbox (19.63939pt too wide) in paragraph at lines 898--899
 []\OT1/cmr/m/n/10 because [0] is ab-sorbed by the fol-low-ing op-er-a-tor (see 
 http://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf
  []
 
-[12] [13]
-Overfull \hbox (102.28429pt too wide) in paragraph at lines 1049--1050
+[12] [13] [14] [15] [16] [17]
+Overfull \hbox (102.28429pt too wide) in paragraph at lines 1335--1336
 \OT1/cmr/m/n/10 This or-di-nal col-laps-ing func-tion is de-scribed in https://
 en.wikipedia.org/wiki/Ordinal[]collapsing[]function and http://quibb.blogspot.f
 r/2012/03/infinity-
  []
 
-[14]
-Overfull \hbox (303.60298pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 There is a limit element d <= a such that for every c in S, 
-c has degree a' iff it has degree a and either c <= d or c is a limit of elemen
-ts of degree a (or both).[] 
- []
-
-
-Overfull \hbox (1049.09648pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 Note: The third condition can be equivalently written as \fo
-rall a (Ca+1 = lim(Ca)  \vee  \exists d \in  lim(S) \cap (a+1) Ca+1 = lim(Ca)  
-\cup  (Ca \cap (d+1))), where S is identified with an ordinal (so a+1 consists 
-of ordinals <=a), Ca is the set of elements that have degree a, and lim is limi
-t points.[] 
- []
-
-
-Overfull \hbox (487.35138pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 In other terms : Let  \eta  \eta  be an ordinal, and let 0S 
-and let Ld(a,b) be the statement that aa is a limit of ordinals c such that (c,
-b)\in D. Let D be the following binary relation over  \eta :[] 
- []
-
-
-Overfull \hbox (41.10527pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 \forall b:\exists d\in Lim \cup  \eta :d<=b \Rightarrow \for
-all c:(c,a+1)\in D \Leftrightarrow (c<=d \vee Ld(c,b))[] 
- []
-
-
-Overfull \hbox (954.5973pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 For ordinals in the standard representation written in the p
-ostfix form, the comparison is done in the lexicographical order where 'C' < '0
-' < ' \omega': For example, C(C(0,0),0) < C( \omega, 0) because 000CC < 0 \omeg
-aC. (This does not hold for non-standard representations of ordinals.)[] 
- []
-
-
-Overfull \hbox (671.09978pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 The fundamental sequences of Taranovsky's notation can be ea
-sily defined.[3] Let L( \alpha ) be the amount of C's in standard representatio
-n of  \alpha , then  \alpha [n]=max{ \beta | \beta < \alpha  \wedge L( \beta )<
-=L( \alpha )+n}.[] 
- []
-
-
-Overfull \hbox (14.8555pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 Here is a summary of the system by Taranovsky (see https://c
-s.nyu.edu/pipermail/fom/2012-March/016349.html) :[] 
- []
-
-[15] [16]
-Overfull \hbox (219.60371pt too wide) in paragraph at lines 1269--1269
-[]\OT1/cmtt/m/n/10 See http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm 
-and https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ for more inf
-ormation.[] 
- []
-
-[17]
-Overfull \hbox (9.18939pt too wide) in paragraph at lines 1351--1387
+[18] [19] [20] [21] [22]
+Overfull \hbox (9.18939pt too wide) in paragraph at lines 1659--1695
 [][] 
  []
 
-[18] (./ordinals.aux) ) 
+[23] [24] (./ordinals.aux) ) 
 Here is how much of TeX's memory you used:
  1666 strings out of 495020
  20355 string characters out of 6181324
- 98938 words of memory out of 5000000
+ 100938 words of memory out of 5000000
  4884 multiletter control sequences out of 15000+600000
  11372 words of font info for 45 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,9n,24p,1082b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-tt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msb
-m10.pfb>
-Output written on ordinals.pdf (18 pages, 237856 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb>
+Output written on ordinals.pdf (24 pages, 249950 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 86 compressed objects within 1 object stream
+ 141 PDF objects out of 1000 (max. 8388607)
+ 99 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
