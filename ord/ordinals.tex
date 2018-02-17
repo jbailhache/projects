@@ -1434,15 +1434,25 @@ We will use the notation \( X \ldots X \) for X repeated n times.
 
 We will now prove the equality \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0 \) for any n by induction.
 
+\bigskip
+
 For n = 0, the equality is trivial : \( H (R_1 H) suc\ 0 = H (R_1 H) suc\ 0 \).
 
-We will now suppose \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0 \) for a given n and prove it for n + 1.
+\bigskip
+
+We will now suppose \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0 \) for a given n and prove it for n + 1 :
+
+\( H (R_1 H) H \ldots H H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H) suc\ 0  \)
+
+\bigskip
 
 By elevating \( \omega \) at the power of each side of this equality, we get : 
 
 \( [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) H \ldots H suc\ 0) 0 = [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0) 0 \)
 
 (1) \( H (R_1 H) H \ldots H H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) H suc\ 0 \)
+
+\bigskip
 
 We also have :
 
@@ -1458,11 +1468,11 @@ Now we elevate \( \varepsilon_0 \) to the power of each side of this equality, w
 
 \( [suc \rightarrow R_1 H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) suc\ 0) 0 = [suc \rightarrow R_1 H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) suc (suc\ 0)) 0 \)
 
-\( H (R_1 H) \ldots (R_1 H) (R_1 H) suc 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0 \)
+\( H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0 \)
 
 Then we elevate \( \omega \) to the power of each side of this equality :
 
-\( [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) suc 0) 0 = [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0) 0 \)
+\( [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0) 0 = [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0) 0 \)
 
 \( H (R_1 H) \ldots (R_1 H) (R_1 H) H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H H) suc\ 0 \)
 
@@ -1475,9 +1485,6 @@ Noting that the left side of this last equality is the same as the right side of
 \( H (R_1 H) H \ldots H H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H) suc\ 0  \)
 
 which corresponds to the equality we wanted to prove for n+1.
-
-
-
 
 
 
