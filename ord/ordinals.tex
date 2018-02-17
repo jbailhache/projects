@@ -1398,6 +1398,82 @@ z1 = phi(2,1) = e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0 =? R2 R1 (R2 R
 
 \end{verbatim}
 
+We have previously proved that for any n, we have \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_0+1}}}}} = \varepsilon_0^{\varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}}} \).
+
+We will now prove it again using RHS0 notation.
+
+First we will write the two sides of this equality using RHS0 notation :
+
+We will use the notation \( X \ldots X \) for X repeated n times.
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \varepsilon_0 = R_1 H suc\ 0 \)
+\item \( \varepsilon_0 + 1 = suc (R_1 H suc\ 0) \)
+\item \( \omega^{varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
+\item \( \omega^{\omega^{\varepsilon_0+1}} = H (R_1 H H) suc\ 0 = H (R_1 H) suc\ 0 \)
+\item \( \omega^{\omega^{\omega^{\varepsilon_0+1}}} = H (R_1 H) H suc\ 0 \)
+\item \( \omega^{\omega^{\omega^{\omega^{\varepsilon_0+1}}}} = H (R_1 H) H H suc\ 0 \)
+\item \( \ldots \)
+\item \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_0}}}}} = H (R_1 H) H \ldots H suc\ 0 \)
+\end{itemize}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \omega = H suc\ 0 \)
+\item \( \varepsilon_0^\omega = [suc \rightarrow R_1 H, 0 \rightarrow suc] \omega 0 = H (R_1 H) suc\ 0 \)
+\item \( \varepsilon_0^{\varepsilon_0^\omega} = H (R_1 H) (R_1 H) suc\ 0 \)
+\item \( \varepsilon_0^{\varepsilon_0^{\varepsilon_0^\omega}} = H (R_1 H) (R_1 H) (R_1 H) suc\ 0 \)
+\item \( \ldots \)
+\item \( \varepsilon_0^{\varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}}} = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \)
+\end{itemize}
+
+We will now prove the equality \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \) for any n by induction.
+
+For n = 0, the equality is trivial : \( H (R_1 H) suc\ 0 = H (R_1 H) suc\ 0 \).
+
+We will now suppose \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \) for a given n and prove it for n + 1.
+
+By elevating \( \omega \) at the power of each side of this equality, we get : 
+
+\( [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) H \ldots H suc\ 0) 0 = [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0) 0 \)
+
+(1) \( H (R_1 H) H \ldots H H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) H suc\ 0 \)
+
+We also have :
+
+\( H (R_1 H) \ldots (R_1 H) suc\ 0 = H (R_1 H) \ldots (R_1 H) suc (suc\ 0) \)
+
+which corresponds to the RHS0 notation for :
+
+\( \varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}} = 1 + \varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}} \)
+
+by absorpsion of "1+" and "suc".
+
+Now we elevate \( \varepsilon_0 \) to the power of each side of this equality, which gives :
+
+\( [suc \rightarrow R_1 H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) suc\ 0) 0 = [suc \rightarrow R_1 H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) suc (suc\ 0)) 0 \)
+
+\( H (R_1 H) \ldots (R_1 H) (R_1 H) suc 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0 \)
+
+Then we elevate \( \omega \) to the power of each side of this equality :
+
+\( [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) suc 0) 0 = [suc \rightarrow H, 0 \rightarrow suc] (H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H suc) 0) 0 \)
+
+\( H (R_1 H) \ldots (R_1 H) (R_1 H) H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H H) suc\ 0 \)
+
+which can be simplified to :
+
+\( H (R_1 H) \ldots (R_1 H) (R_1 H) H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H) suc\ 0 \)
+
+
+
+
+
 \section{Ordinal collapsing functions}
 
 An ordinal collapsing function is a function which, when applied to an uncountable ordinal, gives a countable ordinal.
