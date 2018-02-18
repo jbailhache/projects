@@ -1388,7 +1388,7 @@ We will use the notation \( X \ldots X \) for X repeated n times.
      \setlength{\parsep}{0pt}
 \item \( \varepsilon_0 = R_1 H suc\ 0 \)
 \item \( \varepsilon_0 + 1 = suc (R_1 H suc\ 0) \)
-\item \( \omega^{varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
+\item \( \omega^{\varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
 \item \( \omega^{\omega^{\varepsilon_0+1}} = H (R_1 H H) suc\ 0 = H (R_1 H) suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\varepsilon_0+1}}} = H (R_1 H) H suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\omega^{\varepsilon_0+1}}}} = H (R_1 H) H H suc\ 0 \)
@@ -1464,7 +1464,7 @@ which corresponds to the equality we wanted to prove for n+1.
 
 \bigskip
 
-Then the correspondence contiues with :
+Then the correspondence continues with :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -1479,7 +1479,20 @@ Then the correspondence contiues with :
 
 \end{itemize}
 
-We can see a correspondence between RHS0 and Simmons notations :
+The next step is \( \zeta_1 \) which is the next fixed point of the function \( \alpha \mapsto \varepsilon_\alpha \), the limit of \( \zeta_0+1, \varepsilon_{\zeta_0+1}, \varepsilon_{\varepsilon_{\zeta_0+1}}, \ldots \). \( \varepsilon_\alpha \) is \( [suc \rightarrow R_1, 0 \rightarrow H] (1+\alpha) suc\ 0 \), or \( [suc \rightarrow R_1, 0 \rightarrow H] \alpha\ suc\ 0 \) if \( \alpha \geq \omega \) by absorbsion of "1+". This is the result of replacing suc by \( R_1 \) and 0 by H in \( \alpha \) and applying the result to suc and 0. So by iterating this transformation we get that \( \zeta_1 \) is the limit of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \zeta_0+1 = suc (R_2 R_1 H suc\ 0) \)
+\item \( R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc\ 0 \)
+\item \( \ldots \)
+\end{itemize}
+
+In the previous correnspondence formulas, we can see a correspondence between RHS0 and Simmons notations :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -1505,7 +1518,48 @@ It is likely that this correspondence can be generalized in a simple and logical
 
 I will call it the "Simmons - RHS0 correspondence conjecture".
 
-If this conjecture is true, the correspondence goes on with : 
+If this conjecture is true, we should have \( \zeta_1 = R_2 R_1 (R_2 R_1 H) suc\ 0 = \) limit of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_1 (R_2 R_1 H) suc\ 0 \) 
+\item \( R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \ldots \)
+\end{itemize}
+
+Compare with what we found previously :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \zeta_0+1 = suc (R_2 R_1 H suc\ 0) \)
+\item \( R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H suc 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc 0 \)
+\item \( \ldots \)
+\end{itemize}
+
+and with the previously proven equality :
+
+\( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) suc\ 0 \)
+
+which could also be written :
+
+\( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \)
+
+It is perhaps possible to prove a similar equality :
+
+\( R_1 (R_2 R_2 H) R_1 H \ldots R_1 H suc\ 0 = R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) \ldots R_1 (R_2 R_1 H) suc\ 0 \)
+
+which would prove the equivalence of the two fundamental sequences.
+
+\bigskip
+
+Then, if the correspondence conjecture is true, the correspondence goes on with : 
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
