@@ -1335,6 +1335,19 @@ For example :
 
 \end{verbatim}
 
+\begin{verbatim}
+
+w^a = [suc:H,0:suc] a 0
+e0^a = [suc:R1 H,0:suc] a 0
+e_a = phi(1,a) = [suc:R1,0:H] (1+a) suc 0; 1+a = [0:suc 0] a
+a^...^a = w^...^w^(a+1) = e_(a+1)
+e1 = phi(1,1) = w^...^w^(e0+1) = H (R1 H) H ... H suc 0 = e0^...^e0 = R1 (R1 H) suc 0
+z0 = phi(2,0) = R2 R1 H suc 0
+z1 = phi(2,1) = e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0 =? R2 R1 (R2 R1 H) suc 0 
+ =? H R1 (R2 R1 H) suc 0
+
+\end{verbatim}
+
 \subsection{Correspondence with other notations}
 
 \begin{itemize}
@@ -1514,24 +1527,6 @@ If this conjecture is true, the correspondence goes on with :
 
 \item \( \ldots \)
 \end{itemize}
-
-
-
-
-
-\begin{verbatim}
-
-w^a = [suc:H,0:suc] a 0
-e0^a = [suc:R1 H,0:suc] a 0
-e_a = phi(1,a) = [suc:R1,0:H] (1+a) suc 0; 1+a = [0:suc 0] a
-a^...^a = w^...^w^(a+1) = e_(a+1)
-e1 = phi(1,1) = w^...^w^(e0+1) = H (R1 H) H ... H suc 0 = e0^...^e0 = R1 (R1 H) suc 0
-z0 = phi(2,0) = R2 R1 H suc 0
-z1 = phi(2,1) = e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0 =? R2 R1 (R2 R1 H) suc 0 
- =? H R1 (R2 R1 H) suc 0
-
-\end{verbatim}
-
 
 
 
