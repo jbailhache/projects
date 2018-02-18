@@ -1354,55 +1354,16 @@ For example :
 \item \( R_1 H suc (R_1 H suc\ 0) = \varepsilon_0 + \varepsilon_0 = \varepsilon_0 \cdot 2 \)
 \item \( R_1 H (R_1 H suc) 0 = \varepsilon_0 \cdot \varepsilon_0 = {\varepsilon_0}^2 \)
 \item \( R_1 H (R_1 H) suc\ 0 = {\varepsilon_0}^{\varepsilon_0} \)
+\item \( R_1 H (R_1 H) (R_1 H) suc\ 0 ) = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \)
 \item \( R_1 (R_1 H) suc\ 0 = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) = Next (Next\ \omega) \) ( note again that the correspondence is clearer with the rationalized function \( \varphi' \)
-\item \( R_1 (R_1 (R_1 H)) suc\ 0 = \varepsilon_2 = \varphi(1,2) = \varphi'(0,3) = Next (Next (Next\ \omega)) \)
-\item \( H R_1 H suc\ 0 = \varepsilon_\omega = \varphi(1,\omega) = \varphi'(0,\omega) = Next^\omega \omega \)
-\item \( R_1 H R_1 H suc\ 0 = \varepsilon_{\varepsilon_0} \)
-\item \( R_2 R_1 H suc\ 0 = \zeta_0 = \varphi(2,0) = \varphi'(1,1) = [0] Next\ \omega \)
-\item \( R_2 R_1 (R_2 R_1 H) suc\ 0 = \zeta_1 = \varphi(2,1) = \varphi'(1,2) = [0] Next ([0] Next\ \omega) \)
-\item \( H (R_2 R_1) H suc\ 0 = \zeta_\omega \)
-\item \( R_2 R_1 H (R_2 R_1) H suc\ 0 = \zeta_{\zeta_0} \)
-\item \( R_2 (R_2 R_1) H suc\ 0 = \eta_0 = \varphi(3,0) = \varphi'(2,1) = [0] ([0] Next) \omega \)
-\item \( H R_2 R_1 H suc\ 0 = \varphi(\omega,0) = \varphi'(\omega,1) \)
-\item \( R_1 H R_2 R_1 H suc\ 0 = \varphi(\varepsilon_0,0) = \varphi(\varphi(1,0),0) = \varphi'(\varepsilon_0,1) = \varphi'(\varphi'(0,1),1) \)
-\item \( R_2 R_1 H R_2 R_1 H suc\ 0 = \varphi(\zeta_0,0) = \varphi(\varphi(2,0),0) = \varphi'(\zeta_0,1) = \varphi'(\varphi'(1,1),1) \)
-\item \( R_3 R_2 R_1 H suc\ 0 = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = [1] [0] Next\ \omega \)
-\item \( R_3 (R_3 R_2) R_1 H suc\ 0 = \varphi(1,0,0,0) = \varphi'(1,0,0,1) = [1] ([1] [0]) Next\ 0 \) (Note that in the \( \varphi \) and \( \varphi' \) functions, the last variable plays a different role than the others, as mentioned previously, so the most logical representation should probably be \( \varphi'_{1,0,0}(1) \) where the first 1 should be considered at position 2 and not 3, in this case its position corresponds to the number of occurences (or the exponent) of \( R_3 \) and [1])
-\item \( H R_3 R_2 R_1 H suc\ 0 = SVO = [1]^\omega [0] Next \omega \)
-\item \( R_4 R_3 R_2 R_1 H suc\ 0 = LVO = [2] [1] [0] Next\ \omega \)
-\item \( R_{\omega \ldots 1} H suc\ 0 = BH0 \)
 
-\item \( \ldots \)
 \end{itemize}
 
-We can see a trivial correnspondence between RHS0 and Simmons notations : 
+We have previously seen that \( \varepsilon_1 \) is the limit of \( \varepsilon_0, {\varepsilon_0}^{\varepsilon_0}, {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}}, \ldots \) and is also the limit of \( \varepsilon_0+1, \omega^{\varepsilon_0+1}, \omega^{\omega^{\varepsilon_0+1}}, \ldots \) and we have proved the equivalence of these two fundamental sequences. We have seen that the first fundamental sequence is equivalent to \( \omega, {\varepsilon_0}^\omega, {\varepsilon_0}^{{\varepsilon_0}^\omega}, \ldots \), so we proved the equivalence of the two fundamental sequences by proving that for any n, we have :
 
-\begin{itemize}
-     \setlength{\itemsep}{1pt}
-     \setlength{\parskip}{0pt}
-     \setlength{\parsep}{0pt}
-\item \( R_{n+2} \leftrightarrow [n] \)
-\item \( R_1 \leftrightarrow Next \)
-\item \( H \leftrightarrow \omega \)
-\item suc 0 at the end of the RHS0 notation
-\end{itemize}
+ \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_0+1}}}}} = \varepsilon_0^{\varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}}} \)
 
-\begin{verbatim}
-
-w^a = [suc:H,0:suc] a 0
-e0^a = [suc:R1 H,0:suc] a 0
-e_a = phi(1,a) = [suc:R1,0:H] (1+a) suc 0; 1+a = [0:suc 0] a
-a^...^a = w^...^w^(a+1) = e_(a+1)
-e1 = phi(1,1) = w^...^w^(e0+1) = H (R1 H) H ... H suc 0 = e0^...^e0 = R1 (R1 H) suc 0
-z0 = phi(2,0) = R2 R1 H suc 0
-z1 = phi(2,1) = e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0 =? R2 R1 (R2 R1 H) suc 0 
- =? H R1 (R2 R1 H) suc 0
-
-\end{verbatim}
-
-We have previously proved that for any n, we have \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_0+1}}}}} = \varepsilon_0^{\varepsilon_0^{\vdots^{{\varepsilon_0}^\omega}}} \).
-
-We will now prove it again using RHS0 notation.
+We will now see how we can prove it using RHS0 notation.
 
 First we will write the two sides of this equality using RHS0 notation :
 
@@ -1487,6 +1448,90 @@ Noting that the left side of this last equality is the same as the right side of
 \( H (R_1 H) H \ldots H H suc\ 0 = H (R_1 H) \ldots (R_1 H) (R_1 H) (R_1 H) suc\ 0  \)
 
 which corresponds to the equality we wanted to prove for n+1.
+
+\bigskip
+
+Then the correspondence contiues with :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( R_1 (R_1 (R_1 H)) suc\ 0 = \varepsilon_2 = \varphi(1,2) = \varphi'(0,3) = Next (Next (Next\ \omega)) \)
+\item \( H R_1 H suc\ 0 = \varepsilon_\omega = \varphi(1,\omega) = \varphi'(0,\omega) = Next^\omega \omega \)
+\item \( R_1 H R_1 H suc\ 0 = \varepsilon_{\varepsilon_0} \)
+\item \( R_1 H R_1 H R_1 H suc\ 0 = \varepsilon_{\varepsilon_{\varepsilon_0}} \)
+\item \( R_2 R_1 H suc\ 0 = \zeta_0 = \varphi(2,0) = \varphi'(1,1) = [0] Next\ \omega \)
+
+\end{itemize}
+
+We can see a correspondence between RHS0 and Simmons notations :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_2 \leftrightarrow [0] \)
+\item \( R_1 \leftrightarrow Next \)
+\item \( H \leftrightarrow \omega \)
+\item suc 0 at the end of the RHS0 notation
+\end{itemize}
+
+It is likely that this correspondence can be generalized in a simple and logical way, and it seems to me that the simpler generalization is :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_{n+2} \leftrightarrow [n] \)
+\item \( R_1 \leftrightarrow Next \)
+\item \( H \leftrightarrow \omega \)
+\item suc 0 at the end of the RHS0 notation
+\end{itemize}
+
+I will call it the "Simmons - RHS0 correspondence conjecture".
+
+If this conjecture is true, the correspondence goes on with : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( R_2 R_1 (R_2 R_1 H) suc\ 0 = \zeta_1 = \varphi(2,1) = \varphi'(1,2) = [0] Next ([0] Next\ \omega) \)
+\item \( H (R_2 R_1) H suc\ 0 = \zeta_\omega \)
+\item \( R_2 R_1 H (R_2 R_1) H suc\ 0 = \zeta_{\zeta_0} \)
+\item \( R_2 (R_2 R_1) H suc\ 0 = \eta_0 = \varphi(3,0) = \varphi'(2,1) = [0] ([0] Next) \omega \)
+\item \( H R_2 R_1 H suc\ 0 = \varphi(\omega,0) = \varphi'(\omega,1) \)
+\item \( R_1 H R_2 R_1 H suc\ 0 = \varphi(\varepsilon_0,0) = \varphi(\varphi(1,0),0) = \varphi'(\varepsilon_0,1) = \varphi'(\varphi'(0,1),1) \)
+\item \( R_2 R_1 H R_2 R_1 H suc\ 0 = \varphi(\zeta_0,0) = \varphi(\varphi(2,0),0) = \varphi'(\zeta_0,1) = \varphi'(\varphi'(1,1),1) \)
+\item \( R_3 R_2 R_1 H suc\ 0 = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = [1] [0] Next\ \omega \)
+\item \( R_3 (R_3 R_2) R_1 H suc\ 0 = \varphi(1,0,0,0) = \varphi'(1,0,0,1) = [1] ([1] [0]) Next\ 0 \) (Note that in the \( \varphi \) and \( \varphi' \) functions, the last variable plays a different role than the others, as mentioned previously, so the most logical representation should probably be \( \varphi'_{1,0,0}(1) \) where the first 1 should be considered at position 2 and not 3, in this case its position corresponds to the number of occurences (or the exponent) of \( R_3 \) and [1])
+\item \( H R_3 R_2 R_1 H suc\ 0 = SVO = [1]^\omega [0] Next \omega \)
+\item \( R_4 R_3 R_2 R_1 H suc\ 0 = LVO = [2] [1] [0] Next\ \omega \)
+\item \( R_{\omega \ldots 1} H suc\ 0 = BH0 \)
+
+\item \( \ldots \)
+\end{itemize}
+
+
+
+
+
+\begin{verbatim}
+
+w^a = [suc:H,0:suc] a 0
+e0^a = [suc:R1 H,0:suc] a 0
+e_a = phi(1,a) = [suc:R1,0:H] (1+a) suc 0; 1+a = [0:suc 0] a
+a^...^a = w^...^w^(a+1) = e_(a+1)
+e1 = phi(1,1) = w^...^w^(e0+1) = H (R1 H) H ... H suc 0 = e0^...^e0 = R1 (R1 H) suc 0
+z0 = phi(2,0) = R2 R1 H suc 0
+z1 = phi(2,1) = e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0 =? R2 R1 (R2 R1 H) suc 0 
+ =? H R1 (R2 R1 H) suc 0
+
+\end{verbatim}
+
 
 
 
