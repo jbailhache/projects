@@ -137,33 +137,44 @@ This is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \). The ne
 Then we get \( \zeta_2, \zeta_3, \ldots, \zeta_\omega, \zeta_{\omega+1}, \ldots, \zeta_{\varepsilon_0}, \ldots, \zeta_{\zeta_0}, \ldots, \zeta_{\zeta_{\zeta_0}}, \ldots \).
 The limit of \( 0, \zeta_0, \zeta_{\zeta_0}, \zeta_{\zeta_{\zeta_0}}, \ldots \) is called \( \eta_0 \). 
 
-We could go on using successively different greek letters, or define a function \( \varphi \) with two variables by : 
+We can go on using successively different greek letters, or we can use functions indiced by numbers
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
+\item \( \varphi_0(\alpha) = \omega^\alpha \)
+\item \( \varphi_1(\alpha) = \varepsilon_\alpha \)
+\item \( \varphi_2(\alpha) = \zeta_\alpha \)
+\item \( \varphi_3(\alpha) = \eta_\alpha \)
+\item \( \varphi_{\alpha+1}(\beta) \) is the \( (1+\beta) \)-th fixed point of \( \xi \mapsto \varphi_\alpha(\xi) \) .
+\end{itemize}
 
-\item \( \varphi(0,\alpha) = \varphi(\alpha) = \omega^\alpha \)
+or a function with two variables : 
 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \varphi(0,\alpha) = \omega^\alpha \)
 \item \( \varphi(1,\alpha) = \varepsilon_\alpha \)
-
 \item \( \varphi(2,\alpha) = \zeta_\alpha \)
-
 \item \( \varphi(3,\alpha) = \eta_\alpha \)
-
 \item \( \varphi(\alpha+1,\beta) \) is the \( (1+\beta) \)-th fixed point of \( \xi \mapsto \varphi(\alpha,\xi) \) .
-
 \end{itemize}
 
 Then we can enumerate the fixed points of the function \( \alpha \mapsto \varphi(\alpha,0) \) and define \( \Gamma_\alpha \) as the \( (1+\alpha) \)-th fixed point of this function, or add another variable to the \( \varphi \) function 
-and define \( \varphi(1,0,\alpha) \) as the \( (1+\alpha) \)-th fixed point of this function. So we have \( \Gamma_\alpha = \varphi(1,0,\alpha) \).
+and define \( \varphi_{1,0}(\alpha) \) or \( \varphi(1,0,\alpha) \) as the \( (1+\alpha) \)-th fixed point of this function. So we have \( \Gamma_\alpha = \varphi_{1,0}(\alpha) = \varphi(1,0,\alpha) \).
 
-More generally, we can define \( \varphi(\alpha_n, \alpha_{n-1}, \ldots, \alpha_1, \alpha_0) \). 
+More generally, we can define a function with any (finite) number of variables \( \varphi_{\alpha_n,\alpha_{n-1},\ldots,\alpha_1,\alpha_0}(\beta) = \varphi(\alpha_n, \alpha_{n-1}, \ldots, \alpha_1, \alpha_0, \beta) \), with \( \varphi(\alpha) = \varphi_0(\alpha) = \varphi(0,\alpha) = \omega^\alpha \). 
 
-It is sometimes written \( \varphi_{\alpha_n,\alpha_{n-1},\ldots,\alpha_1}(\alpha_0) \) since \( \alpha_0 \) plays a different role than the other variables.
+The notation \( \varphi_{\alpha_n,\alpha_{n-1},\ldots,\alpha_1,\alpha_0}(\beta) \) has the advantage of highlighting the different role played by the last variable \( \beta \).
 
-See for example https://en.wikipedia.org/wiki/Veblen\_function :
+\bigskip
+
+For a complete definition of this Veblen function with finitely many variables, see for example :
+
+https://en.wikipedia.org/wiki/Veblen\_function :
 
 "Let \(z\) be an empty string or a string consisting of one or more comma-separated zeros \(0,0,...,0\) and \(s\) be an empty string or a string consisting of one or more comma-separated ordinals \(\alpha _{1},\alpha _{2},...,\alpha _{n}\) with \(\alpha _{1}>0\). The binary function \(\varphi (\beta ,\gamma )\) can be written as \(\varphi (s,\beta ,z,\gamma )\) where both \(s\) and \(z\) are empty strings.
 
@@ -684,7 +695,7 @@ More generally, we have \( \varepsilon_\alpha = \varphi(1,\alpha) = Next^{1+\alp
 
 \( \zeta_0 = \varphi(2,0) \) is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \) (greater than 0), so \( \zeta_0 = Fix (\alpha \mapsto \varepsilon_\alpha) 0 = Fix (\alpha \mapsto Next^{1+\alpha} 0) 0 = Fix (\alpha \mapsto Next^\alpha 0) 0 \) (because the "1+" is "absorbed" after a few iterations) \( = [0] Next\ 0 \). Since \( \zeta_0 \) is also greater than \( \omega \), it is also \( [0] Next\ \omega \) according to a similar computation. 
 
-\( \zeta_1 = \varphi(2,1) \) is the next fixed point of \( \alpha \mapsto \varepsilon_\alpha \), the least one which is strictly greater than \( \zeta_0 \), so \( \zeta_1 = Fix (\alpha \mapsto \varepsilon_\alpha) \zeta_0 = Fix (\alpha \mapsto Next^\alpha 0) \zeta_0 = [0] Next\ \zeta_0 = [0] Next ([0] Next\ 0) = ([0] Next)^2 0 \).
+\( \zeta_1 = \varphi(2,1) \) is the next fixed point of \( \alpha \mapsto \varepsilon_\alpha \), the least one which is strictly greater than \( \zeta_0 \), so \( \zeta_1 = Fix (\alpha \mapsto \varepsilon_\alpha) \zeta_0 = Fix (\alpha \mapsto Next^\alpha 0) \zeta_0 = [0] Next\ \zeta_0 = [0] Next ([0] Next\ 0) = ([0] Next)^2 0 = [0] Next ([0] Next\ \omega) = ([0] Next)^2 \omega \).
 
 More generally, \( \zeta_\alpha = ([0] Next)^{1+\alpha} 0 \).
 
@@ -1084,7 +1095,31 @@ instead of
 
 It appears that the last variable (\(\alpha\) in the previous examples) plays a different role from the other variables, so it could be more logical to write for example  \( \varphi'_{\delta,\gamma,\beta}(\alpha) \) instead of \( \varphi'(\delta,\gamma,\beta,\alpha) \) and to consider that \( \beta \) is at position 0, \( \gamma \) at position 1 and \( \delta \) at position 2. In this case, we see that the position corresponds to the exponent of [1] in the Simmons representation.
 
+We can also use collapsing to represent the index list, writing for example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \Gamma_0 = \varphi'_{1,0}(1) = \varphi'_\Omega(1) \)
+\item Ackermann ordinal = \( \varphi'_{1,0,0}(1) = \varphi'_{\Omega^2}(1) \)
+\item \( SVO = \varphi'_{\Omega^\omega}(1) \)
+\end{itemize}
+
+This notation even permits writing ordinals that are out of range of Veblen notation like :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( LVO = \varphi'_{\Omega^\Omega}(1) \)
+\item \( \varphi'_{\Omega^{\Omega^\Omega}}(1) \)
+\item \( \ldots \)
+\end{itemize}
+
 \section{RHS0 notation}
+
+\subsection{Basic principles}
 
 \begin{verbatim}
 
@@ -1283,56 +1318,6 @@ Operations can be represented with replacements :
     epsilon_a = [suc->R1, 0->H] (1+a) suc 0
     1+a = [0->suc 0] a 
 
-
-The ordinal ascension can be continued after Ra...1 H suc 0 by taking the fixed point :
-H [ R(*->1) H suc 0 ] 0
-= R(1;1) H suc 0
-with R(1;1) = [[[ H [ R(*...1) **** *** ** ] 0 ]]]
-= tuple 3 [ H [ ** R(*...1) ] 0]
-with tuple n f x1 ... xn = f <x1, ... , xn>
-and <x1, ... , xn> f = f x1 ... xn
-and then we can go on with :
-
-    H [R*...1 H suc 0] 0 = R(1;1) H suc 0
-    R(1;1) (R(1;1) H) suc 0
-    H R(1;1) H suc 0
-    R(1;1) H R(1;1) H suc 0
-    R2 R(1;1) H suc 0
-    R3 R2 R(1;1) H suc 0 = R(3...2) R(1;1) H suc 0
-    H [ R(*...2) R(1;1) H suc 0 ] 0 = R(1;2) R(1;1) H suc 0 with R(1;2) 
-     = [[[[H[R(*...2) ***** **** *** **]0]]]] = R(1;2...1) H suc 0
-    R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3...1) H suc 0
-    H [ R(1;*...1) H suc 0 ] 0 = R(2;1) H suc 0 with R(2;1) = [[[ H [ R(1;*...1) **** *** ** ] 0 ]]]
-    R(3;1) H suc 0
-    R(w;1) H suc 0
-    H [ R(*;1) H suc 0] 0 = R(W;1) H suc 0 or R(1,0;1) H suc 0 with R(W;1) 
-     = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]] or R(1:1;1) H suc 0
-    R(1,1;1) H suc 0 = R(1:1,0:1;1)
-    R(1,2;1) H suc 0 = R(1:1,0:2;1) H suc 0
-    R(2,0;1) H suc 0 = R(1:2;1) H suc 0
-    R(1,0,0;1) H suc 0 = R(2:1;1) H suc 0
-    R(1,0,...,0;1) H suc 0 = R(H suc 0:1;1) H suc 0
-    H [ R(*:1;1) H suc 0 ] 0 = [[[ H [ R(*:1;1) **** *** ** ] 0 ]]] H suc 0 
-     = R(1,0:1;1) H suc 0 = R(1:1:1;1) H suc 0
-    R(1,0,0:1;1) H suc 0 = R(2:1:1;1) H suc 0
-    R(w:1:1;1) H suc 0 (?) with a:b:c = (a:b):c
-    R(1:1:1:1;1) H suc 0 = R(1::3::1;1) H suc 0 = R(r 3 [*:1] 1;1) H suc 0
-    R(1:1:1:1:1;1) H suc 0 = R(1::4::1;1) H suc 0 = R(r 4 [*:1] 1;1) H suc 0
-    H [R(1::*::1;1) H suc 0] 0 = H [R(r * [*:1] 1;1) H suc 0] 0
-    ... 
-
-Correspondence with Simmons notation :
-The RHS0 notation can be obtained from the Simmons notation (ending with w) by replacing 
-w by H, Next by R1, [0] by R2, [1] by R3, [2] by R4, and so on, and putting suc 0 at the end.
-For example :
-
-    w = H suc 0
-    epsilon_0 = Next w = R1 H suc 0
-    epsilon_1 = Next^2 w = Next (Next w) = R1 (R1 H) suc 0
-    zeta_0 = [0] Next w = R2 R1 H suc 0
-    Gamma_0 = [1] [0] Next w = R3 R2 R1 H suc 0
-    LVO = [2] [1] [0] Next w = R4 R3 R2 R1 H suc 0 
-
 \end{verbatim}
 
 \begin{verbatim}
@@ -1504,21 +1489,11 @@ In the previous correnspondence formulas, we can see a correspondence between RH
 \item suc 0 at the end of the RHS0 notation
 \end{itemize}
 
-It is likely that this correspondence can be generalized in a simple and logical way, and it seems to me that the simpler generalization is :
+If we apply this correspondence to \( \zeta_1 = [0] Next ([0] Next\ \omega) \) (see "Simmons notation / Correspondence with Veblen functions") we get \( \zeta_1 = R_2 R_1 (R_2 R_1 H) suc\ 0 \).
 
-\begin{itemize}
-     \setlength{\itemsep}{1pt}
-     \setlength{\parskip}{0pt}
-     \setlength{\parsep}{0pt}
-\item \( R_{n+2} \leftrightarrow [n] \)
-\item \( R_1 \leftrightarrow Next \)
-\item \( H \leftrightarrow \omega \)
-\item suc 0 at the end of the RHS0 notation
-\end{itemize}
+\bigskip
 
-I will call it the "Simmons - RHS0 correspondence conjecture".
-
-If this conjecture is true, we should have \( \zeta_1 = R_2 R_1 (R_2 R_1 H) suc\ 0 = \) limit of :
+This is the limit of :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -1551,11 +1526,58 @@ which could also be written :
 
 \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \)
 
-It is perhaps possible to prove a similar equality :
+There is probably a similar equality :
 
 \( R_1 (R_2 R_2 H) R_1 H \ldots R_1 H suc\ 0 = R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) \ldots R_1 (R_2 R_1 H) suc\ 0 \)
 
 which would prove the equivalence of the two fundamental sequences.
+
+\bigskip
+
+So we can go on with our correspondences :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_2 R_1 (R_2 R_1 H) suc\ 0 = \zeta_1 = \varphi(2,1) = \varphi'(1,2) = [0] Next ([0] Next\ \omega) \)
+\item \( H (R_2 R_1) H suc\ 0 = \zeta_\omega \)
+\item \( R_2 R_1 H (R_2 R_1) H suc\ 0 = \zeta_{\zeta_0} \)
+\item \( R_2 (R_2 R_1) H suc\ 0 = \eta_0 = \varphi(3,0) = \varphi'(2,1) = [0] ([0] Next) \omega \)
+\item \( H R_2 R_1 H suc\ 0 = \varphi(\omega,0) = \varphi'(\omega,1) \)
+\item \( R_1 H R_2 R_1 H suc\ 0 = \varphi(\varepsilon_0,0) = \varphi(\varphi(1,0),0) = \varphi'(\varepsilon_0,1) = \varphi'(\varphi'(0,1),1) \)
+\item \( R_2 R_1 H R_2 R_1 H suc\ 0 = \varphi(\zeta_0,0) = \varphi(\varphi(2,0),0) = \varphi'(\zeta_0,1) = \varphi'(\varphi'(1,1),1) \)
+\item \( R_3 R_2 R_1 H suc\ 0 = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = [1] [0] Next\ \omega \)
+\end{itemize}
+
+We may then extend our correspondence rule :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_3 \leftrightarrow [1] \)
+\item \( R_2 \leftrightarrow [0] \)
+\item \( R_1 \leftrightarrow Next \)
+\item \( H \leftrightarrow \omega \)
+\item suc 0 at the end of the RHS0 notation
+\end{itemize}
+
+It is likely that this correspondence can be generalized in a simple and logical way, and it seems to me that the simpler generalization is :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_{n+2} \leftrightarrow [n] \)
+\item \( R_1 \leftrightarrow Next \)
+\item \( H \leftrightarrow \omega \)
+\item suc 0 at the end of the RHS0 notation
+\end{itemize}
+
+I will call it the "Simmons - RHS0 correspondence conjecture".
+
+
 
 \bigskip
 
@@ -1565,20 +1587,11 @@ Then, if the correspondence conjecture is true, the correspondence goes on with 
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-
-\item \( R_2 R_1 (R_2 R_1 H) suc\ 0 = \zeta_1 = \varphi(2,1) = \varphi'(1,2) = [0] Next ([0] Next\ \omega) \)
-\item \( H (R_2 R_1) H suc\ 0 = \zeta_\omega \)
-\item \( R_2 R_1 H (R_2 R_1) H suc\ 0 = \zeta_{\zeta_0} \)
-\item \( R_2 (R_2 R_1) H suc\ 0 = \eta_0 = \varphi(3,0) = \varphi'(2,1) = [0] ([0] Next) \omega \)
-\item \( H R_2 R_1 H suc\ 0 = \varphi(\omega,0) = \varphi'(\omega,1) \)
-\item \( R_1 H R_2 R_1 H suc\ 0 = \varphi(\varepsilon_0,0) = \varphi(\varphi(1,0),0) = \varphi'(\varepsilon_0,1) = \varphi'(\varphi'(0,1),1) \)
-\item \( R_2 R_1 H R_2 R_1 H suc\ 0 = \varphi(\zeta_0,0) = \varphi(\varphi(2,0),0) = \varphi'(\zeta_0,1) = \varphi'(\varphi'(1,1),1) \)
 \item \( R_3 R_2 R_1 H suc\ 0 = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = [1] [0] Next\ \omega \)
 \item \( R_3 (R_3 R_2) R_1 H suc\ 0 = \varphi(1,0,0,0) = \varphi'(1,0,0,1) = [1] ([1] [0]) Next\ 0 \) (Note that in the \( \varphi \) and \( \varphi' \) functions, the last variable plays a different role than the others, as mentioned previously, so the most logical representation should probably be \( \varphi'_{1,0,0}(1) \) where the first 1 should be considered at position 2 and not 3, in this case its position corresponds to the number of occurences (or the exponent) of \( R_3 \) and [1])
 \item \( H R_3 R_2 R_1 H suc\ 0 = SVO = [1]^\omega [0] Next\ \omega \)
 \item \( R_4 R_3 R_2 R_1 H suc\ 0 = LVO = [2] [1] [0] Next\ \omega \)
-\item \( R_{\omega \ldots 1} H suc\ 0 = BH0 \)
-
+\item \( R_{\omega \ldots 1} H suc\ 0 = BHO \)
 \item \( \ldots \)
 \end{itemize}
 
@@ -1602,6 +1615,135 @@ and we could think that it continues with :
 \item \( R_{\omega \ldots 1} H suc\ 0 = \varphi(\omega,0) \)
 \end{itemize}
 
+\subsection{Going further with RHS0 notation and collapsing}
+
+The Bachmann-Howard ordinal (BHO) is the limit of \( R_1 H suc\ 0, R_2 R_1 H suc\ 0, R_3 R_2 R_1 H suc\ 0, \ldots \) which we will write \( R_{\omega \ldots 1} H suc\ 0 \).
+
+We can go on ascending ordinals after BHO :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( BHO = R_{\omega \ldots 1} H suc\ 0 \)
+\item \( suc (R_{\omega \ldots 1} H suc\ 0) \)
+\item \( R_{\omega \ldots 1} H suc\ (R_{\omega \ldots 1} H suc\ 0) \)
+\item \( R_{\omega \ldots 1} H (R_{\omega \ldots 1} H suc) 0 \)
+\item \( R_{\omega \ldots 1} H (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( R_{\omega \ldots 1} (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( H R_{\omega \ldots 1} H suc\ 0 \)
+\item \( R_2 R_{\omega \ldots 1} H suc\ 0 \)
+\item \( R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
+\item \( R_{\omega \ldots 2} R_{\omega \ldots 1} H suc\ 0 \) which we will write \( R_{\omega \cdot 2 \ldots 1} H suc\ 0 \)
+\item \( R_{\omega \ldots 3} R_{\omega \ldots 2} R_{\omega \ldots 1} H suc\ 0 \) which we will write \( R_{\omega \cdot 3 \ldots 1} H suc\ 0 \)
+\item \( R_{\omega^2 \ldots 1} H suc\ 0 \)
+\item \( R_{\varepsilon_0 \ldots 1} H suc\ 0 = R_{R_1 H suc\ 0 \ldots 1} H suc\ 0 \) 
+
+\end{itemize}
+
+Then we can take the least fixed point of the function \( \alpha \mapsto R_{\alpha \ldots 1} H suc\ 0 \) which we can also write \( [R_{\bullet \ldots 1} H suc\ 0] \). This fixed point is \(  H [R_{\bullet \ldots 1} H suc\ 0] 0 \) which we may also write \( R^1_1 H suc\ 0 \) if we define \( R^1_1 x_1 x_2 x_3 = H [R_{\bullet \ldots 1} x_1 x_2 x_3] 0 \). Then the ascension goes on with :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( H [R_{\bullet \ldots 1} H suc\ 0] 0 = R^1_1 H suc\ 0 \)
+\item \( R_2 R^1_1 H suc\ 0 \)
+\item \( R_3 R_2 R^1_1 H suc\ 0 \)
+\item \( R_{\omega \ldots 2} R^1_1 H suc\ 0 \)
+\item \( H [R_{\bullet \ldots 2} R^1_1 H suc\ 0] 0 = R^1_2 R^1_1 H suc\ 0 = R^1_{2 \ldots 1} H suc\ 0 \) with \( R^1_2 x_1 x_2 x_3 x_4 = H [R_{\bullet \ldots 2} x_1 x_2 x_3 x_4] 0 \) 
+\item \( R^1_3 R^1_2 R^1_1 H suc\ 0 = R^1_{3 \ldots 1} H suc\ 0 \)
+\item \( R^1_{\omega \ldots 1} H suc\ 0 \)
+\item \( H [R^1_{\bullet \ldots 1} H suc\ 0] 0 = R^2_1 H suc\ 0 \) with \( R^2_1 x_1 x_2 x_3 = H [R^1_ {\bullet \ldots 1} x_1 x_2 x_3] 0 \)
+\item \( R^3_1 H suc\ 0 \)
+\item \( R^\omega_1 H suc\ 0 \)
+\item \( H [R^\bullet_1 H suc\ 0] 0 = R^{1,0}_1 H suc\ 0 \) with \( R^{1,0}_1 x_1 x_2 x_3 = H [R^\bullet_1 x_1 x_2 x_3] 0 \)
+\item \( R^{1,0,0}_1 H suc\ 0 \)
+
+\end{itemize}
+
+We can number the positions in the list of upper indices of R or introduce collapsing to write
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R^1_1 = R^{1_0}_1 = R^{0:1}_1 \)
+\item \( R^{1,0}_1 = R^{1_1}_1 = R^{1:1}_1 = R^\Omega_1 \)
+\item \( R^{1,0,0}_1 = R^{1_2}_1 = R^{2:1}_1 = R^{\Omega^2}_1 \)
+\item \( \ldots \)
+\end{itemize}
+
+We also need a notation for uncountable ordinals. We can take \( \Omega = \omega_1 \) the least uncountable ordinal and  use a notation similar to the one we used for countable ordinals, replacing H by \( H_1 \) when \( \omega \) is replaced by \( \Omega = \omega_1 \), writing for example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \Omega = \omega_1 = H_1 suc\ 0 \)
+\item \( \Omega^2 = H_1 (H_1 suc) 0 \)
+\item \( \Omega^\omega = H H_1 suc\ 0 \)
+\item \( \Omega^\Omega = H_1 H_1 suc\ 0 \)
+\item \( \Omega^{\Omega^\Omega} = H_1 H_1 H_1 suc\ 0 \)
+\item \( \ldots \)
+\end{itemize}
+
+Because of the correspondence between RHS0 and Simmons notations, we could probably do something similar with Simmons notation.
+
+\begin{verbatim}
+
+The ordinal ascension can be continued after Ra...1 H suc 0 by taking the fixed point :
+H [ R(*->1) H suc 0 ] 0
+= R(1;1) H suc 0
+with R(1;1) = [[[ H [ R(*...1) **** *** ** ] 0 ]]]
+= tuple 3 [ H [ ** R(*...1) ] 0]
+with tuple n f x1 ... xn = f <x1, ... , xn>
+and <x1, ... , xn> f = f x1 ... xn
+and then we can go on with :
+
+    H [R*...1 H suc 0] 0 = R(1;1) H suc 0
+    R(1;1) (R(1;1) H) suc 0
+    H R(1;1) H suc 0
+    R(1;1) H R(1;1) H suc 0
+    R2 R(1;1) H suc 0
+    R3 R2 R(1;1) H suc 0 = R(3...2) R(1;1) H suc 0
+    H [ R(*...2) R(1;1) H suc 0 ] 0 = R(1;2) R(1;1) H suc 0 with R(1;2) 
+     = [[[[H[R(*...2) ***** **** *** **]0]]]] = R(1;2...1) H suc 0
+    R(1;3) R(1;2) R(1;1) H suc 0 = R(1;3...1) H suc 0
+    H [ R(1;*...1) H suc 0 ] 0 = R(2;1) H suc 0 with R(2;1) = [[[ H [ R(1;*...1) **** *** ** ] 0 ]]]
+    R(3;1) H suc 0
+    R(w;1) H suc 0
+    H [ R(*;1) H suc 0] 0 = R(W;1) H suc 0 or R(1,0;1) H suc 0 with R(W;1) 
+     = R(1,0;1) = [[[ H [ R(*;1) **** *** ** ] 0 ]]] or R(1:1;1) H suc 0
+    R(1,1;1) H suc 0 = R(1:1,0:1;1)
+    R(1,2;1) H suc 0 = R(1:1,0:2;1) H suc 0
+    R(2,0;1) H suc 0 = R(1:2;1) H suc 0
+    R(1,0,0;1) H suc 0 = R(2:1;1) H suc 0
+    R(1,0,...,0;1) H suc 0 = R(H suc 0:1;1) H suc 0
+    H [ R(*:1;1) H suc 0 ] 0 = [[[ H [ R(*:1;1) **** *** ** ] 0 ]]] H suc 0 
+     = R(1,0:1;1) H suc 0 = R(1:1:1;1) H suc 0
+    R(1,0,0:1;1) H suc 0 = R(2:1:1;1) H suc 0
+    R(w:1:1;1) H suc 0 (?) with a:b:c = (a:b):c
+    R(1:1:1:1;1) H suc 0 = R(1::3::1;1) H suc 0 = R(r 3 [*:1] 1;1) H suc 0
+    R(1:1:1:1:1;1) H suc 0 = R(1::4::1;1) H suc 0 = R(r 4 [*:1] 1;1) H suc 0
+    H [R(1::*::1;1) H suc 0] 0 = H [R(r * [*:1] 1;1) H suc 0] 0
+    ... 
+
+Correspondence with Simmons notation :
+The RHS0 notation can be obtained from the Simmons notation (ending with w) by replacing 
+w by H, Next by R1, [0] by R2, [1] by R3, [2] by R4, and so on, and putting suc 0 at the end.
+For example :
+
+    w = H suc 0
+    epsilon_0 = Next w = R1 H suc 0
+    epsilon_1 = Next^2 w = Next (Next w) = R1 (R1 H) suc 0
+    zeta_0 = [0] Next w = R2 R1 H suc 0
+    Gamma_0 = [1] [0] Next w = R3 R2 R1 H suc 0
+    LVO = [2] [1] [0] Next w = R4 R3 R2 R1 H suc 0 
+
+\end{verbatim}
 
 \section{Ordinal collapsing functions}
 
