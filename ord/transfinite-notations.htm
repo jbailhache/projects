@@ -597,7 +597,7 @@ It gives the following sequence :
 </ul>
 <br>
 To progress faster, we can use the following rule : <br>
-If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), we may produce an ordinal c = f ([suc->s,0->z] a) where [suc->f,0->x] a means the ordinal obtained by replacing suc by z and 0 by z in a.
+If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), we may produce an ordinal c = f ([suc->s,0->z] a) where [suc->s,0->z] a means the expression obtained by replacing suc by s and 0 by z in a.
 <br>
 For example :
 <pre>
@@ -607,7 +607,7 @@ s = R1 H
 z = suc
 f x = x 0
 [suc->R1 H,0->suc] a = R1 H (R1 H) suc
-c = f ([suc->R1 H,0->suc) a) = R1 H (R1 H) suc 0
+c = f ([suc->R1 H,0->suc] a) = R1 H (R1 H) suc 0
 </pre>
 With the following rules :
 <ul>
@@ -681,7 +681,7 @@ Operations can be represented with replacements :
 <li>a+b = [0->a] b
 <li>a.b = [suc->[*+a]] b = [suc->[[0->**] a]] b
 <li>a^b = [suc->[*.a], 0->1] b = [suc->[[suc->[[0->**] ***]] a], 0->suc 0] b
-<li>w^a = [suc->[suc->H suc], 0->suc 0] b = [suc->H,0->suc] b 0
+<li>w^a = [suc->[suc->H suc], 0->suc 0] a = [suc->H,0->suc] a 0
 <li>epsilon_0^a = [suc->R1 H,0->suc] a 0
 <li>epsilon_a = [suc->R1, 0->H] (1+a) suc 0
 <li>1+a = [0->suc 0] a

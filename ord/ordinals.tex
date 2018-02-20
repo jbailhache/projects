@@ -6,17 +6,15 @@
 \usepackage{amsmath}
 \begin{document}
 
+\title{An Overview of Ordinal Notations}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+\date{January-February 2018}
+
+\maketitle
+
 \setlength{\parindent}{0pt}
 
 \vspace{-0.4cm}
-
-\begin{center}
-\textbf{TRANSFINITE ORDINALS}
-
-by Jacques Bailhache, January-february 2018
-
-jacques.bailhache@gmail.com
-\end{center}
 
 \section{Defining transfinite ordinal numbers}
 
@@ -76,6 +74,31 @@ The definitions of arithmetical operations can be generalized to ordinals by add
 \end{itemize}
 
 Note that addition and multiplication are not commutative, for example \( 1+\omega = \omega \neq \omega+1 \), because if we take 0, 1, 2, 3, ... as fundamental sequence of \( \omega \), then a fundamental sequence of \( 1+\omega \) is 1+0, 1+1, 1+2, 1+3, ... = 1, 2, 3, 4, ... and the least ordinal which is greater than all ordinals of this sequence is \( \omega \). We will say that "1+" is "absorbed" by \( \omega \). More generally, we have \( 1+\alpha = \alpha \) for any ordinal \( \alpha \geq \omega \).
+
+\bigskip
+
+For tutorial introductions to transfinite ordinal numbers, see also :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item Madore's introduction in French : 
+
+ http://www.madore.org/\%7Edavid/weblog/2011-09-18-nombres-ordinaux-intro.html
+
+\item Pointless Gigantic List of Infinite Numbers : 
+
+ https://sites.google.com/site/pointlesslargenumberstuff/home/l/pglin?tmpl=\%2Fsystem\%2Fapp\%2Ftemplates\%2Fprint\%2F
+
+\item Sbiis Saibian's !!! FORBIDDEN LIST !!! of Infinite Numbers : 
+
+ https://sites.google.com/site/largenumbers/home/appendix/a/infinite\_numbers
+
+
+
+\end{itemize}
 
 \section{Veblen functions}
 
@@ -284,6 +307,10 @@ The corresponding fundamental sequences can be found in https://sites.google.com
 Another possible notation is to represent the parameters of the \( \varphi \) function by a polynom of variable \( \Omega \) where the exponent corresponds to the position of the variable, for example \( \varphi(\alpha,0,\beta,\gamma) = \varphi(\gamma_0,\beta_1,\alpha_3) = (\xi \mapsto \omega^\xi) \begin{pmatrix} \gamma & \beta & \alpha \\ 0 & 1 & 3 \end{pmatrix} = \varphi(\Omega^3 \cdot \alpha + \Omega \cdot \beta + \gamma) \). For \( \Omega \), we can choose an ordinal which is greater than all the ordinals we want to produce. Since they all are countable, we can take for example \( \Omega = \omega_1 \) which is the least uncountable ordinal. The method consisting in using uncountable ordinals to define countable ordinals is called "collapsing". We will see later other examples of notations using this method.
 
 Note that \( \varphi(1,0) = \varphi(\Omega) \) is the least \( \alpha \) such that \( \alpha = \varphi(\alpha) = \omega^\alpha \) (the least fixed point of \( \alpha \mapsto \omega^\alpha) ; \varphi(1,0,0) = \varphi(\Omega^2) = \varphi(\Omega \cdot \Omega) \) is the least \( \alpha \) such that \( \alpha = \varphi(\alpha,0) = \varphi(\Omega \cdot \alpha) \). Generally speaking, we can see that \( f(\Omega) \) is the least fixed point of f. We shall see other examples of this equality later concerning ordinal collapsing functions. Note also that "\(\Omega\)" can be replaced by "1,0" in the formulas.
+
+\bigskip
+
+See Veblen's article "Continuous Increasing Functions of Finite and Transfinite Ordinals" ( http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-1500814-9/S0002-9947-1908-1500814-9.pdf ) for more information.
 
 \bigskip
 
@@ -1121,158 +1148,195 @@ This notation even permits writing ordinals that are out of range of Veblen nota
 
 \subsection{Basic principles}
 
-\begin{verbatim}
+Like Simmons notation, the RHS0 notation uses lambda calculus formalism.
 
-This method is based on combinatory logic and lambda calculus formalism.
-Intuitively, the method consists in :
+The basic method consists in :
 
-    Start from 0
-    If we don't see any regularity, take the successor (add 1)
-    If we see a regularity and we don't have a notation for it, invent it and jump to the limit
-    If we see a regularity and we already have a notation for it, use it and jump to the limit. 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item    Start from 0
+\item    If we don't see any regularity, take the successor (add 1)
+\item    If we see a regularity and we don't have a notation for it, invent it and jump to the limit
+\item    If we see a regularity and we already have a notation for it, use it and jump to the limit. 
+\end{itemize}
 
 The difficulty, which requires intelligence, is to see the regularities. It gives the following sequence :
 
-    0 : no regularity, take the successor
-    suc 0 : no regularity, take the successor
-    suc (suc 0) : regularity : suc repeatedly applied to 0. No notation, invent it : 
-     H f x = limit of x, f x, f (f x), ...
-    H suc 0 : no regularity, take the successor
-    suc (H suc 0) : no regularity, take the successor
-    suc (suc (H suc 0)) : regularity : suc repeatedly applied to H suc 0, notation exists
-    H suc (H suc 0) : regularity : H suc repeatedly applied to 0, notation exists
-    H (H suc) 0 : regularity : H repeatedly applied to suc, notation exists
-    H H suc 0 : regularity (suc 0, ..., H suc 0, ... H H suc 0, ... H H H suc 0, ...), 
-     invent notation R1 H suc 0 for the limit of this sequence
-    R1 H suc 0 : no regularity, take the successor
-    suc (R1 H suc 0)
-    suc (suc (R1 H suc 0))
-    H suc (R1 H suc 0)
-    suc (H suc (R1 H suc 0))
-    suc (suc (H suc (R1 H suc 0)))
-    H suc (H suc (R1 H suc 0))
-    H (H suc) (R1 H suc 0)
-    H H suc (R1 H suc 0)
-    R1 H suc (R1 H suc 0)
-    H (R1 H suc) 0
-    suc (H (R1 H suc) 0)
-    suc (suc (H (R1 H suc) 0))
-    H suc (H (R1 H suc) 0)
-    suc (suc (H suc (H (R1 H suc) 0)))
-    H suc (H suc (H (R1 H suc) 0)))
-    H (H suc) (H (R1 H suc) 0)
-    H H suc (H (R1 H suc) 0)
-    R1 H suc (H (R1 H suc) 0)
-    suc (R1 H suc (H (R1 H suc) 0))
-    suc (suc (R1 H suc (H (R1 H suc) 0)))
-    H suc (R1 H suc (H (R1 H suc) 0))
-    suc (H suc (R1 H suc (H (R1 H suc) 0)))
-    suc (suc (H suc (R1 H suc (H (R1 H suc) 0))))
-    H suc (H suc (R1 H suc (H (R1 H suc) 0)))
-    H (H suc) (R1 H suc (H (R1 H suc) 0))
-    H H suc (R1 H suc (H (R1 H suc) 0))
-    R1 H suc (R1 H suc (H (R1 H suc) 0))
-    H (R1 H suc) (H (R1 H suc) 0)
-    H (H (R1 H suc)) 0
-    H H (R1 H suc) 0
-    R1 H (R1 H suc) 0
-    H (R1 H) suc 0
-    ...
-    R1 H (R1 H) suc 0
-    R1 (R1 H) suc 0
-    H R1 H suc 0
-    ...
-    R1 H R1 H suc 0 : invent notation R2 R1 H suc 0 = limit of suc 0, R1 H suc 0, R1 H R1 H suc 0, ...
-    ...
-    R3 R2 R1 H suc 0 : invent notation R3...1 H suc 0 and jump to limit
-    Rw...1 H suc 0
-    ...
-    R2 Rw...1 H suc 0 : invent notation Rw+1...1 H suc 0
-    ... 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
+\item \(    0 \) : no regularity, take the successor
+\item \(    suc\ 0 \) : no regularity, take the successor
+\item \(    suc (suc\ 0) \) : regularity : suc repeatedly applied to 0. No notation, invent it : H f x = limit of x, f x, f (f x), ... 
+\item \(    H suc\ 0 \) : no regularity, take the successor
+\item \(    suc (H suc\ 0) \) : no regularity, take the successor
+\item \(    suc (suc (H suc\ 0)) \) : regularity : suc repeatedly applied to H suc 0, notation exists
+\item \(    H suc (H suc\ 0) \) : regularity : H suc repeatedly applied to 0, notation exists
+\item \(    H (H suc) 0 \) : regularity : H repeatedly applied to suc, notation exists
+\item \(    H H suc\ 0 \) : regularity (suc 0, ..., H suc 0, ... H H suc 0, ... H H H suc 0, ...), invent notation \( R_1 H suc\ 0 \) for the limit of this sequence 
+\item \(    R_1 H suc\ 0 \) : no regularity, take the successor
+\item \(    suc (R_1 H suc\ 0) \)
+\item \(    suc (suc (R_1 H suc\ 0)) \)
+\item \(    H suc (R_1 H suc\ 0) \)
+\item \(    suc (H suc (R_1 H suc\ 0)) \)
+\item \(    suc (suc (H suc (R_1 H suc\ 0))) \)
+\item \(    H suc (H suc (R_1 H suc\ 0)) \)
+\item \(    H (H suc) (R_1 H suc\ 0) \)
+\item \(    H H suc (R_1 H suc\ 0) \)
+\item \(    R_1 H suc (R_1 H suc\ 0) \)
+\item \(    H (R_1 H suc) 0 \)
+\item \(    suc (H (R_1 H suc) 0) \)
+\item \(    suc (suc (H (R_1 H suc) 0)) \)
+\item \(    H suc (H (R_1 H suc) 0) \)
+\item \(    suc (suc (H suc (H (R_1 H suc) 0))) \)
+\item \(    H suc (H suc (H (R_1 H suc) 0))) \)
+\item \(    H (H suc) (H (R_1 H suc) 0) \)
+\item \(    H H suc (H (R_1 H suc) 0) \)
+\item \(    R_1 H suc (H (R_1 H suc) 0) \)
+\item \(    suc (R_1 H suc (H (R_1 H suc) 0)) \)
+\item \(    suc (suc (R_1 H suc (H (R_1 H suc) 0))) \)
+\item \(    H suc (R_1 H suc (H (R_1 H suc) 0)) \)
+\item \(    suc (H suc (R_1 H suc (H (R_1 H suc) 0))) \)
+\item \(    suc (suc (H suc (R_1 H suc (H (R_1 H suc) 0)))) \)
+\item \(    H suc (H suc (R_1 H suc (H (R_1 H suc) 0))) \)
+\item \(    H (H suc) (R_1 H suc (H (R_1 H suc) 0)) \)
+\item \(    H H suc (R_1 H suc (H (R_1 H suc) 0)) \)
+\item \(    R_1 H suc (R_1 H suc (H (R_1 H suc) 0)) \)
+\item \(    H (R_1 H suc) (H (R_1 H suc) 0) \)
+\item \(    H (H (R_1 H suc)) 0 \)
+\item \(    H H (R_1 H suc) 0 \)
+\item \(    R_1 H (R_1 H suc) 0 \)
+\item \(    H (R_1 H) suc\ 0 \)
+\item \(    ... \)
+\item \(    R_1 H (R_1 H) suc\ 0 \)
+\item \(    R_1 (R_1 H) suc\ 0 \)
+\item \(    H R_1 H suc\ 0 \)
+\item \(    ... \)
+\item \(    R_1 H R_1 H suc\ 0 \) : invent notation \( R_2 R_1 H suc\ 0 = \) limit of \( suc\ 0, R_1 H suc\ 0, R_1 H R_1 H suc\ 0, ... \)
+\item \(    ... \)
+\item \(    R_3 R_2 R_1 H suc\ 0 \) : invent notation \( R_{3...1} H suc\ 0 \) and jump to limit
+\item \(    R_{\omega...1} H suc\ 0 \)
+\item \(    ... \)
+\item \(    R_2 R_{\omega...1} H suc\ 0 \) : invent notation \( R_{\omega+1...1} H suc\ 0 \)
+\item \(    ...  \)
+
+\end{itemize}
 
 To progress faster, we can use the following rule :
-If we have found an ordinal a, and later another ordinal b of the form f (s (s z)), 
-we may produce an ordinal c = f ([suc->s,0->z] a) 
-where [suc->f,0->x] a means the ordinal obtained by replacing suc by z and 0 by z in a.
+
+If we have found an ordinal \( \alpha \), and later another ordinal \( \beta \) of the form \( f (s (s z)) \), we may produce an ordinal \( \gamma = f ([suc \rightarrow s,0 \rightarrow z] \alpha) \) where \( [suc \rightarrow s, 0 \rightarrow z] \alpha \) means the expression obtained by replacing suc by s and 0 by z in \( \alpha \).
+
 For example :
 
-a = R1 H suc 0
-b = R1 H (R1 H suc) 0
-s = R1 H
-z = suc
-f x = x 0
-[suc->R1 H,0->suc] a = R1 H (R1 H) suc
-c = f ([suc->R1 H,0->suc) a) = R1 H (R1 H) suc 0
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \alpha = R_1 H suc\ 0 \)
+\item \( \beta = R_1 H (R_1 H suc) 0 \)
+\item \( s = R_1 H \)
+\item \( z = suc \)
+\item \( f x = x\ 0 \)
+\item \( [suc \rightarrow R_1 H,0 \rightarrow suc] \alpha = R_1 H (R_1 H) suc \)
+\item \( \gamma = f ([suc \rightarrow R_1 H,0 \rightarrow suc] \alpha) = R1 H (R1 H) suc\ 0 \)
+
+\end{itemize}
+
 
 With the following rules :
 
-    0 : -> 0
-    suc : x -> suc x
-    H : f (f x) -> H f x
-    R1 : f f -> R1 f
-    R2 : f g f g -> R2 f g
-    R3 : f g h f g h -> R3 f g h
-    ...
-    Repl : a, f (s (s z)) -> f([suc->s,0->z] a) 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( 0 : \rightarrow 0 \)
+\item \( suc : x \rightarrow suc\ x \)
+\item \( H : f (f x) -> H f x \)
+\item \( R_1 : f f -> R_1 f \)
+\item \( R_2 : f g f g -> R_2 f g \)
+\item \( R_3 : f g h f g h -> R_3 f g h \)
+\item ...
+\item \( Repl : \alpha, f (s (s z)) \rightarrow f([suc \rightarrow s,0 \rightarrow z] \alpha) \)
+
+\end{itemize} 
 
 we can produce the following sequence of ordinals :
 
-    0 : 0 : 0
-    1 : suc 0 : suc 0
-    2 : suc 1 : suc (suc 0)
-    3 : H 2 : H suc 0
-    4 : suc 3 : suc (H suc 0)
-    5 : suc 4 : suc (suc (H suc 0))
-    6 : H 5 : H suc (H suc 0)
-    7 : H 6 : H (H suc) 0
-    8 : H 7 : H H suc 0
-    9 : R1 8 : R1 H suc 0
-    10 : suc 9 : suc (R1 H suc 0)
-    11 : suc 10 : suc (suc (R1 H suc 0))
-    12 : Repl 9 11 [suc->suc,0->R1 H suc 0] : R1 H suc (R1 H suc 0)
-    13 : Repl 9 12 [suc->R1 H suc,0->0] : R1 H (R1 H suc) 0
-    14 : Repl 9 13 [suc->R1 H,0->suc] : R1 H (R1 H) suc 0
-    15 : R1 14 : R1 (R1 H) suc 0
-    16 : Repl 9 15 [suc->R1,0->H] : R1 H R1 H suc 0
-    17 : R2 16 : R2 R1 H suc 0 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
-The rules R1, R2, R3, ... may be replaced by H or Repl if f1 ... fn ... f1 ... fn 
-is reformulated in <f1,...,fn> ( ... (<f1,...,fn> I)...) with <f1,...,fn> g = g f1 ... fn :
+\item    0 : \( 0 : 0 \)
+\item    1 : \( suc\ 0 : suc\ 0 \)
+\item    2 : \( suc\ 1 : suc\ (suc\ 0) \)
+\item    3 : \( H 2 : H suc\ 0 \)
+\item    4 : \( suc\ 3 : suc\ (H suc\ 0) \)
+\item    5 : \( suc\ 4 : suc\ (suc\ (H suc\ 0)) \)
+\item    6 : \( H 5 : H suc\ (H suc\ 0) \)
+\item    7 : \( H 6 : H (H suc) 0 \)
+\item    8 : \( H 7 : H H suc\ 0 \)
+\item    9 : \( R_1 8 : R_1 H suc\ 0 \)
+\item    10 : \( suc\ 9 : suc\ (R_1 H suc\ 0) \)
+\item    11 : \( suc\ 10 : suc\ (suc\ (R_1 H suc\ 0)) \)
+\item    12 : \( Repl\ 9\ 11 [suc->suc,0->R_1 H suc\ 0] : R_1 H suc\ (R_1 H suc\ 0) \)
+\item    13 : \( Repl\ 9\ 12 [suc->R_1 H suc,0->0] : R_1 H (R_1 H suc) 0 \)
+\item    14 : \( Repl\ 9\ 13 [suc->R_1 H,0->suc] : R_1 H (R_1 H) suc\ 0 \)
+\item    15 : \( R_1 14 : R_1 (R_1 H) suc\ 0 \)
+\item    16 : \( Repl\ 9\ 15 [suc->R_1,0->H] : R_1 H R_1 H suc\ 0 \)
+\item    17 : \( R_2 16 : R_2 R_1 H suc\ 0  \)
 
-    0 : 0 : 0
-    1 : suc 0 : suc 0
-    2 : suc 1 : suc (suc 0)
-    3 : H 2 : H suc 0
-    4 : suc 3 : suc (H suc 0)
-    5 : suc 4 : suc (suc (H suc 0))
-    6 : Repl 3 5 [suc->suc,0->H suc 0] : H suc (H suc 0)
-    7 : Repl 3 6 [suc->H suc,0->0] : H (H suc) 0
-    8 : Repl 3 7 [suc->H,0->suc] : H H suc 0 = <H> (<H> I) suc 0
-    9 : Repl 3 8 [suc-><H>,0->I] : H <H> I suc 0
-    10 : suc 9 : suc (H <H> I suc 0)
-    11 : suc 10 : suc (suc (H <H> I suc 0))
-    12 : Repl 9 10 [suc->suc,0->H <H> I suc 0] : H <H> I suc (H <H> I suc 0)
-    13 : Repl 9 12 [suc->H <H>: I suc,0->0] : H <H> I (H <H> I suc) 0
-    14 : Repl 9 13 [suc->H <H> I,0->suc] : H <H> I (H <H> I) suc 0 = <H <H> I> (<H <H> I> I) suc 0
-    15 : Repl 3 14 [suc-><H <H> I>,0->I] : H <H <H> I> I suc 0 = [H <*> I] ([H <*> I] H) suc 0
-    16 : Repl 9 15 [suc->[H <*> I],0->H] : H <H> I [H <*> I] H suc 0 
-     = [H <*> I] H [H <*> I] H suc 0 = <[H <*> I],H> (<[H <*> I], H> I) suc 0
-    17 : Repl 3 16 [suc-><[H <*> I],H>,0->I] : H <[H <*> I], H> I suc 0 
+\end{itemize}
 
+The rules \( R_1, R_2, R_3, \) ... may be replaced by H or Repl if f1 ... fn ... f1 ... fn 
+is reformulated in \( <f_1,...,f_n> ( ... (<f_1,...,f_n> I)...) \) with \( <f_1,...,f_n> g = g\ f_1 ... f_n \) :
 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
-More formally, this notation uses combinatory logic with De Bruijn indexes.
-lambda.x is written [ x ] and variables are written *, **, ***..., 
-for example [ ... * ... ] = \x ( ... x ... ) 
+\item    0 : 0 : 0
+\item    1 : suc 0 : suc 0
+\item    2 : suc 1 : suc (suc 0)
+\item    3 : H 2 : H suc 0
+\item    4 : suc 3 : suc (H suc 0)
+\item    5 : suc 4 : suc (suc (H suc 0))
+\item    6 : Repl 3 5 [suc-$>$suc,0-$>$H suc 0] : H suc (H suc 0)
+\item    7 : Repl 3 6 [suc-$>$H suc,0-$>$0] : H (H suc) 0
+\item    8 : Repl 3 7 [suc-$>$H,0-$>$suc] : H H suc 0 = $<$H$>$ ($<$H$>$ I) suc 0
+\item    9 : Repl 3 8 [suc-$>$$<$H$>$,0-$>$I] : H $<$H$>$ I suc 0
+\item    10 : suc 9 : suc (H $<$H$>$ I suc 0)
+\item    11 : suc 10 : suc (suc (H $<$H$>$ I suc 0))
+\item    12 : Repl 9 10 [suc-$>$suc,0-$>$H $<$H$>$ I suc 0] : H $<$H$>$ I suc (H $<$H$>$ I suc 0)
+\item    13 : Repl 9 12 [suc-$>$H $<$H$>$: I suc,0-$>$0] : H $<$H$>$ I (H $<$H$>$ I suc) 0
+\item    14 : Repl 9 13 [suc-$>$H $<$H$>$ I,0-$>$suc] : H $<$H$>$ I (H $<$H$>$ I) suc 0 = $<$H $<$H$>$ I$>$ ($<$H $<$H$>$ I$>$ I) suc 0
+\item    15 : Repl 3 14 [suc-$>$$<$H $<$H$>$ I$>$,0-$>$I] : H $<$H $<$H$>$ I$>$ I suc 0 = [H $<$*$>$ I] ([H $<$*$>$ I] H) suc 0
+\item    16 : Repl 9 15 [suc-$>$[H $<$*$>$ I],0-$>$H] : H $<$H$>$ I [H $<$*$>$ I] H suc 0 
+\item     = [H $<$*$>$ I] H [H $<$*$>$ I] H suc 0 = $<$[H $<$*$>$ I],H$>$ ($<$[H $<$*$>$ I], H$>$ I) suc 0
+\item    17 : Repl 3 16 [suc-$>$$<$[H $<$*$>$ I],H$>$,0-$>$I] : H $<$[H $<$*$>$ I], H$>$ I suc 0 
+
+\end{itemize}
+
+More formally, the RHS0 notation uses lambda calculus with De Bruijn indexes.
+\( \lambda.x \) is written [ x ] and variables are written *, **, ***..., or \( \bullet, \bullet \bullet, \bullet \bullet \bullet, \) ...
+for example [ ... * ... ] = \( [ ... \bullet ... ] = \lambda x ( ... x ... ) \)
+
+\begin{verbatim}
 
 CI = C I is defined by CI x f = f x.
 CI x = <x>
 <x1,...,xn> f = f x1 ... xn
 tuple n f x1 ... xn = f <x1,...,xn>
 tuple 0 = <I>
-tuple (n+1) f x0 = tuple n [ f (insert x0 *) ]
-with insert x0 a f  = a (f x0)
+tuple (n+1) f x = tuple n [ f (insert x *) ]
+with insert x a f  = a (f x)
 
 r 0 f x = x
 r (n+1) f x = f (r n f x)
@@ -1281,15 +1345,27 @@ r (lim g) f x = lim [r * f x]
 H f x represents the limit of x, f x, f (f x), ...
 H f x = r w f x
 
-R1 = [H <*> I] = tuple 1 [H * I]
-R2 = [[H <**,*> I]] = tuple 2 [H * I]
-R3 = [[[H <***,**,*> I]]] = tuple 3 [H * I]
-Rn = tuple n [H * I]
-R(n...1) = Rn ... R1
-S(n...1) = [S(*...1)] n = <Rn,...,R1>
-R(n...1) = S(n...1) I
-[S(*...1)] 0 = I
-[S(*...1)] (n+1) = insert (tuple (n+1) [H * I]) ([S(*...1)] n)
+\end{verbatim}
+
+\( R_1 = [H <\bullet> I] = tuple\ 1 [H \bullet I] \)
+
+\( R_2 = [[H <\bullet\bullet,\bullet> I]] = tuple\ 2 [H \bullet I] \)
+
+\( R_3 = [[[H <\bullet\bullet\bullet,\bullet\bullet,\bullet> I]]] = tuple\ 3 [H \bullet I] \)
+
+\( R_n = tuple\ n [H \bullet I] \)
+
+\( R_{n \ldots 1} = R_n \ldots R_1 \)
+
+\( S_{n...1} = [S_{\bullet...1}] n = <R_n,...,R_1> \)
+
+\( R_{n \ldots 1} = S_{n \ldots 1} I \)
+
+\( [S_{\bullet \ldots 1}] 0 = I \)
+
+\( [S_{\bullet \ldots 1}] (n+1) = insert (tuple (n+1) [H \bullet I]) ([S_{\bullet \ldots 1}] n) \)
+
+\begin{verbatim}
 
 L f = lim f 0, f 1, ...
 L f x = L [f * x]
@@ -1301,24 +1377,25 @@ L n = [ tuple n [ L0 [ ** (*** *) ]]]
 L = [[ tuple ** [ L0 [ ** (*** *) ]]]
  = \n \f (tuple n \a (L0 \i (a (f i)) ) )
  
-To represent the replacement [suc->s,0->z] we can represent ordinals by ordinal functions which, when 
-applied to suc and 0, give the considered ordinal. For example, R1 H suc 0 is represented by the ordinal 
-function s -> z -> R1 H s z, R1 H (R1 H suc) 0 by s -> z -> R1 H (R1 H s) z. From these ordinals, with 
-the replacement [suc->R1 H,0->suc] we can produce a new ordinal represented by 
-s -> z -> ((s -> z -> R1 H s z) (R1 H) s z) = s -> z -> R1 H (R1 H) s z) 
-which, when applied to suc and 0, gives R1 H (R1 H) suc 0.
+\end{verbatim}
+
+To represent the replacement \( [suc \rightarrow s,0 \rightarrow z] \) we can represent ordinals by ordinal functions which, when applied to suc and 0, give the considered ordinal. For example, \( R_1 H suc\ 0 \) is represented by the ordinal function \( s \mapsto z \mapsto R_1 H s z, R_1 H (R_1 H suc) 0 \) by \( s \mapsto z \mapsto R_1 H (R_1 H s) z \). From these ordinals, with the replacement \( [suc \rightarrow R_1 H,0 \rightarrow suc] \) we can produce a new ordinal represented by \( s \mapsto z \mapsto ((s \mapsto z \mapsto R_1 H s z) (R_1 H) s z) = s \mapsto z \mapsto R_1 H (R_1 H) s z) \) which, when applied to suc and 0, gives \( R_1 H (R_1 H) suc\ 0 \).
 
 Operations can be represented with replacements :
 
-    a+b = [0->a] b
-    a.b = [suc->[*+a]] b = [suc->[[0->**] a]] b
-    a^b = [suc->[*.a], 0->1] b = [suc->[[suc->[[0->**] ***]] a], 0->suc 0] b
-    w^a = [suc->[suc->H suc], 0->suc 0] b = [suc->H,0->suc] b 0
-    epsilon_0^a = [suc->R1 H,0->suc] a 0
-    epsilon_a = [suc->R1, 0->H] (1+a) suc 0
-    1+a = [0->suc 0] a 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
-\end{verbatim}
+\item \( \alpha+\beta = [0 \rightarrow \alpha] \beta \)
+\item \( \alpha \cdot \beta = [suc \rightarrow [\bullet+\alpha]] \beta = [suc->[[0 \rightarrow \bullet\bullet] \alpha]] \beta \)
+\item \( \alpha^\beta = [suc \rightarrow [\bullet \cdot \alpha], 0 \rightarrow 1] \beta = [suc \rightarrow [[suc \rightarrow[[0 \rightarrow \bullet\bullet] \bullet\bullet\bullet]] \alpha], 0 \rightarrow suc\ 0] \beta \)
+\item \( \omega^\alpha = [suc \rightarrow [suc \rightarrow H suc], 0 \rightarrow suc\ 0] \alpha = [suc \rightarrow H,0 \rightarrow suc] \alpha\ 0 \) 
+\item \( {\varepsilon_0}^\alpha = [suc \rightarrow R_1 H,0 \rightarrow suc] \alpha 0 \)
+\item \( \varepsilon_a = [suc \rightarrow R_1, 0 \rightarrow H] (1+\alpha) suc\ 0 ; 1+\alpha = [0 \rightarrow suc\ 0] \alpha \) 
+
+\end{itemize}
 
 \begin{verbatim}
 
@@ -1690,6 +1767,12 @@ We also need a notation for uncountable ordinals. We can take \( \Omega = \omega
 \item \( \ldots \)
 \end{itemize}
 
+Then we can go on ascending ordinals by using greater and greater uncountable ordinals as upper indices of R, for example :
+
+\( R^{H [R^\bullet_1 H_1 suc\ 0] 0}_1 H suc\ 0 \)
+
+\bigskip
+
 Because of the correspondence between RHS0 and Simmons notations, we could probably do something similar with Simmons notation.
 
 \begin{verbatim}
@@ -2021,32 +2104,30 @@ https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ for more informat
 
 Any ordinal can be defined as the least ordinal strictly greater than all ordinals of a set : the empty set for 0, \(\lbrace \alpha \rbrace\) for the successor of \( \alpha \),  \(\lbrace \alpha_0,\alpha_1,\alpha_2,...\rbrace\) for an ordinal with fundamental sequence \(\alpha_0, \alpha_1, \alpha_2, ...\)
 
-\vspace{-0.7cm}
+\subsection{Algebraic notation}
 
-\section{Algebraic notation}
-\vspace{-0.4cm}
 We define the following operations on ordinals :
-\vspace{-0.4cm}
+
 \smallskip
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
-\vspace{-0.1cm}
+
 \item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
-\vspace{-0.1cm}
+
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
-\vspace{-0.8cm}
 
-\section{Veblen functions}
-\vspace{-0.4cm}
+
+\subsection{Veblen functions}
+
 These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\).
-\vspace{-0.6cm}
 
-\section{Simmons notation}
-\vspace{-0.4cm}
+
+\subsection{Simmons notation}
+
 \( Fix f z = f^w(z+1)\) = least fixed point of f strictly greater than z.
 
 \( Next = Fix (\alpha \mapsto \omega^\alpha) \) 
@@ -2059,10 +2140,10 @@ Correspondence with Veblen's \(\phi\) : \( \phi(1+\alpha,\beta) = ([0]^\alpha Ne
  \phi(\alpha,\beta,\gamma) = ([0]^\beta (([1] [0])^\alpha Next))^{1+\gamma} \omega \)
 
 
-\vspace{-0.6cm}
 
-\section{RHS0 notation}
-\vspace{-0.4cm}
+
+\subsection{RHS0 notation}
+
 We start from 0, if we don(t see any regularity we take the successor, if we see a regularity, if we have a notation for this regularity, we use it, else we invent it, then we jump to the limit.
 
 \( H f x = lim\ x, f x, f (f x), \ldots ; R_1 f g x = lim\ g x, f g x, f f g x, \ldots ; R_2 f g h x = lim\ h x, f g h x, f g f g h x, \ldots \)
@@ -2070,10 +2151,10 @@ We start from 0, if we don(t see any regularity we take the successor, if we see
 Correspondence with Simmons notation : 
 \( \ldots, [3] \rightarrow R5, [2] \rightarrow R4, [1] \rightarrow R3, [0] \rightarrow R2, Next \rightarrow R1, \omega \rightarrow H suc\ 0 \)
 
-\vspace{-0.6cm}
 
-\section{Ordinal collapsing functions}
-\vspace{-0.4cm}
+
+\subsection{Ordinal collapsing functions}
+
 These functions use uncountable ordinals to define countable ordinals.
 
 We define sets of ordinals that can be built from given ordinals and operations, then we take the least ordinal which is not in this set, or the least ordinal which is greater than all contable ordinals of this set.
@@ -2081,20 +2162,20 @@ We define sets of ordinals that can be built from given ordinals and operations,
 These functions are extensions of functions on countable ordinals, whose fixed points can be reached by applying them to an uncountable ordinal.
 
 Examples :
-\vspace{-0.4cm}
+
 \smallskip
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item Madore's \(\psi\) : \(\psi(\alpha) = \varepsilon_\alpha \) if \(\alpha < \zeta_0 ; \psi(\Omega) = \zeta_0 \) which is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \).
-\vspace{-0.1cm}
+
 \item Feferman's \(\theta\) : \(\theta(\alpha,\beta) = \varphi(\alpha,\beta) \) if \( \alpha < \Gamma_0 \) and \( \beta < \Gamma_0 ; \theta(\Omega,0) = \Gamma_0 \) which is the least fixed point of \( \alpha \mapsto \varphi(\alpha,0) \).
-\vspace{-0.1cm}
+
 \item Taranovsky's C : \( C(\alpha,\beta) = \beta+\omega^\alpha \) if \( \alpha \) is countable; \( C(\Omega_1,0) = \varepsilon_0 \) which is the least fixed point of \( \alpha \mapsto \omega^\alpha \).
 \end{itemize}
 
-\vspace{0.1cm}
+
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -2132,6 +2213,94 @@ Howard		&			&				&				& not rep.			&			&					&				\\
 ordinal		&			&				&				&				&			&					&				\\ \hline
   
 \end{tabular}
+
+\section{Links}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item http://www.madore.org/\%7Edavid/weblog/2011-09-18-nombres-ordinaux-intro.html :
+Tutorial introduction to ordinal numbers in French
+
+\item https://sites.google.com/site/pointlesslargenumberstuff/home/l/pglin?tmpl=\%2Fsystem\%2Fapp\%2Ftemplates\%2Fprint\%2F : 
+Pointless Gigantic List of Infinite Numbers
+
+\item https://sites.google.com/site/largenumbers/home/appendix/a/infinite\_numbers : 
+Sbiis Saibian's !!! FORBIDDEN LIST !!! of Infinite Numbers
+
+\item http://quibb.blogspot.fr/p/infinity-series-portal.html : 
+Professor Quibb's Infinity Series Portal
+
+\item http://googology.wikia.com/wiki/Ordinal\_notation : 
+Ordinal notation
+
+\item https://sites.google.com/site/travelingtotheinfinity/ : 
+Traveling to the infinity
+
+\item http://www.cs.man.ac.uk/~hsimmons/TEMP/OrdNotes.pdf : 
+A short introduction to Ordinal Notations by Harold Simmons
+
+\item http://www.mathematik.uni-muenchen.de/~buchholz/articles/jaegerfestschr\_buchholz3.pdf : 
+A survey on ordinal notations around the Bachmann-Howard ordinal by Wilfried Buchholz
+
+\item http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm : 
+Ordinal Notation by Dmytro Taranovsky
+
+\item http://arxiv.org/html/1203.2270 : 
+Higher Order Set Theory with Reflective Cardinals by Dmytro Taranovsky
+
+\item https://www1.maths.leeds.ac.uk/~rathjen/realm.pdf : 
+The Realm of Ordinal Analysis by Michael Rathjen
+
+\item https://cage.ugent.be/~jvdm/Site/Research\_files/DissertationJeroenVanderMeerenPrinted.pdf : 
+Connecting the Two Worlds: Well-partial-orders and Ordinal Notation Systems</a> by Jeroen Van der Meeren<br>
+
+\item https://en.wikipedia.org/wiki/Veblen\_function : 
+Veblen function on Wikipedia
+
+\item http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-1500814-9/S0002-9947-1908-1500814-9.pdf : 
+Continuous increasing functions of finite and transfinite ordinals by
+Oswald Veblen
+
+\item http://en.wikipedia.org/wiki/Ordinal\_collapsing\_function : 
+Ordinal collapsing function on Wikipedia
+
+\item https://en.wikipedia.org/wiki/Buchholz\_psi\_functions : 
+Buchholz psi functions on Wikipedia
+
+\item http://www.madore.org/\%7Edavid/math/ordtrees.pdf : 
+Ordinal trees
+
+\item https://johncarlosbaez.wordpress.com/2016/06/29/large-countable-ordinals-part-1/ : Large Countable Ordinals by John Baez, Part 1
+\item https://johncarlosbaez.wordpress.com/2016/07/04/large-countable-ordinals-part-2/ : Large Countable Ordinals by John Baez, Part 2
+\item https://johncarlosbaez.wordpress.com/2016/07/07/large-countable-ordinals-part-3/ : Large Countable Ordinals by John Baez, Part 3
+
+\item https://medium.com/@joshkerr/mind-blown-the-fast-growing-hierarchy-for-laymen-aka-enormous-numbers-d9a865c6443b : Mind blown: the fast growing hierarchy for laymen — aka enormous numbers
+
+\item https://sites.google.com/site/largenumbers/home : 
+Sbiis Saibian's Large Number Site
+
+\item http://forums.xkcd.com/viewtopic.php?f=14\&t=7469 : 
+My number is bigger !
+
+\item http://www.cl.cam.ac.uk/\%7Ejrh13/papers/reflect.html : 
+Metatheory and Reflection in Theorem Proving: A Survey and Critique</a> by John Harrison<br>
+
+\item http://math.stanford.edu/\%7Efeferman/papers/penrose.pdf : 
+Penrose's G\&ouml;delian argument by Solomon Feferman
+
+\item http://www.turingarchive.org/browse.php/B/15 : 
+Systems of logic based on ordinals by Alan Turing
+
+\item https://coq.inria.fr/documentation : 
+Coq documentation
+
+\item http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.Documentation : 
+Agda documentation
+
+\end{itemize}
 
 
 \end{document}
