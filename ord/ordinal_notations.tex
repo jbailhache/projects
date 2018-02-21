@@ -14,7 +14,25 @@
 
 \setlength{\parindent}{0pt}
 
-\vspace{-0.4cm}
+\section{Interest of transfinite ordinal numbers}
+
+The domain of transfinite ordinals has the particularity of being the only mathematical domain that cannot be automated. In all other domains of mathematics, it is at least theoretically possible to deduce the theorems automatically from a formal system consisting of a finite set of axioms and rules. But Gödel proved that given any formal system of a theory sufficiently powerful to contain arithmetics, it is possible to build a proposition that expresses its own unprovability in this formal system. This proposition, which is very huge, has also a meaning as an ordinary arithmetic proposition, but is very useless in ordinary arithmetics. If the formal system is consistent, then this proposition is undecidable. 
+
+At first sight one could think that we just have to add this proposition to the system as an axiom, but this augmented system also have its own Gödelian proposition. By adding successively Gödelian propositions, we obtain an infinite sequence of systems, and the system defined as the union of all these systems also has its Gödelian proposition, and so on. 
+But according to Solomon Feferman in "Penrose’s Gödelian argument" http://math.stanford.edu/~feferman/papers/penrose.pdf p.9 : 
+
+"one obtains completeness for all arithmetical sentences in a progression based on the transfinite iteration of the so-called global or uniform reflection principle" 
+
+The uniform reflection principle, which is something similar to adding the Gödelian proposition as an axiom, is described for example in John Harrison's paper "Metatheory and Reflection in Theorem Proving: A Survey and Critique" http://www.cl.cam.ac.uk/~jrh13/papers/reflect.ps.gz p.18 : 
+
+\[ \vdash \forall n . Pr(\lceil \phi[n] \rceil) \Rightarrow \phi[n] \]
+
+Harrison also says p.19 : 
+
+"Feferman showed that a transfinite iteration based on it proves all true sentences of number theory". 
+
+So we can say that the construction of transfinite ordinals can store all the creative part of mathematics. 
+
 
 \section{Defining transfinite ordinal numbers}
 
