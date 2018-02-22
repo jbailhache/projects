@@ -456,6 +456,9 @@ Checking LargeVeblen (/perso/ord/LargeVeblen.agda).
 Finished LargeVeblen.
 Main> phi Zeros
 Suc Zero
+Main> :typeOf LargeVeblen
+Ord
+Main> 
 
 \end{verbatim}
 
@@ -1782,7 +1785,89 @@ Then we can go on ascending ordinals by using greater and greater uncountable or
 
 \bigskip
 
-Because of the correspondence between RHS0 and Simmons notations, we could probably do something similar with Simmons notation.
+\section{Extending Simmons notation}
+
+The limit of the Simmons notation is the limit of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( Next\ \omega = \varepsilon_0 \)
+\item \( [0] Next\ \omega = \zeta_0 \)
+\item \( [1] [0] Next\ \omega = \Gamma_0 \)
+\item \( [2] [1] [0] Next\ \omega = LVO \)
+\item \( [3] [2] [1] [0] Next\ \omega \)
+\item \( \ldots \)
+\end{itemize}
+
+which is BHO, the Bachmann-Howard ordinal.
+
+Using RHS0 notation, it corresponds to :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( R_1 H suc\ 0 = \varepsilon_0 \)
+\item \( R_2 R_1 H suc\ 0 = \zeta_0 \)
+\item \( R_3 R_2 R_1 H suc\ 0 = \Gamma_0 \)
+\item \( R_4 R_3 R_2 R_1 H suc\ 0 = LVO \)
+\item \( R_5 R_4 R_3 R_2 R_1 H suc\ 0 \)
+\item \( \ldots \)
+\end{itemize}
+
+which can be written \( R_{\omega \ldots 1} H suc\ 0 \) in RHS0 notation.
+
+And we just saw that the RHS0 notation goes much further.
+
+So, using the correspondence, we can entend the Simmons notation in a similar way the RHS0 extends beyond BHO.
+
+Using similar notations, we can write \( [\omega \ldots 0] Next \omega \) for the BHO. 
+
+Then we can go on :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( R_{\omega \ldots 1} H suc\ 0 = R_{\omega \ldots 2} R_1 H suc\ 0 = [\omega \ldots 0] Next \omega \)
+
+\item \( R_2 R_{\omega \ldots 1} H suc\ 0 = R_2 (R_{\omega \ldots 2} R_1) H suc\ 0 = [0] ([\omega \ldots 0] Next) \omega \)
+
+\item \( R_3 R_2 R_{\omega \ldots 1} H suc\ 0 = R_3 R_2 (R_{\omega \ldots 2} R_1) H suc\ 0 = [1] [0] ([\omega \ldots 0] Next) \omega \)
+
+\item \( R_{\omega \cdot 2 \ldots 1} H suc\ 0 = R_{\omega \ldots 2} R_{\omega \ldots 1} H suc\ 0 = R_{\omega \ldots 2} (R_{\omega \ldots 2} R_1) H suc\ 0 = [\omega \ldots 0] ([\omega \ldots 0] Next) \omega \)
+
+\item \( H R_{\omega \ldots 2} R_1 H suc\ 0 = [\omega \ldots 0]^\omega Next\ \omega \)
+
+\item \( R_1 H R_{\omega \ldots 2} R_1 H suc\ 0 = [\omega \ldots 0]^{\varepsilon_0} Next\ \omega \)
+
+\item \( R_3 R_{\omega \ldots 2} R_1 H suc\ 0 = Fix (\alpha \mapsto [\omega \ldots 0]^\alpha Next\ \omega) \omega = [1] [\omega \ldots 0] Next\ \omega = [\omega+1 \ldots 0] Next\ \omega \)
+
+\item \( R_{\omega \cdot 2 + 1 \ldots 1} H suc\ 0 \)
+
+\( = R_3 R_{\omega \ldots 2} R_{\omega \ldots 1} H suc\ 0 \)
+
+\( = R_3 R_{\omega \ldots 2} (R_{\omega \ldots 2} R_1) H suc\ 0 \)
+
+\( = [1] [\omega \ldots 0] ([\omega \ldots 0] Next) \omega \) 
+
+\( = Fix (\alpha \mapsto [\omega \ldots 0]^\alpha ([\omega \ldots 0] Next) \omega) \omega \)
+
+\( = Fix (\alpha \mapsto [\omega \ldots 0]^\alpha Next \omega) \omega \) (absorbsion of \( [\omega \ldots 0] \)) 
+
+\( = [1] [\omega \ldots 0] Next\ \omega \) 
+
+\( = [\omega+1 \ldots 0] Next\ \omega \)
+
+
+
+\item \( \ldots \)
+
+\end{itemize}
+
 
 
 
