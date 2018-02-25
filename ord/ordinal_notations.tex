@@ -330,6 +330,10 @@ Note that \( \varphi(1,0) = \varphi(\Omega) \) is the least \( \alpha \) such th
 
 \bigskip
 
+If we want to distinguish the last variable, we can also use collapsing wifh the notation \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \), writing for example \( \varphi_{\alpha,\beta,\gamma}(\delta) = \varphi_{\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma}(\delta) \), or \( \varphi(\alpha,\beta,\gamma,\delta) = \varphi(\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma, \delta) \).
+
+\bigskip
+
 See Veblen's article "Continuous Increasing Functions of Finite and Transfinite Ordinals" ( http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-1500814-9/S0002-9947-1908-1500814-9.pdf ) for more information.
 
 \bigskip
@@ -789,6 +793,10 @@ In particular, we have \( \varphi(\gamma,0,0) = ([1] [0])^\gamma Next 0 \).
 
 \bigskip
 
+Using collapsing, we can write \( \varphi(\gamma,\beta,\alpha) = \varphi_{\gamma,\beta}(\alpha) = \varphi_{\Omega \cdot \gamma + \beta}(\alpha) = \varphi(\Omega \cdot \gamma + \beta, \alpha) = \varphi(1 + \Omega \cdot \gamma + \beta, \alpha) = ([0]^{\Omega \cdot \gamma + \beta} Next)^{1+\alpha} 0 = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} 0 \) if we consider that \( [0]^\Omega = [1] [0] \).
+
+\bigskip
+
 \( \varphi(1,0,0,0) \) is the least fixed point of the function \( \gamma \mapsto \varphi(\gamma,0,0), Fix (\gamma \mapsto \varphi(\gamma,0,0)) 0 = Fix (\gamma \mapsto ([1] [0])^\gamma Next\ 0) 0 = [1] ([1] [0]) Next\ 0 = [1]^2 [0] Next\ 0 \).
 
 All of these computations could be done with \( \omega \) instead of 0 at the end of the formulas so we also have \( \varphi(\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \).
@@ -834,6 +842,11 @@ The general formula with four variables is :
 \( \varphi(\delta,\gamma,\beta,\alpha) = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \) 
 
 and so on.
+
+\bigskip
+
+
+Using collapsing, we can write \( \varphi(\delta,\gamma,\beta,\alpha) = \varphi_{\delta,\gamma,\beta}(\alpha) = \varphi_{\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta}(\alpha) = \varphi(\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta, \alpha) = \varphi(1 + \Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta, \alpha) = ([0]^{\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta} Next)^{1+\alpha} 0 = ([0]^\beta (([0]^\Omega)^\gamma (([0]^{\Omega^2})^\delta Next)))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} 0 \) if we consider that \( [0]^\Omega = [1] [0] \) and \( [0]^{\Omega^2} = ([0]^\Omega)^\Omega = ([1] [0])^\Omega = [1] ([1] [0]) = [1]^2 [0] \).
 
 \bigskip
 
@@ -1704,6 +1717,14 @@ and we could think that it continues with :
 \item \( R_{\omega \ldots 1} H suc\ 0 = \varphi(\omega,0) \)
 \end{itemize}
 
+Like with the Veblen functions, we can use collapsing with RHS0 notation, writing for example : 
+
+\( \varphi_\Omega(0) = \varphi'_\Omega(1) = [0]^\Omega Next\ 0 = [1] [0] Next\ 0 = (R_2)^\Omega R_1 H suc\ 0 = R_3 R_2 R_1 H suc\ 0 \) 
+
+which gives \( (R_2)^\Omega = R_3 R_2 \)
+
+to be compared with \( [0]^\Omega = [1] [0] \).
+
 \subsection{Going further with RHS0 notation and collapsing}
 
 The Bachmann-Howard ordinal (BHO) is the limit of \( R_1 H suc\ 0, R_2 R_1 H suc\ 0, R_3 R_2 R_1 H suc\ 0, \ldots \) which we will write \( R_{\omega \ldots 1} H suc\ 0 \).
@@ -1867,7 +1888,6 @@ Then we can go on :
 \item \( \ldots \)
 
 \end{itemize}
-
 
 
 
