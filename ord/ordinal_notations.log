@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  25 FEB 2018 18:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  25 FEB 2018 19:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -555,7 +555,7 @@ http://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf
  []
 
 [13] [14] [15] [16] [17] [18] [19] [20] [21]
-Overfull \hbox (5.45197pt too wide) in paragraph at lines 1747--1748
+Overfull \hbox (5.45197pt too wide) in paragraph at lines 1753--1754
 \OT1/cmr/m/n/10 The Bachmann-Howard or-di-nal (BHO) is the limit of $\OML/cmm/m
 /it/10 R[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; R[]R[]Hsuc \OT1/cmr/m/n/10 0
 \OML/cmm/m/it/10 ; R[]R[]R[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []$ \OT1/c
@@ -563,43 +563,43 @@ mr/m/n/10 which we will write $\OML/cmm/m/it/10 R[]Hsuc \OT1/cmr/m/n/10 0$.
  []
 
 [22] [23] [24]
-Overfull \hbox (102.28429pt too wide) in paragraph at lines 1938--1939
+Overfull \hbox (102.28429pt too wide) in paragraph at lines 1944--1945
 \OT1/cmr/m/n/10 This or-di-nal col-laps-ing func-tion is de-scribed in https://
 en.wikipedia.org/wiki/Ordinal[]collapsing[]function and http://quibb.blogspot.f
 r/2012/03/infinity-
  []
 
 [25] [26] [27] [28]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 2260--2296
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 2266--2302
 [] 
  []
 
 [29]
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 2304--2306
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 2310--2312
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 2307--2309
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 2313--2315
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 2337--2339
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 2343--2345
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 2343--2346
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 2349--2352
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 [30]
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 2360--2361
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 2366--2367
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
@@ -630,7 +630,7 @@ nts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on ordinal_notations.pdf (31 pages, 303639 bytes).
+Output written on ordinal_notations.pdf (31 pages, 304019 bytes).
 PDF statistics:
  173 PDF objects out of 1000 (max. 8388607)
  121 compressed objects within 2 object streams
