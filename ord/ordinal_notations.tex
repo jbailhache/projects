@@ -35,6 +35,132 @@ Harrison also says p.19 :
 
 So we can say that the construction of transfinite ordinals can store all the creative part of mathematics. 
 
+\section{Mathematical reminders}
+
+\subsection{Combinatory logic and lambda calculus}
+
+These theories are formalization of the notion of information processing. 
+
+Everything is represented by information processing or functions, even data. An elementary piece of data, like a boolean data (true or false), can be represented by a function with two variables, which gives the first one if the value is true, or the second one if the value is false. A structured information, for example a couple of value, is represented by a function that, when applied to the boolean true value, gives the first value of the couple, and when applied to the boolean false, gives the second value of the couple.
+
+A function with two variables is represented by a function that, when applied to the first variable, gives another function which, when applied to the second variable, gives the final result, and so on. A function that gives several result can be represented by a function that gives a structured containing all the results. So we have to consider only functions that, when applied to one variable, also called "argument" or sometimes "parameter", give one result.
+
+The application of a function f to a variable x is written "f x".
+
+"(f x) y" may be written simply "f x y".
+
+The following cases can be distinguished according to the relationship between the variable to which the function is applied and the result of the application of this function to this variable :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item The result is the variable itself : the function is called identity, written "I". For any x, we have I x = x.
+
+\item The result is y which does not depend on the variable. The function is a constant function which always gives y as result. It is written "K y". For any x and y, we have K y x = y.
+
+\item The result is the result of the application of a to b, where both a and b may depend on the variable. In this case, the function is written "S f g" where f is a function that gives a when applied to the variable and g is a function that gives b when applied to the variable. For any f, g and x, S f g x = f x (g x).
+
+\end{itemize}
+
+Any function can be represented by applications of I, K and S, or even only K and S, because I = S K K. This is called "combinatory logic".
+
+But with this representation we obtain huge expressions difficult to read and understand. So we will introduce a notation to represent the function that, when applied to a variable x, gives a result y, where y represents an expression that may contain one or several occurences of x. The following notations are used :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \^x.y
+\item \^{}x.y
+\item \textbackslash x.y
+\item \( \lambda x . y \)
+\item \( (\lambda x y) \)
+\item \( \lambda x [y]  \)
+\item \( x \mapsto y \)
+\item \( \lambda x \rightarrow y \) or \textbackslash x -$>$ y  (in Haskell)
+
+\end{itemize}
+
+\( \lambda x_1 . \lambda x_2 . \lambda x_3 . y \) may be written \( \lambda x_1 x_2 x_3 . y \).
+
+This is the lambda calculus notation.
+
+The combinatory logic representation of a function can be retrieved from its lambda calculus representation using the following correspondence rules : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \lambda x . x = I \)
+\item \( \lambda x . y = K y \) if y does not contain x
+\item \( \lambda x . (a b) = S (\lambda x . a) (\lambda x . b) \)
+
+\end{itemize}
+
+
+\subsection{Natural numbers}
+
+Natural numbers are defined by Peano axioms :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item 0 is a natural number.
+\item Every natural number has a successor.
+\item 0 is not the successor of any natural number.
+\item If two natural numbers have the same successor, they are equal.
+\item If 0 has a property, and if the fact that some natural number has this property implies that its successor also has this property, then every natural number has this property.
+
+\end{itemize}
+
+Arithmetical operations are defined as follow, where suc(n) represents the successor of the natural number n :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
+\item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
+\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
+\end{itemize}
+
+For natural numbers, the addition and the multiplication are commutative : \( a+b = b+a ; a \cdot b = b \cdot a \), but not the exponentiation : generally \( a^b \neq b^a \).
+
+We shall see later that the addition and the multiplication of transfinite ordinal numbers are not commutative.
+
+\subsection{Composition and iteration of functions}
+
+The composition of two functions f and g, written B f g or \( f \circ g \) is a function satisfying \( (f \circ g) x = f (g x) \).
+
+The composition of a function with itself \( f \circ f \) can be written \( f^2 \).
+
+More generally, the n-th iterate of the function f is defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f^0 = I \)
+\item \( f^{suc(n)} = f \circ f^n \)
+\end{itemize}
+
+and has the following properties :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( f^{a+b} = f^b \circ f^a \)
+\item \( f^{a \cdot b} = (f^a)^b \)
+
+\end{itemize}
 
 \section{Defining transfinite ordinal numbers}
 
@@ -74,9 +200,7 @@ For natural numbers, arithmetical operations are defined as follows :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
-
 \item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
-
 \item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
 \end{itemize}
 
@@ -87,9 +211,7 @@ The definitions of arithmetical operations can be generalized to ordinals by add
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
-
 \item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
-
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
 
@@ -330,7 +452,7 @@ Note that \( \varphi(1,0) = \varphi(\Omega) \) is the least \( \alpha \) such th
 
 \bigskip
 
-If we want to distinguish the last variable, we can also use collapsing wifh the notation \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \), writing for example \( \varphi_{\alpha,\beta,\gamma}(\delta) = \varphi_{\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma}(\delta) \), or \( \varphi(\alpha,\beta,\gamma,\delta) = \varphi(\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma, \delta) \).
+If we want to distinguish the last variable, we can also use collapsing with the notation \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \), writing for example \( \varphi_{\alpha,\beta,\gamma}(\delta) = \varphi_{\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma}(\delta) \), or \( \varphi(\alpha,\beta,\gamma,\delta) = \varphi(\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma, \delta) \).
 
 \bigskip
 
@@ -541,6 +663,8 @@ Given an ordinal \( \alpha \), we can iterate transfinitely "\( \alpha \) times"
 
 
 \section{Simmons notation}
+
+\subsection{Presentation}
 
 Harold Simmons defined a notation ( see http://www.cs.man.ac.uk/~hsimmons/ORDINAL-NOTATIONS/ordinal-notations.html ) based on fixed points enumeration which "contains" Veblen functions and permits to go further. 
 
@@ -1916,6 +2040,44 @@ Then we can go on :
 
 \section{Ordinal collapsing functions}
 
+Remember that collapsing consists in using uncountable ordinals to define countable ordinals. 
+
+We already saw how collapsing can be used to define ordinals, for example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \varphi(\alpha,0,\beta,\gamma) = \varphi(\gamma_0,\beta_1,\alpha_3) = (\xi \mapsto \omega^\xi) \begin{pmatrix} \gamma & \beta & \alpha \\ 0 & 1 & 3 \end{pmatrix} = \varphi(\Omega^3 \cdot \alpha + \Omega \cdot \beta + \gamma) \). 
+
+\item \( \varphi_{\alpha,\beta,\gamma}(\delta) = \varphi_{\Omega^2 \cdot \alpha + \Omega \cdot \beta + \gamma}(\delta) \)
+
+\item \( \varphi(\gamma,\beta,\alpha) = \varphi_{\gamma,\beta}(\alpha) = \varphi_{\Omega \cdot \gamma + \beta}(\alpha) = \varphi(\Omega \cdot \gamma + \beta, \alpha) = \varphi(1 + \Omega \cdot \gamma + \beta, \alpha) = ([0]^{\Omega \cdot \gamma + \beta} Next)^{1+\alpha} 0 = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} 0 \) with \( [0]^\Omega = [1] [0] \)
+
+\item \( \varphi(\delta,\gamma,\beta,\alpha) = \varphi_{\delta,\gamma,\beta}(\alpha) = \varphi_{\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta}(\alpha) = \varphi(\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta, \alpha) = \varphi(1 + \Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta, \alpha) = ([0]^{\Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta} Next)^{1+\alpha} 0 = ([0]^\beta (([0]^\Omega)^\gamma (([0]^{\Omega^2})^\delta Next)))^{1+\alpha} 0 = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} 0 \) with \( [0]^\Omega = [1] [0] \) and \( [0]^{\Omega^2} = ([0]^\Omega)^\Omega = ([1] [0])^\Omega = [1] ([1] [0]) = [1]^2 [0] \)
+
+\item \( \varphi(1_\Omega) = [1]^\Omega [0] Next\ 0 \). 
+
+\item \( LVO = \varphi_{\Omega^\Omega}(0) = [0]^{\Omega^\Omega} Next\ 0 = [1]^\Omega [0] Next\ 0 = [2] [1] [0] Next\ 0 \) with \( [1]^\Omega = [2] [1] \)
+
+\item \( \Gamma_0 = \varphi'_{1,0}(1) = \varphi'_\Omega(1) \)
+\item Ackermann ordinal = \( \varphi'_{1,0,0}(1) = \varphi'_{\Omega^2}(1) \)
+\item \( SVO = \varphi'_{\Omega^\omega}(1) \)
+
+\item \( LVO = \varphi'_{\Omega^\Omega}(1) \)
+\item \( \varphi'_{\Omega^{\Omega^\Omega}}(1) \)
+
+\item \( \Gamma_0 = \varphi_{1,0}(0) = \varphi'_{1,0}(1) = \varphi_\Omega(0) = \varphi'_\Omega(1) = [0]^\Omega Next\ \omega = [1] [0] Next\ \omega = (R_2)^\Omega R_1 H suc\ 0 = R_3 R_2 R_1 H suc\ 0 \) 
+
+\item \( (R_2)^\Omega = R_3 R_2 \)
+
+\item \( [0]^\Omega = [1] [0] \).
+
+\end{itemize}
+
+We will now see another way to use collapsing : ordinal collapsing functions.
+
 An ordinal collapsing function is a function which, when applied to an uncountable ordinal, gives a countable ordinal.
 
 The general idea is to define a set of ordinals C(a) or C(a,b) where a and b are ordinals, which contains all ordinals that can be built using an initial set of ordinals and some operations or functions, and then define \( \psi(a) \) or \( \psi(a,b) \) as the smallest ordinal which is not in C(a) or C(a,b), or the least ordinal which is greater than than all countable ordinals of C(a) or C(a,b).
@@ -2183,8 +2345,57 @@ See http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm and
 
 https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ for more information. 
 
+\section{Ordinal trees}
 
+Ordinal can also be represented by trees. An example of such a representation is given in :
 
+http://www.madore.org/~david/math/ordtrees.pdf .
+
+In this representation, the order on finite rooted trees is recursively defined as follows : \( A < B \) if and only if one of this conditions is true :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item There is some mmediate subtree B' of B such that \( A \leq B' \).
+\item Every child A' of A satisfies \( A' < B \) and the list of children of A is lexicographically less than the list of children of B for the order \( < \) with the leftmost children having the most weight.
+\end{itemize}
+
+Trees can also be represented by parenthesized expressions, for example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item 0 = ()
+\item 1 = (())
+\item 2 = ((()))
+\item \( \omega = (()()) \)
+\item \( \omega+1 = ((()())) \)
+\item \( \omega \cdot 2 = (()(())) \)
+\item \( \omega \cdot 3 = (()((()))) \)
+\item \( \omega^2 = (()(()())) \)
+\item \( \omega^2+\omega = (()((()()))) \)
+\item \( \omega^2 \cdot 2 = (()(()(()))) \)
+\item \( \omega^2 \cdot 3 = (()(()((())))) \)
+\item \( \omega^3 = (()(()(()()))) \)
+\item \( \omega^\omega = ((())()) \)
+\item \( \omega^{\omega^\omega} = ((()())()) \)
+\item \( \epsilon_0 = \varphi_1(0) = (()()()) \)
+\item \( \varepsilon_1 = \varphi_1(1) = (()()(())) \)
+\item \( \varepsilon_2 = \varphi_1(2) = (()()(())) \)
+\item \( \varepsilon_\omega = \varphi_1(\omega) = (()()(()())) \)
+\item \( \varepsilon_{\varepsilon_0} = (()()(()()())) \) 
+\item \( \zeta_0 = \varphi_2(0) = (()(())()) \)
+\item \( \Gamma_0 = \varphi(1,0,0) = ((())()()) \)
+\item \( \varphi(1,0,0,0) = (()()()()) \)
+\item \( \ldots \)
+\end{itemize}
+
+Another example of tree representation is Takeuti ordinal diagrams, see :
+
+ https://projecteuclid.org/download/pdf\_1/euclid.jmsj/1261153819 .
 
 \section{Summary}
 
