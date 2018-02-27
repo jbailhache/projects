@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  27 FEB 2018 21:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  27 FEB 2018 22:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -405,111 +405,117 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 251--252
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (0.22276pt too wide) in paragraph at lines 120--121
+[]\OT1/cmr/m/n/10 See also https://ryanflannery.net/research/logic-notes/Church
+-CalculiOfLambdaConversion.pdf for more in-for-ma-tion about com-
+ []
+
+[2] [3]
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 253--254
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F 
  []
 
 
-Overfull \hbox (2.2227pt too wide) in paragraph at lines 282--283
+Overfull \hbox (2.2227pt too wide) in paragraph at lines 284--285
 []\OT1/cmr/m/n/10 The re-quired con-di-tions are de-scribed for ex-am-ple in ht
 tp://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/Fruitful.pdf
  []
 
-[4] [5]
-Overfull \hbox (12.9727pt too wide) in paragraph at lines 475--476
+[4] [5] [6]
+Overfull \hbox (12.9727pt too wide) in paragraph at lines 477--478
 []\OT1/cmr/m/n/10 See Ve-blen's ar-ti-cle "Con-tin-u-ous In-creas-ing Func-tion
 s of Fi-nite and Trans-fi-nite Or-di-nals" ( http://www.ams.org/journals/tran/1
 908-
  []
 
-[6]
-Overfull \hbox (4.35559pt too wide) in paragraph at lines 605--605
+
+Overfull \hbox (4.35559pt too wide) in paragraph at lines 607--607
 []    \OT1/cmtt/m/n/10 (3) for a>0, c->phi(an,...,ai+1,a,0,...,0,c) is the func
 tion enumerating the common fixed points of the[] 
  []
 
 
-Overfull \hbox (35.85532pt too wide) in paragraph at lines 605--605
+Overfull \hbox (35.85532pt too wide) in paragraph at lines 607--607
 []    \OT1/cmtt/m/n/10 (4) Let a be a transfinite sequence of ordinals (i.e., a
 n ordinal function with finite support) which ends in[] 
  []
 
 
-Overfull \hbox (41.10527pt too wide) in paragraph at lines 605--605
+Overfull \hbox (41.10527pt too wide) in paragraph at lines 607--607
 []        \OT1/cmtt/m/n/10 zero  (i.e., such that a0=0), and let a[0->c] denote
  the same function where the final 0 has been replaced[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 605--605
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 607--607
 []        \OT1/cmtt/m/n/10 Then c->phi(a[0->c]) is defined as the function enum
 erating the common fixed points of all functions[] 
  []
 
 
-Overfull \hbox (35.85532pt too wide) in paragraph at lines 605--605
+Overfull \hbox (35.85532pt too wide) in paragraph at lines 607--607
 []        \OT1/cmtt/m/n/10 x->phi(b) where b ranges over all sequences which ar
 e obtained by decreasing the smallest-indexed nonzero[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 605--605
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 607--607
 []        \OT1/cmtt/m/n/10 value of a  and replacing some smaller-indexed value
  with the indeterminate x (i.e., b=a[i0->z,i->x][] 
  []
 
 
-Overfull \hbox (41.10527pt too wide) in paragraph at lines 605--605
+Overfull \hbox (41.10527pt too wide) in paragraph at lines 607--607
 []        \OT1/cmtt/m/n/10 meaning that for the smallest index i0 such that ai0
  is nonzero the latter has been replaced by some value[] 
  []
 
 [7]
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 605--605
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 -- Usage : phi al, where al is the associative list of coup
 les index => value ordered by increasing values,[] 
  []
 
 
-Overfull \hbox (9.60555pt too wide) in paragraph at lines 605--605
+Overfull \hbox (9.60555pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 phi (Zero => a & Zero => b & al) = phi (Zero => a & al) -- 
 should not appear but necessary for completeness[] 
  []
 
 
-Overfull \hbox (20.10545pt too wide) in paragraph at lines 605--605
+Overfull \hbox (20.10545pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Suc k => Suc b & al) = fix (\x -> phi 
 (k => x & Suc k => b & al)) (Suc (phi (Zero => a &[] 
  []
 
 
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 605--605
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Suc k => Lim f & al) = Lim (\n -> phi 
 (k => Suc (phi (Zero => a & Suc k => Lim f & al)) &[] 
  []
 
 
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 605--605
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Lim f => Suc b & al) = Lim (\n -> phi 
 (f n => phi (Zero => a & Lim f => Suc b & al) & Lim[] 
  []
 
 
-Overfull \hbox (25.35541pt too wide) in paragraph at lines 605--605
+Overfull \hbox (25.35541pt too wide) in paragraph at lines 607--607
 [] \OT1/cmtt/m/n/10 phi (Zero => Suc a & Lim f => Lim g & al) = Lim (\n -> phi 
 (f n => phi (Zero => a & Lim f => Lim g & al) & Lim[] 
  []
 
-
-Overfull \hbox (109.35468pt too wide) in paragraph at lines 605--605
+[8]
+Overfull \hbox (109.35468pt too wide) in paragraph at lines 607--607
 []\OT1/cmtt/m/n/10 Normally it should terminate because the parameter of phi le
 xicographically decreases, but Agda is not clever enough to see it,[] 
  []
 
-[8] [9] [10] [11] [12]
-Overfull \hbox (7.41852pt too wide) in paragraph at lines 914--915
+[9] [10] [11] [12]
+Overfull \hbox (7.41852pt too wide) in paragraph at lines 916--917
 []$\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML
 /cmm/m/it/10 ; \OT1/cmr/m/n/10 0)$ is the least fixed point (greater than 0) of
  the func-tion $\OML/cmm/m/it/10  \OMS/cmsy/m/n/10 7! \OML/cmm/m/it/10 '\OT1/c
@@ -521,7 +527,7 @@ ML/cmm/m/it/10 ; \OT1/cmr/m/n/10 ))0 = \OML/cmm/m/it/10 Fix\OT1/cmr/m/n/10 ([0
  []
 
 
-Overfull \hbox (41.32146pt too wide) in paragraph at lines 942--943
+Overfull \hbox (41.32146pt too wide) in paragraph at lines 944--945
 []\OT1/cmr/m/n/10 All of these com-pu-ta-tions could be done with $\OML/cmm/m/i
 t/10 !$ \OT1/cmr/m/n/10 in-stead of 0 at the end of the for-mu-las so we also h
 ave $\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^M; ^^L; \OT1/cmr/m/
@@ -530,7 +536,7 @@ t/10 !$\OT1/cmr/m/n/10 .
  []
 
 
-Overfull \hbox (6.02142pt too wide) in paragraph at lines 964--965
+Overfull \hbox (6.02142pt too wide) in paragraph at lines 966--967
 []$\OML/cmm/m/it/10 '\OT1/cmr/m/n/10 (1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML
 /cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0) = \OML/cm
 m/m/it/10 Fix\OT1/cmr/m/n/10 (\OML/cmm/m/it/10  \OMS/cmsy/m/n/10 7! \OML/cmm/m
@@ -542,20 +548,20 @@ next\OT1/cmr/m/n/10 ))0)0 = [1][0]([1][0]([1][][0]\OML/cmm/m/it/10 Next\OT1/cmr
  []
 
 [13]
-Overfull \hbox (142.05629pt too wide) in paragraph at lines 1006--1007
+Overfull \hbox (142.05629pt too wide) in paragraph at lines 1008--1009
 []\OT1/cmr/m/n/10 The con-ver-sion rule from Sch^^?utte Klam-mer-sym-bol to Sim
 -mons no-ta-tion are de-scribed by Sim-mons in his pa-per : http://www.cs.man.a
 c.uk/ hsimmons/ORDINAL-
  []
 
 [14]
-Overfull \hbox (19.63939pt too wide) in paragraph at lines 1140--1141
+Overfull \hbox (19.63939pt too wide) in paragraph at lines 1142--1143
 []\OT1/cmr/m/n/10 because [0] is ab-sorbed by the fol-low-ing op-er-a-tor (see 
 http://www.cs.man.ac.uk/ hsimmons/ORDINAL-NOTATIONS/FromBelow.pdf
  []
 
 [15] [16] [17] [18] [19] [20] [21] [22] [23]
-Overfull \hbox (5.45197pt too wide) in paragraph at lines 1893--1894
+Overfull \hbox (5.45197pt too wide) in paragraph at lines 1895--1896
 \OT1/cmr/m/n/10 The Bachmann-Howard or-di-nal (BHO) is the limit of $\OML/cmm/m
 /it/10 R[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; R[]R[]Hsuc \OT1/cmr/m/n/10 0
 \OML/cmm/m/it/10 ; R[]R[]R[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []$ \OT1/c
@@ -563,50 +569,50 @@ mr/m/n/10 which we will write $\OML/cmm/m/it/10 R[]Hsuc \OT1/cmr/m/n/10 0$.
  []
 
 [24] [25]
-Overfull \hbox (1.05156pt too wide) in paragraph at lines 2074--2075
+Overfull \hbox (1.05156pt too wide) in paragraph at lines 2076--2077
 \OT1/cmr/m/n/10 ([0][](([0][])[](([0][])[]\OML/cmm/m/it/10 Next\OT1/cmr/m/n/10 
 )))[]0 = ([0][](([1][0])[](([1][][0])[]\OML/cmm/m/it/10 Next\OT1/cmr/m/n/10 )))
 []0$ with $[0][] = [1][0]$ and $[0][] = ([0][])[] = ([1][0])[] =
  []
 
 [26]
-Overfull \hbox (102.28429pt too wide) in paragraph at lines 2122--2123
+Overfull \hbox (102.28429pt too wide) in paragraph at lines 2124--2125
 \OT1/cmr/m/n/10 This or-di-nal col-laps-ing func-tion is de-scribed in https://
 en.wikipedia.org/wiki/Ordinal[]collapsing[]function and http://quibb.blogspot.f
 r/2012/03/infinity-
  []
 
 [27] [28] [29] [30] [31]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 2493--2529
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 2495--2531
 [] 
  []
 
 [32]
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 2537--2539
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 2539--2541
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 2540--2542
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 2542--2544
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 2570--2572
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 2572--2574
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 2576--2579
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 2578--2581
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 [33]
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 2593--2594
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 2595--2596
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
@@ -615,7 +621,7 @@ archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
 Here is how much of TeX's memory you used:
  1672 strings out of 495020
  20505 string characters out of 6181324
- 99938 words of memory out of 5000000
+ 100938 words of memory out of 5000000
  4889 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -637,7 +643,7 @@ nts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on ordinal_notations.pdf (34 pages, 315165 bytes).
+Output written on ordinal_notations.pdf (34 pages, 314960 bytes).
 PDF statistics:
  182 PDF objects out of 1000 (max. 8388607)
  127 compressed objects within 2 object streams
