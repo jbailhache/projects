@@ -66,20 +66,21 @@ The following cases can be distinguished according to the relationship between t
 
 Any function can be represented by applications of I, K and S, or even only K and S, because I = S K K. This is called "combinatory logic".
 
-But with this representation we obtain huge expressions difficult to read and understand. So we will introduce a notation to represent the function that, when applied to a variable x, gives a result M, where M represents an expression that may contain one or several occurences of x. Different notations are used, for example :
+But with this representation we obtain huge expressions difficult to read and understand. So we will introduce a notation to represent the function that, when applied to a variable x, gives a result M, where M represents an expression that may contain one or several occurences of x. Different notations are used, depending on typographic possibilities, for example :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( [x].M \)
-\item \^x.M
+\item M with x replaced by \^x (Principia Mathematica)
+\item \^x.M (original notation not very used)
 \item \^{}x.M
 \item \textbackslash x.M
-\item \( \lambda x . M \)
+\item \( \lambda x . M \) (probably the most used notation in lambda calculus)
 \item \( (\lambda x M) \)
 \item \( \lambda x [M]  \)
+\item \( [x].M \)
 \item \( x \mapsto M \)
 \item \( \lambda x \rightarrow M \) or \textbackslash x -$>$ M  (in Haskell)
 
@@ -100,7 +101,11 @@ The combinatory logic representation of a function can be retrieved from its lam
 \item \( \lambda x . (a b) = S (\lambda x . a) (\lambda x . b) \)
 \end{itemize}
 
-The lambda calculus notation has a disadvantage for example \( \lambda x . x \) and \( lambda y . y \) represent the same function although they are different expressions. To avoid this disadvantage, we can use De Bruijn index. With this notation, this function is written \( \lambda 1 \). Each occurence of a variable is replaced by a natural number n which means the variable corresponding to the n-th \( lambda \) in which it is nested, starting from the innermost. 
+\( (\lambda x . M) N \) is the result of the substitution of x by N in M.
+
+\bigskip
+
+The lambda calculus notation has a disadvantage for example \( \lambda x . x \) and \( \lambda y . y \) represent the same function although they are different expressions. To avoid this disadvantage, we can use De Bruijn index. With this notation, this function is written \( \lambda 1 \). Each occurence of a variable is replaced by a natural number n which means the variable corresponding to the n-th \( lambda \) in which it is nested, starting from the innermost. 
 
 With this notation we have :
 
