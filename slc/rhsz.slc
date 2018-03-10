@@ -1,0 +1,24 @@
+
+LET true ^x x
+
+LET arefl ^a EQU (ge a a) true
+LET atrans ^a ^b ^c EQU - (ge a b) - (ge b c) (ge a c) true
+LET azero ^a EQU (ge a 0) true
+LET asuc ^a EQU (ge (suc a) a) true
+LET ah1 ^f ^a EQU (ge (H f a) a) true
+LET ah2 ^f ^a EQU (ge (H f a) (H f (f a))) true
+LET af ^f ^g ^x EQU - (ge f g) (ge (f x) (g x)) true
+
+LET asucl ^a ^b EQU - (ge a b) (ge (suc a) b) true
+LET asuclr ^a ^b EQU - (ge a b) (ge (suc a) (suc b)) true
+
+LET afs ^a EQU (fst (suc a)) a
+LET ars ^a EQU (rst (suc a)) (suc a)
+LET afh ^f ^x EQU (fst (H f x)) x
+LET arh ^f ^x EQU (rst (H f x)) (H f (f x))
+
+{(TRN (fst (arh suc 0)) (afh suc (suc 0)))}
+
+LTR (arefl 0 (ge (suc 0) 0)) (asucl 0 0)
+
+
