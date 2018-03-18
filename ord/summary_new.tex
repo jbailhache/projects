@@ -2,6 +2,8 @@
 \title{Transfinite ordinals}
 \usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
 \usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
 \begin{document}
 
 \setlength{\parindent}{0pt}
@@ -38,8 +40,13 @@ We define the following operations on ordinals :
 
 \section{Veblen functions}
 \vspace{-0.4cm}
-These functions use fixed points enumaration : \( \varphi_{\ldots,\beta,0,\ldots,0,}(\gamma) \) or \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\).
-\vspace{-0.6cm}
+These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\). \( \varphi(\alpha_n,\ldots,\alpha_0,\beta) \) may also be written \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \) or \( \varphi_{\Omega^n\times\alpha_n+\ldots+\alpha_0}(\beta) \) or \(
+\begin{pmatrix}
+    \beta & \alpha_0 & \ldots & \alpha_n \\
+    0     & 1        & \ldots & n+1
+\end{pmatrix} \)
+
+\vspace{-0.8cm}
 
 \section{Simmons notation}
 \vspace{-0.4cm}
