@@ -2,6 +2,8 @@
 \title{Les ordinaux transfinis}
 \usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
 \usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
 \begin{document}
 
 \setlength{\parindent}{0pt}
@@ -9,9 +11,7 @@
 \vspace{-0.4cm}
 
 \begin{center}
-\textbf{LES ORDINAUX TRANSFINIS}
-
-par Jacques Bailhache, Janvier-février 2018
+\textbf{LES ORDINAUX TRANSFINIS} par Jacques Bailhache, Janvier-février 2018
 \end{center}
 
 \vspace{-0.2cm}
@@ -35,27 +35,45 @@ On définit les opérations arithmétiques sur les ordinaux :
 \vspace{-0.1cm}
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
-\vspace{-0.8cm}
+\vspace{-0.9cm}
 
 \section{Fonctions de Veblen}
 \vspace{-0.4cm}
-Ces fonctions procèdent par énumération de points fixes : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) représente le \((1+\gamma)^{eme}\) point fixe commun aux fonctions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) pour tous les \(\delta < \beta\).
-\vspace{-0.6cm}
+
+\( \varepsilon_0 = lim\ \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots ; \varepsilon_1 = lim\ \varepsilon_0, {\varepsilon_0}^{\varepsilon_0}, {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}}, \ldots = lim\ \varepsilon_0+1, \omega^{\varepsilon_0+1}, \omega^{\omega^{\varepsilon_0+1}}, \ldots ; \zeta_0 = lim\ 0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \)
+
+\( \omega^\alpha = \varphi(0,\alpha) ; \varepsilon_\alpha = \varphi(1,\alpha) ; \zeta_\alpha = \varphi(2,\alpha) \)
+
+\( \varphi_{\ldots,\beta,0,\ldots,0}(\gamma) \) ou  \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) est le \((1+\gamma)^{eme}\) point fixe commun aux fonctions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) pour tous les \(\delta < \beta\).
+
+\vspace{-0.2cm}
+
+\( \varphi(\alpha_n,\ldots,\alpha_0,\beta) \) peut aussi s'écrire \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \) ou \( \varphi_{\Omega^n\times\alpha_n+\ldots+\alpha_0}(\beta) \) ou \( \varphi(\Omega^n\times\alpha_n+\ldots+\alpha_0,\beta) \) ou \(
+\begin{pmatrix}
+    \beta & \alpha_0 & \ldots & \alpha_n \\
+    0     & 1        & \ldots & n+1
+\end{pmatrix} \)
+
+\vspace{-0.8cm}
+
 
 \section{Notation de Simmons}
 \vspace{-0.4cm}
-\( Fix f z = f^w(z+1)\) = plus petit point fixe de f strictement supérieur à z.
-
-\( Next = Fix (\alpha \mapsto \omega^\alpha) \)
+\( Fix f z = f^w(z+1)\) = plus petit point fixe de f strictement supérieur à z ; \( Next = Fix (\alpha \mapsto \omega^\alpha) \)
 
 \( [0] h = Fix (\alpha \mapsto h^\alpha \omega) \) ;
 \( [1] h g = Fix (\alpha \mapsto h^\alpha g \omega) \) ;
 \( [2] h g f = Fix (\alpha \mapsto h^\alpha g f \omega) \) ; etc...
 
-Correspondance avec \(\varphi\) de Veblen : \( \varphi(1+\alpha,\beta) = ([0]^\alpha Next)^{1+\beta} \omega ; 
- \varphi(\alpha,\beta,\gamma) = ([0]^\beta (([1] [0])^\alpha Next))^{1+\gamma} \omega \)
+Correspondance avec \(\varphi\) de Veblen : \( \varphi(1+\beta,\alpha) = ([0]^\beta Next)^{1+\alpha} \omega \)
 
-\vspace{-0.6cm}
+Si \( \gamma > 0 , \varphi(\gamma,\beta,\alpha) = \varphi(\gamma\times\Omega+\beta,\alpha) = ([0]^{\gamma\times\Omega+\beta} Next)^{1+\alpha} \omega = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \)
+
+Si \( \delta > 0 \) or \( \gamma > 0, \varphi(\delta,\gamma,\beta,\alpha) = \varphi(\delta\times\Omega^2+\gamma\times\Omega+\beta,\alpha) = ([0]^{\Omega^2\times\delta+\Omega\times\gamma+\beta} Next)^{1+\alpha} \omega = ([0]^\beta ([0]^\Omega)^\gamma ([0]^{\Omega^2})^\delta Next)))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \), avec \( [0]^{\Omega^n} = [1]^n [0] \).
+
+Rationalisation de \( \varphi : \varphi(1+\beta,\alpha) = \varphi'(\beta,1+\alpha) => \varphi'(\beta,\alpha) = ([0]^\beta Next)^\alpha \omega ; \varphi(\gamma,\beta,\alpha) = \varphi'(\gamma,\beta,1+\alpha) \) 
+
+\vspace{-0.7cm}
 
 \section{Notation RHS0}
 \vspace{-0.4cm}
@@ -66,7 +84,7 @@ On part de 0, si on ne voit aucune régularité on prend le successeur, si on vo
 Correspondance avec la notation de Simmons : 
 \( \ldots, [3] \rightarrow R_5, [2] \rightarrow R_4, [1] \rightarrow R_3, [0] \rightarrow R_2, Next \rightarrow R_1, \omega \rightarrow H suc\ 0 \)
 
-\vspace{-0.6cm}
+\vspace{-0.7cm}
 
 \section{Fonctions effondrantes ordinales (Ordinal collapsing functions)}
 \vspace{-0.4cm}
@@ -74,9 +92,8 @@ Ces fonctions utilisent des ordinaux non dénombrables pour définir des ordinau
 
 On définit des ensembles d'ordinaux qui peuvent être construits à partir de certains ordinaux et de certaines opérations, puis on définit le plus petit ordinal qui n'appartient pas à cet ensemble, ou le plus petit ordinal qui est plus grand que tous les ordinaux dénombrables de cet ensemble.
 
-Ces fonctions sont des extensions de fonctions sur des ordinaux dénombrables, dont on peut atteindre le point fixe en les appliquant à un ordinal non dénombrable, puis le dépasser en les appliquant à des ordinaux non dénombrables plus grands.
+Ces fonctions sont des extensions de fonctions sur des ordinaux dénombrables, dont on peut atteindre le point fixe en les appliquant à un ordinal non dénombrable, puis le dépasser en les appliquant à des ordinaux non dénombrables plus grands, par exemple : 
 
-Exemples :
 \vspace{-0.4cm}
 \smallskip
 \begin{itemize}
@@ -104,7 +121,6 @@ Omega		& \(\omega\)		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& H suc 0
 		&			& \(\omega\times2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
 		&			& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& H (H suc) 0		& 					& C(C(0,C(0,0)),0)		\\ \hline
 		&			& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& H H suc 0		& 					& C(C(1,0),0)			\\ \hline
-		&			& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				& H H H suc 0		&					& C(C(C(1,0),0),0)		\\ \hline
 Epsilon zero	& \(\varepsilon_0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(R_1 H suc\ 0\)	& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
 		& 			& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& \(Next^2 \omega\)	& \(R_1 (R_1 H) suc\ 0\)& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
 		& 			& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	& \(Next^\omega \omega\) & \(H R_1 H suc\ 0\)	& \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
