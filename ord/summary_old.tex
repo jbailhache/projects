@@ -2,8 +2,6 @@
 \title{Transfinite ordinals}
 \usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage{amsfonts}
-\usepackage{amsmath}
 \begin{document}
 
 \setlength{\parindent}{0pt}
@@ -36,42 +34,26 @@ We define the following operations on ordinals :
 \vspace{-0.1cm}
 \item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
-
-\vspace{-0.2cm}
-
-\( \varepsilon_0 = lim\ \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots ; \varepsilon_1 = lim\ \varepsilon_0, {\varepsilon_0}^{\varepsilon_0}, {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}}, \ldots = lim\ \varepsilon_0+1, \omega^{\varepsilon_0+1}, \omega^{\omega^{\varepsilon_0+1}}, \ldots ; \zeta_0 = lim\ 0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \)
-
-\vspace{-0.6cm}
+\vspace{-0.8cm}
 
 \section{Veblen functions}
 \vspace{-0.4cm}
 These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\).
-
-\vspace{-0.4cm}
-
-\( \varphi(\alpha_n,\ldots,\alpha_0,\beta) \) may also be written \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \) or \( \varphi_{\Omega^n\times\alpha_n+\ldots+\alpha_0}(\beta) \) or \( \varphi(\Omega^n\times\alpha_n+\ldots+\alpha_0,\beta) \) or \(
-\begin{pmatrix}
-    \beta & \alpha_0 & \ldots & \alpha_n \\
-    0     & 1        & \ldots & n+1
-\end{pmatrix} \)
-
-\vspace{-0.8cm}
+\vspace{-0.6cm}
 
 \section{Simmons notation}
 \vspace{-0.4cm}
-\( Fix f z = f^w(z+1)\) = least fixed point of f strictly greater than z ; \( Next = Fix (\alpha \mapsto \omega^\alpha) \) 
+\( Fix f z = f^w(z+1)\) = least fixed point of f strictly greater than z.
+
+\( Next = Fix (\alpha \mapsto \omega^\alpha) \) 
 
 \( [0] h = Fix (\alpha \mapsto h^\alpha \omega) \) ;
 \( [1] h g = Fix (\alpha \mapsto h^\alpha g \omega) \) ;
 \( [2] h g f = Fix (\alpha \mapsto h^\alpha g f \omega) \) ; etc...
 
-Correspondence with Veblen's \(\varphi\) : \( \varphi(1+\beta,\alpha) = ([0]^\beta Next)^{1+\alpha} \omega \)
+Correspondence with Veblen's \(\varphi\) : \( \varphi(1+\alpha,\beta) = ([0]^\alpha Next)^{1+\beta} \omega ; 
+ \varphi(\alpha,\beta,\gamma) = ([0]^\beta (([1] [0])^\alpha Next))^{1+\gamma} \omega \)
 
-If \( \gamma > 0 , \varphi(\gamma,\beta,\alpha) = \varphi(\gamma\times\Omega+\beta,\alpha) = ([0]^{\gamma\times\Omega+\beta} Next)^{1+\alpha} \omega = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \)
-
-If \( \delta > 0 \) or \( \gamma > 0, \varphi(\delta,\gamma,\beta,\alpha) = \varphi(\delta\times\Omega^2+\gamma\times\Omega+\beta,\alpha) = ([0]^{\Omega^2\times\delta+\Omega\times\gamma+\beta} Next)^{1+\alpha} \omega = ([0]^\beta ([0]^\Omega)^\gamma ([0]^{\Omega^2})^\delta Next)))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \), with \( [0]^{\Omega^n} = [1]^n [0] \).
-
-Rationalization of \( \varphi : \varphi(1+\beta,\alpha) = \varphi'(\beta,1+\alpha) => \varphi'(\beta,\alpha) = ([0]^\beta Next)^\alpha \omega ; \varphi(\gamma,\beta,\alpha) = \varphi'(\gamma,\beta,1+\alpha) \) 
 
 \vspace{-0.6cm}
 
@@ -92,8 +74,9 @@ These functions use uncountable ordinals to define countable ordinals.
 
 We define sets of ordinals that can be built from given ordinals and operations, then we take the least ordinal which is not in this set, or the least ordinal which is greater than all contable ordinals of this set.
 
-These functions are extensions of functions on countable ordinals, whose fixed points can be reached by applying them to an uncountable ordinal, for example :
+These functions are extensions of functions on countable ordinals, whose fixed points can be reached by applying them to an uncountable ordinal.
 
+Examples :
 \vspace{-0.4cm}
 \smallskip
 \begin{itemize}
@@ -121,6 +104,7 @@ Omega		& \(\omega\)		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& H suc 0
 		&			& \(\omega\times2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
 		&			& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& H (H suc) 0		& 					& C(C(0,C(0,0)),0)		\\ \hline
 		&			& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& H H suc 0		& 					& C(C(1,0),0)			\\ \hline
+		&			& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				& H H H suc 0		&					& C(C(C(1,0),0),0)		\\ \hline
 Epsilon zero	& \(\varepsilon_0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(R_1 H suc\ 0\)	& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
 		& 			& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& \(Next^2 \omega\)	& \(R_1 (R_1 H) suc\ 0\)& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
 		& 			& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	& \(Next^\omega \omega\) & \(H R_1 H suc\ 0\)	& \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
