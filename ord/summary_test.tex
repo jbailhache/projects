@@ -40,11 +40,7 @@ We define the following operations on ordinals :
 
 \section{Veblen functions}
 \vspace{-0.4cm}
-These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\).
-
-\vspace{-0.4cm}
-
-\( \varphi(\alpha_n,\ldots,\alpha_0,\beta) \) may also be written \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \) or \( \varphi_{\Omega^n\times\alpha_n+\ldots+\alpha_0}(\beta) \) or \( \varphi(\Omega^n\times\alpha_n+\ldots+\alpha_0,\beta) \) or \(
+These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0,\gamma) \) represents the \((1+\gamma)^{th}\) common fixed point of the functions \( \xi \mapsto \varphi(\ldots,\delta,\xi,0,\ldots,0)\) for all \(\delta < \beta\). \( \varphi(\alpha_n,\ldots,\alpha_0,\beta) \) may also be written \( \varphi_{\alpha_n,\ldots,\alpha_0}(\beta) \) or \( \varphi_{\Omega^n\times\alpha_n+\ldots+\alpha_0}(\beta) \) or \(
 \begin{pmatrix}
     \beta & \alpha_0 & \ldots & \alpha_n \\
     0     & 1        & \ldots & n+1
@@ -60,13 +56,13 @@ These functions use fixed points enumaration : \(\varphi(\ldots,\beta,0,\ldots,0
 \( [1] h g = Fix (\alpha \mapsto h^\alpha g \omega) \) ;
 \( [2] h g f = Fix (\alpha \mapsto h^\alpha g f \omega) \) ; etc...
 
-Correspondence with Veblen's \(\varphi\) : \( \varphi(1+\beta,\alpha) = ([0]^\beta Next)^{1+\alpha} \omega \)
+Correspondence with Veblen's \(\varphi\) : \( \varphi_{1+\beta}(\alpha) = ([0]^\beta Next)^{1+\alpha} \omega \)
 
-If \( \gamma > 0 , \varphi(\gamma,\beta,\alpha) = \varphi(\gamma\times\Omega+\beta,\alpha) = ([0]^{\gamma\times\Omega+\beta} Next)^{1+\alpha} \omega = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \)
+If \( \gamma > 0 , \varphi_{\gamma,\beta}(\alpha) = \varphi_{\gamma\times\Omega+\beta}(\alpha) = ([0]^{\gamma\times\Omega+\beta} Next)^{1+\alpha} \omega = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \)
 
-If \( \delta > 0 \) or \( \gamma > 0, \varphi(\delta,\gamma,\beta,\alpha) = \varphi(\delta\times\Omega^2+\gamma\times\Omega+\beta,\alpha) = ([0]^{\Omega^2\times\delta+\Omega\times\gamma+\beta} Next)^{1+\alpha} \omega = ([0]^\beta ([0]^\Omega)^\gamma ([0]^{\Omega^2})^\delta Next)))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \), with \( [0]^{\Omega^n} = [1]^n [0] \).
+If \( \delta > 0 \) or \( \gamma > 0, \varphi_{\delta,\gamma,\beta}(\alpha) = \varphi_{\delta\times\Omega^2+\gamma\times\Omega+\beta}(\alpha) = ([0]^{\Omega^2\times\delta+\Omega\times\gamma+\beta} Next)^{1+\alpha} \omega = ([0]^\beta ([0]^\Omega)^\gamma ([0]^{\Omega^2})^\delta Next)))^{1+\alpha} \omega = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \), with \( [0]^{\Omega^n} = [1]^n [0] \).
 
-Rationalization of \( \varphi : \varphi(1+\beta,\alpha) = \varphi'(\beta,1+\alpha) => \varphi'(\beta,\alpha) = ([0]^\beta Next)^\alpha \omega ; \varphi(\gamma,\beta,\alpha) = \varphi'(\gamma,\beta,1+\alpha) \) 
+Rationalization of \( \varphi : \varphi_{1+\beta}(\alpha) = \varphi'_\beta(1+\alpha) => \varphi'_\beta(\alpha) = ([0]^\beta Next)^\alpha \omega ; \varphi_{\gamma,\beta}(\alpha) = \varphi'_{\gamma,\beta}(1+\alpha) \) 
 
 \vspace{-0.6cm}
 
