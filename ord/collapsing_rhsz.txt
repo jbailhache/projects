@@ -43,5 +43,13 @@ psi(e_(W+1)(W+2)) = Rw...1 (Rw...1 (R2 Rw...1 H)) suc 0
 psi(e_(W+1)(W+a)) = [suc:Rw...1,0:R2 Rw...1 H] a suc 0
 psi(e_(W+1)W2) = H [[suc:Rw...1,0:R2 Rw...1 H] * suc 0] (suc 0) = R2 Rw...1 (R2 Rw...1 H) suc 0
 psi(e_(W+1)Wa) = [suc:R2 Rw...1,0:H] a suc 0
+psi(e_(W+1)W^2) = H [[suc:R2 Rw...1,0:H] * suc 0] (suc 0) = R2 (R2 Rw...1) H suc 0
+psi(e_(W+1)W^a) = [suc:R2,0:Rw...1] a H suc 0
+psi(e^(W+1)W^W) = H [[suc:R2,0:Rw...1] * H suc 0] (suc 0) = R3 R2 Rw...1 H suc 0
+psi(e^(W+1)W^W^W) = R4 R3 R2 Rw...1 H suc 0
+psi(e^(W+1)W^...^W) = psi(e_(W+1)^2) = Rw...2 Rw...1 H suc 0 = Rw2...1 H suc 0 = RH suc (H suc 0)...1 H suc 0
+psi(e_(W+1)^a) = Rwa...1 H suc 0
+psi(e_(W+1)^W) = H [R*...1 H suc 0] 0 = R1;1 H suc 0
+
 
 
