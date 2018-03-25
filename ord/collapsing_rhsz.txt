@@ -84,7 +84,10 @@ psi((e_(W+1)^W)(e_(W+1)^W)) = psi((e_(W+1)^W)^2) = psi(e_(W+1)^(W2)) = R1;2 R1;1
 psi(e_(W+1)^(Wa)) = R1;a...1 H suc 0
 psi(e_(W+1)^W^2) = H [R1;*...1 H suc 0] 0 = R2;1 H suc 0
 psi(e_(W+1)^W^a) = Ra;1 H suc 0
-psi(e_(W+1)^W^W) = H [R*;1 H suc 0] 0 = R1,0;1 H suc 0 = RW;1 H suc 0
+psi(e_(W+1)^W^W) = H [R*;1 H suc 0] 0 = R1,0;1 H suc 0 = RW;1 H suc 0 = R(W^W) H suc 0 = R(H1 suc 0;1) H suc 0 = R(H1 H1 suc 0) H suc 0
+psi(e_(W+1)^W^W^W) = R(H1 H1 H1 suc 0) H suc 0
+psi(e_(W+1)^e_(W+1)) = R(e_(W+1)) H suc 0 = R(R1 H1 suc 0) H suc 0
+psi(e_(W+1)^...^e_(W+1)) = psi(e_(W+2)) =? R(H [R*;1 H1 suc 0] 0;1) H suc 0 
 
 
 
