@@ -13,4 +13,23 @@ psi(W^a) = [suc:R2,0:R1] a H suc 0
 psi(W^W) = Gamma_0 = phi(1,0,0) = H [[suc:R2,0:R1] * H suc 0] (suc 0) = R3 R2 R1 H suc 0
 psi(W^W^W^W) = LVO = R4 R3 R2 R1 H suc 0
 psi(W^...^W) = psi(e_(W+1)) = psi(psi_1(0)) = BHO = Rw...1 H suc 0
+psi(e_(W+1)+1) = BHO^...^BHO = R1 (Rw...1 H) suc 0
+psi(e_(W+1)+2) = R1 (R1 (Rw...1 H)) suc 0
+psi(e_(W+1)+a) = [suc:R1,0:Rw...1 H] a suc 0
+psi(e_(W+1)+W) = H [[suc:R1,0:Rw...1 H] * suc 0] (suc 0) = R2 R1 (Rw...1 H) suc 0
+psi(e_(W+1)+W+1) = R1 (R2 R1 (Rw...1 H)) suc 0
+psi(e_(W+1)+W+a) = [suc:R1,0:R2 R1 (Rw...1 H)] a suc 0
+psi(e_(W+1)+W2) = H [[suc:R1,0:R2 R1 (Rw...1 H)] * suc 0] (suc 0) = R2 R1 (R2 R1 (Rw...1 H)) suc 0
+psi(e_(W+1)+Wa) = [suc:R2 R1,0:Rw...1 H] a suc 0 
+psi(e_(W+1)+W^2) = H [[suc:R2 R1,0:Rw...1 H] * suc 0] (suc 0) = R2 (R2 R1) (Rw...1 H) suc 0
+psi(e_(W+1)+W^a) = [suc:R2,0:R1] a (Rw...1 H) suc0
+psi(e_(W+1)+W^W) = H [[suc:R2,0:R1] * (Rw...1 H) suc 0] (suc 0) = R3 R2 R1 (Rw...1 H) suc 0
+psi(e_(W+1)+W^W^W) = psi(e_(W+1)+W^W^W^W^0) = R4 R3 R2 R1 (Rw...1 H) suc 0
+psi(e_(W+1)+W^...^W) = psi(e_(W+1)2 = Rw...1 (Rw...1 H) suc 0
+psi(e_(W+1)a) = [suc:Rw...1,0:H] a suc 0
+psi(e_(W+1)W) = H [[suc:Rw...1,0:H] * suc 0] (suc 0) = R2 Rw...1 H suc 0
+psi(e_(W+1)W+1) = R1 (R2 Rw...1 H) suc 0
+psi(e_(W+1)W+a) = [suc:R1,0:R2 Rw...1 H] a suc 0
+psi(e_(W+1)W+W) = H [[suc:R1,0:R2 Rw...1 H] * suc 0] (suc 0) = R2 R1 (R2 Rw...1 H) suc 0
+
 
