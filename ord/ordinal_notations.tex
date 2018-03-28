@@ -16,7 +16,7 @@
 
 \section{Interest of transfinite ordinal numbers}
 
-The domain of transfinite ordinals has the particularity of being the only mathematical domain that cannot be automated. In all other domains of mathematics, it is at least theoretically possible to deduce the theorems automatically from a formal system consisting of a finite set of axioms and rules. But Gödel proved that given any formal system of a theory sufficiently powerful to contain arithmetics, it is possible to build a proposition that expresses its own unprovability in this formal system. This proposition, which is very huge, has also a meaning as an ordinary arithmetic proposition, but is very useless in ordinary arithmetics. If the formal system is consistent, then this proposition is undecidable. 
+The domain of transfinite ordinal numbers, or ordinals, has the particularity of being the only mathematical domain that cannot be automated. In all other domains of mathematics, it is at least theoretically possible to deduce the theorems automatically from a formal system consisting of a finite set of axioms and rules. But Gödel proved that given any formal system of a theory sufficiently powerful to contain arithmetics, it is possible to build a proposition that expresses its own unprovability in this formal system. This proposition, which is very huge, has also a meaning as an ordinary arithmetic proposition, but is very useless in ordinary arithmetics. If the formal system is consistent, then this proposition is undecidable. 
 
 At first sight one could think that we just have to add this proposition to the system as an axiom, but this augmented system also have its own Gödelian proposition. By adding successively Gödelian propositions, we obtain an infinite sequence of systems, and the system defined as the union of all these systems also has its Gödelian proposition, and so on. 
 But according to Solomon Feferman in "Penrose’s Gödelian argument" http://math.stanford.edu/~feferman/papers/penrose.pdf p.9 : 
@@ -184,6 +184,50 @@ and has the following properties :
 \item \( f^{a \cdot b} = (f^a)^b \)
 
 \end{itemize}
+
+\subsection{Different ways of representing finite sequences}
+
+A finite sequence of length n of elements of a given set S can be considered as a function which, to each natural number less than n, associates an element of S.
+
+For example, we can define a finite sequence of length 4 of natural numbers by the function f defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item f(0) = 4
+\item f(1) = 3
+\item f(2) = 0
+\item f(3) = 8
+\end{itemize}
+
+There are different ways to represent such a sequence :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item Comma separated list, from left to right : 4,3,0,8
+\item Comma separated list, from right to left : 8,0,3,4
+\item Matrix with values and ranks :
+\(
+  \begin{pmatrix}
+    4 & 3 & 0 & 8 \\
+    0 & 1 & 2 & 3
+  \end{pmatrix}
+\)
+\item Matrix with values and ranks, omitting null values :
+\(
+  \begin{pmatrix}
+    4 & 3 & 8 \\
+    0 & 1 & 3
+  \end{pmatrix}
+\)
+\item Polynom : \( 8 x^3 + 3 x + 4 \)
+\item A number whose representation in base n is the considered sequence, where n in any number greater than all numbers of the sequences, for example for n = 10, the number 8034. This is also the value of the polynom for x = n.
+\end{itemize}
+
+Some representations of ordinals use finite sequences of ordinals. Different ways of representing sequences are used by these representations, for example comma separated list for Veblen function with finitely many variables, matrix with values and ranks for Schütte bracket or Klammersymbol, or base \( \Omega \) representation for collapsing functions, where \( \Omega \) is an ordinal which is greater than all ordinals of the sequence, for example if we want to represent sequences of countable ordinals, we can use for \( \Omega \) the least uncountable ordinal \( \omega_1 \).
 
 \section{Defining transfinite ordinal numbers}
 
@@ -2136,9 +2180,7 @@ The definition of this function uses the ordinal \( \Omega \) which is the least
 
 The smallest ordinal not in C(0) is the limit of \( \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \) which is \( \varepsilon_0 \), so \( \psi(0) = \varepsilon_0 \). More generally, \( \psi(\alpha) = \varepsilon_\alpha \) for all \( \alpha < \zeta_0, \psi(\alpha) = \zeta_0 \) for \( \zeta_0 \leq a \leq \Omega \), and \( \psi(\Omega+\alpha) = \varepsilon_(\zeta_0+\alpha) \) for \( \alpha <= \zeta_1 \). 
 
-Note that \( \psi(\Omega) = \zeta_0 \) is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \); we already saw such an equality when we introdiced collapsing in the Veblen function.
-
-The limit \( \psi(\epsilon_(\Omega+1)) \) of \( \psi(\Omega), \psi(\Omega^\Omega), \psi(\Omega^{\Omega^\Omega}), \ldots \) is the Bachmann-Howard ordinal. 
+Note that \( \psi(\Omega) = \zeta_0 \) is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \); we already saw such an equality when we introduced collapsing in the Veblen function.
 
 Some examples of fundamental sequences (FS) are :
 
@@ -2158,13 +2200,225 @@ A FS of \( \psi(\Omega \cdot 2) \) is \( \psi(0), \psi(\Omega+\psi(0)), \psi(\Om
 
 A FS of \( \psi(\Omega^\Omega \cdot 3) \) is \( \psi(0), \psi(\Omega^\Omega \cdot 2+\Omega^{\psi(0)}), \psi(\Omega^\Omega \cdot 2+\Omega^{\Omega^\Omega \cdot 2+\Omega^{\psi(0)}}), \cdots \).
 
-\subsection{Correspondence between Veblen functions and Madore's \( \psi \)}
+\bigskip
+
+The limit \( \psi(\varepsilon_{\Omega+1}) \) of \( \psi(\Omega), \psi(\Omega^\Omega), \psi(\Omega^{\Omega^\Omega}), \ldots \) is the Bachmann-Howard ordinal. 
+
+But \( \varepsilon_{\Omega+1} \) cannot be expressed in this system, because \( [ \varepsilon_\bullet ] \) does not belong to the functions used to define \( C(\alpha) \). We could add it, but that would not bring us very far. A better idea is to define a new function \( \psi_1 \) :
+
+\begin{itemize}\item[\hspace{12pt}]
+
+Let \( \psi_1(\alpha) \) be the smallest ordinal which cannot be expressed from all countable ordinals, \( \Omega \) and \( \Omega _{2} \) using sums, products, exponentials, and the \( \psi _{1} \) function itself (to previously constructed ordinals less than \( \alpha \)), where \( \Omega_2 \) is an ordinal which is greater than all the ordinals which will be constructed using \( \psi_1 \), for example we can take \( \Omega = \omega_1 \) (the least uncountable ordinal) and \( \Omega_2 = \omega_2 \), the least ordinal whose cardinal is strictly greater than the cardinal of \( \omega_1 \).
+
+\end{itemize}
+
+With this definition, we have \( \psi_1(0) = \varepsilon_{\Omega+1}, \psi_1(1) = \varepsilon_{\Omega+2} \), and more generally \( \psi_1(\alpha) = \varepsilon_{\Omega+1+\alpha} \).
+
+
+\subsection{Correspondence between Madore's \( \psi \) and other notations}
 
 To distinguish between the different Veblen functions, let us call \( \varphi_F \) the Veblen function with finitely many variables, and \( \varphi_T \) the Veblen function with transfinitely many variables.
 
 \( \varphi_F \) is a function which, when applied to a list of countable ordinals, gives a countable ordinal. A list of countable ordinals can be seen as a function which, when applied to a natural number, gives a countable ordinal, with the restriction that the result differs from 0 for finitely many integers. If we denote \( \omega \) the set of natural numbers and \( \Omega \) the set of countable ordinals, then this can be written : \( \varphi_F : (\omega \rightarrow \Omega) \rightarrow \Omega \). If we replace \( \alpha \rightarrow \beta \) by \( \beta^\alpha \), we get \( \Omega^{\Omega^\omega} \), and if we apply \( \psi \) to it, we get \( \psi(\Omega^{\Omega^\omega}) \), which is the small Veblen ordinal, the least ordinal that cannot be reached using \( \varphi_F \).
 
 For \( \varphi_T \), the position of a variable is represented by a countable ordinal instead of a natural number, also with the restriction that finitely many variables differ from 0, so we have \( \varphi_T : (\Omega \rightarrow \Omega) \rightarrow \Omega \). If we replace \( \alpha \rightarrow \beta \) by \( \beta^\alpha \), we get \( \Omega^{\Omega^\Omega} \), and if we apply \( \psi \) to it, we get \( \psi(\Omega^{\Omega^\Omega}) \), which is the large Veblen ordinal, the least ordinal that cannot be reached using \( \varphi_T \).
+
+\bigskip
+
+A correspondence between Madore's \( \psi \) and other notations can be established by starting from \( \psi(0) = \varepsilon_0 \) and using the properties \( \psi(\alpha+1) = sup \lbrace \psi(\alpha), \psi(\alpha)^{\psi(\alpha)}, \psi(\alpha)^{\psi(\alpha)^{\psi(\alpha)}}, \ldots \rbrace \) and \( \psi(f(\Omega)) = \) least fixed point of \( \alpha \mapsto \psi(f(\alpha)) \).
+
+This method gives the following correspondence :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi(0) = \varepsilon_0 = R_1 H suc\ 0 \)
+
+\item \( \psi(1) = sup \lbrace \psi(0), \psi(0)^{\psi(0)}, \psi(0)^{\psi(0)^{\psi(0)}}, \ldots \rbrace = sup \lbrace \varepsilon_0, {\varepsilon_0}^{\varepsilon_0}, {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}}, \ldots \rbrace = \varepsilon_1 = R_1 (R_1 H) suc\ 0 \)
+
+\item \( \psi(\alpha) = \varepsilon_\alpha = [suc \rightarrow R_1,0 \rightarrow H] (1+\alpha) suc\ 0 \)
+
+\item \( \psi(\Omega) = sup \lbrace 0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = H [[suc \rightarrow R_1,0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = sup \lbrace suc\ 0, R_1 H suc\ 0, R_1 H R_1 H suc\ 0, \ldots \rbrace = R_2 R_1 H suc\ 0 \)
+
+\item \( \psi(\Omega+1) = sup \lbrace \zeta_0, {\zeta_0}^{\zeta_0}, {\zeta_0}^{{\zeta_0}^{\zeta_0}}, \ldots \rbrace = \varepsilon_{\zeta_0+1} = R_1 (R_2 R_1 H) suc\ 0 \)
+
+\item \( \psi(\Omega+2) = \varepsilon_{\zeta_0+2} = R_1 (R_1 (R_2 R_1 H)) suc\ 0 \)
+
+\item \( \psi(\Omega+\alpha) = \varepsilon_{\zeta_0+\alpha} = [suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \alpha suc\ 0 \)
+
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \zeta_1 = H [[suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 H) suc\ 0 \)
+
+\item \( \psi(\Omega \times (1+\alpha)) = \zeta_\alpha \)
+
+\item \( \psi(\Omega \times \alpha) = \zeta'_\alpha = [suc \rightarrow R_2 R_1, 0 \rightarrow H] \alpha suc\ 0 \)
+
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 0, \zeta_0, \zeta_{\zeta_0}, \ldots \rbrace = \eta_0 = \varphi(3,0) = \varphi'(2,1) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) H suc\ 0 \)
+
+\item \( \psi(\Omega^\alpha) = \varphi(1+\alpha,0) = \varphi'(\alpha,1) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha suc\ 0 \)
+
+\item \( \psi(\Omega^\Omega) = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet suc\ 0] (suc 0) = R_3 R_2 R_1 H suc\ 0 \) (Note that this confirms the Simmons - RHS0 correspondence conjecture)
+
+\item \( \psi(\Omega^{\Omega^\Omega}) = LVO = R_4 R_3 R_2 R_1 H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1}) = BHO = R_{\omega \ldots 1} H suc\ 0 \) with \( \varepsilon_{\Omega+1} = sup \lbrace \Omega, \Omega^\Omega, \Omega^{\Omega^\Omega}, \ldots \rbrace \)
+
+
+\item \( \psi(\varepsilon_{\Omega+1}+1) = sup \lbrace BHO, BHO^{BHO}, BHO^{BHO^{BHO}}, \ldots \rbrace = R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+2) = R_1 (R_1 (R_{\omega \ldots 1} H)) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega) = H [[suc \rightarrow R_1, 0 \rightarrow R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+1) = R_1 (R_2 R_1 (R_{\omega \ldots 1} H)) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+2) = R_1 (R_1 (R_2 R_1 (R_{\omega \ldots 1} H))) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \) 
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \Omega) = \psi(\varepsilon_{\Omega+1}+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_{\omega \ldots 1} H) suc\ 0 \) 
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet (R_{\omega \ldots 1} H) suc\ 0] (suc\ 0) = R_3 R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1}+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \times 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} H suc\ 0 \)
+
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+1) = R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+1) = R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times \Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet (R_2 R_{\omega \ldots 1} H) suc\ 0] (suc\ 0) = R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \times (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+2)) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H)) suc_ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+\alpha)) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+\Omega)) = \psi(\varepsilon_{\Omega+1} \times \Omega \times 2) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega \times \alpha) = [suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \alpha suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega \times \Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega^2) = H [[suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_{\omega \ldots 1}) H suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \alpha H suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
+
+\item \( \psi(\varepsilon_{\Omega+1} \times \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^2) = R_{\omega \ldots 2}  R_{\omega \ldots 1} H suc\ 0 = R_{\omega \times 2 \ldots 1} H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\alpha) = R_{\omega \times \alpha \ldots 1} H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega) = H [R_{\omega \times \bullet \ldots 1} H suc\ 0] 0 = H [R_{\bullet \ldots 1} H suc\ 0] 0 = R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+1) = R_1 (R^1_1) H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R^1_1 H] \alpha suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\Omega) = H [[suc \rightarrow R_1, 0 \rightarrow R^1_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R^1_1 H) suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\Omega^\Omega) = R_3 R_2 R_1 (R^1_1 H) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}) = R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \alpha suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega+\varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega^\Omega) = R_3 R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^2) = R_{\omega \ldots 2} R_{\omega \ldots 1} (R^1_1 H) suc\ 0 = R_{\omega \times 2 \ldots 1} (R^1_1 H) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\alpha) = R_{\omega \times \alpha \ldots 1} (R^1_1 H) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\Omega) = \psi({\varepsilon_{\Omega+1}}^\Omega \times 2) = H [R_{\bullet \ldots 1} (R^1_1 H) suc\ 0] 0 = R^1_1 (R^1_1 H) suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \alpha) = [suc \rightarrow R^1_1, 0 \rightarrow H] \alpha suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega) = H [[suc \rightarrow R^1_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R^1_1 H suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi(\ldots \times \Omega) = R_2 \ldots H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^2) = R_2 (R_2 R^1_1) H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R^1_1] \alpha H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R^1_1] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^{\Omega+1}) = R_{\omega \ldots 2} R^1_1 H suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi(\ldots \times \varepsilon_{\Omega+1}) = R_{\Omega \ldots \ldots} \ldots H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}^2) = R_{\omega \ldots 3} R_{\omega \ldots 2} R^1_1 H suc\ 0 = R_{\omega \times 2 \ldots 2} R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}^\Omega) = \psi(({\varepsilon_{\Omega+1}}^\Omega)^2) = \psi(\varepsilon_{\Omega+1}^{\Omega \times 2}) = R^1_2 R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega \times \alpha}) = R^1_{\alpha \ldots 1} H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega^2} = H [R^1_{\bullet \ldots 1} H suc\ 0] 0 = R^2_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega^\alpha} = R^\alpha_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega^\Omega} = H [R^\bullet_1 H suc\ 0] 0 = R^{1,0}_1 H suc\ 0 = R^\Omega_1 H suc\ 0 = R_{\Omega^\Omega} H suc\ 0 = R^{H_1 suc\ 0}_1 H suc\ 0 = R_{H_1 H_1 suc\ 0} H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\varepsilon_{\Omega+1}}) = R_{\varepsilon_{\Omega+1}} H suc\ 0 = R_{R_1 H_1 suc\ 0} H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+2}}) = R^{H [R^\bullet_1 H_1 suc\ 0] 0}_1 H suc\ 0 \)
+
+\item \( \ldots \)
+
+\end{itemize}
+
+
+
 
 \subsection{\( \theta \) function}
 
