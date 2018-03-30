@@ -90,4 +90,128 @@ psi(e_(W+1)^e_(W+1)) = R(e_(W+1)) H suc 0 = R(R1 H1 suc 0) H suc 0
 psi(e_(W+1)^...^e_(W+1)) = psi(e_(W+2)) =? R(H [R*;1 H1 suc 0] 0;1) H suc 0 
 
 
+notation classique / notation RHS0 / notation RH (cf Church)
+
+0		0						KI
+1		suc 0					I
+2		suc (suc 0)				^s z.s(sz)
+w		H suc 0					H
+w+1		suc (H suc0)			^s z.s(H s z)
+w.2		H suc (H suc 0)			^s z.H s (H s z)
+w^2		H (H suc 0)				B H H
+w^w		H H suc 0				H H
+e0		R1 H suc 0				R1 H
+w^a		[suc:H,0:suc] a 0		a H
+e0^a	[suc:R1 H,0:suc] a 0	a (R1 H)
+e'_a	[suc:R1,0:H] a suc 0	a R1 H
+ 
+z0^...^z0 = e_(z0+1) = w^...^w^(e_z0+1)
+z0 = e_...e_0 => e_z0 = z0
+w^w^w^(e_z0+1) = H (R2 R1 H R1 H H H) H suc 0
+= w^w^w^(z0+1) = H (R2 R1 H H H) H suc 0
+= w^w^(w^z0.w) = H (R2 R1 H H H) H suc 0
+= w^w^(z0.w) = H (R2 R1 H H) H suc 0
+= w^(w^z0)^w = H (R2 R1 H H) H suc 0
+= w^z0^w = H (R2 R1 H) H suc 0
+= w^z0^(1+w) = H (R2 R1 H) (R2 R1 H H) suc 0
+= w^(z0.z0^w) = H (R2 R1 H) (R2 R1 H H) suc 0
+= (w^z0)^z0^w 
+= z0^z0^w = H (R2 R1 H) (R2 R1 H) suc 0
+
+w^a = [suc:H,0:suc] a 0
+e0^a = [suc:R1 H,0:suc] a 0
+z0^a = [suc:R2 R1 H,0:suc] a 0
+e_a = [suc:R1,0:H] (1+a) suc 0
+
+z0 = R2 R1 H suc 0
+e_z0 = R2 R1 H R1 H suc 0 = R2 R1 H suc 0 = z0
+e_z0 + 1 = suc (R2 R1 H R1 H suc 0) = suc (R2 R1 H suc 0)
+w^(e_z0 + 1) = H (R2 R1 H R1 H H suc) 0 = H (R2 R1 H H suc) 0
+w^w^(e_z0 + 1) = H (R2 R1 H R1 H H H) suc 0= H (R2 R1 H H H) suc 0
+w^w^w^(e_z0 + 1) = H (R2 R1 H R1 H H H) H suc 0 = H (R2 R1 H H H) H suc 0
+w^w^w^w^(e_z0 + 1) = H (R2 R1 H R1 H H H) h H suc 0 = H (R2 R1 H H H) H H suc 0
+w^...^w^(e_z0 + 1) = H (R2 R1 H R1 H H H) H ... H suc 0 = H (R2 R1 H H H) H ... H suc 0 = H (R2 R1 H) H ... H suc 0
+
+w = H suc 0
+z0^w = H (R2 R1 H) suc 0
+z0^z0^w = H (R2 R1 H) (R2 R1 H) suc 0
+z0^...^z0^w = H (R2 R1 H) ... (R2 R1 H) suc 0 = R1 (R2 R1 H) suc 0
+
+z0 = R2 R1 H suc 0
+z0+1 = suc (R2 R1 H suc 0)
+e_(z0+1) = R1 (R2 R1 H R1 H) suc 0 = R1 (R2 R1 H) suc 0
+
+
+psi(W+a) = e_(z0+a)
+psi(W2) = z1 = R2 R1 (R2 R1 H) suc 0
+psi(W2) = psi(W+W) = lim
+	psi(0) = e0								0
+	psi(W+psi(0)) = e_(z0+e0)				psi(W+0) = psi(W) = z0 = R2 R1 H suc 0
+	psi(W+psi(W+psi(0))) = e_(z0+e(z0+e0))	psi(W+psi(W)) = e_(z0+z0) = e_(z0.2)
+
+z0 = R2 R1 H suc 0
+z0+1 = suc (R2 R1 H suc 0)
+e_a = [suc:R1,0:H] (1+a) suc 0
+e_(z0+1) = R1 (R2 R1 H R1 H) suc 0 = R1 (R2 R1 H) suc 0
+e_e_(z0+1) = R1 (R2 R1 H) R1 H suc 0
+e_..._e_(z0+1) = R1 (R2 R1 H) R1 H ... R1 H suc 0
+
+e_(z0+e_(z0+e_z0+...e_z0+e0)...)) = e_e_...e_(z0+e0) = e_e_..._e_(z0+1)
+
+e0 = R1 H suc 0
+z0+e0 = R1 H suc (R2 R1 H suc 0)
+e_a = [suc:R1,0:H] (1+a) suc 0
+e_(z0+e0) = R1 H R1 (R2 R1 H R1 H) suc 0 = R1 H R1 (R2 R1 H) suc 0
+z0+e_(z0+e0) = R1 H R1 (R2 R1 H) suc (R2 R1 H suc 0)
+e_(z0+e_(z0+e0)) = R1 H R1 (R2 R1 H) R1 (R2 R1 H R1 H) suc 0 = R1 H R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+... R2 R1 (R2 R1 H) suc 0
+
+z0+0 = z0 = R2 R1 H suc 0
+e_z0 = z0 = R2 R1 H R1 H suc 0 = R2 R1 H suc 0
+z0+z0 = z0.2 = R2 R1 H suc (R2 R1 H suc 0)
+e_(z0.2) = R2 R1 H R1 (R2 R1 H R1 H) suc 0 = R2 R1 H R1 (R2 R1 H) suc 
+z0+e_(z0.2) = R2 R1 H R1 (R2 R1 H) suc (R2 R1 H suc 0)
+e_(z0+e_(z0.2)) = (R2 R1 H) R1 (R2 R1 H) R1 (R2 R1 H R1 H) suc 0 = (R2 R1 H) R1 (R2 R1 H) R1 (R2 R1 H) suc 0 
+... R2 R1 (R2 R1 H) suc 0
+
+1 = suc 0
+z0+1 = suc (R2 R1 H suc 0)
+e_(z0+1) = R1 (R2 R1 H R1 H) suc 0 = R1 (R2 R1 H) suc 0
+z0+e_(z0+1) = R1 (R2 R1 H) suc (R2 R1 H suc 0)
+e_(z0+e_(z0+1)) = R1 (R2 R1 H) R1 (R2 R1 H R1 H) suc 0 = R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+... R2 R1 (R2 R1 H) suc 0
+
+z0+e_(z0+1) = e_(z0+1) ?
+z0 = R2 R1 H suc 0
+z0+1 = suc (R2 R1 H suc 0)
+e_a = [suc:R1,0:H] (1+a) suc 0
+e_(z0+1) = R1 (R2 R1 H R1 H) suc 0 = R1 (R2 R1 H) suc 0
+z0+e_(z0+1) = R1 (R2 R1 H) suc (R2 R1 H suc 0)
+
+z0+e_e_(z0+1) = e_e_(z0+1)
+e_e_z0+1) = R1 (R2 R1 H) R1 H suc 0 = e_z0+e_(z0+1) = R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+z0+e_e_(z0+1) = R1 (R2 R1 H) R1 H suc (R2 R1 H suc 0)
+z0+e_(z0+e_(z0+1)) = R1 (R2 R1 H) R1 (R2 R1 H) suc (R2 R1 H suc 0)
+
+
+W = H1 suc 0
+W^W = H1 H1 suc 0
+W^...^W = e_(W+1) = R1 H1 suc 0
+e_(W+1).2 = R1 H1 suc (R1 H1 suc 0)
+e_(W+1).W = H1 (R1 H1 suc) 0
+e_(W+1)^2 = R1 H1 (R1 H1 suc) 0
+e_(W+1)^W = H1 (R1 H1) suc 0
+e_(W+1)^e_(W+1) = R1 H1 (R1 H1) suc 0
+e_(W+1)^...^e_(W+1) = e_(W+2) = R1 (R1 H1) suc 0
+e_(W+w) = H R1 H1 suc 0
+e_(W.2) = H1 R1 H1 suc 0
+e_(W^2) = R1 H1 R1 H1 suc 0
+e_(W^3) = R1 H1 R1 H1 R1 H1 suc 0
+e_(Wŵ) = R2 R1 H1 suc 0
+e_(W^W) = R1;2 R1 H1 suc 0 ou R1;2 R1;1 H1 suc 0
+R1 f = lim f, f f, f f f, ... = H <f> I
+R1;1 f = H1 <f> I
+R2 f g = lim f g, f g f g, f g f g f g, ... = H <f,g> I
+R1;2 f g = H1 <f,g> I
+e_(W^...^W) = e_e_(W+1) = R1;w...1 H1 suc 0
 
