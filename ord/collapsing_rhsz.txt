@@ -215,3 +215,100 @@ R2 f g = lim f g, f g f g, f g f g f g, ... = H <f,g> I
 R1;2 f g = H1 <f,g> I
 e_(W^...^W) = e_e_(W+1) = R1;w...1 H1 suc 0
 
+
+psi(0) = e0 
+psi'(0) = w
+psi'(a+1) = psi'(a)^...^psi'(a)
+psi'(1) = w^...^w = e0 = e'1
+psi'(w) = e_w 
+psi'(W) = lim 1, psi'(1), psi'(psi'(1), ... = lim 1, e0 = e'1, e_e0 = e'_e'1, ... = R2 R1 H suc 0 = z0 = z'1 = e_(z0+1) = e_(z'1+1)
+
+
+
+psi'(W+1) = z9^...^z0 = e_(z0+1)
+psi'(W+a) = e_(z0+a)
+psi'(W+W) = psi'(W.2) = lim 1, psi'(W+1), psi'(W+psi'(W+1)), ... = lim 1, e_(z0+1), e_(z0+e_(z0+1)), ... = e_..._e_(z0+1) = z1 = R2 R1 (R2 R1 H) suc 0 
+= psi'(H1 suc (H1 suc 0)) = lim
+	1 = suc 0
+	psi'(W+1) = psi'(suc (H1 suc 0)) = R1 (R2 R1 H) suc 0
+	psi'(W+psi'(W+1)) = psi'(R1 (R2 R1 H) suc (H1 suc 0)) = R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+	
+= R2 R1 (R2 R1 H) suc 0
+
+0 -> H1 suc 0 ; a -> [H1:R2,suc:R1,0:H] a suc 0
+suc 0
+suc (H1 suc 0)
+R1 (R2 R1 H) suc 0
+R1 (R2 R1 H) suc (H1 suc 0)
+R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+...
+
+a -> [H1:R2,suc:R1,0:H] a suc (H1 suc 0)
+suc (H1 suc 0)
+R1 (R2 R1 H) suc (H1 suc 0)
+R1 (R2 R1 H) R1 (R2 R1 H) suc (H1 suc 0)
+...
+
+[suc:R1,0:R2 R1 H] a suc 0
+suc 0
+R1 (R2 R1 H) suc 0
+R1 (R2 R1 H) R1 (R2 R1 H) suc 0
+...
+
+psi'(H1 suc 0) = R2 R1 H suc 0
+psi'(H1 suc (H1 suc 0)) = R2 R1 (R2 R1 H) suc 0
+psi'(a) = [H1:R2,suc:R1,0:H] a suc 0 ?
+
+psi'(0) = H suc 0
+psi'(1) = psi'(suc 0) = R1 H suc 0 = e0
+psi'(2) = psi'(suc(suc 0)) = R1 (R1 H) suc0 = e1 = e'2
+psi'(w) = psi'(H suc 0) = H R1 H suc 0 = e_w
+psi'(W) = psi'(H1 suc 0) = R2 R1 H suc 0 = z0
+psi'(W+1) = psi'(suc (H1 suc 0)) = R1 (R2 R1 H) suc 0
+psi'(W.2) = psi'(H1 suc (H1 suc 0)) = R2 R1 (R2 R1 H) suc 0 = z1 = z'2
+psi'(W^2) = psi'(H1 (H1 suc) 0)à = R2 (R2 R1) H suc 0 = eta0 = phi(3,0) = phi'(2,1)
+psi(W^W) = psi'(H1 H1 suc 0) = R2 R2 R1 H suc 0 ? ou R3 R2 R1 suc 0 = Gamma0
+
+R3 R2 R1 H suc 0 -> R R R H suc 0
+Rw...1 H suc 0 -> R' R H suc 0
+
+psi'(0) = w = H suc 0
+
+psi'(W) = psi'(H1 suc 0) = lim
+	1 = suc 0
+	psi'(1) = psi'(suc 0) = psi'(0)^...^psi'(0) = H suc 0^...^H suc 0 = R1 H suc 0 = e0
+	psi'(psi'(1)) = psi'(R1 H suc 0) = e_e0 = lim
+		psi'(suc 0) = R1 H suc 0
+		psi'(H suc 0) = lim
+			psi'(0) = H suc 0
+			psi'(suc 0) = R1 H suc 0
+			psi'(suc(suc 0)) = R1 (R1 H) suc 0
+			...
+		= H R1 H suc 0
+		psi'(H H suc 0) = lim
+			psi'(suc 0) = R1 H suc 0
+			psi'(H suc 0) = H R1 H suc 0
+			psi'(H (H suc) 0) = lim
+				psi'(0) = H suc 0
+				psi'(H suc 0) = H R1 H suc 0
+				psi'(H suc (H suc 0)) = lim
+					psi'(H suc 0) = H R1 H suc 0
+					psi'(suc (H suc 0)) = R1 (H R1 H) suc 0
+					psi'(suc (suc (H suc 0))) = R1 (R1 (H R1 H)) suc 0
+					...
+				= H R1 (H R1 H) suc 0
+				...
+			= H (H R1) H suc 0
+			...
+		= H H R1 H suc 0
+		...
+	= R1 H R1 H suc 0
+	...
+= R2 R1 H suc 0
+
+
+
+
+
+
+
