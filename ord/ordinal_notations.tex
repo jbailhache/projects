@@ -1827,11 +1827,36 @@ which could also be written :
 
 \( H (R_1 H) H \ldots H suc\ 0 = H (R_1 H) (R_1 H) \ldots (R_1 H) suc\ 0 \)
 
-There is probably a similar equality :
+There is a similar equality :
 
 \( R_1 (R_2 R_2 H) R_1 H \ldots R_1 H suc\ 0 = R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) \ldots R_1 (R_2 R_1 H) suc\ 0 \)
 
-which would prove the equivalence of the two fundamental sequences.
+which proves the equivalence of the two fundamental sequences.
+
+We saw that \( \zeta_1 \) is the limit (or least upper bound) of \( \zeta_0+1, \varepsilon_{\zeta_0+1}, \varepsilon_{\varepsilon_{\zeta_0+1}}, \ldots \). But we have \( \varepsilon_{\zeta_0+1} = \zeta_0+\varepsilon_{\zeta_0+1} \) because \( \zeta_0 \) is "absorbed" by \( \varepsilon_{\zeta_0+1} \),  so \( \varepsilon_{\varepsilon_{\zeta_0+1}} = \varepsilon_{\zeta_0+\varepsilon_{\zeta_0+1}} \), and similarily \( \varepsilon_{\varepsilon_{\varepsilon_{\zeta_0+1}}} = \varepsilon_{\zeta_0+\varepsilon_{\zeta_0+\varepsilon_{\zeta_0+1}}} \), and so on.
+
+So \( \zeta_1 \) is also the limit of \( 1, \varepsilon_{\zeta_0+1}, \varepsilon_{\zeta_0+\varepsilon_{\zeta_0+1}}, \ldots \). 
+
+We start with 1 because at each step, \( \alpha \) is replaced by \( \varepsilon_{\zeta_0+\alpha} \), the initial value of the sequence having no importance for its limit.
+
+Now let us write the RHS0 representations of the values of this sequence, using the formula \( \varepsilon_\alpha = [suc \rightarrow R_1, 0 \rightarrow H] (1+\alpha) suc\ 0 \):
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( 1 = suc\ 0 \)
+\item \( \zeta_0 = R_2 R_1 H suc\ 0 \)
+\item \( \zeta_0+1 = suc (R_2 R_1 H suc\ 0) \)
+\item \( \varepsilon_{\zeta_0+1} = R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \zeta_0+\varepsilon_{\zeta_0+1} = R_1 (R_2 R_1 H) suc\ (R_2 R_1 H suc\ 0) \)
+\item \( \varepsilon_{\zeta_0+\varepsilon_{\zeta_0+1}} = R_1 (R_2 R_1 H) R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \ldots \)
+
+\end{itemize}
+
+We see that the limit of this sequence is \( R_2 R_1 (R_2 R_1 H) suc\ 0 \).
 
 \bigskip
 
