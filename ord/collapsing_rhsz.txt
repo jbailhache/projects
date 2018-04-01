@@ -306,9 +306,26 @@ psi'(W) = psi'(H1 suc 0) = lim
 	...
 = R2 R1 H suc 0
 
+psi'(f(W)) = H f 0 ou H f 1
 
+W = I(W) = H1 suc 0
+f(a) = a
+W = H1 suc 0 -> H1 suc 0
 
+W.2 = W+W = H1 suc (H1 suc 0) 
+f(a) = W+a = [0:H1 suc 0] a
+W = H1 suc 0 -> H1 suc (H1 suc 0)
 
+W.3 = W.2+W = H1 suc (H1 suc (H1 suc 0))
+f(a) = W.2+a = [0:H1 suc(H1 suc 0)] a
+W = H1 suc 0 -> H1 suc (H1 suc (H1 suc 0))
+
+W^2 = W.W = H1 (H1 suc) 0
+f(a) = W.a = [suc:H1 suc] a
+W = H1 suc 0 -> H1 (H1 suc) 0
+
+H1 f x y1 ... yn 
+f(a) = [suc:f,0:x] a y1 ... yn
 
 
 
