@@ -50,7 +50,24 @@
  if (not : pair? : cdr x) (car x) 
  x)
  
-(define psi : lambda (a) : 
+(define memo '())
+
+(define find : lambda (a memo) :
+ if (not : pair? memo) '#f :
+ begin (display "a = ") (display a) (newline) 
+       (display "memo = ") (display memo) (newline) :
+ if (equal? a : caar memo) (cdar memo) :
+ find a : cdr memo)
+
+(define psi : lambda (a) :
+ let ((m : find a memo)) :
+ if m (begin (display "found : ") (display m) (newline) m) :
+ let ((b : psi2 a)) 
+  (display "psi ") (display a) (display " = ") (display b) (newline)
+  (set! memo : cons (cons a b) memo)
+  b)
+
+(define psi1 : lambda (a) : 
  if (not : pair? a) a :
  if (pair? : car a) (psi : append (car a) (cdr a)) :
  if (equal? (car a) '0) '(H suc 0) :
@@ -109,7 +126,7 @@
   (cons 'R1 b) :
  list 'limit a b c)
 
-(display : psi '(H H suc 0))
+;(display : psi '(H H suc 0))
 (newline)
 
 )))
