@@ -126,6 +126,10 @@
          (equal? (car b) (car c))
          (equal? (car c) (cadr c)))
   (cons 'R1 b) :
+ if (and (equal? a : append (cadr b) : cddr b)
+         (equal? b : cdr c)
+         (equal? (car c) (cadr c)))
+  (cons 'R1 b) :       
  if (and (equal? a : cddr b)
          (equal? b : cddr c)
          (equal? (car b) (car c))
