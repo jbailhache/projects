@@ -82,7 +82,11 @@
  if (and (equal? 'R1 : car a) (>= (length a) 2)) 
   (limit (psi : cddr a)
          (psi : cdr a)
-         (psi : cons (cadr a) : cdr a)) 
+         (psi : cons (cadr a) : cdr a)) :
+ if (and (equal? 'R2 : car a) (>= (length a) 3))
+  (limit (psi : cdddr a)
+         (psi : cdr a)
+         (psi : cons (cadr a) : cons (caddr a) : cdr a))
  a)
 
 (define myappend : lambda (a b) :
@@ -122,6 +126,13 @@
          (equal? (car b) (car c))
          (equal? (car c) (cadr c)))
   (cons 'R1 b) :
+ if (and (equal? a : cddr b)
+         (equal? b : cddr c)
+         (equal? (car b) (car c))
+         (equal? (cadr b) (cadr c))
+         (equal? (car c) (caddr c))
+         (equal? (cadr c) (cadddr c)))
+  (cons 'R2 b) :
  list 'limit a b c)
 
 ;(display : psi '(H H suc 0))
