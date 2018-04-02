@@ -102,6 +102,11 @@
          (equal? a : myappend (car difb) (cdr difb))
          (equal? (cdr difb) (cdr difc)))
   (cons 'H : cons com difb) :
+ if (and (equal? a : cdr b)
+         (equal? b : cdr c)
+         (equal? (car b) (car c))
+         (equal? (car c) (cadr c)))
+  (cons 'R1 b) :
  list 'limit a b c)
 
 (display : psi '(H H suc 0))
