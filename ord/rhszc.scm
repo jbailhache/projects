@@ -54,15 +54,13 @@
 
 (define find : lambda (a memo) :
  if (not : pair? memo) '#f :
- begin (display "a = ") (display a) (newline) 
-       (display "memo = ") (display memo) (newline) :
  if (equal? a : caar memo) (cdar memo) :
  find a : cdr memo)
 
 (define psi : lambda (a) :
  let ((m : find a memo)) :
- if m (begin (display "found : ") (display m) (newline) m) :
- let ((b : psi2 a)) 
+ if m m :
+ let ((b : psi1 a)) 
   (display "psi ") (display a) (display " = ") (display b) (newline)
   (set! memo : cons (cons a b) memo)
   b)
