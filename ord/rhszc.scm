@@ -50,6 +50,12 @@
  if (not : pair? : cdr x) (car x) 
  x)
  
+(define subst : lambda (s z a) :
+ if (equal? '0 a) z :
+ if (equal? 'suc a) s :
+ if (not : pair? a) a :
+ cons (subst s z : car a) (subst s z : cdr a))
+
 (define memo '())
 
 (define find : lambda (a memo) :
@@ -67,7 +73,7 @@
 
 (define psi1 : lambda (a) : 
  if (not : pair? a) a :
- if (pair? : car a) (psi : append (car a) (cdr a)) :
+ if (pair? : car a) (psi : myappend (car a) (cdr a)) :
  if (equal? (car a) '0) '(H suc 0) :
  if (equal? 'suc : car a)
   (let ((b : psi : cdr a)) :
@@ -86,7 +92,12 @@
  if (and (equal? 'R2 : car a) (>= (length a) 3))
   (limit (psi : cdddr a)
          (psi : cdr a)
-         (psi : cons (cadr a) : cons (caddr a) : cdr a))
+         (psi : cons (cadr a) : cons (caddr a) : cdr a)) :
+ if (and (equal? 'H1 : car a) (>= (length a) 3))
+  (let ((b : psi : cdr a)) :
+   limit '(suc 0)
+         b
+         (psi : myappend (subst (cadr a) (caddr a) b) : cdddr a))
  a)
 
 (define myappend : lambda (a b) :
@@ -126,7 +137,7 @@
          (equal? (car b) (car c))
          (equal? (car c) (cadr c)))
   (cons 'R1 b) :
- if (and (equal? a : append (cadr b) : cddr b)
+ if (and (equal? a : myappend (cadr b) : cddr b)
          (equal? b : cdr c)
          (equal? (car c) (cadr c)))
   (cons 'R1 b) :       
