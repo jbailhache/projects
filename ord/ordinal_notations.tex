@@ -8,7 +8,7 @@
 
 \title{A Tutorial Overview of Ordinal Notations}
 \author{Jacques Bailhache (jacques.bailhache@gmail.com)}
-\date{January-February 2018}
+\date{January-April 2018}
 
 \maketitle
 
@@ -2267,25 +2267,29 @@ This method gives the following correspondence :
 
 \item \( \psi(\alpha) = \varepsilon_\alpha = [suc \rightarrow R_1,0 \rightarrow H] (1+\alpha) suc\ 0 \)
 
-\item \( \psi(\Omega) = sup \lbrace 0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = H [[suc \rightarrow R_1,0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = sup \lbrace suc\ 0, R_1 H suc\ 0, R_1 H R_1 H suc\ 0, \ldots \rbrace = R_2 R_1 H suc\ 0 \)
+\item \( \psi(\Omega) = \psi(H_1 suc\ 0) = sup \lbrace 0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = H [[suc \rightarrow R_1,0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = sup \lbrace suc\ 0, R_1 H suc\ 0, R_1 H R_1 H suc\ 0, \ldots \rbrace = R_2 R_1 H suc\ 0 \)
 
-\item \( \psi(\Omega+1) = sup \lbrace \zeta_0, {\zeta_0}^{\zeta_0}, {\zeta_0}^{{\zeta_0}^{\zeta_0}}, \ldots \rbrace = \varepsilon_{\zeta_0+1} \) (see proof below) \( = R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \psi(\Omega+1) = \psi(suc\ (H_1 suc\ 0)) = sup \lbrace \zeta_0, {\zeta_0}^{\zeta_0}, {\zeta_0}^{{\zeta_0}^{\zeta_0}}, \ldots \rbrace = \varepsilon_{\zeta_0+1} \) (see proof below) \( = R_1 (R_2 R_1 H) suc\ 0 \)
 
-\item \( \psi(\Omega+2) = \varepsilon_{\zeta_0+2} = R_1 (R_1 (R_2 R_1 H)) suc\ 0 \)
+\item \( \psi(\Omega+2) = \psi(suc\ (suc\ (H_1 suc\ 0))) = \varepsilon_{\zeta_0+2} = R_1 (R_1 (R_2 R_1 H)) suc\ 0 \)
 
 \item \( \psi(\Omega+\alpha) = \varepsilon_{\zeta_0+\alpha} = [suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \zeta_1 = H [[suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc\ (H_1 suc\ 0)) = \zeta_1 = H [[suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 H) suc\ 0 \)
 
 \item \( \psi(\Omega \times (1+\alpha)) = \zeta_\alpha \)
 
 \item \( \psi(\Omega \times \alpha) = \zeta'_\alpha = [suc \rightarrow R_2 R_1, 0 \rightarrow H] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 0, \zeta_0, \zeta_{\zeta_0}, \ldots \rbrace = \eta_0 = \varphi(3,0) = \varphi'(2,1) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) H suc\ 0 \)
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \psi (H_1 (H_1 suc) 0) = sup \lbrace 0, \zeta_0, \zeta_{\zeta_0}, \ldots \rbrace = \eta_0 = \varphi(3,0) = \varphi'(2,1) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) H suc\ 0 \)
 
 \item \( \psi(\Omega^\alpha) = \varphi(1+\alpha,0) = \varphi'(\alpha,1) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega^\Omega) = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet suc\ 0] (suc 0) = R_3 R_2 R_1 H suc\ 0 \) (Note that this confirms the Simmons - RHS0 correspondence conjecture)
+\item \( \psi(\Omega^\alpha \times \beta) = \varphi'(\alpha,\beta) \)
+
+\item \( \psi(\Omega^\Omega) = \psi(H_1 H_1 suc\ 0) = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet suc\ 0] (suc\ 0) = R_3 R_2 R_1 H suc\ 0 \) (Note that this confirms the Simmons - RHS0 correspondence conjecture ; note also that since \( \psi(\Omega) \) and before this point we have \( \psi(\alpha) = [H_1 \rightarrow R_2,suc \rightarrow R_1, 0 \rightarrow H]\ \alpha \ suc\ 0 \), but this does not work anymore from this point)
+
+\item \( \psi(\Omega^{\Omega \times \alpha + \beta} \times \gamma) = \varphi'(\alpha,\beta,\gamma) = \varphi'_{\alpha,\beta}(\gamma) \)
 
 \item \( \psi(\Omega^{\Omega^\Omega}) = LVO = R_4 R_3 R_2 R_1 H suc\ 0 \)
 \item \( \psi(\varepsilon_{\Omega+1}) = BHO = R_{\omega \ldots 1} H suc\ 0 \) with \( \varepsilon_{\Omega+1} = sup \lbrace \Omega, \Omega^\Omega, \Omega^{\Omega^\Omega}, \ldots \rbrace \)
@@ -2468,6 +2472,43 @@ We must prove the equality for n+1, which can be written \( \omega^{\omega^{\ome
 We have \( \omega^{\omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_{\zeta_0}+1}}}}}} = \omega^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (by our hypothesis) \( = \omega^{{\zeta_0}^{1+{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (for the same reason than \( 1+\omega = \omega \), see above) \( = \omega^{{\zeta_0} \times {\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = (\omega^{\zeta_0})^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = {\zeta_0}^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \). QED.
 
 In RHSZ notation, this corresponds to the equality \( H (R_2 R_1 H) H \ldots H suc\ 0 = H (R_2 R_1 H) (R_2 R_1 H) \ldots (R_2 R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \).
+
+
+\subsection{A variant of Madore's \( \psi \) function}
+
+Another approach could consist, instead of defining ordinal collapsing functions by taking the least ordinal which cannot be constructed using a given set of ordinals and operations, in defining it recursively according to the value of the variable.
+
+Let us call \( \psi' \) this new collapsing function. 
+
+First, to be consistent with the rationalized functions previously defined, we would like to have \( \psi'(\alpha) = \varepsilon'_\alpha \) instead of \( \psi(\alpha) = \varepsilon_\alpha \). So \( \psi'(0) \) must be equal to \( \varepsilon'_0 \). As we have \( \varepsilon'_{\alpha+1} = sup \lbrace \varepsilon'_\alpha, {\varepsilon'_\alpha}^{\varepsilon'_\alpha}, {\varepsilon'_\alpha}^{{\varepsilon'_\alpha}^{\varepsilon'_\alpha}}, \ldots \rbrace \), it is consistent to define \( \varepsilon'_0 = \omega \), because \( \varepsilon'_1 = \varepsilon_0 = sup \lbrace \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \rbrace \).
+
+Then we can define \( \psi'(\alpha+1) \) as the limit or least upper bound of \( \psi'(\alpha), \psi'(\alpha)^{\psi'(\alpha)}, \psi'(\alpha)^{\psi'(\alpha)^{\psi'(\alpha)}}, \ldots \).
+
+Then we can define canonically \( \psi'(lim(f)) = lim(n \mapsto \psi'(f(n)) \).
+
+Then we must define \( \psi' \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi'(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi' \circ f \), which can be written for example \( sup \lbrace 1, \psi'(f(1)), \psi'(f(_psi'(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n] (suc\ 0) \).
+
+\bigskip
+
+In summary, we can define the \( \psi' \) function by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi'(0) = \omega \)
+
+\item \( \psi'(\alpha+1) = sup \lbrace \psi'(\alpha), \psi'(\alpha)^{\psi'(\alpha)}, \psi'(\alpha)^{\psi'(\alpha)^{\psi'(\alpha)}}, \ldots \rbrace \)
+
+\item  \( \psi'(lim(f)) = lim(n \mapsto \psi'(f(n)) \)
+
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n] (suc\ 0) \)
+
+\end{itemize}
+
+Note that this definition does not give exactly the same function as Madore's \( \psi \), apart from the shift of one unit for finite values due to rationalization : for example, we have \( \psi(\zeta_0+1) = \zeta_0 \), but \( \psi'(\zeta_0+1) = sup \lbrace \psi'(\zeta_0), \psi'(\zeta_0)^{\psi'(\zeta_0)}, \psi'(\zeta_0)^{\psi'(\zeta_0)^{\psi'(\zeta_0)}}, \ldots \rbrace = \varepsilon_{\zeta_0+1} = \varepsilon'_{\zeta'_1+1} \).
+
 
 
 \subsection{\( \theta \) function}
@@ -2906,14 +2947,17 @@ Ordinal trees
 \item https://sites.google.com/site/largenumbers/home : 
 Sbiis Saibian's Large Number Site
 
+\item https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbHnrXzVAOxYYC :
+Extremely large numbers (videos) 
+
 \item http://forums.xkcd.com/viewtopic.php?f=14\&t=7469 : 
 My number is bigger !
 
 \item http://www.cl.cam.ac.uk/\%7Ejrh13/papers/reflect.html : 
-Metatheory and Reflection in Theorem Proving: A Survey and Critique</a> by John Harrison<br>
+Metatheory and Reflection in Theorem Proving: A Survey and Critique by John Harrison
 
 \item http://math.stanford.edu/\%7Efeferman/papers/penrose.pdf : 
-Penrose's G\&ouml;delian argument by Solomon Feferman
+Penrose's Gödelian argument by Solomon Feferman
 
 \item http://www.turingarchive.org/browse.php/B/15 : 
 Systems of logic based on ordinals by Alan Turing

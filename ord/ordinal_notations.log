@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  31 MAR 2018 11:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  5 APR 2018 00:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -583,7 +583,22 @@ r/2012/03/infinity-
  []
 
 [28]
-Overfull \hbox (20.15726pt too wide) in paragraph at lines 2337--2338
+Overfull \hbox (35.79108pt too wide) in paragraph at lines 2270--2271
+[]$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (
+) = \OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 H[]suc \OT1/cmr/m/n/10 
+0) = \OML/cmm/m/it/10 sup\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; 
+"[]; "[]; []\OMS/cmsy/m/n/10 g \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 ^^P[] \OT1/cm
+r/m/n/10 = \OML/cmm/m/it/10 H\OT1/cmr/m/n/10 [[\OML/cmm/m/it/10 suc \OMS/cmsy/m
+/n/10 ! \OML/cmm/m/it/10 R[]; \OT1/cmr/m/n/10 0 \OMS/cmsy/m/n/10 ! \OML/cmm/m/i
+t/10 H\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 ^^O \OML/cmm/m/it/10 suc \OT1/cmr/m/n/
+10 0](\OML/cmm/m/it/10 suc \OT1/cmr/m/n/10 0) = \OML/cmm/m/it/10 sup\OMS/cmsy/m
+/n/10 f\OML/cmm/m/it/10 suc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; R[]Hsuc \OT1/cm
+r/m/n/10 0\OML/cmm/m/it/10 ; R[]HR[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []
+\OMS/cmsy/m/n/10 g \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (20.15726pt too wide) in paragraph at lines 2341--2342
 []$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^B
  \OT1/cmr/m/n/10 
  + 
@@ -601,45 +616,51 @@ mr/m/n/10 ))\OML/cmm/m/it/10 suc \OT1/cmr/m/n/10 0$
  []
 
 [29] [30] [31] [32] [33] [34] [35]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 2804--2840
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 2845--2881
 [] 
  []
 
-
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 2848--2850
+[36]
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 2889--2891
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 2851--2853
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 2892--2894
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-[36]
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 2881--2883
+
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 2922--2924
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 2887--2890
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 2928--2931
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
-
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 2904--2905
+[37]
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 2945--2946
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
-[37] (./ordinal_notations.aux) ) 
+
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 2950--2952
+[]\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
+nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
+ []
+
+[38] (./ordinal_notations.aux) ) 
 Here is how much of TeX's memory you used:
  1672 strings out of 495020
  20505 string characters out of 6181324
- 97938 words of memory out of 5000000
+ 100938 words of memory out of 5000000
  4889 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -661,10 +682,10 @@ nts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on ordinal_notations.pdf (37 pages, 329436 bytes).
+Output written on ordinal_notations.pdf (38 pages, 333411 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 136 compressed objects within 2 object streams
+ 197 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
