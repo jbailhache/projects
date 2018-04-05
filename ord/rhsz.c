@@ -32,7 +32,7 @@ struct pair
 	expr fst, snd;
 };
 
-#define SIZE 10000
+#define SIZE 100000
 
 int npairs = 0;
 
@@ -356,8 +356,9 @@ main ()
 	//a = ap(suc,ap(suc,zero));
 	//a = ap(ap(ap(H,H),suc),zero);
 	//a = ap(ap(ap(R1,H),suc),zero);
-	a = ap(ap(H1,suc),zero);
-	//a = ap(ap(H1,suc),ap(ap(H1,suc),zero));
+	//a = ap(ap(H1,suc),zero);
+	//a = ap(ap(ap(R1,H),suc),ap(ap(H1,suc),zero));
+	a = ap(ap(H1,suc),ap(ap(H1,suc),zero));
 	b = psi(a);
 	//dump();
 	printf ("\na=%X b=%X\n",a,b);
