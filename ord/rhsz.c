@@ -32,7 +32,7 @@ struct pair
 	expr fst, snd;
 };
 
-#define SIZE 100000
+#define SIZE 1000000
 
 int npairs = 0;
 
@@ -240,9 +240,16 @@ int cwf_putchar (struct charwriter *cw, char c)
 	return putchar(c);
 }
 
-expr psi1 (expr a);
+expr psi2 (int level, expr a);
 
 expr psi (expr a)
+{
+	return psi2(0,a);
+}
+
+expr psi1 (int level, expr a);
+
+expr psi2 (int level, expr a)
 {
 	expr b;
 	struct charwriter cw;
@@ -252,21 +259,21 @@ expr psi (expr a)
 		if (eq(a,memo[i].arg))
 			return memo[i].val;
 	}
-	b = psi1(a);
+	b = psi1(level,a);
 	memo[nmemo].arg = a;
 	memo[nmemo].val = b;
 	nmemo++;
 	cw.f = cwf_putchar;
 	count++;
-	printf (" %d : psi ", count);
+	printf ("\n %6d %2d ", count, level);
 	writeexpr (&cw, a);
-	printf (" = ");
+	printf ("\n           ");
 	writeexpr (&cw, b);
 	printf ("\n");
 	return b;
 }
 
-expr psi1 (expr a)
+expr psi1 (int level, expr a)
 {
 	if (eq(zero,a))
 		return w;
@@ -275,7 +282,7 @@ expr psi1 (expr a)
 	if (eq(suc,fnc(a)))
 	{
 		expr c;
-		c = psi(arg(a));
+		c = psi2(level+1,arg(a));
 		if (isap(c) && eq(zero,arg(c)) && isap(fnc(c)) && eq(suc,arg(fnc(c))))
 			return ap(ap(ap(R1,fnc(fnc(c))),suc),zero);
 	}	
@@ -285,8 +292,8 @@ expr psi1 (expr a)
 	{
 		expr b, c, d;
 		b = ap(suc,zero);
-		c = psi(ap(arg(fnc(a)),arg(a)));
-		d = psi(subst(arg(fnc(a)),arg(a),c));
+		c = psi2(level+1,ap(arg(fnc(a)),arg(a)));
+		d = psi2(level+1,subst(arg(fnc(a)),arg(a),c));
 		return limit(b,c,d);
 	}		
 	/*if (eq(H,fnc(fnc(a))))
@@ -295,7 +302,7 @@ expr psi1 (expr a)
 			psi(ap(arg(fnc(a)),arg(a))), 
 			psi(ap(arg(fnc(a)),ap(arg(fnc(a)),arg(a))))
 			);*/
-	return limit (psi(first(a)), psi(first(next(a))), psi(first(next(next(a)))));
+	return limit (psi2(level+1,first(a)), psi2(level+1,first(next(a))), psi2(level+1,first(next(next(a)))));
 	//return ap(Psi,a);
 }
 
@@ -357,8 +364,8 @@ main ()
 	//a = ap(ap(ap(H,H),suc),zero);
 	//a = ap(ap(ap(R1,H),suc),zero);
 	//a = ap(ap(H1,suc),zero);
-	//a = ap(ap(ap(R1,H),suc),ap(ap(H1,suc),zero));
-	a = ap(ap(H1,suc),ap(ap(H1,suc),zero));
+	a = ap(ap(ap(R1,H),suc),ap(ap(H1,suc),zero));
+	//a = ap(ap(H1,suc),ap(ap(H1,suc),zero));
 	b = psi(a);
 	//dump();
 	printf ("\na=%X b=%X\n",a,b);
