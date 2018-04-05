@@ -221,7 +221,52 @@ expr limit (expr a, expr b, expr c)
 	return ap(ap(ap(lim,a),b),c);
 }
 
+#define MAXMEMO SIZE
+
+int nmemo = 0;
+
+struct item
+{
+	expr arg;
+	expr val;
+};
+
+struct item memo[MAXMEMO];
+
+int count = 0;
+
+int cwf_putchar (struct charwriter *cw, char c)
+{
+	return putchar(c);
+}
+
+expr psi1 (expr a);
+
 expr psi (expr a)
+{
+	expr b;
+	struct charwriter cw;
+	int i;
+	for (i=0; i<nmemo; i++)
+	{
+		if (eq(a,memo[i].arg))
+			return memo[i].val;
+	}
+	b = psi1(a);
+	memo[nmemo].arg = a;
+	memo[nmemo].val = b;
+	nmemo++;
+	cw.f = cwf_putchar;
+	count++;
+	printf (" %d : psi ", count);
+	writeexpr (&cw, a);
+	printf (" = ");
+	writeexpr (&cw, b);
+	printf ("\n");
+	return b;
+}
+
+expr psi1 (expr a)
 {
 	if (eq(zero,a))
 		return w;
@@ -252,11 +297,6 @@ expr psi (expr a)
 			);*/
 	return limit (psi(first(a)), psi(first(next(a))), psi(first(next(next(a)))));
 	//return ap(Psi,a);
-}
-
-int cwf_putchar (struct charwriter *cw, char c)
-{
-	return putchar(c);
 }
 
 dump ()
