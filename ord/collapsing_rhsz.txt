@@ -347,6 +347,7 @@ psi2(0) = e_(W1+1) (ou e_(W2+1))
 TFB0 = psi0(e_W_w+1)
 a0 = sup { psi(0), psi_psi(0)(0), psi_psi_psi(0)(0)(0)
 
+psi(f(W)) = H (B psi f) 0 or H (B psi f) 1, least fixed point of psi o f
 psi(0) = w = H suc 0
 psi(lim(f)) = lim(\n.psi(f(n)))
 psi (H1 s z x1 ... xn) = lim
@@ -389,6 +390,108 @@ c(a+1,b) = b+w^(a+1) = b+w^a.w
 c(0,0) = 1
 c(a+1,b) = c(a,b).w
 c(a,b+1) = c(a,b)+1
+
+
+psi1 (H1 suc 0) = psi1(W) = e_(W.2)
+
+e_a = [suc:R1,0:H] (1+a) suc 0
+z_a = [suc:R2 R1,0:H] (1+a) suc 0
+
+W = H1 suc 0
+e_W = H1 R1 H suc 0 ( = H1 suc 0 = W ? )
+W^...^W = e_(W+1) = e_(suc (H1 suc 0)) = R1 H1 suc 0
+e_(W+2) = R1 (R1 H1) suc 0
+e_(W+w) = H R1 H1 suc 0
+e_(W+W) = e_(W.2) e_(H1 suc (H1 suc 0)) = H1 R1 (H1 R1 H) suc 0 = H1 R1 H1 suc 0
+e_e_W+1 = R1 H1 R1 H suc 0
+
+psi0(0) = w
+psi0(suc a) = psi0(a)^...^psi0(a)
+psi0 (lim f) = lim ^n(psi0(f n))
+psi0(W) = psi0(H1 suc 0) = lim
+	suc 0
+	psi0(suc 0) = R1 H suc 0
+	psi0(psi0(suc 0)) = psi0(R1 H suc 0) = R1 H R1 H suc 0
+	...
+= R2 R1 H suc 0
+psi0(H1 f x y1 ... yn) = lim
+	suc 0
+	psi0 (f x y1 ... yn)
+	psi0 ([suc:f,0:x] (psi0 (f x y1 ... yn)) y1 ... yn
+	...
+= H [psi0 ([suc:f,0:x] * y1 ... yn)] (suc 0)
+
+psi1(0) = W = H1 suc 0
+psi1(suc a) = psi1(a)^...^psi1(a)
+psi1(lim f) = lim ^n(psi1(f n))
+psi1(H1 suc 0) =? lim
+	suc 0
+	psi1(suc 0) = e_(W+1) = R1 H1 suc 0
+	psi1(R1 H1 suc 0) = psi1(e_W+1) = e_(W+e_(W+1)) = e_e_(W+1)
+	...
+(non)
+ou comme
+psi1(H suc 0) = lim 
+	psi1(0)
+	psi1(1) ) R1 H1 suc 0
+	psi1(2) = R1 (R1 H1) suc 0
+	...
+= H R1 H1 suc 0
+psi1(H1 suc 0) = H1 R1 H1 suc 0
+psi1(lim1 f) = lim1 ^a(psi1(f a))
+
+
+psi(W) = lim
+	1
+	psi(1) = e'_1
+	psi(psi(1)) = e'_e'_1 
+	...
+= zeta'1
+
+ELN22:
+psi1(0) = e_(W+1)
+psi1(1) = e_(W+2)
+psi1(a) = e_(W+1+a)
+psi1(W1) = zeta_(W+1)
+psi1(W1.a) = zeta_(W+1+a)
+z0 = e_..._e_0 
+z1 = e_ ..._e_(z0+1)
+z_(W+1) = e_..._e_(z_W+1) = e_..._e_(W+1)
+
+psi1(W1) = psi1(H2 suc 0) = z_(W+1) = z_(suc(H1 suc 0)) = R2 R1 (H1 (R2 R1) H) suc 0 = lim
+	1
+	psi1(1) = e_(W+1) = R1 H1 suc 0
+	psi1(psi1(1)) = e_(W+e_(W+1)) = e_e_(W+1) = R1 H1 R1 H suc 0 
+		= e_(R1 H1 suc (H1 suc 0)) = R1 H1 R1 (H1 R1 H) suc 0
+	psi1(psi1(psi1(1))) = e_W+psi1(psi1(1))
+		= e_(R1 H1 R1 (H1 R1 H) suc (H1 suc 0)
+		= R1 H1 R1 (H1 R1 H) R1 (H1 R1 H) suc 0
+= R2 R1 (H1 R1 H) suc 0
+
+
+psi 0 0 = H suc 0
+psi 0 (suc a) = psi 0 a ^ ... ^ psi 0 a = R1 f suc 0 si psi 0 a = f suc 0
+psi 0 (lim f) = lim ^n(psi 0 (f n))
+psi 0 (H1 f x y1 ... yn) = H [psi 0 ([suc:f,0:x] * y1 ... yn)] (suc 0)
+
+psi 1 O = H1 suc 0
+psi 1 (suc a) = psi 1 a ^ ... ^ psi 1 a = R1 f suc 0 si psi 1 a = f suc 0
+psi 1 (lim f) = lim ^n(psi 1 (f n))
+psi 1 (lim_1 f) = lim_1 ^a (psi 1 (f a))
+psi 1 (H2 f x y1 ... yn) = H [psi 1 ([suc:f,0:x] * y1 ... yn)] (suc 0)
+
+gen:
+psi a 0 = H_a suc 0
+psi a (suc b) = psi a b ^ ... ^ psi a b = R1 f suc 0 si psi a b = f suc 0
+psi a (lim f) = lim ^n(psi a (f n))
+psi a (lim_b f) = lim_b ^c(psi a (f x))
+psi a (H_(a+1) f x y1 ... yn) = H [psi a ([suc:f,0:x] * y1 ... yn)] (suc 0)
+
+avec :
+H f x = lim x, f x, f (f x), ... = lim ^n(f^n x) = f^w x
+H1 f x = lim_1 ^a(f^a x) = f^W x
+
+
 
 
 
