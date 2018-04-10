@@ -545,10 +545,16 @@ psi^b(d)[c] = psi^b[c](d)
 
 tree ordinal
 
-phi_1(1,b) = b*2
-phi_1(2,b) = b*2^b
+phi_1(0,b) = b+1				phi_2(0,b) = b+1
+phi_1(1,b) = phi_1(0,.)^b(b) = suc^b(b) = b*2	phi_2(1,b) = b*2
+phi_1(2,b) = b.2^b				phi_2(2,b) = b*2^b
+phi_1(2,w0) = w0*2^w0 = w^2			|phi2(2,w1)| = w1^2
+phi1(2,w0)[k] = w0*2^k
+sup w.2^k = w*w = w^2
+phi_1(3,b)					|phi_2(3,w1)| = sup { w^^k } = e_(w1+1)
+|phi1(2,phi1(2,w0))| = w^w			|phi_1(phi_2(3,w1),0) = psi(e_(w1+1)) = BH
 |phi_1(3,w0)| = e0
-
+phi1(2,phi1(3,w0)) = e0*2^e0 = e0^2
 |phi_1(w0,w0)| = V_w(0) V = veblen function
 |phi_1(w1+1,w0)| = Gamma_0
 phi_2(0,b) = b+1
@@ -568,7 +574,12 @@ Wainer collapsing function
 G_x(k) = k
 G_x(w1) = w1
 G_x(w0) = x
-G_x(phi_n(x,.)^d[b]) = phi_(n-1)(G_x(x),.)^G_x(d)(G_x(b))
+G_x(phi_n(a,.)^d(b)) = phi_(n-1)(G_x(a),.)^G_x(d)(G_x(b))
+G_x(w2) = x2 = g_w2(x)
+G_x(a) = g_a(x)
+
+t[n] = phi_1(phi_2(...phi_n(3,w_(n-1) ... w1) w0)
+f_t(n) = phi_0(t[n],n)
 
 
 
