@@ -513,4 +513,62 @@ psi_1(1) = W.w = w^(W+1)
 psi_1(a) = W.w^a
 
 
+Ridiculously huge numbers
+
+Slow growing hierarchy :
+g_0(n) = 0
+g_(k+1)(n) = g_k(n)+1
+g_a(n) = g_a[n](n)
+
+Fast growing hierarchy :
+f_0(n) = n+1
+f_a+1(n) = f_a^n(n)
+f_a(n) = f_a[n](n)
+
+psi(W) = lim psi^n(0) = lim psi(0), psi(psi(0)), ...
+psi(psi(W)) = psi(W)
+psi(psi(W)+1) = psi(psi(W)) = psi(W)
+
+phi (not veblen)
+phi_0(0,x) = x+1
+phi_0(a+1,x) = phi_0(a,.)^x(x)
+phi_0(a,x) = phi_0(a[x],x)
+
+phi_n(0,b) = b+1
+phi_n(a+1,b) = phi_n(a,.)^b(b)
+phi_n(a,b)[c] = phi_n(a[c],b) a lim / W_<n
+phi_n(a,b) = phi_n(a[b],b) a lim / W_n
+
+psi^0(d) = d
+psi^(b+1)(d) = psi(psi^b(d))
+psi^b(d)[c] = psi^b[c](d)
+
+tree ordinal
+
+phi_1(1,b) = b*2
+phi_1(2,b) = b*2^b
+|phi_1(3,w0)| = e0
+
+|phi_1(w0,w0)| = V_w(0) V = veblen function
+|phi_1(w1+1,w0)| = Gamma_0
+phi_2(0,b) = b+1
+phi_2(1,b) = b*2
+phi_2(2,b) = b.2^b
+|phi_2(3,w1)| = e_(w1+1)
+|phi1(phi2(3,w1),w0)| = psi(e_(w1+1)) = BH
+
+ordinal tree -> ordinal
+[0| = 0
+|b+1| = |b|+1
+|b| = sup|b[c]| if b : W_k -> W_n
+ou
+|b| = sup { |c|+1 } c<b
+
+Wainer collapsing function
+G_x(k) = k
+G_x(w1) = w1
+G_x(w0) = x
+G_x(phi_n(x,.)^d[b]) = phi_(n-1)(G_x(x),.)^G_x(d)(G_x(b))
+
+
 
