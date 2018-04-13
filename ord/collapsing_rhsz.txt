@@ -749,3 +749,78 @@ psi_0(W+w) = w.2
 W+w = ?
 
 
+RHN 38
+
+phi_0(a,x) = f_a(x)
+
+phi_0(0,x) = x+1
+phi_0(a+1,x) = [phi_0(a,*)]^x(x)
+phi_0(a,x) = phi_0(a[x],x)
+
+phi_n(0,b) = b+1
+phi_n(a+1,b) = [phi_n(a,*)]^b(b)
+(phi_n(a,b))[c] = phi_n(a[c],b) a lim/W_k<n
+phi_n(a,b) = phi_n(a[b],b) a lim / W_n
+
+phi_1(0,b) = b+1
+phi_1(1,b) = b.2
+phi_1(2,b) = b.2^b
+
+
+RHN 42
+
+|0| = 0
+|b+1| = |b|+1
+|b| = sup |b[c]|
+or
+b = sup_(c<b){|c|+1}
+
+|phi_1(2,w_0)| = w.2^w = w.w = w^2
+|phi_1(2,phi_1(2,w_0))| = w^2.2^w^2 = w^2.2^(w.w) = w^2.(2^w)^w = w^2.w^w = w^(2+w) = w^w
+|[phi_1(2,*)]^3(w_0)| = w^w.2^w^w = w^w^w
+|phi_1(3,w_0)| = e_0
+|phi_1(2,phi_1(3,w_0))| = e_0.2^e_0 = e_0^2
+|[phi_1(2,*)]^2(phi_1(3,w_0))| = e_0^2.2^e_0^2 = e_0^e_0
+|[phi_1(2,*)]^3(phi_1(3,w_0))| = e_0^e_0^e_0
+|phi_1(3,phi_1(3,w_0)) = e_0^...^e_0 = e_1 = phi(1,1) = phi'(2,0)
+
+|phi_1(3,w_0)| = w^...^w = e_0
+|phi_1(3,phi_1(3,w_0))| = e_0^...^e_0 = e_1
+|phi_1(3,a)| = |a|^...^|a|
+
+|[phi_1(3,*)]^a(w_0)| = phi'(0,a)
+|phi_1(4,w_0)| = z_0 = phi(2,0) = phi'(1,1)
+
+|phi_1(3,phi_1(4,w_0))| = z_0^...^z_0 = e_(z_0+1)
+|[phi_1(3,*)]^2(phi_1(4,w_0))| = e_(z_0+1)^...^e_(z_0+1) = e_e_(z_0+1) ?
+
+|phi_1(4,phi_1(4,w_0))| = e_..._e_(z_0+1) = z_1 = phi(2,1) = phi'(1,2)
+
+|[phi_1(4,*)]^a(w_0)| = phi'(1,a)
+|phi_1(5,w_0)| = eta_0 = phi(3,0) = phi'(2,1)
+
+|phi_1(0,w_0)| = w+1 = suc (H suc 0)
+|phi_1(1,w_0)| = w.2 = H suc (H suc 0)
+|phi_1(2,w_0)| = w^2 = H (H suc) 0
+|phi_1(3,w_0)| = e_0 = R1 H suc 0 = phi(1,0) = phi'(0,1)
+|phi_1(4,w_0)| = z_0 = R2 R1 H suc 0 = phi(2,0) = phi'(1,1)
+|phi_1(5,w_0)| = eta_0 = phi(3,0) = phi'(2,1)
+
+|phi_1(3+a,w_0)| = phi(1+a,0) = phi'(a,1)
+
+phi_1(w_0,w_0) = V_w(0) (Veblen phi(w,0))
+phi_1(w1,w0) = phi_1(w_1[w_0],w_0) = phi_1(w_0,w_0)
+phi_1(w_1+1,w_0) = [phi_1(w_1,*)]^w_0(w_0)
+|phi_1(w_1+1,w_0)| = Gamma_0
+
+phi_2(0,b) = b+1
+phi_2(1,b) = b.2
+phi_2(2,b) = b.2^b
+|phi_2(2,w_1)| = w_1^2
+|phi_2(3,w_1)| = w_1^...^w_1 = e_(w_1+1)
+|phi_1(phi_2(3,w_1),w_0)| = psi(e_(w_1+1)) = BH
+
+psi(|a|) = |phi_1(a,w_0)| ?
+
+
+
