@@ -753,7 +753,7 @@ general comparison
 
 Ultra-minimal psi                               Minimal psi                                     Buchholz psi                                    Madore psi
                                                 
-No C(a)                                         C_n(a) = set of all ordinals generated          C_n(a) = set of all ordinals generated          C(a) = set of all ordinals generated
+No C_n(a)                                       C_n(a) = set of all ordinals generated          C_n(a) = set of all ordinals generated          C(a) = set of all ordinals generated
                                                 from ordinals < aleph_n or w_n                  from ordinals < aleph_n                         from 0,1,w,W
                                                 by suc                                          by +                                            by +,.,^
                                                 and psi_m(h) where m<=w? and h<a                and psi_m(h) where m<=w and h<a                 and psi(h) where h<a
