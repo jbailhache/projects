@@ -563,7 +563,7 @@ phi_2(2,b) = b.2^b
 |phi_2(3,w1)| = e_(w1+1)
 |phi1(phi2(3,w1),w0)| = psi(e_(w1+1)) = BH
 
-ordinal tree -> ordinal
+tree ordinal -> ordinal
 [0| = 0
 |b+1| = |b|+1
 |b| = sup|b[c]| if b : W_k -> W_n
