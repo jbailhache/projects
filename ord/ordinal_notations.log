@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  14 APR 2018 23:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  15 APR 2018 22:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -575,8 +575,8 @@ Overfull \hbox (1.05156pt too wide) in paragraph at lines 2152--2153
 []0$ with $[0][] = [1][0]$ and $[0][] = ([0][])[] = ([1][0])[] =
  []
 
-[27] [28]
-Overfull \hbox (48.55913pt too wide) in paragraph at lines 2352--2353
+[27] [28] [29]
+Overfull \hbox (48.55913pt too wide) in paragraph at lines 2378--2379
 []\OT1/cmr/m/n/10 For case $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (
 [])$ the set $\OML/cmm/m/it/10 C[]\OT1/cmr/m/n/10 (
 [])$ in-cludes func-tions $\OML/cmm/m/it/10  []$ \OT1/cmr/m/n/10 with all ar-gu
@@ -587,7 +587,7 @@ m/m/it/10 ;  []\OT1/cmr/m/n/10 (0)\OML/cmm/m/it/10 ; :::;  []\OT1/cmr/m/n/10 (0
 )$ 
  []
 
-[29]
+
 Overfull \hbox (102.28429pt too wide) in paragraph at lines 2431--2432
 \OT1/cmr/m/n/10 This or-di-nal col-laps-ing func-tion is de-scribed in https://
 en.wikipedia.org/wiki/Ordinal[]collapsing[]function and http://quibb.blogspot.f
@@ -700,7 +700,7 @@ ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ordinal_notations.pdf (51 pages, 371272 bytes).
+Output written on ordinal_notations.pdf (51 pages, 371558 bytes).
 PDF statistics:
  242 PDF objects out of 1000 (max. 8388607)
  169 compressed objects within 2 object streams

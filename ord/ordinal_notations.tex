@@ -2254,6 +2254,32 @@ Buchholz showed following properties of those functions:
 \item \(\theta(\varepsilon_{\Omega_\nu+1},0)=\psi_0(\varepsilon_{\Omega_\nu+1})\) for \(0<\nu\le\omega\).
 \end{itemize}
 
+\subsubsection{Normal form and fundamental sequences}
+
+Normal form :
+
+The normal form for 0 is 0. If \(\alpha\) is a nonzero ordinal number \(\alpha<\Lambda=\text{min}\{\beta|\psi_\beta(0)=\beta\}\) then the normal form for \(\alpha\) is \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\) is a positive integer and \(\psi_{\nu_1}(\beta_1)\geq\psi_{\nu_2}(\beta_2)\geq\cdots\geq\psi_{\nu_k}(\beta_k)\) and each \(\nu_i\), \(\beta_i\) are also written in normal form.
+
+Fundamental sequences :
+
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence. If \(\alpha\) is a successor ordinal then \(\text{cof}(\alpha)=1\) and the fundamental sequence has only one element \(\alpha[0]=\alpha-1\). If \(\alpha\) is a limit ordinal then \(\text{cof}(\alpha)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\).
+
+For nonzero ordinals \(\alpha<\Lambda\), written in normal form, fundamental sequences are defined as follows:
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\geq2\) then \(\text{cof}(\alpha)=\text{cof}(\psi_{\nu_k}(\beta_k))\) and \(\alpha[\eta]=\psi_{\nu_1}(\beta_1)+\cdots+\psi_{\nu_{k-1}}(\beta_{k-1})+(\psi_{\nu_k}(\beta_k)[\eta])\),
+\item If \(\alpha=\psi_{0}(0)=1\), then \(\text{cof}(\alpha)=1\) and \(\alpha[0]=0\),
+\item If \(\alpha=\psi_{\nu+1}(0)\), then \(\text{cof}(\alpha)=\Omega_{\nu+1}\) and \(\alpha[\eta]=\Omega_{\nu+1}[\eta]=\eta\),
+\item If \(\alpha=\psi_{\nu}(0)\) and \(\text{cof}(\nu)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\), then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\psi_{\nu[\eta]}(0)=\Omega_{\nu[\eta]}\),
+\item If \(\alpha=\psi_{\nu}(\beta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\nu}(\beta)\cdot \eta\) (and note: \(\psi_\nu(0)=\Omega_\nu\)),
+\item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu<\nu\}\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\eta])\),
+\item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\Omega_{\mu+1}|\mu\geq\nu\}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\gamma[\eta]])\) where \(\left\{\begin{array}{lcr} \gamma[0]=\Omega_\mu \\ \gamma[\eta+1]=\psi_\mu(\beta[\gamma[\eta]])\\ \end{array}\right.\).
+\item If \(\alpha=\Lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\psi_{\alpha[\eta]}(0)=\Omega_{\alpha[\eta]}\).
+\end{itemize}
+
 \subsubsection{Explanation}
 
 Buchholz is working in Zermelo–Fraenkel set theory, that means every ordinal \(\alpha\) is equal to set \(\{\beta|\beta<\alpha\}\). Then condition \(C_\nu^0(\alpha)=\Omega_\nu\) means that set \(C_\nu^0(\alpha)\) includes all ordinals less than \(\Omega_\nu\) in other words \(C_\nu^0(\alpha)=\{\beta|\beta<\Omega_\nu\}\).
@@ -2384,32 +2410,6 @@ There is only one little detail difference with original Buchholz definition: or
 For example if \(C_0^0(1)=\{0\}\) then \(C_0^1(1)=\{0,\psi_0(0)=1\}\) and \(C_0^2(1)=\{0,...,\psi_1(0)=\Omega\}\) and \(C_0^3(1)=\{0,...,\psi_\Omega(0)=\Omega_\Omega\}\) and so on.
 
 Limit of this notation must be omega fixed point \(\psi(\Omega_{\Omega_{\Omega_{...}}})=\psi(\psi_{\psi_{...}(0)}(0))\), where \(\psi\) without subscript denotes \(\psi_0\).
-
-\subsubsection{Normal form and fundamental sequences}
-
-Normal form :
-
-The normal form for 0 is 0. If \(\alpha\) is a nonzero ordinal number \(\alpha<\Lambda=\text{min}\{\beta|\psi_\beta(0)=\beta\}\) then the normal form for \(\alpha\) is \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\) is a positive integer and \(\psi_{\nu_1}(\beta_1)\geq\psi_{\nu_2}(\beta_2)\geq\cdots\geq\psi_{\nu_k}(\beta_k)\) and each \(\nu_i\), \(\beta_i\) are also written in normal form.
-
-Fundamental sequences :
-
-The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence. If \(\alpha\) is a successor ordinal then \(\text{cof}(\alpha)=1\) and the fundamental sequence has only one element \(\alpha[0]=\alpha-1\). If \(\alpha\) is a limit ordinal then \(\text{cof}(\alpha)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\).
-
-For nonzero ordinals \(\alpha<\Lambda\), written in normal form, fundamental sequences are defined as follows:
-
-\begin{itemize}
-     \setlength{\itemsep}{1pt}
-     \setlength{\parskip}{0pt}
-     \setlength{\parsep}{0pt}
-\item If \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\geq2\) then \(\text{cof}(\alpha)=\text{cof}(\psi_{\nu_k}(\beta_k))\) and \(\alpha[\eta]=\psi_{\nu_1}(\beta_1)+\cdots+\psi_{\nu_{k-1}}(\beta_{k-1})+(\psi_{\nu_k}(\beta_k)[\eta])\),
-\item If \(\alpha=\psi_{0}(0)=1\), then \(\text{cof}(\alpha)=1\) and \(\alpha[0]=0\),
-\item If \(\alpha=\psi_{\nu+1}(0)\), then \(\text{cof}(\alpha)=\Omega_{\nu+1}\) and \(\alpha[\eta]=\Omega_{\nu+1}[\eta]=\eta\),
-\item If \(\alpha=\psi_{\nu}(0)\) and \(\text{cof}(\nu)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\), then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\psi_{\nu[\eta]}(0)=\Omega_{\nu[\eta]}\),
-\item If \(\alpha=\psi_{\nu}(\beta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\nu}(\beta)\cdot \eta\) (and note: \(\psi_\nu(0)=\Omega_\nu\)),
-\item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu<\nu\}\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\eta])\),
-\item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\Omega_{\mu+1}|\mu\geq\nu\}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\gamma[\eta]])\) where \(\left\{\begin{array}{lcr} \gamma[0]=\Omega_\mu \\ \gamma[\eta+1]=\psi_\mu(\beta[\gamma[\eta]])\\ \end{array}\right.\).
-\item If \(\alpha=\Lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\psi_{\alpha[\eta]}(0)=\Omega_{\alpha[\eta]}\).
-\end{itemize}
 
 \subsubsection{Sources}
 
