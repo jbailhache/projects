@@ -3596,6 +3596,41 @@ Another example of tree representation is Takeuti ordinal diagrams, see :
 
  https://projecteuclid.org/download/pdf\_1/euclid.jmsj/1261153819 .
 
+\section{An application of ordinals : defining large numbers using the Fast Growing Hierarchy}
+
+The Fast Growing Hierarchy is a family of fast growing functions indexed by ordinals \( f_\alpha \) which, when applied to a number, give a much greater one, allowing to produce huge numbers.
+
+It is traditionally defined as follows :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 \)
+\item \( f_{\alpha+1}(n) = {f_\alpha}^n(n) \)
+\item \( f_\alpha(n) = f_{\alpha[n]}(n) \) if \( \alpha \) is a limit ordinal, where \( \alpha[n] \) denotes the n-th element of the fundamental sequence assigned to \( \alpha \).
+\end{itemize}
+
+The first functions of this hierarchy are :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 = suc\ n \)
+\item \( f_1(n) = suc^n(n) = n \times 2 \)
+\item \( f_2(n) = [\bullet \times 2]^n(n) = n \times 2^n \)
+\end{itemize}
+
+But there is a problem with this definition, because the value of \( f_\alpha(n) \) depends of the fundamental sequence chosen for \( \alpha \) if it is a limit ordinal. Let us consider for example \( f_\omega(2) \). If we take the canonical fundamental sequence \( \omega[n] = n \), then we get \( f_\omega(2) = f_{\omega[2]}(2) = f_2(2) = 2 \times 2^2 = 8 \). But \( \omega[n] \) = n+1 is also a valid fundamental sequence for \( \omega \). Taking this fundamnetal sequence gives \( f_\omega(2) = f_{\omega[2]}(2) = f_3(2) = [\bullet \times 2^\bullet]^2(2) = 2048 \).
+
+In fact, the notation \( \alpha[n] \) is not rigorous because there are several possible fundamental sequences for a given ordinal \( \alpha \). Instead of writing \( \alpha[n] = F(n) \) it would be more rigorous to write \( \alpha = lim F \). One cannot write \( \omega[n] = n \) and \( \omega[n] = n+1 \) because this implies n = n+1, but there is no problem writing \( \omega = lim (n \mapsto n) = lim (n \mapsto n+1) \).
+
+So, if we want to define rigorously the Fast Growing Hierarchy, we need to index the functions not by ordinals but by something which look likes ordinals but which are considered as different if the fundamental sequences are differents. These mathematical objects are called "tree ordinals" (do not confuse with "ordinal trees" previously seen).
+
+
+
+
 \section{Summary}
 
 Any ordinal can be defined as the least ordinal strictly greater than all ordinals of a set : the empty set for 0, \(\lbrace \alpha \rbrace\) for the successor of \( \alpha \),  \(\lbrace \alpha_0,\alpha_1,\alpha_2,...\rbrace\) for an ordinal with fundamental sequence \(\alpha_0, \alpha_1, \alpha_2, ...\)
