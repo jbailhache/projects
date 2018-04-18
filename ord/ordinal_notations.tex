@@ -3638,8 +3638,8 @@ Definitions of tree ordinals can be found in :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item https://www.youtube.com/watch?v=RmuASZSO2s8\&t=9s\&index=41\&list=PL3A50BB9C34AB36B3
-\item http://cl-informatik.uibk.ac.at/isr-2008/pdfs/B/klop/material3.pdf
 \item http://www.iam.unibe.ch/ltgpub/2011/fab11.pdf
+\item Proof and system-reliability
 \end{itemize}
 
 A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}) \) if :
@@ -3648,9 +3648,30 @@ A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item a = 0
-\item a = a' + 1 for some a'
+\item a = a' + 1 for some tree ordinal a'
 \item a is a function from \( \Omega_k \) to \( \Omega_n \) for some \( k \in \mathbb{N} \) with \( k < n \)
 \end{itemize}
+
+Let us first consider \( \Omega_0 \). The third case cannot apply (\( k \in \mathbb{N} \) and \(k < 0 \)), so the definition of \( \Omega_0 \) is given by the first two cases, which correspond to the inductive definition of the natural numbers, so \( \Omega_0 \) may be identified to \( \mathbb{N} \) or \( \omega \).
+
+Next, \( \Omega_1 \) also includes all natural numbers, and also functions which, to a natural number, associates an element of \( \Omega_1 \), or sequences of elements of \( \Omega_1 \). For example, the identity function a[k] = k is an element of \( \Omega_1 \) called \( \omega_0 \). The function b[k] = k+1 is also an element of \( \Omega_1 \), but these two tree ordinals are considered as different tree ordinals, because the functions or sequences are different, even if the associated ordinal (the ordinal which has the corresponding fundamental sequence) is the same for both, the ordinal \( \omega \). So \( \Omega_1 \) can be seen as the class of countable ordinals associated with the choice of a particular fundamental sequence for limit ordinals.
+
+Then it goes on with \( \Omega_2 \) which includes \( \Omega_0, \Omega_1 \), and functions from \( \Omega_1 \) to \( \Omega_2 \), like for example \( \omega_1 \) defined by \( \omega_1(a) = a \) where \( a \in \Omega_1 \), and so on.
+
+There is a correspondence between tree ordinals and ordinals : if we ignore the choice of a particular fundamental sequence of a tree ordinal, we get an ordinal. To any tree ordinal a, we can associate a corresponding ordinal \( \alpha = |a| \) obtained by ignoring the choice of particular fundamental sequences, and defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( |0| = 0 \)
+\item \( |a+1| = |a|+1 \)
+\item \( |a| = sup |a[b]| \) if a is a function from \( \Omega_k \) to \( \Omega_n \).
+\end{itemize}
+
+or equivalently
+
+\( |a| = sup_{b<a} \lbrace |b|+1 \rbrace \)
 
 
 \section{Summary}
