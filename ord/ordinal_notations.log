@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  19 APR 2018 05:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  19 APR 2018 23:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -633,43 +633,43 @@ Overfull \hbox (20.10545pt too wide) in paragraph at lines 3343--3343
 st(next(a))), psi2(level+1,first(next(next(a)))));[] 
  []
 
-[43] [44] [45] [46] [47] [48] [49] [50]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 3823--3859
+[43] [44] [45] [46] [47] [48] [49] [50] [51]
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 3833--3869
 [] 
  []
 
-[51]
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 3867--3869
+
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 3877--3879
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 3870--3872
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 3880--3882
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 3900--3902
+[52]
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 3910--3912
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 3906--3909
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 3916--3919
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
-[52]
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 3923--3924
+
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 3933--3934
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 3928--3930
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 3938--3940
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
@@ -678,7 +678,7 @@ nrXzVAOxYYC : Ex-tremely large num-bers (videos)
 Here is how much of TeX's memory you used:
  1672 strings out of 495020
  20505 string characters out of 6181324
- 102938 words of memory out of 5000000
+ 97938 words of memory out of 5000000
  4889 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -700,7 +700,7 @@ ts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ordinal_notations.pdf (53 pages, 379813 bytes).
+Output written on ordinal_notations.pdf (53 pages, 380476 bytes).
 PDF statistics:
  248 PDF objects out of 1000 (max. 8388607)
  173 compressed objects within 2 object streams
