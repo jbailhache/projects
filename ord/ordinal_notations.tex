@@ -3649,7 +3649,7 @@ A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}
      \setlength{\parsep}{0pt}
 \item a = 0
 \item a = a' + 1 for some tree ordinal a'
-\item a is a function from \( \Omega_k \) to \( \Omega_n \) for some \( k \in \mathbb{N} \) with \( k < n \)
+\item a is a function from \( \Omega_k \) to \( \Omega_n \) for some \( k \in \mathbb{N} \) with \( k < n \). In this case, we will say that a is a limit tree ordinal.
 \end{itemize}
 
 Let us first consider \( \Omega_0 \). The third case cannot apply (\( k \in \mathbb{N} \) and \(k < 0 \)), so the definition of \( \Omega_0 \) is given by the first two cases, which correspond to the inductive definition of the natural numbers, so \( \Omega_0 \) may be identified to \( \mathbb{N} \) or \( \omega \).
@@ -3672,6 +3672,75 @@ There is a correspondence between tree ordinals and ordinals : if we ignore the 
 or equivalently
 
 \( |a| = sup_{b<a} \lbrace |b|+1 \rbrace \)
+
+\bigskip
+
+We can define arithmetical operations on tree ordinals in a way similar to the previously seen definitions for ordinals, replacing lim(f) by f because the ordinal tree is identified with its fundamental sequence or function.
+
+\bigskip
+
+Using tree ordinals, we can define rigorously the Fast Growing Hierarchy \( f_a(n) \) where \( a \in \Omega_1 \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 \)
+\item \( f_{a+1}(n) = {f_a}^n(n) \)
+\item \( f_a(n) = f_{a[n]}(n) \) if \( a \) is a limit tree ordinal, where \( a[n] \) denotes the result of the application of the function a to the integer n.
+\end{itemize}
+
+\section{Using tree ordinals to define ordinals}
+
+Let us define a hierarchy of functions \( F_n(a,b) \) where \( n \in \mathbb{N}, a \in \Omega_{n+1} \) and \( b \in \Omega_n \), which is an extension of the Fast Growing Hierarchy : for n = 0, it corresponds to the Fast Growing Hierarchy : \( F_0(a,b) = f_a(b) \) with \( a \in \Omega_1 \) and \( b \in \Omega_0 = \mathbb{N} \), or :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_0(0,b) = b+1 \)
+\item \( F_0(a+1,b) = [F_0(a,\bullet)]^b(b) \)
+\item \( F_0(a,b) = F_0(a[b],b) \) if a is a limit tree ordinal
+\end{itemize}
+
+We generalize this definition for \( n > 0 \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_n(0,b) = b+1 \)
+\item \( F_n(a+1,b) = [F_n(a,\bullet)]^b(b) \)
+\item \( (F_n(a,b))[c] = F_n(a[c],b) \) if a is a function from \( \Omega_k \) to \( \Omega_{n+1} \) with \( k < n \)
+\item \( (F_n(a,b)) = F_n(a[b],b) \) if a is a function from \( \Omega_n \) to \( \Omega_{n+1} \)
+\end{itemize}
+
+where the exponentiation of a function to a tree ordinal power is defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f^0(a) = a \)
+\item \( f^{b+1} = f(f^b(a)) \)
+\item \( (f^b(a))[c] = f^{b[c]}(a) \) if b is a limit tree ordinal
+\end{itemize}
+
+This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as follows :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_1(0,b) = b+1 = suc(b) \)
+\item \( F_1(1,b) = suc^b(b) = b+b = b \times 2\)
+\item \( F_1(2,b) = b \times 2^b \)
+\item \( |F_1(2,\omega_0)| = |\omega_0 \times 2^{\omega_0}| = \omega \times 2^\omega = \omega \times \omega = \omega^2 \)
+\item \( |F_1(2,F_1(2,\omega_0)) = |(\omega_0 \times 2^{\omega_0}) \times 2^{\omega_0 \times 2^{\omega_0}}| = \omega^2 \times 2^{\omega^2} = \omega^2 \times 2^{\omega \times \omega} = \omega^2 \times (2^\omega)^\omega = \omega^2 \times \omega^\omega = \omega^{2+\omega} = \omega^\omega \) 
+\item \( |F_1(3,\omega_0)| = |[F_1(2,\bullet)]^{\omega_0}(\omega_0)| = sup |[F_1(2,\bullet)]^{\omega_0[k]}(\omega_0)| = sup |[F_1(2,\bullet)]^k(\omega_0)| = sup (\omega^{\vdots^\omega}) = \varepsilon_0 \)
+
+\item \( \ldots \)
+\end{itemize}
 
 
 \section{Summary}
