@@ -2795,37 +2795,35 @@ Here are some example of such ordinal collapsing functions :
 
 \bigskip
 
-\begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
 
-Corresponding      &                              & \( \psi'(0) \)           & \( \psi'(\alpha+1) \)          & \( \psi'(1) \)           & \( \psi'(\alpha+\beta) \)          & \( \psi'(\alpha) \)                  & \( \psi'(\Omega) \) \\
-"traditional"      &                              &                          &                                &                          &                                    & for sufficiently                     &                     \\
-OCF                &                              &                          &                                &                          &                                    & small values                         &                     \\
+Corresponding      &                            & \( \psi'(0) \)     & \( \psi'(\alpha+1) \)         & \( \psi'(1) \)     & \( \psi'(\alpha+\beta) \)          & \( \psi'(\alpha) \)        & \( \psi'(\Omega) \)&\(\psi'(\Omega+1)\)     \\
+"traditional"      &                            &                    &                               &                    &                                    & for sufficiently           &                    &                        \\
+OCF                &                            &                    &                               &                    &                                    & small values               &                    &                        \\
 \hline
-None               &                              & 1                        & \( \psi'(\alpha)+1 \)          & 2                        & \( \psi'(\alpha)+\beta \)          & \( \alpha+1 \)                       & \( \omega \)        \\
+None               &                            & 1                  & \( \psi'(\alpha)+1 \)         & 2                  & \( \psi'(\alpha)+\beta \)          & \( \alpha+1 \)             & \( \omega \)       & \( \omega + 1 \)       \\
 \hline
-                   & \(C(\alpha)\) generated      & 1                        & \( \psi'(\alpha)+\omega \)     & \( \omega \)             &\( \psi'(\alpha)+\omega\times\beta\)& \( \omega\times\alpha \)             & \( \omega^\omega \) \\
-                   & by 1, suc, \(\psi(\xi) \)    &                          &                                &                          &                                    &                                      &                     \\
-                   & where \( \xi < \alpha \)     &                          &                                &                          &                                    &                                      &                     \\
+                   & \(C(\alpha)\) generated    & 1                  & \( \psi'(\alpha)+\omega \)    & \( \omega \)       &\( \psi'(\alpha)+\omega\times\beta\)& \( \omega\times\alpha \)   & \( \omega^\omega \)&\(\omega^\omega+\omega\)\\
+                   & by 1, suc, \(\psi(\xi) \)  &                    &                               &                    &                                    &                            &                    &                        \\
+                   & where \( \xi < \alpha \)   &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
-Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated    & 1                        & \( \psi'(\alpha)\times\omega\) & \( \omega \)             &\( \psi'(\alpha)\times\omega^\beta\)& \( \omega^\alpha \)                  & \( \varepsilon_0\) \\
-                   & by 1, +,\(\psi_\mu(\xi)\)    &                          &                                &                          &                                    & if \(\alpha<\varepsilon_0\)          &                    \\
-                   & where \( \mu < \omega \)     &                          &                                &                          &                                    &                                      &                    \\
-                   & and \( \xi < \alpha \)       &                          &                                &                          &                                    &                                      &                    \\
+Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated  & 1                  & \( \psi'(\alpha)\times\omega\)& \( \omega \)       &\( \psi'(\alpha)\times\omega^\beta\)& \( \omega^\alpha \)        & \( \varepsilon_0\) &\(\varepsilon_O\times\omega\)\\
+                   & by 1, +,\(\psi_\mu(\xi)\)  &                    &                               &                    &                                    & if \(\alpha<\varepsilon_0\)&                    &\(=\omega^{\varepsilon_0+1}\)\\
+                   & where \( \mu < \omega \)   &                    &                               &                    &                                    &                            &                    &                        \\
+                   & and \( \xi < \alpha \)     &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
-
-
-                   &                              & \( \omega \)             & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \)
-                                                                                                              & \( \varepsilon_0 \)      &                                    & \( \varepsilon'_\alpha \)            & \( \zeta_0 \)      \\
-                   &                              &                          &                                &                          &                                    & if \(\alpha<\zeta_0\)                &                    \\
-                   &                              &                          &                                &                          &                                    &                                      &                    \\
-                   &                              &                          &                                &                          &                                    &                                      &                    \\
+                   &                            & \( \omega \)       & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \)
+                                                                                                     & \( \varepsilon_0 \)&                                    & \( \varepsilon'_\alpha \)  & \( \zeta_0 \)      &                        \\
+                   &                            &                    &                               &                    &                                    & if \(\alpha<\zeta_0\)      &                    &                        \\
+                   &                            &                    &                               &                    &                                    &                            &                    &                        \\
+                   &                            &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
-Madore's \(\psi\)  & \(C(\alpha)\) generated      & \( \varepsilon_0 \)      & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \)             
-                                                                                                              & \( \varepsilon_1 \)      &                                    & \( \varepsilon_\alpha \)             & \( \zeta_0 \)      \\
-                   & by \(0,1,\omega,\Omega,\)    &                          &  
-                                                                                                              &                          &                                    & if \(\alpha<\zeta_0\)                &                    \\
-                   & \(+,\times,exp.,\psi(\xi)\)  &                          &                                &                          &                                    &                                      &                    \\
-                   & where \( \xi < \alpha \)     &                          &                                &                          &                                    &                                      &                    \\
+Madore's \(\psi\)  & \(C(\alpha)\) generated    & \( \varepsilon_0 \)& \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \)             
+                                                                                                     & \( \varepsilon_1 \)&                                    & \( \varepsilon_\alpha \)   & \( \zeta_0 \)      &\(\varepsilon_{\zeta_0+1}\)\\
+                   & by \(0,1,\omega,\Omega,\)  &                    &  
+                                                                                                     &                    &                                    & if \(\alpha<\zeta_0\)      &                    &                        \\
+                   & \(+,\times,exp.,\psi(\xi)\)&                    &                               &                    &                                    &                            &                    &                        \\
+                   & where \( \xi < \alpha \)   &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
 													
 \end{tabular}
