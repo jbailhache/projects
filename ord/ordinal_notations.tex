@@ -1,9 +1,12 @@
 \documentclass[10pt]{article}
 \title{Transfinite ordinals}
+
 \usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage{comment}
+
 \begin{document}
 
 \title{A Tutorial Overview of Ordinal Notations}
@@ -2795,6 +2798,8 @@ Here are some example of such ordinal collapsing functions :
 
 \bigskip
 
+\begin{comment}
+
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
 
 Corresponding      &                            & \( \psi'(0) \)     & \( \psi'(\alpha+1) \)         & \( \psi'(1) \)     & \( \psi'(\alpha+\beta) \)          & \( \psi'(\alpha) \)        & \( \psi'(\Omega) \)&\(\psi'(\Omega+1)\)     \\
@@ -2826,6 +2831,43 @@ Madore's \(\psi\)  & \(C(\alpha)\) generated    & \( \varepsilon_0 \)& \( sup\lb
                    & where \( \xi < \alpha \)   &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
 													
+\end{tabular}
+
+\bigskip
+
+\end{comment}
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Corresponding             & None                      &                                       & Buchholz \(\psi_0\)             &                                                               & Madore's \(\psi\)                \\ 
+"traditional" OCF         &                           &                                       &                                 &                                                               &                                  \\ 
+\hline    
+                          &                           & \( C(\alpha) \) generated             & \( C_0(\alpha) \) generated     &                                                               & \( C(\alpha) \) generated        \\
+                          &                           & by 1, suc, \( \psi(\xi) \)            & by 1, +, \( \psi_\mu(\xi) \)    &                                                               & by \( 0, 1, \omega, \Omega, \)   \\
+                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \times, exp., \psi(\xi) \) \\
+                          &                           &                                       & and \( \xi < \alpha \)          &                                                               & where \( \xi < \alpha \)         \\ 
+\hline
+\( \psi'(0) \)            & 1                         & 1                                     & 1                               & \( \omega \)                                                  & \( \varepsilon_0 \)              \\ 
+\hline
+\( \psi'(\alpha+1) \)     & \( \psi'(\alpha)+1 \)     & \( \psi'(\alpha)+\omega \)            & \( \psi'(\alpha)\times\omega \) & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \) & \( sup\lbrace\psi'(\alpha)
+                                                                                                                                                                                                  ^{\vdots^{\psi'(\alpha)}}\rbrace \) \\
+\hline
+\( \psi'(1) \)            & 2                         & \( \omega \)                          & \( \omega \)                    & \( \varepsilon_0 \)                                           & \( \varepsilon_1 \)              \\
+\hline
+\( \psi'(\alpha+\beta) \) & \( \psi'(\alpha)+\beta \) & \( \psi'(\alpha)+\omega\times\beta \) & \( \psi'(\alpha)+\omega^\beta \)&                                                               &                                  \\
+\hline
+\( \psi'(\alpha) \) for   & \( \alpha+1 \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
+sufficiently small values &                           &                                       & if \( \alpha < \varepsilon_0 \) & if \( \alpha < \zeta_0 \)                                     & if \( \alpha < \zeta_0 \)        \\
+\hline
+\( \psi'(\Omega) \)       & \( \omega \)              & \( \omega^\omega \)                   & \( \varepsilon_0 \)             & \( \zeta_0 \)                                                 & \( \zeta_0 \)                    \\
+\hline
+\( \psi'(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\times\omega \) &                                                               & \( \varepsilon_{\zeta_0+1} \)    \\
+                          &                           &                                       & \( = \omega^{\varepsilon_0+1} \)&                                                               &                                  \\
+\hline
+\( \psi'(\Omega\times 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             &                                                               & \( \zeta_1 \)                    \\
+\hline
+\( \psi'(\Omega^2) \)     & \( \varepsilon_0 \)       & \( \varepsilon_0 \)                   & \( \zeta_0 \)                   &                                                               & \( \eta_0 \)                     \\
+\hline
 \end{tabular}
 
 \bigskip
