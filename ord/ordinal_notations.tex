@@ -2898,6 +2898,58 @@ sufficiently small values &                           &                         
 
 \bigskip
 
+With more details, the function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi'(0) = 1 \)
+\item \( \psi'(\alpha+1) = \psi'(\alpha)+1 \)
+\end{itemize}
+
+has the following properties :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi'(\alpha+\beta)=\psi'(\alpha)+\beta \)
+\item \( \psi'(\alpha) = 1+\alpha \)
+\end{itemize}
+
+\( \psi'(\Omega) \) is the limit or least upper bound of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi'(0) = 1 \)
+\item \( \psi'(\psi'(0)) = \psi'(1) = 2 \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \omega \).
+
+Then we have :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi'(\Omega+1) = \omega+1 \)
+\item \( \psi'(\Omega+\alpha) = \omega+\alpha \)
+\item \( \psi'(\Omega+\Omega) = \psi'(\Omega \times 2) = sup \lbrace 0, \psi'(\Omega)=\omega, \psi'(\Omega+\omega)=\omega+\omega=\omega \times 2, \ldots \rbrace = \omega \times \omega = \omega^2 \)
+\item \( \psi'(\Omega \times 2 + \Omega) = \psi'(\Omega \times 3) = sup \lbrace 0, \psi'(\Omega \times 2) = \omega^2, \psi'(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2, \ldots \rbrace = \omega^2 \times \omega = \omega^3 \)
+\item \( \psi'(\Omega \times \alpha) = \omega^\alpha \)
+\item \( \psi'(\Omega \times \Omega) = \psi'(\Omega^2) = sup \lbrace 1, \psi_0(\Omega) = \omega, \psi_0(\Omega \times \omega = \omega^\omega, \ldots \rbrace = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
+\item \( \ldots \)
+\end{itemize}
+
+\bigskip
+
+
 Here is a Scheme inplementation of the \( \psi' \) variant of Madore's \( \psi \) function :
 
 \begin{verbatim}
