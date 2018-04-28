@@ -2340,20 +2340,102 @@ Then we have :
      \setlength{\parsep}{0pt}
 \item \( \psi(\Omega+1) = \omega+1 \)
 \item \( \psi(\Omega+\alpha) = \omega+\alpha \)
-\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = sup \lbrace 0, \psi(\Omega)=\omega, \psi(\Omega+\omega)=\omega+\omega=\omega \times 2, \ldots \rbrace = \omega \times \omega = \omega^2 \)
-\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = sup \lbrace 0, \psi(\Omega \times 2) = \omega^2, \psi(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2, \ldots \rbrace = \omega^2 \times \omega = \omega^3 \)
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 0
+   \item \( \psi(\Omega)=\omega \)
+   \item \( \psi(\Omega+\omega)=\omega+\omega=\omega \times 2 \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \omega \times \omega = \omega^2 \)
+\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 0
+   \item \( \psi(\Omega \times 2) = \omega^2 \)
+   \item \( \psi(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2 \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \omega^2 \times \omega = \omega^3 \)
 \item \( \psi(\Omega \times \alpha) = \omega^\alpha \)
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 1, \psi_0(\Omega) = \omega, \psi_0(\Omega \times \omega = \omega^\omega, \ldots \rbrace = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 1
+   \item \( \psi_0(\Omega) = \omega \)
+   \item \( \psi_0(\Omega \times \omega) = \omega^\omega \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
 \item \( \psi(\Omega^2+\alpha) = \varepsilon_0+\alpha \)
-\item \( \psi(\Omega^2+\Omega) = sup \lbrace 0, \psi(\Omega^2)=\varepsilon_0, \psi(\Omega^2+\varepsilon_0) = \varepsilon_0 \times 2, \ldots \rbrace = \varepsilon_0 \times \omega \)
+\item \( \psi(\Omega^2+\Omega) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 0
+   \item \( \psi(\Omega^2)=\varepsilon_0 \)
+   \item \( \psi(\Omega^2+\varepsilon_0) = \varepsilon_0 \times 2 \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \varepsilon_0 \times \omega \)
 \item \( \psi(\Omega^2+\Omega+\alpha = \varepsilon_0 \times \omega + \alpha \)
-\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = sup \lbrace 0, \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega, \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega \times 2, \ldots \rbrace = \varepsilon_0 \times \omega^2 \)
+\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = \) limit of : 
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 0
+   \item \( \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega \)
+   \item \( \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega \times 2 \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \varepsilon_0 \times \omega^2 \)
 \item \( \psi(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = sup \lbrace 0, \psi(\Omega^2) = \varepsilon_0, \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2, \psi(\Omega^2+\Omega \times {\varepsilon_0}^2 = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0}, \ldots = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 0
+   \item \( \psi(\Omega^2) = \varepsilon_0 \)
+   \item \( \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2 \)
+   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2 = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
 \item \( \psi(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
-\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = sup \lbrace 1, \psi(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1), \psi(\Omega^2 \times \varepsilon_0) = \varphi'(0,\varphi'(0,1)), \ldots \rbrace = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
+\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = \) limit of :
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 1
+   \item \( \psi(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
+   \item \( \psi(\Omega^2 \times \varepsilon_0) = \varphi'(0,\varphi'(0,1)) \)
+   \item \( \ldots \)
+   \end{itemize}
+   \( = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
 \item \( \psi(\Omega^{2+\alpha} = \varphi(1+\alpha,0) = \varphi'(\alpha,1) \)
-\item \( \psi(\Omega^\Omega) = sup \lbrace 1, \psi(\Omega) = \omega, \psi(\Omega^\omega) = \varphi'(\omega,1), \psi(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
+\item \( \psi(\Omega^\Omega) = \) limit of : 
+   \begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+   \item 1
+   \item \( \psi(\Omega) = \omega \)
+   \item \( \psi(\Omega^\omega) = \varphi'(\omega,1) \)
+   \item \( \psi(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1) \)
+   \item \( \ldots \)
+   \end{itemize} 
+   \( = \Gamma_0 \)
 \item \( \ldots \)
 \end{itemize}
 
@@ -2537,7 +2619,7 @@ Then we have
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item \( \psi(\Omega+1) = sup \lbrace \psi(Omega), \psi(\Omega)^{\psi(\Omega)}, \ldots \rbrace = sup \lbrace \zeta_0, \zeta_0^{zeta_0}, \ldots \rbrace = \varepsilon_{\zeta_0+1} \)
+\item \( \psi(\Omega+1) = sup \lbrace \psi(\Omega), \psi(\Omega)^{\psi(\Omega)}, \ldots \rbrace = sup \lbrace \zeta_0, \zeta_0^{\zeta_0}, \ldots \rbrace = \varepsilon_{\zeta_0+1} \)
 \item \( \psi(\Omega+2) = \varepsilon_{\zeta_0+2} \)
 \item \( \psi(\Omega+\alpha) = \varepsilon_{\zeta_0+\alpha} \)
 
