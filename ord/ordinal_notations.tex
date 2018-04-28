@@ -3079,6 +3079,46 @@ Let \( \psi_1(\alpha) \) be the smallest ordinal which cannot be expressed from 
 
 With this definition, we have \( \psi_1(0) = \varepsilon_{\Omega+1}, \psi_1(1) = \varepsilon_{\Omega+2} \), and more generally \( \psi_1(\alpha) = \varepsilon_{\Omega+1+\alpha} \).
 
+\bigskip
+
+We can define a hierarchy of functions \( \psi_n \), like explained in YouTube video 'Extremely Large Numbers 22" :
+
+https://www.youtube.com/watch?v=O7EftYZEivo
+
+(Note that here \( \Omega_n \) has been replaced by \( \Omega_{n+1} \) to be consistent with Madore's notations)
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi \) is associated to the set \( \lbrace 0, 1, \omega, \Omega \rbrace \)
+\item \( \psi_0 = \psi \)
+\item \( \psi_1 \) is associated to the set \( \lbrace 0, 1, \omega, \Omega, \Omega_2 \rbrace \)
+\item \( \psi_1(0) = \varepsilon_{\Omega+1} \)
+\item \( \psi_1(\alpha) = \varepsilon_{\Omega+1+\alpha} \)
+\item \( \psi_1(\Omega_2) = \zeta_{\Omega+1} \)
+\item \( \psi_1(\Omega_2 \times \alpha) = \zeta_{\Omega+1+\alpha} \)
+\item \( \psi_1({\Omega_2}^2) = \eta_{\Omega+1} \)
+\item \( \psi_1({\Omega_2}^\alpha) = \psi_{\alpha+1}(\Omega+1) \)
+\item \( \psi_1({\Omega_1}^{\Omega_1}) = \Gamma_{\Omega+1} \)
+\item \( \psi_2(0) = \varepsilon_{\Omega_2+1} \)
+\item \( \psi_3(0) = \varepsilon_{\Omega_3+1} \)
+\item \( \ldots \)
+\end{itemize}
+
+Note that to get a countable ordinal which interests us, we must nest successive calls of \( \psi_n \), for example \( \psi(\psi_1(\psi_2(\psi_3(0)))) \). We can simplify the notation by replacing the nested call \( \psi(\psi_1(\psi_2(\psi_3(0)))) \) by just \( \psi_3(0) \). This convention also permits to define for example \( \psi_\omega(0) \) as the limit or least upper bound of \( \psi(0), \psi_1(0), \psi_2(0), \psi_3(0), \ldots \). We can also define \( \psi_\alpha \) for any ordinal \( \alpha \). The limit of this notation, sometimes called \( \alpha_0 \), is the limit or least upper bound of \( \psi(0), \psi_{\psi(0)}(0), \psi_{\psi_{\psi(0)}(0)}(0), \ldots \). Using other notation systems, it is the limit of \( \psi(\Omega), \psi(\Omega_\Omega), \psi(\Omega_{\Omega_\Omega}), \ldots \).
+
+See also :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item https://en.wikipedia.org/wiki/Ordinal\_collapsing\_function
+\item https://www.youtube.com/watch?v=O7EftYZEivo
+\item http://googology.wikia.com/wiki/Buchholz\%27s\_function
+\item https://medium.com/@joshkerr/mind-blown-the-fast-growing-hierarchy-for-laymen-aka-enormous-numbers-d9a865c6443b
+\end{itemize}
 
 \subsection{Correspondence between Madore's \( \psi \) and other notations}
 
