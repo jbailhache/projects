@@ -2137,9 +2137,15 @@ Then we can go on :
 
 \section{Ordinal collapsing functions}
 
+\begin{comment}
 Remember that collapsing consists in using uncountable ordinals to define countable ordinals. 
 
 We already saw how collapsing can be used to define ordinals, for example :
+\end{comment}
+
+Ordinal collapsing functions are functions that use uncountable ordinals to define countable ordinals.
+
+There are different ways to define ordinal collapsing functions. Some constructions we have already seen can be considered as some kind of ordinal collapsing functions, for example :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -2173,13 +2179,403 @@ We already saw how collapsing can be used to define ordinals, for example :
 
 \end{itemize}
 
+\begin{comment}
+
 We will now see another way to use collapsing : ordinal collapsing functions.
 
 An ordinal collapsing function is a function that, when applied to an uncountable ordinal, gives a countable ordinal.
 
-The general idea is to define a set of ordinals C(a) or C(a,b) where a and b are ordinals, which contains all ordinals that can be built using an initial set of ordinals and some operations or functions, and then define \( \psi(a) \) or \( \psi(a,b) \) as the smallest ordinal that is not in C(a) or C(a,b), or the least ordinal that is greater than than all countable ordinals of C(a) or C(a,b).
+\end{comment}
 
-Different ordinal collapsing functions are described in http://googology.wikia.com/wiki/Ordinal\_notation .
+The most classical way to define an ordinal collapsing function is to define a set of ordinals C(a) or C(a,b) where a and b are ordinals, which contains all ordinals that can be built using an initial set of ordinals and some operations or functions, and then define \( \psi(a) \) or \( \psi(a,b) \) as the smallest ordinal that is not in C(a) or C(a,b), or the least ordinal that is greater than than all countable ordinals of C(a) or C(a,b).
+
+An equivalent approach, which seems simpler to me, consists in defining an ordinal collapsing function recursively, by defining its value for 0, for the successor of an ordinal, and for different kinds of limit ordinals.
+
+\subsection{Recursive approach}
+
+This approach is explained very clearly in https://www.youtube.com/playlist?list=PL3A50BB9C34AB36B3 (Part 29).
+
+\bigskip
+
+We can define a family of ordinal collapsing functions \( \psi \) by
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item The value of \( \psi(0) \) (a given ordinal, for example 1)
+
+\item \( \psi(\alpha+1) = f(\psi(\alpha)) \) for some function f that needs to be specified
+
+\item \( \psi(lim\ g) = lim (n \mapsto \psi(g(n)) \)
+
+\item \( \psi(h(\Omega)) = lim (n \mapsto (\psi \circ h)^n(\zeta) \) with \( \zeta = 0, 1 \) or \( \psi(0) \) for example 
+
+\end{itemize}
+
+The choice of \( \zeta = 0, 1 \) or \( \psi(0) \) is not very important since it does not change the velue of the limit. Traditionaly, \( \psi(0) \) is generally chosen, but 0 or 1 seems simpler to me.
+
+Note that as a particular case of the fourth rule, when h is the identity function, we have \( \psi(\Omega) = lim (n \mapsto \psi^n(\zeta) \) which is the least fixed point of \( \psi \), so we have \( \psi(\psi(\Omega)) = \psi(\Omega) \).
+
+Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) we have a choice between two possibilities : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item Apply the general rules, which seems the simplest to me. In this case, the rule \( \psi(\alpha+1) = f(\psi(\alpha)) \) gives for example \( \psi(\psi(\Omega)+1) = f(\psi(\psi(\Omega))) = f(\psi(\Omega)) \).
+
+\item Consider that \( \psi(\alpha) = \psi(\Omega) \) for any \( \alpha \) between \( \psi(\Omega) \) and \( \Omega \), which seems to be more often chosen, perhaps because it keeps the monotony of \( \psi \). In this case, we have for example \( \psi(\psi(\Omega)+1) = \psi(\Omega) \), and the rule "\( \psi(\alpha+1) = f(\psi(\alpha)) \)" is not true for any \( \alpha \) and must be restricted by adding some condition, for example something like "In \(\psi(g(\psi(\alpha))) \) we must have \( \alpha < g(\psi(\alpha)) \)". This choice permits to get same values as "classically" defined ordinal collapsing functions.
+
+\end{itemize}
+
+To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi'_1 \) which generates these expressions, defined in a similar way to \( \psi' \), but starting for example with \( \psi'(0) = \Omega \).
+
+See also https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbHnrXzVAOxYYC video number 22.
+
+\bigskip
+
+Here are some example of such ordinal collapsing functions with the corresponding "traditional" ordinal collapsing function which we will see later and some of their values :
+
+\bigskip
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Corresponding             & None                      &                                       & Buchholz \(\psi_0\)             &                                                               & Madore's \(\psi\)                \\ 
+"traditional" OCF         &                           &                                       &                                 &                                                               &                                  \\ 
+\hline    
+                          &                           & \( C(\alpha) \) generated             & \( C_0(\alpha) \) generated     &                                                               & \( C(\alpha) \) generated        \\
+                          &                           & by 1, suc, \( \psi(\xi) \)            & by 1, +, \( \psi_\mu(\xi) \)    &                                                               & by \( 0, 1, \omega, \Omega, \)   \\
+                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \times, exp., \psi(\xi) \) \\
+                          &                           &                                       & and \( \xi < \alpha \)          &                                                               & where \( \xi < \alpha \)         \\ 
+\hline
+\( \psi(0) \)            & 1                         & 1                                     & 1                               & \( \omega \)                                                  & \( \varepsilon_0 \)              \\ 
+\hline
+\( \psi(\alpha+1) \)     & \( \psi(\alpha)+1 \)     & \( \psi(\alpha)+\omega \)            & \( \psi(\alpha)\times\omega \) & \( sup\lbrace\psi(\alpha)^{\vdots^{\psi(\alpha)}}\rbrace \) & \( sup\lbrace\psi(\alpha)
+                                                                                                                                                                                                  ^{\vdots^{\psi(\alpha)}}\rbrace \) \\
+\hline
+\( \psi(1) \)            & 2                         & \( \omega \)                          & \( \omega \)                    & \( \varepsilon_0 \)                                           & \( \varepsilon_1 \)              \\
+\hline
+\( \psi(\alpha+\beta) \) & \( \psi(\alpha)+\beta \) & \( \psi(\alpha)+\omega\times\beta \) & \( \psi(\alpha)+\omega^\beta \)&                                                               &                                  \\
+\hline
+\( \psi(\alpha) \)       & \( 1+\alpha \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
+cond. if \( \psi \) monotone& if \( \alpha<\omega\)  & if \( \alpha < \omega^2 \)            & if \( \alpha < \varepsilon_0 \) & if \( \alpha < \zeta_0 \)                                     & if \( \alpha < \zeta_0 \)        \\
+\hline
+\( \psi(\omega) \)       & \( \omega \)              & \( \omega^2 \)                        & \( \omega^\omega \)             & \( \varepsilon_\omega \)                                      & \( \varepsilon_\omega \)         \\
+\hline
+\( \psi(\Omega) \)       & \( \omega \)              & \( \omega^\omega \)                   & \( \varepsilon_0 \)             & \( \zeta_0 \)                                                 & \( \zeta_0 \)                    \\
+\hline
+\( \psi(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\times\omega \) & \( \varepsilon_{\zeta_0+1} \)                                 & \( \varepsilon_{\zeta_0+1} \)    \\
+                          &                           &                                       & \( = \omega^{\varepsilon_0+1} \)&                                                               &                                  \\
+\hline
+\( \psi(\Omega\times 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             & \( \zeta_1 \)                                                 & \( \zeta_1 \)                    \\
+\hline
+\( \psi(\Omega^2) \)     & \( \varepsilon_0 \)       & \( \varepsilon_0 \)                   & \( \zeta_0 \)                   & \( \eta_0 \)                                                  & \( \eta_0 \)                     \\
+\hline
+\( \psi(\Omega^\Omega) \)& \( \Gamma_0 \)            & \( \Gamma_0 \)                        & \( \Gamma_0 \)                  & \( \Gamma_0 \)                                                & \( \Gamma_0 \)                   \\
+\hline
+
+\( \psi_1(0) \)          & \( \Omega \)              & \( \Omega \)                          & \( \Omega \)                    & \( \varepsilon_{\Omega+1} \)                                  & \( \varepsilon_{\Omega+1} \)     \\
+\hline
+\( \psi_1(\alpha+1) \)   & \( \psi_1(\alpha)+1 \)   & \( \psi_1(\alpha)+\omega \)          & \(\psi_1(\alpha)\times\omega\) &\(sup\lbrace\psi_1(\alpha)^{\vdots^{\psi_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi_1(\alpha)
+                                                                                                                                                                                                  ^{\vdots^{\psi_1(\alpha)}}\rbrace \) \\
+\hline
+\( \psi_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\times\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
+                          &                           &                                       & \( = \omega^{\Omega+1} \)       &                                                               &                                  \\
+\hline
+\( \psi_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\times\alpha \)       & \( \Omega\times\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
+                          &                           &                                       & \( = \omega^{\Omega+\alpha} \)  &                                                               &                                  \\
+\hline
+\( \psi_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\times\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
+                          &                           &                                       & \( = \omega^{\Omega+\omega} \)  &                                                               &                                  \\
+\hline
+\( \psi_1(\Omega) \)     & \( \Omega\times\omega \)  & \( \Omega\times\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \times 2} \)                           & \( \varepsilon_{\Omega \times 2} \) \\
+\hline
+
+\end{tabular}
+
+\bigskip
+
+With more details, the function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = 1 \)
+\item \( \psi(\alpha+1) = \psi(\alpha)+1 \)
+\end{itemize}
+
+has the following properties :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\alpha+\beta)=\psi(\alpha)+\beta \)
+\item \( \psi(\alpha) = 1+\alpha \)
+\end{itemize}
+
+\( \psi(\Omega) \) is the limit or least upper bound of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi(0) = 1 \)
+\item \( \psi(\psi(0)) = \psi(1) = 2 \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \omega \).
+
+Then we have :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\Omega+1) = \omega+1 \)
+\item \( \psi(\Omega+\alpha) = \omega+\alpha \)
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = sup \lbrace 0, \psi(\Omega)=\omega, \psi(\Omega+\omega)=\omega+\omega=\omega \times 2, \ldots \rbrace = \omega \times \omega = \omega^2 \)
+\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = sup \lbrace 0, \psi(\Omega \times 2) = \omega^2, \psi(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2, \ldots \rbrace = \omega^2 \times \omega = \omega^3 \)
+\item \( \psi(\Omega \times \alpha) = \omega^\alpha \)
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 1, \psi_0(\Omega) = \omega, \psi_0(\Omega \times \omega = \omega^\omega, \ldots \rbrace = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
+\item \( \psi(\Omega^2+\alpha) = \varepsilon_0+\alpha \)
+\item \( \psi(\Omega^2+\Omega) = sup \lbrace 0, \psi(\Omega^2)=\varepsilon_0, \psi(\Omega^2+\varepsilon_0) = \varepsilon_0 \times 2, \ldots \rbrace = \varepsilon_0 \times \omega \)
+\item \( \psi(\Omega^2+\Omega+\alpha = \varepsilon_0 \times \omega + \alpha \)
+\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = sup \lbrace 0, \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega, \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega \times 2, \ldots \rbrace = \varepsilon_0 \times \omega^2 \)
+\item \( \psi(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
+\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = sup \lbrace 0, \psi(\Omega^2) = \varepsilon_0, \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2, \psi(\Omega^2+\Omega \times {\varepsilon_0}^2 = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0}, \ldots = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+\item \( \psi(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = sup \lbrace 1, \psi(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1), \psi(\Omega^2 \times \varepsilon_0) = \varphi'(0,\varphi'(0,1)), \ldots \rbrace = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
+\item \( \psi(\Omega^{2+\alpha} = \varphi(1+\alpha,0) = \varphi'(\alpha,1) \)
+\item \( \psi(\Omega^\Omega) = sup \lbrace 1, \psi(\Omega) = \omega, \psi(\Omega^\omega) = \varphi'(\omega,1), \psi(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
+\item \( \ldots \)
+\end{itemize}
+
+\bigskip
+
+The function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = 1 \)
+\item \( \psi(\alpha+1) = \psi(\alpha)+\omega \)
+\end{itemize}
+
+has the following properties :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\alpha+\beta)=\psi(\alpha)+\omega \times \beta \)
+\item \( \psi(\alpha) = \omega \times \alpha \)
+\end{itemize}
+
+\( \psi(\Omega) \) is the limit or least upper bound of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi(0) = 1 \)
+\item \( \psi(\psi(0)) = \psi(1) = \omega \)
+\item \( \psi(\omega) = \omega^2 \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \omega^\omega \).
+
+Then we have :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\Omega+1) = \omega^\omega+\omega \)
+\item \( \psi(\Omega+\alpha) = \omega^\omega+\omega \times \alpha \)
+\item \( \psi(\Omega+\Omega) = sup \lbrace 0, \psi(\Omega) = \omega^\omega, \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\omega^\omega) = \omega^\omega+\omega \times \omega^\omega = \omega^\omega \times 2, \ldots \rbrace = \omega^\omega \times \omega = \omega^{\omega+1} \)
+\item \( \psi(\Omega \times 2 + \alpha) = \psi(\Omega \times 2) + \omega \times \alpha = \omega^{\omega+1} + \omega \times \alpha \)
+\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = sup \lbrace 0, \psi(\Omega \times 2) = \omega^{\omega+1}, \psi(\Omega \times 2 + \omega^{\omega+1}) = \omega^{\omega+1} + \omega \times \omega^{\omega+1} = \omega^{\omega+1} \times 2, \ldots \rbrace = \omega^{\omega+1} \times \omega = \omega^{\omega+2} \)
+\item \( \psi(\Omega \times (1+\alpha)) = \omega^{\omega+\alpha} \)
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 1, \psi(\Omega) = \omega^\omega, \psi(\Omega \times \omega^\omega) = \omega^{\omega+\omega^\omega} = \omega^{\omega^\omega}, \ldots \rbrace = \varepsilon_0 \)
+\item \( \psi(\Omega^2+\alpha) = \varepsilon_0+\omega \times \alpha \)
+\item \( \psi(\Omega^2 + \Omega) = sup \lbrace 0, \psi(\Omega^2) = \varepsilon_0, \psi(\Omega^2+\varepsilon_0) = \varepsilon_0+\omega \times \varepsilon_0 = \varepsilon_0 \times 2, \ldots \rbrace = \varepsilon_0 \times \omega \)
+\item \( \psi(\Omega^2+\Omega+\alpha) = \varepsilon_0 \times \omega + \omega \times \alpha \)
+\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = sup \lbrace 0, \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega, \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega + \omega \times \varepsilon_0 \times \omega = \varepsilon_0 \times \omega \times 2 \)
+\item \( \psi(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
+\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = sup \lbrace 0, \psi(\Omega^2) = \varepsilon_0, \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = {\varepsilon_0}^2, \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0}, \ldots \rbrace = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+\item \( \psi(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = sup \lbrace 1, \phi'(0,1) = \varepsilon_0, \phi'(0,\varepsilon_0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
+\item \( \psi(\Omega^{2+\alpha} = \varphi'(\alpha,1) \)
+\item \( \psi(\Omega^{2+\alpha} \times \beta) = \varphi'(\alpha,\beta) \)
+\item \( \psi(\Omega^\Omega) = sup \lbrace 0, \psi(\Omega^0) = \psi(1) = \omega, \psi(\Omega^\omega) = \varphi'(\omega,1), \psi(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
+\item \( \ldots \)
+\end{itemize}
+
+\bigskip
+
+The function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = 1 \)
+\item \( \psi(\alpha+1) = \psi(\alpha) \times \omega \)
+\end{itemize}
+
+has the following properties :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\alpha+\beta)=\psi(\alpha) \times \omega^\beta \)
+\item \( \psi(\alpha) = \omega^\alpha \)
+\end{itemize}
+
+\( \psi(\Omega) \) is the limit or least upper bound of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi(0) = 1 \)
+\item \( \psi(\psi(0)) = \psi(1) = \omega \)
+\item \( \psi(\omega) = \omega^\omega \)
+\item \( \psi(\omega^\omega) = \omega^{\omega^\omega} \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \varepsilon_0 \).
+
+Then we have : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi(\Omega+1) = \varepsilon_0 \times \omega = \omega^{\varepsilon_0+\alpha} \)
+
+\item \( \psi(\Omega+\alpha) = \varepsilon_0 \times \omega^\alpha = \omega^{\varepsilon_0+\alpha} \)
+
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = sup \lbrace 0, \psi(\Omega) = \varepsilon_0, \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = \varepsilon_0 \times \varepsilon_0 = {\varepsilon_0}^2, \psi(\Omega+{\varepsilon_0}^2) = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0}, 
+\psi(\Omega+{\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}},
+\ldots \rbrace = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+
+\item \( \psi(\Omega \times \alpha) = \varphi'(0,\alpha) \)
+
+\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = sup \lbrace 0, \psi(\Omega \times 0) = \psi(0) = 1, \psi(\Omega \times 1) = \psi(\Omega) = \varepsilon_0 = \varphi'(0,1), \psi(\Omega \times \varphi'(0,1)) = \varphi'(0,\varphi'(0,1)), \ldots \rbrace = \varphi'(1,1) = \varphi(2,0) = \zeta_0 \)
+
+\item \( \psi(\Omega^\alpha) = \varphi(\alpha,0) \)
+
+\item \( \psi(\Omega^\Omega) = sup \lbrace 0, \psi(\Omega^0) = \psi(1) = \omega, \psi(\Omega^\omega) = \varphi(\omega,0), \psi(\Omega^{\varphi(\omega,0)} = \varphi(\varphi(\omega,0),0), \ldots \rbrace = \varphi(1,0,0) = \Gamma_0 \)
+
+\item \( \ldots \)
+
+\end{itemize}
+
+\bigskip
+
+The function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = \omega \)
+\item \( \psi(\alpha+1) = sup \lbrace \psi(\alpha), \psi(\alpha)^{\psi(\alpha)}, \psi(\alpha)^{\psi(\alpha)^{\psi(\alpha)}}, \ldots \rbrace \)
+\end{itemize}
+
+has the following property :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\alpha) = \varepsilon'_\alpha \)
+\end{itemize}
+
+\( \psi(\Omega) \) is the limit of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi(0) = \omega \)
+\item \( \psi(\psi(0)) = \psi(\omega) = \) limit of
+	\begin{itemize}
+	     \setlength{\itemsep}{1pt}
+	     \setlength{\parskip}{0pt}
+	     \setlength{\parsep}{0pt}
+	\item \( \psi(0) = \omega \)
+	\item \( \psi(1) =  sup \lbrace \omega, \omega^\omega, \omega^{\omega^\omega} \rbrace = \varepsilon_0 = \varepsilon'_1 \)
+	\item \( \psi(2) = sup \lbrace \varepsilon'_1, {\varepsilon'_1}^{\varepsilon'_1}, {\varepsilon'_1}^{{\varepsilon'_1}^{\varepsilon'_1}}, \ldots \rbrace = \varepsilon'_2 \)
+	\end{itemize}
+	\( = \varepsilon'_\omega = \varepsilon_\omega \)
+\item \( \psi(\varepsilon_\omega) = \varepsilon_{\varepsilon_\omega} \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \zeta_0 \).
+
+Then we have
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\Omega+1) = sup \lbrace \psi(\Omega), \psi(\Omega)^{\psi(\Omega)}, \ldots \rbrace = sup \lbrace \zeta_0, \zeta_0^{\zeta_0}, \ldots \rbrace = \varepsilon_{\zeta_0+1} \)
+\item \( \psi(\Omega+2) = \varepsilon_{\zeta_0+2} \)
+\item \( \psi(\Omega+\alpha) = \varepsilon_{\zeta_0+\alpha} \)
+
+\item \( \ldots \)
+\end{itemize}
+
+\bigskip
+
+Then we must define \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi \circ f \), which can be written for example \( sup \lbrace 1, \psi'(f(1)), \psi'(f(\psi'(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+
+\bigskip
+
+In summary, we can define completely this \( \psi \) function by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi(0) = \omega \)
+
+\item \( \psi(\alpha+1) = sup \lbrace \psi'(\alpha), \psi'(\alpha)^{\psi'(\alpha)}, \psi'(\alpha)^{\psi'(\alpha)^{\psi'(\alpha)}}, \ldots \rbrace \)
+
+\item  \( \psi(lim(f)) = lim(n \mapsto \psi(f(n)) \)
+
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \)
+
+\end{itemize}
+
+\bigskip
+
+We will see with more details other functions after having seen the corresponding functions defined with the "classical" approach.
+
+\subsection{Classical approach}
+
+Remember that this approach consists in defining a set of ordinals C(a) or C(a,b) where a and b are ordinals, which contains all ordinals that can be built using an initial set of ordinals and some operations or functions, and then define \( \psi(a) \) or \( \psi(a,b) \) as the smallest ordinal that is not in C(a) or C(a,b), or the least ordinal that is greater than than all countable ordinals of C(a) or C(a,b).
+
+Some examples of ordinal collapsing functions are described in http://googology.wikia.com/wiki/Ordinal\_notation .
 
 These functions are extensions of functions on countable ordinals, whose fixed points can be reached by applying them to an uncountable ordinal.
 
@@ -2348,6 +2744,8 @@ Then \(\psi_0(\Omega+1)=\varepsilon_0\omega=\omega^{\varepsilon_0+1}\).
 
 \(\psi_0(\Omega^\Omega)=\Gamma_0=\theta(\Omega,0)\), using Feferman theta-function,
 
+Note that we find the same result as with the previously seen function defined recursively with \( \psi(0) = 1 \) and \( \psi(\alpha+1) = \psi(\alpha) \times \omega \).
+
 \(\psi_0(\Omega^{\Omega^\Omega})\) is large Veblen ordinal,
 
 \(\psi_0(\Omega\uparrow\uparrow\omega)=\psi_0(\varepsilon_{\Omega+1})=\theta(\varepsilon_{\Omega+1},0)\).
@@ -2433,7 +2831,15 @@ https://en.wikipedia.org/wiki/Buchholz\_psi\_functions
 
 \subsection{Madore's \( \psi \)}
 
-This ordinal collapsing function is described in https://en.wikipedia.org/wiki/Ordinal\_collapsing\_function and http://quibb.blogspot.fr/2012/03/infinity-impredicative-ordinals.html .
+This ordinal collapsing function is described in :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item https://en.wikipedia.org/wiki/Ordinal\_collapsing\_function 
+\item http://quibb.blogspot.fr/2012/03/infinity-impredicative-ordinals.html 
+\end{itemize}
 
 The definition of this function uses the ordinal \( \Omega \) which is the least uncountable ordinal. 
 
@@ -2736,11 +3142,13 @@ Madore's \(\psi\)  & \(C(\alpha)\) generated by   &\(\psi(0)=\varepsilon_0\)&\(\
 													
 \end{tabular}
 
-\subsection{Another approach to ordinal collapsing functions}
+\subsection{A recursively defined rationalized variant of Madore's \( \psi \) function}
 
-Another approach could consist, instead of defining ordinal collapsing functions by taking the least ordinal that cannot be constructed using a given set of ordinals and operations, in defining it recursively according to the value of the variable.
+We have already seen that the recursive approach of ordinal collapsing functions consists, instead of defining ordinal collapsing functions by taking the least ordinal that cannot be constructed using a given set of ordinals and operations, in defining it recursively according to the value of the variable.
 
 Let us call \( \psi' \) a new collapsing function similar to Madore's \( \psi \). 
+
+We have already seen this function in the section concerning the recursive approach of ordinal collapsing functions, but we will now see how we can retrieve it from Madore's \( \psi \), with the goal of producing a rationalized variant of it.
 
 First, to be consistent with the rationalized functions previously defined, we would like to have \( \psi'(\alpha) = \varepsilon'_\alpha \) instead of \( \psi(\alpha) = \varepsilon_\alpha \). So \( \psi'(0) \) must be equal to \( \varepsilon'_0 \). As we have \( \varepsilon'_{\alpha+1} = sup \lbrace \varepsilon'_\alpha, {\varepsilon'_\alpha}^{\varepsilon'_\alpha}, {\varepsilon'_\alpha}^{{\varepsilon'_\alpha}^{\varepsilon'_\alpha}}, \ldots \rbrace \), it is consistent to define \( \varepsilon'_0 = \omega \), because \( \varepsilon'_1 = \varepsilon_0 = sup \lbrace \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \rbrace \).
 
@@ -2748,7 +3156,7 @@ Then we can define \( \psi'(\alpha+1) \) as the limit or least upper bound of \(
 
 Then we can define canonically \( \psi'(lim(f)) = lim(n \mapsto \psi'(f(n)) \).
 
-Then we must define \( \psi' \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi'(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi' \circ f \), which can be written for example \( sup \lbrace 1, \psi'(f(1)), \psi'(f(_psi'(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+Then we must define \( \psi' \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi'(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi' \circ f \), which can be written for example \( sup \lbrace 1, \psi'(f(1)), \psi'(f(\psi'(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
 
 \bigskip
 
@@ -2792,10 +3200,11 @@ Something similar can be done with Buchholz function, defining :
 
 \bigskip
 
-Other ordinal collapsing functions can be defined similarily by defining the value of \( \psi'(0) \) and of \( \psi'(\alpha+1) = f(\psi'(\alpha)) \) for some function f.
+As we have already seen, other ordinal collapsing functions can be defined similarily by defining the value of \( \psi'(0) \) and of \( \psi'(\alpha+1) = f(\psi'(\alpha)) \) for some function f.
 
 \bigskip
 
+\begin{comment}
 To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi'_1 \) which generates these expressions, defined in a similar way to \( \psi' \), but starting for example with \( \psi'(0) = \Omega \).
 
 \bigskip
@@ -2804,7 +3213,6 @@ Here are some example of such ordinal collapsing functions :
 
 \bigskip
 
-\begin{comment}
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
 
@@ -2841,7 +3249,7 @@ Madore's \(\psi\)  & \(C(\alpha)\) generated    & \( \varepsilon_0 \)& \( sup\lb
 
 \bigskip
 
-\end{comment}
+
 
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -2897,6 +3305,8 @@ sufficiently small values &                           &                         
 \end{tabular}
 
 \bigskip
+
+
 
 With more details, the function defined by :
 
@@ -3020,6 +3430,8 @@ Then we have :
 \item \( \psi'(\Omega^\Omega) = sup \lbrace 0, \psi'(\Omega^0) = \psi'(1) = \omega, \psi'(\Omega^\omega) = \varphi'(\omega,1), \psi'(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
 \item \( \ldots \)
 \end{itemize}
+
+\end{comment}
 
 \bigskip
 
@@ -3905,7 +4317,7 @@ But there is a problem with this definition, because the value of \( f_\alpha(n)
 
 In fact, the notation \( \alpha[n] \) is not rigorous because there are several possible fundamental sequences for a given ordinal \( \alpha \). Instead of writing \( \alpha[n] = F(n) \) it would be more rigorous to write \( \alpha = lim F \). One cannot write \( \omega[n] = n \) and \( \omega[n] = n+1 \) because this implies n = n+1, but there is no problem writing \( \omega = lim (n \mapsto n) = lim (n \mapsto n+1) \).
 
-So, if we want to define rigorously the Fast Growing Hierarchy, we need to index the functions not by ordinals but by something which look likes ordinals but which are considered as different if the fundamental sequences are differents. These mathematical objects are called "tree ordinals" (do not confuse with "ordinal trees" previously seen).
+So, if we want to define rigorously the Fast Growing Hierarchy, we need to index the functions not by ordinals but by something which look likes ordinals but which are considered as different if the fundamental sequences are differents. These mathematical objects originally due to Bachmann are called "tree ordinals" (do not confuse with "ordinal trees" previously seen). 
 
 
 \section{Tree ordinals}
