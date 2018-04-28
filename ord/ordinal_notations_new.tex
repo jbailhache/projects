@@ -2261,8 +2261,7 @@ Corresponding             & None                      &                         
 \hline
 \( \psi(\alpha+\beta) \) & \( \psi(\alpha)+\beta \) & \( \psi(\alpha)+\omega\times\beta \) & \( \psi(\alpha)+\omega^\beta \)&                                                               &                                  \\
 \hline
-\( \psi(\alpha) \) for   & \( 1+\alpha \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
-sufficiently small values &                           &                                       & if \( \alpha < \varepsilon_0 \) & if \( \alpha < \zeta_0 \)                                     & if \( \alpha < \zeta_0 \)        \\
+\( \psi(\alpha) \)       & \( 1+\alpha \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
 \hline
 \( \psi(\omega) \)       & \( \omega \)              & \( \omega^2 \)                        & \( \omega^\omega \)             & \( \varepsilon_\omega \)                                      & \( \varepsilon_\omega \)         \\
 \hline
@@ -2487,6 +2486,50 @@ Then we have :
 
 \end{itemize}
 
+\bigskip
+
+The function defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = \omega \)
+\item \( \psi(\alpha+1) = sup \lbrace \psi(\alpha), \psi(\alpha)^{\psi(\alpha)}, \psi(\alpha)^{\psi(\alpha)^{\psi(\alpha)}}, \ldots \rbrace \)
+\end{itemize}
+
+has the following property :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\alpha) = \varepsilon'_\alpha \)
+\end{itemize}
+
+\( \psi(\Omega) \) is the limit of :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( \psi(0) = \omega \)
+\item \( \psi(\psi(0)) = \psi(\omega) = \) limit of
+	\begin{itemize}
+	     \setlength{\itemsep}{1pt}
+	     \setlength{\parskip}{0pt}
+	     \setlength{\parsep}{0pt}
+	\item \( \psi(0) = \omega \)
+	\item \( \psi(1) =  sup \lbrace \omega, \omega^\omega, \omega^{\omega^\omega} \rbrace = \varepsilon_0 = \varepsilon'_1 \)
+	\item \( \psi(2) = sup \lbrace \varepsilon'_1, {\varepsilon'_1}^{\varepsilon'_1}, {\varepsilon'_1}^{{\varepsilon'_1}^{\varepsilon'_1}}, \ldots \rbrace = \varepsilon'_2 \)
+	\end{itemize}
+	\( = \varepsilon'_\omega = \varepsilon_\omega \)
+\item \( \psi(\varepsilon_\omega) = \varepsilon_{\varepsilon_\omega} \)
+\item \( \ldots \)
+\end{itemize}
+
+which is \( \zeta_0 \)
 
 \bigskip
 
@@ -3160,6 +3203,7 @@ Madore's \(\psi\)  & \(C(\alpha)\) generated    & \( \varepsilon_0 \)& \( sup\lb
 
 \bigskip
 
+\end{comment}
 
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -3215,6 +3259,8 @@ sufficiently small values &                           &                         
 \end{tabular}
 
 \bigskip
+
+\begin{comment}
 
 With more details, the function defined by :
 
