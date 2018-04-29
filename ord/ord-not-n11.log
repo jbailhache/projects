@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  29 APR 2018 07:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  29 APR 2018 08:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -340,8 +340,7 @@ LaTeX Info: Redefining \] on input line 2666.
 (/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
 
-Excluding comment 'comment')
-No file ord-not-n11.aux.
+Excluding comment 'comment') (./ord-not-n11.aux)
 \openout1 = `ord-not-n11.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -356,6 +355,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -673,8 +673,8 @@ nrXzVAOxYYC : Ex-tremely large num-bers (videos)
 
 [61] (./ord-not-n11.aux) ) 
 Here is how much of TeX's memory you used:
- 1707 strings out of 495020
- 21030 string characters out of 6181324
+ 1709 strings out of 495020
+ 21062 string characters out of 6181324
  103848 words of memory out of 5000000
  4922 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
@@ -698,7 +698,7 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ord-not-n11.pdf (61 pages, 407573 bytes).
+Output written on ord-not-n11.pdf (61 pages, 407592 bytes).
 PDF statistics:
  278 PDF objects out of 1000 (max. 8388607)
  194 compressed objects within 2 object streams
