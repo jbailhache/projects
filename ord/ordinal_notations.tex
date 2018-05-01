@@ -2218,6 +2218,33 @@ The choice of \( \zeta = 0, 1 \) or \( \psi(0) \) is not very important since it
 
 Note that as a particular case of the fourth rule, when h is the identity function, we have \( \psi(\Omega) = lim (n \mapsto \psi^n(\zeta) \) which is the least fixed point of \( \psi \), so we have \( \psi(\psi(\Omega)) = \psi(\Omega) \).
 
+\bigskip
+
+The fourth rule defines \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(h(\Omega)) \), for h correctly defined, is the least fixed point of \( \psi \circ h \), which can be written for example \( sup \lbrace 1, \psi(h(1)), \psi(h(\psi(h(1)))), \ldots \rbrace \)  as we previously saw. 
+\begin{comment}
+In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+\end{comment}
+
+In RHS0 notation, \( \Omega \) is written \( H_1 suc\ 0 \) and the least fixed point of \( \psi \circ h \) can be written \( H (\psi \circ h) \zeta \) (with \( \zeta \) = 0 or 1 for example) \( = H [\psi(h(\bullet))] \zeta = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) if \( h(\Omega) = H_1 x y z_1 \ldots z_n \), so we have \( \psi(h(\Omega)) = \psi(H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) with always \( \zeta \) = 0 or 1 for example.
+
+So the fourth rule may be replaced for example by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
+
+\end{itemize}
+
+
+If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
+
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
+
+\bigskip
+
 Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) we have a choice between two possibilities : 
 
 \begin{itemize}
@@ -2231,7 +2258,7 @@ Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) 
 
 \end{itemize}
 
-To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi'_1 \) which generates these expressions, defined in a similar way to \( \psi' \), but starting for example with \( \psi'(0) = \Omega \).
+To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi_1 \) which generates these expressions, defined in a similar way to \( \psi \), but starting with greater values, for example with \( \psi_1(0) = \Omega \) or \( \psi_1(0) = \varepsilon_{\Omega+1} \).
 
 See also https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbHnrXzVAOxYYC video number 22.
 
@@ -2744,9 +2771,19 @@ Then we have
 
 \bigskip
 
-Then we must define \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi \circ f \), which can be written for example \( sup \lbrace 1, \psi(f(1)), \psi(f(\psi(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+\begin{comment}
+
+Then we must define \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(h(\Omega)) \), for h correctly defined, is the least fixed point of \( \psi \circ h \), which can be written for example \( sup \lbrace 1, \psi(h(1)), \psi(h(\psi(h(1)))), \ldots \rbrace \)  as we previously saw. 
+
+In RHS0 notation, \( \Omega \) is written \( H_1 suc\ 0 \) and the least fixed point of \( \psi \circ h \) can be written \( H (\psi \circ h) \zeta \) (with \( \zeta \) = 0 or 1 for example) \( = H [\psi(h(\bullet))] \zeta = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) if \( h(\Omega) = H_1 x y z_1 \ldots z_n \), so we have \( \psi(h(\Omega)) = \psi(H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) with always \( \zeta \) = 0 or 1 for example.
+
+If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
+
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
 
 \bigskip
+
+\end{comment}
 
 In summary, we can define completely this \( \psi \) function by :
 
@@ -2761,7 +2798,7 @@ In summary, we can define completely this \( \psi \) function by :
 
 \item  \( \psi(lim(f)) = lim(n \mapsto \psi(f(n)) \)
 
-\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \)
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
 
 \end{itemize}
 
