@@ -1677,7 +1677,7 @@ We will use the notation \( X \ldots X \) for X repeated n times.
      \setlength{\parsep}{0pt}
 \item \( \varepsilon_0 = R_1 H suc\ 0 \)
 \item \( \varepsilon_0 + 1 = suc (R_1 H suc\ 0) \)
-\item \( \omega^{\varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
+\item \( \omega^{\varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc\ 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
 \item \( \omega^{\omega^{\varepsilon_0+1}} = H (R_1 H H) suc\ 0 = H (R_1 H) suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\varepsilon_0+1}}} = H (R_1 H) H suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\omega^{\varepsilon_0+1}}}} = H (R_1 H) H H suc\ 0 \)
@@ -1817,8 +1817,8 @@ Compare with what we found previously :
      \setlength{\parsep}{0pt}
 \item \( \zeta_0+1 = suc (R_2 R_1 H suc\ 0) \)
 \item \( R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \)
-\item \( R_1 (R_2 R_1 H) R_1 H suc 0 \)
-\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc\ 0 \)
 \item \( \ldots \)
 \end{itemize}
 
@@ -2241,7 +2241,7 @@ So the fourth rule may be replaced for example by :
 
 If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
 
-If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] 0) = \psi(H_1 suc\ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
 
 \bigskip
 
@@ -3226,7 +3226,7 @@ This method gives the following correspondence :
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \) 
 
