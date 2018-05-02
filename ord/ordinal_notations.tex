@@ -2220,6 +2220,17 @@ Note that as a particular case of the fourth rule, when h is the identity functi
 
 \bigskip
 
+The third rule may also be written with fundamental sequences :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_1(\alpha)[n] = \psi_1(\alpha[n]) \)
+
+\end{itemize}
+
 The fourth rule defines \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(h(\Omega)) \), for h correctly defined, is the least fixed point of \( \psi \circ h \), which can be written for example \( sup \lbrace 1, \psi(h(1)), \psi(h(\psi(h(1)))), \ldots \rbrace \)  as we previously saw. 
 \begin{comment}
 In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
@@ -2260,7 +2271,35 @@ Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) 
 
 \end{itemize}
 
-To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi_1 \) which generates these expressions, defined in a similar way to \( \psi \), but starting with greater values, for example with \( \psi_1(0) = \Omega \) or \( \psi_1(0) = \varepsilon_{\Omega+1} \).
+To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi_1 \) which generates these expressions, defined in a similar way to \( \psi \), but starting with greater values, for example with \( \psi_1(0) = \Omega \) or \( \psi_1(0) = \varepsilon_{\Omega+1} \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item The value of \( \psi_1(0) \) (a given ordinal, for example \( \Omega \) or \( \varepsilon_{\Omega+1} \))
+
+\item \( \psi_1(\alpha+1) = f(\psi_1(\alpha)) \) 
+
+\item \( \psi_1(\alpha)[n] = \psi_1(\alpha[n]) \)
+
+\item \( \psi_1(h(\Omega_1)) = lim (n \mapsto (\psi_1 \circ h)^n(\zeta) \) with \( \zeta = 0, 1 \) or \( \psi_1(0) \) for example 
+
+\end{itemize}
+
+With RHS0 notation, \( \Omega_2 \) is written \( H_2 suc\ 0 \) and the fourth rule may be written :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi (H_2 x y z_1 \ldots z_n) = H [\psi_1([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
+
+\end{itemize}
+
+We can go on like this with \( \psi_2, \Omega_3 = H_3 suc\ 0, \psi_3, \Omega_4 = H_4 suc\ 0, \ldots \).
 
 See also https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbHnrXzVAOxYYC video number 22.
 
