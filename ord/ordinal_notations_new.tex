@@ -1677,7 +1677,7 @@ We will use the notation \( X \ldots X \) for X repeated n times.
      \setlength{\parsep}{0pt}
 \item \( \varepsilon_0 = R_1 H suc\ 0 \)
 \item \( \varepsilon_0 + 1 = suc (R_1 H suc\ 0) \)
-\item \( \omega^{\varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
+\item \( \omega^{\varepsilon_0+1} = [suc \rightarrow H, 0 \rightarrow suc] (suc (R_1 H suc\ 0)) 0 = H (R_1 H H suc) 0 = H (R_1 H suc) 0 \)
 \item \( \omega^{\omega^{\varepsilon_0+1}} = H (R_1 H H) suc\ 0 = H (R_1 H) suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\varepsilon_0+1}}} = H (R_1 H) H suc\ 0 \)
 \item \( \omega^{\omega^{\omega^{\omega^{\varepsilon_0+1}}}} = H (R_1 H) H H suc\ 0 \)
@@ -1817,8 +1817,8 @@ Compare with what we found previously :
      \setlength{\parsep}{0pt}
 \item \( \zeta_0+1 = suc (R_2 R_1 H suc\ 0) \)
 \item \( R_1 (R_2 R_1 H R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \)
-\item \( R_1 (R_2 R_1 H) R_1 H suc 0 \)
-\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H suc\ 0 \)
+\item \( R_1 (R_2 R_1 H) R_1 H R_1 H suc\ 0 \)
 \item \( \ldots \)
 \end{itemize}
 
@@ -2218,6 +2218,46 @@ The choice of \( \zeta = 0, 1 \) or \( \psi(0) \) is not very important since it
 
 Note that as a particular case of the fourth rule, when h is the identity function, we have \( \psi(\Omega) = lim (n \mapsto \psi^n(\zeta) \) which is the least fixed point of \( \psi \), so we have \( \psi(\psi(\Omega)) = \psi(\Omega) \).
 
+\bigskip
+
+The third rule may also be written with fundamental sequences :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_1(\alpha)[n] = \psi_1(\alpha[n]) \)
+
+\end{itemize}
+
+The fourth rule defines \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(h(\Omega)) \), for h correctly defined, is the least fixed point of \( \psi \circ h \), which can be written for example \( sup \lbrace 1, \psi(h(1)), \psi(h(\psi(h(1)))), \ldots \rbrace \)  as we previously saw. 
+\begin{comment}
+In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+\end{comment}
+
+In RHS0 notation, \( \Omega \) is written \( H_1 suc\ 0 \) and the least fixed point of \( \psi \circ h \) can be written \( H (\psi \circ h) \zeta \) (with \( \zeta \) = 0 or 1 for example) \( = H [\psi(h(\bullet))] \zeta \).
+
+If h is defined by \( h(\alpha) = [suc \rightarrow x, 0 \rightarrow y] \alpha z_1 \ldots z_n \), then whe have \( h(\Omega) = [suc \rightarrow x, 0 \rightarrow y] \Omega z_1 \ldots z_n = [suc \rightarrow x, 0 \rightarrow y] (H_1 suc\ 0) z_1 \ldots z_n = H_1 x y z_1 \ldots z_n \), and \( H [\psi(h(\bullet))] \zeta = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \), so we have \( \psi(h(\Omega)) = \psi(H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) with \( \zeta \) = 0 or 1 for example.
+
+So the fourth rule may be replaced for example by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
+
+\end{itemize}
+
+
+If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
+
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] 0) = \psi(H_1 suc\ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
+
+\bigskip
+
 Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) we have a choice between two possibilities : 
 
 \begin{itemize}
@@ -2231,7 +2271,35 @@ Concerning the values of \( \psi \) between \( \psi(\Omega) \) and \( \Omega \) 
 
 \end{itemize}
 
-To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi'_1 \) which generates these expressions, defined in a similar way to \( \psi' \), but starting for example with \( \psi'(0) = \Omega \).
+To define notations based on these functions, we also need a way to express the ordinals to which they are applied. This can be done by introducing in the notation the operations which permit to express them, like addition, multiplication, exponentiation. This can also be done by introducing, like we have seen for Madore's \( \psi \), a function \( \psi_1 \) which generates these expressions, defined in a similar way to \( \psi \), but starting with greater values, for example with \( \psi_1(0) = \Omega \) or \( \psi_1(0) = \varepsilon_{\Omega+1} \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item The value of \( \psi_1(0) \) (a given ordinal, for example \( \Omega \) or \( \varepsilon_{\Omega+1} \))
+
+\item \( \psi_1(\alpha+1) = f(\psi_1(\alpha)) \) 
+
+\item \( \psi_1(\alpha)[n] = \psi_1(\alpha[n]) \)
+
+\item \( \psi_1(h(\Omega_1)) = lim (n \mapsto (\psi_1 \circ h)^n(\zeta) \) with \( \zeta = 0, 1 \) or \( \psi_1(0) \) for example 
+
+\end{itemize}
+
+With RHS0 notation, \( \Omega_2 \) is written \( H_2 suc\ 0 \) and the fourth rule may be written :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi (H_2 x y z_1 \ldots z_n) = H [\psi_1([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
+
+\end{itemize}
+
+We can go on like this with \( \psi_2, \Omega_3 = H_3 suc\ 0, \psi_3, \Omega_4 = H_4 suc\ 0, \ldots \).
 
 See also https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbHnrXzVAOxYYC video number 22.
 
@@ -2407,7 +2475,8 @@ Then we have :
    \item 0
    \item \( \psi(\Omega^2) = \varepsilon_0 \)
    \item \( \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2 \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2 = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
    \item \( \ldots \)
    \end{itemize}
    \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
@@ -2552,7 +2621,8 @@ Then we have :
    \item  0
    \item \( \psi(\Omega^2) = \varepsilon_0 \)
    \item \( \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = {\varepsilon_0}^2 \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
    \item \( \ldots \)
    \end{itemize} 
    \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
@@ -2742,9 +2812,19 @@ Then we have
 
 \bigskip
 
-Then we must define \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(f(\Omega)) \), for f correctly defined, is the least fixed point of \( \psi \circ f \), which can be written for example \( sup \lbrace 1, \psi'(f(1)), \psi'(f(\psi'(f(1)))), \ldots \rbrace \)  as we previously saw. In RHS0 notation, if we write \( \Omega = H_1 suc\ 0 \), this gives : \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \).
+\begin{comment}
+
+Then we must define \( \psi \) for the case when it collapses an uncountable ordinal, in such a way that \( \psi(h(\Omega)) \), for h correctly defined, is the least fixed point of \( \psi \circ h \), which can be written for example \( sup \lbrace 1, \psi(h(1)), \psi(h(\psi(h(1)))), \ldots \rbrace \)  as we previously saw. 
+
+In RHS0 notation, \( \Omega \) is written \( H_1 suc\ 0 \) and the least fixed point of \( \psi \circ h \) can be written \( H (\psi \circ h) \zeta \) (with \( \zeta \) = 0 or 1 for example) \( = H [\psi(h(\bullet))] \zeta = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) if \( h(\Omega) = H_1 x y z_1 \ldots z_n \), so we have \( \psi(h(\Omega)) = \psi(H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] \zeta \) with always \( \zeta \) = 0 or 1 for example.
+
+If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
+
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
 
 \bigskip
+
+\end{comment}
 
 In summary, we can define completely this \( \psi \) function by :
 
@@ -2759,7 +2839,7 @@ In summary, we can define completely this \( \psi \) function by :
 
 \item  \( \psi(lim(f)) = lim(n \mapsto \psi(f(n)) \)
 
-\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] (suc\ 0) \)
+\item \( \psi (H_1 x y z_1 \ldots z_n) = H [\psi([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_n)] 0 \)
 
 \end{itemize}
 
@@ -3073,7 +3153,7 @@ But \( \varepsilon_{\Omega+1} \) cannot be expressed in this system, because \( 
 
 \begin{itemize}\item[\hspace{12pt}]
 
-Let \( \psi_1(\alpha) \) be the smallest ordinal which cannot be expressed from all countable ordinals, \( \Omega \) and \( \Omega _{2} \) using sums, products, exponentials, and the \( \psi _{1} \) function itself (to previously constructed ordinals less than \( \alpha \)), where \( \Omega_2 \) is an ordinal which is greater than all the ordinals which will be constructed using \( \psi_1 \), for example we can take \( \Omega = \omega_1 \) (the least uncountable ordinal) and \( \Omega_2 = \omega_2 \), the least ordinal whose cardinal is strictly greater than the cardinal of \( \omega_1 \).
+Let \( \psi_1(\alpha) \) be the smallest ordinal which cannot be expressed from all countable ordinals, \( \Omega \) and \( \Omega _{2} \) using sums, products, exponentials, and the \( \psi _{1} \) function itself (to previously constructed ordinals less than \( \alpha \)), where \( \Omega_2 \) is an ordinal which is greater than all the ordinals that will be constructed using \( \psi_1 \), for example we can take \( \Omega = \omega_1 \) (the least uncountable ordinal) and \( \Omega_2 = \omega_2 \), the least ordinal whose cardinal is strictly greater than the cardinal of \( \omega_1 \).
 
 \end{itemize}
 
@@ -3187,7 +3267,7 @@ This method gives the following correspondence :
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \) 
 
@@ -4569,7 +4649,7 @@ Definitions of tree ordinals can be found in :
 \item Proof and system-reliability
 \end{itemize}
 
-A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}) \) if :
+A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}) \) if either :
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
