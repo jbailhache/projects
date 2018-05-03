@@ -263,6 +263,29 @@ Then we can go on building greater and greater ordinals : \( \omega \cdot 3, \ld
 
 \bigskip
 
+Any ordinal \( \alpha \) can be defined by either :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item Zero : \( \alpha = 0 \)
+
+\item The successor of another ordinal : \( \alpha = suc(\beta) = \beta+1 \) 
+
+\item A limit ordinal : \( \alpha = lim_\beta f = sup_{\xi \in \beta} \lbrace f(\xi) \rbrace \)
+
+where \( \beta = \omega_k, \omega_0 = \omega, \omega_{i+1} \) is the least ordinal whose cardinal is greater than the cardinal of \( \omega_i \), and for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. When \( \beta = \omega, lim_\omega f \) will sometimes be written more simply \( lim f \).
+
+\end{itemize}
+
+In the case of a limit ordinal, the \(\xi\)-th element of a fundamental sequence of \( \alpha \) i sometimes written \( \alpha[\xi] \) which is not a rigorous notation, because an ordinal may have different fundamental sequences, for example \( \omega = lim_\omega [\bullet] = lim_\omega [\bullet+1] \) which gives \( \omega[\alpha] = \alpha = \alpha+1 \).
+
+We will introduce later other mathematical objects called tree ordinals which are considered different if the fundamental sequences are different.
+
+\bigskip
+
 For natural numbers, arithmetical operations are defined as follows :
 
 \begin{itemize}
