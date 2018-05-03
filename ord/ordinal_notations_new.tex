@@ -331,9 +331,125 @@ For tutorial introductions to transfinite ordinal numbers, see also :
 
  https://sites.google.com/site/largenumbers/home/appendix/a/infinite\_numbers
 
-
-
 \end{itemize}
+
+Here are some examples of Haskell definitions of ordinal types.
+
+\begin{verbatim}
+
+module Cord_and_ord where
+
+ -- Natural numbers
+ data Nat 
+  = ZeroN
+  | SucN Nat
+
+ -- Countable ordinals
+ data Cord
+  = ZeroC
+  | SucC Cord
+  | LimC (Nat -> Cord)
+
+ -- Ordinals
+ data Ord 
+  = Zero
+  | Suc Ord
+  | Lim (Nat -> Ord)
+  | Ext (Ord -> Ord)
+
+ ordOfCord ZeroC = Zero
+ ordOfCord (SucC a) = Suc (ordOfCord a)
+ ordOfCord (LimC s) = Lim (\n -> ordOfCord (s n))
+
+ cordOfOrd Zero = ZeroC
+ cordOfOrd (Suc a) = SucC (cordOfOrd a)
+ cordOfOrd (Lim s) = LimC (\n -> cordOfOrd (s n))
+ cordOfOrd (Ext f) = cordOfOrd (f Zero)
+
+
+
+module Ords where
+
+ -- Natural numbers
+ data Ord0
+  = Zero0
+  | Suc0 Ord0
+
+ -- Countable ordinals w1
+ data Ord1
+  = Zero1
+  | Suc1 Ord1
+  | Lim01 (Ord0 -> Ord1)
+
+ -- Uncountable ordinals w2
+ data Ord2
+  = Zero2
+  | Suc2 Ord2
+  | Lim02 (Ord0 -> Ord2)
+  | Lim12 (Ord1 -> Ord2)
+
+ -- Uncountable ordinals w3
+ data Ord3
+  = Zero3
+  | Suc3 Ord3
+  | Lim03 (Ord0 -> Ord3)
+  | Lim13 (Ord1 -> Ord3)
+  | Lim23 (Ord2 -> Ord3)
+
+
+
+module Ords where
+
+ -- Ordinals
+ data Ord 
+  = Zero
+  | One
+  | W0
+  | W1
+  | W2
+  | Sup Ord (Ord -> Ord)
+
+ two = Sup One (\x -> One)
+ three = Sup One (\x -> two)
+
+ suc a = Sup One (\x -> a)
+
+ -- f^a(x)
+ fpower0 f Zero x = x
+ -- fpower0 f (Suc a) x = f (fpower0 f a x)
+ fpower0 f (Sup One s) x = f (fpower0 f (s Zero) x)
+ -- fpower0 f (Lim s) x = Lim (\n -> fpower0 f (s n) x)
+ fpower0 f (Sup W0 s) x = Sup W0 (\n -> fpower0 f (s n) x) 
+
+ w_times_2 = Sup W0 (\n -> fpower0 suc n W0)
+
+
+
+module Ords where
+
+ -- Ordinals
+ data Ord 
+  = Zero
+  | One
+  | W Ord
+  | Sup Ord (Ord -> Ord)
+
+ two = Sup One (\x -> One)
+ three = Sup One (\x -> two)
+
+ suc a = Sup One (\x -> a)
+
+ -- f^a(x)
+ fpower0 f Zero x = x
+ -- fpower0 f (Suc a) x = f (fpower0 f a x)
+ fpower0 f (Sup One s) x = f (fpower0 f (s Zero) x)
+ -- fpower0 f (Lim s) x = Lim (\n -> fpower0 f (s n) x)
+ -- fpower0 f (Sup W0 s) x = Sup W0 (\n -> fpower0 f (s n) x) 
+
+ w_times_2 = Sup (W Zero) (\n -> fpower0 suc n (W Zero))
+
+
+\end{verbatim}
 
 \section{Veblen functions}
 
