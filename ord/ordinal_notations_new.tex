@@ -152,11 +152,11 @@ Arithmetical operations are defined as follow, where suc(n) represents the succe
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
-\item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
-\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
+\item multiplication : \( a \times 0 = 0 ; a \times suc(b) = (a \times b) + a \)
+\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \times a  \)
 \end{itemize}
 
-For natural numbers, the addition and the multiplication are commutative : \( a+b = b+a ; a \cdot b = b \cdot a \), but not the exponentiation : generally \( a^b \neq b^a \).
+For natural numbers, the addition and the multiplication are commutative : \( a+b = b+a ; a \times b = b \times a \), but not the exponentiation : generally \( a^b \neq b^a \).
 
 We shall see later that the addition and the multiplication of transfinite ordinal numbers are not commutative.
 
@@ -184,7 +184,7 @@ and has the following properties :
      \setlength{\parsep}{0pt}
 
 \item \( f^{a+b} = f^b \circ f^a \)
-\item \( f^{a \cdot b} = (f^a)^b \)
+\item \( f^{a \times b} = (f^a)^b \)
 
 \end{itemize}
 
@@ -232,6 +232,12 @@ There are different ways to represent such a sequence :
 
 Some representations of ordinals use finite sequences of ordinals. Different ways of representing sequences are used by these representations, for example comma separated list for Veblen function with finitely many variables, matrix with values and ranks for Schütte bracket or Klammersymbol, or base \( \Omega \) representation for collapsing functions, where \( \Omega \) is an ordinal which is greater than all ordinals of the sequence, for example if we want to represent sequences of countable ordinals, we can use for \( \Omega \) the least uncountable ordinal \( \omega_1 \).
 
+\subsection{Cardinality of a set}
+
+The cardinality of a finite set is simply its number of elements.
+
+The cardinality can be generalized to infinite sets. Two sets have the same cardinality if there is a bijection between them, which is a relation that associates one element of the second set to any element of the first set and reciprocally. The cardinality of a set A is less than the cardinality of a set B if any element of A can be associated with an element of B but there are some elements of B which are not associated to any element of A. For example, the cardinality of the natural numbers is less than the cardinality of the real numbers.
+
 \section{Defining transfinite ordinal numbers}
 
 Natural numbers can be represented by sets. Each number is represented by the set of all numbers smaller than it.
@@ -257,9 +263,13 @@ Any ordinal can be defined as the least ordinal strictly greater than all ordina
 
 The successor can be generalized to transfinite ordinal numbers : \( suc(\omega) = \omega+1 =\omega \cup \lbrace \omega \rbrace = \lbrace 0, 1, 2, 3, \ldots, \omega \rbrace ; suc(suc(\omega)) = \omega+2 = \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1 \rbrace \) and so on.
 
-Then we can consider the set \( \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1, \omega+2, \omega+3, \ldots \rbrace \) which is a limit ordinal, and \( \omega, \omega+1, \omega+2, \omega+3, \ldots \) is a fundamental sequence of this ordinal. This ordinal is \( \omega+\omega = \omega \cdot 2 \) or \( \omega \times 2 \) or \( \omega 2 \).
+Then we can consider the set \( \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1, \omega+2, \omega+3, \ldots \rbrace \) which is a limit ordinal, and \( \omega, \omega+1, \omega+2, \omega+3, \ldots \) is a fundamental sequence of this ordinal. This ordinal is \( \omega+\omega = \omega \times 2 \) or \( \omega \times 2 \) or \( \omega 2 \).
 
-Then we can go on building greater and greater ordinals : \( \omega \cdot 3, \ldots, \omega \cdot \omega = \omega^2, \omega^3, \ldots, \omega^\omega, \omega^{\omega^\omega}, \ldots \).
+Then we can go on building greater and greater ordinals : \( \omega \times 3, \ldots, \omega \times \omega = \omega^2, \omega^3, \ldots, \omega^\omega, \omega^{\omega^\omega}, \ldots \).
+
+\bigskip
+
+\( \omega \) is the least ordinal which has not a finite cardinality. We can define a sequence of ordinals \( \omega_k \) where k is a natural number by \( \omega_0 = \omega \) and \( omega_{k+1} \) is the least ordinal whose cardinality is greater than the cardinality of \( \omega_k \).
 
 \bigskip
 
@@ -276,7 +286,7 @@ Any ordinal \( \alpha \) can be defined by either :
 
 \item A limit ordinal : \( \alpha = lim_\beta f = sup_{\xi \in \beta} \lbrace f(\xi) \rbrace \)
 
-where \( \beta = \omega_k, \omega_0 = \omega, \omega_{i+1} \) is the least ordinal whose cardinal is greater than the cardinal of \( \omega_i \), and for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. When \( \beta = \omega, lim_\omega f \) will sometimes be written more simply \( lim f \).
+where for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. A limit ordinal can always be defined as \( lim_{\omega_k} f \) by eventually rearranging the order of elements of \( \beta \). When \( \beta = \omega = \omega_0, lim_\omega f \) will sometimes be written more simply \( lim f \). This is the case for countable limit ordinals, which have the same cardinality as \( \omega \).
 
 \end{itemize}
 
@@ -293,19 +303,30 @@ For natural numbers, arithmetical operations are defined as follows :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
-\item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
-\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
+\item multiplication : \( a \times 0 = 0 ; a \times suc(b) = (a \times b) + a \)
+\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \times a  \)
 \end{itemize}
 
-The definitions of arithmetical operations can be generalized to ordinals by adding canonical rules for limit ordinals :
+The definitions of arithmetical operations can be generalized to countable ordinals by adding canonical rules for limit ordinals :
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
-\item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
-\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
+\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
+\end{itemize}
+
+and more generally to any ordinal, countable or not :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim_\beta(f)=lim_\beta(\xi \mapsto \alpha+f(\xi)) \)
+\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim_\beta(f) = lim (\xi \mapsto \alpha \times f(\xi)) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim_\beta(f)} = lim_\beta (\xi \mapsto \alpha^{f(\xi)}) \)
 \end{itemize}
 
 Note that addition and multiplication are not commutative, for example \( 1+\omega = \omega \neq \omega+1 \), because if we take 0, 1, 2, 3, ... as fundamental sequence of \( \omega \), then a fundamental sequence of \( 1+\omega \) is 1+0, 1+1, 1+2, 1+3, ... = 1, 2, 3, 4, ... and the least ordinal that is greater than all ordinals of this sequence is \( \omega \). We will say that "1+" is "absorbed" by \( \omega \). More generally, we have \( 1+\alpha = \alpha \) for any ordinal \( \alpha \geq \omega \).
