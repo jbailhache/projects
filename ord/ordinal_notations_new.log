@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  4 MAY 2018 04:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  4 MAY 2018 04:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -607,15 +607,15 @@ r/m/n/10 0\OML/cmm/m/it/10 ; R[]HR[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []
  []
 
 [41]
-Overfull \hbox (20.15726pt too wide) in paragraph at lines 3459--3460
-[]$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^B
+Overfull \hbox (5.15721pt too wide) in paragraph at lines 3459--3460
+[]$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^A
  \OT1/cmr/m/n/10 
  + 
  + 
 ) = \OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^
-B \OT1/cmr/m/n/10 
+A \OT1/cmr/m/n/10 
  + 
- \OMS/cmsy/m/n/10 ^^B \OT1/cmr/m/n/10 2) = \OML/cmm/m/it/10 H\OT1/cmr/m/n/10 [[
+ \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 2) = \OML/cmm/m/it/10 H\OT1/cmr/m/n/10 [[
 \OML/cmm/m/it/10 suc \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 R[]; \OT1/cmr/m/n/10 0
  \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 R[]R[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[
 ]R[]H\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^O \OML/cmm/m/it/10 suc \OT1/cmr/m/n/
@@ -699,7 +699,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ordinal_notations_new.pdf (64 pages, 415584 bytes).
+Output written on ordinal_notations_new.pdf (64 pages, 415221 bytes).
 PDF statistics:
  287 PDF objects out of 1000 (max. 8388607)
  200 compressed objects within 2 object streams

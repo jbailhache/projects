@@ -152,11 +152,11 @@ Arithmetical operations are defined as follow, where suc(n) represents the succe
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
-\item multiplication : \( a \times 0 = 0 ; a \times suc(b) = (a \times b) + a \)
-\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \times a  \)
+\item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
+\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
 \end{itemize}
 
-For natural numbers, the addition and the multiplication are commutative : \( a+b = b+a ; a \times b = b \times a \), but not the exponentiation : generally \( a^b \neq b^a \).
+For natural numbers, the addition and the multiplication are commutative : \( a+b = b+a ; a \cdot b = b \cdot a \), but not the exponentiation : generally \( a^b \neq b^a \).
 
 We shall see later that the addition and the multiplication of transfinite ordinal numbers are not commutative.
 
@@ -184,7 +184,7 @@ and has the following properties :
      \setlength{\parsep}{0pt}
 
 \item \( f^{a+b} = f^b \circ f^a \)
-\item \( f^{a \times b} = (f^a)^b \)
+\item \( f^{a \cdot b} = (f^a)^b \)
 
 \end{itemize}
 
@@ -263,9 +263,9 @@ Any ordinal can be defined as the least ordinal strictly greater than all ordina
 
 The successor can be generalized to transfinite ordinal numbers : \( suc(\omega) = \omega+1 =\omega \cup \lbrace \omega \rbrace = \lbrace 0, 1, 2, 3, \ldots, \omega \rbrace ; suc(suc(\omega)) = \omega+2 = \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1 \rbrace \) and so on.
 
-Then we can consider the set \( \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1, \omega+2, \omega+3, \ldots \rbrace \) which is a limit ordinal, and \( \omega, \omega+1, \omega+2, \omega+3, \ldots \) is a fundamental sequence of this ordinal. This ordinal is \( \omega+\omega = \omega \times 2 \) or \( \omega \times 2 \) or \( \omega 2 \).
+Then we can consider the set \( \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1, \omega+2, \omega+3, \ldots \rbrace \) which is a limit ordinal, and \( \omega, \omega+1, \omega+2, \omega+3, \ldots \) is a fundamental sequence of this ordinal. This ordinal is \( \omega+\omega = \omega \cdot 2 \) or \( \omega \cdot 2 \) or \( \omega 2 \).
 
-Then we can go on building greater and greater ordinals : \( \omega \times 3, \ldots, \omega \times \omega = \omega^2, \omega^3, \ldots, \omega^\omega, \omega^{\omega^\omega}, \ldots \).
+Then we can go on building greater and greater ordinals : \( \omega \cdot 3, \ldots, \omega \cdot \omega = \omega^2, \omega^3, \ldots, \omega^\omega, \omega^{\omega^\omega}, \ldots \).
 
 \bigskip
 
@@ -303,8 +303,8 @@ For natural numbers, arithmetical operations are defined as follows :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( a+0=a ; a+suc(b)=suc(a+b) \)
-\item multiplication : \( a \times 0 = 0 ; a \times suc(b) = (a \times b) + a \)
-\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \times a  \)
+\item multiplication : \( a \cdot 0 = 0 ; a \cdot suc(b) = (a \cdot b) + a \)
+\item exponentiation : \( a^0 = 1 ; a^{suc(b)} = a^b \cdot a  \)
 \end{itemize}
 
 The definitions of arithmetical operations can be generalized to countable ordinals by adding canonical rules for limit ordinals :
@@ -314,8 +314,8 @@ The definitions of arithmetical operations can be generalized to countable ordin
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
-\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
-\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
+\item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
 
 and more generally to any ordinal, countable or not :
@@ -325,8 +325,8 @@ and more generally to any ordinal, countable or not :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim_\beta(f)=lim_\beta(\xi \mapsto \alpha+f(\xi)) \)
-\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim_\beta(f) = lim (\xi \mapsto \alpha \times f(\xi)) \)
-\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim_\beta(f)} = lim_\beta (\xi \mapsto \alpha^{f(\xi)}) \)
+\item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim_\beta(f) = lim (\xi \mapsto \alpha \cdot f(\xi)) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim_\beta(f)} = lim_\beta (\xi \mapsto \alpha^{f(\xi)}) \)
 \end{itemize}
 
 Note that addition and multiplication are not commutative, for example \( 1+\omega = \omega \neq \omega+1 \), because if we take 0, 1, 2, 3, ... as fundamental sequence of \( \omega \), then a fundamental sequence of \( 1+\omega \) is 1+0, 1+1, 1+2, 1+3, ... = 1, 2, 3, 4, ... and the least ordinal that is greater than all ordinals of this sequence is \( \omega \). We will say that "1+" is "absorbed" by \( \omega \). More generally, we have \( 1+\alpha = \alpha \) for any ordinal \( \alpha \geq \omega \).
@@ -594,7 +594,7 @@ The limit of the \(\varphi(1,0,...,0)\) where the number of zeroes ranges over \
 
 Every non-zero ordinal \(\alpha\) less than the small Veblen ordinal (SVO) can be uniquely written in normal form for the finitary Veblen function:
 
-\(\alpha =\varphi (s_{1})+\varphi (s_{2})+\cdots +\varphi (s_{k})\)
+\(\alpha =\varphi (s_{1})+\varphi (s_{2})+ \ldots +\varphi (s_{k})\)
 
 where
 
@@ -604,7 +604,7 @@ where
      \setlength{\parsep}{0pt}
 
 \item \(k\) is a positive integer
-\item \(\varphi (s_{1})\geq \varphi (s_{2})\geq \cdots \geq \varphi (s_{k})\)
+\item \(\varphi (s_{1})\geq \varphi (s_{2})\geq \ldots \geq \varphi (s_{k})\)
 \item \(s_{m}\) is a string consisting of one or more comma-separated ordinals \(\alpha _{m,1},\alpha _{m,2},...,\alpha _{m,n_{m}}\) where \(\alpha _{m,1}>0\) and each \(\alpha _{m,i}<\varphi (s_{m})\)
 
 \end{itemize} 
@@ -616,7 +616,7 @@ For limit ordinals \(\alpha<SVO\), written in normal form for the finitary Veble
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \((\varphi(s_1)+\varphi(s_2)+\cdots+\varphi(s_k))[n]=\varphi(s_1)+\varphi(s_2)+\cdots+\varphi(s_k)[n]\),
+\item \((\varphi(s_1)+\varphi(s_2)+\ldots+\varphi(s_k))[n]=\varphi(s_1)+\varphi(s_2)+\ldots+\varphi(s_k)[n]\),
 \item \(\varphi(\gamma)[n]=\)
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -2414,7 +2414,7 @@ So the fourth rule may be replaced for example by :
 
 If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
 
-If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] 0) = \psi(H_1 suc\ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \cdot 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] 0) = \psi(H_1 suc\ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
 
 \bigskip
 
@@ -2476,29 +2476,29 @@ Corresponding             & None                      &                         
 \hline    
                           &                           & \( C(\alpha) \) generated             & \( C_0(\alpha) \) generated     &                                                               & \( C(\alpha) \) generated        \\
                           &                           & by 1, suc, \( \psi(\xi) \)            & by 1, +, \( \psi_\mu(\xi) \)    &                                                               & by \( 0, 1, \omega, \Omega, \)   \\
-                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \times, exp., \psi(\xi) \) \\
+                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \cdot, exp., \psi(\xi) \) \\
                           &                           &                                       & and \( \xi < \alpha \)          &                                                               & where \( \xi < \alpha \)         \\ 
 \hline
 \( \psi(0) \)            & 1                         & 1                                     & 1                               & \( \omega \)                                                  & \( \varepsilon_0 \)              \\ 
 \hline
-\( \psi(\alpha+1) \)     & \( \psi(\alpha)+1 \)     & \( \psi(\alpha)+\omega \)            & \( \psi(\alpha)\times\omega \) & \( sup\lbrace\psi(\alpha)^{\vdots^{\psi(\alpha)}}\rbrace \) & \( sup\lbrace\psi(\alpha)
+\( \psi(\alpha+1) \)     & \( \psi(\alpha)+1 \)     & \( \psi(\alpha)+\omega \)            & \( \psi(\alpha)\cdot\omega \) & \( sup\lbrace\psi(\alpha)^{\vdots^{\psi(\alpha)}}\rbrace \) & \( sup\lbrace\psi(\alpha)
                                                                                                                                                                                                   ^{\vdots^{\psi(\alpha)}}\rbrace \) \\
 \hline
 \( \psi(1) \)            & 2                         & \( \omega \)                          & \( \omega \)                    & \( \varepsilon_0 \)                                           & \( \varepsilon_1 \)              \\
 \hline
-\( \psi(\alpha+\beta) \) & \( \psi(\alpha)+\beta \) & \( \psi(\alpha)+\omega\times\beta \) & \( \psi(\alpha)+\omega^\beta \)&                                                               &                                  \\
+\( \psi(\alpha+\beta) \) & \( \psi(\alpha)+\beta \) & \( \psi(\alpha)+\omega\cdot\beta \) & \( \psi(\alpha)+\omega^\beta \)&                                                               &                                  \\
 \hline
-\( \psi(\alpha) \)       & \( 1+\alpha \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
+\( \psi(\alpha) \)       & \( 1+\alpha \)            & \( \omega \cdot \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
 cond. if \( \psi \) monotone& if \( \alpha<\omega\)  & if \( \alpha < \omega^2 \)            & if \( \alpha < \varepsilon_0 \) & if \( \alpha < \zeta_0 \)                                     & if \( \alpha < \zeta_0 \)        \\
 \hline
 \( \psi(\omega) \)       & \( \omega \)              & \( \omega^2 \)                        & \( \omega^\omega \)             & \( \varepsilon_\omega \)                                      & \( \varepsilon_\omega \)         \\
 \hline
 \( \psi(\Omega) \)       & \( \omega \)              & \( \omega^\omega \)                   & \( \varepsilon_0 \)             & \( \zeta_0 \)                                                 & \( \zeta_0 \)                    \\
 \hline
-\( \psi(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\times\omega \) & \( \varepsilon_{\zeta_0+1} \)                                 & \( \varepsilon_{\zeta_0+1} \)    \\
+\( \psi(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\cdot\omega \) & \( \varepsilon_{\zeta_0+1} \)                                 & \( \varepsilon_{\zeta_0+1} \)    \\
                           &                           &                                       & \( = \omega^{\varepsilon_0+1} \)&                                                               &                                  \\
 \hline
-\( \psi(\Omega\times 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             & \( \zeta_1 \)                                                 & \( \zeta_1 \)                    \\
+\( \psi(\Omega\cdot 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             & \( \zeta_1 \)                                                 & \( \zeta_1 \)                    \\
 \hline
 \( \psi(\Omega^2) \)     & \( \varepsilon_0 \)       & \( \varepsilon_0 \)                   & \( \zeta_0 \)                   & \( \eta_0 \)                                                  & \( \eta_0 \)                     \\
 \hline
@@ -2507,19 +2507,19 @@ cond. if \( \psi \) monotone& if \( \alpha<\omega\)  & if \( \alpha < \omega^2 \
 
 \( \psi_1(0) \)          & \( \Omega \)              & \( \Omega \)                          & \( \Omega \)                    & \( \varepsilon_{\Omega+1} \)                                  & \( \varepsilon_{\Omega+1} \)     \\
 \hline
-\( \psi_1(\alpha+1) \)   & \( \psi_1(\alpha)+1 \)   & \( \psi_1(\alpha)+\omega \)          & \(\psi_1(\alpha)\times\omega\) &\(sup\lbrace\psi_1(\alpha)^{\vdots^{\psi_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi_1(\alpha)
+\( \psi_1(\alpha+1) \)   & \( \psi_1(\alpha)+1 \)   & \( \psi_1(\alpha)+\omega \)          & \(\psi_1(\alpha)\cdot\omega\) &\(sup\lbrace\psi_1(\alpha)^{\vdots^{\psi_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi_1(\alpha)
                                                                                                                                                                                                   ^{\vdots^{\psi_1(\alpha)}}\rbrace \) \\
 \hline
-\( \psi_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\times\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
+\( \psi_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\cdot\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
                           &                           &                                       & \( = \omega^{\Omega+1} \)       &                                                               &                                  \\
 \hline
-\( \psi_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\times\alpha \)       & \( \Omega\times\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
+\( \psi_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\cdot\alpha \)       & \( \Omega\cdot\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\alpha} \)  &                                                               &                                  \\
 \hline
-\( \psi_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\times\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
+\( \psi_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\cdot\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\omega} \)  &                                                               &                                  \\
 \hline
-\( \psi_1(\Omega) \)     & \( \Omega\times\omega \)  & \( \Omega\times\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \times 2} \)                           & \( \varepsilon_{\Omega \times 2} \) \\
+\( \psi_1(\Omega) \)     & \( \Omega\cdot\omega \)  & \( \Omega\cdot\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \cdot 2} \)                           & \( \varepsilon_{\Omega \cdot 2} \) \\
 \hline
 
 \end{tabular}
@@ -2568,37 +2568,37 @@ Then we have :
      \setlength{\parsep}{0pt}
 \item \( \psi(\Omega+1) = \omega+1 \)
 \item \( \psi(\Omega+\alpha) = \omega+\alpha \)
-\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \) limit of :
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega)=\omega \)
-   \item \( \psi(\Omega+\omega)=\omega+\omega=\omega \times 2 \)
+   \item \( \psi(\Omega+\omega)=\omega+\omega=\omega \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \omega \times \omega = \omega^2 \)
-\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = \) limit of :
+   \( = \omega \cdot \omega = \omega^2 \)
+\item \( \psi(\Omega \cdot 2 + \Omega) = \psi(\Omega \cdot 3) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
-   \item \( \psi(\Omega \times 2) = \omega^2 \)
-   \item \( \psi(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2 \)
+   \item \( \psi(\Omega \cdot 2) = \omega^2 \)
+   \item \( \psi(\Omega \cdot 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \omega^2 \times \omega = \omega^3 \)
-\item \( \psi(\Omega \times \alpha) = \omega^\alpha \)
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \) limit of :
+   \( = \omega^2 \cdot \omega = \omega^3 \)
+\item \( \psi(\Omega \cdot \alpha) = \omega^\alpha \)
+\item \( \psi(\Omega \cdot \Omega) = \psi(\Omega^2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 1
    \item \( \psi_0(\Omega) = \omega \)
-   \item \( \psi_0(\Omega \times \omega) = \omega^\omega \)
+   \item \( \psi_0(\Omega \cdot \omega) = \omega^\omega \)
    \item \( \ldots \)
    \end{itemize}
    \( = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
@@ -2610,45 +2610,45 @@ Then we have :
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega^2)=\varepsilon_0 \)
-   \item \( \psi(\Omega^2+\varepsilon_0) = \varepsilon_0 \times 2 \)
+   \item \( \psi(\Omega^2+\varepsilon_0) = \varepsilon_0 \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \varepsilon_0 \times \omega \)
-\item \( \psi(\Omega^2+\Omega+\alpha = \varepsilon_0 \times \omega + \alpha \)
-\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = \) limit of : 
+   \( = \varepsilon_0 \cdot \omega \)
+\item \( \psi(\Omega^2+\Omega+\alpha = \varepsilon_0 \cdot \omega + \alpha \)
+\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \cdot 2) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
-   \item \( \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega \)
-   \item \( \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega \times 2 \)
+   \item \( \psi(\Omega^2+\Omega) = \varepsilon_0 \cdot \omega \)
+   \item \( \psi(\Omega^2+\Omega+\varepsilon_0 \cdot \omega) = \varepsilon_0 \cdot \omega \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \varepsilon_0 \times \omega^2 \)
-\item \( \psi(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = \) limit of :
+   \( = \varepsilon_0 \cdot \omega^2 \)
+\item \( \psi(\Omega^2+\Omega \cdot \alpha) = \varepsilon_0 \cdot \omega^\alpha \)
+\item \( \psi(\Omega^2+\Omega \cdot \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \cdot 2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega^2) = \varepsilon_0 \)
-   \item \( \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2 \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
+   \item \( \psi(\Omega^2+\Omega \cdot \varepsilon_0) = \varepsilon_0 \cdot \omega^\varepsilon_0 = {\varepsilon_0}^2 \)
+   \item \( \psi(\Omega^2+\Omega \cdot {\varepsilon_0}^2) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^2} = \varepsilon_0 \cdot \omega^{\varepsilon_0 \cdot \varepsilon_0} = \varepsilon_0 \cdot (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \cdot {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \cdot {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \cdot {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
    \item \( \ldots \)
    \end{itemize}
    \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
-\item \( \psi(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
-\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = \) limit of :
+\item \( \psi(\Omega^2 \cdot \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi(\Omega^2 \cdot \Omega) = \psi(\Omega^3) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 1
    \item \( \psi(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
-   \item \( \psi(\Omega^2 \times \varepsilon_0) = \varphi'(0,\varphi'(0,1)) \)
+   \item \( \psi(\Omega^2 \cdot \varepsilon_0) = \varphi'(0,\varphi'(0,1)) \)
    \item \( \ldots \)
    \end{itemize}
    \( = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
@@ -2686,8 +2686,8 @@ has the following properties :
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item \( \psi(\alpha+\beta)=\psi(\alpha)+\omega \times \beta \)
-\item \( \psi(\alpha) = \omega \times \alpha \)
+\item \( \psi(\alpha+\beta)=\psi(\alpha)+\omega \cdot \beta \)
+\item \( \psi(\alpha) = \omega \cdot \alpha \)
 \end{itemize}
 
 \( \psi(\Omega) \) is the limit or least upper bound of :
@@ -2712,7 +2712,7 @@ Then we have :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item \( \psi(\Omega+1) = \omega^\omega+\omega \)
-\item \( \psi(\Omega+\alpha) = \omega^\omega+\omega \times \alpha \)
+\item \( \psi(\Omega+\alpha) = \omega^\omega+\omega \cdot \alpha \)
 \item \( \psi(\Omega+\Omega) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -2720,35 +2720,35 @@ Then we have :
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega) = \omega^\omega \)
-   \item \( \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\omega^\omega) = \omega^\omega+\omega \times \omega^\omega = \omega^\omega \times 2 \)
+   \item \( \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\omega^\omega) = \omega^\omega+\omega \cdot \omega^\omega = \omega^\omega \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \omega^\omega \times \omega = \omega^{\omega+1} \)
-\item \( \psi(\Omega \times 2 + \alpha) = \psi(\Omega \times 2) + \omega \times \alpha = \omega^{\omega+1} + \omega \times \alpha \)
-\item \( \psi(\Omega \times 2 + \Omega) = \psi(\Omega \times 3) = \) limit of : 
+   \( = \omega^\omega \cdot \omega = \omega^{\omega+1} \)
+\item \( \psi(\Omega \cdot 2 + \alpha) = \psi(\Omega \cdot 2) + \omega \cdot \alpha = \omega^{\omega+1} + \omega \cdot \alpha \)
+\item \( \psi(\Omega \cdot 2 + \Omega) = \psi(\Omega \cdot 3) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
-   \item \( \psi(\Omega \times 2) = \omega^{\omega+1} \)
-   \item \( \psi(\Omega \times 2 + \omega^{\omega+1}) = \omega^{\omega+1} + \omega \times \omega^{\omega+1} = \omega^{\omega+1} \times 2 \)
+   \item \( \psi(\Omega \cdot 2) = \omega^{\omega+1} \)
+   \item \( \psi(\Omega \cdot 2 + \omega^{\omega+1}) = \omega^{\omega+1} + \omega \cdot \omega^{\omega+1} = \omega^{\omega+1} \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \omega^{\omega+1} \times \omega = \omega^{\omega+2} \)
-\item \( \psi(\Omega \times (1+\alpha)) = \omega^{\omega+\alpha} \)
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \) limit of :
+   \( = \omega^{\omega+1} \cdot \omega = \omega^{\omega+2} \)
+\item \( \psi(\Omega \cdot (1+\alpha)) = \omega^{\omega+\alpha} \)
+\item \( \psi(\Omega \cdot \Omega) = \psi(\Omega^2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 1
    \item \( \psi(\Omega) = \omega^\omega \)
-   \item \( \psi(\Omega \times \omega^\omega) = \omega^{\omega+\omega^\omega} = \omega^{\omega^\omega} \)
+   \item \( \psi(\Omega \cdot \omega^\omega) = \omega^{\omega+\omega^\omega} = \omega^{\omega^\omega} \)
    \item \( \ldots \)
    \end{itemize} 
    \( = \varepsilon_0 \)
-\item \( \psi(\Omega^2+\alpha) = \varepsilon_0+\omega \times \alpha \)
+\item \( \psi(\Omega^2+\alpha) = \varepsilon_0+\omega \cdot \alpha \)
 \item \( \psi(\Omega^2 + \Omega) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -2756,38 +2756,38 @@ Then we have :
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega^2) = \varepsilon_0 \)
-   \item \( \psi(\Omega^2+\varepsilon_0) = \varepsilon_0+\omega \times \varepsilon_0 = \varepsilon_0 \times 2 \)
+   \item \( \psi(\Omega^2+\varepsilon_0) = \varepsilon_0+\omega \cdot \varepsilon_0 = \varepsilon_0 \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \varepsilon_0 \times \omega \)
-\item \( \psi(\Omega^2+\Omega+\alpha) = \varepsilon_0 \times \omega + \omega \times \alpha \)
-\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \times 2) = \) limit of :
+   \( = \varepsilon_0 \cdot \omega \)
+\item \( \psi(\Omega^2+\Omega+\alpha) = \varepsilon_0 \cdot \omega + \omega \cdot \alpha \)
+\item \( \psi(\Omega^2+\Omega+\Omega) = \psi(\Omega^2+\Omega \cdot 2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
-   \item \( \psi(\Omega^2+\Omega) = \varepsilon_0 \times \omega \)
-   \item \( \psi(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega + \omega \times \varepsilon_0 \times \omega = \varepsilon_0 \times \omega \times 2 \)
+   \item \( \psi(\Omega^2+\Omega) = \varepsilon_0 \cdot \omega \)
+   \item \( \psi(\Omega^2+\Omega+\varepsilon_0 \cdot \omega) = \varepsilon_0 \cdot \omega + \omega \cdot \varepsilon_0 \cdot \omega = \varepsilon_0 \cdot \omega \cdot 2 \)
    \item \( \ldots \)
    \end{itemize}
-   \( = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi(\Omega^2+\Omega \times \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \times 2) = \) limit of :
+   \( = \varepsilon_0 \cdot \omega^\alpha \)
+\item \( \psi(\Omega^2+\Omega \cdot \alpha) = \varepsilon_0 \cdot \omega^\alpha \)
+\item \( \psi(\Omega^2+\Omega \cdot \Omega) = \psi(\Omega^2+\Omega^2) = \psi(\Omega^2 \cdot 2) = \) limit of :
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item  0
    \item \( \psi(\Omega^2) = \varepsilon_0 \)
-   \item \( \psi(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = {\varepsilon_0}^2 \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
-   \item \( \psi(\Omega^2+\Omega \times {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
+   \item \( \psi(\Omega^2+\Omega \cdot \varepsilon_0) = \varepsilon_0 \cdot \omega^{\varepsilon_0} = {\varepsilon_0}^2 \)
+   \item \( \psi(\Omega^2+\Omega \cdot {\varepsilon_0}^2) = \varepsilon_0 \cdot \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \cdot \omega^{\varepsilon_0 \cdot \varepsilon_0} = \varepsilon_0 \cdot (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \cdot {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega^2+\Omega \cdot {\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \cdot {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \) 
    \item \( \ldots \)
    \end{itemize} 
    \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
-\item \( \psi(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
-\item \( \psi(\Omega^2 \times \Omega) = \psi(\Omega^3) = \) limit of : 
+\item \( \psi(\Omega^2 \cdot \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi(\Omega^2 \cdot \Omega) = \psi(\Omega^3) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
@@ -2799,7 +2799,7 @@ Then we have :
    \end{itemize} 
    \( = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
 \item \( \psi(\Omega^{2+\alpha} = \varphi'(\alpha,1) \)
-\item \( \psi(\Omega^{2+\alpha} \times \beta) = \varphi'(\alpha,\beta) \)
+\item \( \psi(\Omega^{2+\alpha} \cdot \beta) = \varphi'(\alpha,\beta) \)
 \item \( \psi(\Omega^\Omega) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -2824,7 +2824,7 @@ The function defined by :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item \( \psi(0) = 1 \)
-\item \( \psi(\alpha+1) = \psi(\alpha) \times \omega \)
+\item \( \psi(\alpha+1) = \psi(\alpha) \cdot \omega \)
 \end{itemize}
 
 has the following properties :
@@ -2833,7 +2833,7 @@ has the following properties :
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item \( \psi(\alpha+\beta)=\psi(\alpha) \times \omega^\beta \)
+\item \( \psi(\alpha+\beta)=\psi(\alpha) \cdot \omega^\beta \)
 \item \( \psi(\alpha) = \omega^\alpha \)
 \end{itemize}
 
@@ -2860,35 +2860,35 @@ Then we have :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( \psi(\Omega+1) = \varepsilon_0 \times \omega = \omega^{\varepsilon_0+\alpha} \)
+\item \( \psi(\Omega+1) = \varepsilon_0 \cdot \omega = \omega^{\varepsilon_0+\alpha} \)
 
-\item \( \psi(\Omega+\alpha) = \varepsilon_0 \times \omega^\alpha = \omega^{\varepsilon_0+\alpha} \)
+\item \( \psi(\Omega+\alpha) = \varepsilon_0 \cdot \omega^\alpha = \omega^{\varepsilon_0+\alpha} \)
 
-\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \) limit of : 
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
    \item \( \psi(\Omega) = \varepsilon_0 \)
-   \item \( \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = \varepsilon_0 \times \varepsilon_0 = {\varepsilon_0}^2 \)
-   \item \( \psi(\Omega+{\varepsilon_0}^2) = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
-   \item \( \psi(\Omega+{\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \times \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \times {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \)
+   \item \( \psi(\Omega+\psi(\Omega)) = \psi(\Omega+\varepsilon_0) = \varepsilon_0 \cdot \omega^{\varepsilon_0} = \varepsilon_0 \cdot \varepsilon_0 = {\varepsilon_0}^2 \)
+   \item \( \psi(\Omega+{\varepsilon_0}^2) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^2} = \varepsilon_0 \cdot \omega^{\varepsilon_0 \cdot \varepsilon_0} = \varepsilon_0 \cdot (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \cdot {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{1+\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0} \)
+   \item \( \psi(\Omega+{\varepsilon_0}^{\varepsilon_0}) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^{\varepsilon_0}} = \varepsilon_0 \cdot {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{1+{\varepsilon_0}^{\varepsilon_0}} = {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}} \)
    \item \( \ldots \)
    \end{itemize}
    \( = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
 
-\item \( \psi(\Omega \times \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi(\Omega \cdot \alpha) = \varphi'(0,\alpha) \)
 
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \) limit of : 
+\item \( \psi(\Omega \cdot \Omega) = \psi(\Omega^2) = \) limit of : 
    \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
    \item 0
-   \item \( \psi(\Omega \times 0) = \psi(0) = 1 \)
-   \item \( \psi(\Omega \times 1) = \psi(\Omega) = \varepsilon_0 = \varphi'(0,1) \)
-   \item \( \psi(\Omega \times \varphi'(0,1)) = \varphi'(0,\varphi'(0,1)) \)
+   \item \( \psi(\Omega \cdot 0) = \psi(0) = 1 \)
+   \item \( \psi(\Omega \cdot 1) = \psi(\Omega) = \varepsilon_0 = \varphi'(0,1) \)
+   \item \( \psi(\Omega \cdot \varphi'(0,1)) = \varphi'(0,\varphi'(0,1)) \)
    \item \( \ldots \)
    \end{itemize}
    \( = \varphi'(1,1) = \varphi(2,0) = \zeta_0 \)
@@ -2980,7 +2980,7 @@ In RHS0 notation, \( \Omega \) is written \( H_1 suc\ 0 \) and the least fixed p
 
 If \( h(\alpha) = \alpha \), then \( H(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi(\Omega) = \psi(H_1 suc\ 0) = H [\psi(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi 0 = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \).
 
-If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \times 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \cdot 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi(h(\Omega)) = \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) = \psi(H_1 suc (H_1 suc\ 0)) = H [\psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] \bullet)] 0 = sup \lbrace 0, \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc 0] 0) = \psi(H_1 suc_ 0) = psi(\Omega),  \psi([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi(\Omega))) = \psi(\Omega+\psi(\Omega)), \ldots \rbrace \).
 
 \bigskip
 
@@ -3065,7 +3065,7 @@ and \(P(\gamma)=\{\gamma_1,...,\gamma_k\}\) is the set of additive principal num
 
 the sum of which gives this ordinal \(\gamma\):
 
-\(\gamma=\alpha_1+\alpha_2+\cdots+\alpha_k\) where \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_k\) and \(\alpha_1,\alpha_2,...,\alpha_k \in P(\gamma)\).
+\(\gamma=\alpha_1+\alpha_2+\ldots+\alpha_k\) where \(\alpha_1\geq\alpha_2\geq\ldots\geq\alpha_k\) and \(\alpha_1,\alpha_2,...,\alpha_k \in P(\gamma)\).
 
 Note: Greek letters always denotes ordinals. \(On\) denotes the class of all ordinals.
 
@@ -3095,7 +3095,7 @@ Buchholz showed following properties of those functions:
 
 Normal form :
 
-The normal form for 0 is 0. If \(\alpha\) is a nonzero ordinal number \(\alpha<\Lambda=\text{min}\{\beta|\psi_\beta(0)=\beta\}\) then the normal form for \(\alpha\) is \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\) is a positive integer and \(\psi_{\nu_1}(\beta_1)\geq\psi_{\nu_2}(\beta_2)\geq\cdots\geq\psi_{\nu_k}(\beta_k)\) and each \(\nu_i\), \(\beta_i\) are also written in normal form.
+The normal form for 0 is 0. If \(\alpha\) is a nonzero ordinal number \(\alpha<\Lambda=\text{min}\{\beta|\psi_\beta(0)=\beta\}\) then the normal form for \(\alpha\) is \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\ldots+\psi_{\nu_k}(\beta_k)\) where \(k\) is a positive integer and \(\psi_{\nu_1}(\beta_1)\geq\psi_{\nu_2}(\beta_2)\geq\ldots\geq\psi_{\nu_k}(\beta_k)\) and each \(\nu_i\), \(\beta_i\) are also written in normal form.
 
 Fundamental sequences :
 
@@ -3107,7 +3107,7 @@ For nonzero ordinals \(\alpha<\Lambda\), written in normal form, fundamental seq
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item If \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\cdots+\psi_{\nu_k}(\beta_k)\) where \(k\geq2\) then \(\text{cof}(\alpha)=\text{cof}(\psi_{\nu_k}(\beta_k))\) and \(\alpha[\eta]=\psi_{\nu_1}(\beta_1)+\cdots+\psi_{\nu_{k-1}}(\beta_{k-1})+(\psi_{\nu_k}(\beta_k)[\eta])\),
+\item If \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\ldots+\psi_{\nu_k}(\beta_k)\) where \(k\geq2\) then \(\text{cof}(\alpha)=\text{cof}(\psi_{\nu_k}(\beta_k))\) and \(\alpha[\eta]=\psi_{\nu_1}(\beta_1)+\ldots+\psi_{\nu_{k-1}}(\beta_{k-1})+(\psi_{\nu_k}(\beta_k)[\eta])\),
 \item If \(\alpha=\psi_{0}(0)=1\), then \(\text{cof}(\alpha)=1\) and \(\alpha[0]=0\),
 \item If \(\alpha=\psi_{\nu+1}(0)\), then \(\text{cof}(\alpha)=\Omega_{\nu+1}\) and \(\alpha[\eta]=\Omega_{\nu+1}[\eta]=\eta\),
 \item If \(\alpha=\psi_{\nu}(0)\) and \(\text{cof}(\nu)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\), then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\psi_{\nu[\eta]}(0)=\Omega_{\nu[\eta]}\),
@@ -3180,7 +3180,7 @@ Then \(\psi_0(\Omega+1)=\varepsilon_0\omega=\omega^{\varepsilon_0+1}\).
 
 \(\psi_0(\Omega^\Omega)=\Gamma_0=\theta(\Omega,0)\), using Feferman theta-function,
 
-Note that we find the same result as with the previously seen function defined recursively with \( \psi(0) = 1 \) and \( \psi(\alpha+1) = \psi(\alpha) \times \omega \).
+Note that we find the same result as with the previously seen function defined recursively with \( \psi(0) = 1 \) and \( \psi(\alpha+1) = \psi(\alpha) \cdot \omega \).
 
 \(\psi_0(\Omega^{\Omega^\Omega})\) is large Veblen ordinal,
 
@@ -3303,7 +3303,7 @@ A FS of \( \psi(\Omega) \) is \( \psi(0), \psi(\psi(0)), \psi(\psi(\psi(0))), \l
 
 A FS of \( \psi(\Omega \cdot 2) \) is \( \psi(0), \psi(\Omega+\psi(0)), \psi(\Omega+\psi(\Omega+\psi(0))), \ldots \).
 
-A FS of \( \psi(\Omega^\Omega \cdot 3) \) is \( \psi(0), \psi(\Omega^\Omega \cdot 2+\Omega^{\psi(0)}), \psi(\Omega^\Omega \cdot 2+\Omega^{\Omega^\Omega \cdot 2+\Omega^{\psi(0)}}), \cdots \).
+A FS of \( \psi(\Omega^\Omega \cdot 3) \) is \( \psi(0), \psi(\Omega^\Omega \cdot 2+\Omega^{\psi(0)}), \psi(\Omega^\Omega \cdot 2+\Omega^{\Omega^\Omega \cdot 2+\Omega^{\psi(0)}}), \ldots \).
 
 \bigskip
 
@@ -3337,7 +3337,7 @@ https://www.youtube.com/watch?v=O7EftYZEivo
 \item \( \psi_1(0) = \varepsilon_{\Omega+1} \)
 \item \( \psi_1(\alpha) = \varepsilon_{\Omega+1+\alpha} \)
 \item \( \psi_1(\Omega_2) = \zeta_{\Omega+1} \)
-\item \( \psi_1(\Omega_2 \times \alpha) = \zeta_{\Omega+1+\alpha} \)
+\item \( \psi_1(\Omega_2 \cdot \alpha) = \zeta_{\Omega+1+\alpha} \)
 \item \( \psi_1({\Omega_2}^2) = \eta_{\Omega+1} \)
 \item \( \psi_1({\Omega_2}^\alpha) = \psi_{\alpha+1}(\Omega+1) \)
 \item \( \psi_1({\Omega_1}^{\Omega_1}) = \Gamma_{\Omega+1} \)
@@ -3393,21 +3393,21 @@ This method gives the following correspondence :
 
 \item \( \psi(\Omega+\alpha) = \varepsilon_{\zeta_0+\alpha} = [suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega+\Omega) = \psi(\Omega \times 2) = \psi(H_1 suc\ (H_1 suc\ 0)) = \zeta_1 = H [[suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 H) suc\ 0 \)
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) = \psi(H_1 suc\ (H_1 suc\ 0)) = \zeta_1 = H [[suc \rightarrow R1, 0 \rightarrow R_2 R_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 H) suc\ 0 \)
 
-\item \( \psi(\Omega \times (1+\alpha)) = \zeta_\alpha \)
+\item \( \psi(\Omega \cdot (1+\alpha)) = \zeta_\alpha \)
 
-\item \( \psi(\Omega \times \alpha) = \zeta'_\alpha = [suc \rightarrow R_2 R_1, 0 \rightarrow H] \alpha suc\ 0 \)
+\item \( \psi(\Omega \cdot \alpha) = \zeta'_\alpha = [suc \rightarrow R_2 R_1, 0 \rightarrow H] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega \times \Omega) = \psi(\Omega^2) = \psi (H_1 (H_1 suc) 0) = sup \lbrace 0, \zeta_0, \zeta_{\zeta_0}, \ldots \rbrace = \eta_0 = \varphi(3,0) = \varphi'(2,1) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) H suc\ 0 \)
+\item \( \psi(\Omega \cdot \Omega) = \psi(\Omega^2) = \psi (H_1 (H_1 suc) 0) = sup \lbrace 0, \zeta_0, \zeta_{\zeta_0}, \ldots \rbrace = \eta_0 = \varphi(3,0) = \varphi'(2,1) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) H suc\ 0 \)
 
 \item \( \psi(\Omega^\alpha) = \varphi(1+\alpha,0) = \varphi'(\alpha,1) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha suc\ 0 \)
 
-\item \( \psi(\Omega^\alpha \times \beta) = \varphi'(\alpha,\beta) \)
+\item \( \psi(\Omega^\alpha \cdot \beta) = \varphi'(\alpha,\beta) \)
 
 \item \( \psi(\Omega^\Omega) = \psi(H_1 H_1 suc\ 0) = \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet suc\ 0] (suc\ 0) = R_3 R_2 R_1 H suc\ 0 \) (Note that this confirms the Simmons - RHS0 correspondence conjecture ; note also that since \( \psi(\Omega) \) and before this point we have \( \psi(\alpha) = [H_1 \rightarrow R_2,suc \rightarrow R_1, 0 \rightarrow H]\ \alpha \ suc\ 0 \), but this does not work anymore from this point)
 
-\item \( \psi(\Omega^{\Omega \times \alpha + \beta} \times \gamma) = \varphi'(\alpha,\beta,\gamma) = \varphi'_{\alpha,\beta}(\gamma) \)
+\item \( \psi(\Omega^{\Omega \cdot \alpha + \beta} \cdot \gamma) = \varphi'(\alpha,\beta,\gamma) = \varphi'_{\alpha,\beta}(\gamma) \)
 
 \item \( \psi(\Omega^{\Omega^\Omega}) = LVO = R_4 R_3 R_2 R_1 H suc\ 0 \)
 \item \( \psi(\varepsilon_{\Omega+1}) = BHO = R_{\omega \ldots 1} H suc\ 0 \) with \( \varepsilon_{\Omega+1} = sup \lbrace \Omega, \Omega^\Omega, \Omega^{\Omega^\Omega}, \ldots \rbrace \)
@@ -3427,11 +3427,11 @@ This method gives the following correspondence :
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1}+\Omega \cdot 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \) 
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega \cdot \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \alpha suc\ 0 \) 
 
-\item \( \psi(\varepsilon_{\Omega+1}+\Omega \times \Omega) = \psi(\varepsilon_{\Omega+1}+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_{\omega \ldots 1} H) suc\ 0 \) 
+\item \( \psi(\varepsilon_{\Omega+1}+\Omega \cdot \Omega) = \psi(\varepsilon_{\Omega+1}+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_{\omega \ldots 1} H) suc\ 0 \) 
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha (R_{\omega \ldots 1} H) suc\ 0 \)
 
@@ -3439,58 +3439,58 @@ This method gives the following correspondence :
 
 \item \( \psi(\varepsilon_{\Omega+1}+\Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_1 (R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1}+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \times 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1}+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \cdot 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} H suc\ 0 \)
 
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+1) = R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+1) = R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+1) = R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega+1) = R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega+\alpha) = [suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega+\Omega) = \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega \cdot 2) = H [[suc \rightarrow R_1, 0 \rightarrow R_2 R_1 (R_2 R_{\omega \ldots 1} H)] \bullet suc\ 0] (suc\ 0) = R_2 R_1 (R_2 R_1 (R_2 R_{\omega \ldots 1} H)) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega \cdot \alpha) = [suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega \times \Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega \cdot \Omega) = \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega^2) = H [[suc \rightarrow R_2 R_1, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_1) (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_1] \alpha (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet (R_2 R_{\omega \ldots 1} H) suc\ 0] (suc\ 0) = R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_1] \bullet (R_2 R_{\omega \ldots 1} H) suc\ 0] (suc\ 0) = R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_1 (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \times (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega+\varepsilon_{\Omega+1}) = \psi(\varepsilon_{\Omega+1} \cdot (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc_ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+2)) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H)) suc_ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot (\Omega+2)) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H)) suc_ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+\alpha)) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot (\Omega+\alpha)) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times (\Omega+\Omega)) = \psi(\varepsilon_{\Omega+1} \times \Omega \times 2) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot (\Omega+\Omega)) = \psi(\varepsilon_{\Omega+1} \cdot \Omega \cdot 2) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R_2 R_{\omega \ldots 1} H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} H) suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega \times \alpha) = [suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \alpha suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega \cdot \alpha) = [suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \alpha suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega \times \Omega) = \psi(\varepsilon_{\Omega+1} \times \Omega^2) = H [[suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_{\omega \ldots 1}) H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega \cdot \Omega) = \psi(\varepsilon_{\Omega+1} \cdot \Omega^2) = H [[suc \rightarrow R_2 R_{\omega \ldots 1}, 0 \rightarrow  H] \bullet suc\ 0] (suc\ 0) = R_2 (R_2 R_{\omega \ldots 1}) H suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \alpha H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \alpha H suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R_{\omega \ldots 1}] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \Omega^{\Omega^\Omega}) = R_4 R_3 R_2 R_{\omega \ldots 1} H suc\ 0 \)
 
-\item \( \psi(\varepsilon_{\Omega+1} \times \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^2) = R_{\omega \ldots 2}  R_{\omega \ldots 1} H suc\ 0 = R_{\omega \times 2 \ldots 1} H suc\ 0 \)
+\item \( \psi(\varepsilon_{\Omega+1} \cdot \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^2) = R_{\omega \ldots 2}  R_{\omega \ldots 1} H suc\ 0 = R_{\omega \cdot 2 \ldots 1} H suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\alpha) = R_{\omega \times \alpha \ldots 1} H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\alpha) = R_{\omega \cdot \alpha \ldots 1} H suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega) = H [R_{\omega \times \bullet \ldots 1} H suc\ 0] 0 = H [R_{\bullet \ldots 1} H suc\ 0] 0 = R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega) = H [R_{\omega \cdot \bullet \ldots 1} H suc\ 0] 0 = H [R_{\bullet \ldots 1} H suc\ 0] 0 = R^1_1 H suc\ 0 \)
 
 \item \( \psi({\varepsilon_{\Omega+1}}^\Omega+1) = R_1 (R^1_1) H suc\ 0 \)
 
@@ -3506,51 +3506,51 @@ This method gives the following correspondence :
 
 \item \( \ldots \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot 2) = R_{\omega \ldots 1} (R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \alpha suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot \alpha) = [suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \alpha suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot \Omega) = H [[suc \rightarrow R_{\omega \ldots 1}, 0 \rightarrow R^1_1 H] \bullet suc\ 0] (suc\ 0) = R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega+\varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
-
-\item \( \ldots \)
-
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \times \Omega^\Omega) = R_3 R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot \Omega+\varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot (\Omega+1)) = R_{\omega \ldots 1} (R_2 R_{\omega \ldots 1} (R^1_1 H)) suc\ 0 \)
 
 \item \( \ldots \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^2) = R_{\omega \ldots 2} R_{\omega \ldots 1} (R^1_1 H) suc\ 0 = R_{\omega \times 2 \ldots 1} (R^1_1 H) suc\ 0 \)
-
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\alpha) = R_{\omega \times \alpha \ldots 1} (R^1_1 H) suc\ 0 \)
-
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\Omega) = \psi({\varepsilon_{\Omega+1}}^\Omega \times 2) = H [R_{\bullet \ldots 1} (R^1_1 H) suc\ 0] 0 = R^1_1 (R^1_1 H) suc\ 0 \)
-
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \alpha) = [suc \rightarrow R^1_1, 0 \rightarrow H] \alpha suc\ 0 \)
-
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega) = H [[suc \rightarrow R^1_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1} \cdot \Omega^\Omega) = R_3 R_2 R_{\omega \ldots 1} (R^1_1 H) suc\ 0 \)
 
 \item \( \ldots \)
 
-\item \( \psi(\ldots \times \Omega) = R_2 \ldots H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^2) = R_{\omega \ldots 2} R_{\omega \ldots 1} (R^1_1 H) suc\ 0 = R_{\omega \cdot 2 \ldots 1} (R^1_1 H) suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^2) = R_2 (R_2 R^1_1) H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\alpha) = R_{\omega \cdot \alpha \ldots 1} (R^1_1 H) suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R^1_1] \alpha H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega+\varepsilon_{\Omega+1}^\Omega) = \psi({\varepsilon_{\Omega+1}}^\Omega \cdot 2) = H [R_{\bullet \ldots 1} (R^1_1 H) suc\ 0] 0 = R^1_1 (R^1_1 H) suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R^1_1] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \alpha) = [suc \rightarrow R^1_1, 0 \rightarrow H] \alpha suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^{\Omega+1}) = R_{\omega \ldots 2} R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \Omega) = H [[suc \rightarrow R^1_1, 0 \rightarrow H] \bullet suc\ 0] (suc\ 0) = R_2 R^1_1 H suc\ 0 \)
 
 \item \( \ldots \)
 
-\item \( \psi(\ldots \times \varepsilon_{\Omega+1}) = R_{\Omega \ldots \ldots} \ldots H suc\ 0 \)
+\item \( \psi(\ldots \cdot \Omega) = R_2 \ldots H suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}^2) = R_{\omega \ldots 3} R_{\omega \ldots 2} R^1_1 H suc\ 0 = R_{\omega \times 2 \ldots 2} R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \Omega^2) = R_2 (R_2 R^1_1) H suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \times \varepsilon_{\Omega+1}^\Omega) = \psi(({\varepsilon_{\Omega+1}}^\Omega)^2) = \psi(\varepsilon_{\Omega+1}^{\Omega \times 2}) = R^1_2 R^1_1 H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \Omega^\alpha) = [suc \rightarrow R_2, 0 \rightarrow R^1_1] \alpha H suc\ 0 \)
 
-\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega \times \alpha}) = R^1_{\alpha \ldots 1} H suc\ 0 \)
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \Omega^\Omega) = H [[suc \rightarrow R_2, 0 \rightarrow R^1_1] \bullet H suc\ 0] (suc\ 0) = R_3 R_2 R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \varepsilon_{\Omega+1}) = \psi({\varepsilon_{\Omega+1}}^{\Omega+1}) = R_{\omega \ldots 2} R^1_1 H suc\ 0 \)
+
+\item \( \ldots \)
+
+\item \( \psi(\ldots \cdot \varepsilon_{\Omega+1}) = R_{\Omega \ldots \ldots} \ldots H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \varepsilon_{\Omega+1}^2) = R_{\omega \ldots 3} R_{\omega \ldots 2} R^1_1 H suc\ 0 = R_{\omega \cdot 2 \ldots 2} R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^\Omega \cdot \varepsilon_{\Omega+1}^\Omega) = \psi(({\varepsilon_{\Omega+1}}^\Omega)^2) = \psi(\varepsilon_{\Omega+1}^{\Omega \cdot 2}) = R^1_2 R^1_1 H suc\ 0 \)
+
+\item \( \psi({\varepsilon_{\Omega+1}}^{\Omega \cdot \alpha}) = R^1_{\alpha \ldots 1} H suc\ 0 \)
 
 \item \( \psi({\varepsilon_{\Omega+1}}^{\Omega^2} = H [R^1_{\bullet \ldots 1} H suc\ 0] 0 = R^2_1 H suc\ 0 \)
 
@@ -3581,13 +3581,13 @@ We can prove this by proving \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsi
 
 For n = 0, we have : 
 
-\( \omega^{\omega^{\varepsilon_{\zeta_0}+1}} = \omega^{\omega^{\zeta_0+1}} = \omega^{\omega^{\zeta_0} \times \omega} = \omega^{\zeta_0 \times \omega} = (\omega^{\zeta_0})^\omega = {\zeta_0}^\omega \).
+\( \omega^{\omega^{\varepsilon_{\zeta_0}+1}} = \omega^{\omega^{\zeta_0+1}} = \omega^{\omega^{\zeta_0} \cdot \omega} = \omega^{\zeta_0 \cdot \omega} = (\omega^{\zeta_0})^\omega = {\zeta_0}^\omega \).
 
 Suppose we have \( \omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_{\zeta_0}+1}}}}} = \zeta_0^{\zeta_0^{\vdots^{{\zeta_0}^\omega}}} \).
 
 We must prove the equality for n+1, which can be written \( \omega^{\omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_{\zeta_0}+1}}}}}} = {\zeta_0}^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \). 
 
-We have \( \omega^{\omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_{\zeta_0}+1}}}}}} = \omega^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (by our hypothesis) \( = \omega^{{\zeta_0}^{1+{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (for the same reason than \( 1+\omega = \omega \), see above) \( = \omega^{{\zeta_0} \times {\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = (\omega^{\zeta_0})^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = {\zeta_0}^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \). QED.
+We have \( \omega^{\omega^{\omega^{\vdots^{\omega^{\omega^{\varepsilon_{\zeta_0}+1}}}}}} = \omega^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (by our hypothesis) \( = \omega^{{\zeta_0}^{1+{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \) (for the same reason than \( 1+\omega = \omega \), see above) \( = \omega^{{\zeta_0} \cdot {\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = (\omega^{\zeta_0})^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} = {\zeta_0}^{{\zeta_0}^{{\zeta_0}^{\vdots^{{\zeta_0}^\omega}}}} \). QED.
 
 In RHSZ notation, this corresponds to the equality \( H (R_2 R_1 H) H \ldots H suc\ 0 = H (R_2 R_1 H) (R_2 R_1 H) \ldots (R_2 R_1 H) suc\ 0 = R_1 (R_2 R_1 H) suc\ 0 \).
 
@@ -3604,7 +3604,7 @@ Here is a comparison of some of the main features of these two ordinal collapsin
 \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
 
 Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated by & \(\psi_0(0)=1\)         & \(\psi_0(1)=\omega\)    & \(\psi_0(\alpha+1)\)           &\(\psi_0(\alpha+\beta)\)             & \(\psi_0(\alpha)=\omega^\alpha\)    &\(\psi_0(\Omega)=\varepsilon_0\)\\
-                   & 1, +,\(\psi_\mu(\xi)\)       &                         &                         & \(=\psi_0(\alpha)\times\omega\)&\(=\psi_0(\alpha)\times\omega^\beta\)& if \(\alpha<\varepsilon_0\)         &                                \\
+                   & 1, +,\(\psi_\mu(\xi)\)       &                         &                         & \(=\psi_0(\alpha)\cdot\omega\)&\(=\psi_0(\alpha)\cdot\omega^\beta\)& if \(\alpha<\varepsilon_0\)         &                                \\
                    & where \( \mu < \omega \)     &                         &                         &                                &                                     &                                     &                                \\
                    & and \( \xi < \alpha \)       &                         &                         &                                &                                     &                                     &                                \\ 
 \hline
@@ -3612,7 +3612,7 @@ Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated by & \(\psi_0(0)=1\)         & \(
 Madore's \(\psi\)  & \(C(\alpha)\) generated by   &\(\psi(0)=\varepsilon_0\)&\(\psi(1)=\varepsilon_1\)& \(\psi(\alpha+1)\)             &                                     &\(\psi_0(\alpha)=\varepsilon_\alpha\)& \(\psi_0(\Omega)=\zeta_0\)     \\
                    & \(0,1,\omega,\Omega,\)       &                         &                         & \(=sup\lbrace\psi(\alpha)^{\vdots^{\psi(\alpha)}}\rbrace\) 
                                                                                                                                        &                                     & if \(\alpha<\zeta_0\)               &                                \\
-                   & \(+,\times,exp.,\psi(\xi)\)  &                         &                         &                                &                                     &                                     &                                \\
+                   & \(+,\cdot,exp.,\psi(\xi)\)  &                         &                         &                                &                                     &                                     &                                \\
                    & where \( \xi < \alpha \)     &                         &                         &                                &                                     &                                     &                                \\
 \hline
 													
@@ -3666,7 +3666,7 @@ Something similar can be done with Buchholz function, defining :
 
 \item \( \psi'(0) = 1 \)
 
-\item \( \psi'(\alpha+1) = \psi'(\alpha) \times \omega \)
+\item \( \psi'(\alpha+1) = \psi'(\alpha) \cdot \omega \)
 
 \item \( \psi'(lim(f)) = lim(n \mapsto \psi'(f(n)) \)
 
@@ -3698,11 +3698,11 @@ OCF                &                            &                    &          
 \hline
 None               &                            & 1                  & \( \psi'(\alpha)+1 \)         & 2                  & \( \psi'(\alpha)+\beta \)          & \( \alpha+1 \)             & \( \omega \)       & \( \omega + 1 \)       \\
 \hline
-                   & \(C(\alpha)\) generated    & 1                  & \( \psi'(\alpha)+\omega \)    & \( \omega \)       &\( \psi'(\alpha)+\omega\times\beta\)& \( \omega\times\alpha \)   & \( \omega^\omega \)&\(\omega^\omega+\omega\)\\
+                   & \(C(\alpha)\) generated    & 1                  & \( \psi'(\alpha)+\omega \)    & \( \omega \)       &\( \psi'(\alpha)+\omega\cdot\beta\)& \( \omega\cdot\alpha \)   & \( \omega^\omega \)&\(\omega^\omega+\omega\)\\
                    & by 1, suc, \(\psi(\xi) \)  &                    &                               &                    &                                    &                            &                    &                        \\
                    & where \( \xi < \alpha \)   &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
-Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated  & 1                  & \( \psi'(\alpha)\times\omega\)& \( \omega \)       &\( \psi'(\alpha)\times\omega^\beta\)& \( \omega^\alpha \)        & \( \varepsilon_0\) &\(\varepsilon_O\times\omega\)\\
+Buchholz \(\psi_0\)& \(C_0(\alpha)\) generated  & 1                  & \( \psi'(\alpha)\cdot\omega\)& \( \omega \)       &\( \psi'(\alpha)\cdot\omega^\beta\)& \( \omega^\alpha \)        & \( \varepsilon_0\) &\(\varepsilon_O\cdot\omega\)\\
                    & by 1, +,\(\psi_\mu(\xi)\)  &                    &                               &                    &                                    & if \(\alpha<\varepsilon_0\)&                    &\(=\omega^{\varepsilon_0+1}\)\\
                    & where \( \mu < \omega \)   &                    &                               &                    &                                    &                            &                    &                        \\
                    & and \( \xi < \alpha \)     &                    &                               &                    &                                    &                            &                    &                        \\
@@ -3717,7 +3717,7 @@ Madore's \(\psi\)  & \(C(\alpha)\) generated    & \( \varepsilon_0 \)& \( sup\lb
                                                                                                      & \( \varepsilon_1 \)&                                    & \( \varepsilon_\alpha \)   & \( \zeta_0 \)      &\(\varepsilon_{\zeta_0+1}\)\\
                    & by \(0,1,\omega,\Omega,\)  &                    &  
                                                                                                      &                    &                                    & if \(\alpha<\zeta_0\)      &                    &                        \\
-                   & \(+,\times,exp.,\psi(\xi)\)&                    &                               &                    &                                    &                            &                    &                        \\
+                   & \(+,\cdot,exp.,\psi(\xi)\)&                    &                               &                    &                                    &                            &                    &                        \\
                    & where \( \xi < \alpha \)   &                    &                               &                    &                                    &                            &                    &                        \\
 \hline
 													
@@ -3734,29 +3734,29 @@ Corresponding             & None                      &                         
 \hline    
                           &                           & \( C(\alpha) \) generated             & \( C_0(\alpha) \) generated     &                                                               & \( C(\alpha) \) generated        \\
                           &                           & by 1, suc, \( \psi(\xi) \)            & by 1, +, \( \psi_\mu(\xi) \)    &                                                               & by \( 0, 1, \omega, \Omega, \)   \\
-                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \times, exp., \psi(\xi) \) \\
+                          &                           & where \( \xi < \alpha \)              & where \( \mu < \omega \)        &                                                               & \( +, \cdot, exp., \psi(\xi) \) \\
                           &                           &                                       & and \( \xi < \alpha \)          &                                                               & where \( \xi < \alpha \)         \\ 
 \hline
 \( \psi'(0) \)            & 1                         & 1                                     & 1                               & \( \omega \)                                                  & \( \varepsilon_0 \)              \\ 
 \hline
-\( \psi'(\alpha+1) \)     & \( \psi'(\alpha)+1 \)     & \( \psi'(\alpha)+\omega \)            & \( \psi'(\alpha)\times\omega \) & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \) & \( sup\lbrace\psi'(\alpha)
+\( \psi'(\alpha+1) \)     & \( \psi'(\alpha)+1 \)     & \( \psi'(\alpha)+\omega \)            & \( \psi'(\alpha)\cdot\omega \) & \( sup\lbrace\psi'(\alpha)^{\vdots^{\psi'(\alpha)}}\rbrace \) & \( sup\lbrace\psi'(\alpha)
                                                                                                                                                                                                   ^{\vdots^{\psi'(\alpha)}}\rbrace \) \\
 \hline
 \( \psi'(1) \)            & 2                         & \( \omega \)                          & \( \omega \)                    & \( \varepsilon_0 \)                                           & \( \varepsilon_1 \)              \\
 \hline
-\( \psi'(\alpha+\beta) \) & \( \psi'(\alpha)+\beta \) & \( \psi'(\alpha)+\omega\times\beta \) & \( \psi'(\alpha)+\omega^\beta \)&                                                               &                                  \\
+\( \psi'(\alpha+\beta) \) & \( \psi'(\alpha)+\beta \) & \( \psi'(\alpha)+\omega\cdot\beta \) & \( \psi'(\alpha)+\omega^\beta \)&                                                               &                                  \\
 \hline
-\( \psi'(\alpha) \) for   & \( 1+\alpha \)            & \( \omega \times \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
+\( \psi'(\alpha) \) for   & \( 1+\alpha \)            & \( \omega \cdot \alpha \)            & \( \omega^\alpha \)             & \( \varepsilon'_\alpha \)                                     & \( \varepsilon_\alpha \)         \\
 sufficiently small values &                           &                                       & if \( \alpha < \varepsilon_0 \) & if \( \alpha < \zeta_0 \)                                     & if \( \alpha < \zeta_0 \)        \\
 \hline
 \( \psi'(\omega) \)       & \( \omega \)              & \( \omega^2 \)                        & \( \omega^\omega \)             & \( \varepsilon_\omega \)                                      & \( \varepsilon_\omega \)         \\
 \hline
 \( \psi'(\Omega) \)       & \( \omega \)              & \( \omega^\omega \)                   & \( \varepsilon_0 \)             & \( \zeta_0 \)                                                 & \( \zeta_0 \)                    \\
 \hline
-\( \psi'(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\times\omega \) & \( \varepsilon_{\zeta_0+1} \)                                 & \( \varepsilon_{\zeta_0+1} \)    \\
+\( \psi'(\Omega+1) \)     & \( \omega+1 \)            & \( \omega^\omega+\omega \)            & \( \varepsilon_0\cdot\omega \) & \( \varepsilon_{\zeta_0+1} \)                                 & \( \varepsilon_{\zeta_0+1} \)    \\
                           &                           &                                       & \( = \omega^{\varepsilon_0+1} \)&                                                               &                                  \\
 \hline
-\( \psi'(\Omega\times 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             & \( \zeta_1 \)                                                 & \( \zeta_1 \)                    \\
+\( \psi'(\Omega\cdot 2)\)& \( \omega^2 \)            & \( \omega^{\omega+1} \)               & \( \varepsilon_1 \)             & \( \zeta_1 \)                                                 & \( \zeta_1 \)                    \\
 \hline
 \( \psi'(\Omega^2) \)     & \( \varepsilon_0 \)       & \( \varepsilon_0 \)                   & \( \zeta_0 \)                   & \( \eta_0 \)                                                  & \( \eta_0 \)                     \\
 \hline
@@ -3764,19 +3764,19 @@ sufficiently small values &                           &                         
 \hline
 \( \psi'_1(0) \)          & \( \Omega \)              & \( \Omega \)                          & \( \Omega \)                    & \( \varepsilon_{\Omega+1} \)                                  & \( \varepsilon_{\Omega+1} \)     \\
 \hline
-\( \psi'_1(\alpha+1) \)   & \( \psi'_1(\alpha)+1 \)   & \( \psi'_1(\alpha)+\omega \)          & \(\psi'_1(\alpha)\times\omega\) &\(sup\lbrace\psi'_1(\alpha)^{\vdots^{\psi'_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi'_1(\alpha)
+\( \psi'_1(\alpha+1) \)   & \( \psi'_1(\alpha)+1 \)   & \( \psi'_1(\alpha)+\omega \)          & \(\psi'_1(\alpha)\cdot\omega\) &\(sup\lbrace\psi'_1(\alpha)^{\vdots^{\psi'_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi'_1(\alpha)
                                                                                                                                                                                                   ^{\vdots^{\psi'_1(\alpha)}}\rbrace \) \\
 \hline
-\( \psi'_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\times\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
+\( \psi'_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\cdot\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
                           &                           &                                       & \( = \omega^{\Omega+1} \)       &                                                               &                                  \\
 \hline
-\( \psi'_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\times\alpha \)       & \( \Omega\times\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
+\( \psi'_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\cdot\alpha \)       & \( \Omega\cdot\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\alpha} \)  &                                                               &                                  \\
 \hline
-\( \psi'_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\times\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
+\( \psi'_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\cdot\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\omega} \)  &                                                               &                                  \\
 \hline
-\( \psi'_1(\Omega) \)     & \( \Omega\times\omega \)  & \( \Omega\times\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \times 2} \)                           & \( \varepsilon_{\Omega \times 2} \) \\
+\( \psi'_1(\Omega) \)     & \( \Omega\cdot\omega \)  & \( \Omega\cdot\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \cdot 2} \)                           & \( \varepsilon_{\Omega \cdot 2} \) \\
 \hline
 \end{tabular}
 
@@ -3826,18 +3826,18 @@ Then we have :
      \setlength{\parsep}{0pt}
 \item \( \psi'(\Omega+1) = \omega+1 \)
 \item \( \psi'(\Omega+\alpha) = \omega+\alpha \)
-\item \( \psi'(\Omega+\Omega) = \psi'(\Omega \times 2) = sup \lbrace 0, \psi'(\Omega)=\omega, \psi'(\Omega+\omega)=\omega+\omega=\omega \times 2, \ldots \rbrace = \omega \times \omega = \omega^2 \)
-\item \( \psi'(\Omega \times 2 + \Omega) = \psi'(\Omega \times 3) = sup \lbrace 0, \psi'(\Omega \times 2) = \omega^2, \psi'(\Omega \times 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \times 2, \ldots \rbrace = \omega^2 \times \omega = \omega^3 \)
-\item \( \psi'(\Omega \times \alpha) = \omega^\alpha \)
-\item \( \psi'(\Omega \times \Omega) = \psi'(\Omega^2) = sup \lbrace 1, \psi_0(\Omega) = \omega, \psi_0(\Omega \times \omega = \omega^\omega, \ldots \rbrace = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
+\item \( \psi'(\Omega+\Omega) = \psi'(\Omega \cdot 2) = sup \lbrace 0, \psi'(\Omega)=\omega, \psi'(\Omega+\omega)=\omega+\omega=\omega \cdot 2, \ldots \rbrace = \omega \cdot \omega = \omega^2 \)
+\item \( \psi'(\Omega \cdot 2 + \Omega) = \psi'(\Omega \cdot 3) = sup \lbrace 0, \psi'(\Omega \cdot 2) = \omega^2, \psi'(\Omega \cdot 2 + \omega^2) = \omega^2+\omega^2 = \omega^2 \cdot 2, \ldots \rbrace = \omega^2 \cdot \omega = \omega^3 \)
+\item \( \psi'(\Omega \cdot \alpha) = \omega^\alpha \)
+\item \( \psi'(\Omega \cdot \Omega) = \psi'(\Omega^2) = sup \lbrace 1, \psi_0(\Omega) = \omega, \psi_0(\Omega \cdot \omega = \omega^\omega, \ldots \rbrace = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) \)
 \item \( \psi'(\Omega^2+\alpha) = \varepsilon_0+\alpha \)
-\item \( \psi'(\Omega^2+\Omega) = sup \lbrace 0, \psi'(\Omega^2)=\varepsilon_0, \psi'(\Omega^2+\varepsilon_0) = \varepsilon_0 \times 2, \ldots \rbrace = \varepsilon_0 \times \omega \)
-\item \( \psi'(\Omega^2+\Omega+\alpha = \varepsilon_0 \times \omega + \alpha \)
-\item \( \psi'(\Omega^2+\Omega+\Omega) = \psi'(\Omega^2+\Omega \times 2) = sup \lbrace 0, \psi'(\Omega^2+\Omega) = \varepsilon_0 \times \omega, \psi'(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega \times 2, \ldots \rbrace = \varepsilon_0 \times \omega^2 \)
-\item \( \psi'(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi'(\Omega^2+\Omega \times \Omega) = \psi'(\Omega^2+\Omega^2) = \psi'(\Omega^2 \times 2) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^\varepsilon_0 = {\varepsilon_0}^2, \psi'(\Omega^2+\Omega \times {\varepsilon_0}^2 = \varepsilon_0 \times \omega^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0}, \ldots = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
-\item \( \psi'(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
-\item \( \psi'(\Omega^2 \times \Omega) = \psi'(\Omega^3) = sup \lbrace 1, \psi'(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1), \psi'(\Omega^2 \times \varepsilon_0) = \varphi'(0,\varphi'(0,1)), \ldots \rbrace = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
+\item \( \psi'(\Omega^2+\Omega) = sup \lbrace 0, \psi'(\Omega^2)=\varepsilon_0, \psi'(\Omega^2+\varepsilon_0) = \varepsilon_0 \cdot 2, \ldots \rbrace = \varepsilon_0 \cdot \omega \)
+\item \( \psi'(\Omega^2+\Omega+\alpha = \varepsilon_0 \cdot \omega + \alpha \)
+\item \( \psi'(\Omega^2+\Omega+\Omega) = \psi'(\Omega^2+\Omega \cdot 2) = sup \lbrace 0, \psi'(\Omega^2+\Omega) = \varepsilon_0 \cdot \omega, \psi'(\Omega^2+\Omega+\varepsilon_0 \cdot \omega) = \varepsilon_0 \cdot \omega \cdot 2, \ldots \rbrace = \varepsilon_0 \cdot \omega^2 \)
+\item \( \psi'(\Omega^2+\Omega \cdot \alpha) = \varepsilon_0 \cdot \omega^\alpha \)
+\item \( \psi'(\Omega^2+\Omega \cdot \Omega) = \psi'(\Omega^2+\Omega^2) = \psi'(\Omega^2 \cdot 2) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\Omega \cdot \varepsilon_0) = \varepsilon_0 \cdot \omega^\varepsilon_0 = {\varepsilon_0}^2, \psi'(\Omega^2+\Omega \cdot {\varepsilon_0}^2 = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^2} = \varepsilon_0 \cdot \omega^{\varepsilon_0 \cdot \varepsilon_0} = \varepsilon_0 \cdot (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \cdot {\varepsilon_0}^{\varepsilon_0}, \ldots = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+\item \( \psi'(\Omega^2 \cdot \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi'(\Omega^2 \cdot \Omega) = \psi'(\Omega^3) = sup \lbrace 1, \psi'(\Omega^2) = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1), \psi'(\Omega^2 \cdot \varepsilon_0) = \varphi'(0,\varphi'(0,1)), \ldots \rbrace = \varphi'(1,1) = \zeta_0 = \varphi(2,0) \)
 \item \( \psi'(\Omega^{2+\alpha} = \varphi(1+\alpha,0) = \varphi'(\alpha,1) \)
 \item \( \psi'(\Omega^\Omega) = sup \lbrace 1, \psi'(\Omega) = \omega, \psi'(\Omega^\omega) = \varphi'(\omega,1), \psi'(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
 \item \( \ldots \)
@@ -3861,8 +3861,8 @@ has the following properties :
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
-\item \( \psi'(\alpha+\beta)=\psi'(\alpha)+\omega \times \beta \)
-\item \( \psi'(\alpha) = \omega \times \alpha \)
+\item \( \psi'(\alpha+\beta)=\psi'(\alpha)+\omega \cdot \beta \)
+\item \( \psi'(\alpha) = \omega \cdot \alpha \)
 \end{itemize}
 
 \( \psi'(\Omega) \) is the limit or least upper bound of :
@@ -3887,22 +3887,22 @@ Then we have :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item \( \psi'(\Omega+1) = \omega^\omega+\omega \)
-\item \( \psi'(\Omega+\alpha) = \omega^\omega+\omega \times \alpha \)
-\item \( \psi'(\Omega+\Omega) = sub \lbrace 0, \psi'(\Omega) = \omega^\omega, \psi'(\Omega+\psi'(\Omega)) = \psi'(\Omega+\omega^\omega) = \omega^\omega+\omega \times \omega^\omega = \omega^\omega \times 2, \ldots \rbrace = \omega^\omega \times \omega = \omega^{\omega+1} \)
-\item \( \psi'(\Omega \times 2 + \alpha) = \psi'(\Omega \times 2) + \omega \times \alpha = \omega^{\omega+1} + \omega \times \alpha \)
-\item \( \psi'(\Omega \times 2 + \Omega) = \psi'(\Omega \times 3) = sup \lbrace 0, \psi'(\Omega \times 2) = \omega^{\omega+1}, \psi'(\Omega \times 2 + \omega^{\omega+1}) = \omega^{\omega+1} + \omega \times \omega^{\omega+1} = \omega^{\omega+1} \times 2, \ldots \rbrace = \omega^{\omega+1} \times \omega = \omega^{\omega+2} \)
-\item \( \psi'(\Omega \times (1+\alpha)) = \omega^{\omega+\alpha} \)
-\item \( \psi'(\Omega \times \Omega) = \psi'(\Omega^2) = sup \lbrace 1, \psi'(\Omega) = \omega^\omega, \psi'(\Omega \times \omega^\omega) = \omega^{\omega+\omega^\omega} = \omega^{\omega^\omega}, \ldots \rbrace = \varepsilon_0 \)
-\item \( \psi'(\Omega^2+\alpha) = \varepsilon_0+\omega \times \alpha \)
-\item \( \psi'(\Omega^2 + \Omega) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\varepsilon_0) = \varepsilon_0+\omega \times \varepsilon_0 = \varepsilon_0 \times 2, \ldots \rbrace = \varepsilon_0 \times \omega \)
-\item \( \psi'(\Omega^2+\Omega+\alpha) = \varepsilon_0 \times \omega + \omega \times \alpha \)
-\item \( \psi'(\Omega^2+\Omega+\Omega) = \psi'(\Omega^2+\Omega \times 2) = sup \lbrace 0, \psi'(\Omega^2+\Omega) = \varepsilon_0 \times \omega, \psi'(\Omega^2+\Omega+\varepsilon_0 \times \omega) = \varepsilon_0 \times \omega + \omega \times \varepsilon_0 \times \omega = \varepsilon_0 \times \omega \times 2 \)
-\item \( \psi'(\Omega^2+\Omega \times \alpha) = \varepsilon_0 \times \omega^\alpha \)
-\item \( \psi'(\Omega^2+\Omega \times \Omega) = \psi'(\Omega^2+\Omega^2) = \psi'(\Omega^2 \times 2) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\Omega \times \varepsilon_0) = \varepsilon_0 \times \omega^{\varepsilon_0} = {\varepsilon_0}^2, \psi'(\Omega^2+\Omega \times {\varepsilon_0}^2) = \varepsilon_0 \times \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \times \omega^{\varepsilon_0 \times \varepsilon_0} = \varepsilon_0 \times (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \times {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0}, \ldots \rbrace = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
-\item \( \psi'(\Omega^2 \times \alpha) = \varphi'(0,\alpha) \)
-\item \( \psi'(\Omega^2 \times \Omega) = \psi'(\Omega^3) = sup \lbrace 1, \phi'(0,1) = \varepsilon_0, \phi'(0,\varepsilon_0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
+\item \( \psi'(\Omega+\alpha) = \omega^\omega+\omega \cdot \alpha \)
+\item \( \psi'(\Omega+\Omega) = sub \lbrace 0, \psi'(\Omega) = \omega^\omega, \psi'(\Omega+\psi'(\Omega)) = \psi'(\Omega+\omega^\omega) = \omega^\omega+\omega \cdot \omega^\omega = \omega^\omega \cdot 2, \ldots \rbrace = \omega^\omega \cdot \omega = \omega^{\omega+1} \)
+\item \( \psi'(\Omega \cdot 2 + \alpha) = \psi'(\Omega \cdot 2) + \omega \cdot \alpha = \omega^{\omega+1} + \omega \cdot \alpha \)
+\item \( \psi'(\Omega \cdot 2 + \Omega) = \psi'(\Omega \cdot 3) = sup \lbrace 0, \psi'(\Omega \cdot 2) = \omega^{\omega+1}, \psi'(\Omega \cdot 2 + \omega^{\omega+1}) = \omega^{\omega+1} + \omega \cdot \omega^{\omega+1} = \omega^{\omega+1} \cdot 2, \ldots \rbrace = \omega^{\omega+1} \cdot \omega = \omega^{\omega+2} \)
+\item \( \psi'(\Omega \cdot (1+\alpha)) = \omega^{\omega+\alpha} \)
+\item \( \psi'(\Omega \cdot \Omega) = \psi'(\Omega^2) = sup \lbrace 1, \psi'(\Omega) = \omega^\omega, \psi'(\Omega \cdot \omega^\omega) = \omega^{\omega+\omega^\omega} = \omega^{\omega^\omega}, \ldots \rbrace = \varepsilon_0 \)
+\item \( \psi'(\Omega^2+\alpha) = \varepsilon_0+\omega \cdot \alpha \)
+\item \( \psi'(\Omega^2 + \Omega) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\varepsilon_0) = \varepsilon_0+\omega \cdot \varepsilon_0 = \varepsilon_0 \cdot 2, \ldots \rbrace = \varepsilon_0 \cdot \omega \)
+\item \( \psi'(\Omega^2+\Omega+\alpha) = \varepsilon_0 \cdot \omega + \omega \cdot \alpha \)
+\item \( \psi'(\Omega^2+\Omega+\Omega) = \psi'(\Omega^2+\Omega \cdot 2) = sup \lbrace 0, \psi'(\Omega^2+\Omega) = \varepsilon_0 \cdot \omega, \psi'(\Omega^2+\Omega+\varepsilon_0 \cdot \omega) = \varepsilon_0 \cdot \omega + \omega \cdot \varepsilon_0 \cdot \omega = \varepsilon_0 \cdot \omega \cdot 2 \)
+\item \( \psi'(\Omega^2+\Omega \cdot \alpha) = \varepsilon_0 \cdot \omega^\alpha \)
+\item \( \psi'(\Omega^2+\Omega \cdot \Omega) = \psi'(\Omega^2+\Omega^2) = \psi'(\Omega^2 \cdot 2) = sup \lbrace 0, \psi'(\Omega^2) = \varepsilon_0, \psi'(\Omega^2+\Omega \cdot \varepsilon_0) = \varepsilon_0 \cdot \omega^{\varepsilon_0} = {\varepsilon_0}^2, \psi'(\Omega^2+\Omega \cdot {\varepsilon_0}^2) = \varepsilon_0 \cdot \omega ^{{\varepsilon_0}^2} = \varepsilon_0 \cdot \omega^{\varepsilon_0 \cdot \varepsilon_0} = \varepsilon_0 \cdot (\omega^{\varepsilon_0})^{\varepsilon_0} = \varepsilon_0 \cdot {\varepsilon_0}^{\varepsilon_0} = {\varepsilon_0}^{\varepsilon_0}, \ldots \rbrace = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) \)
+\item \( \psi'(\Omega^2 \cdot \alpha) = \varphi'(0,\alpha) \)
+\item \( \psi'(\Omega^2 \cdot \Omega) = \psi'(\Omega^3) = sup \lbrace 1, \phi'(0,1) = \varepsilon_0, \phi'(0,\varepsilon_0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
 \item \( \psi'(\Omega^{2+\alpha} = \varphi'(\alpha,1) \)
-\item \( \psi'(\Omega^{2+\alpha} \times \beta) = \varphi'(\alpha,\beta) \)
+\item \( \psi'(\Omega^{2+\alpha} \cdot \beta) = \varphi'(\alpha,\beta) \)
 \item \( \psi'(\Omega^\Omega) = sup \lbrace 0, \psi'(\Omega^0) = \psi'(1) = \omega, \psi'(\Omega^\omega) = \varphi'(\omega,1), \psi'(\Omega^{\varphi'(\omega,1)}) = \varphi'(\varphi'(\omega,1),1), \ldots \rbrace = \Gamma_0 \)
 \item \( \ldots \)
 \end{itemize}
@@ -4785,11 +4785,11 @@ The first functions of this hierarchy are :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item \( f_0(n) = n+1 = suc\ n \)
-\item \( f_1(n) = suc^n(n) = n \times 2 \)
-\item \( f_2(n) = [\bullet \times 2]^n(n) = n \times 2^n \)
+\item \( f_1(n) = suc^n(n) = n \cdot 2 \)
+\item \( f_2(n) = [\bullet \cdot 2]^n(n) = n \cdot 2^n \)
 \end{itemize}
 
-But there is a problem with this definition, because the value of \( f_\alpha(n) \) depends of the fundamental sequence chosen for \( \alpha \) if it is a limit ordinal. Let us consider for example \( f_\omega(2) \). If we take the canonical fundamental sequence \( \omega[n] = n \), then we get \( f_\omega(2) = f_{\omega[2]}(2) = f_2(2) = 2 \times 2^2 = 8 \). But \( \omega[n] \) = n+1 is also a valid fundamental sequence for \( \omega \). Taking this fundamnetal sequence gives \( f_\omega(2) = f_{\omega[2]}(2) = f_3(2) = [\bullet \times 2^\bullet]^2(2) = 2048 \).
+But there is a problem with this definition, because the value of \( f_\alpha(n) \) depends of the fundamental sequence chosen for \( \alpha \) if it is a limit ordinal. Let us consider for example \( f_\omega(2) \). If we take the canonical fundamental sequence \( \omega[n] = n \), then we get \( f_\omega(2) = f_{\omega[2]}(2) = f_2(2) = 2 \cdot 2^2 = 8 \). But \( \omega[n] \) = n+1 is also a valid fundamental sequence for \( \omega \). Taking this fundamnetal sequence gives \( f_\omega(2) = f_{\omega[2]}(2) = f_3(2) = [\bullet \cdot 2^\bullet]^2(2) = 2048 \).
 
 In fact, the notation \( \alpha[n] \) is not rigorous because there are several possible fundamental sequences for a given ordinal \( \alpha \). Instead of writing \( \alpha[n] = F(n) \) it would be more rigorous to write \( \alpha = lim F \). One cannot write \( \omega[n] = n \) and \( \omega[n] = n+1 \) because this implies n = n+1, but there is no problem writing \( \omega = lim (n \mapsto n) = lim (n \mapsto n+1) \).
 
@@ -4900,13 +4900,13 @@ This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as fol
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 \item \( F_1(0,b) = b+1 = suc(b) \)
-\item \( F_1(1,b) = suc^b(b) = b+b = b \times 2\)
-\item \( F_1(2,b) = b \times 2^b \)
-\item \( |F_1(2,\omega_0)| = |\omega_0 \times 2^{\omega_0}| = \omega \times 2^\omega = \omega \times \omega = \omega^2 \)
-\item \( |F_1(2,F_1(2,\omega_0)) = |(\omega_0 \times 2^{\omega_0}) \times 2^{\omega_0 \times 2^{\omega_0}}| = \omega^2 \times 2^{\omega^2} = \omega^2 \times 2^{\omega \times \omega} = \omega^2 \times (2^\omega)^\omega = \omega^2 \times \omega^\omega = \omega^{2+\omega} = \omega^\omega \) 
+\item \( F_1(1,b) = suc^b(b) = b+b = b \cdot 2\)
+\item \( F_1(2,b) = b \cdot 2^b \)
+\item \( |F_1(2,\omega_0)| = |\omega_0 \cdot 2^{\omega_0}| = \omega \cdot 2^\omega = \omega \cdot \omega = \omega^2 \)
+\item \( |F_1(2,F_1(2,\omega_0)) = |(\omega_0 \cdot 2^{\omega_0}) \cdot 2^{\omega_0 \cdot 2^{\omega_0}}| = \omega^2 \cdot 2^{\omega^2} = \omega^2 \cdot 2^{\omega \cdot \omega} = \omega^2 \cdot (2^\omega)^\omega = \omega^2 \cdot \omega^\omega = \omega^{2+\omega} = \omega^\omega \) 
 \item \( |F_1(3,\omega_0)| = |[F_1(2,\bullet)]^{\omega_0}(\omega_0)| = sup |[F_1(2,\bullet)]^{\omega_0[k]}(\omega_0)| = sup |[F_1(2,\bullet)]^k(\omega_0)| = sup (\omega^{\vdots^\omega}) = \varepsilon_0 \)
-\item \( |F_1(2,F_1(3,\omega_0))| = \varepsilon_0 \times 2^{\varepsilon_0} = {\varepsilon_0}^2 \)
-\item \( |[F_1(2,\bullet)]^2(F_1(3,\omega_0))| = {\varepsilon_0}^2 \times 2^{{\varepsilon_0}^2} = {\varepsilon_0}^{\varepsilon_0} \)
+\item \( |F_1(2,F_1(3,\omega_0))| = \varepsilon_0 \cdot 2^{\varepsilon_0} = {\varepsilon_0}^2 \)
+\item \( |[F_1(2,\bullet)]^2(F_1(3,\omega_0))| = {\varepsilon_0}^2 \cdot 2^{{\varepsilon_0}^2} = {\varepsilon_0}^{\varepsilon_0} \)
 \item \( |F_1(3,F_1(3,\omega_0))| = sup \lbrace {\varepsilon_0}^{\vdots^{\varepsilon_0}} \rbrace = \varepsilon_1 \)
 \item \( |F_1(4,\omega_0)| = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
 \item \( |F_1(3,F_1(4,\omega_0))| = sup \lbrace {\zeta_0}^{\vdots^{\zeta_0}} \rbrace = \varepsilon_{\zeta_0+1} \)
@@ -4935,9 +4935,9 @@ We define the following operations on ordinals :
      \setlength{\parsep}{0pt}
 \item addition : \( \alpha+0=\alpha ; \alpha+suc(\beta)=suc(\alpha+\beta); \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) \)
 
-\item multiplication : \( \alpha \times 0 = 0 ; \alpha \times suc(\beta) = (\alpha \times \beta) + \alpha ; \alpha \times lim(f) = lim (n \mapsto \alpha \times f(n)) \)
+\item multiplication : \( \alpha \cdot 0 = 0 ; \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha ; \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
 
-\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \times \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
+\item exponentiation : \( \alpha^0 = 1 ; \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha ; \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) \)
 \end{itemize}
 
 
@@ -5006,7 +5006,7 @@ One		& 1			& 1				& \(\varphi(0,0)\)		& 				& suc 0			& 					& C(0,0)			\\ \hlin
 Two		& 2			& 2				& 				& 				& suc (suc 0)		& 					& C(0,C(0,0))			\\ \hline
 Omega		& \(\omega\)		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& H suc 0		& 					& C(1,0)			\\ \hline
 		& 			& \(\omega+1\)			& 				& 				& suc (H suc 0)		& 					& C(0,C(1,0))			\\ \hline
-		&			& \(\omega\times2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
+		&			& \(\omega\cdot2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
 		&			& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& H (H suc) 0		& 					& C(C(0,C(0,0)),0)		\\ \hline
 		&			& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& H H suc 0		& 					& C(C(1,0),0)			\\ \hline
 		&			& \(\omega^{\omega^\omega}\)	& \(\varphi(0,\omega^\omega)\)	&				& H H H suc 0		&					& C(C(C(1,0),0),0)		\\ \hline
