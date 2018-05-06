@@ -848,6 +848,9 @@ phi_2(2,b) = b.2^b
 psi(|a|) = |phi_1(a,w_0)| ?
 
 
+W_n = w_n
+case W_n != w_n ?
+
 renumber psi functions :
 psi = psi_1
 psi_1 -> psi_2 
@@ -872,4 +875,17 @@ lim_w[w+*] = w+w
 lim_w[*+*] = w
 lim_w[*.2] = w
 
+
+f(a) = W+a
+f(W) = W+W = W.2 = sup_a in W{W+a} = lim_W[W+*] = lim_W f = lim_w_1 f
+psi_1(f(w_1)) = psi_1(lim_w_1 f) = H (psi o f) 0
+
+general definition of psi_n:
+ - psi_n(0) = z(n)
+ - psi_n(a+1) = f(psi_n(a))
+ - psi_n(lim_w_k h) = lim_w_k(x->psi_n(h(x)) if k < n (or k != n ?)
+ - psi_n(lim_w_n h) = H (psi_n o h) 0 = lim_w [(psi_n o h)^* 0]
+ - psi_n(lim_w_k h) undefined for k > n (or lke k < n ?)
+
+relation between lim_w_n and H_n
 
