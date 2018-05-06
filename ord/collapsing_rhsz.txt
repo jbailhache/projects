@@ -889,3 +889,11 @@ general definition of psi_n:
 
 relation between lim_w_n and H_n
 
+psi_1 (H_1 x y z_1 ... z_n) = H [psi([suc:x,0:y] * z_1 ... z_n)] 0
+ = H [psi(x^* y z_1 ... z_n)] °
+ = lim_w [(psi o [x^* y z_1 ... z_n])^*]
+
+psi_1 (lim_w_1 [x^* y z_1 ... z_n]) = H [psi o [x^* y z_1 ... z_n]] 0
+ = H [psi(x^* y z_1 ... z_n)] 0
+ = lim_w [(psi o [x^* y z_1 ... z_n])^*]
+
