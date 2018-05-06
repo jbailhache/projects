@@ -848,4 +848,28 @@ phi_2(2,b) = b.2^b
 psi(|a|) = |phi_1(a,w_0)| ?
 
 
+renumber psi functions :
+psi = psi_1
+psi_1 -> psi_2 
+...
+
+with this convention:
+psi_a(lim_w_b g):
+ b<a : canonical : psi_a(lim_b g) = lim_w_b x->psi_a(g(x))
+ b=a : fixed point
+ b>a : undefined ?
+
+psi(f(W_n))
+psi(a), a = lim_w_n f
+
+psi(f(W)) = H (psi o f) 0 not for al f
+ f(a) = a.2
+ f(W) = W.2
+
+lim_w(f) = f(w)
+not always, only FS
+lim_w[w+*] = w+w
+lim_w[*+*] = w
+lim_w[*.2] = w
+
 
