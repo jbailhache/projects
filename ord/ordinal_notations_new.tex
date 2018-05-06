@@ -286,7 +286,7 @@ Any ordinal \( \alpha \) can be defined by either :
 
 \item A limit ordinal : \( \alpha = lim_\beta f = sup_{\xi \in \beta} \lbrace f(\xi) \rbrace \)
 
-where for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. A limit ordinal can always be defined as \( lim_{\omega_k} f \) by eventually rearranging the order of elements of \( \beta \). When \( \beta = \omega = \omega_0, lim_\omega f \) will sometimes be written more simply \( lim f \). This is the case for countable limit ordinals, which have the same cardinality as \( \omega \).
+where for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. A limit ordinal can always be defined as \( lim_{\omega_k} f \) by eventually rearranging the order of elements of \( \beta \). I will sometimes use the notation \( Lim_k \) for \( lim_{\omega_k} \). When \( \beta = \omega = \omega_0, lim_\omega f \) will sometimes be written more simply \( lim f \). This is the case for countable limit ordinals, which have the same cardinality as \( \omega \).
 
 \end{itemize}
 
@@ -330,6 +330,10 @@ and more generally to any ordinal, countable or not :
 \end{itemize}
 
 Note that addition and multiplication are not commutative, for example \( 1+\omega = \omega \neq \omega+1 \), because if we take 0, 1, 2, 3, ... as fundamental sequence of \( \omega \), then a fundamental sequence of \( 1+\omega \) is 1+0, 1+1, 1+2, 1+3, ... = 1, 2, 3, 4, ... and the least ordinal that is greater than all ordinals of this sequence is \( \omega \). We will say that "1+" is "absorbed" by \( \omega \). More generally, we have \( 1+\alpha = \alpha \) for any ordinal \( \alpha \geq \omega \).
+
+\bigskip
+
+Also note that \( lim\ f = f(\omega) \) for some functions f, but not all. For example, if \(f(\alpha) = \omega+\alpha, lim\ f = sup \lbrace \omega, \omega+1, \omega+2, \ldots \rbrace = \omega+\omega = \omega \cdot 2 \), and also \(f(\omega) = \omega+\omega = \omega \cdot 2 \). But if \( f(\alpha) = \alpha \cdot 2, lim\ f = sup \lbrace 0, 2, 4, 6, \ldots \rbrace = \omega \), but \(f(\omega) = \omega+\omega = \omega \cdot 2 \).
 
 \bigskip
 
@@ -2357,7 +2361,83 @@ This approach is explained very clearly in https://www.youtube.com/playlist?list
 
 \bigskip
 
-We can define a family of ordinal collapsing functions \( \psi \) by
+We will use uncountable ordinals \( \Omega = \Omega_1, \Omega_2, \Omega_3, \ldots \) to define countable ordinals. For more simplicity, we will take \( \Omega_k = \omega_k = Lim_k I = lim_{\omega_k} I =  H_k suc\ 0 \) in RHS0 notation, where I is the identity function \( I = [\bullet] \). We also have \( \Omega_0 = \omega_0 = \omega \).
+
+We can define a family of hierarchies of ordinal collapsing functions \( \psi_n (n \in \omega) \) parametrized by the functions z and f, where z is a function that, given a natural number, gives an ordinal, and f is a function that, given an ordinal, gives an ordinal, by : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_n(0) = z(n) \) 
+
+\item \( \psi_n(suc\ \alpha) = f(\psi_n(\alpha)) \) 
+
+\item \( \psi_n(Lim_k h) = Lim_k(\psi_n \circ h) \) if \( k < n \), 
+ or with fundamental sequence notation : \( \psi_n(\alpha)[\eta] = \psi_n(\alpha[\eta]) \)
+
+\item \( \psi_n(Lim_n h) = lim [ (\psi_n \circ h)^\bullet (\zeta) ] \) with \( \zeta = 0 \) or 1 or \( \psi_n(0) \) for example.
+
+\end{itemize}
+
+The choice of \( \zeta = 0, 1 \) or \( \psi(0) \) is not very important since it does not change the velue of the limit. Traditionaly, \( \psi(0) \) is generally chosen, but 0 or 1 seems simpler to me.
+
+Note that as a particular case of the fourth rule, when h is the identity function, we have \( \psi_n(Lim_n I) = \psi_n(\Omega_n) = lim [ {\psi_n}^\bullet 0 ] = sup \lbrace 0, \psi_n(0), \psi_n(\psi_n(0)), \ldots \rbrace \) which is the least fixed point of \( \psi_n \), so we have \( \psi_n(\psi_n(\Omega_n)) = \psi_n(\Omega_n) \).
+
+Concerning the values of \( \psi_n \) between \( \psi_n(\Omega_n) \) and \( \Omega_n \), some authors consider that it is \( \psi_n(\Omega_n) \), which implies that the rule \( \psi_n(suc\ \alpha) = f(\psi_n(\alpha)) \) is not true for any \( \alpha \) and must be restricted by adding some condition like "In \( \psi_n(g(\alpha)) \), we must have \( \alpha < g(\psi(\alpha)) \), but it seems simpler to me to consider that the rule \( \psi_n(suc\ \alpha) = f(\psi_n(\alpha)) \) is always true, which implies for example that \( \psi_n(suc \psi_n(\Omega_n)) = f(\psi_n(\psi_n(\Omega_n)) = f(\psi_n(\Omega_n)) \).
+
+\bigskip
+
+With RHS0 notation, \( \Omega_k = \omega_k = H_k suc\ 0 \) and the least fixed point of a function f is H f 0.
+
+We also have :
+
+\( \psi_n (H_n x y z_1 \ldots z_p) \)
+
+\( = \psi_n (Lim_n [x^\bullet y z_1 \ldots z_p]) \)
+
+\( = lim [(\psi_n \circ [x^\bullet y z_1 \ldots z_p])^\bullet 0] \)
+
+\( = lim [[\psi_n (x^\bullet y z_1 \ldots z_p)]^\bullet 0] \)
+
+\( = H [\psi_n (x^\bullet y z_1 \ldots z_p)] 0 \)
+
+\( = H [\psi_n ([suc \rightarrow x, 0 \rightarrow y] \bullet z_1 \ldots z_p)] 0 \) 
+
+\bigskip
+
+Examples :
+
+If \( h(\alpha) = \alpha \), then \( h(\Omega) = \Omega = H_1 suc\ 0, x = suc, y = 0, n = 0, \psi_1(\Omega) = \psi_1(H_1 suc\ 0) = H [\psi_1(suc \rightarrow suc, 0 \rightarrow 0] \bullet)] 0 = H \psi_1 0 = sup \lbrace 0, \psi_1(0), \psi_1(\psi_1(0)), \ldots \rbrace \).
+
+If \( h(\alpha) = \Omega+\alpha \), then \( h(\Omega) = \Omega+\Omega = \Omega \cdot 2 = H_1 suc (H_1 suc\ 0), x = suc, y = H_1 suc\ 0, n = 0, \psi_1(h(\Omega)) = \psi_1(\Omega+\Omega) = \psi_1(\Omega \cdot 2) = \psi_1(H_1 suc (H_1 suc\ 0)) = H [\psi_1([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] \bullet)] 0 = sup \lbrace 0, \psi_1([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] 0) = \psi_1(H_1 suc\ 0) = \psi_1(\Omega),  \psi_1([suc \rightarrow suc, 0 \rightarrow H_1 suc\ 0] (\psi_1(\Omega))) = \psi_1(\Omega+\psi_1(\Omega)), \ldots \rbrace \).
+
+Classically, other authors often call \( \psi_k \) the function that I call \( \psi_{k+1} \). This convention implies the slightly more complicated rules :
+
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_n(0) = z(n) \) 
+
+\item \( \psi_n(suc\ \alpha) = f(\psi_n(\alpha)) \) 
+
+\item \( \psi_n(Lim_k h) = Lim_k(\psi_n \circ h) \) if \( k \le n \), 
+ or with fundamental sequence notation : \( \psi_n(\alpha)[\eta] = \psi_n(\alpha[\eta]) \)
+
+\item \( \psi_n(Lim_{n+1} h) = lim [ (\psi_n \circ h)^\bullet (\zeta) ] \) with \( \zeta = 0 \) or 1 or \( \psi_n(0) \) for example.
+
+\end{itemize}
+
+
+
+
+\bigskip
+
+We can define a family of ordinal collapsing functions \( \psi \) by 
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
