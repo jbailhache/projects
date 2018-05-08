@@ -897,3 +897,16 @@ psi_1 (lim_w_1 [x^* y z_1 ... z_n]) = H [psi o [x^* y z_1 ... z_n]] 0
  = H [psi(x^* y z_1 ... z_n)] 0
  = lim_w [(psi o [x^* y z_1 ... z_n])^*]
 
+
+psi_n(a) with n ordinal ?
+ - z(n) with n ordinal, Lim_n with n ordinal ?
+ - psi_w(a) = lim [psi_*(a)] ?
+
+ELN22:
+psi'_n = psi_1 o ... o psi_n
+
+Madore:
+modify definition of psi:
+\psi (\alpha ) is the smallest ordinal which cannot be expressed from {\displaystyle 0} {\displaystyle 0}, {\displaystyle 1} 1, {\displaystyle \omega } \omega , {\displaystyle \Omega } \Omega  and {\displaystyle \Omega _{2}} \Omega _{2} using sums, products, exponentials, the {\displaystyle \psi _{1}} \psi _{1} function, and the {\displaystyle \psi } \psi  function itself (to previously constructed ordinals less than {\displaystyle \alpha } \alpha ).
+
+
