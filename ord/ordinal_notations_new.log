@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  12 MAY 2018 08:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  13 MAY 2018 01:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -578,14 +578,15 @@ Overfull \hbox (1.05156pt too wide) in paragraph at lines 2325--2326
 []0$ with $[0][] = [1][0]$ and $[0][] = ([0][])[] = ([1][0])[] =
  []
 
-Excluding 'comment' comment. Excluding 'comment' comment. [30]
 Excluding 'comment' comment. Excluding 'comment' comment.
+Excluding 'comment' comment. Excluding 'comment' comment.
+Excluding 'comment' comment. [30] Excluding 'comment' comment.
 Excluding 'comment' comment. Excluding 'comment' comment. [31]
 Excluding 'comment' comment. Excluding 'comment' comment.
 Excluding 'comment' comment. Excluding 'comment' comment.
-Excluding 'comment' comment. [32] [33] [34] [35] [36]
-Excluding 'comment' comment. [37] [38] [39]
-Overfull \hbox (48.55913pt too wide) in paragraph at lines 3632--3633
+Excluding 'comment' comment. Excluding 'comment' comment. [32] [33] [34]
+[35] [36] [37] Excluding 'comment' comment. [38] [39]
+Overfull \hbox (48.55913pt too wide) in paragraph at lines 3667--3668
 []\OT1/cmr/m/n/10 For case $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (
 [])$ the set $\OML/cmm/m/it/10 C[]\OT1/cmr/m/n/10 (
 [])$ in-cludes func-tions $\OML/cmm/m/it/10  []$ \OT1/cmr/m/n/10 with all ar-gu
@@ -597,7 +598,7 @@ m/m/it/10 ;  []\OT1/cmr/m/n/10 (0)\OML/cmm/m/it/10 ; :::;  []\OT1/cmr/m/n/10 (0
  []
 
 [40] [41]
-Overfull \hbox (35.79108pt too wide) in paragraph at lines 3803--3804
+Overfull \hbox (35.79108pt too wide) in paragraph at lines 3838--3839
 []$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (
 ) = \OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 H[]suc \OT1/cmr/m/n/10 
 0) = \OML/cmm/m/it/10 sup\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; 
@@ -612,7 +613,7 @@ r/m/n/10 0\OML/cmm/m/it/10 ; R[]HR[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []
  []
 
 [42]
-Overfull \hbox (5.15721pt too wide) in paragraph at lines 3874--3875
+Overfull \hbox (5.15721pt too wide) in paragraph at lines 3909--3910
 []$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^A
  \OT1/cmr/m/n/10 
  + 
@@ -629,59 +630,59 @@ A \OT1/cmr/m/n/10
 mr/m/n/10 ))\OML/cmm/m/it/10 suc \OT1/cmr/m/n/10 0$ 
  []
 
-[43] [44] Excluding 'comment' comment. [45] [46] [47] [48] [49] [50] [51]
+[43] [44] [45] Excluding 'comment' comment. [46] [47] [48] [49] [50] [51]
 [52] [53]
-Overfull \hbox (20.10545pt too wide) in paragraph at lines 4925--4925
+Overfull \hbox (20.10545pt too wide) in paragraph at lines 4960--4960
 []    \OT1/cmtt/m/n/10 //return limit (psi2(level+1,first(a)), psi2(level+1,fir
 st(next(a))), psi2(level+1,first(next(next(a)))));[] 
  []
 
 [54] [55] [56] [57] [58] [59] [60] [61] [62]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 5415--5451
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 5450--5486
 [] 
  []
 
-
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 5459--5461
+[63]
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 5494--5496
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 5462--5464
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 5497--5499
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-[63]
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 5492--5494
+
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 5527--5529
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 5498--5501
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 5533--5536
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
-
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 5515--5516
+[64]
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 5550--5551
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 5520--5522
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 5555--5557
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
 
-[64] (./ordinal_notations_new.aux) ) 
+[65] (./ordinal_notations_new.aux) ) 
 Here is how much of TeX's memory you used:
  1709 strings out of 495020
  21152 string characters out of 6181324
- 98848 words of memory out of 5000000
+ 102848 words of memory out of 5000000
  4922 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -704,10 +705,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on ordinal_notations_new.pdf (64 pages, 418347 bytes).
+Output written on ordinal_notations_new.pdf (65 pages, 421583 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 200 compressed objects within 2 object streams
+ 291 PDF objects out of 1000 (max. 8388607)
+ 202 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

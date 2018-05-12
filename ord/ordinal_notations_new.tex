@@ -2351,6 +2351,41 @@ An ordinal collapsing function is a function that, when applied to an uncountabl
 
 \end{comment}
 
+\bigskip
+
+Ordinal collapsing functions permit to go beyond the limit of a notation.
+Let us consider, for example, the very limited notation based on the ordinal 0 and the function suc.
+With this notation, we can write 0, suc 0 = 1, suc (suc 0) = 2, ... and more generally all ordinals less than \( \omega \).
+So the limit of this notation (the least ordinal that cannot be written with this notation) is \( \omega \).
+
+\begin{comment}
+Then we can go beyond this limit by introducing \( \psi(0) \) which is defined as the limit of the initial notation : \( \psi(0) = \omega \).
+Then we consider the notation based on 0, suc and \( \psi(0) = \omega \). 
+\end{comment}
+
+To go beyond this limit, we can then define a new notation based on the ordinal 0, the function suc, and the limit of the initial notation, \( \omega \), which we will write \( \psi(0) \) in our new notation.
+With this notation we can write 0, suc 0 = 1, suc (suc 0) = 2, \( \psi(0) = \omega, suc(\psi(0)) = \omega+1, \ldots \). The limit of this new notation is \( \omega+\omega = \omega \cdot 2 \), which we will write \( \psi(1) \).
+
+\begin{comment}
+Then we define \( \psi(1) \) as the limit of this new notation : \( \psi(1) = \omega \cdot 2 \) and a new notation based on 0, suc, \( \psi(0), \psi(1) \) and so on, with \( \psi(n+1) = \psi(n)+\omega \) for any natural number n.
+\end{comment}
+
+Then we define a new notation based on 0, suc, \( \psi(0) = \omega \) and \( \psi(1) = \omega \cdot 2 \), and so on, with, for any natural number n, \( \psi(n+1) = \psi(n)+\omega \), and \( \psi(n) = \omega \cdot (1+n) \).
+
+We can define canonically \( \psi(\omega) \) as the limit of \( \psi(0), \psi(1), \psi(2), \ldots \), and more generally \( \psi(lim h) \) as \( lim (\psi \circ h) \), and generalize the previous formulas to any ordinal \( \alpha : \psi(\alpha+1) = \psi(\alpha)+\omega \) and \( \psi(\alpha) = \omega \cdot (1+\alpha) \).
+
+\begin{comment}
+With these definitions, we have the general formula \( \psi(\alpha) = \omega \cdot (1+\alpha) \).
+\end{comment}
+
+Then we can define a notation based on the ordinal 0 and the functions suc and \( \psi \).
+With this notation, we can write \( 0, \psi(0) = \omega, \psi(\psi(0)) = \psi(\omega) = \omega \cdot (1+\omega) = \omega \cdot \omega = \omega^2, \psi(\omega^2) = \omega^3, \ldots \). The limit of this notation is \( \omega^\omega \). 
+
+We can go beyond this limit with collapsing, by introducing an ordinal \( \Omega \) which may be any ordinal greater than all the ordinals we want to write with our notation (countable ordinals). The simplest choice is \( \Omega = \omega_1 \), the least uncountable ordinal. 
+We define \( \psi(\Omega) \) as the limit of \( 0, \psi(0), \psi(\psi(0)), \ldots = lim (n \mapsto \psi^n(0)) \), and more generally \( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(0))) \).
+
+\bigskip
+
 The most classical way to define an ordinal collapsing function is to define a set of ordinals C(a) or C(a,b) where a and b are ordinals, which contains all ordinals that can be built using an initial set of ordinals and some operations or functions, and then define \( \psi(a) \) or \( \psi(a,b) \) as the smallest ordinal that is not in C(a) or C(a,b), or the least ordinal that is greater than than all countable ordinals of C(a) or C(a,b).
 
 An equivalent approach, which seems simpler to me, consists in defining an ordinal collapsing function recursively, by defining its value for 0, for the successor of an ordinal, and for different kinds of limit ordinals.
