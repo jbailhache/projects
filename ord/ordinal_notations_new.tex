@@ -2382,7 +2382,36 @@ Then we can define a notation based on the ordinal 0 and the functions suc and \
 With this notation, we can write \( 0, \psi(0) = \omega, \psi(\psi(0)) = \psi(\omega) = \omega \cdot (1+\omega) = \omega \cdot \omega = \omega^2, \psi(\omega^2) = \omega^3, \ldots \). The limit of this notation is \( \omega^\omega \). 
 
 We can go beyond this limit with collapsing, by introducing an ordinal \( \Omega \) which may be any ordinal greater than all the ordinals we want to write with our notation (countable ordinals). The simplest choice is \( \Omega = \omega_1 \), the least uncountable ordinal. 
-We define \( \psi(\Omega) \) as the limit of \( 0, \psi(0), \psi(\psi(0)), \ldots = lim (n \mapsto \psi^n(0)) \), and more generally \( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(0))) \).
+We define \( \psi(\Omega) \) as the limit of \( 0, \psi(0), \psi(\psi(0)), \ldots = lim (n \mapsto \psi^n(0)) \).
+\begin{comment}
+, and more generally \( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(0))) \).
+\end{comment}
+
+Note that,  according to its definition, \( \psi(\Omega) \) is the least fixed point of \( \psi \), so we have \( \psi(\psi(\Omega)) = \psi(\Omega) \).
+
+\( \Omega \) can be defined as \( Lim_1 I \), the limit with cofinality \( \omega_1 \) of the identity function, so we have \( \psi(\Omega) = lim (n \mapsto \psi^n(0)) = lim (n \mapsto (\psi \circ I)^n(0)) \).
+We can generalize this formula for any function h :
+\( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(0))) \).
+
+With all these definitions, the complete definition of our notation becomes :
+
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi(0) = \omega  \)
+
+\item \( \psi(suc\ \alpha) = \psi(\alpha+1) = \psi(\alpha) + \omega \) 
+
+\item \( \psi(lim\ g) = lim (n \mapsto \psi(g(n))) = lim(\psi \circ g) \)  
+ or with fundamental sequence notation : \( \psi(\alpha)[n] = \psi(\alpha[n]) \)
+
+\item \( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(0)) \) 
+
+\end{itemize}
+
 
 \bigskip
 
@@ -2539,7 +2568,7 @@ We can define a family of ordinal collapsing functions \( \psi \) parametrized b
 
 \item \( \psi(suc\ \alpha) = \psi(\alpha+1) = f(\psi(\alpha)) \) 
 
-\item \( \psi(lim\ g) = lim (n \mapsto psi(g(n))) = lim(\psi \circ g) \)  
+\item \( \psi(lim\ g) = lim (n \mapsto \psi(g(n))) = lim(\psi \circ g) \)  
  or with fundamental sequence notation : \( \psi(\alpha)[n] = \psi(\alpha[n]) \)
 
 \item \( \psi(Lim_1 h) = lim (n \mapsto (\psi \circ h)^n(\zeta)) = lim [ (\psi \circ h)^\bullet (\zeta) ] \) with \( \zeta = 0 \) or 1 or \( \psi_n(0) \) for example.
@@ -2601,7 +2630,7 @@ We will now examine what is the limit of the notation based on \( 0 \) and \( \p
 
 It is the limit of \( 0, \psi(0), \psi(\psi(0)), \ldots \), which is \( \psi(\Omega) \).
 
-To go beyond this limit, we can either add \( \Omega \) to the basic symbols of our notation, hich would then be based on \( 0, \Omega, \psi \).
+To go beyond this limit, we can either add \( \Omega \) to the basic symbols of our notation, which would then be based on \( 0, \Omega, \psi \).
 
 Another possibility is to introduce a new function \( \psi_2 \) with \( \psi_2(0) = \Omega \).
 
