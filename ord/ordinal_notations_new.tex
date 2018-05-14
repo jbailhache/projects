@@ -2838,7 +2838,7 @@ We can generalize this function to transfinite indices, for example \( \psi^*_\o
 
 Classically, other authors often call \( \psi_\kappa \) the function that I call \( \psi_{1+\kappa} \). This convention implies the slightly more complicated rules:
 
-
+\begin{comment}
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
@@ -2854,9 +2854,25 @@ Classically, other authors often call \( \psi_\kappa \) the function that I call
 \item \( \psi_\nu(Lim_{1+\nu} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
 
 \end{itemize}
+\end{comment}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_\nu(0) = z(n) \) 
+
+\item \( \psi_\nu(suc\ \alpha) = f(\psi_\nu(\alpha)) \) 
+
+\item \( \psi_\nu(Lim_\kappa h) = Lim_\kappa(\psi_\nu \circ h) \) if \( \kappa \le \nu \), 
+ or with fundamental sequence notation : \( \psi_\nu(\alpha)[\eta] = \psi_\nu(\alpha[\eta]) \)
+
+\item \( \psi_\nu(Lim_{1+\kappa} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) if \(\kappa \ge \nu \), with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
+
+\end{itemize}
 
 \begin{comment}
-
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
@@ -2872,9 +2888,7 @@ Classically, other authors often call \( \psi_\kappa \) the function that I call
 \item \( \psi_\nu(Lim_{1+\kappa} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) if \( \kappa \ge \nu \), with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
 
 \end{itemize}
-
 \end{comment}
-
 
 
 \begin{comment}
