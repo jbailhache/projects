@@ -290,6 +290,55 @@ where for any \( \xi \in \beta \) or \( \xi < \beta, f(\xi) \) is an ordinal. A 
 
 \end{itemize}
 
+Note that \( \omega_\omega = lim_\omega (\xi \mapsto \omega_\xi) \), so \( lim_{\omega_\omega} f = lim_\omega (\xi \mapsto f (\omega_\xi)) = lim (\xi \mapsto f(\omega_\xi)) \).
+
+\bigskip
+
+The cofinality of an ordinal is defined by : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( cf\ 0 = 0 \)
+
+\item \( cf (suc\ \alpha) = 1 \)
+
+\item \( cf (lim_\beta f) = \beta \) if there is no ordinal \( \gamma < \beta \) such that \( lim_\beta f = lim_\gamma g \).
+
+\end{itemize}
+
+Examples :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( cf\ 3 = 1 \)
+
+\item \( cf\ \omega = \omega \)
+
+\item \( cf (\omega+3) = 1 \)
+
+\item \( cf (\omega \cdot 2) = \omega \)
+
+\item \( cf\ \omega_1 = \omega_1 \)
+
+\item \( cf\ \omega_3 = \omega_3 \)
+
+\item \( cf\ \omega_\omega = \omega \)
+
+\item \( cf\ (\omega_\omega+1) = \omega_\omega+1 \)
+
+\end{itemize}
+
+A regular ordinal is an ordinal which is equal to its cofinality. A singular ordinal is an ordinal which is not regular.
+Assuming the axiom of choice, \( \omega_{\alpha+1} \) is regular for any ordinal \( \alpha \). The cofinality of any ordinal is a regular ordinal, which means \( cf(cf\ \alpha) = cf\ \alpha \).
+
+\bigskip
+
 In the case of a limit ordinal, the \(\xi\)-th element of a fundamental sequence of \( \alpha \) i sometimes written \( \alpha[\xi] \) which is not a rigorous notation, because an ordinal may have different fundamental sequences, for example \( \omega = lim_\omega [\bullet] = lim_\omega [\bullet+1] \) which gives \( \omega[\alpha] = \alpha = \alpha+1 \).
 
 We will introduce later other mathematical objects called tree ordinals which are considered different if the fundamental sequences are different.
