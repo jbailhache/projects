@@ -2962,15 +2962,13 @@ Classically, other authors often call \( \psi_\kappa \) the function that I call
 To simplify notation, \( \psi_1 \) will sometimes be written \( \psi \).
 \end{comment}
 
-
-\begin{comment}
-
 More generally, the family of ordinal collapsing functions \( \psi \) can be extended to a family of hierarchies of ordinal collapsing functions \( \psi_\nu \). 
 
 We will use uncountable ordinals \( \Omega = \Omega_1, \Omega_2, \Omega_3, \ldots \) to define countable ordinals. For more simplicity, we will take \( \Omega_\kappa = \omega_\kappa = Lim_\kappa I = lim_{\omega_\kappa} I =  H_\kappa suc\ 0 \) in RHS0 notation, where I is the identity function \( I = [\bullet] \). We also have \( \Omega_0 = \omega_0 = \omega \).
 
 This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where \( \nu \) is an ordinal, is parametrized by the functions z and f, where z and f are functions  that, given an ordinal, gives an ordinal, and is defined by : 
 
+\begin{comment}
 \begin{itemize}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
@@ -2986,8 +2984,27 @@ This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where 
 \item \( \psi_\nu(Lim_{1+\nu} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
 
 \end{itemize}
+\end{comment}
 
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_\nu(0) = z(\nu) \) ( for example : \( \psi_0(\alpha) = \Omega_\alpha \), or \( \psi_0(0) = 1; \psi_{1+\nu}(0) = \Omega_{1+\nu} = \omega_{1+\nu} \) 
+
+\item \( \psi_\nu(suc\ \alpha) = f(\psi_\nu(\alpha)) \) 
+
+\item \( \psi_\nu(Lim_{\kappa+1} h) = Lim_{\kappa+1}(\psi_\nu \circ h) \) if \( \kappa < \nu \), 
+ or with fundamental sequence notation : \( \psi_\nu(\alpha)[\eta] = \psi_\nu(\alpha[\eta]) \)
+
+\item \( \psi_\nu(Lim_{\kappa+1} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) if \( \kappa \ge \nu \), with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
+
+\end{itemize}
+
+\begin{comment}
 (We could also define \( \psi_\nu(\alpha) \) where \( \nu \) is an ordinal, provided that z is a function that, given an ordinal, gives an ordinal, and that we define \( Lim_\kappa \) for \( \kappa \) ordinal.)
+\end{comment}
 
 We can see that for \( \psi_0 \) we get the same definition as the previous definition of \( \psi \).
 
@@ -3033,7 +3050,6 @@ I will also define a function \( \psi^*_n(\alpha) \) where n is a natural number
 
 \end{itemize}
 
-\end{comment}
 
 \begin{comment}
 We can generalize this function to transfinite indices, for example \( \psi^*_\omega(\alpha) = lim [ \psi^*_\bullet(\alpha) ] \).
@@ -3087,21 +3103,21 @@ cond. if \( \psi \) monotone& if \( \alpha<\omega\)  & if \( \alpha < \omega^2 \
 \( \psi(\Omega^\Omega) \)& \( \Gamma_0 \)            & \( \Gamma_0 \)                        & \( \Gamma_0 \)                  & \( \Gamma_0 \)                                                & \( \Gamma_0 \)                   \\
 \hline
 
-\( \psi_2(0) \)          & \( \Omega \)              & \( \Omega \)                          & \( \Omega \)                    & \( \varepsilon_{\Omega+1} \)                                  & \( \varepsilon_{\Omega+1} \)     \\
+\( \psi_1(0) \)          & \( \Omega \)              & \( \Omega \)                          & \( \Omega \)                    & \( \varepsilon_{\Omega+1} \)                                  & \( \varepsilon_{\Omega+1} \)     \\
 \hline
-\( \psi_2(\alpha+1) \)   & \( \psi_2(\alpha)+1 \)   & \( \psi_2(\alpha)+\omega \)          & \(\psi_2(\alpha)\cdot\omega\) &\(sup\lbrace\psi_2(\alpha)^{\vdots^{\psi_2(\alpha)}}\rbrace\)& \( sup\lbrace\psi_2(\alpha)
-                                                                                                                                                                                                  ^{\vdots^{\psi_2(\alpha)}}\rbrace \) \\
+\( \psi_1(\alpha+1) \)   & \( \psi_1(\alpha)+1 \)   & \( \psi_1(\alpha)+\omega \)          & \(\psi_1(\alpha)\cdot\omega\) &\(sup\lbrace\psi_1(\alpha)^{\vdots^{\psi_1(\alpha)}}\rbrace\)& \( sup\lbrace\psi_1(\alpha)
+                                                                                                                                                                                                  ^{\vdots^{\psi_1(\alpha)}}\rbrace \) \\
 \hline
-\( \psi_2(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\cdot\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
+\( \psi_1(1) \)          & \( \Omega+1 \)            & \( \Omega+\omega \)                   & \( \Omega\cdot\omega \)        & \( \varepsilon_{\Omega+2} \)                                  & \( \varepsilon_{\Omega+2} \)     \\
                           &                           &                                       & \( = \omega^{\Omega+1} \)       &                                                               &                                  \\
 \hline
-\( \psi_2(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\cdot\alpha \)       & \( \Omega\cdot\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
+\( \psi_1(\alpha) \)     & \( \Omega+\alpha \)       & \( \Omega+\omega\cdot\alpha \)       & \( \Omega\cdot\omega^\alpha \) & \( \varepsilon_{\Omega+1+\alpha} \)                           & \( \varepsilon_{\Omega+1+\alpha} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\alpha} \)  &                                                               &                                  \\
 \hline
-\( \psi_2(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\cdot\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
+\( \psi_1(\omega) \)     & \( \Omega+\omega \)       & \( \Omega+\omega^2 \)                 & \( \Omega\cdot\omega^\omega \) & \( \varepsilon_{\Omega+\omega} \)                             & \( \varepsilon_{\Omega+\omega} \) \\
                           &                           &                                       & \( = \omega^{\Omega+\omega} \)  &                                                               &                                  \\
 \hline
-\( \psi_2(\Omega) \)     & \( \Omega\cdot\omega \)  & \( \Omega\cdot\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \cdot 2} \)                           & \( \varepsilon_{\Omega \cdot 2} \) \\
+\( \psi_1(\Omega) \)     & \( \Omega\cdot\omega \)  & \( \Omega\cdot\omega \)               & \( \Omega^2 \)                 & \( \varepsilon_{\Omega \cdot 2} \)                           & \( \varepsilon_{\Omega \cdot 2} \) \\
 \hline
 
 \end{tabular}
