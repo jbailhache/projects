@@ -933,3 +933,22 @@ psi' nested -> psi*
 rename Madore variant ?
 
 
+lim / FS
+exemple Buchholz
+FS autres OCF
+
+limite notations
+avec seulement 0 et suc : très limité
+RHS0 + psi
+H_a défini à partir de Lim_a 
+
+OCF sans W
+
+continuer correspondance différents psi - autres notations + RHS0
+
+tableau des psi : autres exemples avec autres psi(0)
+
+implémentations Haskell
+
+
+
