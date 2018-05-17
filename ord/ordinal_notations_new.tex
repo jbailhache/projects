@@ -301,11 +301,11 @@ The cofinality of an ordinal is defined by :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( cf\ 0 = 0 \)
+\item \( cof\ 0 = 0 \)
 
-\item \( cf (suc\ \alpha) = 1 \)
+\item \( cof (suc\ \alpha) = 1 \)
 
-\item \( cf (lim_\beta f) = \beta \) if there is no ordinal \( \gamma < \beta \) such that \( lim_\beta f = lim_\gamma g \).
+\item \( cof (lim_\beta f) = \beta \) if there is no ordinal \( \gamma < \beta \) such that \( lim_\beta f = lim_\gamma g \).
 
 \end{itemize}
 
@@ -316,26 +316,26 @@ Examples :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( cf\ 3 = 1 \)
+\item \( cof\ 3 = 1 \)
 
-\item \( cf\ \omega = \omega \)
+\item \( cof\ \omega = \omega \)
 
-\item \( cf (\omega+3) = 1 \)
+\item \( cof (\omega+3) = 1 \)
 
-\item \( cf (\omega \cdot 2) = \omega \)
+\item \( cof (\omega \cdot 2) = \omega \)
 
-\item \( cf\ \omega_1 = \omega_1 \)
+\item \( cof\ \omega_1 = \omega_1 \)
 
-\item \( cf\ \omega_3 = \omega_3 \)
+\item \( cof\ \omega_3 = \omega_3 \)
 
-\item \( cf\ \omega_\omega = \omega \)
+\item \( cof\ \omega_\omega = \omega \)
 
-\item \( cf\ (\omega_\omega+1) = \omega_\omega+1 \)
+\item \( cof\ (\omega_\omega+1) = \omega_\omega+1 \)
 
 \end{itemize}
 
 A regular ordinal is an ordinal which is equal to its cofinality. A singular ordinal is an ordinal which is not regular.
-Assuming the axiom of choice, \( \omega_{\alpha+1} \) is regular for any ordinal \( \alpha \). The cofinality of any ordinal is a regular ordinal, which means \( cf(cf\ \alpha) = cf\ \alpha \).
+Assuming the axiom of choice, \( \omega_{\alpha+1} \) is regular for any ordinal \( \alpha \). The cofinality of any ordinal is a regular ordinal, which means \( cof(cof\ \alpha) = cof\ \alpha \).
 
 \bigskip
 
@@ -2930,6 +2930,8 @@ This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where 
 
 \item \( \psi_\nu(suc\ \alpha) = f(\psi_\nu(\alpha)) \) 
 
+\item \( \psi_\nu(lim\ h) = lim(\psi_\nu \circ h) \) ( with \( lim = Lim_0 \) )
+
 \item \( \psi_\nu(Lim_{\kappa+1} h) = Lim_{\kappa+1}(\psi_\nu \circ h) \) if \( \kappa < \nu \), 
  or with fundamental sequence notation : \( \psi_\nu(\alpha)[\eta] = \psi_\nu(\alpha[\eta]) \)
 
@@ -3636,7 +3638,7 @@ The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\tex
 
 For nonzero ordinals \(\alpha<\Lambda\), written in normal form, fundamental sequences are defined as follows:
 
-\begin{itemize}
+\begin{enumerate}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
@@ -3648,7 +3650,26 @@ For nonzero ordinals \(\alpha<\Lambda\), written in normal form, fundamental seq
 \item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu<\nu\}\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\eta])\),
 \item If \(\alpha=\psi_{\nu}(\beta)\) and \(\text{cof}(\beta)\in\{\Omega_{\mu+1}|\mu\geq\nu\}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\nu}(\beta[\gamma[\eta]])\) where \(\left\{\begin{array}{lcr} \gamma[0]=\Omega_\mu \\ \gamma[\eta+1]=\psi_\mu(\beta[\gamma[\eta]])\\ \end{array}\right.\).
 \item If \(\alpha=\Lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\psi_{\alpha[\eta]}(0)=\Omega_{\alpha[\eta]}\).
-\end{itemize}
+\end{enumerate}
+
+These fundamental sequences are equivalent to the following recursive definition of \( \psi_\nu(\alpha) \) :
+
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item The first fundamental sequence is not part of the definition of \( \psi_\nu(\alpha) \), it it a particular case of the general definition of addition, with \( \alpha + Lim_\nu(h) = Lim_\nu (\xi \mapsto \alpha + h(\xi)) \)
+\item \( \psi_0(0) = 1 \)
+\item \( \psi_{\nu+1}(0) = \Omega_{\nu+1} \) 
+\item \( \psi_{Lim_\mu h}(0) = Lim_\mu (\xi \mapsto \psi_{h(\xi)}(0)) = Lim_\mu (\xi \mapsto \Omega_{h(\xi)}) \)
+\item \( \psi_\nu(\beta+1) = \psi_\nu(\beta) \cdot \omega \)
+\item \( \psi_\nu (lim\ h) = lim (\xi \mapsto \psi_\nu(h(\xi))) = lim (\psi_\nu \circ h) \) ( with \( lim = Lim_0 \) )
+
+      \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
+\item \( \psi_\nu (Lim_{\mu+1} h) = lim (\xi \mapsto (\psi_\nu \circ h)^\xi (\psi_\nu(0))) \) if \( \mu \ge \nu \)
+\item This fundamental sequence is not part of the definition of \( \psi_\nu(\alpha) \), it can be deduced from the definition of \( \Lambda = min \lbrace \beta | \psi_\beta(0) = \beta \rbrace \)
+\end{enumerate}
+
 
 \subsubsection{Explanation}
 
