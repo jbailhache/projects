@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  19 MAY 2018 01:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  19 MAY 2018 01:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -658,25 +658,25 @@ l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 5740--5742
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 5743--5745
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
-
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 5746--5749
+[66]
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 5749--5752
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
-[66]
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 5763--5764
+
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 5766--5767
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 5768--5770
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 5771--5773
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
@@ -709,7 +709,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (67 pages, 428985 bytes).
+Output written on ordinal_notations_new.pdf (67 pages, 428857 bytes).
 PDF statistics:
  302 PDF objects out of 1000 (max. 8388607)
  210 compressed objects within 3 object streams
