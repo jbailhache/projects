@@ -1012,7 +1012,6 @@ https://www.math.wisc.edu/~miller/old/m771-10/kunen770.pdf
 
 https://math.stackexchange.com/questions/477314/hyper-inaccessible-cardinals
 
-https://en.wikipedia.org/wiki/Inaccessible_cardinal#.CE.B1-inaccessible_cardinals_and_hyper-inaccessible_cardinals
 
 https://books.google.fr/books?id=wlOS6XvzBIkC&pg=PA249&lpg=PA249&dq=hyper+inaccessible+cardinal&source=bl&ots=1Tz6bR4FlU&sig=bm32hmkbEc7VIrs7yRIayZxLl8o&hl=fr&sa=X&ved=0ahUKEwi_pLfpwI3bAhXFPhQKHZ2wD-0Q6AEIkgEwCQ#v=onepage&q=hyper%20inaccessible%20cardinal&f=false
 
@@ -1024,13 +1023,32 @@ k is (a+1)-hyperinaccessible if it is regular and there are k smaller a-hyperina
 For Lim(l), k is l-hyperinaccessible if it is a-hyperinaccessible for every a < l
 If k is Mahlo, then it is a-hyperinaccessible for every a <= k.
 
+
+https://en.wikipedia.org/wiki/Inaccessible_cardinal#.CE.B1-inaccessible_cardinals_and_hyper-inaccessible_cardinals
+
+k strongly inaccessible : uncountable, not sum of fewer than k cardinals less than k, and a < k => 2^a < k
+regular strong limit cardinal
+
+The term "α-inaccessible cardinal" is ambiguous and different authors use inequivalent definitions. One definition is that a cardinal κ is called α-inaccessible, for α any ordinal, if κ is inaccessible and for every ordinal β < α, the set of β-inaccessibles less than κ is unbounded in κ (and thus of cardinality κ, since κ is regular). In this case the 0-inaccessible cardinals are the same as strongly inaccessible cardinals. Another possible definition is that a cardinal κ is called α-weakly inaccessible if κ is regular and for every ordinal β < α, the set of β-weakly inaccessibles less than κ is unbounded in κ. In this case the 0-weakly inaccessible cardinals are the regular cardinals and the 1-weakly inaccessible cardinals are the weakly inaccessible cardinals.
+
+The α-inaccessible cardinals can also be described as fixed points of functions which count the lower inaccessibles. For example, denote by ψ0(λ) the λth inaccessible cardinal, then the fixed points of ψ0 are the 1-inaccessible cardinals. Then letting ψβ(λ) be the λth β-inaccessible cardinal, the fixed points of ψβ are the (β+1)-inaccessible cardinals (the values ψβ+1(λ)). If α is a limit ordinal, an α-inaccessible is a fixed point of every ψβ for β < α (the value ψα(λ) is the λth such cardinal). This process of taking fixed points of functions generating successively larger cardinals is commonly encountered in the study of large cardinal numbers.
+
+The term hyper-inaccessible is ambiguous and has at least three incompatible meanings. Many authors use it to mean a regular limit of strongly inaccessible cardinals (1-inaccessible). Other authors use it to mean that κ is κ-inaccessible. (It can never be κ+1-inaccessible.) It is occasionally used to mean Mahlo cardinal.
+
+The term α-hyper-inaccessible is also ambiguous. Some authors use it to mean α-inaccessible. Other authors use the definition that for any ordinal α, a cardinal κ is α-hyper-inaccessible if and only if κ is hyper-inaccessible and for every ordinal β < α, the set of β-hyper-inaccessibles less than κ is unbounded in κ.
+
+Hyper-hyper-inaccessible cardinals and so on can be defined in similar ways, and as usual this term is ambiguous.
+
+Using "weakly inaccessible" instead of "inaccessible", similar definitions can be made for "weakly α-inaccessible", "weakly hyper-inaccessible", and "weakly α-hyper-inaccessible".
+
+Mahlo cardinals are inaccessible, hyper-inaccessible, hyper-hyper-inaccessible, ... and so on.
+
+
 Fundamental sequences of OCF:
 https://sites.google.com/site/travelingtotheinfinity/the-extension-of-buchholz-s-function
 https://sites.google.com/site/travelingtotheinfinity/hypcos-s-notation-with-weakly-inaccessibles
 https://sites.google.com/site/travelingtotheinfinity/the-collapsing-functions-using-math-alpha-beta-math--weakly-inaccessible-cardinals
 
 https://www.sciencedirect.com/science/article/pii/0168007287900790
-
-
 
 
