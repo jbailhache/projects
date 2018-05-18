@@ -4,6 +4,7 @@
 \usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{comment}
 
@@ -5527,6 +5528,59 @@ This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as fol
 
 \item \( \ldots \)
 \end{itemize}
+
+
+\section{Cardinals}
+
+Each ordinal has a cardinality which is a cardinal number (or more briefly a cardinal). The cardinality is a generalization of the notion of number of elements of a set. Two sets have the same cardinality if there exist a bijection (a one-to-one correspondence) between them.
+The least ordinal whose cardinality is a given cardinal is called the initial ordinal of this cardinal.
+
+The cardinality of \( \omega \) is called \( \aleph_0 \), and it is also the cardinality of \( \omega+1, \omega \cdot 2, \omega^2, \omega^\omega, \epsilon_0, \Gamma_0, \ldots \) and more generally of any countable ordinal.
+
+\( \omega_1 \) is the least uncountable ordinal, and its cardinality is the cardinal \( \aleph_1 \).
+
+More generally, the cardinality of the ordinal \( \omega_\alpha \) is the cardinal \( \aleph_\alpha \).
+
+Some authors identify ordinals and cardinals, writing \( \omega_\alpha = \aleph_\alpha \).
+
+The cardinals \( \beth_\alpha \) are defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \beth_0 = \aleph_0 \)
+
+\item \( \beth_{\alpha+1} = 2^{\beth_\alpha} \)
+
+\item \( \beth_\lambda = sup \lbrace \beth_\xi | \xi < \lambda \) if \( \lambda \) is a limit ordinal
+
+\end{itemize}
+
+According to the generalized continuum hypothesis (GCH), \( \aleph_{\alpha+1} = 2^{\aleph_\alpha} \). If this hypothesis is accepted, then \( \aleph_\alpha = \beth_\alpha \) for any ordinal \( \alpha \).
+
+A cardinal \( \aleph_\alpha \) is said to be a limit cardinal if \( \alpha \) is a limit ordinal.
+
+A weakly inaccessible cardinal is a regular limit cardinal, or an uncountable regular limit cardinal according to some authors.
+
+It can be proved that if a cardinal \( \kappa \) is weakly inaccessible, then it is the \(\kappa\)-th fixed point of the function \( \xi \mapsto \aleph_\xi \). 
+
+See https://mathoverflow.net/questions/117806/if-k-is-weakly-inaccessible-then-it-is-the-k-th-aleph-fixed-point for the proof.
+ 
+Weakly inaccessible cardinals can be defined using Simmons notation.
+
+Remember this notation :
+
+\( Fix\ f \zeta = f^\omega (\zeta+1) \) is the least fixed point of f that is strictly greater than \( \zeta \).
+
+\( [0] h = Fix (\alpha \mapsto h^\alpha 0) \)
+
+If we define \( Next' = Fix (\xi \mapsto \aleph_\xi) \), then \( Next' \zeta \) is the least fixed point of the function \( \xi \mapsto \aleph_\xi \) which is strictly greater than \( \zeta \). In particular, \( Next' 0 \) is the least (or first) fixed point of \( \xi \mapsto \aleph_\xi \), \( Next' (Next' 0) = Next'^2 0 \) is its second fixed point, and more generally \( Next'^\alpha 0 \) is the \(\alpha\)-th fixed point of \( \xi \mapsto \aleph_\xi \).
+
+\( [0] Next' 0 = Fix (\alpha \mapsto Next'^\alpha 0) 0 \) is the least \( \kappa \) such that \( \kappa = Next'^\kappa 0 = \kappa\)-th fixed point of \( \xi \mapsto \aleph_\xi \), so it is the least (or first) weakly inaccessible cardinal. 
+
+More generally, \( ([0] Next')^\alpha 0 \) is the \(\alpha\)-th weakly inaccessible cardinal.
 
 
 \section{Summary}
