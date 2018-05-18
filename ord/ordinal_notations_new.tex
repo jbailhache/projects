@@ -301,11 +301,11 @@ The cofinality of an ordinal is defined by :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( cof\ 0 = 0 \)
+\item \( \operatorname{cof} 0 = 0 \)
 
-\item \( cof (suc\ \alpha) = 1 \)
+\item \( \operatorname{cof} (suc\ \alpha) = 1 \)
 
-\item \( cof (lim_\beta f) = \beta \) if there is no ordinal \( \gamma < \beta \) such that \( lim_\beta f = lim_\gamma g \).
+\item \( \operatorname{cof} (lim_\beta f) = \beta \) if there is no ordinal \( \gamma < \beta \) such that \( lim_\beta f = lim_\gamma g \).
 
 \end{itemize}
 
@@ -316,26 +316,47 @@ Examples :
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( cof\ 3 = 1 \)
+\item \( \operatorname{cof} 3 = 1 \)
 
-\item \( cof\ \omega = \omega \)
+\item \( \operatorname{cof} \omega = \omega \)
 
-\item \( cof (\omega+3) = 1 \)
+\item \( \operatorname{cof} (\omega+3) = 1 \)
 
-\item \( cof (\omega \cdot 2) = \omega \)
+\item \( \operatorname{cof} (\omega \cdot 2) = \omega \)
 
-\item \( cof\ \omega_1 = \omega_1 \)
+\item \( \operatorname{cof} \omega_1 = \omega_1 \)
 
-\item \( cof\ \omega_3 = \omega_3 \)
+\item \( \operatorname{cof} \omega_3 = \omega_3 \)
 
-\item \( cof\ \omega_\omega = \omega \)
+\item \( \operatorname{cof} \omega_\omega = \omega \)
 
-\item \( cof\ (\omega_\omega+1) = \omega_\omega+1 \)
+\item \( \operatorname{cof} \omega_{\omega+1} = \omega_{\omega+1} \)
 
 \end{itemize}
 
 A regular ordinal is an ordinal which is equal to its cofinality. A singular ordinal is an ordinal which is not regular.
-Assuming the axiom of choice, \( \omega_{\alpha+1} \) is regular for any ordinal \( \alpha \). The cofinality of any ordinal is a regular ordinal, which means \( cof(cof\ \alpha) = cof\ \alpha \).
+Assuming the axiom of choice, \( \omega_{\alpha+1} \) is regular for any ordinal \( \alpha \). The cofinality of any ordinal is a regular ordinal, which means \( \operatorname{cof}(\operatorname{cof} \alpha) = \operatorname{cof}\ \alpha \).
+
+\bigskip
+
+For example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \omega \) is regular because \( \operatorname{cof} \omega = \omega \)
+
+\item \( \omega \cdot 2 \) is singular because \( \operatorname{cof} (\omega \cdot 2) = \omega \)
+
+\item \( \omega_1 \) is regular because \( \operatorname{cof} \omega_1 = \omega_1 \)
+
+\item \( \omega_\omega \) is singular because \( \operatorname{cof} \omega_\omega = \omega \)
+
+\item \( \omega_{\alpha+1} \) is regular for all ordinal \( \alpha \).
+
+\end{itemize}
 
 \bigskip
 
