@@ -951,4 +951,86 @@ tableau des psi : autres exemples avec autres psi(0)
 implémentations Haskell
 
 
+a is regular iff cof(a) = a
+cof(cof(a)) = cof(a)
+cof(a) is regular
+a is singular iff a is not regular
+every regular ordinal is the initial ordinal of a cardinal
+w, aleph_0 regular
+cof(w.2) = w => w.2 is singular
+aleph_1, w_1 regular
+w_w is singular because cof(w_w) = w, also w_(w.2)
+w_(a+1) is regular
+a weakly inaccessible cardinal is regular and limit of regular ordinals, (uncountable) regular limit cardinal
+a limit cardinal is aleph_l where l is a limit
+aleph_k is weakly inaccessible => k limit, aleph_k regular
+           strongly inaccessible => weakly inaccessible and for all x in k, |p(x)| in k
+if k weakly inaccessible then k = aleph_l, l limit, cof(alpha_l) = cof(l) => l = k, k = aleph_k
+next aleph fixed point after b0 has cof w (sup_n b_n, b_(n+1) = aleph_(b_n))
+k weakly inaccessible : k is the k-th fixed point of [aleph_*] or [w_*]
+see https://mathoverflow.net/questions/117806/if-k-is-weakly-inaccessible-then-it-is-the-k-th-aleph-fixed-point?newreg=b277374799c14c6398ea73cc242f628b
+Fix [w_*] z = least fixed point of [w_*] > z
+N = fix (w_*]
+N^a 0 = a-th fixed point of [w_*]
+[0] N 0 = Fix [N^* 0] 0 = least k | k = N^k 0 = k-th fixed point of [w_*] = least inaccessible cardinal
+([0] N)^a 0 = a-th inaccessible cardinal
+k strongly inaccessible : k is the k-th fixed point of [beth_*]
+beth_0 = aleph_0 = w
+beth_(x+1) = 2^beth_x
+beth_l = sup{beth_x,x<l}
+strongly inaccessible => weakly inaccessible
+weakly inaccessible & GCH => strongly inaccessible
+GCH => (weakly inaccessible = strongly inaccessible)
+
+
+google:
+hyper inaccessible cardinal
+mahlo cardinal
+
+
+http://forums.xkcd.com/viewtopic.php?p=2585190#p2585190
+
+Define a cardinal to be 0-weakly inaccessible if it is a regular limit cardinal.
+(A cardinal alpha is regular if it is not the union of fewer than alpha many smaller ordinals;
+a cardinal is limit if it is ωα for α limit.)
+
+A cardinal is α+1-weakly inaccessible if it is an α-weakly inaccessible cardinal and a limit of α-weakly inaccessible cardinals.
+A cardinal is β-weakly inaccessible for β limit if it is α-weakly inaccessible for all α < β.
+
+A cardinal α is (1,0)-weakly inaccessible if it is α-weakly inaccessible.
+A cardinal α is (2,0)-weakly inaccessible if it is (1,α)-weakly inaccessible.
+A cardinal α is (α,0)-weakly inaccessible for α limit if it is (β,0)-weakly inaccessible for all β < α.
+
+A cardinal α is (1,0,0)-weakly inaccessible if it is (α,0)-weakly inaccessible.
+A cardinal α is (2,0,0)-weakly inaccessible if it is (1,α,0)-weakly inaccessible.
+A cardinal α is (α,0,0)-weakly inaccessible for α limit if it is (β,0,0)-weakly inaccessible for all β < α.
+
+
+http://googology.wikia.com/wiki/User_blog:Deedlit11/Ordinal_Notations_VI:_Up_to_a_weakly_compact_cardinal
+
+https://www.math.wisc.edu/~miller/old/m771-10/kunen770.pdf
+
+https://math.stackexchange.com/questions/477314/hyper-inaccessible-cardinals
+
+https://en.wikipedia.org/wiki/Inaccessible_cardinal#.CE.B1-inaccessible_cardinals_and_hyper-inaccessible_cardinals
+
+https://books.google.fr/books?id=wlOS6XvzBIkC&pg=PA249&lpg=PA249&dq=hyper+inaccessible+cardinal&source=bl&ots=1Tz6bR4FlU&sig=bm32hmkbEc7VIrs7yRIayZxLl8o&hl=fr&sa=X&ved=0ahUKEwi_pLfpwI3bAhXFPhQKHZ2wD-0Q6AEIkgEwCQ#v=onepage&q=hyper%20inaccessible%20cardinal&f=false
+
+A weak inaccessible is a regular cardinal k such that there are k smaller cardinals
+A hyperinaccessible cardinal is a regular k such that there are k smaller inaccessibles.
+A hyper-hyperinaccessible cardinal is a regular k such that there are k smaller hyperinaccessibles.
+k is 0-hyperinaccessible if it is inaccessible
+k is (a+1)-hyperinaccessible if it is regular and there are k smaller a-hyperinaccessibles
+For Lim(l), k is l-hyperinaccessible if it is a-hyperinaccessible for every a < l
+If k is Mahlo, then it is a-hyperinaccessible for every a <= k.
+
+Fundamental sequences of OCF:
+https://sites.google.com/site/travelingtotheinfinity/the-extension-of-buchholz-s-function
+https://sites.google.com/site/travelingtotheinfinity/hypcos-s-notation-with-weakly-inaccessibles
+https://sites.google.com/site/travelingtotheinfinity/the-collapsing-functions-using-math-alpha-beta-math--weakly-inaccessible-cardinals
+
+https://www.sciencedirect.com/science/article/pii/0168007287900790
+
+
+
 
