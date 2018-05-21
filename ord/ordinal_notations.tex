@@ -233,11 +233,29 @@ There are different ways to represent such a sequence :
 
 Some representations of ordinals use finite sequences of ordinals. Different ways of representing sequences are used by these representations, for example comma separated list for Veblen function with finitely many variables, matrix with values and ranks for Schütte bracket or Klammersymbol, or base \( \Omega \) representation for collapsing functions, where \( \Omega \) is an ordinal which is greater than all ordinals of the sequence, for example if we want to represent sequences of countable ordinals, we can use for \( \Omega \) the least uncountable ordinal \( \omega_1 \).
 
-\subsection{Cardinality of a set}
+\subsection{Set theory}
+
+A set is a well-determined unordered collection of elements. 
+
+\( a \in A \) means that a is an element of the set A.
+
+The set B is a subset of the set A if and only if each element of B is also an element of A. 
+
+A binary relation R on a set A is a set of ordered pairs (a, b) of elements of A. \( (a, b) \in R \) may be written a R b.
+
+
+
+\subsubsection{Cardinality of a set}
 
 The cardinality of a finite set is simply its number of elements.
 
 The cardinality can be generalized to infinite sets. Two sets have the same cardinality if there is a bijection between them, which is a relation that associates one element of the second set to any element of the first set and reciprocally. The cardinality of a set A is less than the cardinality of a set B if any element of A can be associated with an element of B but there are some elements of B which are not associated to any element of A. For example, the cardinality of the natural numbers is less than the cardinality of the real numbers.
+
+\subsubsection{Cofinal subsets}
+
+If A is a set with a binary relation R and B is a subset of A, then B is said to be a cofinal subset of A with respect to R if, for every \( a \in A \), there exists some \( b \in B \) such that a R b.
+
+When R is an order relation like \( "<" \) (less than), cofinal subsets are sometimes said to be unbounded.
 
 \section{Defining transfinite ordinal numbers}
 
@@ -270,7 +288,11 @@ Then we can go on building greater and greater ordinals : \( \omega \cdot 3, \ld
 
 \bigskip
 
-\( \omega \) is the least ordinal which has not a finite cardinality. We can define a sequence of ordinals \( \omega_k \) where k is a natural number by \( \omega_0 = \omega \) and \( \omega_{k+1} \) is the least ordinal whose cardinality is greater than the cardinality of \( \omega_k \).
+\( \omega \) is the least ordinal which has not a finite cardinality. 
+
+\( \omega_1 \) is the least uncountable ordinal (an uncountable ordinal is an ordinal whose cardinality is strictly greater than the cardinality of \( \omega \)), and is also the set of all countable ordinals (ordinals whose cardinality is less than or equal to the cardinality of \( \omega \)). This means that all ordinals less than \( \omega_1 \) are countable, and \( \omega_1 \) and all ordinals greater than it are uncountable.
+
+We can define a sequence of ordinals \( \omega_k \) where k is a natural number by \( \omega_0 = \omega \) and \( \omega_{k+1} \) is the least ordinal whose cardinality is greater than the cardinality of \( \omega_k \).
 
 \bigskip
 
@@ -405,6 +427,10 @@ Note that addition and multiplication are not commutative, for example \( 1+\ome
 \bigskip
 
 Also note that \( lim\ f = f(\omega) \) for some functions f, but not all. For example, if \(f(\alpha) = \omega+\alpha, lim\ f = sup \lbrace \omega, \omega+1, \omega+2, \ldots \rbrace = \omega+\omega = \omega \cdot 2 \), and also \(f(\omega) = \omega+\omega = \omega \cdot 2 \). But if \( f(\alpha) = \alpha \cdot 2, lim\ f = sup \lbrace 0, 2, 4, 6, \ldots \rbrace = \omega \), but \(f(\omega) = \omega+\omega = \omega \cdot 2 \).
+
+\bigskip
+
+A class of ordinals is said to be closed when the limit of a sequence of ordinals in the class is again in the class.
 
 \bigskip
 
@@ -5560,13 +5586,38 @@ The cardinals \( \beth_\alpha \) are defined by :
 
 According to the generalized continuum hypothesis (GCH), \( \aleph_{\alpha+1} = 2^{\aleph_\alpha} \). If this hypothesis is accepted, then \( \aleph_\alpha = \beth_\alpha \) for any ordinal \( \alpha \).
 
-A cardinal \( \aleph_\alpha \) is said to be a limit cardinal if \( \alpha \) is a limit ordinal.
+A cardinal \( \aleph_\alpha \) is said to be a limit cardinal (or weak limit cardinal) if \( \alpha \) is a limit ordinal.
+
+A cardinal \( \kappa \) is a strong limit cardinal if whenever \( \gamma < \kappa \) then \( 2^\gamma < \kappa \). Thus, the strong limit cardinals are those cardinals closed under the exponential operation. The strong limit cardinals are precisely the cardinals of the form \( \beth_\lambda \) for a limit ordinal \( \lambda \).
 
 A weakly inaccessible cardinal is a regular limit cardinal, or an uncountable regular limit cardinal according to some authors.
 
+A strongly inaccessible cardinal is a regular strong limit cardinal, or an uncountable regular strong limit cardinal according to some authors.
+
+Every strongly inaccessible cardinal is also weakly inaccessible, as every strong limit cardinal is also a weak limit cardinal. If the generalized continuum hypothesis holds, then a cardinal is strongly inaccessible if and only if it is weakly inaccessible.
+
+\bigskip
+
 It can be proved that if a cardinal \( \kappa \) is weakly inaccessible, then it is the \(\kappa\)-th fixed point of the function \( \xi \mapsto \aleph_\xi \). 
 
-See https://mathoverflow.net/questions/117806/if-k-is-weakly-inaccessible-then-it-is-the-k-th-aleph-fixed-point for the proof.
+Proof by Joel David Hamkins :
+
+https://mathoverflow.net/questions/117806/if-k-is-weakly-inaccessible-then-it-is-the-k-th-aleph-fixed-point 
+
+If $\kappa$ is weakly inaccessible, then it is a limit cardinal and hence $\kappa=\aleph_\lambda$
+for some limit ordinal $\lambda$. Since the cofinality of $\aleph_\lambda$ is
+the same as the cofinality of $\lambda$, it follows by the regularity of $\kappa$ that
+$\lambda=\kappa$, and so $\kappa=\aleph_\kappa$, an $\aleph$-fixed point. 
+
+The next
+$\aleph$-fixed point after any ordinal $\beta_0$ must have
+cofinality $\omega$, since it is $\sup_n\beta_n$, where
+$\beta_{n+1}=\aleph_{\beta_n}$. So if a weakly inaccessible
+$\kappa$ is the $\delta$-th $\aleph$-fixed point, it cannot be
+that $\delta$ is a successor ordinal, and so $\delta$ is a limit ordinal. Since the
+$\aleph$-fixed points are closed, this implies $\kappa$ has the same cofinality as $\delta$, and so by regularity it follows that $\kappa=\delta$ and thus, $\kappa$ is the $\kappa$-th fixed point.
+
+\bigskip
  
 Weakly inaccessible cardinals can be defined using Simmons notation.
 
@@ -5581,6 +5632,168 @@ If we define \( Next' = Fix (\xi \mapsto \aleph_\xi) \), then \( Next' \zeta \) 
 \( [0] Next' 0 = Fix (\alpha \mapsto Next'^\alpha 0) 0 \) is the least \( \kappa \) such that \( \kappa = Next'^\kappa 0 = \kappa\)-th fixed point of \( \xi \mapsto \aleph_\xi \), so it is the least (or first) weakly inaccessible cardinal. 
 
 More generally, \( ([0] Next')^\alpha 0 \) is the \(\alpha\)-th weakly inaccessible cardinal.
+
+\bigskip
+
+Degrees of inaccessibility can be defined for weak inaccessibility and for strong inaccessibility, so the following holds replacing "inaccessible" by "weakly inaccessible" or "strongly inaccessible".
+
+A cardinal \( \kappa \) is said to be 1-inaccessible if it is inaccessible and the following equivalent conditions hold :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \(\kappa\) is a limit of inaccessible cardinals
+
+\item There are \(\kappa\) inaccessible cardinals less than \( \kappa \) (or in \( \kappa \)).
+
+\item \(\kappa\) is the \(\kappa\)-th inaccessible cardinal, or equivalently \(\kappa\) is a fixed point of the function \( \xi \mapsto \xi\)-th inaccessible cardinal
+
+\end{itemize}
+
+These definitions can be generalized to any degree : \( \kappa \) is \((\alpha+1)\)-inaccessible if it is \(\alpha\)-inaccessible and the following equivalent conditions hold :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \(\kappa\) is a limit of \(\alpha\)-inaccessible cardinals
+
+\item There are \(\kappa\) \(\alpha\)-inaccessible cardinals less than \(\kappa\) (or in \(\kappa\))
+
+\item \(\kappa\) is the \(\kappa\)-th \(\alpha\)-inaccessible cardinal
+
+\end{itemize}
+
+More generally, \(\kappa\) is \(\alpha\)-inaccessible if it is inaccessible and for every \( \beta < \alpha \), the following equivalent conditions hold :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \(\kappa\) is a limit of \(\beta\)-inaccessible cardinals
+
+\item There are \(\kappa\) \(\beta\)-inaccessible cardinals less than \(\kappa\) (or in \(\kappa\))
+
+\item \(\kappa\) is the \(\kappa\)-th \(\beta\)-inaccessible cardinal
+
+\end{itemize}
+
+A cardinal \(\kappa\) is hyperinaccessible (or (1,0)-inaccessible) if it is \(\kappa\)-inaccessible.
+
+Degrees of hyperinaccessibility can be defined like degrees of inaccessibility : \(\kappa\) is \(\alpha\)-hyperinaccessible if it is inaccessible and, for every \( \beta < \alpha \), the following equivalent conditions hold : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \(\kappa\) is a limit of \(\beta\)-hyperinaccessible cardinals
+
+\item There are \(\kappa\) \(\beta\)-hyperinaccessible cardinals less than \(\kappa\) (or in \(\kappa\))
+
+\item \(\kappa\) is the \(\kappa\)-th \(\beta\)-hyperinaccessible cardinal
+
+\end{itemize}
+
+\(\kappa\) is hyperhyperinaccessible or hyper\(^2\)-inaccessible if it is \(\kappa\)-hyperinaccessible, and so on.
+
+More generally :
+
+\(\kappa\) is hyper\(^\alpha\)-inaccessible if it is hyperinaccessible and for every \( \beta < \alpha \), it is \(\kappa\)-hyper\(^\beta\)-inaccessible.
+
+\(\kappa\) is \(\alpha\)-hyper\(^\beta\)-inaccessible if it is hyper-\(^\beta\)-inaccessible and for every \( \gamma < \alpha \), the following equivalent conditions hold :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \(\kappa\)  it is a limit of \(\gamma\)-hyper\(^\beta\)-inaccessible cardinals
+
+\item There are \(\kappa\) \(\gamma\)-hyper\(^\beta\)-inaccessible cardinals less than \(\kappa\) (or in \(\kappa\))
+
+\item \(\kappa\) is the \(\kappa\)-th \(\gamma\)-hyper\(^\beta\)-inaccessible cardinal.
+
+\end{itemize}
+
+Sources : 
+
+http://cantorsattic.info/Inaccessible
+
+https://math.stackexchange.com/questions/477314/hyper-inaccessible-cardinals
+
+\bigskip
+
+Deedlit gives another definition of levels of inaccessibility in
+
+http://forums.xkcd.com/viewtopic.php?p=2585190\#p2585190 :
+
+\bigskip
+
+"Define a cardinal to be 0-weakly inaccessible if it is a regular limit cardinal.
+
+(A cardinal alpha is regular if it is not the union of fewer than alpha many smaller ordinals;
+a cardinal is limit if it is \(\omega\)\(\alpha\) for \(\alpha\) limit.)
+
+\bigskip
+
+A cardinal is \(\alpha\)+1-weakly inaccessible if it is an \(\alpha\)-weakly inaccessible cardinal and a limit of \(\alpha\)-weakly inaccessible cardinals.
+
+A cardinal is \(\beta\)-weakly inaccessible for \(\beta\) limit if it is \(\alpha\)-weakly inaccessible for all \(\alpha\) \(<\) \(\beta\).
+
+\bigskip
+
+A cardinal \(\alpha\) is (1,0)-weakly inaccessible if it is \(\alpha\)-weakly inaccessible.
+
+A cardinal \(\alpha\) is (2,0)-weakly inaccessible if it is (1,\(\alpha\))-weakly inaccessible.
+
+A cardinal \(\alpha\) is (\(\alpha\),0)-weakly inaccessible for \(\alpha\) limit if it is (\(\beta\),0)-weakly inaccessible for all \(\beta\) \(<\) \(\alpha\).
+
+\bigskip
+
+A cardinal \(\alpha\) is (1,0,0)-weakly inaccessible if it is (\(\alpha\),0)-weakly inaccessible.
+
+A cardinal \(\alpha\) is (2,0,0)-weakly inaccessible if it is (1,\(\alpha\),0)-weakly inaccessible.
+
+A cardinal \(\alpha\) is (\(\alpha\),0,0)-weakly inaccessible for \(\alpha\) limit if it is (\(\beta\),0,0)-weakly inaccessible for all \(\beta\) \(<\) \(\alpha\).
+
+and so on.
+
+\bigskip
+
+Denote (a@8,b@6,c@4,d@1) to mean (a,0,b,0,c,0,0,d), for instance. This notation allows us to go express transfinite places like (1@\(\omega\))
+
+\bigskip
+
+A cardinal is (1@\(\omega\))-weakly inaccessible if it is (1@n)-weakly inaccessible for all n \(<\) \(\omega\).
+
+A cardinal is (2@\(\omega\))-weakly inaccessible if it is (1@\(\omega\),1@n)-weakly inaccessible for all n \(<\) \(\omega\).
+
+A cardinal \(\alpha\) is (\(\alpha\)@\(\omega\))-weakly inaccessible for \(\alpha\) limit if it is (\(\beta\)@\(\omega\))-weakly inaccessible for all \(\beta\) \(<\) \(\alpha\)."
+
+\section{Collapsing large cardinals}
+
+Collapsing functions can be used to collapse large cardinals to produce large ordinals.
+
+Some examples of such collapsing functions are given in :
+
+https://sites.google.com/site/travelingtotheinfinity/
+
+http://googology.wikia.com/wiki/Ordinal\_notation
+
+http://googology.wikia.com/wiki/List\_of\_systems\_of\_fundamental\_sequences
+
+
+\begin{comment}
+An example of such functions are the "Hypcos's functions" which collapses weakly inaccessible cardinals, described in
+
+https://sites.google.com/site/travelingtotheinfinity/hypcos-s-notation-with-weakly-inaccessibles.
+\end{comment}
+
 
 
 \section{Summary}
