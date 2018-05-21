@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  21 MAY 2018 16:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  21 MAY 2018 16:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -640,43 +640,44 @@ Overfull \hbox (20.10545pt too wide) in paragraph at lines 5146--5146
 st(next(a))), psi2(level+1,first(next(next(a)))));[] 
  []
 
-[56] [57] [58] [59] [60] [61] [62] [63] [64] [65] [66]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 5856--5892
+[56] [57] [58] [59] [60] [61] [62] [63] [64] [65] Excluding 'comment' comment.
+[66]
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 5876--5912
 [] 
  []
 
 
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 5900--5902
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 5920--5922
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
-
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 5903--5905
+[67]
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 5923--5925
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-[67]
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 5936--5938
+
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 5956--5958
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 5942--5945
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 5962--5965
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 5959--5960
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 5979--5980
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 5964--5966
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 5984--5986
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
@@ -709,7 +710,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (68 pages, 433750 bytes).
+Output written on ordinal_notations_new.pdf (68 pages, 433966 bytes).
 PDF statistics:
  305 PDF objects out of 1000 (max. 8388607)
  212 compressed objects within 3 object streams
