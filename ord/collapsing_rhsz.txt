@@ -1052,3 +1052,29 @@ https://sites.google.com/site/travelingtotheinfinity/the-collapsing-functions-us
 https://www.sciencedirect.com/science/article/pii/0168007287900790
 
 
+Correspondence Veblen - inaccessible cardinals
+
+Veblen                                         Inaccessible cardinals
+[w^*]                                          [w_*] = [aleph_*]
+Next = Fix [w^*]                               NEXT = Fix [w_*] 
+e_0 = w^...^w = Next 0                         E_0 = w_...__0 = NEXT 0
+e_1 = w^...^w^(e_0+1) = Next (Next 0)          E_1 = w_..._w_(E_0+1) = NEXT (NEXT 0)
+z_0 = e_..._e_0 = [0] Next 0                   Z_0 = E_..._E_0 = [0] NEXT 0 = least weakly inaccessible cardinal
+with [0] h = Fix [h^* 0]
+z_1 = e_..._e_(z_0+1) = ([0] Next)^2 0         Z_1 = E_..._E_(Z_0+1) = ([0] NEXT)^2 0 = 2nd weakly inaccessible cardinal
+z_a = ([0] Next)^a 0                           Z_a = ([0] NEXT)^a 0 = a-th weakly inaccessible cardinal
+eta_0 = phi(3,0) = phi'(2,1)                   least 1-weakly inaccessible = least k | k is the k-th weakly inaccessible
+phi'(2,a)                                      a-th 1-weakly inaccessible = PHI'(2,a)
+
+least a-weakly inaccessible = [0]^(1+a) NEXT 0 = PHI(2+a,0) = PHI'(1+a,1)
+b-th a-weakly inaccessible = ([0]^(1+a) NEXT)^b 0 = PHI'(1+a,b)
+
+                                               k = least hyper weakly inaccessible = least (1,0)-inaccessible = leask k | k is k-weakly inaccessible 
+                                               k = ([0]^k NEXT)^b 0
+                                               k = [0]^k NEXT 0 = Fix [[0]^* NEXT 0] 0
+Gamma_0 = [1] [0] Next 0 = phi(1,0,0)          K = [1] [0] NEXT 0 = PHI(1,0,0)
+                                               a-th (d,c,b)-weakly inaccessible = PHI(d,c,b,a) = Deedlit's I(d,c,b,a) 
+                                               see http://forums.xkcd.com/viewtopic.php?p=2585190#p2585190
+
+
+
