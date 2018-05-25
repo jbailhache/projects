@@ -1098,10 +1098,31 @@ least 1-winac = [0] ([0] NEXT) 0 = [0]^2 NEXT 0 = PHI(3,0) = PHI'(2,1) = H_0 = H
 least a-winac = [0]^(1+a) NEXT 0 = PHI(2+a,0) = PHI'(1+a,1)
 k hyperwinac : k is k-winac : k = [0]^k NEXT 0
 least : k = [1] [0] NEXT 0 = Fix [[0]^* NEXT 0] 0
+second : Fix [[0]^* NEXT 0] (([1] [0] NEXT 0)+1) = [1] [0] NEXT ([1] [0] NEXT 0) = ([1] [0] NEXT)^2 0
+a-th hyperwinac = ([1] [0] NEXT)^a 0
+k is 1-hyperwinac ik k is the k-th hyperwinac : k = ([1] [0] NEXT)^k 0
+least : Fix [([1] [0] NEXT)^* 0] 0 = [0] ([1] [0] NEXT) 0
+2nd : ([0] ([1] [0] NEXT))^2 0
+a-th ([0] ([1] [0] NEXT))^a 0
+k is 2-hyperwinac : k is the k-th 1-hyperwinac : k = ([0] ([1] [0] NEXT))^k 0
+least 2-hyperwinal = [0] ([0] ([1] [0] NEXT)) 0 = [0]^2 ([1] [0] NEXT) 0
+a-th 2-hyperwinac = ([0]^2 ([1] [0] NEXT))^a 0
 
+recapitulation
+a-th hyperwinac = ([1] [0] NEXT)^a 0 = a-th (1,0)-winac = PHI'(1,0,a)
+a-th 1-hyperwinac = ([0] ([1] [0] NEXT))^a 0 = a-th (1,1)-winac = PHI'(1,1,a)
+a-th 2-hyperwinac = ([0]^2 ([1] [0] NEXT))^a 0  = a-th (1,2)-winac = PHI'(1,2,a)
+a-th b-hyperwinac = ([0]^b ([1] [0] NEXT))^a 0 = PHI'(1,b,a)
 
+k hyperhyperwinac = hyper^2-winac : k = [0]^k ([1] [0] NEXT) 0
+least : [1] [0] ([1] [0] NEXT) 0 = ([1] [0])^2 NEXT 0 = PHI'(2,0,1)
+least hyper^c-winac = ([1] [0])^c NEXT 0 = PHI'(c,0,1)
+a-th hyper^c-winac = (([1] [0])^c NEXT)^a 0 = PHI'(c,0,a)
+k is 1-hyper^c-winac : k is the k-th hyper^c-winac : k = (([1] [0])^c NEXT)^k 0
+least : k = [0] (([1] [0])^c NEXT) 0 = PHI'(c,1,1)
+least b-hyper^c-winac : k = [0]^b (([1] [0])^c NEXT) 0
+a-th b-hyper^c-winac = ([0]^b (([1] [0])^c NEXT))^a 0 = PHI'(c,b,a)
+cf phi'(c,b,a) = ([0]^b (([1] [0])^c Next))^a 0
 
-
-Veblen rationalization
 
 
