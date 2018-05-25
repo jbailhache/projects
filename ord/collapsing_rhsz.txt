@@ -1076,5 +1076,32 @@ Gamma_0 = [1] [0] Next 0 = phi(1,0,0)          K = [1] [0] NEXT 0 = PHI(1,0,0)
                                                a-th (d,c,b)-weakly inaccessible = PHI(d,c,b,a) = Deedlit's I(d,c,b,a) 
                                                see http://forums.xkcd.com/viewtopic.php?p=2585190#p2585190
 
+reminders
+Simmons
+Fix f z = f^w(z+1)
+[0] h = Fix [h^* 0]
+[1] h g = Fix [h^* g 0]
+Veblen rationalization
+phi(1+b,a) = phi'(b,1+a)
+phi(1+b,a) = ([0]^b Next)^(1+a) 0
+phi'(b,a) = ([0]^b Next)^a 0
+
+NEXT = Fix [aleph_*]
+NEXT 0 = E_0 = E'_1 = 1st fp of [aleph_*] = aleph_..._aleph_0
+NEXT (NEXT 0) = NEXT^2 0 = E_1 = E'_2 = 2nd fp of [aleph_*] = aleph_..._aleph_(E_0+1)
+NEXT^a 0 = a-th fp of [aleph_*]
+least weakly inaccessible k = NEXT^k 0 = E'_..._E'_0 = Z_0 = Z'_1 = [0] NEXT 0 = Fix [NEXT^* 0] 0 = PHI(2,0) = PHI'(1,1)
+2nd winac = ([0] NEXT)^2 0 = Z_1 = Z'_2 = PHI(2,1) = PHI'(1,2)
+a-th winac = ([0] NEXT)^a 0 = Z'_a = PHI'(1,a)
+k 1-winac : k is the k-th winac : k = ([0] NEXT)^k 0 = PHI'(1,K)
+least 1-winac = [0] ([0] NEXT) 0 = [0]^2 NEXT 0 = PHI(3,0) = PHI'(2,1) = H_0 = H'_1
+least a-winac = [0]^(1+a) NEXT 0 = PHI(2+a,0) = PHI'(1+a,1)
+k hyperwinac : k is k-winac : k = [0]^k NEXT 0
+least : k = [1] [0] NEXT 0 = Fix [[0]^* NEXT 0] 0
+
+
+
+
+Veblen rationalization
 
 
