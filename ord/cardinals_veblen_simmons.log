@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  26 MAY 2018 23:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  27 MAY 2018 08:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -401,15 +401,16 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 17.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+Excluding 'comment' comment. [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./cardinals_veblen_simmon
 s.aux) ) 
 Here is how much of TeX's memory you used:
- 1856 strings out of 495020
- 22424 string characters out of 6181324
- 86897 words of memory out of 5000000
- 5082 multiletter control sequences out of 15000+600000
+ 1858 strings out of 495020
+ 22442 string characters out of 6181324
+ 88897 words of memory out of 5000000
+ 5084 multiletter control sequences out of 15000+600000
  5339 words of font info for 22 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,4n,24p,632b,111s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -422,7 +423,7 @@ ist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmsy7.pfb>
-Output written on cardinals_veblen_simmons.pdf (1 page, 91779 bytes).
+Output written on cardinals_veblen_simmons.pdf (1 page, 94634 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  31 compressed objects within 1 object stream
