@@ -5619,6 +5619,7 @@ $\aleph$-fixed points are closed, this implies $\kappa$ has the same cofinality 
 
 \bigskip
  
+\begin{comment}
 Weakly inaccessible cardinals can be defined using Simmons notation.
 
 Remember this notation :
@@ -5634,6 +5635,7 @@ If we define \( Next' = Fix (\xi \mapsto \aleph_\xi) \), then \( Next' \zeta \) 
 More generally, \( ([0] Next')^\alpha 0 \) is the \(\alpha\)-th weakly inaccessible cardinal.
 
 \bigskip
+\end{comment}
 
 Degrees of inaccessibility can be defined for weak inaccessibility and for strong inaccessibility, so the following holds replacing "inaccessible" by "weakly inaccessible" or "strongly inaccessible".
 
@@ -5796,7 +5798,89 @@ A cardinal \(\gamma\) is (a1@b1, a2@b2,..., an@bn)-weakly inaccessible (with an 
 
 \bigskip
 
-Finally, we define I(a1@b1, a2@b2,..., an@bn,c@0) to be the c'th (a1@b1, a2@b2,..., an@bn)-weakly inaccessible cardinal.
+Finally, we define I(a1@b1, a2@b2,..., an@bn,c@0) to be the c'th (a1@b1, a2@b2,..., an@bn)-weakly inaccessible cardinal."
+
+\bigskip
+
+There is a correspondence between inaccessible cardinals and Veblen and Simmons hierarchies.
+
+In both case, there is a function f that, given some ordinal \( \alpha \), produces a greater ordinal \( f(\alpha) \). A way to get large ordinals is to enumerate the fixed points of this function. For Veblen and Simmons hierarchies, this function is \( \xi \mapsto \omega^\xi \) or \( [\omega^\bullet] \), and for inaccessible cardinals it is \( \xi \mapsto \aleph_\xi \) or \( [\aleph_\bullet] \). 
+
+The least fixed point of \( \xi \mapsto \omega^\xi \) is \( \varepsilon_0 =  \varepsilon'_1 = \varphi(1,0) = \varphi'(0,1) \). It is the limit of \( \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \). In a similar way, we can define \( E_0 = E'_1 = \Phi(1,0) = \Phi'(0,1) \) as the least fixed point of \( \xi \mapsto \aleph_\xi \), which is the limit of \( \aleph_0, \aleph_{\aleph_0}, \aleph_{\aleph_{\aleph_0}}, \ldots \).
+
+Then, like we have defined \( \varepsilon_1 = \varepsilon'_2 = \varphi(1,1) = \varphi'(0,2) \) as the second fixed point of \( \xi \mapsto \omega^\xi \), we can define \( E_1 = E'_2 \) as the second fixed point of \( \xi \mapsto \aleph_\xi \), which is the limit of \( E_0+1, \aleph_{E_0+1}, \aleph_{\aleph_{E_0+1}}, \ldots \).
+
+More generally, like we defined \( \varepsilon_\alpha = \varepsilon'_{1+\alpha} \) as the \(1+\alpha\)-th fixed point of \( \xi \mapsto \omega^\xi \), we can define \( E_\alpha = E'_{1+\alpha} \) as the \(1+\alpha\)-th fixed point of \( \xi \mapsto \aleph_\xi \).
+
+Then, like we defined \( \zeta_0 = \zeta'1 = \varphi(2,0) = \varphi'(1,1) \) as the least fixed point of \( \xi \mapsto \varepsilon_\xi \), the limit of \( \varepsilon_0, \varepsilon_{\varepsilon_0}, \ldots \), we can define \( Z_0 = Z'_1 \) as the least fixed point of \( \xi \mapsto E_\xi \), the limit of \( E_0, E_{E_0}, \ldots \).
+This is the least ordinal \( \kappa \) such that \( \kappa = E_\kappa = \kappa\)-th fixed point of \( \xi \mapsto \aleph_\xi \) (the "1+" being absorbed). This is the least weakly inaccessible ordinal.
+
+\bigskip
+
+We can also use the Simmons notation to produce weakly inaccessible cardinals.
+
+Remember this notation : 
+
+\( Fix f \zeta = f^\omega (\zeta+1) \) is the least fixed point of f that is strictly greater than \( \zeta \).
+
+\( [0] h = Fix (\alpha \mapsto h^\alpha 0) \)
+
+\( [1] h g = Fix (\alpha \mapsto h^\alpha g 0)  \)
+
+\( [2] h g f = Fix (\alpha \mapsto h^\alpha g f 0) \)
+
+Like we defined the function \( \operatorname{NEXT} = Fix (\xi \mapsto \omega^\xi)\) which gives the next \( \varepsilon \) ordinal after a given ordinal, we can define the function \( \operatorname{NEXT} = Fix (\xi \mapsto \aleph_\xi) \) which gives the next fixed point of \( \xi \mapsto \aleph_\xi \) after a given ordinal or cardinal. For example, NEXT 0 is the least fixed point of \( \xi \mapsto \aleph_\xi, \operatorname{NEXT} (\operatorname{NEXT} 0) = \operatorname{NEXT}^2 0 \) is the second one, and more generally \( \operatorname{NEXT}^\alpha 0\) is the \(\alpha\)-th fixed point.
+
+[0] NEXT 0 = Fix \( (\alpha \mapsto \operatorname{NEXT}^\alpha 0) 0 \) is the least \( \kappa \) such that \( \kappa = \operatorname{NEXT}^\kappa 0 = \kappa\)-th fixed point of \( \xi \mapsto \aleph_\xi \), which is the least weakly inaccessible cardinal.
+
+More generally, \( ([0] \operatorname{NEXT})^\alpha 0 = Z'_\alpha = \Phi'(1,\alpha) \) is the \(\alpha\)-th weakly inaccessible cardinal.
+
+The least 1-weakly inaccessible cardinal is the least \( \kappa \) such that \( \kappa \) is the \(\kappa\)-th weakly inaccessible cardinal, which can be written \( \kappa = ([0] \operatorname{NEXT})^\kappa 0 \). This \( \kappa \) is \( [0] ([0] \operatorname{NEXT}) 0 = [0]^2 \operatorname{NEXT} 0 = \Phi(3,0) = \Phi'(2,1) \).
+
+The \(\alpha\)-th 1-weakly inaccessible cardinal is \( [0]^2 \operatorname{NEXT})^\alpha 0 \).
+
+The least 2-weakly inaccessible cardinal is the least \( \kappa \) such that \( \kappa \) is the \(\kappa\)-th 1-weakly inaccessible cardinal, which can be written \( \kappa = ([0]^2 \operatorname{NEXT})^\kappa 0 \). This \( \kappa \) is \( [0] ([0]^2 \operatorname{NEXT}) 0 = [0]^3 \operatorname{NEXT} 0 = \Phi(4,0) = \Phi'(3,1) \).
+
+More generally, the least \(\alpha\)-weakly inaccessible cardinal is \( [0]^{1+\alpha} \operatorname{NEXT} 0 = \Phi(2+a,0) = \Phi'(1+a,1) \) and the \(\beta\)-th \(\alpha\)-weakly inaccessible cardinal is \( ([0]^{1+\alpha} \operatorname{NEXT})^\beta 0 = \Phi'(1+\alpha,\beta) \).
+
+The least hyper-weakly inaccessible cardinal is the least \( \kappa \) such that \( \kappa \) is \(\kappa\)-inaccessible, which can be written \( \kappa = [0]^\kappa \operatorname{NEXT} 0 \). This \( \kappa \) is \( [1] [0] \operatorname{NEXT} 0 = \Phi(1,0,0) \).
+
+The second one is \( ([1] [0] \operatorname{NEXT})^2 0 \), and more generally the \(\alpha\)-th one is \( ([1] [0] \operatorname{NEXT})^\alpha 0 \).
+
+Then, \( \kappa \) is 1-hyper-weakly inaccessible if \( \kappa \) is the \(\kappa\)-th hyper-weakly inaccessible cardinal, which can be written \( \kappa = ([1] [0] \operatorname{NEXT})^\kappa 0 \). This is [0] ([1] [0] NEXT) 0. The second one is \( ([0] ([1] [0] \operatorname{NEXT}))^2 0 \), and the \(\alpha\)-th one is \( ([0] ([1] [0] \operatorname{NEXT}))^\alpha 0 \).
+
+Similarily, the least 2-hyper-weakly inaccessible cardinal is \( [0]^2 ([1] [0] \operatorname{NEXT}) 0 \) and the \(\alpha\)-th one is \( ([0]^2 ([1] [0] \operatorname{NEXT}))^\alpha 0 \).
+
+More generally, the \(\alpha\)-th \(\beta\)-hyper-weakly inaccessible cardinal is \( ([0]^\beta ([1] [0] \operatorname{NEXT}))^\alpha 0 = \Phi'(1,\beta,\alpha) \).
+
+The least hyper-hyper-weakly inaccessible cardinal, or hyper\(^2\) weakly inaccessible cardinal is the least \( \kappa \) such that \( \kappa \) is \(\kappa\)-hyper-weakly inaccessible, or \( \kappa = [0]^\kappa ([1]  [0] \operatorname{NEXT}) 0 \), which is  \( [1] [0] ([1] [0] \operatorname{NEXT}) 0  = ([1] [0])^2 \operatorname{NEXT} 0 \).
+
+More generally, the least hyper\(^\gamma\)-weakly inaccessible cardinal is \( ([1] [0])^\gamma \operatorname{NEXT} 0 \), and the \(\alpha\)-th one is \( (([1] [0])^\gamma \operatorname{NEXT})^\alpha 0 \).
+
+The least 1-hyper\(^\gamma\)-weakly inaccessible cardinal is the least \( \kappa \) such that \( \kappa \) is the \(\kappa\)-th hyper\(^\gamma\)-weakly inaccessible cardinal, or \( \kappa = (([1] [0])^\gamma \operatorname{NEXT})^\kappa 0 \). This \( \kappa \) is \( [0] (([1] [0])^\gamma \operatorname{NEXT}) 0 \).
+
+More generally, the least \(\beta\)-hyper\(^\gamma\)-weakly inaccessible cardinal is \( [0]^\beta (([1] [0])^\gamma \operatorname{NEXT}) 0 \).
+
+Finally, the \(\alpha\)-th \(\beta\)-hyper\(^\gamma\)-weakly inaccessible cardinal is \( ([0]^\beta (([1] [0])^\gamma \operatorname{NEXT}))^\alpha 0 = \Phi'(\gamma,\beta,\alpha) \).
+
+We can also define higher inaccessiblility degrees corresponding to \( \Phi'(\delta,\gamma,\beta,\alpha) \) and so on, with finitely and transfinitely many variables.
+
+
+\bigskip
+
+In "Force to change large cardinal strength" ( https://arxiv.org/pdf/1506.03432.pdf ) Erin Carmody defines greatly inaccessible cardinals which have every possible inaccessible degree.
+Carmody shows that a cardinal is greatly inaccessible if and only if it is Mahlo. 
+In  page 3 (page 11 of PDF document) Erin Carmody says "Since greatly
+inaccessible cardinals are every possible inaccessible degree, as defined in chapter 1, Mahlo
+cardinals are every possible inaccessible degree defined".
+Having every possible inaccessible degrees is the equivalent of being greater than any ordinal definable with the Veblen function with transfinitely many variables, or with Schütte Klammersymbols, whose limit is the large Veblen ordinal which can be written "[2] [1] [0] Next 0" with Simmons notation. 
+So the least Mahlo cardinal can be written "[2] [1] [0] NEXT 0".
+
+\begin{comment}
+In  page 3 of "Force to change large cardinal strength" ( https://arxiv.org/pdf/1506.03432.pdf ) (page 11 of PDF document) Erin Carmody says "Since greatly
+inaccessible cardinals are every possible inaccessible degree, as defined in chapter 1, Mahlo
+cardinals are every possible inaccessible degree defined", every possible inaccessible degree being the equivalent of Veblen function with transfinitely many variables, or Schütte Klammersymbols, whose limit is the large Veblen ordinal, written [2] [1] [0] Next 0, so the least Mahlo cardinal can be written [2] [1] [0] NEXT 0.
+\end{comment}
 
 
 \section{Collapsing large cardinals}
