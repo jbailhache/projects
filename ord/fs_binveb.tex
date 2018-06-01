@@ -1,0 +1,30 @@
+\documentclass[10pt]{article}
+\begin{document}
+
+Fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \):
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
+
+\item \(\varphi_0(0) = 1\),
+
+\item \(\varphi_0(\gamma+1) [n] = \varphi_0(\gamma) n\)
+
+\item \(\varphi_{\beta+1}(0) [0] = 0 \) and \(\varphi_{\beta+1}(0) [n+1] = \varphi_{\beta}(\varphi_{\beta+1}(0) [n]) \),
+
+\item \(\varphi_{\beta+1}(\gamma+1) [0] = \varphi_{\beta+1}(\gamma)+1 \,\) and \(\varphi_{\beta+1}(\gamma+1) [n+1] = \varphi_{\beta} (\varphi_{\beta+1}(\gamma+1) [n]) \),
+
+\item \(\varphi_{\beta}(\gamma) [n] = \varphi_{\beta}(\gamma [n])\) for a limit ordinal \(\gamma<\varphi_\beta(\gamma)\),
+
+\item \(\varphi_{\beta}(0) [n] = \varphi_{\beta [n]}(0)\) for a limit ordinal \(\beta<\varphi_\beta(0)\),
+
+\item \(\varphi_{\beta}(\gamma+1) [n] = \varphi_{\beta [n]}(\varphi_{\beta}(\gamma)+1)\) for a limit ordinal \(\beta\).
+
+\end{itemize}
+
+\end{document}
+
