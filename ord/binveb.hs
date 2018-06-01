@@ -26,7 +26,7 @@ module Binveb where
 
  deriv f = nabla (opItw f)
 
- binveb Zero = nabla (opLim (iter (cantor Zero)))
+ binveb Zero = cantor Zero
  binveb (Suc a) = nabla (opLim (iter (binveb a)))
  binveb (Lim f) = nabla (opLim (\n -> binveb (f n)))
 
