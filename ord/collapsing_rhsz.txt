@@ -1125,4 +1125,12 @@ a-th b-hyper^c-winac = ([0]^b (([1] [0])^c NEXT))^a 0 = PHI'(c,b,a)
 cf phi'(c,b,a) = ([0]^b (([1] [0])^c Next))^a 0
 
 
+FS -> recursive definition
+
+binary Veblen
+
+next such that [0] next 0 = e_0 ?
+next a = a.w with [0] h = Fix [h^* 1]
+or next a = (1+a).w
+next a = Fix f a ?
 
