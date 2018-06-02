@@ -5,7 +5,7 @@ This function can be defined with fundamental sequences.
 
 The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \) are :
 
-\begin{itemize}
+\begin{enumerate}
      \setlength{\itemsep}{1pt}
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
@@ -26,7 +26,27 @@ The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \va
 
 \item \(\varphi_{\beta}(\gamma+1) [n] = \varphi_{\beta [n]}(\varphi_{\beta}(\gamma)+1)\) for a limit ordinal \(\beta\).
 
-\end{itemize}
+\end{enumerate}
+
+These fundamental sequences can be reformulated to get a definition of the function \( \varphi \).
+
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item This does not concern the definition of the \( \varphi \) function but the definition of addition
+
+\item and
+
+\item are equivalent to \( \varphi_0(\gamma) = \omega^\gamma \).
+
+\item \( \varphi_{\beta+1}(0) = lim (n \mapsto {\varphi_\beta}^n(0)) = {\varphi_\beta}^\omega(0) \) which is the least fixed point of \( \varphi_\beta \).
+
+\item \( \varphi_{\beta+1}(\gamma+1) = lim (n \mapsto {\varphi_\beta}^n (\varphi_{\beta+1}(\gamma)+1)) \), which is the least fixed point of \( \varphi_\beta \) strictly greater than \( \varphi_{\beta+1}(\gamma) \), so \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of \( \varphi_\beta \).
+
+\end{enumerate}
+
 
 \end{document}
 
