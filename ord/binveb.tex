@@ -1,6 +1,68 @@
 \documentclass[10pt]{article}
 \begin{document}
 
+More information about this function can be fount at :
+
+http://googology.wikia.com/wiki/Veblen\_function 
+
+\bigskip
+
+Every non-zero ordinal \(\alpha<\Gamma_0\), where \(\Gamma_0\) is the smallest ordinal \(\alpha\) such that \(\varphi_\alpha(0)=\alpha\), can be uniquely written in normal form for the Veblen hierarchy:
+
+\(\alpha=\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k)\),
+
+where
+
+\(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\)
+\(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,...,k\}\)
+
+\bigskip
+
+Now we will see how we can find the fundamental sequence of an ordinal written in this notmal form.
+
+From the rule defining addition of a limit ordinal :
+\[ \alpha + lim(f) = lim (n \mapsto \alpha + f(n)) \]
+we deduce the fundamental sequence :
+\[ (\alpha + \beta)[n] = \alpha + \beta[n] \]
+if \( \beta \) is a limit ordinal. 
+
+In particular, we have :
+
+\((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
+
+Then, \( \varphi_0(\gamma) \) is \( \omega^\gamma \).
+
+For \( \gamma = 0 \) it is 1.
+
+From the rule of multiplication by a limit ordinal :
+
+\( \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
+
+we deduce the fundamental sequence :
+
+\( (\alpha \cdot \beta)[n] = \alpha \cdot \beta[n] \)
+if \( \beta \) is a limit ordinal.
+
+In particular, for \( \omega \) :
+
+\( (\alpha \cdot \omega)[n] = \alpha \cdot \omega[n] = \alpha \cdot n \)
+
+Then we have :
+
+\( \varphi_0(\gamma+1) = \omega^{\gamma+1} = \omega^\gamma \cdot \omega = \varphi_0(\gamma) \cdot \omega \)
+
+So the corresponding fundamental sequence is : 
+
+\( \varphi_0(\gamma+1)[n] = (\varphi_0(\gamma) \cdot \omega)[n] = \varphi_0(\gamma) \cdot n \)
+
+If \( \gamma \) is a limit ordinal, the fundamental sequence is defined canonically :
+
+\( \varphi_0(\gamma)[n] = \varphi_0(\gamma[n]) \)
+
+
+
+\bigskip
+
 This function can be defined with fundamental sequences.
 
 The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \) are :
