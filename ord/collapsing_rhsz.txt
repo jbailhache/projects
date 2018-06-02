@@ -1129,8 +1129,62 @@ FS -> recursive definition
 
 binary Veblen
 
+
+module Binveb where
+ 
+ data Nat 
+  = ZeroN 
+  | SucN Nat
+
+ data Ord 
+  = Zero 
+  | Suc Ord 
+  | Lim (Nat -> Ord)
+
+ iter f ZeroN x = x
+ iter f (SucN n) x = f (iter f n x)
+
+ opLim f a = Lim (\n -> f n a)
+
+ opItw f = opLim (iter f)
+
+ cantor a Zero = Suc a
+ cantor a (Suc b) = opItw (\x -> cantor x b) a
+ cantor a (Lim f) = Lim (\n -> cantor a (f n))
+
+ nabla f Zero = f Zero
+ nabla f (Suc a) = f (Suc (nabla f a))
+ nabla f (Lim h) = Lim (\n -> nabla f (h n))
+
+ deriv f = nabla (opItw f)
+
+ binveb Zero = cantor Zero
+ binveb (Suc a) = nabla (opLim (iter (binveb a)))
+ binveb (Lim f) = nabla (opLim (\n -> binveb (f n)))
+
+
+iter f n x = f^n x
+
+opItw f = f^w
+
+cantor a b = a + b^w
+
+nabla f 0 = f 0
+nabla f 1 = f (suc (f 0))
+nabla f 2 = f (suc (f (suc (f 0))))
+
+deriv f = nabla (oplim (iter f)) = enum fp of f
+deriv f a = 1+a-th fp of f
+
+binveb 0 a = e_a
+binveb 1 a = z_a
+binveb a b = phi(1+a,b)
+
+
 next such that [0] next 0 = e_0 ?
 next a = a.w with [0] h = Fix [h^* 1]
 or next a = (1+a).w
 next a = Fix f a ?
+
+
 
