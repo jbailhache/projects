@@ -81,6 +81,10 @@ and
 
 \( \varphi_\beta(\gamma+1)[n] = \varphi_{\beta[n]}(\varphi_\beta(\gamma)+1) \)
 
+Note that if we remove the condition \( \beta < \varphi_\beta(0) \) there is a problem. For example, if we take \( \beta = \Gamma_0 \) the least fixed point of the function \( \xi \mapsto \varphi_\xi(0) \), then we have \( \varphi_{\Gamma_0}(0) = \Gamma_0 \).
+A fundamental sequence of \( \Gamma_0 \) is \( \Gamma_0[0] = 0, \Gamma_0[1] = \varphi_0(0) = \omega^0 = 1, \Gamma_0[2] = \varphi_1(0) = \varepsilon_0, \ldots \).
+ Then we have \( \varphi_{\Gamma_0}(0)[0] = \Gamma_0[0] = 0 \), but \( \varphi_{\Gamma_0[0]}(0) = \varphi_0(0) = \omega^0 = 1 \).
+
 \bigskip
 
 Let us recap now the results we obtained.
@@ -121,6 +125,55 @@ From these fundamental sequences, we can retrieve the initial definition of the 
 
 (7), (8) and (6) for \( \beta \) limit ordinal complete the definition of \( \varphi_\beta(\gamma) \) for \( \beta \) limit ordinal.
 
+\bigskip
+
+Here is an Haskell implementation of the \( \varphi \) function : 
+
+\begin{verbatim}
+
+module Phi where
+ 
+ data Nat 
+  = ZeroN 
+  | SucN Nat
+
+ data Ord 
+  = Zero 
+  | Suc Ord 
+  | Lim (Nat -> Ord)
+
+ iter f ZeroN x = x
+ iter f (SucN n) x = f (iter f n x)
+
+ opLim f a = Lim (\n -> f n a)
+
+ opItw f = opLim (iter f)
+
+ cantor a Zero = Suc a
+ cantor a (Suc b) = opItw (\x -> cantor x b) a
+ cantor a (Lim f) = Lim (\n -> cantor a (f n))
+
+ nabla f Zero = f Zero
+ nabla f (Suc a) = f (Suc (nabla f a))
+ nabla f (Lim h) = Lim (\n -> nabla f (h n))
+
+ deriv f = nabla (opItw f)
+
+ phi Zero = cantor Zero
+ phi (Suc a) = deriv (phi a)
+ phi (Lim f) = nabla (opLim (\n -> phi (f n)))
+
+\end{verbatim}
+
+iter f n x is \( f^n(x) \).
+
+opLim f a is the limit of f 0 a, f 1 a, f 2 a, ...
+
+opItw f is \( f^\omega \)
+
+cantor a b is \( a + \omega^b \).
+
+deriv f a is the (1+a)-th fixed point of f.
 
 \end{document}
 
