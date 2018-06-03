@@ -87,47 +87,39 @@ Let us recap now the results we obtained.
 
 The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \) are :
 
-\begin{enumerate}
-     \setlength{\itemsep}{1pt}
-     \setlength{\parskip}{0pt}
-     \setlength{\parsep}{0pt}
+\bigskip
 
-\item \((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
+(1) \((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
 
-\item \(\varphi_0(0) = 1\),
+(2) \(\varphi_0(0) = 1\),
 
-\item \(\varphi_0(\gamma+1) [n] = \varphi_0(\gamma) n\)
+(3) \(\varphi_0(\gamma+1) [n] = \varphi_0(\gamma) n\)
 
-\item \(\varphi_{\beta+1}(0) [0] = 0 \) and \(\varphi_{\beta+1}(0) [n+1] = \varphi_{\beta}(\varphi_{\beta+1}(0) [n]) \),
+(4) \(\varphi_{\beta+1}(0) [0] = 0 \) and \(\varphi_{\beta+1}(0) [n+1] = \varphi_{\beta}(\varphi_{\beta+1}(0) [n]) \),
 
-\item \(\varphi_{\beta+1}(\gamma+1) [0] = \varphi_{\beta+1}(\gamma)+1 \,\) and \(\varphi_{\beta+1}(\gamma+1) [n+1] = \varphi_{\beta} (\varphi_{\beta+1}(\gamma+1) [n]) \),
+(5) \(\varphi_{\beta+1}(\gamma+1) [0] = \varphi_{\beta+1}(\gamma)+1 \,\) and \(\varphi_{\beta+1}(\gamma+1) [n+1] = \varphi_{\beta} (\varphi_{\beta+1}(\gamma+1) [n]) \),
 
-\item \(\varphi_{\beta}(\gamma) [n] = \varphi_{\beta}(\gamma [n])\) for a limit ordinal \(\gamma<\varphi_\beta(\gamma)\),
+(6) \(\varphi_{\beta}(\gamma) [n] = \varphi_{\beta}(\gamma [n])\) for a limit ordinal \(\gamma<\varphi_\beta(\gamma)\),
 
-\item \(\varphi_{\beta}(0) [n] = \varphi_{\beta [n]}(0)\) for a limit ordinal \(\beta<\varphi_\beta(0)\),
+(7) \(\varphi_{\beta}(0) [n] = \varphi_{\beta [n]}(0)\) for a limit ordinal \(\beta<\varphi_\beta(0)\),
 
-\item \(\varphi_{\beta}(\gamma+1) [n] = \varphi_{\beta [n]}(\varphi_{\beta}(\gamma)+1)\) for a limit ordinal \(\beta\).
+(8) \(\varphi_{\beta}(\gamma+1) [n] = \varphi_{\beta [n]}(\varphi_{\beta}(\gamma)+1)\) for a limit ordinal \(\beta\).
 
-\end{enumerate}
+\bigskip
 
 From these fundamental sequences, we can retrieve the initial definition of the function \( \varphi \).
 
-\begin{enumerate}
-     \setlength{\itemsep}{1pt}
-     \setlength{\parskip}{0pt}
-     \setlength{\parsep}{0pt}
+\bigskip
 
-\item This does not concern the definition of the \( \varphi \) function but the definition of addition
+(1) This does not concern the definition of the \( \varphi \) function but the definition of addition
 
-\item and
+(2) and (3) and (6) for \( \beta = 0 \) are equivalent to \( \varphi_0(\gamma) = \omega^\gamma \).
 
-\item are equivalent to \( \varphi_0(\gamma) = \omega^\gamma \).
+(4) \( \varphi_{\beta+1}(0) = lim (n \mapsto {\varphi_\beta}^n(0)) = {\varphi_\beta}^\omega(0) \) which is the least fixed point of \( \varphi_\beta \).
 
-\item \( \varphi_{\beta+1}(0) = lim (n \mapsto {\varphi_\beta}^n(0)) = {\varphi_\beta}^\omega(0) \) which is the least fixed point of \( \varphi_\beta \).
+(5) \( \varphi_{\beta+1}(\gamma+1) = lim (n \mapsto {\varphi_\beta}^n (\varphi_{\beta+1}(\gamma)+1)) \), which is the least fixed point of \( \varphi_\beta \) strictly greater than \( \varphi_{\beta+1}(\gamma) \), so with (6) it gives \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of \( \varphi_\beta \).
 
-\item \( \varphi_{\beta+1}(\gamma+1) = lim (n \mapsto {\varphi_\beta}^n (\varphi_{\beta+1}(\gamma)+1)) \), which is the least fixed point of \( \varphi_\beta \) strictly greater than \( \varphi_{\beta+1}(\gamma) \), so \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of \( \varphi_\beta \).
-
-\end{enumerate}
+(7), (8) and (6) for \( \beta \) limit ordinal complete the definition of \( \varphi_\beta(\gamma) \) for \( \beta \) limit ordinal.
 
 
 \end{document}
