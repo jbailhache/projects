@@ -21,9 +21,13 @@ where
 Now we will see how we can find the fundamental sequence of an ordinal written in this notmal form.
 
 From the rule defining addition of a limit ordinal :
-\[ \alpha + lim(f) = lim (n \mapsto \alpha + f(n)) \]
+
+\( \alpha + lim(f) = lim (n \mapsto \alpha + f(n)) \)
+
 we deduce the fundamental sequence :
-\[ (\alpha + \beta)[n] = \alpha + \beta[n] \]
+
+\( (\alpha + \beta)[n] = \alpha + \beta[n] \)
+
 if \( \beta \) is a limit ordinal. 
 
 In particular, we have :
@@ -55,15 +59,31 @@ So the corresponding fundamental sequence is :
 
 \( \varphi_0(\gamma+1)[n] = (\varphi_0(\gamma) \cdot \omega)[n] = \varphi_0(\gamma) \cdot n \)
 
-If \( \gamma \) is a limit ordinal, the fundamental sequence is defined canonically :
+If \( \gamma \) is a limit ordinal, the fundamental sequence can be defined canonically:
 
 \( \varphi_0(\gamma)[n] = \varphi_0(\gamma[n]) \)
 
+Then, \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of the function \( \xi \mapsto \varphi_\beta(\xi) \), or more simply the function \( \varphi_\beta \).
 
+In particular, \( \varphi_{\beta+1}(0) \) is the least fixed point of this function, which is \( {\varphi_\beta}^\omega(0) \). A fundamental sequence of this ordinal is \( \varphi_{\beta+1}(0)[n] = {\varphi_\beta}^n(0) \), which can also be written \( \varphi_{\beta+1}(0)[0] = 0 \) and \( \varphi_{beta+1}(0)[n+1] = \varphi_\beta(\varphi_{\beta+1}(0)[n]) \).
+
+\( \varphi_{\beta+1}(\gamma+1) \) is the fixed point of \( \varphi_\beta \) that follows \( \varphi_{\beta+1}(\gamma) \). It is \( {\varphi_\beta}^\omega(\varphi_{\beta+1}(\gamma)+1) \). This can also be written \( \varphi_{\beta+1}(\gamma+1)[0] = \varphi_{\beta+1}(\gamma)+1 \) and \( \varphi_{\beta+1}(\gamma+1)[n+1] = \varphi_\beta(\varphi_{\beta+1}(\gamma+1)[n]) \).
+
+If \( \gamma \) is a limit ordinal, the fundamental sequence can be defined canonically:
+
+\( \varphi_{\beta+1}(\gamma)[n] = \varphi_{\beta+1}(\gamma[n]) \).
+
+Finally, if \( \beta \) is a limit ordinal, we can define canonically:
+
+\( \varphi_\beta(0)[n] =  \varphi_{\beta[n]}(0) \) if \( \beta < \varphi_\beta(0) \)
+
+and
+
+\( \varphi_\beta(\gamma+1)[n] = \varphi_{\beta[n]}(\varphi_\beta(\gamma)+1) \)
 
 \bigskip
 
-This function can be defined with fundamental sequences.
+Let us recap now the results we obtained.
 
 The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \) are :
 
@@ -90,7 +110,7 @@ The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \va
 
 \end{enumerate}
 
-These fundamental sequences can be reformulated to get a definition of the function \( \varphi \).
+From these fundamental sequences, we can retrieve the initial definition of the function \( \varphi \).
 
 \begin{enumerate}
      \setlength{\itemsep}{1pt}
