@@ -695,6 +695,190 @@ or a function with two variables :
 \item \( \varphi(\alpha+1,\beta) \) is the \( (1+\beta) \)-th fixed point of \( \xi \mapsto \varphi(\alpha,\xi) \) .
 \end{itemize}
 
+\bigskip
+
+Every non-zero ordinal \(\alpha<\Gamma_0\), where \(\Gamma_0\) is the smallest ordinal \(\alpha\) such that \(\varphi_\alpha(0)=\alpha\), can be uniquely written in normal form for the Veblen hierarchy:
+
+\(\alpha=\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k)\),
+
+where
+
+\(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\)
+\(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,...,k\}\)
+
+\bigskip
+
+Now we will see how we can find the fundamental sequence of an ordinal written in this notmal form.
+
+From the rule defining addition of a limit ordinal :
+
+\( \alpha + lim(f) = lim (n \mapsto \alpha + f(n)) \)
+
+we deduce the fundamental sequence :
+
+\( (\alpha + \beta)[n] = \alpha + \beta[n] \)
+
+if \( \beta \) is a limit ordinal. 
+
+In particular, we have :
+
+\((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
+
+Then, \( \varphi_0(\gamma) \) is \( \omega^\gamma \).
+
+For \( \gamma = 0 \) it is 1.
+
+From the rule of multiplication by a limit ordinal :
+
+\( \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) \)
+
+we deduce the fundamental sequence :
+
+\( (\alpha \cdot \beta)[n] = \alpha \cdot \beta[n] \)
+if \( \beta \) is a limit ordinal.
+
+In particular, for \( \omega \) :
+
+\( (\alpha \cdot \omega)[n] = \alpha \cdot \omega[n] = \alpha \cdot n \)
+
+Then we have :
+
+\( \varphi_0(\gamma+1) = \omega^{\gamma+1} = \omega^\gamma \cdot \omega = \varphi_0(\gamma) \cdot \omega \)
+
+So the corresponding fundamental sequence is : 
+
+\( \varphi_0(\gamma+1)[n] = (\varphi_0(\gamma) \cdot \omega)[n] = \varphi_0(\gamma) \cdot n \)
+
+If \( \gamma \) is a limit ordinal and \( \gamma < \varphi_0(\gamma) \), the fundamental sequence can be defined canonically:
+
+\( \varphi_0(\gamma)[n] = \varphi_0(\gamma[n]) \)
+
+Note that if we remove the condition \( \gamma < \varphi_0(\gamma) \) there is a problem. For example, for \( \gamma = \varepsilon_0 \), we have \( \gamma = \varphi_0(\gamma) = \omega^\gamma \). Then, if we take as fundamental sequence of \( \varepsilon_0 \) the sequence \( \varepsilon_0[0] = 0 \)  and \( \varepsilon_0[n+1] = \omega^{\varepsilon_0[n]} \), then \( \varphi_0(\gamma)[0] = \omega^{\varepsilon_0}[0] = \varepsilon_0[0] = 0 \), but \( \varphi_0(\gamma[0]) = \omega^{\varepsilon_0[0]} = \omega^0 = 1 \).
+
+Then, \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of the function \( \xi \mapsto \varphi_\beta(\xi) \), or more simply the function \( \varphi_\beta \).
+
+In particular, \( \varphi_{\beta+1}(0) \) is the least fixed point of this function, which is \( {\varphi_\beta}^\omega(0) \). A fundamental sequence of this ordinal is \( \varphi_{\beta+1}(0)[n] = {\varphi_\beta}^n(0) \), which can also be written \( \varphi_{\beta+1}(0)[0] = 0 \) and \( \varphi_{beta+1}(0)[n+1] = \varphi_\beta(\varphi_{\beta+1}(0)[n]) \).
+
+\( \varphi_{\beta+1}(\gamma+1) \) is the fixed point of \( \varphi_\beta \) that follows \( \varphi_{\beta+1}(\gamma) \). It is \( {\varphi_\beta}^\omega(\varphi_{\beta+1}(\gamma)+1) \). This can also be written \( \varphi_{\beta+1}(\gamma+1)[0] = \varphi_{\beta+1}(\gamma)+1 \) and \( \varphi_{\beta+1}(\gamma+1)[n+1] = \varphi_\beta(\varphi_{\beta+1}(\gamma+1)[n]) \).
+
+If \( \gamma \) is a limit ordinal, the fundamental sequence can be defined canonically:
+
+\( \varphi_{\beta+1}(\gamma)[n] = \varphi_{\beta+1}(\gamma[n]) \) if \( \gamma < \varphi_\beta(\gamma) \).
+
+Finally, if \( \beta \) is a limit ordinal, we define the following fundamental sequences:
+
+\( \varphi_\beta(0)[n] =  \varphi_{\beta[n]}(0) \) if \( \beta < \varphi_\beta(0) \)
+
+\( \varphi_\beta(\gamma+1)[n] = \varphi_{\beta[n]}(\varphi_\beta(\gamma)+1) \)
+
+\( \varphi_\beta(\gamma)[n] = \varphi_\beta(\gamma[n]) \) for a limit ordinal \( \gamma < \varphi_\beta(\gamma) \).
+
+\bigskip
+
+Concerning \( \varphi_\beta(0)[n] \), note that if we remove the condition \( \beta < \varphi_\beta(0) \) there is a problem. For example, if we take \( \beta = \Gamma_0 \) the least fixed point of the function \( \xi \mapsto \varphi_\xi(0) \), then we have \( \varphi_{\Gamma_0}(0) = \Gamma_0 \).
+A fundamental sequence of \( \Gamma_0 \) is \( \Gamma_0[0] = 0, \Gamma_0[1] = \varphi_0(0) = \omega^0 = 1, \Gamma_0[2] = \varphi_1(0) = \varepsilon_0, \ldots \).
+ Then we have \( \varphi_{\Gamma_0}(0)[0] = \Gamma_0[0] = 0 \), but \( \varphi_{\Gamma_0[0]}(0) = \varphi_0(0) = \omega^0 = 1 \).
+
+For more explanations about the fundaamental sequence 
+\( \varphi_\beta(\gamma+1)[n] = \varphi_{\beta[n]}(\varphi_\beta(\gamma)+1) \) 
+see :
+
+https://www.physicsforums.com/threads/fundamental-sequences-for-the-veblen-hierarchy-of-ordinals.933538/
+
+\bigskip
+
+Let us recap now the results we obtained.
+
+The fundamental sequences for the Veblen functions \(\varphi_\beta(\gamma) = \varphi(\beta,\gamma) \) are :
+
+\bigskip
+
+(1) \((\varphi_{\beta_1}(\gamma_1) + \varphi_{\beta_2}(\gamma_2) + \cdots + \varphi_{\beta_k}(\gamma_k))[n]=\varphi_{\beta_1}(\gamma_1) + \cdots + \varphi_{\beta_{k-1}}(\gamma_{k-1}) + (\varphi_{\beta_k}(\gamma_k) [n])\), where \(\varphi_{\beta_1}(\gamma_1) \ge \varphi_{\beta_2}(\gamma_2) \ge \cdots \ge \varphi_{\beta_k}(\gamma_k)\) and \(\gamma_m < \varphi_{\beta_m}(\gamma_m)\) for \(m \in \{1,2,...,k\}\),
+
+(2) \(\varphi_0(0) = 1\),
+
+(3) \(\varphi_0(\gamma+1) [n] = \varphi_0(\gamma) n\)
+
+(4) \(\varphi_{\beta+1}(0) [0] = 0 \) and \(\varphi_{\beta+1}(0) [n+1] = \varphi_{\beta}(\varphi_{\beta+1}(0) [n]) \),
+
+(5) \(\varphi_{\beta+1}(\gamma+1) [0] = \varphi_{\beta+1}(\gamma)+1 \,\) and \(\varphi_{\beta+1}(\gamma+1) [n+1] = \varphi_{\beta} (\varphi_{\beta+1}(\gamma+1) [n]) \),
+
+(6) \(\varphi_{\beta}(\gamma) [n] = \varphi_{\beta}(\gamma [n])\) for a limit ordinal \(\gamma<\varphi_\beta(\gamma)\),
+
+(7) \(\varphi_{\beta}(0) [n] = \varphi_{\beta [n]}(0)\) for a limit ordinal \(\beta<\varphi_\beta(0)\),
+
+(8) \(\varphi_{\beta}(\gamma+1) [n] = \varphi_{\beta [n]}(\varphi_{\beta}(\gamma)+1)\) for a limit ordinal \(\beta\).
+
+\bigskip
+
+From these fundamental sequences, we can retrieve the initial definition of the function \( \varphi \).
+
+\bigskip
+
+(1) This does not concern the definition of the \( \varphi \) function but the definition of addition
+
+(2) and (3) and (6) for \( \beta = 0 \) are equivalent to \( \varphi_0(\gamma) = \omega^\gamma \).
+
+(4) \( \varphi_{\beta+1}(0) = lim (n \mapsto {\varphi_\beta}^n(0)) = {\varphi_\beta}^\omega(0) \) which is the least fixed point of \( \varphi_\beta \).
+
+(5) \( \varphi_{\beta+1}(\gamma+1) = lim (n \mapsto {\varphi_\beta}^n (\varphi_{\beta+1}(\gamma)+1)) \), which is the least fixed point of \( \varphi_\beta \) strictly greater than \( \varphi_{\beta+1}(\gamma) \), so with (6) it gives \( \varphi_{\beta+1}(\gamma) \) is the \(1+\gamma\)-th fixed point of \( \varphi_\beta \).
+
+(7), (8) and (6) for \( \beta \) limit ordinal complete the definition of \( \varphi_\beta(\gamma) \) for \( \beta \) limit ordinal.
+
+\bigskip
+
+Here is an Haskell implementation of the \( \varphi \) function : 
+
+\begin{verbatim}
+
+module Phi where
+ 
+ data Nat 
+  = ZeroN 
+  | SucN Nat
+
+ data Ord 
+  = Zero 
+  | Suc Ord 
+  | Lim (Nat -> Ord)
+
+ iter f ZeroN x = x
+ iter f (SucN n) x = f (iter f n x)
+
+ opLim f a = Lim (\n -> f n a)
+
+ opItw f = opLim (iter f)
+
+ cantor a Zero = Suc a
+ cantor a (Suc b) = opItw (\x -> cantor x b) a
+ cantor a (Lim f) = Lim (\n -> cantor a (f n))
+
+ nabla f Zero = f Zero
+ nabla f (Suc a) = f (Suc (nabla f a))
+ nabla f (Lim h) = Lim (\n -> nabla f (h n))
+
+ deriv f = nabla (opItw f)
+
+ phi Zero = cantor Zero
+ phi (Suc a) = deriv (phi a)
+ phi (Lim f) = nabla (opLim (\n -> phi (f n)))
+
+\end{verbatim}
+
+iter f n x = \( f^n(x) \).
+
+opLim f a = limit of f 0 a, f 1 a, f 2 a, ...
+
+opItw f = \( f^\omega \).
+
+cantor a b = \( a + \omega^b \).
+
+deriv f a = the (1+a)-th fixed point of f.
+
+phi a b = \( \varphi_a(b) \).
+
+\bigskip
+ 
 Then we can enumerate the fixed points of the function \( \alpha \mapsto \varphi(\alpha,0) \) and define \( \Gamma_\alpha \) as the \( (1+\alpha) \)-th fixed point of this function, or add another variable to the \( \varphi \) function 
 and define \( \varphi_{1,0}(\alpha) \) or \( \varphi(1,0,\alpha) \) as the \( (1+\alpha) \)-th fixed point of this function. So we have \( \Gamma_\alpha = \varphi_{1,0}(\alpha) = \varphi(1,0,\alpha) \).
 
