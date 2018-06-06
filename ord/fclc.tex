@@ -1,0 +1,84 @@
+\documentclass[10pt]{article}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\begin{document}
+
+\title{A Tutorial Overview of Ordinal Notations}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+\date{January-April 2018}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+Functions collapsing large cardinals
+
+\bigskip
+
+Hypcos
+
+\( \psi_\pi(0) = 1 \)
+
+\( \psi_{\Omega_1}(\alpha) = \omega^\alpha \) if \( \alpha < \varepsilon_0 \)
+
+\( \psi_{\Omega_{\nu+1}}(\alpha) = \omega^{\Omega_\nu+\alpha} \) if \( 1 \le \alpha \le \varepsilon_{\Omega_\nu+1} \) and \( \nu > 0 \)
+
+\( \psi_{\Omega_{\nu+1}}(1) = \Omega_\nu \cdot \omega \)
+
+\( \psi_{\Omega_{\nu+1}}(\beta+1) = \psi_{\Omega_{\nu+1}}(\beta) \cdot \omega \)
+
+\( \psi_{I_{\nu+1}}(1) = [\Omega_\bullet]^\omega(I_\nu+1) = H [\Omega_\bullet] (I_\nu+1) \)
+
+\( \psi_{I_{\nu+1}} = [\Omega_\bullet]^\omega (\psi_{I_{\nu+1}}(\beta)) \)
+
+\bigskip
+
+Functions collapsing \(\alpha\)-weakly inaccessible cardinals 
+
+\( I(0,\alpha) = \Omega_{1+\alpha} \)
+
+\( I(1,\alpha) = I_{1+\alpha} \)
+
+\( \psi_{I(0,0)}(\alpha) = \omega^\alpha \) if \( \alpha < \varepsilon_0 \)
+
+\( \psi_{I(0,\alpha+1)}(\beta) = \omega^{I(0,\alpha)+1+\beta} \)
+
+\( \psi_{I(\beta+1,0)}(0) = [I(\beta,\bullet)]^\omega 0 \)
+
+\( \psi_{I(\beta+1,\gamma+1)}(0) = [I(\beta,\bullet)]^\omega I(\beta+1,\gamma) \)
+
+\( \psi_{I(\beta+1,\gamma)}(\delta+1) = [I(\beta,\bullet)]^\omega (\psi_{I(\beta+1,\gamma)}(\delta)+1) \)
+
+\bigskip
+
+Jäger
+
+\( \varphi(0,\beta) = \omega^\beta \)
+
+\( \varphi(\beta+1,0) = [\varphi(\beta,\bullet)]^\omega 0 \)
+
+\( \varphi(\beta+1,\gamma+1) = [\varphi(\beta,\bullet)]^\omega (\varphi(\beta+1,\gamma)+1) \)
+
+
+\( \psi_{I(0,0)}(0) = [\varphi(\bullet,0)]^\omega 0 = \Gamma_0 \)
+
+\( \psi_{I(0,\beta+1)}(0) = [\varphi(\bullet,0)]^\omega(I(0,\beta)+1) \)
+
+\( \psi_{I(0,\beta)}(\gamma+1) = [\varphi(\bullet,0)]^\omega(\psi_{I(0,\beta)}(\gamma)+1) \)
+
+
+\( \psi_{I(\beta+1,0)}(0) = [I(\beta,\bullet)]^\omega 0 \)
+
+\( \psi_{I(\beta+1,\gamma+1)}(0) = [I(\beta,\bullet)]^\omega (I(\beta+1,\gamma)+1) \)
+
+\( \psi_{I(\beta+1,\gamma)}(\delta+1) = [I(\beta,\bullet)]^\omega (\psi_{I(\beta+1,\gamma)}(\delta)+1) \)
+
+
+\end{document}
+
