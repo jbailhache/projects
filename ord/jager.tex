@@ -1,0 +1,252 @@
+\documentclass[10pt]{article}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\begin{document}
+
+\title{Jäger Collapsing Function}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+\section{Functions collapsing large cardinals}
+
+\subsection{Jäger's collapsing functions}
+
+Jäger's collapsing functions are a hierarchy of single-argument ordinal functions \(\psi_\pi\) introduced by German mathematician Gerhard Jäger in 1984. This is an extension of Buchholz's notation.
+
+
+\subsubsection{Basic Notions}
+
+\(M_0\) is the least Mahlo cardinal, small Greek letters denote ordinals less than \(M_0\). Each ordinal \(\alpha\) is identified with the set of its predecessors \(\alpha=\{\beta|\beta<\alpha\}\). 
+
+\(L\) denotes the set of all limit ordinals less than \(M_0\).
+
+An ordinal \(\alpha\) is an additive principal number if \(\alpha>0\) and \(\xi+\eta<\alpha\) for all \(\xi,\eta<\alpha\). Let \(P\) denote the set of all additive principal numbers less than \(M_0\).
+
+\(\alpha=_{NF}\alpha _{1}+\cdots +\alpha _{n}:\Leftrightarrow \alpha =\alpha _{1}+\cdots +\alpha _{n}\wedge \alpha _{1}\geq \cdots \geq \alpha _{n}\wedge \alpha _{1},... ,\alpha _{n}\in P\)
+
+Cofinality \(\text{cof}(\alpha)\) of an ordinal \(\alpha\) is the least \(\beta\) such that there exists a function \(f:\beta\rightarrow\alpha\) with \(\text{sup}\{f(\xi )|\xi <\beta \}=\alpha\). An ordinal \(\alpha\) is regular, if \(\alpha\) is a limit ordinal and \(\text{cof}(\alpha)=\alpha\). Let \(R\) denote the set of all regular ordinals \(\in(\omega, M_0)\). 
+
+An ordinal \(\alpha\) is (weakly) inaccessible if \(\alpha\) is a regular limit cardinal larger than \(\omega\).
+
+Enumeration function \(F\) of class of ordinals \(X\) is the unique increasing function such that \(X=\{F(\alpha)|\alpha\in\text{dom}(F)\}\) where domain of \(F\), \(\text{dom}(F)\) is an ordinal number. We use \(\text{Enum}(X)\) to donate \(F\).
+
+
+\subsubsection{Veblen function}
+
+\(\varphi_\alpha=\text{Enum}(\{\beta\in P|\forall\gamma<\alpha(\varphi_\gamma(\beta)=\beta)\})\)
+
+Normal form
+
+\(\alpha=_{NF}\varphi_\beta(\gamma):\Leftrightarrow\alpha=\varphi_\beta(\gamma)\wedge\beta,\gamma<\alpha\)
+
+An ordinal \(\alpha\) is a strongly critical if \(\varphi(\alpha,0)=\alpha\). Let \(S\) denote the set of
+all strongly critical ordinals less than \(M_0\).
+
+Definition of \(S(\gamma)\) for arbitrary \(\gamma\).
+
+\(S(\gamma)=\{\gamma\}\) if \(\gamma\in S\cup\{0\}\)
+
+\(S(\gamma)=\{\alpha_1,...,\alpha_n\}\) if \(\gamma=_{NF}\alpha_1+\cdots+\alpha_n\notin P\)
+
+\(S(\gamma)=\{\alpha,\beta\}\) if \(\gamma=_{NF}\varphi_\alpha(\beta)\notin S\)
+
+
+\subsubsection{\(\rho\)-Inaccessible Ordinals}
+
+An ordinal is \(\rho\)-inaccessible if it is a regular cardinal and limit of \(\alpha\)-inaccessible ordinals for all \(\alpha<\rho\). So the 0-inaccessible ordinals are exactly the regular cardinals \(>\omega\), the 1-inaccessible ordinals are the inaccessible ordinals. Functions \(I_\rho:M_0 \rightarrow M_0\) enumerate the \(\rho\)-inaccessible ordinals less than \(M_0\) and their limits.
+
+\(I_\alpha=\text{Enum}(\{\beta\in R|\forall\gamma<\alpha(I_\gamma(\beta)=\beta)\}) \)
+
+Normal form
+
+\(\alpha=_{NF}I_\beta(\gamma):\Leftrightarrow\alpha=I_\beta(\gamma)\wedge\gamma\notin L\)
+
+Definition of \(\gamma^{-}\) for \(\gamma\in R\).
+
+\(\gamma^{-}=0\) if \(\gamma=_{NF}I_\alpha(0)\)
+
+\(\gamma^{-}=I_\alpha(\beta)\) if \(\gamma=_{NF}I_\alpha(\beta+1)\)
+
+'''Properties'''
+
+\begin{tabular}{|c|c|}
+\hline
+Veblen function &
+\(\rho\)-Inaccessible Ordinals
+\\ \hline
+\(\varphi_\alpha(\beta)\in P\) &
+\(I_\alpha(0), I_\alpha(\beta+1)\in R\)
+\\ \hline
+\(\gamma<\alpha\Rightarrow\varphi_\gamma(\varphi_\alpha(\beta))=\varphi_\alpha(\beta)\) &
+|\(\gamma<\alpha\Rightarrow I_\gamma(I_\alpha(\beta))=I_\alpha(\beta)\)
+\\ \hline
+\(\beta<\gamma\Rightarrow\varphi_\alpha(\beta)<\varphi_\alpha(\gamma)\) &
+\(\beta<\gamma\Rightarrow I_\alpha(\beta)<I_\alpha(\gamma)\)
+\\ \hline
+\(\alpha<\beta\Rightarrow\varphi_\alpha(0)<\varphi_\beta(0)\) &
+\(\alpha<\beta\Rightarrow I_\alpha(0)<I_\beta(0)\)
+\\ \hline
+\end{tabular}
+
+
+\subsubsection{The Ordinal Functions \(\psi_\kappa\)}
+
+Every \(\psi_\kappa\) is a function from \(M_0\) to \(\kappa\) which "collapses" the elements of \(M_0\) below \(\kappa\). By the Greek letters \(\kappa\) and \(\pi\) we shall denote uncountable regular cardinals less than \(M_0\).
+
+'''Inductive Definition''' of \(C_\kappa(\alpha)\) and \(\psi_\kappa(\alpha)\).
+
+\(\{\kappa^{-}\}\cup\kappa^{-}\subset C_\kappa^n(\alpha)\)
+
+\(S(\gamma)\subset C_\kappa^n(\alpha)\Rightarrow\gamma\in C_\kappa^{n+1}(\alpha)\)
+
+\(\beta,\gamma\in C_\kappa^n(\alpha)\Rightarrow I_\beta(\gamma)\in C_\kappa^{n+1}(\alpha)\)
+
+\(\gamma<\pi<\kappa\wedge\pi\in C_\kappa^n(\alpha)\Rightarrow \gamma\in C_\kappa^{n+1}(\alpha)\)
+
+\(\gamma<\alpha\wedge\gamma,\pi\in C_\kappa^n(\alpha)\wedge\gamma\in C_\pi(\gamma)\Rightarrow \psi_\pi(\gamma)\in C_\kappa^{n+1}(\alpha)\)
+
+\(C_\kappa(\alpha)=\cup\{C_\kappa^n(\alpha)|n<\omega\}\)
+
+\(\psi_\kappa(\alpha)=\text{min}\{\xi|\xi\notin C_\kappa(\alpha)\}\)
+
+Normal form
+
+\(\alpha=_{NF}\psi_\kappa(\beta):\Leftrightarrow\alpha=\psi_\kappa(\beta)\wedge\beta\in C_\kappa(\beta)\)
+
+
+\subsubsection{Fundamental sequences}
+ 
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence.
+
+'''Inductive Definition''' of \(T\).
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(0 \in T\)
+\item \(\alpha=_{NF}\alpha _{1}+\cdots +\alpha _{n}\wedge \alpha _{1},... ,\alpha _{n}\in T\Rightarrow\alpha\in T\)
+\item \(\alpha=_{NF}\varphi_\beta(\gamma)\wedge\beta,\gamma\in T\Rightarrow\alpha\in T\)
+\item \(\alpha=_{NF}I_\beta(\gamma)\wedge\beta,\gamma\in T\Rightarrow\alpha\in T\)
+\item \(\alpha=_{NF}\psi_\kappa(\beta)\wedge\kappa, \beta\in T\Rightarrow\alpha\in T\)
+\end{itemize}
+
+Below we write \(I(\alpha,\beta)\) for \(I_\alpha(\beta)\) and \(\varphi(\alpha,\beta)\) for \(\varphi_\alpha(\beta)\)
+
+For non-zero ordinals \(\alpha\in T\) we define the fundamental sequences as follows:
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=\varphi(0,\beta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\varphi(0,\beta)\times\eta\)
+\item If \(\alpha=\varphi(\beta+1,0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\varphi(\beta,\alpha[\eta])\)
+\item If \(\alpha=\varphi(\beta+1,\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\varphi(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=\varphi(\beta,\alpha[\eta])\)
+\item If \(\alpha=\varphi(\beta,0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\varphi(\beta[\eta],0)\)
+\item If \(\alpha=\varphi(\beta,\gamma+1)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\varphi(\beta[\eta],\varphi(\beta,\gamma)+1)\)
+\item If \(\alpha=\varphi(\beta,\gamma)\) and \(\gamma\in L\) then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=\varphi(\beta,\gamma[\eta])\)
+
+\bigskip
+
+\item If \(\alpha=\psi_{I(0,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\varphi(\alpha[\eta],0)\)
+\item If \(\alpha=\psi_{I(0,\beta+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I(0,\beta)+1\) and \(\alpha[\eta+1]=\varphi(\alpha[\eta],0)\)
+\item If \(\alpha=\psi_{I(0,\beta)}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{I(0,\beta)}(\gamma)+1\) and \(\alpha[\eta+1]=\varphi(\alpha[\eta],0)\)
+
+\bigskip
+
+\item If \(\alpha=\psi_{I(\beta+1,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+\item If \(\alpha=\psi_{I(\beta+1,\gamma+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+\item If \(\alpha=\psi_{I(\beta+1,\gamma)}(\delta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{I(\beta+1,\gamma)}(\delta)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+
+\bigskip
+
+\item If \(\alpha=\psi_{I(\beta,0)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],0)\)
+\item If \(\alpha=\psi_{I(\beta,\gamma+1)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],I(\beta,\gamma)+1)\)
+\item If \(\alpha=\psi_{I(\beta,\gamma)}(\delta+1)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],\psi_{I(\beta,\gamma)}(\delta)+1)\)
+
+\bigskip
+
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\varphi(0,0)\) then \(\text{cof}(\alpha)=\alpha=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=I(\beta,0)\) or \(\alpha=I(\beta,\gamma+1)\) then \(\text{cof}(\alpha)=\alpha\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=I(\beta,\gamma)\) and \(\gamma\in L\) then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=I(\beta,\gamma[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
+\end{itemize}
+
+Limit of this notation \(\lambda\). If \(\alpha=\lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\alpha[\eta],0)\)
+
+These fundamental sequences can be reformulated to produce recursive definitions :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \varphi(0,\beta) = \omega^\beta \)
+\item \( \varphi(\beta+1,0) = [\varphi(\beta,\bullet]^\omega 0 = H [\varphi(\beta,\bullet)] 0 \)
+\item \( \varphi(\beta+1,\gamma+1) = [\varphi(\beta,\bullet)]^\omega (\varphi(\beta+1,\gamma)+1) \)
+\item \( \varphi(Lim_\nu f,0) = Lim_\nu [\varphi(f \bullet,0)] \)
+\item \( \varphi(Lim_\nu f,\gamma+1) = Lim_\nu [\varphi(f \bullet , \varphi(Lim_\nu f,\gamma)+1)] \)
+\item \( \varphi(\beta,Lim_\nu g) = Lim_\nu [\varphi(\beta, g \bullet)] \)
+
+\bigskip
+
+\item \( \psi_{I(0,0)}(0) = [\varphi(\bullet,0)]^\omega 0 = \Gamma_0 \)
+\item \( \psi_{I(0,\beta+1)}(0) = [\varphi(\bullet,0)]^\omega (I(0,\beta)+1) \)
+\item \( \psi_{I(0,\beta)}(\gamma+1) = [\varphi(\bullet,0)]^\omega (\psi_{I(0,\beta)}(\gamma)+1) \)
+
+\bigskip
+
+\item \( \psi_{I(\beta+1,0)}(0) = [I(\beta,\bullet)]^\omega 0 \)
+\item \( \psi_{I(\beta+1,\gamma+1)}(0) = [I(\beta,\bullet)]^\omega (I(\beta+1,\gamma)+1) \)
+\item \( \psi_{I(\beta+1,\gamma)}(\delta+1) = [I(\beta,\bullet)]^\omega (\psi_{I(\beta+1,\gamma)}(\delta)+1) \)
+
+\bigskip
+
+\item \( \psi_{I(Lim_\nu f,0)}(0) = Lim_\nu [I(f \bullet,0)] \)
+\item \( \psi_{I(Lim_\nu f,\gamma+1)}(0) = Lim_\nu [I(f \bullet,I(Lim_\nu f,\gamma)+1)] \)
+\item \( \psi_{I(Lim_\nu f,\gamma)}(\delta+1) = Lim_\nu [I(f \bullet, \psi_{I(Lim_\nu f,\gamma)}(\delta)+1)] \)
+
+\bigskip
+
+\item \( \beta + Lim_\nu g  = Lim_\nu [\beta + g \bullet] \)
+\item \( \varphi(0,0) = 1 \)
+
+\bigskip
+
+\item \( I(\beta,0) = I(\beta,\gamma+1) = Lim_{cof(I(\beta,0)} [\bullet] \) where \( [\bullet] \) is the identity function
+\item \( I(\beta,Lim_nu g) = Lim_\nu [I(\beta,g \bullet] \)
+\item \( \psi_\pi(Lim_\nu f) = Lim_\nu [\psi_\pi(f \bullet)] \) if \( \omega \le \nu \le \pi \)
+\item \( \psi_\pi(Lim_\nu f) = lim [\psi_\pi(f (g \bullet)] \) with \( g(0) = 1 \) and \( g (n+1) = \psi_\nu(f(g(n))) \) if \( \nu \ge \pi \)
+
+\end{itemize}
+
+\subsubsection{See also}
+
+Other ordinal collapsing functions:
+
+[[Madore's \(\psi\) function]]
+
+[[Buchholz's \(\psi\) functions]]
+
+[[User blog:Denis Maksudov/Ordinal functions collapsing the least weakly Mahlo cardinal; a system of fundamental sequences|collapsing functions based on a weakly Mahlo cardinal]]
+
+
+\subsubsection{References}
+
+1. W.Buchholz. A New System of Proof-Theoretic Ordinal Functions. Annals of Pure and Applied Logic (1986),32
+
+2. M.Jäger. \(\rho\)-inaccessible ordinals, collapsing functions and a recursive notation system. Arch. Math. Logik Grundlagenforsch (1984),24
+
+3. http://cantorsattic.info/J\%C3\%A4ger\%27s\_collapsing\_functions\_and\_\%CF\%81-inaccessible\_ordinals
+
+
+\end{document}
+
