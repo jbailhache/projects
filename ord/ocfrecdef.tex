@@ -1,0 +1,92 @@
+\documentclass[10pt]{article}
+\title{Transfinite ordinals}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\begin{document}
+
+\title{A Tutorial Overview of Ordinal Notations}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+ocfrecdef.txt
+
+10.1
+
+\( \psi_\nu (Lim_{\kappa+1} h) = lim [ \psi_\nu (h ((\psi_\kappa \circ h)^\bullet (\zeta)))] \)
+
+Concerning the last formula, with ... we also get the previous one for \( \psi_0 \) but it is not the same formula as for Buchholz function which we will see later.
+
+
+buchholz psi functions
+10.3.3 7.
+
+\( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) 
+
+
+Maksudov
+
+first system
+
+\( \psi_{\chi(0,\beta+1)}(0) = \chi(0,\beta) \cdot \omega \)
+
+\( \psi_{\chi(0,\beta)}(\gamma+1) = \psi_{\chi(0,\beta)}(\gamma) \cdot \omega \)
+
+
+\( \psi_{\chi(\beta+1,0)}(0) = lim [(\chi \circ f)^\bullet(0)] \)
+
+\( \psi_{\chi(\beta+1,\gamma+1)}(0) = lim [(\chi \circ f)^\bullet (\chi(\beta+1,\gamma)+1)] \)
+
+\( \psi_{\chi(\beta+1,\gamma)}(\delta+1) = lim [(\chi \circ f)^\bullet (\psi_{\chi(\beta+1,\gamma)}(\delta)+1)] \)
+
+
+\( \psi_{\chi(Lim_\mu f,0)}(0) = Lim_\mu [\chi(f(\bullet),0)] \) if \( \omega_\mu \ge \omega \)
+
+\( \psi_{\chi(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [\chi(f(\bullet),chi(Lim_\mu f,\gamma)+1))] \) if \( M > \omega_\mu \ge \omega \)
+
+\( \psi_{\chi(Lim_\mu f,\gamma)}(\delta+1) = Lim_\mu [\chi(f(\bullet),\psi_{\chi(\beta,\gamma)}(\delta)+1)] \)
+
+
+\( \psi_{\chi(lim_M f,0)}(0) = lim [ [\chi(f(\bullet),0)]^\bullet(1) ] \)
+
+\( \psi_{\chi(lim_M f,\gamma+1)}(0) = lim [ [\chi(f(\bullet),0)]^\bullet(\chi(Lim_M f,\gamma)+1)] \)
+
+\( \psi_{\chi(lim_M f,\gamma)}(\delta+1) = lim [ [\chi(f(\bullet),0]^\bullet(\psi_{\chi(Lim_M f,\gamma)}(\delta)+1) ] \)
+
+
+\( \chi(\beta,Lim_\mu) = Lim_\mu [\chi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
+
+\( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+\( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu)^\bullet(1))) ] \)
+
+
+second system
+
+\( \psi_{\chi(0)}(0) = 1 \)
+
+\( \psi_{\chi(\beta+1)}(0) = \chi(\beta) \cdot \omega \)
+
+\( \psi_{\chi(Lim_\mu f)}(0) = Lim_\mu(\chi \circ f) \) if \( \omega_\kappa < M \)
+
+\( \psi_{\chi(lim_M f)}(0) = lim [(\chi \circ f)^\bullet 1] \)
+
+\( \psi_{\chi(\lim_M f)}(\gamma+1) = lim [(\chi \circ f)^\bullet (\psi_{\chi(\beta)}(\gamma)+1)] \)
+
+\( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
+
+\( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+\( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
+
+
+\end{document}
+

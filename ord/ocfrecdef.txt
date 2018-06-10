@@ -1,0 +1,75 @@
+ocfrecdef.txt
+
+10.1
+
+
+
+\( \psi_\nu (Lim_{\kappa+1} h) = lim [ \psi_\nu (h ((\psi_\kappa \circ h)^\bullet (\zeta)))] \)
+
+Concerning the last formula, with ... we also get the previous one for \( \psi_0 \) but it is not the same formula as for Buchholz function which we will see later.
+
+
+buchholz psi functions
+10.3.3 7.
+
+\( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) 
+
+
+Maksudov
+
+first system
+
+\( \psi_{\khi(0,\beta+1)}(0) = \khi(0,\beta) \cdot \omega \)
+
+\( \psi_{\khi(0,\beta)}(\gamma+1) = \psi_{\khi(0,\beta)}(\gamma) \cdot \omega \)
+
+
+\( \psi_{\khi(\beta+1,0)}(0) = lim [(\khi \circ f)^\bullet(0)] \)
+
+\( \psi_{\khi(\beta+1,\gamma+1)}(0) = lim [(\khi \circ f)^\bullet (\khi(\beta+1,\gamma)+1)] \)
+
+\( \psi_{\khi(\beta+1,\gamma)}(\delta+1) = lim [(\khi \circ f)^\bullet (\psi_{\khi(\beta+1,\gamma)}(\delta)+1)] \)
+
+
+\( \psi_{\khi(Lim_\mu f,0)}(0) = Lim_\mu [\khi(f(\bullet),0)] \) if \( \omega_\mu \ge \omega \)
+
+\( \psi_{\khi(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [\khi(f(\bullet),khi(Lim_\mu f,\gamna)+1))] \) if \( M > \omega_\mu \ge \omega \)
+
+\( \psi_{\khi(Lim_\mu f,\ganna)}(\delta+1) = Lim_\mu [\khi(f(\bullet),\psi_{\ki(\beta,\gamma)}(\delta)+1)] \)
+
+
+\( \psi_{\khi(lim_M f,0)}(0) = lim [ [\khi(f(\bullet),0)]^\bullet(1) ] \)
+
+\( \psi_{\khi(lim_M f,\gamma+1)}(0) = lim [ [\khi(f(\bullet),0)]^\bullet(\khi(Lim_M f,\gamma)+1)] \)
+
+\( \psi_{\khi(lim_M f,\gamma)}(\delta+1) = lim [ [\khi(f(\bullet),0]^\bullet(\psi_{\khi(Lim_M f,\gamma)}(\delta)+1) ] \)
+
+
+\( \khi(\beta,Lim_\mu) = Lim_\mu [\khi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
+
+\( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+\( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu)^\bullet(1))) ] \)
+
+
+second system
+
+\( \psi_{\khi(0)}(0) = 1 \)
+
+\( \psi_{\khi(\beta+1)}(0) = \khi(\beta) \cdot \omega \)
+
+\( \psi_{\khi(Lim_\mu f)}(0) = Lim_\mu(\khi \circ f) \) if \( \omega_\kappa < M \)
+
+\( \psi_{\khi(lim_M f)}(0) = lim [(\khi \circ f)^\bullet 1]
+
+\( \psi_{\khi(\lim_M f)}(\gamma+1) = lim [(\khi \circ f)^\bullet (\psi_{\khi(\beta)}(\gamma)+1)]
+
+\( \psi_{\khi(\beta)}(\gamma+1) = \psi_{\khi(\beta)}(\gamma) \cdot \omega \)
+
+\( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) if \( pi > \omega_\mu \ge \omega \)
+
+\( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] if \( \omega_\mu \ge \pi \)
+
+
+
+
