@@ -1,0 +1,507 @@
+\documentclass[10pt]{article}
+\title{Transfinite ordinals}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\begin{document}
+
+\title{Maksudow Ordinal Collapsing Functions}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+
+==Introduction==
+
+There are well-known hierarchies of ordinal-indexed functions, such as [[slow-growing hierarchy]], [[Hardy hierarchy]], [[fast-growing hierarchy]] and other hierarchies whose definition require assignation of fundamental sequences \((\alpha[n])_{n<\omega}\) for countable limit ordinals. The growth of each of those hierarchies and the limit of its definition depends of choice of system of fundamental sequences. There is well-known and rather simple system formulated by S. Wainer for limit ordinals written in the Cantor normal form up to the first epsilon number. Ordinal notations, which are stronger than the Cantor normal form, require, respectively, stronger systems of fundamental sequences and those systems have much more complicated definition.
+
+Saying about ordinal notations we should mark the contribution of  S. Feferman, W. Buchholz,  K. Schütte, G. Jäger and  M. Rathjen. 
+
+Based on S. Feferman’s theta-functions, W. Buchholz introduced a hierarchy of ordinal psi-functions, which allows to express large countable ordinals using regular cardinals. G. Jäger developed an extension of this approach by using of \(\alpha\)-weakly inaccessible cardinals. Much more powerful extension, based on using of the least weakly Mahlo cardinal \(M\), was proposed by M. Rathjen.  
+
+On base of Rathjen’s approach we define a simplified version of functions  \(\psi_\pi: M\rightarrow \pi\)  that allows to reduce number of rules for system of fundamental sequences. Later we assign the cofinality and a fundamental sequence for each non-zero ordinal less than \(\psi_{\chi(0,0)}(\chi(\varepsilon_{M+1},0))\)
+
+
+==Basic notions==
+
+Small Greek letters denote ordinals. Each ordinal \(\alpha\) is identified with the set of its predecessors \(\alpha=\{\beta|\beta<\alpha\}\). 
+
+\(\omega\) is the first transfinite ordinal and the set of all natural numbers.
+
+Every ordinal \(\alpha\) is either zero, or a successor (if \(\alpha=\beta+1\)), or a limit.  
+
+An ordinal \(\alpha\) is a limit ordinal if for all \(\beta<\alpha\) there exists an ordinal \(\gamma\) such that  \(\beta<\gamma<\alpha\)
+
+\(S\) denotes the set of all successor ordinals and \(L\) denotes the set of all limit ordinals.
+
+An ordinal \(\alpha\) is an additive principal number if \(\alpha>0\) and \(\xi+\eta<\alpha\) for all \(\xi,\eta<\alpha\). 
+
+\(P\) denotes the set of all additive principal numbers.
+
+For every ordinal \(\alpha\notin P\) there exist unique \(\alpha_1,\alpha_2,..., \alpha_n\) such that
+\(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) and \(\alpha>\alpha _{1}\geq \cdots \geq \alpha _{n}\)
+
+\(\alpha=_{NF}\alpha _{1}+\cdots +\alpha _{n}:\Leftrightarrow \alpha =\alpha _{1}+\cdots +\alpha _{n}\wedge \alpha>\alpha _{1}\geq \cdots \geq \alpha _{n}\wedge \alpha _{1},... ,\alpha _{n}\in P\)
+
+Cofinality \(\text{cof}(\alpha)\) of an ordinal \(\alpha\) is the least \(\beta\) such that there exists a function \(f:\beta\rightarrow\alpha\) with \(\text{sup}\{f(\xi )|\xi <\beta \}=\alpha\). 
+
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence. For each ordinal \(\alpha\) can be assigned a lot of different fundamental sequences.
+
+'''Properties'''
+
+1) \(\text{cof}(0)=0\) 
+
+2) \(\alpha>0 \Rightarrow \alpha\geq \text{cof}(\alpha) \wedge \alpha=\sup\{\alpha[\eta]|\eta<\text{cof}(\alpha)\}\) 
+
+3) \(\alpha\in S\Leftrightarrow \text{cof}(\alpha)=1\). 
+
+4) \(\alpha\in L\Leftrightarrow \text{cof}(\alpha)\geq\omega\).
+
+5) \(\beta>\gamma\geq0 \Rightarrow \alpha[\beta]>\alpha[\gamma]\)
+
+An ordinal \(\alpha\) is uncountable regular cardinal if it is a limit ordinal larger than \(\omega\) and \(\text{cof}(\alpha)=\alpha\).
+
+\(R\) is the set of all uncountable regular cardinals 
+
+\(R=\{\alpha\in L|\alpha>\omega\wedge\text{cof}(\alpha)=\alpha\}\)
+
+\(\kappa\) is weakly Mahlo iff \(\kappa\) is a cardinal such that for every function \(f: \kappa\rightarrow\kappa\) there
+exists a regular cardinal \(\pi < \kappa\) such that \(\forall\alpha<\pi(f(\alpha)< \pi)\).
+
+\(M\) is  the least Mahlo cardinal and \(\varepsilon_{M+1}=\min\{\alpha>M|\alpha=\omega^\alpha\}\) 
+
+\(\alpha=_{NF}M^\beta\gamma\Leftrightarrow\alpha=M^\beta\gamma\wedge\gamma<M\)
+
+The variables \(\pi\), \(\mu\), \(\kappa\) are reserved for regular uncountable cardinals less than \(M\).
+
+Enumeration function \(F\) of class of ordinals \(X\) is the unique increasing function such that \(X=\{F(\alpha)|\alpha\in\text{dom}(F)\}\) where domain of \(F\), \(\text{dom}(F)\) is an ordinal number. We use \(\text{Enum}(X)\) to donate \(F\).
+
+\(cl(X) \) is closure of \(X\) 
+
+\(cl_M(X)=X\cup\{\lambda<M|\lambda=\sup(X\cap\lambda)\} \)
+
+'''Definition''' of Veblen function
+
+\(\varphi_\alpha=\text{Enum}(\{\beta\in P|\forall\gamma<\alpha(\varphi_\gamma(\beta)=\beta)\})\)
+
+Below we write \(\varphi(\alpha,\beta)\) for \(\varphi_\alpha(\beta)\)
+
+\(\alpha=_{NF}\varphi(\beta,\gamma)\Leftrightarrow\alpha=\varphi(\beta,\gamma)\wedge\beta,\gamma<\alpha\)
+
+Let \(M^{\Gamma}=\min\{\alpha>M|\alpha=\varphi(\alpha,0)\}\)
+
+'''Definition''' of Jäger's function \(I_\alpha:M\rightarrow M\) which enumerate the \(\alpha\)-inaccessible ordinals less than \(M\) and their limits
+
+\(I_\alpha=\text{Enum}(\{\beta\in R|\forall\gamma<\alpha(I_\gamma(\beta)=\beta)\}) \)
+
+Below we write \(I(\alpha,\beta)\) for \(I_\alpha(\beta)\)
+
+
+==Definition of functions \(\chi_\alpha(\beta) \) and \(\psi_\pi(\gamma) \)==
+
+'''Inductive Definition''' of  functions \(\chi_\alpha: M\rightarrow M\) for \(\alpha <M^{\Gamma}\) (Rathjen, 1990)
+
+1) \(\{0,M\}\cup\beta\subset B^n(\alpha, \beta)\)
+
+2) \(\gamma=_{NF}\gamma_1+\cdots+\gamma_k\wedge\gamma_1,...,\gamma_k\in B^n(\alpha, \beta)\Rightarrow\gamma\in B^{n+1}(\alpha, \beta)\)
+
+3) \(\gamma=\chi_\eta(\xi)\wedge\eta,\xi\in B^n(\alpha, \beta)\wedge\eta<\alpha\wedge\xi<M\Rightarrow\gamma\in B^{n+1}(\alpha, \beta)\)
+
+4) \(\gamma=_{NF}\varphi(\delta,\eta) \wedge\delta,\eta\in B^n(\alpha, \beta)\Rightarrow\gamma\in B^{n+1}(\alpha, \beta)\)
+
+5) \(\gamma<\pi\wedge\pi\in B^n(\alpha, \beta)\Rightarrow\gamma\in B^{n+1}(\alpha, \beta)\)
+
+6) \(B(\alpha,\beta)=\cup_{n<\omega}B^{n}(\alpha, \beta)\)
+
+7) \(\chi_\alpha=\text{Enum}(cl_M(\{\kappa|\kappa\notin B(\alpha,\kappa)\wedge\alpha\in B(\alpha,\kappa)\}))\)
+
+Note: as was said \(\kappa\) and \(\pi \) are reserved for uncountable regular cardinals less than \(M\). 
+
+Below we write \(\chi(\alpha,\beta)\) for \(\chi_\alpha(\beta)\)
+
+'''Properties''' of  \(\chi\)-functions:
+
+1) \(\chi(\alpha,\beta)<M\)
+
+2) \(\beta>\gamma\geq 0 \Rightarrow \chi(\alpha,\beta)>\chi(\alpha,\gamma)\) 
+
+3) \(\alpha>\gamma\geq 0 \Rightarrow \chi(\alpha,\beta)=\chi(\gamma,\chi(\alpha,\beta))\)
+
+4) \(\chi(\alpha,0),\chi(\alpha,\beta+1) \in R\)
+
+5) \(\chi(0,\alpha)=\aleph_{1+\alpha}\)
+
+6) \(\chi(\alpha,\beta)=I(\alpha,\beta)\) for all \(\alpha<\lambda\) where \(\lambda=\sup\{\gamma(n)|n<\omega\}\) with \(\gamma(0)=0\) and \(\gamma(n+1)=\chi(\gamma(n),0)\)
+
+'''Definition:''' \(\alpha=_{NF}\chi(\beta,\gamma) \Leftrightarrow\alpha=\chi(\beta,\gamma)\wedge\gamma<\alpha\)
+
+
+Let \(\Pi\)  be the set of uncountable regular cardinals of the form \(\chi(\alpha,0)\) or \(\chi(\alpha,\beta+1)\) 
+
+\(\Pi=\{\chi(\alpha,0)|\alpha<\varepsilon_{M+1}\}\cup\{\chi(\alpha,\beta+1)|\alpha<\varepsilon_{M+1}\wedge\beta<M\}\)
+
+'''Inductive Definition''' of  functions \(\psi_\pi: M\rightarrow \pi\) for \(\pi\in \Pi\) 
+
+1) \(C^0(\alpha, \beta)=\{0,M\}\cup\beta\)
+
+2) \(C^{n+1}(\alpha, \beta)=\{\gamma+\delta,\chi(\gamma,\delta), \omega^{M+\gamma}, \psi_\kappa(\eta)|\gamma,\delta,\eta,\kappa\in C^{n}(\alpha, \beta)\wedge\eta<\alpha\wedge\kappa\in\Pi\}\)
+
+3) \(C(\alpha,\beta)=\cup_{n<\omega}C^{n}(\alpha, \beta)\)
+
+4) \(\psi_\pi(\alpha)=\min\{\beta<\pi|C(\alpha,\beta)\cap \pi\subset\beta\}\)
+
+'''Properties''' of  \(\psi\)-functions:
+
+1) \(\psi_{\chi(0,0)}(0)=1\) 
+
+2) \(\alpha>\beta\geq 0 \Rightarrow \psi_\pi(\beta)<\psi_ \pi(\alpha)<\pi\)
+
+3) \(\psi_\pi(\alpha)\in P\)
+
+We write \(\psi(\alpha)\)  for \(\psi_{\chi(0,0)}(\alpha)\)
+
+'''Definition:''' \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta) \wedge\beta\in C(\beta, \psi_\pi(\beta))\)
+
+==A system of fundamental sequences==
+
+'''Inductive definition''' of \(T\)
+
+1) \(0 \in T\)
+
+2) \(\alpha=_{NF}\alpha_1+\alpha_2+\cdots+\alpha_n\wedge\alpha_1,\alpha_2,...,\alpha_n\in T\Rightarrow\alpha\in T\)
+
+3) \(\alpha=_{NF}\chi(\beta,\gamma)\wedge\beta,\gamma\in T\Rightarrow\alpha\in T\)
+
+4) \(\alpha=_{NF}\psi_\pi(\beta)\wedge\pi,\beta\in T\Rightarrow\alpha\in T\)
+
+5) \(\alpha=_{NF}M^\beta\gamma\wedge\beta,\gamma\in T\Rightarrow\alpha\in T\)
+
+For better understanding of collapsing functions \(\psi_\pi\) we define for each ordinal  \(\alpha\in T\)  its cofinality \(\text{cof}(\alpha) \) and  sequence   \( (\alpha[\eta])_{\eta<\text{cof}(\alpha) }\)  such that \(\alpha=\sup\{\alpha[\eta]|\eta<\text{cof}(\alpha) \}\)
+
+'''Definition''' of fundamental sequences for non-zero ordinals \(\alpha\in T\):
+
+1) \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n \wedge \alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n \Rightarrow \text{cof} (\alpha)= \text{cof} (\alpha_n) \wedge \alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+
+2) \(\alpha=0\Rightarrow\text{cof}(\alpha)=0\) 
+
+
+3) \(\alpha=\psi _{\chi(0,0)}(0) \vee \alpha=\chi(\beta,0) \vee \alpha=\chi(\beta,\gamma+1) \vee \alpha=M\Rightarrow \text{cof} (\alpha)=\alpha \wedge \alpha[\eta]=\eta\)
+
+4) \(\alpha=\psi _{\chi(0,\beta+1)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\chi(0,\beta)\times n\)
+
+5) \(\alpha=\psi_{ \chi(0,\beta)}(\gamma+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\psi_{\chi(0,\beta)}(\gamma)\times n\)
+
+
+
+6) \(\alpha=\psi _{\chi(\beta+1,0)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]=0 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+7) \(\alpha=\psi _{\chi(\beta+1,\gamma+1)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]=\chi(\beta+1,\gamma)+1 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+8) \(\alpha=\psi_{\chi(\beta+1,\gamma)}(\delta+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]= \psi_{\chi(\beta+1,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+
+9) \(\alpha=\psi _{\chi(\beta,0)}(0) \wedge M>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof} (\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],0)\)
+
+10) \(\alpha=\psi_{ \chi(\beta,\gamma+1)}(0) \wedge M>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)=\text{cof}(\beta)\wedge \alpha[\eta]=\chi(\beta[\eta],\chi(\beta,\gamma)+1)\)
+
+11) \(\alpha=\psi_{ \chi(\beta,\gamma)}(\delta+1) \wedge M>\text{cof} (\beta)\geq\omega \Rightarrow \text{cof}(\alpha)=\text{cof}(\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],\psi_{\chi(\beta,\gamma)}(\delta)+1)\)
+
+
+12) \(\alpha=\psi_{\chi(\beta,0)}(0) \wedge \text{cof}(\beta)=M\Rightarrow \text{cof}(\alpha)= \omega \wedge \alpha[0]=1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+13) \(\alpha=\psi_{ \chi(\beta,\gamma+1)}(0) \wedge \text{cof} (\beta)=M \Rightarrow \text{cof} (\alpha)= \omega \wedge \alpha[0]=\chi(\beta,\gamma)+1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+14) \(\alpha=\psi_{\chi(\beta,\gamma)}(\delta+1) \wedge \text{cof} (\beta)=M \Rightarrow \text{cof} (\alpha)= \omega \wedge \alpha[0]= \psi_{ \chi(\beta,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+
+15) \(\alpha=M^{\beta}\times\gamma \wedge \gamma<M \wedge \text{cof} (\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\gamma)\wedge\alpha[\eta]=M^{\beta}\times(\gamma[\eta])\)
+
+16) \(\alpha=M^{\beta+1}\times(\gamma+1) \wedge \gamma<M \Rightarrow \text{cof} (\alpha)=M \wedge\alpha[\eta]=M^{\beta+1}\times\gamma+M^\beta\times\eta\)
+
+17) \(\alpha=M^\beta\times(\gamma+1) \wedge \gamma<M \wedge\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=M^\beta\times\gamma+M^{\beta[\eta]}\)
+
+
+18) \(\alpha=\chi(\beta,\gamma) \wedge \text{cof}(\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)=\text{cof}(\gamma)\wedge \alpha[\eta]=\chi(\beta,\gamma[\eta])\)
+
+19) \(\alpha=\psi_\pi(\beta) \wedge \pi>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+20) \(\alpha=\psi_\pi(\beta) \wedge \text{cof}(\beta)=\mu\geq\pi \Rightarrow \text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi _\pi(\beta[\gamma[n]])\) where  \(\gamma[0]=1\) and  \(\gamma[k+1]=\psi_\mu(\beta[\gamma[k]])\)
+
+
+Limit of this notation is \(\Lambda\)
+
+21) \(\alpha=\Lambda \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\chi(\beta[n],0)\) where \(\beta[0]=0\) and  \(\beta[k+1]=M^{\beta[k]}\)
+
+
+
+{| class="wikitable"
+|-
+!
+!Examples
+!applied rules
+|-
+|1.
+|\(\psi(\Lambda)[3]=\psi(\chi(M^M,0))\)
+|19, 21
+|-
+|2.
+|\(\psi(\chi(M^M,0))[3]=\psi(\psi_{\chi(M^M,0)}(\psi_{\chi(M^M,0)}(\psi_{\chi(M^M,0)}(1))))\)
+|3, 20
+|-
+|3.
+|\(\psi(\psi_{\chi(M^M,0)}(0))[3]=\psi(\chi(M^{\chi(M^{\chi(M,0)},0)},0))\)
+|3, 12, 17, 19
+|-
+|4.
+|\(\psi(\chi(M,0))[3]=\psi(\psi_{\chi(M,0)}(\psi_{\chi(M,0)}(\psi_{\chi(M,0)}(1))))\)
+|3, 20
+|-
+|5.
+|\(\psi(\psi_{\chi(M,0)}(0))[3]=\psi(\chi(\chi(\chi(1,0),0),0))\)
+|3, 12, 19
+|-
+|6.
+|\(\psi(\psi_{\chi(1,0)}(0))[3]=\psi(\chi(0,\chi(0,\chi(0,0))))\)
+|6, 19
+|-
+|7.
+|\(\psi(\chi(0,\chi(0,0)))[3]=\psi(\chi(0,\psi(\chi(0,\psi(\chi(0,1))))))\)
+|3, 18, 20
+|-
+|8
+|\(\psi(\chi(0, \psi(1)+\psi(1)))[3]=\psi(\chi(0, \psi(1)+3))\)
+|1, 5, 18, 19
+|-
+|9.
+|\(\psi(\chi(0,1))[3]=\psi(\psi_{\chi(0,1)}(\psi_{\chi(0,1)}(\psi_{\chi(0,1)}(1))))\)
+|3, 20
+|-
+|10.
+|\(\psi(\psi_{\chi(0,1)}(0))[3]=\psi(\chi(0,0)+\chi(0,0)+\chi(0,0))\)
+|4, 19
+|-
+|11.
+|\(\psi(\chi(0,0))[3]=\psi(\psi(\psi(\psi(1))))\)
+|3, 20
+|-
+|}
+
+
+
+The system of fundamental sequences can be applied for defining the slow-growing hierarchy
+
+\(g_0(n)=0\);  \(g_{\alpha+1}(n)=g_\alpha(n)+1\);  \(g_\alpha(n)=g_{\alpha[n]}(n)\) iff \(\alpha\in L\),
+
+Hardy hierarchy
+
+\(H_0(n)=n\);  \(H_{\alpha+1}(n)=H_\alpha(n+1)\);  \(H_\alpha(n)=H_{\alpha[n]}(n)\) iff \(\alpha\in L\),
+
+and fast-growing hierarchy
+
+\(f_0(n)=n+1\);  
+
+\(f_{\alpha+1}(n)=f_\alpha^n(n)\) where \(f_\alpha^0(n)=n\) and \(f_\alpha^{m+1}(n)=f_\alpha(f_\alpha^m(n))\);  
+
+\(f_\alpha(n)=f_{\alpha[n]}(n)\) iff \(\alpha\in L\).
+
+For example, \(f_{\psi(\Lambda)}^2(9)\)
+
+==Another notation based on a weakly Mahlo cardinal==
+This notation allows to obtain much simpler system of fundamental sequences.
+
+'''Basic notions'''
+
+Small Greek letters denote ordinals. Each ordinal \(\alpha\) is identified with the set of its predecessors \(\alpha=\{\beta|\beta<\alpha\}\). 
+
+\(\omega\) is the first transfinite ordinal and the set of all natural numbers.
+
+\(P=\{\alpha>0|\forall\beta,\gamma<\alpha(\beta+\gamma<\alpha)\}\) is the  set of additive principal numbers.
+
+Normal form. \(\alpha=_{NF}\alpha_1+\cdots+\alpha_n\Leftrightarrow\alpha=\alpha_1+\cdots+\alpha_n\wedge\alpha>\alpha_1\geq\cdots\geq\alpha_n\wedge\alpha_1,...,\alpha_n\in P\)
+
+Cofinality of an ordinal \(\alpha\) is the least length of increasing sequence such that the limit of this sequence is the ordinal \(\alpha\). 
+
+\(\text{cof}(\alpha)\) denotes the cofinality of an ordinal \(\alpha\).
+
+\(R=\{\alpha>\omega|\text{cof}(\alpha)=\alpha\}\) is the set of uncountable regular cardinals.
+
+\(M\) is the least weakly Mahlo cardinal. 
+
+Normal form. \(\alpha=_{NF}M^\beta\gamma\Leftrightarrow\alpha=M^\beta\gamma\wedge\gamma<M\)
+
+\(\varepsilon_{M+1}=\min\{\alpha>M|\alpha=\omega^\alpha\}\) is the least epsilon number greater than \(M\). 
+
+In this notation \(\alpha\in R\Leftrightarrow\alpha=\chi(\beta)\vee\alpha=M\). The variable \(\pi\) is reserved for uncountable regular cardinals less than \(M\). 
+
+'''Definition''' of the function \(\chi:\varepsilon_{M+1}\rightarrow M\)
+
+1) \(B_0(\alpha,\beta)=\beta\cup\{0\}\)
+
+2) \(\gamma=_{NF}\gamma_1+\cdots+\gamma_k\wedge\gamma_1,...,\gamma_k\in B_n(\alpha,\beta)\Rightarrow\gamma\in B_{n+1}(\alpha,\beta)\)
+
+3) \(\gamma=\omega^{M+\delta}\wedge\delta\in B_n(\alpha,\beta)\Rightarrow\gamma\in B_{n+1}(\alpha,\beta)\)
+
+4) \(\gamma=\chi(\eta)\wedge\eta\in B_n(\alpha,\beta)\cap\alpha \Rightarrow\gamma\in B_{n+1}(\alpha,\beta)\)
+
+5) \(\gamma<\pi\wedge\pi\in B_n(\alpha,\beta) \Rightarrow\gamma\in B_{n+1}(\alpha,\beta)\)
+
+6) \(B(\alpha,\beta)=\cup_{n<\omega}B_n(\alpha,\beta)\)
+
+7) \(\chi(\alpha)=\min\{\beta<M|B(\alpha,\beta)\cap M\subset\beta\wedge\beta\in R\}\)
+
+Normal form. \(\alpha=_{NF}\chi(\beta)\Leftrightarrow\alpha=\chi(\beta)\wedge\beta\in B(\beta,\chi(\beta))\)
+
+'''Definition''' of functions \(\psi_\pi:M\rightarrow \pi\)
+
+1) \(C_0(\alpha,\beta)=\beta\cup\{0\}\)
+
+2) \(\gamma=_{NF}\gamma_1+\cdots+\gamma_k\wedge\gamma_1,...,\gamma_k \in C_n(\alpha,\beta)\Rightarrow\gamma\in C_{n+1}(\alpha,\beta)\)
+
+3) \(\gamma=\omega^{M+\delta}\wedge\delta\in C_n(\alpha,\beta)\Rightarrow\gamma\in C_{n+1}(\alpha,\beta)\)
+
+4) \(\gamma=_{NF}\chi(\eta)\wedge\eta\in C_n(\alpha,\beta) \Rightarrow\gamma\in C_{n+1}(\alpha,\beta)\)
+
+5) \(\gamma=\psi_\pi(\eta)\wedge\eta<\alpha\wedge\pi,\eta\in C_n(\alpha,\beta)\Rightarrow\gamma\in C_{n+1}(\alpha,\beta)\)
+
+6) \(C(\alpha,\beta)=\cup_{n<\omega}C_n(\alpha,\beta)\)
+
+7) \(\psi_\pi(\alpha)=\min\{\beta<\pi|C(\alpha,\beta)\cap \pi\subset\beta\}\)
+
+Below \(\psi(\alpha)\) is an abbreviation for \(\psi_{\chi(0)}(\alpha)\)
+
+Normal form. \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta)\wedge\beta\in C(\beta,\psi_\pi(\beta))\)
+
+'''Definition''' of the set \(T\) of ordinals which can be generated from the ordinals \(0\) and \(M\) using addition, multiplication, exponentiation and the functions \(\chi,\psi_\pi\)
+
+1) \(0\in T\)
+
+2) \(\alpha=_{NF}\alpha_1+\cdots+\alpha_n\wedge\alpha_1,...,\alpha_n\in T\Rightarrow\alpha\in T\)
+
+3) \(\alpha=_{NF}M^\beta\gamma\wedge\beta,\gamma\in T\Rightarrow\alpha\in T\)
+
+4) \(\alpha=_{NF}\psi_\pi(\beta)\wedge\pi,\beta\in T\Rightarrow\alpha\in T\)
+
+5) \(\alpha=_{NF}\chi(\beta)\wedge\beta\in T\Rightarrow\alpha\in T\)
+
+'''A system of fundamental sequences'''
+
+For each non-zero ordinal \(\alpha\in T\) we define its cofinality \(\text{cof}(\alpha)\) and assign a fundamental sequence i.e. a strictly increasing sequence \((\alpha[\eta])_{\eta<\text{cof}(\alpha)}\) with length \(\text{cof}(\alpha)\) and with limit \(\alpha\)
+
+1) \(\alpha=\alpha_1+\cdots+\alpha_n\Rightarrow\text{cof}(\alpha)=\text{cof}(\alpha_n)\wedge\alpha[\eta]=\alpha_1+\cdots+(\alpha_n[\eta])\)
+
+2) \(\alpha=\psi_{\chi(\beta+1)}(0)\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[\eta]=\chi(\beta)\times \eta\)
+
+3) \(\alpha=\psi_{\chi(\beta)}(0)\wedge\omega\le\text{cof}(\beta)<M\Rightarrow\text{cof}(\alpha)=\text{cof}(\beta)\wedge\alpha[\eta]=\chi(\beta[\eta])\)
+
+4) \(\alpha=\psi_{\chi(\beta)}(0)\wedge\text{cof}(\beta)=M\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[0]=1\wedge\alpha[\eta+1]=\chi(\beta[\alpha[\eta]])\)
+
+5)  \(\alpha=\psi_{\chi(\beta)}(\gamma+1)\wedge(\beta=0\vee\beta=\delta+1\vee\omega\le\text{cof}(\beta)<M)\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[\eta]=\psi_{\chi(\beta)}(\gamma)\times \eta\)
+
+6)  \(\alpha=\psi_{\chi(\beta)}(\gamma+1)\wedge\text{cof}(\beta)=M\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[0]=\psi_{\chi(\beta)}(\gamma)+1\wedge\alpha[\eta+1]=\chi(\beta[\alpha[\eta]])\)
+
+7)  \(\alpha=\psi_{\chi(0)}(0)=1\vee\alpha=\chi(\beta)\vee\alpha=M\Rightarrow\text{cof}(\alpha)=\alpha\wedge\alpha[\eta]=\eta\)
+
+8) \(\alpha=M^{\beta}\times\gamma \wedge \text{cof} (\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\gamma)\wedge\alpha[\eta]=M^{\beta}\times(\gamma[\eta])\)
+
+9) \(\alpha=M^{\beta+1}\times(\gamma+1) \Rightarrow \text{cof} (\alpha)=M \wedge\alpha[\eta]=M^{\beta+1}\times\gamma+M^\beta\times\eta\)
+
+10) \(\alpha=M^\beta\times(\gamma+1) \wedge\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=M^\beta\times\gamma+M^{\beta[\eta]}\)
+
+11) \(\alpha=\psi_\pi(\beta) \wedge \pi>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+12) \(\alpha=\psi_\pi(\beta) \wedge \text{cof}(\beta)=\mu\geq\pi \Rightarrow \text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi _\pi(\beta[\gamma[n]])\) where  \(\gamma[0]=1\) and  \(\gamma[k+1]=\psi_\mu(\beta[\gamma[k]])\)
+
+Let \(\lambda\) denote the limit of this notation
+
+13) \(\alpha=\lambda\Rightarrow\text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi(\chi(\beta[n]))\) where \(\beta[0]=0\) 
+and \(\beta[k+1]=M^{\beta[k]}\)
+
+{| class="wikitable"
+|-
+!
+!Examples
+!applied rules
+|-
+|1.
+|\(\lambda[3]=\psi(\chi(M^M))\)
+|13
+|-
+|2.
+|\(\psi(\chi(M^M))[3]=\psi(\psi_{\chi(M^M)}(\psi_{\chi(M^M)}(\psi_{\chi(M^M)}(1))))\)
+|7, 12
+|-
+|3.
+|\(\psi(\psi_{\chi(M^M)}(0))[3]=\psi(\chi(M^{\chi(M^{\chi(M)})}))\)
+|4, 7, 10,11
+|-
+|4.
+|\(\psi(\psi_{\chi(M^2)}(0))[3]=\psi(\chi(M\times\chi(M\times\chi(M))))\)
+|4, 9, 11
+|-
+|5.
+|\(\psi(\psi_{\chi(M+M)}(0))[3]=\psi(\chi(M+\chi(M+\chi(M+1))))\)
+|4, 9, 11
+|-
+|6.
+|\(\psi(\chi(M))[3]=\psi(\psi_{\chi(M)}(\psi_{\chi(M)}(\psi_{\chi(M)}(1))))\)
+|7, 12
+|-
+|7.
+|\(\psi(\psi_{\chi(M)}(0))[3]=\psi(\chi(\chi(\chi(1))))\)
+|4, 7, 11
+|-
+|8.
+|\(\psi(\psi_{\chi(\chi(0))}(0))[3]=\psi(\chi(\psi(\chi(\psi(\chi(1))))))\)
+|3, 7, 12
+|-
+|9
+|\(\psi(\psi_{\chi(\psi(1)+\psi(1))}(0))[3]=\psi(\chi(\psi(1)+3))\)
+|1, 3, 5, 11
+|-
+|10.
+|\(\psi(\chi(1))[3]=\psi(\psi_{\chi(1)}(\psi_{\chi(1)}(\psi_{\chi(1)}(1))))\)
+|7, 12
+|-
+|11.
+|\(\psi(\psi_{\chi(1)}(0))[3]=\psi(\chi(0)+\chi(0)+\chi(0))\)
+|2, 11
+|-
+|12.
+|\(\psi(\chi(0))[3]=\psi(\psi(\psi(\psi(1))))\)
+|7, 12
+|-
+|}
+
+Using this system of fundamental sequences we can apply ordinals \(\alpha\le\lambda\) in particular for the following extension of arrow notation 
+
+\(n\uparrow^0 k=n\times k\)
+
+\(n\uparrow^{\alpha+1}1=n\)
+
+\(n\uparrow^{\alpha+1}(k+1)=n\uparrow^{\alpha}(n\uparrow^{\alpha+1}k)\)
+
+\(n\uparrow^{\alpha}k=n\uparrow^{\alpha[k]}n\) iff \(\alpha\) is a limit ordinal.
+
+For example \(10\uparrow^{\lambda}9\)
+
+Remark: by the way this number can be called  \(\lambda\)-billion, since if we define \(n_\alpha^k=n\uparrow^\alpha k\) then each \(i\)-th number from the "illion"-family is written as  \(10_1^{3\times i+3}\) and if \(\alpha>1\) then for extension of the "illion"-family of number names we can just add \(\alpha\) before the names.
+For example: 2-billion \(=10_2^9=10\uparrow^2 9;\) 3-billion \(=10_3^9\) and so on up to  \(\lambda\)-billion \(=10_\lambda^9\)
+
+==References==
+
+1. Buchholz, W.; Wainer, S.S (1987). "Provably Computable Functions and the Fast Growing Hierarchy". Logic and Combinatorics, edited by S. Simpson, Contemporary Mathematics, Vol. 65, AMS, 179-198.
+
+2. W.Buchholz (1986). A New System of Proof-Theoretic Ordinal Functions. Annals of Pure and Applied Logic, Vol. 32, 195-207
+
+3. M.Jäger (1984). \(\rho\)-inaccessible ordinals, collapsing functions and a recursive notation system. Arch. Math. Logik Grundlagenforsch, Vol. 24, 49-62
+
+4. M. Rathjen (1990). Ordinal Notations Based on a Weakly Mahlo Cardinal. Arch. Math. Logic, Vol. 29, 249-263
+
+\end{document}
+
