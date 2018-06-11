@@ -31,61 +31,73 @@ buchholz psi functions
 
 \( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) 
 
+\bigskip
 
 Maksudov
 
 first system
 
-\( \psi_{\chi(0,\beta+1)}(0) = \chi(0,\beta) \cdot \omega \)
+\bigskip
 
-\( \psi_{\chi(0,\beta)}(\gamma+1) = \psi_{\chi(0,\beta)}(\gamma) \cdot \omega \)
+3) \( \psi_{\chi(0,0)}(0) = 1 \)
 
+4) \( \psi_{\chi(0,\beta+1)}(0) = \chi(0,\beta) \cdot \omega \)
 
-\( \psi_{\chi(\beta+1,0)}(0) = lim [(\chi \circ f)^\bullet(0)] \)
+5) \( \psi_{\chi(0,\beta)}(\gamma+1) = \psi_{\chi(0,\beta)}(\gamma) \cdot \omega \)
 
-\( \psi_{\chi(\beta+1,\gamma+1)}(0) = lim [(\chi \circ f)^\bullet (\chi(\beta+1,\gamma)+1)] \)
+\bigskip
 
-\( \psi_{\chi(\beta+1,\gamma)}(\delta+1) = lim [(\chi \circ f)^\bullet (\psi_{\chi(\beta+1,\gamma)}(\delta)+1)] \)
+6) \( \psi_{\chi(\beta+1,0)}(0) = [\chi(\beta,\bullet)]^\omega (0) \)
 
+7) \( \psi_{\chi(\beta+1,\gamma+1)}(0) = [\chi(\beta,\bullet)]^\omega (\chi(\beta+1,\gamma)+1) \)
 
-\( \psi_{\chi(Lim_\mu f,0)}(0) = Lim_\mu [\chi(f(\bullet),0)] \) if \( \omega_\mu \ge \omega \)
+8) \( \psi_{\chi(\beta+1,\gamma)}(\delta+1) = [\chi(\beta,\bullet)]^\omega (\psi_{\chi(\beta+1,\gamma)}(\delta)+1) \)
 
-\( \psi_{\chi(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [\chi(f(\bullet),chi(Lim_\mu f,\gamma)+1))] \) if \( M > \omega_\mu \ge \omega \)
+\bigskip
 
-\( \psi_{\chi(Lim_\mu f,\gamma)}(\delta+1) = Lim_\mu [\chi(f(\bullet),\psi_{\chi(\beta,\gamma)}(\delta)+1)] \)
+9) \( \psi_{\chi(Lim_\mu f,0)}(0) = Lim_\mu [\chi(f(\bullet),0)] \) if \( \omega_\mu \ge \omega \)
 
+10) \( \psi_{\chi(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [\chi(f(\bullet),chi(Lim_\mu f,\gamma)+1))] \) if \( M > \omega_\mu \ge \omega \)
 
-\( \psi_{\chi(lim_M f,0)}(0) = lim [ [\chi(f(\bullet),0)]^\bullet(1) ] \)
+11) \( \psi_{\chi(Lim_\mu f,\gamma)}(\delta+1) = Lim_\mu [\chi(f(\bullet),\psi_{\chi(Lim_\mu f,\gamma)}(\delta)+1)] \)
 
-\( \psi_{\chi(lim_M f,\gamma+1)}(0) = lim [ [\chi(f(\bullet),0)]^\bullet(\chi(Lim_M f,\gamma)+1)] \)
+\bigskip
 
-\( \psi_{\chi(lim_M f,\gamma)}(\delta+1) = lim [ [\chi(f(\bullet),0]^\bullet(\psi_{\chi(Lim_M f,\gamma)}(\delta)+1) ] \)
+12) \( \psi_{\chi(lim_M f,0)}(0) = [\chi(f(\bullet),0]^\omega (1) \)
 
+13) \( \psi_{\chi(lim_M f,\gamma+1)}(0) = [\chi(f(\bullet),0]^\omega (\chi(Lim_M f,\gamma)+1) \)
 
-\( \chi(\beta,Lim_\mu) = Lim_\mu [\chi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
+14) \( \psi_{\chi(lim_M f,\gamma)}(\delta+1) = [\chi(f(\bullet),0]^\omega (\psi_{\chi(Lim_M f,\gamma)}(\delta)+1) \)
 
-\( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+\bigskip
 
-\( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu)^\bullet(1))) ] \)
+18) \( \chi(\beta,Lim_\mu f) = Lim_\mu [\chi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
 
+19) \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+20) \( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu \circ f)^\bullet(1))) ] \) if \( \omega_\mu \ge \pi \)
+
+\bigskip
 
 second system
 
-\( \psi_{\chi(0)}(0) = 1 \)
+\bigskip
 
-\( \psi_{\chi(\beta+1)}(0) = \chi(\beta) \cdot \omega \)
+7) \( \psi_{\chi(0)}(0) = 1 \)
 
-\( \psi_{\chi(Lim_\mu f)}(0) = Lim_\mu(\chi \circ f) \) if \( \omega_\kappa < M \)
+2) \( \psi_{\chi(\beta+1)}(0) = \chi(\beta) \cdot \omega \)
 
-\( \psi_{\chi(lim_M f)}(0) = lim [(\chi \circ f)^\bullet 1] \)
+3) \( \psi_{\chi(Lim_\mu f)}(0) = Lim_\mu(\chi \circ f) \) if \( \omega_\kappa < M \)
 
-\( \psi_{\chi(\lim_M f)}(\gamma+1) = lim [(\chi \circ f)^\bullet (\psi_{\chi(\beta)}(\gamma)+1)] \)
+4) \( \psi_{\chi(lim_M f)}(0) = (\chi \circ f)^\omega (1) \)
 
-\( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
+6) \( \psi_{\chi(\lim_M f)}(\gamma+1) = (\chi \circ f)^\omega (\psi_{\chi(\beta)}(\gamma)+1) \)
 
-\( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+5) \( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
 
-\( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
+11) \( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+12) \( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
 
 
 \end{document}
