@@ -3200,11 +3200,7 @@ This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where 
 \item \( \psi_\nu(Lim_{\kappa+1} h) = Lim_{\kappa+1}(\psi_\nu \circ h) \) if \( \kappa < \nu \), 
  or with fundamental sequence notation : \( \psi_\nu(\alpha)[\eta] = \psi_\nu(\alpha[\eta]) \)
 
-\begin{comment}
 \item \( \psi_\nu(Lim_{\kappa+1} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) if \( \kappa \ge \nu \), with \( \zeta = 0 \) or 1 or \( \psi_\nu(0) \) for example.
-\end{comment}
-
-\item \( \psi_\nu (Lim_{\kappa+1} h) = lim [ \psi_\nu (h ((\psi_\kappa \circ h)^\bullet (\zeta)))] \) if \( \kappa \ge \nu \), with \( \zeta = 0 \) or 1 or \( \psi_\kappa(0) \) for example.
 
 \end{itemize}
 
@@ -3213,8 +3209,6 @@ This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where 
 \end{comment}
 
 We can see that for \( \psi_0 \) we get the same definition as the previous definition of \( \psi \).
-
-Concerning the last formula, with \( \psi_\nu(Lim_{\kappa+1} h) = lim [ (\psi_\nu \circ h)^\bullet (\zeta) ] \) we also get the previous one for \( \psi_0 \) but it is not the same formula as for Buchholz function which we will see later.
 
 The choice of \( \zeta = 0, 1 \) or \( \psi_\nu(0) \) is not very important since it does not change the value of the limit. Traditionaly, \( \psi_\nu(0) \) is generally chosen, but 0 or 1 seems simpler to me.
 
@@ -3935,12 +3929,9 @@ These fundamental sequences are equivalent to the following recursive definition
 \item \( \psi_{Lim_\mu h}(0) = Lim_\mu (\xi \mapsto \psi_{h(\xi)}(0)) = Lim_\mu (\xi \mapsto \Omega_{h(\xi)}) \)
 \item \( \psi_\nu(\beta+1) = \psi_\nu(\beta) \cdot \omega \)
 \item \( \psi_\nu (lim\ h) = lim (\xi \mapsto \psi_\nu(h(\xi))) = lim (\psi_\nu \circ h) \) ( with \( lim = Lim_0 \) )
-\begin{comment}
-      \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
-\end{comment}
-\item \( \psi_\nu (Lim_{\mu+1} h) = lim (\xi \mapsto (\psi_\nu \circ h)^\xi (\psi_\nu(0))) \) if \( \mu \ge \nu \)
 
-\item \( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) if \( \mu \ge \nu \)
+      \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
+\item \( \psi_\nu (Lim_{\mu+1} h) = lim (\xi \mapsto (\psi_\nu \circ h)^\xi (\psi_\nu(0))) \) if \( \mu \ge \nu \)
 \item This fundamental sequence is not part of the definition of \( \psi_\nu(\alpha) \), it can be deduced from the definition of \( \Lambda = min \lbrace \beta | \psi_\beta(0) = \beta \rbrace \)
 \end{enumerate}
 
@@ -6087,6 +6078,7 @@ http://googology.wikia.com/wiki/Ordinal\_notation
 
 http://googology.wikia.com/wiki/List\_of\_systems\_of\_fundamental\_sequences
 
+http://cantorsattic.info/Cantor\%27s\_Attic
 
 \begin{comment}
 An example of such functions are the "Hypcos's functions" which collapses weakly inaccessible cardinals, described in
@@ -6299,11 +6291,16 @@ These fundamental sequences can be reformulated to produce recursive definitions
 \bigskip
 
 \item \( I(\beta,0) = I(\beta,\gamma+1) = Lim_{cof(I(\beta,0)} [\bullet] \) where \( [\bullet] \) is the identity function
-\item \( I(\beta,Lim_nu g) = Lim_\nu [I(\beta,g \bullet] \)
+\item \( I(\beta,Lim_\nu g) = Lim_\nu [I(\beta,g \bullet)] \)
 \item \( \psi_\pi(Lim_\nu f) = Lim_\nu [\psi_\pi(f \bullet)] \) if \( \omega \le \nu \le \pi \)
+\begin{comment}
 \item \( \psi_\pi(Lim_\nu f) = lim [\psi_\pi(f (g \bullet)] \) with \( g(0) = 1 \) and \( g (n+1) = \psi_\nu(f(g(n))) \) if \( \nu \ge \pi \)
+\end{comment}
+\item \( \psi_\pi(Lim_\nu f) = lim [ \psi_\pi(f((\psi_\nu \circ f)^\bullet(1)))] \)
 
 \end{itemize}
+
+\begin{comment}
 
 \subsubsection{See also}
 
@@ -6315,6 +6312,7 @@ Other ordinal collapsing functions:
 
 [[User blog:Denis Maksudov/Ordinal functions collapsing the least weakly Mahlo cardinal; a system of fundamental sequences|collapsing functions based on a weakly Mahlo cardinal]]
 
+\end{comment}
 
 \subsubsection{References}
 
@@ -6324,6 +6322,180 @@ Other ordinal collapsing functions:
 
 3. http://cantorsattic.info/J\%C3\%A4ger\%27s\_collapsing\_functions\_and\_\%CF\%81-inaccessible\_ordinals
 
+
+\subsection{Maksudov functions collapsing the least weakly Mahlo cardinal}
+
+\subsubsection{First system}
+
+Fundamental sequences :
+
+\bigskip
+
+1) \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n \wedge \alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n \Rightarrow \text{cof} (\alpha)= \text{cof} (\alpha_n) \wedge \alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+
+2) \(\alpha=0\Rightarrow\text{cof}(\alpha)=0\) 
+
+\bigskip
+
+3) \(\alpha=\psi _{\chi(0,0)}(0) \vee \alpha=\chi(\beta,0) \vee \alpha=\chi(\beta,\gamma+1) \vee \alpha=M\Rightarrow \text{cof} (\alpha)=\alpha \wedge \alpha[\eta]=\eta\)
+
+4) \(\alpha=\psi _{\chi(0,\beta+1)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\chi(0,\beta)\times n\)
+
+5) \(\alpha=\psi_{ \chi(0,\beta)}(\gamma+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\psi_{\chi(0,\beta)}(\gamma)\times n\)
+
+\bigskip
+
+6) \(\alpha=\psi _{\chi(\beta+1,0)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]=0 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+7) \(\alpha=\psi _{\chi(\beta+1,\gamma+1)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]=\chi(\beta+1,\gamma)+1 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+8) \(\alpha=\psi_{\chi(\beta+1,\gamma)}(\delta+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]= \psi_{\chi(\beta+1,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
+
+\bigskip
+
+9) \(\alpha=\psi _{\chi(\beta,0)}(0) \wedge M>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof} (\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],0)\)
+
+10) \(\alpha=\psi_{ \chi(\beta,\gamma+1)}(0) \wedge M>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)=\text{cof}(\beta)\wedge \alpha[\eta]=\chi(\beta[\eta],\chi(\beta,\gamma)+1)\)
+
+11) \(\alpha=\psi_{ \chi(\beta,\gamma)}(\delta+1) \wedge M>\text{cof} (\beta)\geq\omega \Rightarrow \text{cof}(\alpha)=\text{cof}(\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],\psi_{\chi(\beta,\gamma)}(\delta)+1)\)
+
+\bigskip
+
+12) \(\alpha=\psi_{\chi(\beta,0)}(0) \wedge \text{cof}(\beta)=M\Rightarrow \text{cof}(\alpha)= \omega \wedge \alpha[0]=1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+13) \(\alpha=\psi_{ \chi(\beta,\gamma+1)}(0) \wedge \text{cof} (\beta)=M \Rightarrow \text{cof} (\alpha)= \omega \wedge \alpha[0]=\chi(\beta,\gamma)+1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+14) \(\alpha=\psi_{\chi(\beta,\gamma)}(\delta+1) \wedge \text{cof} (\beta)=M \Rightarrow \text{cof} (\alpha)= \omega \wedge \alpha[0]= \psi_{ \chi(\beta,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
+
+\bigskip
+
+15) \(\alpha=M^{\beta}\times\gamma \wedge \gamma<M \wedge \text{cof} (\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\gamma)\wedge\alpha[\eta]=M^{\beta}\times(\gamma[\eta])\)
+
+16) \(\alpha=M^{\beta+1}\times(\gamma+1) \wedge \gamma<M \Rightarrow \text{cof} (\alpha)=M \wedge\alpha[\eta]=M^{\beta+1}\times\gamma+M^\beta\times\eta\)
+
+17) \(\alpha=M^\beta\times(\gamma+1) \wedge \gamma<M \wedge\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=M^\beta\times\gamma+M^{\beta[\eta]}\)
+
+\bigskip
+
+18) \(\alpha=\chi(\beta,\gamma) \wedge \text{cof}(\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)=\text{cof}(\gamma)\wedge \alpha[\eta]=\chi(\beta,\gamma[\eta])\)
+
+19) \(\alpha=\psi_\pi(\beta) \wedge \pi>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+20) \(\alpha=\psi_\pi(\beta) \wedge \text{cof}(\beta)=\mu\geq\pi \Rightarrow \text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi _\pi(\beta[\gamma[n]])\) where  \(\gamma[0]=1\) and  \(\gamma[k+1]=\psi_\mu(\beta[\gamma[k]])\)
+
+\bigskip
+
+Limit of this notation is \(\Lambda\)
+
+21) \(\alpha=\Lambda \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\chi(\beta[n],0)\) where \(\beta[0]=0\) and  \(\beta[k+1]=M^{\beta[k]}\)
+
+\bigskip
+
+These fundamental sequences can be reformulated like this :
+
+\bigskip
+
+3) \( \psi_{\chi(0,0)}(0) = 1 \)
+
+4) \( \psi_{\chi(0,\beta+1)}(0) = \chi(0,\beta) \cdot \omega \)
+
+5) \( \psi_{\chi(0,\beta)}(\gamma+1) = \psi_{\chi(0,\beta)}(\gamma) \cdot \omega \)
+
+\bigskip
+
+6) \( \psi_{\chi(\beta+1,0)}(0) = [\chi(\beta,\bullet)]^\omega (0) \)
+
+7) \( \psi_{\chi(\beta+1,\gamma+1)}(0) = [\chi(\beta,\bullet)]^\omega (\chi(\beta+1,\gamma)+1) \)
+
+8) \( \psi_{\chi(\beta+1,\gamma)}(\delta+1) = [\chi(\beta,\bullet)]^\omega (\psi_{\chi(\beta+1,\gamma)}(\delta)+1) \)
+
+\bigskip
+
+9) \( \psi_{\chi(Lim_\mu f,0)}(0) = Lim_\mu [\chi(f(\bullet),0)] \) if \( \omega_\mu \ge \omega \)
+
+10) \( \psi_{\chi(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [\chi(f(\bullet),chi(Lim_\mu f,\gamma)+1))] \) if \( M > \omega_\mu \ge \omega \)
+
+11) \( \psi_{\chi(Lim_\mu f,\gamma)}(\delta+1) = Lim_\mu [\chi(f(\bullet),\psi_{\chi(Lim_\mu f,\gamma)}(\delta)+1)] \)
+
+\bigskip
+
+12) \( \psi_{\chi(lim_M f,0)}(0) = [\chi(f(\bullet),0]^\omega (1) \)
+
+13) \( \psi_{\chi(lim_M f,\gamma+1)}(0) = [\chi(f(\bullet),0]^\omega (\chi(Lim_M f,\gamma)+1) \)
+
+14) \( \psi_{\chi(lim_M f,\gamma)}(\delta+1) = [\chi(f(\bullet),0]^\omega (\psi_{\chi(Lim_M f,\gamma)}(\delta)+1) \)
+
+\bigskip
+
+18) \( \chi(\beta,Lim_\mu f) = Lim_\mu [\chi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
+
+19) \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+20) \( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu \circ f)^\bullet(1))) ] \) if \( \omega_\mu \ge \pi \)
+
+
+\bigskip
+
+\subsubsection{Second system}
+
+Fundamental sequences :
+
+1) \(\alpha=\alpha_1+\cdots+\alpha_n\Rightarrow\text{cof}(\alpha)=\text{cof}(\alpha_n)\wedge\alpha[\eta]=\alpha_1+\cdots+(\alpha_n[\eta])\)
+
+2) \(\alpha=\psi_{\chi(\beta+1)}(0)\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[\eta]=\chi(\beta)\times \eta\)
+
+3) \(\alpha=\psi_{\chi(\beta)}(0)\wedge\omega\le\text{cof}(\beta)<M\Rightarrow\text{cof}(\alpha)=\text{cof}(\beta)\wedge\alpha[\eta]=\chi(\beta[\eta])\)
+
+4) \(\alpha=\psi_{\chi(\beta)}(0)\wedge\text{cof}(\beta)=M\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[0]=1\wedge\alpha[\eta+1]=\chi(\beta[\alpha[\eta]])\)
+
+5)  \(\alpha=\psi_{\chi(\beta)}(\gamma+1)\wedge(\beta=0\vee\beta=\delta+1\vee\omega\le\text{cof}(\beta)<M)\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[\eta]=\psi_{\chi(\beta)}(\gamma)\times \eta\)
+
+6)  \(\alpha=\psi_{\chi(\beta)}(\gamma+1)\wedge\text{cof}(\beta)=M\Rightarrow\text{cof}(\alpha)=\omega\wedge\alpha[0]=\psi_{\chi(\beta)}(\gamma)+1\wedge\alpha[\eta+1]=\chi(\beta[\alpha[\eta]])\)
+
+7)  \(\alpha=\psi_{\chi(0)}(0)=1\vee\alpha=\chi(\beta)\vee\alpha=M\Rightarrow\text{cof}(\alpha)=\alpha\wedge\alpha[\eta]=\eta\)
+
+8) \(\alpha=M^{\beta}\times\gamma \wedge \text{cof} (\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\gamma)\wedge\alpha[\eta]=M^{\beta}\times(\gamma[\eta])\)
+
+9) \(\alpha=M^{\beta+1}\times(\gamma+1) \Rightarrow \text{cof} (\alpha)=M \wedge\alpha[\eta]=M^{\beta+1}\times\gamma+M^\beta\times\eta\)
+
+10) \(\alpha=M^\beta\times(\gamma+1) \wedge\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=M^\beta\times\gamma+M^{\beta[\eta]}\)
+
+11) \(\alpha=\psi_\pi(\beta) \wedge \pi>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+12) \(\alpha=\psi_\pi(\beta) \wedge \text{cof}(\beta)=\mu\geq\pi \Rightarrow \text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi _\pi(\beta[\gamma[n]])\) where  \(\gamma[0]=1\) and  \(\gamma[k+1]=\psi_\mu(\beta[\gamma[k]])\)
+
+Let \(\lambda\) denote the limit of this notation
+
+13) \(\alpha=\lambda\Rightarrow\text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi(\chi(\beta[n]))\) where \(\beta[0]=0\) 
+and \(\beta[k+1]=M^{\beta[k]}\)
+
+\bigskip
+
+These fundamental sequences can be reformulated like this :
+
+7) \( \psi_{\chi(0)}(0) = 1 \)
+
+2) \( \psi_{\chi(\beta+1)}(0) = \chi(\beta) \cdot \omega \)
+
+3) \( \psi_{\chi(Lim_\mu f)}(0) = Lim_\mu(\chi \circ f) \) if \( \omega_\kappa < M \)
+
+4) \( \psi_{\chi(lim_M f)}(0) = (\chi \circ f)^\omega (1) \)
+
+6) \( \psi_{\chi(\lim_M f)}(\gamma+1) = (\chi \circ f)^\omega (\psi_{\chi(\beta)}(\gamma)+1) \)
+
+5) \( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
+
+11) \( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+
+12) \( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
+
+\bigskip
+
+For more information see :
+
+http://cantorsattic.info/index.php?title=User\_blog:Denis\_Maksudov/Ordinal\_functions\_collapsing\_the\_least\_weakly\_Mahlo\_cardinal
+
+;\_a\_system\_of\_fundamental\_sequences\&redirect=no
 
 
 \section{Summary}
