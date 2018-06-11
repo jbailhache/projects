@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  11 JUN 2018 19:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  11 JUN 2018 20:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -651,48 +651,54 @@ can be writ-ten $\OML/cmm/m/it/10 ^^T \OT1/cmr/m/n/10 = ([1][0] [])[]0$.
 
 Excluding 'comment' comment. Excluding 'comment' comment. [69] [70]
 Excluding 'comment' comment. [71] Excluding 'comment' comment. [72]
-Overfull \hbox (12.3174pt too wide) in paragraph at lines 6496--6497
+Overfull \hbox (12.3174pt too wide) in paragraph at lines 6441--6442
+[]\OT1/cmr/m/n/10 http://cantorsattic.info/index.php?title=User[]blog:Denis[]Ma
+ksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
+ []
+
+
+Overfull \hbox (12.3174pt too wide) in paragraph at lines 6503--6504
 []\OT1/cmr/m/n/10 http://cantorsattic.info/index.php?title=User[]blog:Denis[]Ma
 ksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
 [73]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 6578--6614
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 6585--6621
 [] 
  []
 
 [74]
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 6622--6624
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 6629--6631
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 6625--6627
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 6632--6634
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 6658--6660
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 6665--6667
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 [75]
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 6664--6667
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 6671--6674
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 6681--6682
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 6688--6689
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 6686--6688
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 6693--6695
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
@@ -701,7 +707,7 @@ nrXzVAOxYYC : Ex-tremely large num-bers (videos)
 Here is how much of TeX's memory you used:
  1919 strings out of 495020
  23185 string characters out of 6181324
- 99897 words of memory out of 5000000
+ 100897 words of memory out of 5000000
  5129 multiletter control sequences out of 15000+600000
  11671 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -725,7 +731,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (76 pages, 468141 bytes).
+Output written on ordinal_notations_new.pdf (76 pages, 468652 bytes).
 PDF statistics:
  331 PDF objects out of 1000 (max. 8388607)
  230 compressed objects within 3 object streams
