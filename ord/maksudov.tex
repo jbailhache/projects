@@ -10,14 +10,13 @@
 
 \begin{document}
 
-\title{Maksudow Ordinal Collapsing Functions}
+\title{Rathjen and Maksudov Ordinal Collapsing Functions}
 
 \maketitle
 
 \setlength{\parindent}{0pt}
 
-
-==Introduction==
+\section{Introduction}
 
 There are well-known hierarchies of ordinal-indexed functions, such as [[slow-growing hierarchy]], [[Hardy hierarchy]], [[fast-growing hierarchy]] and other hierarchies whose definition require assignation of fundamental sequences \((\alpha[n])_{n<\omega}\) for countable limit ordinals. The growth of each of those hierarchies and the limit of its definition depends of choice of system of fundamental sequences. There is well-known and rather simple system formulated by S. Wainer for limit ordinals written in the Cantor normal form up to the first epsilon number. Ordinal notations, which are stronger than the Cantor normal form, require, respectively, stronger systems of fundamental sequences and those systems have much more complicated definition.
 
@@ -28,7 +27,7 @@ Based on S. Feferman’s theta-functions, W. Buchholz introduced a hierarchy of 
 On base of Rathjen’s approach we define a simplified version of functions  \(\psi_\pi: M\rightarrow \pi\)  that allows to reduce number of rules for system of fundamental sequences. Later we assign the cofinality and a fundamental sequence for each non-zero ordinal less than \(\psi_{\chi(0,0)}(\chi(\varepsilon_{M+1},0))\)
 
 
-==Basic notions==
+\section{Basic notions}
 
 Small Greek letters denote ordinals. Each ordinal \(\alpha\) is identified with the set of its predecessors \(\alpha=\{\beta|\beta<\alpha\}\). 
 
@@ -53,7 +52,7 @@ Cofinality \(\text{cof}(\alpha)\) of an ordinal \(\alpha\) is the least \(\beta\
 
 The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence. For each ordinal \(\alpha\) can be assigned a lot of different fundamental sequences.
 
-'''Properties'''
+\subsection{Properties}
 
 1) \(\text{cof}(0)=0\) 
 
@@ -86,7 +85,7 @@ Enumeration function \(F\) of class of ordinals \(X\) is the unique increasing f
 
 \(cl_M(X)=X\cup\{\lambda<M|\lambda=\sup(X\cap\lambda)\} \)
 
-'''Definition''' of Veblen function
+\subsection{Definition of Veblen function}
 
 \(\varphi_\alpha=\text{Enum}(\{\beta\in P|\forall\gamma<\alpha(\varphi_\gamma(\beta)=\beta)\})\)
 
@@ -96,16 +95,18 @@ Below we write \(\varphi(\alpha,\beta)\) for \(\varphi_\alpha(\beta)\)
 
 Let \(M^{\Gamma}=\min\{\alpha>M|\alpha=\varphi(\alpha,0)\}\)
 
-'''Definition''' of Jäger's function \(I_\alpha:M\rightarrow M\) which enumerate the \(\alpha\)-inaccessible ordinals less than \(M\) and their limits
+\subsection{Definition of Jäger's function}
+
+ \(I_\alpha:M\rightarrow M\) which enumerate the \(\alpha\)-inaccessible ordinals less than \(M\) and their limits
 
 \(I_\alpha=\text{Enum}(\{\beta\in R|\forall\gamma<\alpha(I_\gamma(\beta)=\beta)\}) \)
 
 Below we write \(I(\alpha,\beta)\) for \(I_\alpha(\beta)\)
 
 
-==Definition of functions \(\chi_\alpha(\beta) \) and \(\psi_\pi(\gamma) \)==
+\section{Definition of functions \(\chi_\alpha(\beta) \) and \(\psi_\pi(\gamma) \)}
 
-'''Inductive Definition''' of  functions \(\chi_\alpha: M\rightarrow M\) for \(\alpha <M^{\Gamma}\) (Rathjen, 1990)
+\subsection{Inductive Definition of  functions \(\chi_\alpha: M\rightarrow M\) for \(\alpha <M^{\Gamma}\) (Rathjen, 1990)}
 
 1) \(\{0,M\}\cup\beta\subset B^n(\alpha, \beta)\)
 
@@ -125,7 +126,7 @@ Note: as was said \(\kappa\) and \(\pi \) are reserved for uncountable regular c
 
 Below we write \(\chi(\alpha,\beta)\) for \(\chi_\alpha(\beta)\)
 
-'''Properties''' of  \(\chi\)-functions:
+\subsection{Properties of  \(\chi\)-functions}
 
 1) \(\chi(\alpha,\beta)<M\)
 
@@ -139,14 +140,17 @@ Below we write \(\chi(\alpha,\beta)\) for \(\chi_\alpha(\beta)\)
 
 6) \(\chi(\alpha,\beta)=I(\alpha,\beta)\) for all \(\alpha<\lambda\) where \(\lambda=\sup\{\gamma(n)|n<\omega\}\) with \(\gamma(0)=0\) and \(\gamma(n+1)=\chi(\gamma(n),0)\)
 
-'''Definition:''' \(\alpha=_{NF}\chi(\beta,\gamma) \Leftrightarrow\alpha=\chi(\beta,\gamma)\wedge\gamma<\alpha\)
+\bigskip
 
+Definition: \(\alpha=_{NF}\chi(\beta,\gamma) \Leftrightarrow\alpha=\chi(\beta,\gamma)\wedge\gamma<\alpha\)
+
+\bigskip
 
 Let \(\Pi\)  be the set of uncountable regular cardinals of the form \(\chi(\alpha,0)\) or \(\chi(\alpha,\beta+1)\) 
 
 \(\Pi=\{\chi(\alpha,0)|\alpha<\varepsilon_{M+1}\}\cup\{\chi(\alpha,\beta+1)|\alpha<\varepsilon_{M+1}\wedge\beta<M\}\)
 
-'''Inductive Definition''' of  functions \(\psi_\pi: M\rightarrow \pi\) for \(\pi\in \Pi\) 
+\subsection{Inductive Definition of  functions \(\psi_\pi: M\rightarrow \pi\) for \(\pi\in \Pi\)}
 
 1) \(C^0(\alpha, \beta)=\{0,M\}\cup\beta\)
 
@@ -156,7 +160,7 @@ Let \(\Pi\)  be the set of uncountable regular cardinals of the form \(\chi(\alp
 
 4) \(\psi_\pi(\alpha)=\min\{\beta<\pi|C(\alpha,\beta)\cap \pi\subset\beta\}\)
 
-'''Properties''' of  \(\psi\)-functions:
+\subsection{Properties of  \(\psi\)-functions}
 
 1) \(\psi_{\chi(0,0)}(0)=1\) 
 
@@ -166,11 +170,13 @@ Let \(\Pi\)  be the set of uncountable regular cardinals of the form \(\chi(\alp
 
 We write \(\psi(\alpha)\)  for \(\psi_{\chi(0,0)}(\alpha)\)
 
-'''Definition:''' \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta) \wedge\beta\in C(\beta, \psi_\pi(\beta))\)
+\bigskip
 
-==A system of fundamental sequences==
+Definition: \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta) \wedge\beta\in C(\beta, \psi_\pi(\beta))\)
 
-'''Inductive definition''' of \(T\)
+\section{A system of fundamental sequences}
+
+\subsection{Inductive definition of \(T\)}
 
 1) \(0 \in T\)
 
@@ -184,12 +190,13 @@ We write \(\psi(\alpha)\)  for \(\psi_{\chi(0,0)}(\alpha)\)
 
 For better understanding of collapsing functions \(\psi_\pi\) we define for each ordinal  \(\alpha\in T\)  its cofinality \(\text{cof}(\alpha) \) and  sequence   \( (\alpha[\eta])_{\eta<\text{cof}(\alpha) }\)  such that \(\alpha=\sup\{\alpha[\eta]|\eta<\text{cof}(\alpha) \}\)
 
-'''Definition''' of fundamental sequences for non-zero ordinals \(\alpha\in T\):
+\subsection{Definition of fundamental sequences for non-zero ordinals \(\alpha\in T\)}
 
 1) \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n \wedge \alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n \Rightarrow \text{cof} (\alpha)= \text{cof} (\alpha_n) \wedge \alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
 
 2) \(\alpha=0\Rightarrow\text{cof}(\alpha)=0\) 
 
+\bigskip
 
 3) \(\alpha=\psi _{\chi(0,0)}(0) \vee \alpha=\chi(\beta,0) \vee \alpha=\chi(\beta,\gamma+1) \vee \alpha=M\Rightarrow \text{cof} (\alpha)=\alpha \wedge \alpha[\eta]=\eta\)
 
@@ -197,7 +204,7 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 5) \(\alpha=\psi_{ \chi(0,\beta)}(\gamma+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\psi_{\chi(0,\beta)}(\gamma)\times n\)
 
-
+\bigskip
 
 6) \(\alpha=\psi _{\chi(\beta+1,0)}(0) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]=0 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
 
@@ -205,6 +212,7 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 8) \(\alpha=\psi_{\chi(\beta+1,\gamma)}(\delta+1) \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[0]= \psi_{\chi(\beta+1,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta,\alpha[n])\)
 
+\bigskip
 
 9) \(\alpha=\psi _{\chi(\beta,0)}(0) \wedge M>\text{cof}(\beta)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof} (\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],0)\)
 
@@ -212,6 +220,7 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 11) \(\alpha=\psi_{ \chi(\beta,\gamma)}(\delta+1) \wedge M>\text{cof} (\beta)\geq\omega \Rightarrow \text{cof}(\alpha)=\text{cof}(\beta) \wedge \alpha[\eta]=\chi(\beta[\eta],\psi_{\chi(\beta,\gamma)}(\delta)+1)\)
 
+\bigskip
 
 12) \(\alpha=\psi_{\chi(\beta,0)}(0) \wedge \text{cof}(\beta)=M\Rightarrow \text{cof}(\alpha)= \omega \wedge \alpha[0]=1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
 
@@ -219,6 +228,7 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 14) \(\alpha=\psi_{\chi(\beta,\gamma)}(\delta+1) \wedge \text{cof} (\beta)=M \Rightarrow \text{cof} (\alpha)= \omega \wedge \alpha[0]= \psi_{ \chi(\beta,\gamma)}(\delta)+1 \wedge \alpha[n+1]=\chi(\beta[\alpha[n]],0)\)
 
+\bigskip
 
 15) \(\alpha=M^{\beta}\times\gamma \wedge \gamma<M \wedge \text{cof} (\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)= \text{cof}(\gamma)\wedge\alpha[\eta]=M^{\beta}\times(\gamma[\eta])\)
 
@@ -226,6 +236,7 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 17) \(\alpha=M^\beta\times(\gamma+1) \wedge \gamma<M \wedge\text{cof}(\beta)\geq\omega \Rightarrow \text{cof}(\alpha)= \text{cof}(\beta) \wedge \alpha[\eta]=M^\beta\times\gamma+M^{\beta[\eta]}\)
 
+\bigskip
 
 18) \(\alpha=\chi(\beta,\gamma) \wedge \text{cof}(\gamma)\geq\omega \Rightarrow \text{cof} (\alpha)=\text{cof}(\gamma)\wedge \alpha[\eta]=\chi(\beta,\gamma[\eta])\)
 
@@ -233,12 +244,13 @@ For better understanding of collapsing functions \(\psi_\pi\) we define for each
 
 20) \(\alpha=\psi_\pi(\beta) \wedge \text{cof}(\beta)=\mu\geq\pi \Rightarrow \text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi _\pi(\beta[\gamma[n]])\) where  \(\gamma[0]=1\) and  \(\gamma[k+1]=\psi_\mu(\beta[\gamma[k]])\)
 
+\bigskip
 
 Limit of this notation is \(\Lambda\)
 
 21) \(\alpha=\Lambda \Rightarrow \text{cof}(\alpha)=\omega \wedge \alpha[n]=\chi(\beta[n],0)\) where \(\beta[0]=0\) and  \(\beta[k+1]=M^{\beta[k]}\)
 
-
+\bigskip
 
 {| class="wikitable"
 |-
@@ -292,7 +304,7 @@ Limit of this notation is \(\Lambda\)
 |-
 |}
 
-
+\bigskip
 
 The system of fundamental sequences can be applied for defining the slow-growing hierarchy
 
@@ -312,10 +324,11 @@ and fast-growing hierarchy
 
 For example, \(f_{\psi(\Lambda)}^2(9)\)
 
-==Another notation based on a weakly Mahlo cardinal==
+\section{Another notation based on a weakly Mahlo cardinal}
+
 This notation allows to obtain much simpler system of fundamental sequences.
 
-'''Basic notions'''
+\subsection{Basic notions}
 
 Small Greek letters denote ordinals. Each ordinal \(\alpha\) is identified with the set of its predecessors \(\alpha=\{\beta|\beta<\alpha\}\). 
 
@@ -339,7 +352,7 @@ Normal form. \(\alpha=_{NF}M^\beta\gamma\Leftrightarrow\alpha=M^\beta\gamma\wedg
 
 In this notation \(\alpha\in R\Leftrightarrow\alpha=\chi(\beta)\vee\alpha=M\). The variable \(\pi\) is reserved for uncountable regular cardinals less than \(M\). 
 
-'''Definition''' of the function \(\chi:\varepsilon_{M+1}\rightarrow M\)
+\subsection{Definition of the function \(\chi:\varepsilon_{M+1}\rightarrow M\)}
 
 1) \(B_0(\alpha,\beta)=\beta\cup\{0\}\)
 
@@ -357,7 +370,7 @@ In this notation \(\alpha\in R\Leftrightarrow\alpha=\chi(\beta)\vee\alpha=M\). T
 
 Normal form. \(\alpha=_{NF}\chi(\beta)\Leftrightarrow\alpha=\chi(\beta)\wedge\beta\in B(\beta,\chi(\beta))\)
 
-'''Definition''' of functions \(\psi_\pi:M\rightarrow \pi\)
+\subsection{Definition of functions \(\psi_\pi:M\rightarrow \pi\)}
 
 1) \(C_0(\alpha,\beta)=\beta\cup\{0\}\)
 
@@ -377,7 +390,7 @@ Below \(\psi(\alpha)\) is an abbreviation for \(\psi_{\chi(0)}(\alpha)\)
 
 Normal form. \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta)\wedge\beta\in C(\beta,\psi_\pi(\beta))\)
 
-'''Definition''' of the set \(T\) of ordinals which can be generated from the ordinals \(0\) and \(M\) using addition, multiplication, exponentiation and the functions \(\chi,\psi_\pi\)
+\subsection{Definition of the set \(T\) of ordinals which can be generated from the ordinals \(0\) and \(M\) using addition, multiplication, exponentiation and the functions \(\chi,\psi_\pi\)}
 
 1) \(0\in T\)
 
@@ -389,7 +402,7 @@ Normal form. \(\alpha=_{NF}\psi_\pi(\beta)\Leftrightarrow\alpha=\psi_\pi(\beta)\
 
 5) \(\alpha=_{NF}\chi(\beta)\wedge\beta\in T\Rightarrow\alpha\in T\)
 
-'''A system of fundamental sequences'''
+\subsection{A system of fundamental sequences}
 
 For each non-zero ordinal \(\alpha\in T\) we define its cofinality \(\text{cof}(\alpha)\) and assign a fundamental sequence i.e. a strictly increasing sequence \((\alpha[\eta])_{\eta<\text{cof}(\alpha)}\) with length \(\text{cof}(\alpha)\) and with limit \(\alpha\)
 
@@ -421,6 +434,8 @@ Let \(\lambda\) denote the limit of this notation
 
 13) \(\alpha=\lambda\Rightarrow\text{cof} (\alpha)=\omega \wedge \alpha[n]=\psi(\chi(\beta[n]))\) where \(\beta[0]=0\) 
 and \(\beta[k+1]=M^{\beta[k]}\)
+
+\bigskip
 
 {| class="wikitable"
 |-
@@ -478,6 +493,8 @@ and \(\beta[k+1]=M^{\beta[k]}\)
 |-
 |}
 
+\bigskip
+
 Using this system of fundamental sequences we can apply ordinals \(\alpha\le\lambda\) in particular for the following extension of arrow notation 
 
 \(n\uparrow^0 k=n\times k\)
@@ -493,7 +510,7 @@ For example \(10\uparrow^{\lambda}9\)
 Remark: by the way this number can be called  \(\lambda\)-billion, since if we define \(n_\alpha^k=n\uparrow^\alpha k\) then each \(i\)-th number from the "illion"-family is written as  \(10_1^{3\times i+3}\) and if \(\alpha>1\) then for extension of the "illion"-family of number names we can just add \(\alpha\) before the names.
 For example: 2-billion \(=10_2^9=10\uparrow^2 9;\) 3-billion \(=10_3^9\) and so on up to  \(\lambda\)-billion \(=10_\lambda^9\)
 
-==References==
+\section{References}
 
 1. Buchholz, W.; Wainer, S.S (1987). "Provably Computable Functions and the Fast Growing Hierarchy". Logic and Combinatorics, edited by S. Simpson, Contemporary Mathematics, Vol. 65, AMS, 179-198.
 
