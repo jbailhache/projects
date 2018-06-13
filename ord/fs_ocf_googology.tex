@@ -1,0 +1,358 @@
+\documentclass[10pt]{article}
+
+
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts}
+
+\usepackage{amssymb}
+
+\usepackage{amsmath}
+
+\usepackage{comment}
+
+
+
+\begin{document}
+
+
+
+\title{A Tutorial Overview of Ordinal Notations}
+
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+
+
+
+\maketitle
+
+
+
+\setlength{\parindent}{0pt}
+
+
+
+\section{Ordinal collapsing functions}
+
+
+
+ Fundamental sequences for the functions collapsing weakly inaccessible cardinals 
+
+
+
+Definition
+
+
+
+\(\Omega_\alpha\) with \(\alpha>0\) is the \(\alpha\)-th uncountable cardinal, \(I_\alpha\) with \(\alpha>0\) is the \(\alpha\)-th weakly inaccessible cardinal and for this notation \(I_0=\Omega_0=0\).
+
+
+
+In this section the variables \(\rho\), \(\pi\) are reserved for uncountable regular cardinals of the form \(\Omega_{\nu+1}\) or \(I_{\mu+1}\).
+
+
+
+Then,
+
+
+
+\(C_0(\alpha,\beta) = \beta\cup\{0\}\)
+
+\(C_{n+1}(\alpha,\beta) = \{\gamma+\delta|\gamma,\delta\in C_n(\alpha,\beta)\}\)
+
+\(\cup \{\Omega_\gamma|\gamma\in C_n(\alpha,\beta)\}\)
+
+\(\cup \{I_\gamma|\gamma\in C_n(\alpha,\beta)\}\)
+
+\(\cup \{\psi_\pi(\gamma)|\pi,\gamma\in C_n(\alpha,\beta)\wedge\gamma<\alpha\}\)
+
+\(C(\alpha,\beta) = \bigcup_{n<\omega} C_n(\alpha,\beta)\)
+
+\(\psi_\pi(\alpha) = \min\{\beta<\pi|C(\alpha,\beta)\cap\pi\subseteq\beta\}\)
+
+
+
+Properties
+
+
+
+\(\psi_{\pi}(0)=1\)
+
+\(\psi_{\Omega_1}(\alpha)=\omega^\alpha\) for \(\alpha<\varepsilon_0\)
+
+\(\psi_{\Omega_{\nu+1}}(\alpha)=\omega^{\Omega_\nu+\alpha}\) for \(1\le\alpha<\varepsilon_{\Omega_\nu+1}\) and \(\nu>0\)
+
+
+
+Standard form for ordinals \(\alpha<\beta=\text{min}\{\xi|I_\xi=\xi\}\)
+
+
+
+ The standard form for 0 is 0
+
+ If \(\alpha\) is of the form \(\Omega_\beta\), then the standard form for \(\alpha\) is \(\alpha= \Omega_\beta\) where \(\beta<\alpha\) and \(\beta\) is expressed in standard form
+
+ If \(\alpha\) is of the form \(I_\beta\), then the standard form for \(\alpha\) is \(\alpha= I_\beta\) where \(\beta<\alpha\) and \(\beta\) is expressed in standard form
+
+ If \(\alpha\) is not additively principal and \(\alpha>0\), then the standard form for \(\alpha\) is \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), where the \(\alpha_i\) are principal ordinals with \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n\), and the \(\alpha_i\) are expressed in standard form
+
+ If \(\alpha\) is an additively principal ordinal but not of the form \(\Omega_\beta\) or \(I_\gamma\), then \(\alpha\) is expressible in the form \(\psi_\pi(\delta)\). Then the standard form for \(\alpha\) is \(\alpha=\psi_\pi(\delta)\) where \(\pi\) and \(\delta\) are expressed in standard form
+
+
+
+Fundamental sequences
+
+
+
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence.
+
+
+
+Let \(S=\{\alpha|\text{cof}(\alpha)=1\}\) and \(L=\{\alpha|\text{cof}(\alpha)\geq\omega\}\) where \(S\) denotes the set of successor ordinals and \(L\) denotes the set of limit ordinals.
+
+
+
+For non-zero ordinals written in standard form fundamental sequences defined as follows:
+
+
+
+If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+
+If \(\alpha=\psi_{\pi}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+
+If \(\alpha=\psi_{\Omega_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\left\{\begin{array}{lcr} \alpha[\eta]=\Omega_{\nu}\cdot\eta \text{ if }\nu>0 \\ \alpha[\eta]=\eta \text{ if }\nu=0\\ \end{array}\right.\)
+
+If \(\alpha=\psi_{\Omega_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\Omega_{\nu+1}}(\beta)\cdot\eta\)
+
+If \(\alpha=\psi_{ I_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I_\nu+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
+
+If \(\alpha=\psi_{ I_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{ I_{\nu+1}}(\beta)+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
+
+If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+
+If \(\alpha=\Omega_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\Omega_{\nu[\eta]}\)
+
+If \(\alpha=I_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=I_{\nu[\eta]}\)
+
+ If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+ If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
+
+
+
+Limit of this notation is \(\lambda\). If \(\alpha=\lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=1\) and \(\alpha[\eta+1]=I_{\alpha[\eta]}\).
+
+
+
+ Fundamental sequences for the functions collapsing \(\alpha\)-weakly inaccessible cardinals 
+
+
+
+Definition
+
+
+
+An ordinal is \(\alpha\)-weakly inaccessible if it's an uncountable regular cardinal and it's a limit of \(\gamma\)-weakly inaccessible cardinals for all \(\gamma<\alpha\).
+
+
+
+Let \(I(\alpha,\beta)\) be the \((1+\beta)\)th \(\alpha\)-weakly inaccessible cardinal if \(\beta=0\) or \(\beta=\gamma+1\), and \(I(\alpha,\beta)=\text{sup}\{I(\alpha, \xi)|\xi<\beta\}\) if \(\beta\) is a limit ordinal.
+
+
+
+In this section the variables \(\rho\), \(\pi\) are reserved for uncountable regular cardinals of the form \(I(\alpha,0)\) or \(I(\alpha,\beta+1)\).
+
+
+
+Then,
+
+
+
+\(C_0(\alpha,\beta) = \beta\cup\{0\}\)
+
+\(C_{n+1}(\alpha,\beta) = \{\gamma+\delta|\gamma,\delta\in C_n(\alpha,\beta)\}\)
+
+\(\cup \{I(\gamma,\delta)|\gamma,\delta\in C_n(\alpha,\beta)\}\)
+
+\(\cup \{\psi_\pi(\gamma)|\pi,\gamma\in C_n(\alpha,\beta)\wedge\gamma<\alpha\}\)
+
+\(C(\alpha,\beta) = \bigcup_{n<\omega} C_n(\alpha,\beta)\)
+
+\(\psi_\pi(\alpha) = \min\{\beta<\pi|C(\alpha,\beta)\cap\pi\subseteq\beta\}\)
+
+
+
+Properties
+
+
+
+\(I(0,\alpha)=\Omega_{1+\alpha}=\aleph_{1+\alpha}\)
+
+\(I(1,\alpha)=I_{1+\alpha}\)
+
+\(\psi_{I(0,0)}(\alpha)=\omega^\alpha\) for \(\alpha<\varepsilon_0\)
+
+\(\psi_{I(0,\alpha+1)}(\beta)=\omega^{I(0,\alpha)+1+\beta}\) for \(\beta<\varepsilon_{I(0,\alpha)+1}\)
+
+
+
+Standard form for ordinals \(\alpha<\psi_{I(1,0,0)}(0)=\text{min}\{\xi|I(\xi,0)=\xi\}\)
+
+
+
+ The standard form for 0 is 0
+
+ If \(\alpha\) is of the form \(I(\beta,\gamma)\), then the standard form for \(\alpha\) is \(\alpha=I(\beta,\gamma)\) where \(\beta,\gamma<\alpha\) and \(\beta,\gamma\) are expressed in standard form
+
+ If \(\alpha\) is not additively principal and \(\alpha>0\), then the standard form for \(\alpha\) is \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), where the \(\alpha_i\) are principal ordinals with \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n\), and the \(\alpha_i\) are expressed in standard form
+
+ If \(\alpha\) is an additively principal ordinal but not of the form \(I(\beta,\gamma)\), then \(\alpha\) is expressible in the form \(\psi_\pi(\delta)\). Then the standard form for \(\alpha\) is \(\alpha=\psi_\pi(\delta)\) where \(\pi\) and \(\delta\) are expressed in standard form
+
+
+
+Fundamental sequences
+
+
+
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence.
+
+
+
+Let \(S=\{\alpha|\text{cof}(\alpha)=1\}\) and \(L=\{\alpha|\text{cof}(\alpha)\geq\omega\}\) where \(S\) denotes the set of successor ordinals and \(L\) denotes the set of limit ordinals.
+
+
+
+For non-zero ordinals \(\alpha<\psi_{I(1,0,0)}(0)\) written in standard form fundamental sequences defined as follows:[2]
+
+
+
+If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+
+If \(\alpha=\psi_{I(0,0)}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+
+If \(\alpha=\psi_{I(0,\beta+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=I(0,\beta)\cdot\eta\)
+
+If \(\alpha=\psi_{I(0,\beta)}(\gamma+1)\) and \(\beta\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{I(0,\beta)}(\gamma)\cdot\eta\)
+
+If \(\alpha=\psi_{I(\beta+1,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+
+If \(\alpha=\psi_{I(\beta+1,\gamma+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+
+If \(\alpha=\psi_{I(\beta+1,\gamma)}(\delta+1)\) and \(\gamma\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{I(\beta+1,\gamma)}(\delta)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+
+if \(\alpha=\psi_{I(\beta,0)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],0)\)
+
+if \(\alpha=\psi_{I(\beta,\gamma+1)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],I(\beta,\gamma)+1)\)
+
+if \(\alpha=\psi_{I(\beta,\gamma)}(\delta+1)\) and \(\beta\in L\) and \(\gamma\in \{0\}\cup S\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],\psi_{I(\beta,\gamma)}(\delta)+1)\)
+
+If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+
+If \(\alpha=I(\beta,\gamma)\) and \(\gamma\in L\) then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=I(\beta,\gamma[\eta])\)
+
+ If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+ If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
+
+
+
+Limit of this notation \(\psi_{I(1,0,0)}(0)\). If \(\alpha=\psi_{I(1,0,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\alpha[\eta],0)\)
+
+
+
+ The functions collapsing weakly Mahlo cardinals 
+
+
+
+Definition
+
+
+
+An ordinal is weakly Mahlo if it's an uncountable regular cardinal, and regular cardinals in it (in another word, less than it) are stationary.
+
+
+
+Let \(M_0=0\), \(M_{\alpha+1}\) be the next weakly Mahlo cardinal after \(M_\alpha\), and \(M_\alpha=\sup\{M_\beta|\beta<\alpha\}\) for limit ordinal \(\alpha\). Then, \begin{eqnarray*} C_0(\alpha,\beta) &=& \beta\cup\{0\} \\ C_{n+1}(\alpha,\beta) &=& \{\gamma+\delta|\gamma,\delta\in C_n(\alpha,\beta)\} \\ &\cup& \{M_\gamma|\gamma\in C_n(\alpha,\beta)\} \\ &\cup& \{\chi_\pi(\gamma)|\pi,\gamma\in C_n(\alpha,\beta)\wedge\gamma<\alpha\wedge\pi\text{ is weakly Mahlo}\} \\ &\cup& \{\psi_\pi(\gamma)|\pi,\gamma\in C_n(\alpha,\beta)\wedge\gamma<\alpha\wedge\pi\text{ is uncountable regular}\} \\ C(\alpha,\beta) &=& \bigcup_{n<\omega} C_n(\alpha,\beta) \\ \chi_\pi(\alpha) &=& \min\{\beta<\pi|C(\alpha,\beta)\cap\pi\subseteq\beta\wedge\beta\text{ is uncountable regular}\} \\ \psi_\pi(\alpha) &=& \min\{\beta<\pi|C(\alpha,\beta)\cap\pi\subseteq\beta\} \end{eqnarray*}
+
+
+
+In this section the variables \(\rho, \pi\) are reserved for uncountable regular cardinals of the form \(\chi_\alpha(\beta)\) or \(M_{\gamma+1}\).
+
+
+
+Standard form for ordinals \(\alpha<\text{min}\{\xi|M_\xi=\xi\}\)
+
+
+
+ The standard form for 0 is 0
+
+ If \(\alpha\) is a weakly Mahlo cardinal, then the standard form for \(\alpha\) is \(\alpha= M_\beta\) where \(\beta<\alpha\) and \(\beta\) is expressed in standard form
+
+ If \(\alpha\) is an uncountable regular cardinal of the form \(\chi_\pi(\beta)\), then the standard form for \(\alpha\) is \(\alpha= \chi_\pi(\beta)\) where \(\pi\) is a weakly Mahlo cardinal and \(\pi,\beta\) are expressed in standard form
+
+ If \(\alpha\) is not additively principal and \(\alpha>0\), then the standard form for \(\alpha\) is \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), where the \(\alpha_i\) are principal ordinals with \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n\), and the \(\alpha_i\) are expressed in standard form
+
+ If \(\alpha\) is an additively principal ordinal but not of the form \(M_\beta\) or \(\chi_\rho(\gamma)\), then \(\alpha\) is expressible in the form \(\psi_\pi(\delta)\). Then the standard form for \(\alpha\) is \(\alpha=\psi_\pi(\delta)\) where \(\pi\) is an uncountable regular cardinal and \(\pi, \delta\) are expressed in standard form
+
+
+
+Fundamental sequences for the functions collapsing weakly Mahlo cardinals
+
+
+
+The fundamental sequence for an ordinal number \(\alpha\) with cofinality \(\text{cof}(\alpha)=\beta\) is a strictly increasing sequence \((\alpha[\eta])_{\eta<\beta}\) with length \(\beta\) and with limit \(\alpha\), where \(\alpha[\eta]\) is the \(\eta\)-th element of this sequence.
+
+
+
+Let \(L=\{\alpha|\text{cof}(\alpha)\geq\omega\}\) denotes the set of all limit ordinals.
+
+
+
+For non-zero ordinals \(\alpha<\text{min}\{\xi|M_\xi=\xi\}\) written in the standard form fundamental sequences are defined as follows:
+
+
+
+If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+
+ If \(\alpha=\psi_\pi(0)\) then \(\text{cof}(\alpha)=\alpha=1\) and \(\alpha[0]=0\)
+
+ If \(\alpha=\psi_{\chi_\pi(\beta)}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\left\{\begin{array}{lcr} \chi_\pi(\gamma)\cdot \eta \text{ if }0\le\gamma<\beta\\ \psi_{\chi_\pi(\beta)}(\gamma)\cdot \eta \text{ if }\gamma\geq\beta\\ \end{array}\right.\)
+
+ If \(\alpha=\psi_{M_\beta}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\chi_{M_\beta}(\gamma)\cdot \eta\)
+
+If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+
+If \(\alpha=M_\beta\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=M_{\beta[\eta]}\)
+
+ If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+
+ If \(\alpha=\psi_\pi(\beta)\) where \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\left\{\begin{array}{lcr} \psi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho=\chi_{M_{\delta+1}}(\epsilon)\\ \chi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho= M_{\delta+1}\\ \end{array}\right.\)
+
+
+
+Limit of this notation is \(\nu\). If \(\alpha=\nu\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=1\) and \(\alpha[\eta+1]=M_{\alpha[\eta]}\)
+
+
+
+Another system of fundamental sequences 
+
+
+
+For the function, collapsing weakly Mahlo cardinals to countable ordinals, the fundamental sequences also can be defined as follows:
+
+\(C_0= \{0,1\}\)
+
+\(C_{n+1}= \{\alpha+\beta,M_\gamma,\chi_\delta(\epsilon),\psi_\zeta(\eta)|\alpha,\beta,\gamma,\delta,\epsilon,\zeta,\eta\in C_n\wedge\delta\in W\wedge\zeta\in R\}\)
+
+\(L(\alpha)=\text{min}\{n<\omega|\alpha\in C_n\}\)
+
+\(\alpha[n]=\text{max}\{\beta<\alpha|L(\beta)\le L(\alpha)+n\}\)
+
+where \(R\) denotes set of all uncountable regular cardinals and \(W\) denotes set of all weakly Mahlos cardinals.
+
+
+
+\end{document}
+
