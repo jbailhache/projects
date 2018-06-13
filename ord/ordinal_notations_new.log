@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  13 JUN 2018 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  13 JUN 2018 16:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -600,8 +600,8 @@ m/m/it/10 ;  []\OT1/cmr/m/n/10 (0)\OML/cmm/m/it/10 ; :::;  []\OT1/cmr/m/n/10 (0
 )$ 
  []
 
-[44] [45]
-Overfull \hbox (35.79108pt too wide) in paragraph at lines 4224--4225
+[44] [45] [46]
+Overfull \hbox (35.79108pt too wide) in paragraph at lines 4284--4285
 []$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (
 ) = \OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 H[]suc \OT1/cmr/m/n/10 
 0) = \OML/cmm/m/it/10 sup\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; 
@@ -615,8 +615,8 @@ r/m/n/10 0\OML/cmm/m/it/10 ; R[]HR[]Hsuc \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; []
 \OMS/cmsy/m/n/10 g \OT1/cmr/m/n/10 =
  []
 
-[46]
-Overfull \hbox (5.15721pt too wide) in paragraph at lines 4295--4296
+[47]
+Overfull \hbox (5.15721pt too wide) in paragraph at lines 4355--4356
 []$\OML/cmm/m/it/10  \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 "[] \OMS/cmsy/m/n/10 ^^A
  \OT1/cmr/m/n/10 
  + 
@@ -633,77 +633,77 @@ A \OT1/cmr/m/n/10
 mr/m/n/10 ))\OML/cmm/m/it/10 suc \OT1/cmr/m/n/10 0$ 
  []
 
-[47] [48] Excluding 'comment' comment. [49] [50] [51] [52] [53] [54] [55]
-[56] [57]
-Overfull \hbox (20.10545pt too wide) in paragraph at lines 5346--5346
+[48] [49] Excluding 'comment' comment. [50] [51] [52] [53] [54] [55] [56]
+[57] [58]
+Overfull \hbox (20.10545pt too wide) in paragraph at lines 5406--5406
 []    \OT1/cmtt/m/n/10 //return limit (psi2(level+1,first(a)), psi2(level+1,fir
 st(next(a))), psi2(level+1,first(next(next(a)))));[] 
  []
 
-[58] [59] [60] [61] [62] [63] [64] [65] [66] [67] Excluding 'comment' comment.
-[68] [69]
-Overfull \hbox (5.4781pt too wide) in paragraph at lines 6187--6188
+[59] [60] [61] [62] [63] [64] [65] [66] [67] [68] Excluding 'comment' comment.
+[69] [70]
+Overfull \hbox (5.4781pt too wide) in paragraph at lines 6247--6248
 []\OT1/cmr/m/n/10 Then, $\OML/cmm/m/it/10 ^^T$ \OT1/cmr/m/n/10 is 1-hyper-weakl
 y in-ac-ces-si-ble if $\OML/cmm/m/it/10 ^^T$ \OT1/cmr/m/n/10 is the $\OML/cmm/m
 /it/10 ^^T$\OT1/cmr/m/n/10 -th hyper-weakly in-ac-ces-si-ble car-di-nal, which 
 can be writ-ten $\OML/cmm/m/it/10 ^^T \OT1/cmr/m/n/10 = ([1][0] [])[]0$.
  []
 
-[70] Excluding 'comment' comment. Excluding 'comment' comment. [71] [72]
-Excluding 'comment' comment. Excluding 'comment' comment. [73] [74] [75]
-Overfull \hbox (24.16928pt too wide) in paragraph at lines 6689--6690
+[71] Excluding 'comment' comment. Excluding 'comment' comment. [72] [73]
+Excluding 'comment' comment. Excluding 'comment' comment. [74] [75] [76]
+Overfull \hbox (24.16928pt too wide) in paragraph at lines 6749--6750
 []\OT1/cmr/m/n/10 5. http://cantorsattic.info/index.php?title=User[]blog:Denis[
 ]Maksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
-[76]
-Overfull \hbox (12.3174pt too wide) in paragraph at lines 6829--6830
+[77]
+Overfull \hbox (12.3174pt too wide) in paragraph at lines 6889--6890
 []\OT1/cmr/m/n/10 http://cantorsattic.info/index.php?title=User[]blog:Denis[]Ma
 ksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
-[77]
-Overfull \hbox (4.74495pt too wide) in paragraph at lines 6911--6947
+[78]
+Overfull \hbox (4.74495pt too wide) in paragraph at lines 6971--7007
 [] 
  []
 
 
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 6955--6957
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 7015--7017
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
-[78]
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 6958--6960
+[79]
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 7018--7020
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 6991--6993
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 7051--7053
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 6997--7000
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 7057--7060
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 7014--7015
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 7074--7075
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 7019--7021
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 7079--7081
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
 
-[79] (./ordinal_notations_new.aux) ) 
+[80] (./ordinal_notations_new.aux) ) 
 Here is how much of TeX's memory you used:
  1919 strings out of 495020
  23185 string characters out of 6181324
@@ -731,10 +731,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (79 pages, 487652 bytes).
+Output written on ordinal_notations_new.pdf (80 pages, 488789 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 237 compressed objects within 3 object streams
+ 344 PDF objects out of 1000 (max. 8388607)
+ 239 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
