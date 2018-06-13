@@ -111,6 +111,22 @@ For ordinals \(\alpha<\vartheta(\Omega_{\Omega_{\Omega_{\ldots}}})\), written in
 \item If \(\alpha=\vartheta_\nu(\beta)\) where \(\omega\le\text{cof}(\beta)\le\Omega_\nu\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\eta])\)
 \item If \(\alpha=\vartheta_\nu(\beta)\) where \(\text{cof}(\beta)=\Omega_{\mu+1}>\Omega_{\nu}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\gamma[\eta]])\) with \(\gamma[0]=\Omega_\mu\) and \(\gamma[\eta+1]=\vartheta_\mu(\beta[\gamma[\eta]])\)
 \end{itemize}
+
+These fundamental sequences can be reformulated :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item (0 = 0)
+\item \( \vartheta_0(0) = 1 \)
+\item (standard definition of addition of a limit ordinal)
+\item \( \vartheta_{\beta+1}(0) = \Omega_{\beta+1} \)
+\item \( \vartheta_{Lim_\mu f}(0) = Lim_\mu (\xi \mapsto \vartheta_{f(\xi)}(0)) \)
+\item \( \vartheta_\nu(\beta+1) = \vartheta_\nu(\beta) \cdot \omega \)
+\item \( \vartheta_\nu (Lim_\mu f) = Lim_\mu (\vartheta_\nu \circ f) \) if \( \mu \le \nu \)
+\item \( \vartheta_\nu(Lim_{\mu+1} f) = lim (\xi \mapsto \vartheta_\nu (f ((\vartheta_\mu \circ f)^\xi (\Omega_\mu)) \) if \( \mu+1 > \nu \)
+\end{itemize}
   
 
 \end{document}
