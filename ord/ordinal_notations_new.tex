@@ -4106,6 +4106,23 @@ The smallest ordinal not in C(0) is the limit of \( \omega, \omega^\omega, \omeg
 
 Note that \( \psi(\Omega) = \zeta_0 \) is the least fixed point of \( \alpha \mapsto \varepsilon_\alpha \); we already saw such an equality when we introduced collapsing in the Veblen function.
 
+The \( \psi \) function can be defined recursively by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi(0) = \varepsilon_0 \)
+
+\item \( \psi(\alpha+1) = sup \lbrace \psi(\alpha), \psi(\alpha)^{\psi(\alpha)}, \psi(\alpha)^{\psi(\alpha)^{\psi(\alpha)}}, \ldots \rbrace \)
+
+\item \( \psi(lim f) = lim (\psi \circ f) \)
+
+\item \( \psi(Lim_1 f) = lim (n \mapsto (\psi \circ f)^n (\psi(0))) \)
+
+\end{itemize}
+
 Some examples of fundamental sequences (FS) are :
 
 A FS of \( \omega \) is 0, 1, 2, 3, ...
