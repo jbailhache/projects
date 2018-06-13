@@ -5582,6 +5582,118 @@ Other important values are :
 
 Reference: https://stepstowardinfinity.wordpress.com/2015/05/04/ordinal2/  
 
+\subsection{Deedlit's extension of hierarchy of \(\vartheta\)-functions with \(\varphi\) and \(\Omega_\alpha\)}
+
+\subsubsection{Definition}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(C_0(\nu,\alpha,\beta)=\beta\cup\Omega_\nu\cup\{0\}\)
+\item \(C_{n+1}(\nu,\alpha,\beta)=\{\gamma+\delta,\varphi(\gamma,\delta),\Omega_\gamma,\vartheta_\gamma(\eta):\gamma,\delta,\eta\in C_n(\nu,\alpha,\beta);\eta<\alpha\}\)
+\item \(C(\nu,\alpha,\beta)=\cup_{n<\omega}C_n(\nu,\alpha,\beta)\)
+\item \(\vartheta_\nu(\alpha)=\text{min}(\{\beta<\Omega_{\nu+1}:C(\nu,\alpha,\beta)\cap\Omega_{\nu+1}\subseteq\beta\wedge\alpha\in C(\nu,\alpha,\beta)\}\cup\{\Omega_{\nu+1}\})\)
+\end{itemize}
+
+\subsubsection{Standard form}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=0\), then the standard form for \(\alpha\) is 0.
+\item If \(\alpha\) is not additively principal, then the standard form for \(\alpha\) is \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), where the \(\alpha_i\) are principal ordinals with \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n\), and the \(\alpha_i\) are expressed in standard form.
+\item If \(\alpha\) is an additively principal ordinal but not a strongly critical ordinal, then the standard form for \(\alpha\) is \(\alpha=\varphi(\beta,\gamma)\) where \(\gamma<\alpha\) where \(\beta\) and \(\gamma\) are expressed in standard form.
+\item If \(\alpha\) is of the form \(\Omega_\beta\), then \(\Omega_\beta\) is the standard form for \(\alpha\).
+\item If \(\alpha\) is a strongly critical ordinal but not of the form \(\Omega_\beta\), then \(\alpha\) is expressible in the form \(\vartheta_\nu(\gamma)\). Then the standard form for \(\alpha\) is \(\alpha=\vartheta_\nu(\gamma)\) where \(\gamma\) and \(\nu\) are expressed in standard form.
+\end{itemize}
+
+\subsection{Fundamental sequences} 
+
+For ordinals \(\alpha<\vartheta(\Omega_{\Omega_{\Omega_{\ldots}}})\), written in normal form, fundamental sequences are defined as follows:
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=0\), then \(\text{cof}(\alpha)=0\) and \(\alpha\) has fundamental sequence the empty set.
+\item If \(\alpha=\varphi(0,0)=1\) then \(\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\varphi(\beta,\gamma)\) where \(\gamma\) is a limit ordinal then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=\varphi(\beta,\gamma[\eta])\)
+\item If \(\alpha=\varphi(0,\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\varphi(0,\gamma)\cdot\eta\)
+\item If \(\alpha=\varphi(\beta+1,0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=\varphi(\beta,\alpha[\eta])\)
+\item If \(\alpha=\varphi(\beta+1,\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\varphi(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=\varphi(\beta,\alpha[\eta])\)
+\item If \(\alpha=\varphi(\beta,0)\) where \(\beta\) is a limit ordinal then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\varphi(\beta[\eta],0)\)
+\item If \(\alpha=\varphi(\beta,\gamma+1)\) where \(\beta\) is a limit ordinal then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\varphi(\beta[\eta],\varphi(\beta,\gamma)+1)\)
+\item If \(\alpha=\Omega_{\beta+1}\) then \(\text{cof}(\alpha)=\Omega_{\beta+1}\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=\Omega_{\beta}\) where \(\beta\) is a limit ordinal then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\Omega_{\beta[\eta]}\)
+\item If \(\alpha=\vartheta_\nu(\beta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\vartheta_\nu(\beta)+1\) and \(\alpha[\eta+1]=\varphi(\alpha[\eta],0)\)
+\item If \(\alpha=\vartheta_\nu(\beta)\) where \(\omega\le\text{cof}(\beta)\le\Omega_\nu\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\eta])\)
+\item If \(\alpha=\vartheta_\nu(\beta)\) where \(\omega\le\text{cof}(\beta)=\Omega_{\mu+1}>\Omega_{\nu}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\gamma[\eta]])\) with \(\gamma[0]=\Omega_\mu\) and \(\gamma[\eta+1]=\vartheta_\mu(\beta[\gamma[\eta]])\)
+\end{itemize}
+
+\subsection{Deedlit's extension of hierarchy of \(\vartheta\)-functions without \(\varphi\) and \(\Omega_\alpha\)}
+
+\subsubsection{Definition} 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(C_0(\alpha,\beta)=\beta\)
+\item \(C_{n+1}(\alpha,\beta)=\{\gamma+\delta,\vartheta_\gamma(\eta):\gamma,\delta,\eta\in C_n(\alpha,\beta);\eta<\alpha\}\)
+\item \(C(\alpha,\beta)=\cup_{n<\omega}C_n(\alpha,\beta)\)
+\item \(\vartheta_\nu(\alpha)=\text{min}\{\beta:|\omega\beta|=\Omega_\nu;C(\alpha,\beta)\cap\Omega_{\nu+1}\subseteq\beta;\alpha\in C(\alpha,\beta)\}\)
+\end{itemize}
+
+\subsubsection{Standard form} 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=0\), then the standard form for \(\alpha\) is 0.
+\item If \(\alpha\) is not additively principal, then the standard form for \(\alpha\) is \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), where the \(\alpha_i\) are principal ordinals with \(\alpha_1\geq\alpha_2\geq\cdots\geq\alpha_n\), and the \(\alpha_i\) are expressed in standard form.
+\item If \(\alpha\) is additively principal, then \(\alpha\) is expressible in the form \(\vartheta_\nu(\gamma)\). Then the standard form for \(\alpha\) is \(\alpha=\vartheta_\nu(\gamma)\) where \(\gamma\) and \(\nu\) are expressed in standard form.
+\end{itemize}
+
+\subsubsection{Fundamental sequences} 
+
+For ordinals \(\alpha<\vartheta(\Omega_{\Omega_{\Omega_{\ldots}}})\), written in normal form, fundamental sequences are defined as follows:
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item If \(\alpha=0\), then \(\text{cof}(\alpha)=0\) and \(\alpha\) has fundamental sequence the empty set.
+\item If \(\alpha=\vartheta_0(0)=1\) then \(\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\), then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\vartheta_{\beta+1}(0)\) then \(\text{cof}(\alpha)=\Omega_{\beta+1}\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=\vartheta_{\beta}(0)\) where \(\beta\) is a limit ordinal then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\vartheta_{\beta[\eta]}(0)\)
+\item If \(\alpha=\vartheta_\nu(\beta+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\vartheta_\nu(\beta)\eta\)
+\item If \(\alpha=\vartheta_\nu(\beta)\) where \(\omega\le\text{cof}(\beta)\le\Omega_\nu\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\eta])\)
+\item If \(\alpha=\vartheta_\nu(\beta)\) where \(\text{cof}(\beta)=\Omega_{\mu+1}>\Omega_{\nu}\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\vartheta_\nu(\beta[\gamma[\eta]])\) with \(\gamma[0]=\Omega_\mu\) and \(\gamma[\eta+1]=\vartheta_\mu(\beta[\gamma[\eta]])\)
+\end{itemize}
+
+These fundamental sequences can be reformulated :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item (0 = 0)
+\item \( \vartheta_0(0) = 1 \)
+\item (standard definition of addition of a limit ordinal)
+\item \( \vartheta_{\beta+1}(0) = \Omega_{\beta+1} \)
+\item \( \vartheta_{Lim_\mu f}(0) = Lim_\mu (\xi \mapsto \vartheta_{f(\xi)}(0)) \)
+\item \( \vartheta_\nu(\beta+1) = \vartheta_\nu(\beta) \cdot \omega \)
+\item \( \vartheta_\nu (Lim_\mu f) = Lim_\mu (\vartheta_\nu \circ f) \) if \( \mu \le \nu \)
+\item \( \vartheta_\nu(Lim_{\mu+1} f) = lim (\xi \mapsto \vartheta_\nu (f ((\vartheta_\mu \circ f)^\xi (\Omega_\mu)) \) if \( \mu+1 > \nu \)
+\end{itemize}
+  
+
+
 \subsection{Taranovsky's C}
 
 
