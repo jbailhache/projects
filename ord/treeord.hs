@@ -20,5 +20,5 @@ module TreeOrd where
   = Zero2
   | Suc2 TreeOrd2
   | Lim02 (TreeOrd0 -> TreeOrd2)
-  | Lim12 (TreeOrd0 -> TreeOrd2)
+  | Lim12 (TreeOrd1 -> TreeOrd2)
 
