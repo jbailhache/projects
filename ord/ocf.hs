@@ -12,10 +12,16 @@ module Ord where
  one = Suc Zero
  two = Suc one
 
+ instance Show Ord where
+  show Zero = "Zero"
+  show (Suc a) = "(Suc " ++ show a ++ ")"
+  show (Lim n f) = "(Lim " ++ show n ++ " " ++ show (f Zero) ++ "," ++ show (f one) ++ "," ++ show (f two) ++",..." ++ ")"
+
  omega = Lim Zero ident
  omega_plus_one = Suc omega
 
  omega1 = Lim one ident
+ omega2 = Lim two ident
 
  -- plus a b = b+a
  plus Zero b = b
@@ -55,6 +61,14 @@ module Ord where
  -- ge (Suc a) (Lim n f) = ?
  ge a b = True 
 
+ epsilon0 = h0 (\x -> power x omega) Zero
+
+ -- Madore psi
+ madore Zero = epsilon0
+ madore (Suc a) = h0 (\x -> power x (madore a)) Zero
+ madore (Lim Zero g) = Lim Zero (comp madore g)
+ madore (Lim (Suc Zero) g) = Lim Zero (\n -> fpower0 n (comp madore g) (madore Zero))
+ 
  -- Buchholz psi
  buchholz Zero Zero = one
  buchholz (Suc n) Zero = Lim (Suc n) ident
