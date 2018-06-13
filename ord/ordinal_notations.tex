@@ -5328,7 +5328,144 @@ main ()
 
 \end{verbatim}
 
-\subsection{\( \theta \) function}
+\subsection{Feferman \( \theta \) function}
+
+Feferman's \(\theta\)-functions constitute a hierarchy of single-argument functions \(\theta_\alpha: \text{On} \mapsto \text{On}\) for \(\alpha \in \text{On}\).[4] It is often considered a two-argument function with \(\theta_\alpha(\beta)\) written as \(\theta\alpha\beta\). It is defined like so:
+
+\begin{eqnarray*}
+C_0(\alpha, \beta) &=& \beta \cup \{0, \omega_1, \omega_2, \ldots, \omega_\omega\}\\
+C_{n+1}(\alpha, \beta) &=& \{\gamma + \delta, \theta_\xi(\eta) | \gamma, \delta, \xi, \eta \in C_n(\alpha, \beta); \xi < \alpha\} \\
+C(\alpha, \beta) &=& \bigcup_{n < \omega} C_n (\alpha, \beta) \\
+\theta_\alpha(\beta) &=& \min\{\gamma | \gamma \not\in C(\alpha, \gamma) \wedge \forall \delta < \beta: \theta_\alpha(\delta) < \gamma\} \\
+\end{eqnarray*}
+
+Informally:
+
+ An ordinal \(\beta\) is considered \(\alpha\)-critical iff it cannot be constructed with the following elements:
+ all ordinals less than \(\beta\),
+ all ordinals in the set \(\{0, \omega_1, \omega_2, \ldots, \omega_\omega\}\),
+ the operation \(+\),
+ applications of \(\theta_\xi\) for \(\xi < \alpha\).
+ \(\theta_\alpha\) is the enumerating function for all \(\alpha\)-critical ordinals.
+
+The Feferman theta function is considered an extension of the two-argument Veblen function — for \(\alpha < \Gamma_0\), \(\theta_\alpha(\beta) = \varphi_\alpha(\beta)\). For this reason, \(\varphi\) may be used interchangeably with \(\theta\) for \(\alpha < \Gamma_0\). Because of the restriction of \(\xi \in C_n(\alpha, \beta)\) imposed in the definition of \(C_{n+1}(\alpha, \beta)\), which makes \(\theta_{\Gamma_0}\) never used in the calculation of C set when \(\alpha < \Omega\), \(\theta\) function does not grow until \(\alpha < \Omega\). This results in \(\theta_\Omega(0) = \Gamma_0\) while \(\varphi_\Omega(0) = \Omega\). The value of \(\theta_\Omega(0) = \Gamma_0\) can be used above \(\Omega\) because of the definition of \(C_0\) which includes \(\Omega = \omega_1\).
+The supremum of the range of the function is the Takeuti-Feferman-Buchholz ordinal \(\theta_{\varepsilon_{\Omega_\omega + 1}}(0)\).
+
+Buchholz discusses a set he calls \(\theta(\omega + 1)\), which is the set of all ordinals describable with \(\{0, \omega_1, \omega_2, \ldots, \omega_\omega\}\) and finite applications of \(+\) and \(\theta\).
+
+\bigskip
+
+
+Below you can see rules to assign fundamental sequences for the Feferman theta-function at least up to Large Veblen ordinal (they are same as rules for finitary/transfinitary Veblen function from previous post , but I rewrote them for the application for theta-function). Here theta-function is considered as a two-argument function with \(\theta_\xi(\gamma)\) written as \(\theta(\xi,\gamma)\).
+
+If a limit ordinal \(\alpha\) is written in next normal form
+
+\(\alpha=\theta(\xi_1,\gamma_1)+\theta(\xi_2,\gamma_2)+\cdots+\theta(\xi_k,\gamma_k)\),
+
+where
+
+\(\theta(\xi_1,\gamma_1)\geq \theta(\xi_2,\gamma_2)\geq\cdots\geq\theta(\xi_k,\gamma_k)\),
+
+\(\xi_i=\Omega^{\beta_{i,1}}\cdot \alpha_{i,1}+\Omega^{\beta_{i,2}}\cdot \alpha_{i,2}+\cdots+\Omega^{\beta_{i,n_i}}\cdot \alpha_{i,n_i}\) for all \(i \in \{1,...,k\}\) where
+
+\(\beta_{i,1}>\beta_{i,2}>\cdots>\beta_{i,n_i} \geq 0\) ,
+
+\(\alpha_{i,j}\geq 1\) for all \(j \in \{1,...,n_i \}\),
+
+\(n_i \) is a non-negative integer,
+
+\(\theta(\xi_k,\gamma_k)\) is a limit ordinal,
+
+\(\beta_{i,j},\alpha_{i,j},\gamma_i < \theta(\xi_i, \gamma_i)\) for all \(i \in \{1,...,k\}\), \(j \in \{1,...,n_i \}\),
+
+\(k\) is a positive integer,
+
+then \(\alpha[n]=\theta(\xi_1,\gamma_1)+\theta(\xi_2,\gamma_2)+\cdots+\theta(\xi_k,\gamma_k)[n]\)
+
+If write a limit ordinal as \(\theta(\cdots+\Omega^{\beta_k} \cdot \alpha_k,\gamma)\) where dots \(\cdots\) denote \(\sum_{i=1}^{k-1}\Omega^{\beta_{i}}\cdot \alpha_{i}\),
+
+then
+
+1)if \(k=0\) then \(\theta(\cdots+\Omega^{\beta_k} \cdot \alpha_k,\gamma)=\theta(0,\gamma)\) and in this case:
+
+1.1) \(\theta(0,\gamma)=\omega^\gamma\),
+
+1.2) \(\theta(0,0)=\omega^0=1\),
+
+1.3) \(\theta(0,\gamma)[n]=\theta(0,\gamma-1)\cdot n=\omega^{\gamma-1} n\) if \(\gamma\) is a successor ordinal,
+
+1.4) \(\theta(0,\gamma)[n]=\theta(0,\gamma[n])=\omega^{\gamma[n]} \) if \(\gamma\) is a limit ordinal,
+
+1.5) \((\theta(0,\gamma_1)+\cdots+\theta(0,\gamma_k))[n]=\theta(0,\gamma_1)+\cdots+\theta(0,\gamma_k)[n]\), where
+
+\(\gamma_1 \geq \cdots \geq \gamma_k \geq 1\),
+
+\(\gamma_m<\theta(0,\gamma_m)\) for all \(m \in \{1,...,k\}\),
+
+2) if \(\beta_k=0\) then \(\Omega^{\beta_k} \cdot \alpha_k=\alpha_k\) and in this case:
+
+2.1) \(\theta(\cdots+\alpha_k,0)[0]=0\)
+
+and \(\theta(\cdots+\alpha_k,0)[n+1]=\theta(\cdots+\alpha_k-1,\theta(\cdots+\alpha_k,0)[n])\) if \(\alpha_k\) is a successor ordinal,
+
+2.2) \(\theta(\cdots+\alpha_k,\gamma+1)[0]=\theta(\cdots+\alpha_k,\gamma)+1\)
+
+and \(\theta(\cdots+\alpha_k,\gamma+1)[n+1]=\theta(\cdots+\alpha_k-1,\theta(\cdots+\alpha_k,\gamma+1)[n])\) if \(\alpha_k\) is a successor ordinal,
+
+2.3) \(\theta(\cdots+\alpha_k,\gamma)[n]=\theta(\cdots+\alpha_k,\gamma[n])\) if \(\gamma\) is a limit ordinal,
+
+2.4) \(\theta(\cdots+\alpha_k,0)[n]=\theta(\cdots+\alpha_k[n],0)\) if \(\alpha_k\) is a limit ordinal,
+
+2.5) \(\theta(\cdots+\alpha_k,\gamma+1)[n]=\theta(\cdots+\alpha_k[n],\theta(\cdots+\alpha_k,\gamma))\) if \(\alpha_k\) is a limit ordinal,
+
+3) if \(\beta_k > 0\) then:
+
+3.1) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[0]=0\)
+
+and \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[n+1]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k-1)+\Omega^{\beta_k-1}\cdot(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[n]),0)\)
+
+if \(\alpha_k\) and \(\beta_k\) are successor ordinals,
+
+3.2) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[0]=\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma-1)+1\)
+
+and \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n+1]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k-1)+\Omega^{\beta_k-1}\cdot(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n]),0)\)
+
+if \(\alpha_k\) and \(\beta_k\) are successor ordinals,
+
+3.3) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma[n])\) if \(\gamma\) is a limit ordinal,
+
+3.4) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k[n]),0)\) if \(\alpha_k\) is a limit ordinal and \(\beta_k\) is a successor ordinal,
+
+3.5) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k[n])+\Omega^{\beta_k-1}\cdot(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma-1)+1),0)\)
+
+if \(\alpha_k\) is a limit ordinal, \(\beta_k\) and \(\gamma\) are successor ordinals,
+
+3.6) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k-1)+\Omega^{\beta_k[n]},0)\) if \(\beta_k\) is a limit ordinal and \(\alpha_k\) is a successor ordinal,
+
+3.7) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k-1)+\Omega^{\beta_k[n]}\cdot(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma-1)+1),0)\)
+
+if \(\beta_k\) is a limit ordinal, \(\alpha_k\) and \(\gamma\) are successor ordinals,
+
+3.8) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,0)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k[n]),0)\) if \(\beta_k\) and \(\alpha_k\) are limit ordinals,
+
+3.9) \(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma)[n]=\theta(\cdots+\Omega^{\beta_k}\cdot(\alpha_k[n])+\Omega^{\beta_k[n]}\cdot(\theta(\cdots+\Omega^{\beta_k}\cdot\alpha_k,\gamma-1)+1),0)\)
+
+if \(\beta_k\) and \(\alpha_k\) are limit ordinals and \(\gamma\) is a successor ordinal.
+
+Large Veblen ordinal \(\theta(\Omega^\Omega,0)[0]=0\) and \(\theta(\Omega^\Omega,0)[n+1]=\theta(\Omega^{\theta(\Omega^\Omega,0)[n]},0)\).
+
+Note: \(\theta(\xi,0)\) can be abbriviated as \(\theta(\xi)\).
+
+\bigskip
+
+References :
+
+http://googology.wikia.com/wiki/Ordinal\_notation
+
+http://googology.wikia.com/wiki/User\_blog:Denis\_Maksudov/Fundamental\_sequences\_for\_the\_theta-function
+
+
+\subsection{Hypcos \( \theta \) function}
 
 \( \theta  \) function is a binary function. It’s defined as follows:
 
@@ -5366,7 +5503,7 @@ Other important values are :
 
 \end{itemize}
 
-See https://stepstowardinfinity.wordpress.com/2015/05/04/ordinal2/ for more information. 
+Reference: https://stepstowardinfinity.wordpress.com/2015/05/04/ordinal2/  
 
 \subsection{Taranovsky's C}
 
