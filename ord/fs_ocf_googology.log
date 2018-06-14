@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  13 JUN 2018 23:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  14 JUN 2018 08:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -404,7 +404,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (18.82576pt too wide) in paragraph at lines 331--332
+Overfull \hbox (31.5562pt too wide) in paragraph at lines 277--278
+[]\OT1/cmr/m/n/10 https://sites.google.com/site/travelingtotheinfinity/the-coll
+apsing-functions-using-math-alpha-beta-math--weakly-inaccessible-cardinals 
+ []
+
+[3]
+Overfull \hbox (18.82576pt too wide) in paragraph at lines 347--348
 []\OT1/cmr/m/n/10 If $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 = \OML/cmm/m/it/10  []
 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^L\OT1/cmr/m/n/10 )$ where $[](\OML/cmm/m/it
 /10 ^^L\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 ^^Z \OMS/cmsy/m/n/10 ^^U \OML/cmm/m
@@ -417,30 +423,32 @@ nd $\OML/cmm/m/it/10 ^^M\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 ^^Q \OT1/cmr/m/n/10 +
  1] = []$ 
  []
 
-[3] (./fs_ocf_googology.aux) ) 
+[4] (./fs_ocf_googology.aux) ) 
 Here is how much of TeX's memory you used:
- 1889 strings out of 495020
- 22700 string characters out of 6181324
- 90891 words of memory out of 5000000
- 5104 multiletter control sequences out of 15000+600000
- 10888 words of font info for 43 fonts, out of 8000000 for 9000
+ 1897 strings out of 495020
+ 22792 string characters out of 6181324
+ 88891 words of memory out of 5000000
+ 5109 multiletter control sequences out of 15000+600000
+ 12122 words of font info for 47 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,10n,24p,903b,197s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb>
-Output written on fs_ocf_googology.pdf (3 pages, 128616 bytes).
+/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb>
+Output written on fs_ocf_googology.pdf (4 pages, 156444 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 41 compressed objects within 1 object stream
+ 69 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
