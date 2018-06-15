@@ -6876,11 +6876,11 @@ These fundamental sequences can be reformulated to produce recursive definitions
 
 \item \( I(\beta,0) = I(\beta,\gamma+1) = Lim_{cof(I(\beta,0)} [\bullet] \) where \( [\bullet] \) is the identity function
 \item \( I(\beta,Lim_\nu g) = Lim_\nu [I(\beta,g \bullet)] \)
-\item \( \psi_\pi(Lim_\nu f) = Lim_\nu [\psi_\pi(f \bullet)] \) if \( \omega \le \nu \le \pi \)
+\item \( \psi_\pi(Lim_\nu f) = Lim_\nu [\psi_\pi(f \bullet)] \) if \( \omega_\nu < \pi \)
 \begin{comment}
 \item \( \psi_\pi(Lim_\nu f) = lim [\psi_\pi(f (g \bullet)] \) with \( g(0) = 1 \) and \( g (n+1) = \psi_\nu(f(g(n))) \) if \( \nu \ge \pi \)
 \end{comment}
-\item \( \psi_\pi(Lim_\nu f) = lim [ \psi_\pi(f((\psi_\nu \circ f)^\bullet(1)))] \)
+\item \( \psi_\pi(Lim_\nu f) = lim [ \psi_\pi(f((\psi_\nu \circ f)^\bullet(1)))] \) if \( \omega_\nu \ge \pi \)
 
 \end{itemize}
 
@@ -7099,7 +7099,7 @@ These fundamental sequences can be reformulated like this :
 
 18) \( \chi(\beta,Lim_\mu f) = Lim_\mu [\chi(\beta,f(\bullet))] \) if \( \omega_\mu \ge \omega \)
 
-19) \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+19) \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \)
 
 20) \( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu \circ f)^\bullet(1))) ] \) if \( \omega_\mu \ge \pi \)
 
@@ -7248,7 +7248,7 @@ These fundamental sequences can be reformulated like this :
 
 5) \( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
 
-11) \( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \ge \omega \)
+11) \( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \)
 
 12) \( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
 
