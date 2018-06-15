@@ -6502,31 +6502,34 @@ Let \(S=\{\alpha|\text{cof}(\alpha)=1\}\) and \(L=\{\alpha|\text{cof}(\alpha)\ge
 
 For non-zero ordinals written in standard form fundamental sequences defined as follows:
 
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
 
-If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\psi_{\pi}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
 
-If \(\alpha=\psi_{\pi}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=\psi_{\Omega_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\left\{\begin{array}{lcr} \alpha[\eta]=\Omega_{\nu}\cdot\eta \text{ if }\nu>0 \\ \alpha[\eta]=\eta \text{ if }\nu=0\\ \end{array}\right.\)
 
-If \(\alpha=\psi_{\Omega_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\left\{\begin{array}{lcr} \alpha[\eta]=\Omega_{\nu}\cdot\eta \text{ if }\nu>0 \\ \alpha[\eta]=\eta \text{ if }\nu=0\\ \end{array}\right.\)
+\item If \(\alpha=\psi_{\Omega_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\Omega_{\nu+1}}(\beta)\cdot\eta\)
 
-If \(\alpha=\psi_{\Omega_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{\Omega_{\nu+1}}(\beta)\cdot\eta\)
+\item If \(\alpha=\psi_{ I_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I_\nu+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
 
-If \(\alpha=\psi_{ I_{\nu+1}}(1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I_\nu+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
+\item If \(\alpha=\psi_{ I_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{ I_{\nu+1}}(\beta)+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
 
-If \(\alpha=\psi_{ I_{\nu+1}}(\beta+1)\) and \(\beta\geq 1\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{ I_{\nu+1}}(\beta)+1\) and \(\alpha[\eta+1]=\Omega_{\alpha[\eta]}\)
+\item If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
 
-If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=\Omega_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\Omega_{\nu[\eta]}\)
 
-If \(\alpha=\Omega_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=\Omega_{\nu[\eta]}\)
+\item If \(\alpha=I_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=I_{\nu[\eta]}\)
 
-If \(\alpha=I_\nu\) and \(\nu\in L\) then \(\text{cof}(\alpha)=\text{cof}(\nu)\) and \(\alpha[\eta]=I_{\nu[\eta]}\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
 
- If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
 
- If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
-
-
+\end{enumerate}
 
 Limit of this notation is \(\lambda\). If \(\alpha=\lambda\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=1\) and \(\alpha[\eta+1]=I_{\alpha[\eta]}\).
 
@@ -6620,37 +6623,40 @@ Let \(S=\{\alpha|\text{cof}(\alpha)=1\}\) and \(L=\{\alpha|\text{cof}(\alpha)\ge
 
 For non-zero ordinals \(\alpha<\psi_{I(1,0,0)}(0)\) written in standard form fundamental sequences defined as follows:[2]
 
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
 
-If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\psi_{I(0,0)}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
 
-If \(\alpha=\psi_{I(0,0)}(0)\) then \(\alpha=\text{cof}(\alpha)=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=\psi_{I(0,\beta+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=I(0,\beta)\cdot\eta\)
 
-If \(\alpha=\psi_{I(0,\beta+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=I(0,\beta)\cdot\eta\)
+\item If \(\alpha=\psi_{I(0,\beta)}(\gamma+1)\) and \(\beta\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{I(0,\beta)}(\gamma)\cdot\eta\)
 
-If \(\alpha=\psi_{I(0,\beta)}(\gamma+1)\) and \(\beta\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_{I(0,\beta)}(\gamma)\cdot\eta\)
+\item If \(\alpha=\psi_{I(\beta+1,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
 
-If \(\alpha=\psi_{I(\beta+1,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+\item If \(\alpha=\psi_{I(\beta+1,\gamma+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
 
-If \(\alpha=\psi_{I(\beta+1,\gamma+1)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=I(\beta+1,\gamma)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+\item If \(\alpha=\psi_{I(\beta+1,\gamma)}(\delta+1)\) and \(\gamma\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{I(\beta+1,\gamma)}(\delta)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
 
-If \(\alpha=\psi_{I(\beta+1,\gamma)}(\delta+1)\) and \(\gamma\in\{0\}\cup S\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=\psi_{I(\beta+1,\gamma)}(\delta)+1\) and \(\alpha[\eta+1]=I(\beta,\alpha[\eta])\)
+\item If \(\alpha=\psi_{I(\beta,0)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],0)\)
 
-if \(\alpha=\psi_{I(\beta,0)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],0)\)
+\item If \(\alpha=\psi_{I(\beta,\gamma+1)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],I(\beta,\gamma)+1)\)
 
-if \(\alpha=\psi_{I(\beta,\gamma+1)}(0)\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],I(\beta,\gamma)+1)\)
+\item If \(\alpha=\psi_{I(\beta,\gamma)}(\delta+1)\) and \(\beta\in L\) and \(\gamma\in \{0\}\cup S\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],\psi_{I(\beta,\gamma)}(\delta)+1)\)
 
-if \(\alpha=\psi_{I(\beta,\gamma)}(\delta+1)\) and \(\beta\in L\) and \(\gamma\in \{0\}\cup S\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=I(\beta[\eta],\psi_{I(\beta,\gamma)}(\delta)+1)\)
+\item If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
 
-If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=I(\beta,\gamma)\) and \(\gamma\in L\) then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=I(\beta,\gamma[\eta])\)
 
-If \(\alpha=I(\beta,\gamma)\) and \(\gamma\in L\) then \(\text{cof}(\alpha)=\text{cof}(\gamma)\) and \(\alpha[\eta]=I(\beta,\gamma[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
 
- If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
 
- If \(\alpha=\psi_\pi(\beta)\) and \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\psi_{\rho}(\beta[\gamma[\eta]])\)
-
-
+\end{enumerate}
 
 Limit of this notation \(\psi_{I(1,0,0)}(0)\). If \(\alpha=\psi_{I(1,0,0)}(0)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=0\) and \(\alpha[\eta+1]=I(\alpha[\eta],0)\)
 
@@ -7305,25 +7311,30 @@ Let \(L=\{\alpha|\text{cof}(\alpha)\geq\omega\}\) denotes the set of all limit o
 
 For non-zero ordinals \(\alpha<\text{min}\{\xi|M_\xi=\xi\}\) written in the standard form fundamental sequences are defined as follows:
 
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
 
+\item If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
 
-If \(\alpha=\alpha_1+\alpha_2+\cdots+\alpha_n\) with \(n\geq 2\) then \(\text{cof}(\alpha)=\text{cof}(\alpha_n)\) and \(\alpha[\eta]=\alpha_1+\alpha_2+\cdots+(\alpha_n[\eta])\)
+\item If \(\alpha=\psi_\pi(0)\) then \(\text{cof}(\alpha)=\alpha=1\) and \(\alpha[0]=0\)
 
- If \(\alpha=\psi_\pi(0)\) then \(\text{cof}(\alpha)=\alpha=1\) and \(\alpha[0]=0\)
+\item If \(\alpha=\psi_{\chi_\pi(\beta)}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\left\{\begin{array}{lcr} \chi_\pi(\gamma)\cdot \eta \text{ if }0\le\gamma<\beta\\ \psi_{\chi_\pi(\beta)}(\gamma)\cdot \eta \text{ if }\gamma\geq\beta\\ \end{array}\right.\)
 
- If \(\alpha=\psi_{\chi_\pi(\beta)}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\left\{\begin{array}{lcr} \chi_\pi(\gamma)\cdot \eta \text{ if }0\le\gamma<\beta\\ \psi_{\chi_\pi(\beta)}(\gamma)\cdot \eta \text{ if }\gamma\geq\beta\\ \end{array}\right.\)
+\item If \(\alpha=\psi_{M_\beta}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\chi_{M_\beta}(\gamma)\cdot \eta\)
 
- If \(\alpha=\psi_{M_\beta}(\gamma+1)\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\chi_{M_\beta}(\gamma)\cdot \eta\)
+\item If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
 
-If \(\alpha=\pi\) then \(\text{cof}(\alpha)=\pi\) and \(\alpha[\eta]=\eta\)
+\item If \(\alpha=M_\beta\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=M_{\beta[\eta]}\)
 
-If \(\alpha=M_\beta\) and \(\beta\in L\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=M_{\beta[\eta]}\)
+\item If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
 
- If \(\alpha=\psi_\pi(\beta)\) and \(\omega\le\text{cof}(\beta)<\pi\) then \(\text{cof}(\alpha)=\text{cof}(\beta)\) and \(\alpha[\eta]=\psi_\pi(\beta[\eta])\)
+\item If \(\alpha=\psi_\pi(\beta)\) where \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) 
 
- If \(\alpha=\psi_\pi(\beta)\) where \(\text{cof}(\beta)=\rho\geq\pi\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[\eta]=\psi_\pi(\beta[\gamma[\eta]])\) with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\left\{\begin{array}{lcr} \psi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho=\chi_{M_{\delta+1}}(\epsilon)\\ \chi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho= M_{\delta+1}\\ \end{array}\right.\)
+with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\left\{\begin{array}{lcr} \psi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho=\chi_{M_{\delta+1}}(\epsilon)\\ \chi_{\rho}(\beta[\gamma[\eta]])\text{ if }\rho= M_{\delta+1}\\ \end{array}\right.\)
 
-
+\end{enumerate}
 
 Limit of this notation is \(\nu\). If \(\alpha=\nu\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=1\) and \(\alpha[\eta+1]=M_{\alpha[\eta]}\)
 
