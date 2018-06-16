@@ -7338,7 +7338,35 @@ with \(\gamma[0]=1\) and \(\gamma[\eta+1]=\left\{\begin{array}{lcr} \psi_{\rho}(
 
 Limit of this notation is \(\nu\). If \(\alpha=\nu\) then \(\text{cof}(\alpha)=\omega\) and \(\alpha[0]=1\) and \(\alpha[\eta+1]=M_{\alpha[\eta]}\)
 
+\bigskip
 
+These fundamental sequences can be reformulated giving the fommowing recursive definitions :
+
+\smallskip
+
+\advance\leftskip by 10 pt
+
+1. Standard definition of addition of limit ordinals
+
+2. \( \psi_\pi(0) = 1 \)
+
+3a. \( \psi_{\chi_\pi(\beta)}(\gamma+1) = \chi_\pi(\gamma) \cdot \omega \) if \( \gamma < \beta \)
+
+3b. \( \psi_{\chi_\pi(\beta)}(\gamma+1) = \psi_{\chi_\pi(\beta)}(\gamma) \cdot \omega \) if \( \gamma \ge \beta \)
+
+4. \( \psi_{M_\beta}(\gamma+1) = \psi_{M_\beta}(\gamma) \cdot \omega \)
+
+6. \( M_{Lim_\mu f} = Lim_\mu (\xi \mapsto M_{f(\xi)}) \)
+
+7. \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \omega_\mu < \pi \)
+
+8a. \( \psi_\pi (Lim_\mu f) = lim (\xi \mapsto \psi_\pi (f ((\psi_{\omega_\mu} \circ f)^\xi (1)))) \)
+ if \( \omega_\mu \ge \pi \) and \( \omega_\mu = \chi_{M_{\delta+1}}(\varepsilon) \)
+
+8b. \( \psi_\pi (Lim_\mu f) = lim (\xi \mapsto \psi_\pi (f ((\chi_{\omega_\mu} \circ f)^\xi (1)))) \)
+ if \( \omega_\mu \ge \pi \) and \( \omega_\mu = M_{\delta+1} \)
+
+\advance\leftskip by -10 pt
 
 \subsubsection{Another system of fundamental sequences}
 
