@@ -6349,7 +6349,7 @@ Remember this notation :
 
 \( [2] h g f = Fix (\alpha \mapsto h^\alpha g f 0) \)
 
-Like we defined the function \( \operatorname{NEXT} = Fix (\xi \mapsto \omega^\xi)\) which gives the next \( \varepsilon \) ordinal after a given ordinal, we can define the function \( \operatorname{NEXT} = Fix (\xi \mapsto \aleph_\xi) \) which gives the next fixed point of \( \xi \mapsto \aleph_\xi \) after a given ordinal or cardinal. For example, NEXT 0 is the least fixed point of \( \xi \mapsto \aleph_\xi, \operatorname{NEXT} (\operatorname{NEXT} 0) = \operatorname{NEXT}^2 0 \) is the second one, and more generally \( \operatorname{NEXT}^\alpha 0\) is the \(\alpha\)-th fixed point.
+Like Simmons defined the function \( \operatorname{Next} = Fix (\xi \mapsto \omega^\xi)\) which gives the next \( \varepsilon \) ordinal after a given ordinal, we can define the function \( \operatorname{NEXT} = Fix (\xi \mapsto \aleph_\xi) \) which gives the next fixed point of \( \xi \mapsto \aleph_\xi \) after a given ordinal or cardinal. For example, NEXT 0 is the least fixed point of \( \xi \mapsto \aleph_\xi, \operatorname{NEXT} (\operatorname{NEXT} 0) = \operatorname{NEXT}^2 0 \) is the second one, and more generally \( \operatorname{NEXT}^\alpha 0\) is the \(\alpha\)-th fixed point.
 
 [0] NEXT 0 = Fix \( (\alpha \mapsto \operatorname{NEXT}^\alpha 0) 0 \) is the least \( \kappa \) such that \( \kappa = \operatorname{NEXT}^\kappa 0 = \kappa\)-th fixed point of \( \xi \mapsto \aleph_\xi \), which is the least weakly inaccessible cardinal.
 
@@ -6942,7 +6942,7 @@ These fundamental sequences can be reformulated to produce recursive definitions
 \begin{comment}
 \item \( \psi_\pi(Lim_\nu f) = lim [\psi_\pi(f (g \bullet)] \) with \( g(0) = 1 \) and \( g (n+1) = \psi_\nu(f(g(n))) \) if \( \nu \ge \pi \)
 \end{comment}
-\item \( \psi_\pi(Lim_\nu f) = lim [ \psi_\pi(f((\psi_\nu \circ f)^\bullet(1)))] \) if \( \omega_\nu \ge \pi \)
+\item \( \psi_\pi(Lim_\nu f) = lim [ \psi_\pi(f((\psi_{\omega_\nu} \circ f)^\bullet(1)))] \) if \( \omega_\nu \ge \pi \)
 
 \end{itemize}
 
@@ -7217,7 +7217,7 @@ These fundamental sequences can be reformulated like this :
 
 19) \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \)
 
-20) \( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_\mu \circ f)^\bullet(1))) ] \) if \( \omega_\mu \ge \pi \)
+20) \( \psi_\pi(Lim_\mu f) = lim [ \psi_\pi(f((\psi_{\omega_\mu} \circ f)^\bullet(1))) ] \) if \( \omega_\mu \ge \pi \)
 
 
 \bigskip
@@ -7419,13 +7419,13 @@ These fundamental sequences can be reformulated like this :
 
 4) \( \psi_{\chi(lim_M f)}(0) = (\chi \circ f)^\omega (1) \)
 
-6) \( \psi_{\chi(\lim_M f)}(\gamma+1) = (\chi \circ f)^\omega (\psi_{\chi(\beta)}(\gamma)+1) \)
+6) \( \psi_{\chi(\lim_M f)}(\gamma+1) = (\chi \circ f)^\omega (\psi_{\chi(Lim_\mu f)}(\gamma)+1) \)
 
 5) \( \psi_{\chi(\beta)}(\gamma+1) = \psi_{\chi(\beta)}(\gamma) \cdot \omega \)
 
 11) \( \psi_\pi (Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) if \( \pi > \omega_\mu \)
 
-12) \( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_\mu \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
+12) \( \psi_\pi (Lim_\mu f) = lim [\psi_\pi(f((\psi_{\omega_\mu} \circ f)^\bullet(1)))] \) if \( \omega_\mu \ge \pi \)
 
 \bigskip
 
