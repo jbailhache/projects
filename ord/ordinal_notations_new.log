@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  15 JUN 2018 22:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  16 JUN 2018 08:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -738,7 +738,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (86 pages, 512869 bytes).
+Output written on ordinal_notations_new.pdf (86 pages, 512819 bytes).
 PDF statistics:
  363 PDF objects out of 1000 (max. 8388607)
  252 compressed objects within 3 object streams
