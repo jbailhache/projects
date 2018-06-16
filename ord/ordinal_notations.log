@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  16 JUN 2018 12:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  16 JUN 2018 15:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -658,64 +658,64 @@ lapsing-functions-using-math-alpha-beta-math--weakly-inaccessible-
 
 [76] [77] [78] Excluding 'comment' comment. Excluding 'comment' comment.
 [79] [80]
-Overfull \hbox (34.16928pt too wide) in paragraph at lines 7181--7182
+Overfull \hbox (34.16928pt too wide) in paragraph at lines 7236--7237
  []\OT1/cmr/m/n/10 5. http://cantorsattic.info/index.php?title=User[]blog:Denis
 []Maksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
 
  []
 
 [81] [82]
-Overfull \hbox (22.3174pt too wide) in paragraph at lines 7321--7322
+Overfull \hbox (22.3174pt too wide) in paragraph at lines 7434--7435
  []\OT1/cmr/m/n/10 http://cantorsattic.info/index.php?title=User[]blog:Denis[]M
 aksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
 [83] [84]
-Overfull \hbox (14.74495pt too wide) in paragraph at lines 7536--7572
+Overfull \hbox (14.74495pt too wide) in paragraph at lines 7649--7685
  [] 
  []
 
-
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 7580--7582
+[85]
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 7693--7695
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
-[85]
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 7583--7585
+
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 7696--7698
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
 
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 7616--7618
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 7729--7731
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
-
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 7622--7625
+[86]
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 7735--7738
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 7639--7640
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 7752--7753
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 7644--7646
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 7757--7759
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
 
-[86] (./ordinal_notations.aux) ) 
+[87] (./ordinal_notations.aux) ) 
 Here is how much of TeX's memory you used:
  1923 strings out of 495020
  23187 string characters out of 6181324
- 98897 words of memory out of 5000000
+ 101897 words of memory out of 5000000
  5131 multiletter control sequences out of 15000+600000
  12290 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -739,10 +739,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations.pdf (86 pages, 515207 bytes).
+Output written on ordinal_notations.pdf (87 pages, 518446 bytes).
 PDF statistics:
- 363 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
+ 366 PDF objects out of 1000 (max. 8388607)
+ 254 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
