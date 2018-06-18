@@ -5872,9 +5872,10 @@ Properties :
 \begin{itemize}
 \item \( C(\alpha,\beta) = \beta+\omega^\alpha \) if \( C(\alpha,\beta) \ge \alpha \)
 \item \( C(0,\alpha) = \alpha+1 = suc(\alpha) \)
-\item \( C(C(0,\alpha),\beta) = [C(\alpha,\bullet)]^\omega(\beta) = H [C(\alpha,\bullet)] \beta \)
+\item \( C(\alpha+1,\beta) = C(C(0,\alpha),\beta) = [C(\alpha,\bullet)]^\omega(\beta) = H [C(\alpha,\bullet)] \beta \)
 \item \( C(1,\alpha) = C(C(0,0),\alpha) = \alpha+\omega \)
-\item \( C(\Omega_1,0) = [C(\bullet,0)]^\omega(0) = \varepsilon_0 \)
+\item \( C(lim\ f) \beta = lim [C(f(\bullet),\beta)] \)
+\item \( C(Lim_1 f,0) = [C(f(\bullet),0)]^\omega(0) \)
 \end{itemize}
 
 Examples :
@@ -5884,6 +5885,8 @@ Examples :
 \item \( \omega \cdot 2 = C(C(0,0),C(C(0,0),0) = [C(C(0,0),\bullet)]^\omega(0) = [C(0,\bullet)]^\omega(C(C(0,0),0)) = suc^\omega(\omega) = H suc (H suc\ 0) \)
 \item \( \omega^2 = C(C(0,C(0,0)),0) = [C(C(0,0),\bullet)]^\omega(0) = [\bullet+\omega]^\omega(0) = H (H suc) 0 \)
 \item \( \omega^\omega = C(C(C(0,0),0),0) = C([C(0,\bullet)]^\omega(0),0) = C(\omega,0) \)
+\item \( C(\Omega_1,0) = C(Lim_1 [\bullet],0) = [C(\bullet,0)]^\omega(0) = sup \lbrace 0, C(0,0) = 1 = \omega^0, C(C(0,0),0) = \omega = \omega^1, C(C(C(0,0),0),0) = \omega^\omega, \ldots \rbrace = \varepsilon_0 \)
+\item \( C(\Omega_1 \cdot 2,0) = C(Lim_1 [\Omega+\bullet],0) = [C(\Omega_1+\bullet,0)]^\omega(0) = sup \lbrace 0, C(\Omega_1,0) = \varepsilon_0, C(\Omega+\varepsilon_0,0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 \)
 \end{itemize}
 
 \bigskip
