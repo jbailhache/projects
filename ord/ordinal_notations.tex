@@ -5845,7 +5845,7 @@ Here are some examples of representations of some ordinals :
 \item \( 0 = 0 \)
 \item \( 1 = 0+\omega^0 = C(0,0) \)
 \item \( 2 = 1+\omega^0 = C(0,1) = C(0,C(0,0)) \)
-\item \( \omega = 0+\omega^1 = C(1,0) \)
+\item \( \omega = 0+\omega^1 = C(1,0) = C(C(0,0),0) \)
 \item \( \omega+1 = \omega+\omega^0 = C(0,\omega) = C(0,C(1,0)) \)
 \item \( \omega \cdot 2 =\omega+\omega^1 = C(1,\omega) = C(1,C(1,0)) \)
 \item \( \omega^2 = 0+\omega^2 = C(2,0) \)
@@ -5865,9 +5865,37 @@ Here are some examples of representations of some ordinals :
 \item Bachmann Howard ordinal \( = C(C(\Omega_2,\Omega_1),0) \)
 \end{itemize}
 
-See http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm and 
+\bigskip
 
-https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ for more information. 
+Properties :
+
+\begin{itemize}
+\item \( C(\alpha,\beta) = \beta+\omega^\alpha \) if \( C(\alpha,\beta) \ge \alpha \)
+\item \( C(0,\alpha) = \alpha+1 = suc(\alpha) \)
+\item \( C(C(0,\alpha),\beta) = [C(\alpha,\bullet)]^\omega(\beta) = H [C(\alpha,\bullet)] \beta \)
+\item \( C(1,\alpha) = C(C(0,0),\alpha) = \alpha+\omega \)
+\item \( C(\Omega_1,0) = [C(\bullet,0)]^\omega(0) = \varepsilon_0 \)
+\end{itemize}
+
+Examples :
+\begin{itemize}
+\item \( 1 = \omega^0 = C(0,0) \)
+\item \( \omega = C(C(0,0),0) = [C(0,\bullet)]^\omega(0) = H [C(0,\bullet)] 0 = suc^\omega(0) = H suc\ 0 \)
+\item \( \omega \cdot 2 = C(C(0,0),C(C(0,0),0) = [C(C(0,0),\bullet)]^\omega(0) = [C(0,\bullet)]^\omega(C(C(0,0),0)) = suc^\omega(\omega) = H suc (H suc\ 0) \)
+\item \( \omega^2 = C(C(0,C(0,0)),0) = [C(C(0,0),\bullet)]^\omega(0) = [\bullet+\omega]^\omega(0) = H (H suc) 0 \)
+\item \( \omega^\omega = C(C(C(0,0),0),0) = C([C(0,\bullet)]^\omega(0),0) = C(\omega,0) \)
+\end{itemize}
+
+\bigskip
+
+References :
+
+http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm 
+
+https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ 
+
+http://googology.wikia.com/wiki/User\_blog:Hyp\_cos/Fundamental\_Sequences\_in\_Taranovsky\%27s\_Notation
+
 
 \section{Ordinal trees}
 
