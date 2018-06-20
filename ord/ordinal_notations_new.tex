@@ -3935,11 +3935,10 @@ These fundamental sequences are equivalent to the following recursive definition
 \item \( \psi_{Lim_\mu h}(0) = Lim_\mu (\xi \mapsto \psi_{h(\xi)}(0)) = Lim_\mu (\xi \mapsto \Omega_{h(\xi)}) \)
 \item \( \psi_\nu(\beta+1) = \psi_\nu(\beta) \cdot \omega \)
 \item \( \psi_\nu (lim\ h) = lim (\xi \mapsto \psi_\nu(h(\xi))) = lim (\psi_\nu \circ h) \) ( with \( lim = Lim_0 \) )
+\item \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
 \begin{comment}
-      \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
-\end{comment}
 \item \( \psi_\nu (Lim_{\mu+1} h) = lim (\xi \mapsto (\psi_\nu \circ h)^\xi (\psi_\nu(0))) \) if \( \mu \ge \nu \)
-
+\end{comment}
 \item \( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) if \( \mu \ge \nu \)
 \item This fundamental sequence is not part of the definition of \( \psi_\nu(\alpha) \), it can be deduced from the definition of \( \Lambda = min \lbrace \beta | \psi_\beta(0) = \beta \rbrace \)
 \end{enumerate}
