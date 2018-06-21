@@ -1,0 +1,43 @@
+\documentclass[10pt]{article}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+
+\begin{document}
+
+\title{A Tutorial Overview of Ordinal Notations}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+\section{Ordinal collapsing functions}
+
+There are different ways to define ordinal collapsing functions.
+
+First, we can consider an ordinal collapsing function as an extension of a given ordinal function (a function that, to any ordinal, associates an ordinal), this function being extended by adding a symbol \( \Omega \) which can be seen as a fixed point constructor.
+
+Suppose we define a function \( \psi \), for example \( \psi(\alpha) = \omega^\alpha \).
+
+This function has the following property : 
+
+\[ \psi(\alpha+\beta) = \omega^{\alpha+\beta} = \omega^\alpha \cdot \omega^\beta = \psi(\alpha) \cdot \omega^\beta \]
+
+With this function, we can define \( \psi(0) = \omega^0 = 1, \psi(1) = \omega^1 = \omega, \psi(\omega) = \omega^\omega, \psi(\omega^\omega) = \omega^{\omega^\omega}, ... \). The limit of this sequence is  \( \varepsilon_0 \). 
+
+We would like to reach this limit and go beyond. For this, we will introduce a symbol \( \Omega \) which generates fixed points. 
+
+ For example, \( \psi(\Omega) = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \). So we have \( \psi(\Omega) = \varepsilon_0 \). We can then go further with \( \psi(\Omega+1) = \varepsilon_0 \cdot \omega \) and more generally \( \psi(\Omega+\alpha) = \psi(\Omega) \cdot \omega^\alpha \). Then we have \( \psi(\Omega \cdot 2) = \psi(\Omega + \Omega) = sup \lbrace 0, \psi(\Omega+0) = \varepsilon_0, \psi(\Omega+\varepsilon_0) = \varepsilon_0 \cdot \omega^\varepsilon_0 = \varepsilon_0 \cdot \varepsilon_0 = {\varepsilon_0}^2, \psi(\Omega+{\varepsilon_0}^2) = \varepsilon_0 \cdot \omega^{{\varepsilon_0}^2} = \omega^{\varepsilon_0+{\varepsilon_0}^2} = \omega^{{\varepsilon_0}^2}, \psi(\Omega+\omega^{{\varepsilon_0}^2}) = \omega^{\omega^{{\varepsilon_0}^2}}, \ldots \rbrace = \varepsilon_1 \), and so on.
+
+Intuitively, an expression consisting in \( \psi \) applied to something which contains \( \Omega \) means something like the least fixed point of the function whose variable takes place of the last \( \Omega \) of the expression and whose result is the whole expression, with some conditions concerning the form of the expression, for example \( \psi(\Omega \cdot 2) \) must be replaced by \( \psi(\Omega+\Omega) \). This may seem a little confuse at this point, but we will define it more rigorously later using the notion of limit ordinals. 
+
+For more explanations about this approach, see also David Madore's "Petit guide bordélique de quelques ordinaux intéressants" (in french) :
+
+http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html
+
+\end{document}
