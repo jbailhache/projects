@@ -388,6 +388,40 @@ We will introduce later other mathematical objects called tree ordinals which ar
 
 \bigskip
 
+
+Ordinals can be divided into 4 main categories ; any ordinal \( \alpha \) belongs to one ot these categories : 
+
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item (finite) integers : \( 0 \le \alpha < \omega \)
+
+\item transfinite recursive ordinals : \( \omega \le \alpha < \omega_1^{CK} \)
+
+\item non recursive countable ordinals : \( \omega_1^{CK} \le \alpha < \omega_1 \)
+
+\item uncountable ordinals : \( \omega_1 \le \alpha \).
+
+\end{enumerate}
+
+The category of all recursive ordinals includes categories 1 and 2.
+
+The category of all countable ordinals includes categories 1, 2 and 3.
+
+\( \omega \) is the least transfinite (non finite) ordinal and the set of all finite ordinals (category 1)
+
+\( \omega_1^{CK} \) is the least non recursive ordinal and the set of all recursive ordinals (categories 1 and 2).
+
+\( \omega_1 \) is the least uncountable ordinal and the set of all countable ordinals (categories 1, 2 and 3).
+
+Technically, an ordinal \( \alpha \) is said to be recursive if there is a recursive well-ordering of a subset of the natural numbers having the order type \( \alpha \).
+
+Intuitively, a recursive ordinal is an ordinal that can be implemented by some computer program or a Turing machine.
+
+\bigskip
+
 For natural numbers, arithmetical operations are defined as follows :
 
 \begin{itemize}
@@ -5641,7 +5675,7 @@ Reference: https://stepstowardinfinity.wordpress.com/2015/05/04/ordinal2/
 \item If \(\alpha\) is a strongly critical ordinal but not of the form \(\Omega_\beta\), then \(\alpha\) is expressible in the form \(\vartheta_\nu(\gamma)\). Then the standard form for \(\alpha\) is \(\alpha=\vartheta_\nu(\gamma)\) where \(\gamma\) and \(\nu\) are expressed in standard form.
 \end{itemize}
 
-\subsection{Fundamental sequences} 
+\subsubsection{Fundamental sequences} 
 
 For ordinals \(\alpha<\vartheta(\Omega_{\Omega_{\Omega_{\ldots}}})\), written in normal form, fundamental sequences are defined as follows:
 
