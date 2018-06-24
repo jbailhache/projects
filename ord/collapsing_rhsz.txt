@@ -1539,8 +1539,6 @@ w^w^w = C (C (C (C 0 0) 0) 0) 0
 e0 = H [C * 0] 0 = C W 0
 
 
-Taranovsky
-
 C a b = least element > b that has degree >= A
 C a b = b+w^a iff C a b >= a
 
