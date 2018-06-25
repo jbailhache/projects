@@ -2645,6 +2645,214 @@ Then we can go on :
 
 \end{itemize}
 
+\section{Ordinal trees}
+
+Ordinal can also be represented by trees. An example of such a representation is given in :
+
+http://www.madore.org/~david/math/ordtrees.pdf .
+
+In this representation, the order on finite rooted trees is recursively defined as follows : \( A < B \) if and only if one of this conditions is true :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item There is some mmediate subtree B' of B such that \( A \leq B' \).
+\item Every child A' of A satisfies \( A' < B \) and the list of children of A is lexicographically less than the list of children of B for the order \( < \) with the leftmost children having the most weight.
+\end{itemize}
+
+Trees can also be represented by parenthesized expressions, for example :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item 0 = ()
+\item 1 = (())
+\item 2 = ((()))
+\item \( \omega = (()()) \)
+\item \( \omega+1 = ((()())) \)
+\item \( \omega \cdot 2 = (()(())) \)
+\item \( \omega \cdot 3 = (()((()))) \)
+\item \( \omega^2 = (()(()())) \)
+\item \( \omega^2+\omega = (()((()()))) \)
+\item \( \omega^2 \cdot 2 = (()(()(()))) \)
+\item \( \omega^2 \cdot 3 = (()(()((())))) \)
+\item \( \omega^3 = (()(()(()()))) \)
+\item \( \omega^\omega = ((())()) \)
+\item \( \omega^{\omega^\omega} = ((()())()) \)
+\item \( \epsilon_0 = \varphi_1(0) = (()()()) \)
+\item \( \varepsilon_1 = \varphi_1(1) = (()()(())) \)
+\item \( \varepsilon_2 = \varphi_1(2) = (()()(())) \)
+\item \( \varepsilon_\omega = \varphi_1(\omega) = (()()(()())) \)
+\item \( \varepsilon_{\varepsilon_0} = (()()(()()())) \) 
+\item \( \zeta_0 = \varphi_2(0) = (()(())()) \)
+\item \( \Gamma_0 = \varphi(1,0,0) = ((())()()) \)
+\item \( \varphi(1,0,0,0) = (()()()()) \)
+\item \( \ldots \)
+\end{itemize}
+
+Another example of tree representation is Takeuti ordinal diagrams, see :
+
+ https://projecteuclid.org/download/pdf\_1/euclid.jmsj/1261153819 .
+
+
+\section{An application of ordinals : defining large numbers using the Fast Growing Hierarchy}
+
+The Fast Growing Hierarchy is a family of fast growing functions indexed by ordinals \( f_\alpha \) which, when applied to a number, give a much greater one, allowing to produce huge numbers.
+
+It is traditionally defined as follows :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 \)
+\item \( f_{\alpha+1}(n) = {f_\alpha}^n(n) \)
+\item \( f_\alpha(n) = f_{\alpha[n]}(n) \) if \( \alpha \) is a limit ordinal, where \( \alpha[n] \) denotes the n-th element of the fundamental sequence assigned to \( \alpha \).
+\end{itemize}
+
+The first functions of this hierarchy are :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 = suc\ n \)
+\item \( f_1(n) = suc^n(n) = n \cdot 2 \)
+\item \( f_2(n) = [\bullet \cdot 2]^n(n) = n \cdot 2^n \)
+\end{itemize}
+
+But there is a problem with this definition, because the value of \( f_\alpha(n) \) depends of the fundamental sequence chosen for \( \alpha \) if it is a limit ordinal. Let us consider for example \( f_\omega(2) \). If we take the canonical fundamental sequence \( \omega[n] = n \), then we get \( f_\omega(2) = f_{\omega[2]}(2) = f_2(2) = 2 \cdot 2^2 = 8 \). But \( \omega[n] \) = n+1 is also a valid fundamental sequence for \( \omega \). Taking this fundamnetal sequence gives \( f_\omega(2) = f_{\omega[2]}(2) = f_3(2) = [\bullet \cdot 2^\bullet]^2(2) = 2048 \).
+
+In fact, the notation \( \alpha[n] \) is not rigorous because there are several possible fundamental sequences for a given ordinal \( \alpha \). Instead of writing \( \alpha[n] = F(n) \) it would be more rigorous to write \( \alpha = lim F \). One cannot write \( \omega[n] = n \) and \( \omega[n] = n+1 \) because this implies n = n+1, but there is no problem writing \( \omega = lim (n \mapsto n) = lim (n \mapsto n+1) \).
+
+So, if we want to define rigorously the Fast Growing Hierarchy, we need to index the functions not by ordinals but by something which look likes ordinals but which are considered as different if the fundamental sequences are differents. These mathematical objects originally due to Bachmann are called "tree ordinals" (do not confuse with "ordinal trees" previously seen). 
+
+
+\section{Tree ordinals}
+
+Definitions of tree ordinals can be found in :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item https://www.youtube.com/watch?v=RmuASZSO2s8\&t=9s\&index=41\&list=PL3A50BB9C34AB36B3
+\item http://www.iam.unibe.ch/ltgpub/2011/fab11.pdf
+\item Proof and system-reliability
+\end{itemize}
+
+A tree ordinal a belongs to the tree ordinal class \( \Omega_n (n \in \mathbb{N}) \) if either :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item a = 0
+\item a = a' + 1 for some tree ordinal a' belonging to the tree ordinal class \( \Omega_n \)
+\item a is a function from \( \Omega_k \) to \( \Omega_n \) for some \( k \in \mathbb{N} \) with \( k < n \). In this case, we will say that a is a limit tree ordinal.
+\end{itemize}
+
+Let us first consider \( \Omega_0 \). The third case cannot apply (\( k \in \mathbb{N} \) and \(k < 0 \)), so the definition of \( \Omega_0 \) is given by the first two cases, which correspond to the inductive definition of the natural numbers, so \( \Omega_0 \) may be identified to \( \mathbb{N} \) or \( \omega \).
+
+Next, \( \Omega_1 \) also includes all natural numbers, and also functions that, to a natural number, associates an element of \( \Omega_1 \), or sequences of elements of \( \Omega_1 \). For example, the identity function a[k] = k is an element of \( \Omega_1 \) called \( \omega_0 \). The function b[k] = k+1 is also an element of \( \Omega_1 \), but these two tree ordinals are considered as different tree ordinals, because the functions or sequences are different, even if the associated ordinal (the ordinal which has the corresponding fundamental sequence) is the same for both, the ordinal \( \omega \). So \( \Omega_1 \) can be seen as the class of countable ordinals associated with the choice of a particular fundamental sequence for limit ordinals.
+
+Then it goes on with \( \Omega_2 \) which includes \( \Omega_0, \Omega_1 \), and functions from \( \Omega_1 \) to \( \Omega_2 \), like for example \( \omega_1 \) defined by \( \omega_1(a) = a \) where \( a \in \Omega_1 \), and so on.
+
+There is a correspondence between tree ordinals and ordinals : if we ignore the choice of a particular fundamental sequence of a tree ordinal, we get an ordinal. To any tree ordinal a, we can associate a corresponding ordinal \( \alpha = |a| \) obtained by ignoring the choice of particular fundamental sequences, and defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( |0| = 0 \)
+\item \( |a+1| = |a|+1 \)
+\item \( |a| = sup |a[b]| \) if a is a function from \( \Omega_k \) to \( \Omega_n \).
+\end{itemize}
+
+or equivalently
+
+\( |a| = sup_{b<a} \lbrace |b|+1 \rbrace \)
+
+\bigskip
+
+We can define arithmetical operations on tree ordinals in a way similar to the previously seen definitions for ordinals, replacing lim(f) by f because the ordinal tree is identified with its fundamental sequence or function.
+
+\bigskip
+
+Using tree ordinals, we can define rigorously the Fast Growing Hierarchy \( f_a(n) \) where \( a \in \Omega_1 \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 \)
+\item \( f_{a+1}(n) = {f_a}^n(n) \)
+\item \( f_a(n) = f_{a[n]}(n) \) if \( a \) is a limit tree ordinal, where \( a[n] \) denotes the result of the application of the function a to the integer n.
+\end{itemize}
+
+\section{Using tree ordinals to define ordinals}
+
+Let us define a hierarchy of functions \( F_n(a,b) \) where \( n \in \mathbb{N}, a \in \Omega_{n+1} \) and \( b \in \Omega_n \), which is an extension of the Fast Growing Hierarchy : for n = 0, it corresponds to the Fast Growing Hierarchy : \( F_0(a,b) = f_a(b) \) with \( a \in \Omega_1 \) and \( b \in \Omega_0 = \mathbb{N} \), or :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_0(0,b) = b+1 \)
+\item \( F_0(a+1,b) = [F_0(a,\bullet)]^b(b) \)
+\item \( F_0(a,b) = F_0(a[b],b) \) if a is a limit tree ordinal
+\end{itemize}
+
+We generalize this definition for \( n > 0 \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_n(0,b) = b+1 \)
+\item \( F_n(a+1,b) = [F_n(a,\bullet)]^b(b) \)
+\item \( (F_n(a,b))[c] = F_n(a[c],b) \) if a is a function from \( \Omega_k \) to \( \Omega_{n+1} \) with \( k < n \)
+\item \( (F_n(a,b)) = F_n(a[b],b) \) if a is a function from \( \Omega_n \) to \( \Omega_{n+1} \)
+\end{itemize}
+
+where the exponentiation of a function to a tree ordinal power is defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f^0(a) = a \)
+\item \( f^{b+1} = f(f^b(a)) \)
+\item \( (f^b(a))[c] = f^{b[c]}(a) \) if b is a limit tree ordinal
+\end{itemize}
+
+This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as follows :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_1(0,b) = b+1 = suc(b) \)
+\item \( F_1(1,b) = suc^b(b) = b+b = b \cdot 2\)
+\item \( F_1(2,b) = b \cdot 2^b \)
+\item \( |F_1(2,\omega_0)| = |\omega_0 \cdot 2^{\omega_0}| = \omega \cdot 2^\omega = \omega \cdot \omega = \omega^2 \)
+\item \( |F_1(2,F_1(2,\omega_0)) = |(\omega_0 \cdot 2^{\omega_0}) \cdot 2^{\omega_0 \cdot 2^{\omega_0}}| = \omega^2 \cdot 2^{\omega^2} = \omega^2 \cdot 2^{\omega \cdot \omega} = \omega^2 \cdot (2^\omega)^\omega = \omega^2 \cdot \omega^\omega = \omega^{2+\omega} = \omega^\omega \) 
+\item \( |F_1(3,\omega_0)| = |[F_1(2,\bullet)]^{\omega_0}(\omega_0)| = sup |[F_1(2,\bullet)]^{\omega_0[k]}(\omega_0)| = sup |[F_1(2,\bullet)]^k(\omega_0)| = sup (\omega^{\vdots^\omega}) = \varepsilon_0 \)
+\item \( |F_1(2,F_1(3,\omega_0))| = \varepsilon_0 \cdot 2^{\varepsilon_0} = {\varepsilon_0}^2 \)
+\item \( |[F_1(2,\bullet)]^2(F_1(3,\omega_0))| = {\varepsilon_0}^2 \cdot 2^{{\varepsilon_0}^2} = {\varepsilon_0}^{\varepsilon_0} \)
+\item \( |F_1(3,F_1(3,\omega_0))| = sup \lbrace {\varepsilon_0}^{\vdots^{\varepsilon_0}} \rbrace = \varepsilon_1 \)
+\item \( |F_1(4,\omega_0)| = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
+\item \( |F_1(3,F_1(4,\omega_0))| = sup \lbrace {\zeta_0}^{\vdots^{\zeta_0}} \rbrace = \varepsilon_{\zeta_0+1} \)
+\item \( |F_1(4,F_1(4,\omega_0))| = sup \lbrace \varepsilon_{\ddots_{\varepsilon_{\zeta_0+1}}} \rbrace = \zeta_1 = \varphi(2,1) = \varphi'(1,2) \)
+\item \( |F_1(5,\omega_0)| = \eta_0 = \varphi(3,0) = \varphi'(2,1) \)
+\item \( |F_1(\omega_0,\omega_0)| = \varphi_\omega(0) \)
+\item \( |F_1(\omega_1+1,\omega_0)| = \Gamma_0 \)
+\item \( |F_1(F_2(3,\omega_1),\omega_0)| = BHO \)
+
+\item \( \ldots \)
+\end{itemize}
 
 
 \section{Ordinal collapsing functions}
@@ -5764,8 +5972,9 @@ These fundamental sequences can be reformulated :
   
 Reference: http://googology.wikia.com/wiki/List\_of\_systems\_of\_fundamental\_sequences
 
-\subsection{Taranovsky's C}
+\begin{comment}
 
+\subsection{Taranovsky's C}
 
 C(a,b) is the least element above b that has degree a.
 
@@ -6023,6 +6232,7 @@ Another example of tree representation is Takeuti ordinal diagrams, see :
 
  https://projecteuclid.org/download/pdf\_1/euclid.jmsj/1261153819 .
 
+
 \section{An application of ordinals : defining large numbers using the Fast Growing Hierarchy}
 
 The Fast Growing Hierarchy is a family of fast growing functions indexed by ordinals \( f_\alpha \) which, when applied to a number, give a much greater one, allowing to produce huge numbers.
@@ -6179,6 +6389,7 @@ This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as fol
 \item \( \ldots \)
 \end{itemize}
 
+\end{comment}
 
 \section{Cardinals}
 
@@ -7674,6 +7885,212 @@ where \(R\) denotes set of all uncountable regular cardinals and \(W\) denotes s
 http://googology.wikia.com/wiki/List\_of\_systems\_of\_fundamental\_sequences
 
 https://sites.google.com/site/travelingtotheinfinity/the-function-collapsing-weakly-mahlo-cardinals
+
+
+\section{Taranovsky's C}
+
+C(a,b) is the least element above b that has degree a.
+
+Definition: A degree for a well-ordered set S is a binary relation on S such that :
+
+\begin{itemize}
+	\item Every element \( c \in S \) has degree \( 0_S \) (the least element of S). \( 0_S \) only has degree \( 0_S \).
+	\item For a limit a, c has degree a iff it has every degree less than a.
+	\item For a successor a'=a+1, either of the following holds:
+	\begin{itemize}
+		\item An element has degree a' iff it is a limit of elements of degree a.
+		\item There is a limit element d <= a such that for every c in S, c has degree a' iff it has degree a and either c <= d or c is a limit of elements of degree a (or both).
+	\end{itemize}
+\end{itemize}
+
+Note: The third condition can be equivalently written as \( \forall a (C_{a+1} = lim(C_a) \vee \exists d \in lim(S) \cap (a+1) C_{a+1} = lim(C_a) \cup (C_a \cap (d+1))) \), where S is identified with an ordinal (so a+1 consists of ordinals \( \leq a), C_a \) is the set of elements that have degree a, and lim is limit points.
+
+In other terms : Let \( \eta \) be an ordinal, and let \( 0_S \) and let Ld(a,b) be the statement that a is a limit of ordinals c such that \( (c,b) \in D \). Let D be the following binary relation over \( \eta \) :
+
+\begin{itemize}
+	\item \( \forall a<\eta:(a,0) \in D \)
+	\item \( \forall a<\eta:a \neq 0 \Rightarrow (0,a) \notin D \)
+	\item \( \forall b\in Lim \cup \eta:(a,b)\in D \Leftrightarrow \forall c<b:(a,c)\in D \)
+	\item \( \forall b:(a,b)\in D \Leftrightarrow Ld(a,b+1)\forall b:(a,b)\in D \Leftrightarrow Ld(a,b+1) \)
+	\item \( \forall b:\exists d\in Lim \cup  \eta :d<=b \Rightarrow \forall c:(c,a+1)\in D \Leftrightarrow (c<=d \vee Ld(c,b)) \)
+\end{itemize}
+
+Then \( C(a,b)=min{c:c\in  \eta  \wedge c>b \wedge (c,a)\in D} \).
+
+\( C(a, b) = b+\omega^a \) iff \( C(a, b) \geq  a \).
+
+
+For ordinals in the standard representation written in the postfix form, the comparison is done in the lexicographical order where \( 'C' < '0' < '\Omega' \): For example, \( C(C(0,0),0) < C(\Omega, 0) \) because \( 000CC < 0 \omega C \). (This does not hold for non-standard representations of ordinals.)
+
+The fundamental sequences of Taranovsky’s notation can be easily defined.
+
+Let \( L(\alpha) \) be the amount of C’s in standard representation of \( \alpha \), then \( \alpha [n]=max \lbrace \beta | \beta < \alpha  \wedge L(\beta) \leq L(\alpha)+n \rbrace \).
+
+Here is a summary of the system by Taranovsky (see https://cs.nyu.edu/pipermail/fom/2012-March/016349.html) :
+
+\begin{verbatim}
+
+I discovered a conjectured ordinal notation system that I conjecture 
+reaches full second order arithmetic.  I implemented the system in a 
+python module/program:
+http://web.mit.edu/dmytro/www/other/OrdinalArithmetic.py
+along with ordinal arithmetic operations (addition, multiplication, 
+exponentiation, etc.) and other functions.  The ordinal arithmetic 
+functionality is useful even if you are only interested in ordinals 
+below epsilon_0.
+
+The notation system is simple enough to be defined in full here.
+
+Definition: An ordinal a is 0-built from below from b iff a<=b
+a is n+1-built from below from b iff the standard representation of a 
+does not use ordinals above a except in the scope of an ordinal n-built 
+from below from b.
+
+(Note: "in the scope of" means "as a subterm of".)
+
+The nth (n is a positive integer) ordinal notation system is defined as 
+follows.
+
+Syntax: Two constants (0, W_n) and a binary function C.
+Comparison: For ordinals in the standard representation written in the 
+postfix form, the comparison is done in the lexicographical order where 
+'C' < '0' < 'W_n': For example, C(C(0,0),0) < C(W_n, 0) because 0 0 0 C 
+C < 0 W_n C.
+
+Standard Form:
+0, W_n are standard
+"C(a, b)" is standard iff
+1. "a" and "b" are standard,
+2. b is 0 or W_n or "C(c, d)" with a<=c, and
+3. a in n-built from below from b.
+
+I conjecture that the strength of the nth ordinal notation system is 
+between Pi^1_{n-1}-CA and Pi^1_n-CA_0, and thus the sum of the order 
+types of these ordinal notation systems is the proof-theoretical ordinal 
+of second order arithmetic.
+
+The full notation system is obtained by combining these notation systems 
+as follows:
+Constants 0 and W_i (for every positive integer i), and a binary function C.
+W_i = C(W_{i+1}, 0) and the standard form always uses W_i instead of 
+C(W_{i+1}, 0).
+To check for standard form and compare ordinals use W_i = C(W_{i+1}, 0) 
+to convert each W to W_n for a single positive integer n (it does not 
+matter which n) and then use the nth ordinal notation system.
+
+To make C a total function for a and b in the notation system (this is 
+not required for standard forms), let C(a, b) be the least ordinal (in 
+the notation system) of degree >=a above b, where the degree of W_i is 
+W_{i+1} and the degree of C(c,d) is c if "C(c,d)" is the standard form.  
+A polynomial time computation of C(a, b) (that I believe is correct) is 
+included in the program.
+
+To complete ordinal analysis of second order arithmetic, one would need:
+* A canonical assignment of notations to formulas that provably in 
+second order arithmetic denote an ordinal, and such that for every two 
+ordinals/formulas, comparison is provable in second order arithmetic.  
+The idea is that the notation system captures not only provably 
+recursive ordinals of second order arithmetic but all ordinals that have 
+a provable canonical definition in second order arithmetic.  For 
+example, W_1 is best assigned to the least admissible ordinal above 
+omega. A partial assignment is in my paper.  (It is because of such 
+assignment that I believe that the system reaches full second order 
+arithmetic.)
+* Proof that the system is well-founded and that it has the right 
+strength, etc.  (If you do not fully understand the notation system, or 
+if you think that it is not well-founded, let me know.)
+
+Historical Note:  In 2005, I discovered the right general form of C, 
+defined a notation system at the level of alpha-recursively inaccessible 
+ordinals (FOM postings in August 2005), and had an idea for reaching 
+second order arithmetic.  In January 2006 (or possibly late 2005), I 
+defined the notation system with W_2 and in 2009 (June 29, 2009 FOM 
+posting) implemented it is a computer program.  This year I defined the 
+key concept -- n-built from below -- that allowed me to complete the 
+full notation system.
+
+Details about the ordinal notation system and its initial segments are 
+in my paper:
+http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm
+
+Sincerely,
+Dmytro Taranovsky
+
+\end{verbatim}
+
+Here are some examples of representations of some ordinals : 
+
+\begin{itemize}
+\item \( 0 = 0 \)
+\item \( 1 = 0+\omega^0 = C(0,0) \)
+\item \( 2 = 1+\omega^0 = C(0,1) = C(0,C(0,0)) \)
+\item \( \omega = 0+\omega^1 = C(1,0) = C(C(0,0),0) \)
+\item \( \omega+1 = \omega+\omega^0 = C(0,\omega) = C(0,C(1,0)) \)
+\item \( \omega \cdot 2 =\omega+\omega^1 = C(1,\omega) = C(1,C(1,0)) \)
+\item \( \omega^2 = 0+\omega^2 = C(2,0) \)
+\item \( \omega^\omega = 0+\omega^\omega = C(\omega,0) = C(C(1,0),0) \)
+\item \( \omega^{\omega^\omega} = 0+\omega^{\omega^\omega} = C(\omega^\omega,0) = C(C(C(1,0),0),0) \)
+\item \( \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) = C(\Omega_1,0) \)
+\item \( \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) = C(W,C(W,0)) \) (note that the correspondence with \( \varphi' \) is simpler than with \( \varphi \))
+\item \( \zeta_0 = \varphi(2,0) = \varphi'(1,1) = C(C(\Omega_1,\Omega_1),0) = C(\Omega_1 \cdot 2,0) \) with \( \Omega_1 \cdot 2 = C(\Omega_1,\Omega_1)
+ \)
+\item \( \zeta_1 = \varphi(2,1) = \varphi'(1,2) = C(\Omega_1 \cdot 2,C(\Omega_1 \cdot 2,0)) \)
+\item \( \eta_0 = \varphi(3,0) = \varphi'(2,1) = C(\Omega_1 \cdot 3,0) \) with \( \Omega_1 \cdot 3 = C(\Omega_1,C(\Omega_1,\Omega)) \)
+\item \( \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = C(C(\Omega_1 \cdot 2,\Omega_1),0) = C({\Omega_1}^2,0) \) with \( {\Omega_1}^2 = C(\Omega_1 \cdot 2,\Omega_1) \)
+\item \( \Gamma_1 = C({\Omega_1}^2,C({\Omega_1}^2,0)) \)
+\item \( \Gamma_\omega = C({\Omega_1}^2+1,0) \)
+\item Small Veblen ordinal \( = C({\Omega_1}^\omega,0) \)
+\item Large Veblen ordinal \( = C({\Omega_1}^{\Omega_1},0) \)
+\item Bachmann Howard ordinal \( = C(C(\Omega_2,\Omega_1),0) \)
+\end{itemize}
+
+\bigskip
+
+Properties :
+
+\begin{itemize}
+\item \( C(\alpha,\beta) = \beta+\omega^\alpha \) if \( C(\alpha,\beta) \ge \alpha \)
+\item \( C(0,\alpha) = \alpha+1 = suc(\alpha) \)
+\item \( C(\alpha+1,\beta) = C(C(0,\alpha),\beta) = [C(\alpha,\bullet)]^\omega(\beta) = H [C(\alpha,\bullet)] \beta \)
+\item \( C(1,\alpha) = C(C(0,0),\alpha) = \alpha+\omega \)
+\item \( C(lim\ f) \beta = lim [C(f(\bullet),\beta)] \)
+\item \( C(Lim_1 f,0) = [C(f(\bullet),0)]^\omega(0) \)
+\item \( C(Lim_1 f,\beta) = [C(f(\bullet),\beta)]^\omega(0) \) (not in all cases)
+\end{itemize}
+
+Examples :
+\begin{itemize}
+\item \( 1 = \omega^0 = C(0,0) \)
+\item \( \omega = C(C(0,0),0) = [C(0,\bullet)]^\omega(0) = H [C(0,\bullet)] 0 = suc^\omega(0) = H suc\ 0 \)
+\item \( \omega \cdot 2 = C(C(0,0),C(C(0,0),0) = [C(C(0,0),\bullet)]^\omega(0) = [C(0,\bullet)]^\omega(C(C(0,0),0)) = suc^\omega(\omega) = H suc (H suc\ 0) \)
+\item \( \omega^2 = C(C(0,C(0,0)),0) = [C(C(0,0),\bullet)]^\omega(0) = [\bullet+\omega]^\omega(0) = H (H suc) 0 \)
+\item \( \omega^\omega = C(C(C(0,0),0),0) = C([C(0,\bullet)]^\omega(0),0) = C(\omega,0) \)
+\item \( C(\Omega_1,0) = C(Lim_1 [\bullet],0) = [C(\bullet,0)]^\omega(0) = sup \lbrace 0, C(0,0) = 1 = \omega^0, C(C(0,0),0) = \omega = \omega^1, C(C(C(0,0),0),0) = \omega^\omega, \ldots \rbrace = \varepsilon_0 \)
+\item \( C(\Omega_1,\varepsilon_0) = C(Lim_1 [\bullet],\varepsilon_0) = [C(\bullet,\varepsilon_0)]^\omega(0) = sup \lbrace \)
+	\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+	\item \( 0 \)
+	\item \( C(0,\varepsilon_0) = \varepsilon_0+1 \)
+	\item \( C(\varepsilon_0+1,\varepsilon_0) = \varepsilon_0 + \omega^{\varepsilon_0+1} = \varepsilon_0 \cdot \omega \)
+	\item \( C(\varepsilon_0 \cdot \omega,\varepsilon_0) = \varepsilon_0 + \omega^{\varepsilon_0 \cdot \omega} = {\varepsilon_0}^\omega \)
+	\item \( C({\varepsilon_0}^\omega,\varepsilon_0) = {\varepsilon_0}^{{\varepsilon_0}^\omega} \)
+	\item \( \ldots \rbrace = \varepsilon_1 \)
+	\end{itemize}
+\item \( C(\Omega_1 \cdot 2,0) = C(Lim_1 [\Omega+\bullet],0) = [C(\Omega_1+\bullet,0)]^\omega(0) = sup \lbrace 0, C(\Omega_1,0) = \varepsilon_0, C(\Omega+\varepsilon_0,0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 \)
+\item Case where \( C(Lim_1 f,\beta) \neq [C(f(\bullet),\beta)]^\omega(0) : C(\Omega_1,\Omega_1) = \Omega_1 \cdot 2 \), but \( [C(\bullet,\Omega_1)]^\omega(0) = \varepsilon_{\Omega_1+1} \)
+\end{itemize}
+
+\bigskip
+
+References :
+
+http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm 
+
+https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/ 
+
+http://googology.wikia.com/wiki/User\_blog:Hyp\_cos/Fundamental\_Sequences\_in\_Taranovsky\%27s\_Notation
 
 
 
