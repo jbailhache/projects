@@ -6391,6 +6391,12 @@ This hierarchy of functions \( F_n(a,b) \) may be used to define ordinals as fol
 
 \end{comment}
 
+\subsection{Going further with ordinal collapsing functions}
+
+We began to define ordinal collapsing functions that collapse an ordinal named \( \Omega \) or \( \Omega_1 \) which has to be greater than all ordinals we want to define, which are recursive ordinals. We could take \( \omega_1^{CK} \), the least non recursive (but still countable) ordinal for \( \Omega \), but this could lead to some technical complications, so \( \omega_1 \), the least uncountable ordinal, which can be identified to the cardinal \( \aleph_1 \), is generally chosen. Then we saw we can go further using greater uncountable ordinals named \( \Omega_2, \Omega_3, \ldots \) for which we can take \( \omega_2, \omega_3, \ldots \) which can be identified to the corresponding cardinals \( \aleph_2, \aleph_3, \ldots \). A way to go further with ordinal collapsing function is to collapse more and more large uncountable ordinals (or corresponding cardinals) like \( \omega_\omega, \omega_{\omega_\omega}, \ldots \) and much further.
+ 
+Before studying some of these functions collapsing these large cardinals, we will see how we can build these large cardinals.
+
 \section{Cardinals}
 
 Each ordinal has a cardinality which is a cardinal number (or more briefly a cardinal). The cardinality is a generalization of the notion of number of elements of a set. Two sets have the same cardinality if there exist a bijection (a one-to-one correspondence) between them.
@@ -7885,6 +7891,25 @@ where \(R\) denotes set of all uncountable regular cardinals and \(W\) denotes s
 http://googology.wikia.com/wiki/List\_of\_systems\_of\_fundamental\_sequences
 
 https://sites.google.com/site/travelingtotheinfinity/the-function-collapsing-weakly-mahlo-cardinals
+
+
+\subsection{Collapsing cardinals greater than Mahlo}
+
+After Mahlo cardinals, things become more and more complicated. 
+
+Jan-Carl Stegert wrote a dissertation on this subject ("Ordinal proof theory of Kripke-Platek set theory augmented by strong reflection principles") available here :
+
+https://miami.uni-muenster.de/Record/429ac0b8-092f-426d-bf84-1e3a0adc8957
+
+which is often considered as the state of the art in the domain of ordinal notations.
+
+To get an idea of the complexity reached at this level, let us read what David Madore says in 
+
+http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html :
+
+(translated from French by Google and me)
+
+"But beyond that, there are far more important complications: to crush a "\(\Pi_4\)-reflective" ordinal, one must begin to manage ordinals whose description is really more complex than the collapsing of something (for example Ordinal \(\Pi_2\)-reflecting on \(\Pi_3\)-reflecting): the collapsing functions take as argument not just an ordinal to which to collapse and a simple level of Mahloness, but much richer data which are "configurations of reflection" or "instances of reflection" (one does not just collapse to an ordinal of Mahloness level \(\xi\) and less than \(\pi\) but to an ordinal having some properties of reflection which lead themselves to other collapsing functions), and the notation system becomes incredibly more subtle and defined by a pretty awesome number of nested recursions. At least the "\(\Pi_5\)-reflecting" ordinals or more do not bring more substantial complexity compared to \(\Pi_4\)-reflecting, but there are still some subtleties if we want to include all levels at once, or even levels indexed by the system of ordinals we are defining. This is basically the point at which Jan-Carl Stegert's thesis (Ordinal proof theory of Kripke-Platek set theory augmented by strong reflection principles (2010), available here in PDF), introduces ordinal notational systems. whose only definition extends over a large number of pages (especially pp. 13-30 for the main system, pp. 68-70 for a simplified version, pp. 66-67 for an even more simplified version equivalent to collapsing of a Mahlo cardinal / \(\Pi_3\)-reflecting ordinal, and pp. 100-113 for an even richer system). From what I know, it is the largest explicit system of ordinal notation that has been introduced and rigorously analyzed in mathematical literature."
 
 
 \section{Taranovsky's C}

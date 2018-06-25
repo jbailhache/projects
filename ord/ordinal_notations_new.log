@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  25 JUN 2018 20:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  25 JUN 2018 21:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,83 +643,83 @@ st(next(a))), psi2(level+1,first(next(next(a)))));[]
 
 [63] [64] [65] [66] [67] Excluding 'comment' comment. [68]
 Excluding 'comment' comment. [69] [70]
-Overfull \hbox (5.4781pt too wide) in paragraph at lines 6685--6686
+Overfull \hbox (5.4781pt too wide) in paragraph at lines 6691--6692
 []\OT1/cmr/m/n/10 Then, $\OML/cmm/m/it/10 ^^T$ \OT1/cmr/m/n/10 is 1-hyper-weakl
 y in-ac-ces-si-ble if $\OML/cmm/m/it/10 ^^T$ \OT1/cmr/m/n/10 is the $\OML/cmm/m
 /it/10 ^^T$\OT1/cmr/m/n/10 -th hyper-weakly in-ac-ces-si-ble car-di-nal, which 
 can be writ-ten $\OML/cmm/m/it/10 ^^T \OT1/cmr/m/n/10 = ([1][0] [])[]0$.
  []
 
-Excluding 'comment' comment. Excluding 'comment' comment. [71] [72] [73]
-Overfull \hbox (2.5839pt too wide) in paragraph at lines 7046--7047
+Excluding 'comment' comment. [71] Excluding 'comment' comment. [72] [73]
+Overfull \hbox (2.5839pt too wide) in paragraph at lines 7052--7053
  []\OT1/cmr/m/n/10 https://sites.google.com/site/travelingtotheinfinity/the-col
 lapsing-functions-using-math-alpha-beta-math--weakly-inaccessible-
  []
 
-[74] [75] Excluding 'comment' comment. Excluding 'comment' comment. [76]
+[74] [75] [76] Excluding 'comment' comment. Excluding 'comment' comment.
 [77] [78]
-Overfull \hbox (34.16928pt too wide) in paragraph at lines 7555--7556
+Overfull \hbox (34.16928pt too wide) in paragraph at lines 7561--7562
  []\OT1/cmr/m/n/10 5. http://cantorsattic.info/index.php?title=User[]blog:Denis
 []Maksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
 
  []
 
 [79] [80]
-Overfull \hbox (22.3174pt too wide) in paragraph at lines 7753--7754
+Overfull \hbox (22.3174pt too wide) in paragraph at lines 7759--7760
  []\OT1/cmr/m/n/10 http://cantorsattic.info/index.php?title=User[]blog:Denis[]M
 aksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
 [81] [82] [83] [84] [85] [86]
-Overfull \hbox (14.74495pt too wide) in paragraph at lines 8174--8210
+Overfull \hbox (14.74495pt too wide) in paragraph at lines 8199--8235
  [] 
  []
 
-
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 8218--8220
+[87]
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 8243--8245
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
-[87]
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 8224--8226
+
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 8249--8251
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 8257--8259
+[88]
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 8282--8284
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 8263--8266
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 8288--8291
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 8280--8281
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 8305--8306
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 8285--8287
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 8310--8312
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
 
-[88] (./ordinal_notations_new.aux) ) 
+[89] (./ordinal_notations_new.aux) ) 
 Here is how much of TeX's memory you used:
  1924 strings out of 495020
  23231 string characters out of 6181324
- 98897 words of memory out of 5000000
+ 101897 words of memory out of 5000000
  5132 multiletter control sequences out of 15000+600000
  12290 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,10n,24p,1509b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,10n,24p,1784b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
@@ -739,10 +739,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (88 pages, 524282 bytes).
+Output written on ordinal_notations_new.pdf (89 pages, 527957 bytes).
 PDF statistics:
- 369 PDF objects out of 1000 (max. 8388607)
- 256 compressed objects within 3 object streams
+ 372 PDF objects out of 1000 (max. 8388607)
+ 258 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
