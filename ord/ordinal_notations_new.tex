@@ -7919,6 +7919,10 @@ While Stegert gets entangled in an inextricable complexity with the collapse of 
 
 There are reasons to suspect him of overestimating the power of his notation : the simplicity of the notation compared to its allegated power and the complexity of concurrent less powerful notations, the fact that Taranovsky published his work on a personal page and not in a recognized journal and he did not present a thesis of mathematics...
 
+More technically, Madore thinks that "Taranovsky missed the fact (which is what makes ordinal analysis very delicate beyond \(\Pi_3\)-reflection) that to deal with \(\Pi_4\)-reflection we need to account for those ordinals which are \(\Pi_2\)-reflecting on a set of \(\Pi_3\)-reflecting ordinals, which means we need to go beyond collapsing functions and talk of collapsing hierarchies".
+
+( https://johncarlosbaez.wordpress.com/2016/07/07/large-countable-ordinals-part-3/ )
+
 But a look at his work shows that it seems to make sense. So is he a pretentious or a genius who should be more recognized? Personally I am not competent enough to judge it. Some opinions about it can be found here :
 
 https://mathoverflow.net/questions/118854/does-taranovskys-system-of-ordinal-notations-make-sense/118888
@@ -8184,7 +8188,66 @@ Examples :
 
 \bigskip
 
-References :
+\subsection{The power of the notation}
+
+If Taranovsky's notation is correct, where could its power come from ?
+
+\bigskip
+
+Let us compare Taranovsky's C with a "classical" ordinal collapsing function like Buchholz \( \psi_0 \).
+
+For sufficiently small values of \( \alpha \), we have \( \psi_0(\alpha) = \omega^\alpha \) and \( C(\alpha,\beta) = \beta+\omega^\alpha \), so \( \psi_0(\alpha) = C(\alpha,0) \), but after \( \Omega \) the results are different. Here is a comparative table :
+
+\bigskip
+
+\begin{tabular}{|c|c|c|} \hline
+\( \alpha		\) & \( \psi_0(\alpha)	\) & \( C(\alpha,0)		\) \\ \hline
+\( 0			\) & \( 1		\) & \( 1			\) \\ \hline
+\( 1 			\) & \( \omega		\) & \( \omega			\) \\ \hline
+\( \omega		\) & \( \omega^\omega	\) & \( \omega^\omega		\) \\ \hline
+\( \varepsilon_0	\) & \( \varepsilon_0	\) & \( \varepsilon_0		\) \\ \hline
+\( \varepsilon_0+1	\) & \( \varepsilon_0	\) & \( \varepsilon_0		\) \\ \hline
+\( \Omega		\) & \( \varepsilon_0	\) & \( \varepsilon_0 		\) \\ \hline
+\( \Omega+1		\) & \( \varepsilon_0 \cdot \omega = \omega^{\varepsilon_0+1} 
+						\) & \( \varepsilon_\omega 	\) \\ \hline
+\( \Omega \cdot 2 	\) & \( \varepsilon_1	\) & \( \zeta_0			\) \\ \hline
+\( \Omega^2 		\) & \( \zeta_0		\) & \( \Gamma_0		\) \\ \hline
+\end{tabular}
+
+\bigskip
+
+We see that \( C(\alpha,0) \) grows faster than \( \psi_0(\alpha) \).
+
+We generally have \( \psi_0(\alpha+1) = \psi_0(\alpha) \cdot \omega \), but \( C(\alpha+1,0) = [C(\alpha,\bullet)]^\omega(0) \), which grows faster.
+
+This can be compared with F function previously seen : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_n(0,b) = b+1 \)
+\item \( F_n(a+1,b) = [F_n(a,\bullet)]^b(b) \)
+\item \( (F_n(a,b))[c] = F_n(a[c],b) \) if a is a function from \( \Omega_k \) to \( \Omega_{n+1} \) with \( k < n \)
+\item \( (F_n(a,b)) = F_n(a[b],b) \) if a is a function from \( \Omega_n \) to \( \Omega_{n+1} \)
+\end{itemize}
+
+
+\bigskip
+
+The power of Taranovsky's notation could also come from the notion of "n-built from below". Concerning this, Boris Dimitrov writed in 
+
+https://mathoverflow.net/questions/118854/does-taranovskys-system-of-ordinal-notations-make-sense/118888 : 
+
+\bigskip
+
+"The reason why "n-build from below" is so important is because it's a crucial part of defining which ordinals are standard and which are not. The thing which makes Taranovsky's notation so unique is that it's not defined simply by recursion. Instead, it gives you rules that tell you the universal set of all ordinals standard in the notation and all strings valid in it, and from there you have to use the binary function C as a hierarchy that connects them. In order to answer why it's so strong, first we need to ask what makes a notation strong in general. For ordinal notations, one is cosidered strong if it can express really large ordinals, but for recursive notations, they should be able to express everything below a certain ordinal, especially for notations like Taranovsky's. So it's fare to say that a recursive ordinal notation is strong if it can express "a lot" of ordinals. (whatever "a lot" means for infinities) In the case of Taranovsky's notation, which can express every ordinal below it's limit, how many terms are valid in it depends soley on the requirements for and ordinal to be valid (standard) and for that we need the ordinal C(\(\alpha\),\(\beta\)) to be standard and one of the 3 requirements for that is that \(\beta\) has to be n-built from below by C(\(\alpha\),\(\beta\))."
+
+\bigskip
+
+
+
+\subsection{References}
 
 http://web.mit.edu/dmytro/www/other/OrdinalNotation.htm 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  25 JUN 2018 23:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.5.25)  26 JUN 2018 00:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -670,48 +670,48 @@ Overfull \hbox (22.3174pt too wide) in paragraph at lines 7759--7760
 aksudov/Ordinal[]functions[]collapsing[]the[]least[]weakly[]Mahlo[]cardinal 
  []
 
-[81] [82] [83] [84] [85] [86] [87]
-Overfull \hbox (14.74495pt too wide) in paragraph at lines 8274--8310
+[81] [82] [83] [84] [85] [86] [87] [88]
+Overfull \hbox (14.74495pt too wide) in paragraph at lines 8337--8373
  [] 
  []
 
-[88]
-Overfull \hbox (5.80617pt too wide) in paragraph at lines 8318--8320
+[89]
+Overfull \hbox (5.80617pt too wide) in paragraph at lines 8381--8383
 []\OT1/cmr/m/n/10 http://www.madore.org/%7Edavid/weblog/2011-09-18-nombres-ordi
 naux-intro.html : Tu-to-rial in-tro-duc-tion to or-di-nal num-
  []
 
 
-Overfull \hbox (13.11186pt too wide) in paragraph at lines 8324--8326
+Overfull \hbox (13.11186pt too wide) in paragraph at lines 8387--8389
 []\OT1/cmr/m/n/10 https://sites.google.com/site/pointlesslargenumberstuff/home/
 l/pglin?tmpl=%2Fsystem%2Fapp%2Ftemplates%2Fprint%2F
  []
 
-[89]
-Overfull \hbox (8.12819pt too wide) in paragraph at lines 8357--8359
+[90]
+Overfull \hbox (8.12819pt too wide) in paragraph at lines 8420--8422
 []\OT1/cmr/m/n/10 https://cage.ugent.be/ jvdm/Site/Research[]files/Dissertation
 JeroenVanderMeerenPrinted.pdf : Con-nect-ing the Two Worlds:
  []
 
 
-Overfull \hbox (0.63962pt too wide) in paragraph at lines 8363--8366
+Overfull \hbox (0.63962pt too wide) in paragraph at lines 8426--8429
 []\OT1/cmr/m/n/10 http://www.ams.org/journals/tran/1908-009-03/S0002-9947-1908-
 1500814-9/S0002-9947-1908-1500814-9.pdf : Con-tin-u-ous
  []
 
 
-Overfull \hbox (2.27832pt too wide) in paragraph at lines 8380--8381
+Overfull \hbox (2.27832pt too wide) in paragraph at lines 8443--8444
 []\OT1/cmr/m/n/10 https://medium.com/@joshkerr/mind-blown-the-fast-growing-hier
 archy-for-laymen-aka-enormous-numbers-d9a865c6443b :
  []
 
 
-Overfull \hbox (6.33281pt too wide) in paragraph at lines 8385--8387
+Overfull \hbox (6.33281pt too wide) in paragraph at lines 8448--8450
 []\OT1/cmr/m/n/10 https://www.youtube.com/playlist?list=PLUZ0A4xAf7nkaYHtnqVDbH
 nrXzVAOxYYC : Ex-tremely large num-bers (videos) 
  []
 
-[90] (./ordinal_notations_new.aux) ) 
+[91] (./ordinal_notations_new.aux) ) 
 Here is how much of TeX's memory you used:
  1924 strings out of 495020
  23231 string characters out of 6181324
@@ -739,10 +739,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on ordinal_notations_new.pdf (90 pages, 530487 bytes).
+Output written on ordinal_notations_new.pdf (91 pages, 534246 bytes).
 PDF statistics:
- 375 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
+ 379 PDF objects out of 1000 (max. 8388607)
+ 263 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
