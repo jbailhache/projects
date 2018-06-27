@@ -8164,12 +8164,19 @@ Properties :
 
 Examples :
 \begin{itemize}
+
 \item \( 1 = \omega^0 = C(0,0) \)
+
 \item \( \omega = C(C(0,0),0) = [C(0,\bullet)]^\omega(0) = H [C(0,\bullet)] 0 = suc^\omega(0) = H suc\ 0 \)
+
 \item \( \omega \cdot 2 = C(C(0,0),C(C(0,0),0) = [C(C(0,0),\bullet)]^\omega(0) = [C(0,\bullet)]^\omega(C(C(0,0),0)) = suc^\omega(\omega) = H suc (H suc\ 0) \)
+
 \item \( \omega^2 = C(C(0,C(0,0)),0) = [C(C(0,0),\bullet)]^\omega(0) = [\bullet+\omega]^\omega(0) = H (H suc) 0 \)
+
 \item \( \omega^\omega = C(C(C(0,0),0),0) = C([C(0,\bullet)]^\omega(0),0) = C(\omega,0) \)
-\item \( C(\Omega_1,0) = C(Lim_1 [\bullet],0) = [C(\bullet,0)]^\omega(0) = sup \lbrace 0, C(0,0) = 1 = \omega^0, C(C(0,0),0) = \omega = \omega^1, C(C(C(0,0),0),0) = \omega^\omega, \ldots \rbrace = \varepsilon_0 \)
+
+\item \( C(\Omega,0) \) is the least \( \alpha \) such that \( \alpha = C(\alpha,0) = \omega^\alpha \), which is \( \varepsilon_0 \) : \( C(\Omega_1,0) = C(Lim_1 [\bullet],0) = [C(\bullet,0)]^\omega(0) = sup \lbrace 0, C(0,0) = 1 = \omega^0, C(C(0,0),0) = \omega = \omega^1, C(C(C(0,0),0),0) = \omega^\omega, \ldots \rbrace = \varepsilon_0 \)
+
 \item \( C(\Omega_1,\varepsilon_0) = C(Lim_1 [\bullet],\varepsilon_0) = [C(\bullet,\varepsilon_0)]^\omega(0) = sup \lbrace \)
 	\begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -8182,11 +8189,43 @@ Examples :
 	\item \( C({\varepsilon_0}^\omega,\varepsilon_0) = {\varepsilon_0}^{{\varepsilon_0}^\omega} \)
 	\item \( \ldots \rbrace = \varepsilon_1 \)
 	\end{itemize}
+
+\item More generally, \( C(\Omega,\beta) \) is the least \( \alpha \) such that \( \alpha = C(\alpha,\beta) \). This is the limit of :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 \)
+\item \( C(0,\beta) = \beta+1 \)
+\item \( C(\beta+1,\beta) = \beta+\omega^{\beta+1} = \omega^{\beta+1} \)
+\item \( C(\omega^{\beta+1},\beta) = \omega^{\omega^{\beta+1}} \)
+\item \( \ldots \)
+\end{itemize}
+This limit is written \( Next\ \beta \) in Simmons notation, with \( Next = Fix [\omega^\bullet] \) and \( Fix f \zeta = f^\omega(\zeta) \).
+
+So we have :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( C(\Omega,0) = Next\ 0 = \varepsilon_0 \)
+\item \( C(\Omega,C(\Omega,0)) = C(\Omega,\varepsilon_0) = Next\ \varepsilon_0 = \varepsilon_1 \)
+\item \( C(\Omega,C(\Omega,C(\Omega,0))) = C(\Omega,\varepsilon_1) = \varepsilon_2 \)
+\item \( \ldots \)
+\end{itemize}
+
+\item \( C(\Omega_1+1,0) = [C(\Omega,\bullet)]^\omega(0) = sup \lbrace 0, C(\Omega,0) = \varepsilon_0, C(\Omega,C(\Omega,0)) = \varepsilon_1, \ldots \rbrace = \varepsilon_\omega \)
+
 \item \( C(\Omega_1 \cdot 2,0) = C(Lim_1 [\Omega+\bullet],0) = [C(\Omega_1+\bullet,0)]^\omega(0) = sup \lbrace 0, C(\Omega_1,0) = \varepsilon_0, C(\Omega+\varepsilon_0,0) = \varepsilon_{\varepsilon_0}, \ldots \rbrace = \zeta_0 \)
+
 \item Case where \( C(Lim_1 f,\beta) \neq [C(f(\bullet),\beta)]^\omega(0) : C(\Omega_1,\Omega_1) = \Omega_1 \cdot 2 \), but \( [C(\bullet,\Omega_1)]^\omega(0) = \varepsilon_{\Omega_1+1} \)
+
 \end{itemize}
 
 \bigskip
+
+We saw that \( C(\Omega,0) \) is the least \( \alpha \) such that \( \alpha = C(\alpha,0) = \omega^\alpha \), which is \( \varepsilon_0 \). 
+
 
 \subsection{The power of the notation}
 
@@ -8207,11 +8246,11 @@ For sufficiently small values of \( \alpha \), we have \( \psi_0(\alpha) = \omeg
 \( \omega		\) & \( \omega^\omega	\) & \( \omega^\omega		\) \\ \hline
 \( \varepsilon_0	\) & \( \varepsilon_0	\) & \( \varepsilon_0		\) \\ \hline
 \( \varepsilon_0+1	\) & \( \varepsilon_0	\) & \( \varepsilon_0		\) \\ \hline
-\( \Omega		\) & \( \varepsilon_0	\) & \( \varepsilon_0 		\) \\ \hline
-\( \Omega+1		\) & \( \varepsilon_0 \cdot \omega = \omega^{\varepsilon_0+1} 
+\( \Omega_1		\) & \( \varepsilon_0	\) & \( \varepsilon_0 		\) \\ \hline
+\( \Omega_1+1		\) & \( \varepsilon_0 \cdot \omega = \omega^{\varepsilon_0+1} 
 						\) & \( \varepsilon_\omega 	\) \\ \hline
-\( \Omega \cdot 2 	\) & \( \varepsilon_1	\) & \( \zeta_0			\) \\ \hline
-\( \Omega^2 		\) & \( \zeta_0		\) & \( \Gamma_0		\) \\ \hline
+\( \Omega_1 \cdot 2 	\) & \( \varepsilon_1	\) & \( \zeta_0			\) \\ \hline
+\( {\Omega_1}^2 		\) & \( \zeta_0		\) & \( \Gamma_0		\) \\ \hline
 \end{tabular}
 
 \bigskip
