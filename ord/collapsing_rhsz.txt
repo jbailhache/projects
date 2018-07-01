@@ -1689,3 +1689,71 @@ C (W+1) 0 = Next^w 0 = e_w
 
 
 
+C(0na) = a+1
+C(b+1,a) = H [C(b,*)] a
+C(1,a) = H [C(0,*)] a = H suc a = a+w
+C(W,a) = C(1,0,a) = H [C(*,a)] 0
+C(0,b,a) = C(b,a)
+C(c+1,b,a) = H [C(c,*,a)]b
+C(W,a) = C(1,0,a) = H [C(0,*,a)] 0 = H [C(*,a)] 0
+phi(a) = w^a
+phi(b+1,0) = H [phi(b,*)] 0
+phi(b+1,c+1) = H [phi(b,*)] (phi(b+1,c)+1)
+
+
+C(1,0,0,0) = phi(1,0,0) = Gamma_0 = [1] [0] Next 0 = R3 R2 R1 H suc 0 = C(W^2,0) = H [C(*,0,0)] 0
+C(0,0,0) = C(0,0) = 1
+C(a+1,0,0) = H [C(a,0,0)] 0
+C(1,0,0) = C(W,0) = e_0 = phi(1,0)
+C(2,0,0) = C(W.2,0) = z_0 = phi(2,0)
+C(a,0,0) = phi(a,0)
+C(1,0,0,0) = H [C(*,0,0)] 0 = H [phi(*,0)] 0 = Gamma_0
+
+
+C(1,1,0) = H [C(1,0,*)] 0
+c=0, b suc:
+phi(s,b,z,c)[0] = 0
+phi(s,b,z,c)[n+1] = phi(s,b-a,phi(s,b,z,c)[n],z)
+phi(s,b+1,0,...0,0) = H [phi(s,b,*,0,...?0)] 0
+phi(1,1,0) = H [phi(1,0,*)] 0
+C(1,1,a) = H [C(1,0,*)] a
+c et b suc:
+phi(s,b,z,c)[0] = phi(s,b,z,c-1)+1
+phi(s,b,z,c)[n+1] = phi(s,b-1,phi(s,b,z,c)[n],z)
+phi(s,b+1,0,...,0,c+1) = H [phi(s,b,*,0,...,0)] (phi(s,b+1,0,...0,c)+1)
+phi(1,1,1) = H [phi(1,0,*)] 1
+
+
+phi						C
+phi(c+1,b+1) = H [phi(c,*)] (phi(c+1,b)+1)	C(c+1,b+1,0) = H [C(c,*,0)] (b+1)
+phi(1,1) = H [phi(0,*)] (phi(1,0)+1)		C(W+1,0) = C(1,1,0) = H [C(W,*)] 0 = H [C(1,0,*)] 0
+ = H [phi(0,*) (phi(1,0)+1)			 = lim 0, C(1,0,0) = C(W,0) = e_0, C(1,0,C(1,0,0)) = e1,... 
+ = H [w^*] (e_0+1)				 = e_w
+ = w^...^w^(e_0+1) = e_1
+						C(1,0,e_0) = C(W,e_0) = e_1 = H [C(*,e_0)] 0 
+						 = lim 0, C(0,e_0) = e_0+1, C(E_0+1,e_0) = w^(e_0+1), C(w^(e_0+1),e_0) = w^w^(e_0+1), ... = e_1
+
+
+phi-(a) = a+1 = phi-(a,0)
+phi-(b+1,0) = H [phi-(b,*)] 0
+phi-(b+1,c+1) = H [phi-(b,*)] (phi-(b+1,c)+1)
+
+phi-(0,0) = 1 ; C(0,0) = 1
+phi-(0,a) = a+1 ; C(0,a) = a+1
+phi-(1,0) = H [phi-(0,*)] 0 = H suc 0 = w ; C(1,0) = w
+phi-(1,1) = H suc (phi-(1,0)+1) = H suc (w+1) = w+1+w = w.2
+phi-(1,2) = H suc (w.2+1) = w.3
+phi-(1,a) = w.(1+a)
+phi-(2,0) = H [phi-(1,*)] 0 = lim 0, phi-(1,0) = w, phi-(w,0) = w.(1+w) = w^2, phi-(w.2,0) = w.(1+w^2) = w^3, ... = w^w
+phi-(2,1) = H [phi-(1,*)] (w^w+1) 
+phi-(3,0) = w^w^w
+phi-(a,0) = w^^a
+phi-(w,0) = e_0
+phi-(1,0,0) = H [phi-(*,0)] 0
+
+
+BHO = C(C(W_2,W_1),0)
+C_1(W_2.2) = C(W_2,C(W_2,0))
+
+
+
