@@ -8301,6 +8301,31 @@ https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/
 http://googology.wikia.com/wiki/User\_blog:Hyp\_cos/Fundamental\_Sequences\_in\_Taranovsky\%27s\_Notation
 
 
+\section{Proof-theoretic ordinals}
+
+The proof-theoretic ordinal of a theory is a measure of the strength of this theory. 
+
+The proof-theoretic ordinal of a theory T can be defined in different equivanent ways :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item the smallest recursive ordinal that the theory cannot prove to be well founded
+
+\item the supremum of all ordinals for which there exists a notation such that the theory proves that this notation is an ordinal notation
+
+\item the supremum of all ordinals \( \alpha \) such that there exists a recursive relation R on \( \omega \) that well-orders it with \( \alpha \) and such that T proves transfinite induction of arithmetical statements for R.
+
+\end{itemize}
+
+For example, the proof-theoretic ordinal of Peano arithmetic is \( \varepsilon_0 \).
+
+In http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html, David Madore explains how to build an ad-hoc ordinal notation whose limit is the proof theoretic ordinal of a given theory T (for axample ZFC), but this notation is not very interesting because it is difficult to understand and not very explicit.
+
+The representation of an ordinal in this notation is made of 3 elements (p,e,x) where p is a proof in T that a given Turing machine e computes a well-ordering of \( \omega \), and \( x \in \omega \). The comparison of two ordinals represented respectively by (p,e,x) and (p',e',x') is done by first comparing lexicographically p and p', and if they are equal, comparing x and x' with e.
+
 
 \section{Summary}
 
