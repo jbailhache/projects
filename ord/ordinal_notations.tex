@@ -316,6 +316,23 @@ Note that \( \omega_\omega = lim_\omega (\xi \mapsto \omega_\xi) \), so \( lim_{
 
 \bigskip
 
+An ordinal number can be defined as the order type of a well ordered set. A well ordered set is a set with well-order relation, which is a total order relation having the property that any non-empty subset of the well ordered set has a least element.
+
+Examples :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \omega \) is the order type of the set of natural numbers ordered with the "natural" order.
+
+\item \( \omega+1 \) is the order type of the set of natural numbers ordered with a relation considering 0 as the largest element, and the other numbers ordered with the "natural" order.
+
+\end{itemize}
+
+\bigskip
+
 The cofinality of an ordinal is defined by : 
 
 \begin{itemize}
@@ -3340,7 +3357,7 @@ More generally, the family of ordinal collapsing functions \( \psi \) can be ext
 
 We will use uncountable ordinals \( \Omega = \Omega_1, \Omega_2, \Omega_3, \ldots \) to define countable ordinals. For more simplicity, we will take \( \Omega_\kappa = \omega_\kappa = Lim_\kappa I = lim_{\omega_\kappa} I =  H_\kappa suc\ 0 \) in RHS0 notation, where I is the identity function \( I = [\bullet] \). We also have \( \Omega_0 = \omega_0 = \omega \).
 
-This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where \( \nu \) is an ordinal, is parametrized by the functions z and f, where z and f are functions  that, given an ordinal, gives an ordinal, and is defined by : 
+This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where \( \nu \) is an ordinal, is parametrized by the functions z and f, where z and f are functions that, given an ordinal, gives an ordinal, and is defined by : 
 
 \begin{itemize}
      \setlength{\itemsep}{1pt}
@@ -3457,7 +3474,7 @@ This family of hierarchies of ordinal collapsing functions \( \psi_\nu \) where 
      \setlength{\parskip}{0pt}
      \setlength{\parsep}{0pt}
 
-\item \( \psi_\nu(0) = z(\nu) \) ( for example : \( \psi_0(\alpha) = \Omega_\alpha \), or \( \psi_0(0) = 1; \psi_{1+\nu}(0) = \Omega_{1+\nu} = \omega_{1+\nu} \) 
+\item \( \psi_\nu(0) = z(\nu) \) ( for example : \( \psi_\nu(0) = \Omega_\nu \), or \( \psi_0(0) = 1; \psi_{1+\nu}(0) = \Omega_{1+\nu} = \omega_{1+\nu} \) 
 
 \item \( \psi_\nu(suc\ \alpha) = f(\psi_\nu(\alpha)) \) 
 
@@ -8290,7 +8307,138 @@ For large ordinals, however n-bult from below starts to behave irregularly, and 
 
 \bigskip
 
+\begin{comment}
 
+
+\( C(0,\alpha) = \alpha+1 \)
+
+\( C(\beta+1,\alpha) = H [C(\beta,\bullet)] \alpha \)
+
+\( C(1,\alpha) = H [C(0,\bullet)] \alpha = H suc \alpha = \alpha+\omega \)
+
+\( C(\Omega,\alpha) = C(1,0,a) = H [C(\bullet, \alpha)] 0 \)
+
+\( C(0,b,a) = C(b,a) \)
+
+\( C(\gamma+1,\beta,\alpha) = H [C(\gamma,\bullet,\alpha)] \beta \)
+
+\( C(\Omega,\alpha) = C(1,0,\alpha) = H [C(0,*,\alpha)] 0 = H [C(\bullet,\alpha)] 0 \)
+
+\( \varphi(\alpha) = \omega^\alpha \)
+
+\( \varphi(\beta+1,0) = H [\varphi(\beta,\bullet)] 0 \)
+
+\( \varphi(\beta+1,\gamma+1) = H [\varphi(\beta,\bullet)] (\varphi(\beta+1,\gamma)+1) \)
+
+\bigskip
+
+\( C(1,0,0,0) = \varphi(1,0,0) = \Gamma_0 = [1] [0] Next\ 0 = R3 R2 R1 H suc\ 0 = C(\Omega^2,0) = H [C(\bullet,0,0)] 0 \)
+
+C(0,0,0) = C(0,0) = 1
+
+\( C(\alpha+1,0,0) = H [C(\alpha,0,0)] 0 \)
+
+\( C(1,0,0) = C(\Omega,0) = \varepsilon_0 = \varphi(1,0) \)
+
+\( C(2,0,0) = C(\Omega \cdot 2,0) = \zeta_0 = \varphi(2,0) \)
+
+\( C(\alpha,0,0) = \varphi(\alpha,0) \)
+
+\( C(1,0,0,0) = H [C(\bullet,0,0)] 0 = H [phi(\bullet,0)] 0 = \Gamma_0 \)
+
+\bigskip
+
+\( C(1,1,0) = H [C(1,0,\bullet)] 0 \)
+
+c=0, b suc:
+
+\( \varphi(s,b,z,c)[0] = 0 \)
+
+\( \varphi(s,b,z,c)[n+1] = phi(s,b-a,phi(s,b,z,c)[n],z) \)
+
+\( \varphi(s,b+1,0,...0,0) = H [\varphi(s,b,\bullet,0,...,0)] 0 \)
+
+\( \varphi(1,1,0) = H [phi(1,0,\bullet)] 0 \)
+
+\( C(1,1,\alpha) = H [C(1,0,\bullet)] \alpha \)
+
+c and b suc:
+
+\( \varphi(s,b,z,c)[0] = \varphi(s,b,z,c-1)+1 \)
+
+\(varphi(s,b,z,c)[n+1] = \varphi(s,b-1,\varphi(s,b,z,c)[n],z) \)
+
+\( \varphi(s,b+1,0,...,0,c+1) = H [phi(s,b,\bullet,0,...,0)] (phi(s,b+1,0,...0,c)+1) \)
+
+\( phi(1,1,1) = H [phi(1,0,\bullet)] 1 \)
+
+\bigskip
+
+\begin{verbatim}
+
+phi						C
+phi(c+1,b+1) = H [phi(c,*)] (phi(c+1,b)+1)	C(c+1,b+1,0) = H [C(c,*,0)] (b+1)
+phi(1,1) = H [phi(0,*)] (phi(1,0)+1)		C(W+1,0) = C(1,1,0) = H [C(W,*)] 0 = H [C(1,0,*)] 0
+ = H [phi(0,*) (phi(1,0)+1)			 = lim 0, C(1,0,0) = C(W,0) = e\_0, C(1,0,C(1,0,0)) = e1,... 
+ = H [w^*] (e\_0+1)				 = e\_w
+ = w^...^w^(e\_0+1) = e\_1
+						C(1,0,e\_0) = C(W,e\_0) = e\_1 = H [C(*,e\_0)] 0 
+						 = lim 0, C(0,e\_0) = e\_0+1, C(E\_0+1,e\_0) = w^(e\_0+1), C(w^(e\_0+1),e\_0) = w^w^(e\_0+1), ... = e\_1
+
+\end{verbatim}
+
+\( \varphi^-(\alpha) = \alpha+1 = \varphi^-(\alpha,0) \)
+
+\( \varphi^-(\beta+1,0) = H [\varphi^-(\beta,\bullet)] 0 \)
+
+\( \varphi^-(\beta+1,\gamma+1) = H [\varphi^-(\beta,\bullet)] (\varphi^-(\beta+1,\gamma)+1) \)
+
+\bigskip
+
+\( \varphi^-(0,0) = 1 ; C(0,0) = 1 \)
+
+\( \varphi^-(0,\alpha) = \alpha+1 ; C(0,\alpha) = \alpha+1 \)
+
+\( \varphi^-(1,0) = H [\varphi^-(0,\bullet)] 0 = H suc 0 = \omega ; C(1,0) = \omega \)
+
+\( \varphi^-(1,1) = H suc (\varphi^-(1,0)+1) = H suc (\omega+1) = \omega+1+\omega = \omega \cdot 2 \) 
+
+\( \varphi^-(1,2) = H suc (\omega \cdot 2+1) = \omega \cdot 3 \)
+
+\( \varphi^-(1,\alpha) = \omega \cdot(1+\alpha) \)
+
+\( \varphi^-(2,0) = H [\varphi^-(1,\bullet)] 0 = lim 0, \varphi^-(1,0) = \omega \cdot  \varphi^-(\omega,0) = \omega \cdot(1+\omega) = \omega^2, \varphi^-(\omega \cdot 2,0) = \omega \cdot (1+\omega^2) = \omega^3, \ldots = \omega^\omega \) 
+
+\( \varphi^-(2,1) = H [\varphi^-(1,\bullet)] (\omega^\omega+1) \)
+
+\( \varphi^-(3,0) = \omega^\omega \)
+
+\( \varphi^-(\alpha,0) = \omega \uparrow \uparrow \alpha \)
+
+\( \varphi^-(\omega,0) = \varepsilon_0 \)
+
+\( \varphi^-(1,0,0) = H [\varphi^-(\bullet,0)] 0 \)
+
+\bigskip
+
+\( BHO = C(C(\Omega_2,\Omega_1),0) \)
+
+\( C_1(\Omega_2.2) = C(\Omega_2,C(\Omega_2,0)) \)
+
+\bigskip
+
+comparison
+
+\( \varphi(\beta,\alpha) ; C(\beta,\alpha,0) ; \varphi^-(\beta,\alpha,0) \)
+
+\( \varphi(0,a) = \omega^a ; C(0,a,0) = \omega^a ; \varphi^-(0,\alpha,0) = \omega \uparrow \uparrow \alpha \) 
+
+\( \varphi(1,0) = \varepsilon_0 ; C(1,0,0) = C(\Omega,0) = \varepsilon_0 \)
+
+\( \varphi(1,1) = \varepsilon_1 = H [phi(0,\bullet)]  (\varepsilon_0+1) = \omega^{\vdots^{\omega^{\varepsilon_0+1}}} = \varepsilon_1 \) 
+
+
+\end{comment}
 
 \subsection{References}
 
@@ -8300,6 +8448,30 @@ https://stepstowardinfinity.wordpress.com/2015/06/22/ordinal3/
 
 http://googology.wikia.com/wiki/User\_blog:Hyp\_cos/Fundamental\_Sequences\_in\_Taranovsky\%27s\_Notation
 
+
+\section{"Concatenation" of ordinal notations}
+
+An ordinal notation can be considered as a function Ord such that \( Ord(s) = \alpha \) where s is a character string and \( \alpha \) is the ordinal represented by this character string in the considered notation.
+
+Suppose we have two ordinal notations represented by the functions \( Ord_1 \) and \( Ord_2 \), whose limits are respectively \( \lambda_1 \) and \( \lambda_2 \).
+
+From these two ordinal notations, we can define an ordinal notation \( Ord \) which we will call the "concatenation" of these two ordinal notations, defined for example by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( Ord("1,".s) = Ord_1(s) \)
+
+\item \( Ord("2,".s) = \lambda_1+Ord_2(s) \)
+
+\end{itemize}
+
+The limit of this notation is \( \lambda_1 + \lambda_2 \).
+
+The concatenation of ordinal notation can be generalized to any number of notations.
+ 
 
 \section{Proof-theoretic ordinals}
 
@@ -8325,6 +8497,18 @@ For example, the proof-theoretic ordinal of Peano arithmetic is \( \varepsilon_0
 In http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html, David Madore explains how to build an ad-hoc ordinal notation whose limit is the proof theoretic ordinal of a given theory T (for axample ZFC), but this notation is not very interesting because it is difficult to understand and not very explicit.
 
 The representation of an ordinal in this notation is made of 3 elements (p,e,x) where p is a proof in T that a given Turing machine e computes a well-ordering of \( \omega \), and \( x \in \omega \). The comparison of two ordinals represented respectively by (p,e,x) and (p',e',x') is done by first comparing lexicographically p and p', and if they are equal, comparing x and x' with e.
+
+Suppose for example that the least proof in lexicographical order is a proof \( p_0 \) which proves that the Turing machine \( e_0 \) which computes the "natural" ordering on \( \omega \) computes a well-ordering. This well-ordering is associated to the ordinal \( \omega \). So an ordinal below \( \omega \) (a natural number n) will be represented by \( (p_0,e_0,n) \). Then suppose the next proof is \( p_1 \) which proves that the turing machine \( e_1 \) computes a well-ordering on \( \omega \), and this well-ordering considers 0 as the largest element, the other being ordered with "natural" order. This well-ordering is associated to \( \omega+1 \). Then, in our notation, \( \omega \) is represented by \( (p_1,e_1,1) \), \( \omega+1 \) by \( (p_1,e_1,2) \), \( \omega+n \) by \( (p_1,e_1,1+n) \), and \( \omega \cdot 2 \) by \( (p_1,e_1,0) \).
+
+This notation is effectively a correct computable, recursive ordinal notation whose limit is the proof theoretic ordinal of the considered theory, but we see it is not a very "natural" notation.
+
+In https://mathoverflow.net/questions/164148/is-there-a-computable-ordinal-encoding-the-proof-strength-of-zf-is-it-knowable, Taranovsky says : 
+
+"The problem is that the above \(<\) is uninformative about T. A key goal of ordinal analysis is to find a canonical \(<\) that makes the power of T simple and explicit, and thus give us a qualitatively better understanding of T. Existence of a noncanonical \(<\), combined with existence of canonical \(<\) for weaker theories, suggests that a canonical \(<\) also exists for ZFC, but it is difficult to be certain until we actually find and prove such a \(<\). Typically, an approach to finding \(<\) can be extended until it becomes too complex, and then a new idea permits \(<\) to become simpler again."
+
+See also :
+
+https://mathoverflow.net/questions/165338/why-isnt-this-a-computable-description-of-the-ordinal-of-zf
 
 
 \section{Summary}
