@@ -8475,6 +8475,8 @@ The concatenation of ordinal notation can be generalized to any number of notati
 
 \section{Proof-theoretic ordinals}
 
+\subsection{Definition}
+
 The proof-theoretic ordinal of a theory is a measure of the strength of this theory. 
 
 The proof-theoretic ordinal of a theory T can be defined in different equivanent ways :
@@ -8494,7 +8496,9 @@ The proof-theoretic ordinal of a theory T can be defined in different equivanent
 
 For example, the proof-theoretic ordinal of Peano arithmetic is \( \varepsilon_0 \).
 
-In http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html, David Madore explains how to build an ad-hoc ordinal notation whose limit is the proof theoretic ordinal of a given theory T (for axample ZFC), but this notation is not very interesting because it is difficult to understand and not very explicit.
+\subsection{Trivial construction}
+
+In http://www.madore.org/~david/weblog/d.2017-08-31.2462.ordinaux-interessants.html, David Madore explains how to build an ad-hoc ordinal notation whose limit is the proof theoretic ordinal of a given theory T (for example ZFC), but if the goal is to better understand a theory, this notation is not very interesting because it is difficult to understand and not very explicit, and does not teach us anything about the theory.
 
 The representation of an ordinal in this notation is made of 3 elements (p,e,x) where p is a proof in T that a given Turing machine e computes a well-ordering of \( \omega \), and \( x \in \omega \). The comparison of two ordinals represented respectively by (p,e,x) and (p',e',x') is done by first comparing lexicographically p and p', and if they are equal, comparing x and x' with e.
 
@@ -8509,6 +8513,28 @@ In https://mathoverflow.net/questions/164148/is-there-a-computable-ordinal-encod
 See also :
 
 https://mathoverflow.net/questions/165338/why-isnt-this-a-computable-description-of-the-ordinal-of-zf
+
+
+\subsection{Using trivial construction of proof-theoretic ordinals to define very large ordinals}
+
+We saw that a reason to define large ordinals can be to better understand theories by defining proof-theoretic ordinals of these theories. We also saw that we can start with a theory to define trivially a proof-theoretic ordinal of this theory, using a complicated, not very natural notation.
+
+Another goal of defining large ordinals could be to raise the power of a theory. If we add to a theory the axiom of its own consistency,, we get a more powerful theory. We can repeat this process, a finite number of times, or transfinitely many times.
+
+Transfinite iteration of a reflection principle on a theory T up to an ordinal \( \alpha \) gives a new theory \( T' = TIRP(T,\alpha) \) where the function TIRP is defined by :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item TIRP(T,0) = T 
+\item TIRP(T,\(\alpha\)+1) = TIRP(T,\(\alpha\))+Consis(TIRP(T,\(\alpha\))) 
+\item TIRP(T,lim f) = union for all integers n of TIRP(T,f(n)) 
+\end{itemize}
+
+From a given theeory T, we can build a more powerful theory T' by iterating the reflection principle PTO(T) times, where PTO(T) is the proof-theoretic ordinal of T defined trivially as the set of the ordinals represented by (p,e,x) where p is a proof in T that the Turing machine e computes a well ordering on \( \omega \) : T' = TIRP(T,PTO(T)).
+
+We can even go further by defining a very fast growing ordinal function \( PTOTIRP_T \) which, to a given ordinal \( \alpha \), associates the proof-theoretic ordinal of the theory obtained by transfinitely iterating \( \alpha \) times the reflection principle on T : \( PTOTIRP_T(\alpha) = PTO(TIRP(T,\alpha)) \). Then we can iterate PTO(T) times this function to get \( {PTOTIRP_T}^{PTO(T)}(0) \), and iterate transfinitely this number of times the reflection principle to get the theory \( TIRP(T,{PTOTIRP_T}^{PTO(T)}(0)) \).
 
 
 \section{Summary}
