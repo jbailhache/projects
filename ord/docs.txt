@@ -1,17 +1,22 @@
 
 euclid.jmsj.1261154153.pdf
+https://projecteuclid.org/euclid.jmsj/1261154153
 On the theory of ordinal numbers
 By Gaisi TAKEUTI
 
+
 transfinite-ordinals-notations.pdf
+http://www.ccs.neu.edu/home/pete/courses/Formal-methods/2008-Fall/readings/transfinite-ordinals-notations.pdf
 Transnite Ordinals and Their Notations:
 For The Uninitiated
 Version 1.1
 Hilbert Levitz
 
 10.1.1.659.2015.pdf
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.659.2015&rep=rep1&type=pdf
 
 ORP_final.pdf
+http://logic.harvard.edu/koellner/ORP_final.pdf
 On Reflection Principles 
 Peter Koellner
 
@@ -21,40 +26,50 @@ COMPLETENESS
 TORKEL FRANZEN
 
 SeminariCucDuque.pdf
+http://www.phil.uu.nl/~jjoosten/events/SeminariCuc/Slides/SeminariCucDuque.pdf
 
 80c207b529979af007494d3e525ee2907404.pdf
+https://pdfs.semanticscholar.org/549f/80c207b529979af007494d3e525ee2907404.pdf
 Set Theory 292B: An Ideal Characterization of Mahlo
 Cardinals
 Ting Zhang(tingz@cs.stanford.edu)
 
 1506.05280.pdf
+https://arxiv.org/abs/1506.05280
 A simplified ordinal analysis of first-order
 reflection
 Toshiyasu Arai
 
 1102.0596.pdf
+https://arxiv.org/abs/1102.0596
 A sneak preview of proof theory of ordinals 
 Toshiyasu Arai
 
 cobb.pdf
+http://brauer.math.harvard.edu/theses/senior/cobb/cobb.pdf
 An Introduction to Reverse Mathematics
 A thesis submitted
 by
 John Cobb
 
 1702.05162.pdf
+https://arxiv.org/abs/1702.05162
 ON THE UNIQUENESS PROBLEM FOR NOTATIONS OF
 RECURSIVE ORDINALS
 MATTHEW TIMOTHY WRIGHT
 
 1709.01540.pdf
+https://arxiv.org/abs/1709.01540
 A NOTE ON ITERATED CONSISTENCY
 AND INFINITE PROOFS
 ANTON FREUND
 
-
 1708.07615.pdf
+https://arxiv.org/abs/1708.07615
++ http://wrm17.mi.ras.ru/slides/Walsh.pdf
 ON THE INEVITABILITY OF THE CONSISTENCY OPERATOR
 ANTONIO MONTALBÁN AND JAMES WALSH
+
+
 
 
