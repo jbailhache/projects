@@ -1,0 +1,60 @@
+
+euclid.jmsj.1261154153.pdf
+On the theory of ordinal numbers
+By Gaisi TAKEUTI
+
+transfinite-ordinals-notations.pdf
+Transnite Ordinals and Their Notations:
+For The Uninitiated
+Version 1.1
+Hilbert Levitz
+
+10.1.1.659.2015.pdf
+
+ORP_final.pdf
+On Reflection Principles 
+Peter Koellner
+
+Franzen-Transfinite-progressions-a-second-look-at-completeness.pdf
+TRANSFINITE PROGRESSIONS: A SECOND LOOK AT
+COMPLETENESS
+TORKEL FRANZEN
+
+SeminariCucDuque.pdf
+
+80c207b529979af007494d3e525ee2907404.pdf
+Set Theory 292B: An Ideal Characterization of Mahlo
+Cardinals
+Ting Zhang(tingz@cs.stanford.edu)
+
+1506.05280.pdf
+A simplified ordinal analysis of first-order
+reflection
+Toshiyasu Arai
+
+1102.0596.pdf
+A sneak preview of proof theory of ordinals 
+Toshiyasu Arai
+
+cobb.pdf
+An Introduction to Reverse Mathematics
+A thesis submitted
+by
+John Cobb
+
+1702.05162.pdf
+ON THE UNIQUENESS PROBLEM FOR NOTATIONS OF
+RECURSIVE ORDINALS
+MATTHEW TIMOTHY WRIGHT
+
+1709.01540.pdf
+A NOTE ON ITERATED CONSISTENCY
+AND INFINITE PROOFS
+ANTON FREUND
+
+
+1708.07615.pdf
+ON THE INEVITABILITY OF THE CONSISTENCY OPERATOR
+ANTONIO MONTALBÁN AND JAMES WALSH
+
+
