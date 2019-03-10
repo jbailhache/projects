@@ -1,0 +1,1549 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{comment}
+\usetheme{Warsaw}
+
+\title{Les nombres transfinis}
+\author{Jacques Bailhache}
+
+\DeclareUnicodeCharacter{00A0}{~}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
+
+\begin{document}
+
+\begin{comment}
+
+\begin{frame}
+\frametitle{Les nombres transfinis}
+
+L'intuition qu'on a des notions mathématiques peut être "capturée", formalisée par des théories axiomatiques ou systèmes formels, par exemple les axiomes de Peano formalisent la notion de nombre entier :
+
+\begin{itemize}
+\item L'élément appelé zéro et noté 0, est un entier naturel.
+\item Tout entier naturel n a un unique successeur
+\item Aucun entier naturel n'a 0 pour successeur.
+\item Deux entiers naturels ayant le même successeur sont égaux.
+\item Si un ensemble d'entiers naturels contient 0 et contient le successeur de chacun de ses éléments, alors cet ensemble est égal à N.
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\large
+Le premier théorème d'incomplétude de Gödel établit qu'une théorie suffisante pour y démontrer les théorèmes de base de l'arithmétique est nécessairement incomplète, au sens où il existe des énoncés qui n'y sont ni démontrables, ni réfutables.
+
+\end{frame}
+\begin{frame}
+
+Soit par exemple T\(_0\) l'arithmétique de Peano. Le théorème de Gödel établit qu'il existe une proposition G\(_0\) que T\(_0\) ne peut ni démontrer ni réfuter. Cette proposition peut s'interpréter (moyennant un certain codage arithmétique) comme "G\(_0\) n'est pas démontrable dans T\(_0\)" ou "Je ne suis pas démontrable dans T\(_0\)".
+Si G\(_0\) est démontrable, alors elle est fausse et T\(_0\) est incorrecte.
+Si G\(_0\) n'est pas démontrable, alors elle est vraie et T\(_0\) est incomplète.
+G\(_0\) n'est ni démontrable ni réfutable dans T\(_0\), mais est intuitivement vraie.   
+
+\end{frame}
+\begin{frame}
+
+On a donc une proposition G\(_0\) intuitivement vraie mais qu'on ne peut pas démontrer dans le cadre de T\(_0\).
+Une idée consiste à ajouter G\(_0\) comme axiome à T\(_0\). On obtient ainsi une nouvelle théorie T\(_1\). Mais cette théorie a sa propre proposition gödelienne G\(_1\).
+On peut continuer en ajoutant G\(_1\) comme axiome à T\(_1\) pour obtenir une théorie T\(_2\), et ainsi de suite.
+Ensuite on peut définir une théorie T\(_\omega\) union de T\(_0\), T\(_1\), T\(_2\), ... 
+Mais cette théorie a sa propre proposition gödelienne G\(_\omega\).
+On peut l'ajouter comme axiome à T\(_\omega\) pour obtenir T\(_\omega+1\).
+
+\end{frame}
+\begin{frame}
+
+On peut continuer ainsi indéfiniment avec des théories et des propositions gödeliennes correspondantes d'indices successifs (appelés nombres ordinaux transfinis) :
+\[ \omega+2, \omega+3, ..., \omega+\omega = \omega \times 2, \omega \times 2+1, ... \omega \times 3, ... \]
+\[ \omega \times \omega = \omega^2, ..., \omega^\omega, ... \omega^{\omega^\omega}, ... \]
+Non seulement ce processus est infini, mais en plus il n'est pas automatisable. Il n'y a donc pas de contradiction avec le théorème de Gödel.
+
+\end{frame}
+\begin{frame}
+
+Au lieu d'ajouter la proposition gödelienne comme axiome à la théorie, on peut aussi lui ajouter un "principe de réflexion uniforme" : 
+\[ \vdash \forall n . Pr(\lceil \phi[n] \rceil) \Rightarrow \phi[n] \]
+qui exprime le fait que si une proposition est démontrable dans la théorie considérée, alors elle est vraie.
+Solomon Feferman a démontré qu'une itération transfinie basée sur le principe de réflexion uniforme permet de démontrer toutes les propositions vraies de l'arithmétique.
+
+\end{frame}
+
+\end{comment}
+
+\begin{frame}
+\frametitle{Présentation informelle de la construction des nombres ordinaux transfinis (ou ordinaux)}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item On part de 0, le plus petit des ordinaux
+\item Tout ordinal a un successeur qui lui est supérieur
+\item Pour tout ensemble d'ordinaux, il existe des ordinaux strictement supérieurs à tous les ordinaux de cet ensemble, et parmi ceux-ci il en existe un qui est plus petit que les autres
+\end{itemize}
+ 
+Considérons par exemple l'ensemble des ordinaux que l'on peut obtenir en prenant un certain nombre de fois le successeur de 0. Cet ensemble peut être identifié à l'ensemble des nombres entiers naturels $\mathbb{N}$. Le plus petit ordinal strictement supérieur à tous ces ordinaux est appelé $\omega$.
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Présentation informelle}
+
+\small
+
+"Pour passer aux ordinaux, on va inventer un nouveau truc après les entiers naturels ("après" = plus grand qu'eux) et on va l'appeler $\omega$ ("oméga"). Ne cherchons pas encore à comprendre ce que cela signifie exactement, admettons juste l'idée qu'on place un nouvel objet à la fin, l'ordinal $\omega$, et que ce nom est arbitraire. L'idée générale est qu'à chaque fois qu'on a fabriqué les ordinaux jusqu'à un certain point, on en ajoute un nouveau à la fin (auquel il faudra éventuellement inventer un nom). Après tous les entiers naturels, on place donc l'ordinal $\omega$. Après cet ajout, il faut de nouveau inventer un nouvel ordinal, qui sera le successeur de $\omega$, et on va l'appeler $\omega$+1. Puis un nouveau, $\omega$+2, et ainsi de suite. À ce stade-là du processus de fabrication des ordinaux, on a les entiers naturels 0, 1, 2, 3, 4…, et ensuite les ordinaux $\omega$, $\omega$+1, $\omega$+2, $\omega$+3..."
+
+David Madore, Nombres ordinaux : une (longue) introduction
+
+\end{frame}
+\begin{frame}
+\frametitle{Un exemple de notation}
+
+\small 
+Notation basée sur la logique combinatoire et le lambda-calcul: f x = résultat de la fonction f appliquée à x, f x y = (f x) y
+
+\small
+
+0 ; suc 0 ; suc (suc 0) ; suc (suc (suc 0)) ; ...
+
+On introduit la notation : H suc 0 = (H suc) 0 = plus petit ordinal strictement supérieur à tous ceux ci-dessus = $\omega$
+
+suc (H suc 0) ; suc (suc (H suc 0)) ; suc (suc (suc (H suc 0))) ; ... H suc (H suc 0)
+
+suc (H suc (H suc 0)) ; suc (suc (H suc (H suc 0))) ; ... H suc (H suc (H suc 0)) ... H (H suc) 0
+
+suc (H (H suc) 0) 
+
+H suc (H (H suc) 0) 
+
+H suc (H suc (H (H suc) 0)) 
+
+H (H suc) (H (H suc) 0) 
+
+H (H (H suc)) 0 
+
+H H suc 0 
+
+\end{frame}
+\begin{frame}
+
+H H suc (H H suc 0) 
+
+H (H H suc) 0 
+
+H (H H suc) (H (H H suc) 0) 
+
+H (H (H H suc)) 0 
+
+H (H (H (H H suc))) 0 
+
+H H (H H suc) 0 
+
+H H (H H (H H suc)) 0 
+
+H (H H) suc 0 
+
+H (H (H H)) suc 0 
+
+H H H suc 0 ...
+
+On introduit la notation : 
+
+$R_1$ H suc 0 = plus petit ordinal strictement supérieur à suc 0, H suc 0, H H suc 0, H H H suc 0, ...
+
+\end{frame}
+\begin{frame}
+
+$R_1$ H suc 0 ; suc($R_1$ H suc 0) ; $R_1$ H suc ($R_1$ H suc 0) 
+
+H ($R_1$ H suc) 0 
+
+$R_1$ H ($R_1$ H suc) 0 
+
+ H ($R_1$ H) suc 0 
+
+$R_1$ H ($R_1$ H) suc 0 
+
+$R_1$ H ($R_1$ H) ($R_1$ H) suc 0 
+
+$R_1$ ($R_1$ H) suc 0 
+
+ H $R_1$ H suc 0 
+
+$R_1$ H $R_1$ H suc 0 
+
+$R_1$ H $R_1$ H $R_1$ H suc 0
+
+$R_2$ $R_1$ H suc 0 
+
+$R_3$ $R_2$ $R_1$ H suc 0 = $R_{3 \ldots 1}$ H suc 0 
+
+$R_{\omega \ldots 1}$ H suc 0
+
+\end{frame}
+\begin{frame}
+
+$R_{\omega \ldots 1}$ H suc 0
+
+$R_{\omega \ldots 1}$ H suc ($R_{\omega \ldots 1}$ H suc 0) 
+
+$R_{\omega \ldots 1}$ H ($R_{\omega \ldots 1}$ H suc) 0 
+
+$R_{\omega \ldots 1}$ H ($R_{\omega \ldots 1}$ H) suc 0 
+
+$R_1$ ($R_{\omega \ldots 1}$ H) suc 0 
+
+$R_{\omega \ldots 1}$ ($R_{\omega \ldots 1}$ H) suc 0 
+
+$R_{\omega \ldots 1}$ H $R_{\omega \ldots 1}$ H suc 0 
+
+$R_2$ $R_{\omega \ldots 1}$ H suc 0 = $R_{\omega+1 \ldots 1}$ H suc 0
+
+$R_3$ $R_2$ $R_{\omega \ldots 1}$ H suc 0 = $R_{\omega+2 \ldots 1}$ H suc 0
+
+$R_{\omega \ldots 2}$ $R_{\omega \ldots 1}$ H suc 0 = $R_{\omega \cdot 2 \ldots 1}$ H suc 0
+
+$R_{(R_{\omega \ldots 1} H\ suc\ 0) \ldots 1}$ H suc 0
+
+\( H (\xi \mapsto R_{\xi \ldots 1} H\ suc\ 0) 0 \)
+
+\end{frame}
+\begin{frame}
+
+Les nombres entiers naturels peuvent être représentés par des ensembles, chaque nombre étant représenté par l'ensemble des nombres qui lui sont strictement inférieurs :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( 0 = \lbrace\rbrace \) (l'ensemble vide)
+\item \( 1 = \lbrace 0 \rbrace = \lbrace\lbrace\rbrace\rbrace \)
+\item \( 2 = \lbrace 0, 1 \rbrace = \lbrace\lbrace\rbrace,\lbrace\lbrace\rbrace\rbrace\rbrace \)
+\item \( 3 = \lbrace 0, 1, 2 \rbrace = \lbrace\lbrace\rbrace,\lbrace\lbrace\rbrace\rbrace,\lbrace\lbrace\rbrace,\lbrace\lbrace\rbrace\rbrace\rbrace\rbrace \)
+\item ...
+\end{itemize}
+
+Le successeur d'un nombre entier naturel peut être défini par \( suc(n) = n+1 = n \cup \lbrace n \rbrace \).
+
+On a \( n \leq p \) si et seulement si \( n \subseteq p \).
+
+\end{frame}
+\begin{frame}
+
+\small
+
+\( \mathbb{N} \) est l'ensemble des nombres entiers naturels : \( \mathbb{N} = \lbrace0,1,2,3,\ldots\rbrace \)
+
+Les nombres ordinaux transfinis, ou plus simplement ordinaux, sont une généralisation de la notion de nombre entiers naturels, obtenue en considérant des ensembles infinis. \( \mathbb{N} \) considéré en tant qu'ordinal, s'écrit \( \omega \).
+\( \omega \) est le plus petit ordinal supérieur à tous les nombres de la suite 0, 1, 2, 3, ... On dit que \( \omega \) est un ordinal limite et que 0, 1, 2, 3, ... est une suite fondamentale de \( \omega \), ce qu'on écrit : \( \omega = sup \lbrace 0, 1, 2, 3, ... \rbrace \) ou \( \omega = lim ( n \mapsto n ) \) (car le nième élément en commençant par 0 de cette suite est n) = lim I où I désigne la fonction identité, ou \( \omega[n] = n \) ce qui signifie que le nième élément de la suite fondamentale de $\omega$ est n, mais cette notation n'est pas très rigoureuse car un ordinal n'a pas une unique suite fondamentale, par exemple 1, 2, 3, 4, ... est aussi une suite fondamentale de \( \omega \), car le plus petit ordinal supérieur à tous les ordinaux de cette suite est aussi \( \omega \), de même pour la suite  0, 2, 4, 6, ... Avec ces suites fondamentales on aurait respectivement \( \omega[n] = n+1 \) et \( \omega[n] = 2n \).
+
+\end{frame}
+\begin{frame}
+
+Le successeur peut être généralisé aux nombres ordinaux transfinis  : \( suc(\omega) = \omega+1 =\omega \cup \lbrace \omega \rbrace = \lbrace 0, 1, 2, 3, \ldots, \omega \rbrace \)
+
+\( suc(suc(\omega)) = \omega+2 = \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1 \rbrace \) , etc...
+
+On peut ensuite considérer l'ensemble \( \lbrace 0, 1, 2, 3, \ldots, \omega, \omega+1, \omega+2, \omega+3, \ldots \rbrace \) qui est un ordinal limite, et \( \omega, \omega+1, \omega+2, \omega+3, \ldots \) est une suite fondamentale de cet ordinal. Cet ordinal est \( \omega+\omega = \omega \cdot 2 \) ou \( \omega \cdot 2 \).
+
+On peut ensuite continuer à définir des ordinaux de plus en plus grands :  \( \omega \cdot 3, \ldots, \omega \cdot \omega = \omega^2, \omega^3, \ldots, \omega^\omega, \omega^{\omega^\omega}, \ldots \).
+
+\end{frame}
+\begin{frame}
+\frametitle{Ordinaux calculables ou constructifs ou récursifs}
+
+\small
+
+"Un ordinal calculable, dit aussi indifféremment "constructif" ou "récursif", est un ordinal $\alpha$ qu'on peut réaliser informatiquement : c'est-à-dire qu'on peut écrire un programme (...) qui est capable de "manipuler" les ordinaux $< \alpha$ (ce qui importe est de pouvoir les comparer (...)). Autrement dit, on peut représenter les ordinaux $< \alpha$ par une donnée informatique (...) de manière qu'il soit algorithmiquement faisable de tester les représentations valables et de comparer les ordinaux représentés (...). Ce système informatique s'appelle un système de notations ordinales (sous-entendu : calculable) de taille $\alpha$, et un ordinal calculable est donc un ordinal admettant un système de notations ordinales.
+(...)  il existe un plus petit ordinal non calculable, tout ordinal strictement plus petit est calculable et tout ordinal à partir de lui ne l'est pas. Ce plus petit ordinal non calculable s'appelle l'ordinal de Church-Kleene et est noté $\omega_1^{CK}$."
+
+\smallskip
+
+D. Madore, Petit guide bordélique de quelques ordinaux intéressants
+
+\end{frame}
+\begin{frame}
+
+\small
+
+Le cardinal d'un ensemble fini est son nombre d'éléments.
+
+Deux ensembles ont même cardinal s'il existe une bijection entre ces deux ensembles, c'est-à-dire si on peut associer à chaque élément de chacun des deux ensemble un unique élément de l'autre ensemble.
+
+Ca se généralise aux ensembles infinis.
+
+\end{frame}
+\begin{frame}
+
+A chaque ordinal on peut associer un cardinal. Deux ordinaux ont le même cardinal s'il existe une bijection entre eux. Le plus petit ordinal associé à un cardinal donné est appelé ordinal initial de ce cardinal.
+
+Par exemple, le cardinal de $\omega$ est $\aleph_0$. C'est aussi le cardinal de $\omega+1$ ou $\omega \cdot 2$.
+
+Les cardinaux sont parfois identifiés avec leurs ordinaux initiaux ($\aleph_0 = \omega$). Dans ce cas, l'ordinal initial d'un cardinal est lui-même.
+
+\end{frame}
+\begin{frame}
+
+Un ensemble infini a pour cardinal $\aleph_0$ si on peut énumérer ses éléments c'est-à-dire écrire une suite telle que tout élément se trouve quelque part dans cette suite. Un tel ensemble est dit dénombrable.
+
+\( \omega+1 \) considéré en tant qu'ensemble des ordinaux strictement inférieurs à \( \omega+1 \) est dénombrable car on peut énumérer ses éléments, par exemple :
+\[ \omega, 0, 1, 2, \ldots \]
+
+De même \( \omega \cdot 2 \) :
+\[ 0, \omega, 1, \omega+1, 2, \omega+2, \ldots \]
+
+\end{frame}
+\begin{frame}
+
+\( \omega_1 \) est le plus petit ordinal non dénombrable, c'est-à-dire de cardinal strictement supérieur à \( \omega \), est c'est aussi l'ensemble de tous les ordinaux dénombrables, c'est-à-dire de cardinal inférieur ou égal à \( \omega \). Cela signifie que tous les ordinaux inférieurs à \( \omega_1 \) sont dénombrables, et \( \omega_1 \) et tous les ordinaux supérieurs sont non dénombrables.
+
+\medskip
+
+On définit les ordinaux \( \omega_k \) par :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \omega_0 = \omega \)
+\item \( \omega_{k+1} \) est le plus petit ordinal de cardinal strictement supérieur à \( \omega_k \)
+\end{itemize}
+
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+
+Un ordinal est aussi un cardinal si c'est le cardinal de certains ordinaux (dont lui-même) autrement dit s'il n'existe pas d'ordinal plus petit ayant le même cardinal, ou si son cardinal est égal à lui-même.
+Par exemple, \( \omega \) est un cardinal, mais \( \omega+1 \) n'est pas un cardinal, car son cardinal est \( \omega \), il a donc le même cardinal que \( \omega \) qui lui est inférieur.
+
+\end{frame}
+\end{comment}
+
+\begin{frame}
+
+Un ordinal quelconque \( \alpha \) est toujours une des trois possiblilités suivantes :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item Zero : \( \alpha = 0 \)
+
+\item Le successeur d'un autre ordinal : \( \alpha = suc(\beta) = \beta+1 \) 
+
+\item Un ordinal limite : \( \alpha = lim_\beta f = sup_{\xi \in \beta} \lbrace f(\xi) \rbrace \)
+
+où pour tout \( \xi \in \beta \) ou \( \xi < \beta, f(\xi) \) est un ordinal. Un ordinal limite peut toujours être défini comme  \( lim_{\omega_k} f \) en réarrangeant éventuellement l'ordre des éléments de \( \beta \). J'utiliserai la notation \( Lim_k \) pour \( lim_{\omega_k} \). Quand \( \beta = \omega = \omega_0, lim_\omega f \) sera écrit plus simplement \( lim\ f \). C'est le cas pour les ordinaux limites dénombrables qui ont pour cardinal \( \omega \).
+
+\end{itemize}
+
+% Remarquez que \( \omega_\omega = lim_\omega (\xi \mapsto \omega_\xi) \), donc \( lim_{\omega_\omega} f = lim_\omega (\xi \mapsto f (\omega_\xi)) = lim (\xi \mapsto f(\omega_\xi)) \).
+
+\end{frame}
+\begin{frame}
+
+La cofinalité d'un ordinal est définie par :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \operatorname{cof} 0 = 0 \)
+
+\item \( \operatorname{cof} (suc\ \alpha) = 1 \)
+
+\item \( \operatorname{cof} (lim_\beta f) = \beta \) s'il n'existe pas d'ordinal  \( \gamma < \beta \) tel que \( lim_\beta f = lim_\gamma g \).
+
+\end{itemize}
+
+Un ordinal régulier est un ordinal égal à sa cofinalité.
+
+Un ordinal singulier est un ordinal qui n'est pas régulier.
+
+La cofinalité d'un ordinal est un ordinal régulier : \( cof(cof \alpha) = cof \alpha \).
+
+\end{frame}
+\begin{frame}
+
+Un nombre ordinal dénombrable est :
+\begin{itemize}
+\item Soit 0
+\item Soit le successeur d'un autre nombre ordinal dénombrable
+\item Soit la limite d'une suite dite fondamentale \( \alpha_0, \alpha_1, \alpha_2, \ldots \) c'est-à-dire le plus petit ordinal supérieur à tous les ordinaux de cette suite.
+\end{itemize}
+Par exemple :
+\begin{itemize}
+\item 1 est le successeur de 0
+\item 2 est le successeur de 1
+\item \( \omega \) est la limite de la suite fondamentale 0, 1, 2, 3, ...
+C'est aussi la limite des suites fondamentales 1, 2, 3, 4, … et 0, 2, 4, 6, ...
+\item \( \omega+1 \) est le successeur de \( \omega \)
+\item \( \omega \cdot 2 = \omega + \omega \) est la limite de la suite fondamentale \( \omega, \omega+1, \omega+2, \ldots \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+On peut définir sur les nombres ordinaux transfinis les opérations arithmétiques habituellement définies sur les nombres entiers naturels en ajoutant une définition pour le cas d'un ordinal limite :
+
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \alpha+0=\alpha \)
+\item \( \alpha+suc(\beta)=suc(\alpha+\beta) \)
+\item \( \alpha+lim(f)=lim(n \mapsto \alpha+f(n)) = lim [\alpha+f(\bullet)] \)
+
+\bigskip
+
+\item \( \alpha \cdot 0 = 0 \)
+\item \( \alpha \cdot suc(\beta) = (\alpha \cdot \beta) + \alpha \)
+\item \( \alpha \cdot lim(f) = lim (n \mapsto \alpha \cdot f(n)) = lim [\alpha \cdot f(\bullet)] \)
+
+\bigskip
+
+\item \( \alpha^0 = 1 \)
+\item \( \alpha^{suc(\beta)} = \alpha^\beta \cdot \alpha \)
+\item \( \alpha^{lim(f)} = lim (n \mapsto \alpha^{f(n)}) = lim [\alpha^{f(\bullet)}] \)
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\footnotesize
+
+La limite de \( \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \) est appelée \( \varepsilon_0 \).
+C'est le plus petit point fixe de la fonction \( \xi \mapsto \omega^\xi \), c'est-à-dire le plus petit ordinal \( \alpha \) tel que \( \omega^\alpha = \alpha \).
+
+Cette suite fondamentale de \(\varepsilon_0 \) peut être définie par : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \varepsilon_0[0] = \omega \)
+\item \( \varepsilon_0[n+1] = \omega^{\varepsilon_0[n]} \)
+\end{itemize}
+
+où \( \alpha[n] \) représente le nième élément de la suite fondamentale de \( \alpha \).
+
+Le problème est qu'un ordinal n'a pas une suite fondamentale unique.
+
+Par exemple, une autre suite fondamentale de \( \varepsilon_0 \) peut être définie par :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \varepsilon_0[0] = 0 \)
+\item \( \varepsilon_0[n+1] = \omega^{\varepsilon_0[n]} \)
+\end{itemize}
+
+ce qui correspond à la suite :
+
+\( 0, 1, \omega, \omega^\omega, \omega^{\omega^\omega}, \ldots \)
+
+qui a la même limite \( \varepsilon_0 \).
+
+Cette notation ne me paraît donc pas très rigoureuse et je préfère utiliser des notation sous forme de limites de fonctions, par exemple :
+
+\( \varepsilon_0 = lim (n \mapsto (\xi \mapsto \omega^\xi)^n \omega) = lim [[\omega^\bullet]^\bullet \omega] \)
+
+et
+
+\( \varepsilon_0 = lim (n \mapsto (\xi \mapsto \omega^\xi)^n 0) = lim [[\omega^\bullet]^\bullet 0] \)
+
+\end{frame}
+\begin{frame}
+
+Une méthode générale pour définir de grands ordinaux consiste à partir d'une fonction f qui, appliquée à un ordinal, donne un ordinal plus grand, par exemple la fonction \( \xi \mapsto \omega^\xi \), et à répéter l'application de cette fonction à partir d'une valeur de départ. Mais on reste bloqué en-dessous d'un ordinal \( \alpha \) tel que \( \alpha = f(\alpha) \). On dit que \( \alpha \) est un point fixe de f. Par exemple, \( \varepsilon_0 \) est un point fixe de \( \xi \mapsto \omega^\xi \). 
+
+Pour aller plus loin, il suffit d'ajouter 1 puis de répéter l'application de f pour obtenir son deuxième point fixe, par exemple la limite de \( {\varepsilon_0}+1, \omega^{{\varepsilon_0}+1}, \omega^{\omega^{{\varepsilon_0}+1}}, \ldots = \varepsilon_1 \), qui est aussi la limite de \( {\varepsilon_0}, {\varepsilon_0}^{\varepsilon_0}, {\varepsilon_0}^{{\varepsilon_0}^{\varepsilon_0}}, \ldots \).
+
+On peut ainsi énumérer les points fixes successifs d'une fonction.
+
+\end{frame}
+\begin{frame}
+
+On définit de même \( \varepsilon_2 \) comme la limite de \( \varepsilon_1, {\varepsilon_1}^{\varepsilon_1}, {\varepsilon_1}^{{\varepsilon_1}^{\varepsilon_1}}, \ldots \) ou de \( \varepsilon_1+1, \omega^{\varepsilon_1+1}, \omega^{\omega^{\varepsilon_1+1}}, \ldots \)et ainsi de suite.
+Ensuite on définit \( \varepsilon_\omega \) comme la limite de \( \varepsilon_0, \varepsilon_1, \varepsilon_2, \ldots \).
+On peut ainsi définir \( \varepsilon_\alpha \) pour tout ordinal \( \alpha \).
+
+\end{frame}
+\begin{frame}
+
+On peut ensuite parcourir les points fixes de la fonction \( \xi \mapsto \varepsilon_\xi \).
+Le plus petit est la limite de
+ la suite fondamentale \( \varepsilon_0, \varepsilon_{\varepsilon_0}, \varepsilon_{\varepsilon_0}, \varepsilon_{\varepsilon_{\varepsilon_0}}, \ldots \) appelée \( \zeta_0 \).
+
+Le deuxième point fixe est  \( \zeta_1 \) défini comme la limite de la suite \( \zeta_0+1, \varepsilon_{\zeta_0+1}, \varepsilon_{\varepsilon_{\zeta_0+1}}, \ldots \) et ainsi de suite.
+
+On pourrait continuer comme ça en utilisant des lettres grecques successives, mais il est plus simple de numéroter ces fonctions en définissant les fonctions de Veblen : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \varphi_0(\alpha) = \omega^\alpha \)
+\item \(\varphi_1(\alpha) = \varepsilon_\alpha \)
+\item \( \varphi_2(\alpha) = \zeta_\alpha \)
+\item \( \varphi_3(\alpha) = \eta_\alpha \)
+\item \( \ldots \)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\small
+
+Les fonctions de Veblen peuvent aussi être représentées par une fonction à 2 variables :
+\[ \varphi_\beta(\alpha) = \varphi(\beta,\alpha) \]
+et peuvent être généralisées à plusieurs variables :
+\[ \varphi_{\beta_n,\ldots,\beta_1}(\alpha) = \varphi(\beta_n,\ldots,\beta_1,\alpha) \]
+La limite de cette notation est appelée "petit ordinal de Veblen".
+Cette notation est équivalente aux "Klammersymbols" de Schütte :
+\[ ( \xi \mapsto \omega^\xi ) 
+  \begin{pmatrix}
+    \alpha & \beta_1 & \ldots & \beta_n \\
+    0 & 1 & \ldots & n
+  \end{pmatrix} \]
+qui permettent de définir des fonctions de Veblen avec un nombre transfini de variables, par exemple :
+\[ ( \xi \mapsto \omega^\xi ) 
+  \begin{pmatrix}
+    1 \\
+    \omega
+  \end{pmatrix} \]
+La limite de cette notation est appelée "grand ordinal de Veblen".
+
+\end{frame}
+\begin{frame}
+
+Dans la notation \( \varphi_{\delta,\gamma,\beta}(\alpha) \), la suite \( \delta,\gamma,\beta \) peut être représentée par un seul ordinal \( \Omega^2 \cdot \delta + \Omega \cdot \gamma + \beta \) où \( \Omega \) représente un ordinal plus grand que \( \delta, \gamma \) et \( \beta \), par exemple le plus petit ordinal non dénombrable $\omega_1$, ou le plus petit ordinal non constructif $\omega_1^{CK}$ , de même que par exemple la suite de chiffres 3,5,4 peut être représentée par un seul nombre \( 354 = 10^2 \cdot 3 + 10 \cdot 5 + 4 \).
+
+\end{frame}
+\begin{frame}
+\frametitle{La notation de Simmons}
+
+Harold Simmons commence par introduire généraliser de façon canonique l'exponentiation d'une fonction à une puissance entière pour définir l'exponentiation d'une fonction à une puissance ordinale.
+\( f^n \) représente \( f \circ f \circ \ldots \circ f \) avec f répétée n fois, \( f^\omega \zeta \) est la limite de \( \zeta, f\ \zeta, f(f\ \zeta), \ldots \), \( f^{\omega+1} \zeta = f(f^\omega \zeta) \), etc...
+
+Plus précisément, on définit :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( g^0 \zeta = \zeta \)
+\item \( g^{\alpha+1} \zeta = g (g^\alpha \zeta) \)
+\item \( g^\lambda \zeta = sup \lbrace g^\alpha \zeta | \alpha < \lambda \rbrace \) (si \( \lambda \) est un ordinal limite)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Simmons définit ensuite les fonctions et notations suivantes :
+
+\begin{itemize}
+\item \( Fix\ f\ \zeta = f^\omega(\zeta+1) \) plus petit point fixe de f supérieur à \( \zeta \)
+\item \( Next = Fix [\omega^\bullet] = Fix (\xi \mapsto \omega^\xi) \)
+\item \( Next\ \alpha = Fix [\omega^\bullet] \alpha \) plus petit \( \varepsilon_\beta \) supérieur à \( \alpha \)
+\item \( [0] h = Fix (\alpha \mapsto h^\alpha 0) \)
+\item \( [1] h g = Fix (\alpha \mapsto h^\alpha g 0) \)
+\item \( [2] h g f = Fix (\alpha \mapsto h^\alpha g f 0) \) 
+\item \( \Delta[1] = Next\ 0 = \varepsilon_0 \)
+\item \( \Delta[2] = [0] Next\ 0 = \zeta_0 \)
+\item \( \Delta[3] = [1] [0] Next\ 0 \), etc...
+\end{itemize}
+La limite de cette suite est appelée ordinal de Bachmann Howard.
+
+Le 0 final peut être remplacé par $\omega$.
+
+\end{frame}
+\begin{frame}
+
+Correspondance avec \(\varphi\) de Veblen :
+
+\medskip
+
+\( \varepsilon_0 \) est le prochain \( \varepsilon_\alpha \) après 0 (ou après \( \omega \), ou après tout ordinal plus petit que \( \varepsilon_0 \)), donc on a \( \varepsilon_0 = Next\ 0 = Next\ \omega \).
+
+\( \varepsilon_1 \) est le prochain \( \varepsilon_\alpha \) après \( \varepsilon_0 \), donc on a :
+
+\( \varepsilon_1 = Next\ \varepsilon_0 = Next\ (Next\ 0) = Next^2 0 = Next\ (Next\ \omega) = Next^2 \omega \)...
+
+\( \varepsilon_\omega \) est la limite de \( \varepsilon_0, \varepsilon_1, \varepsilon_2, \ldots \). C'est la limite de \( Next^1 0, Next^2 0, Next^3 0, ... \) qui est égale à \( Next^\omega 0 \).
+
+Plus généralement, on a  \( \varepsilon_\alpha = \varphi_1(\alpha) = Next^{1+\alpha} 0 = Next^{1+\alpha} \omega \).
+
+\end{frame}
+\begin{frame}
+
+\small 
+
+\( \zeta_0 = \varphi_2(0) \) est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \) (plus grand que 0), donc \( \zeta_0 = Fix (\alpha \mapsto \varepsilon_\alpha) 0 = Fix (\alpha \mapsto Next^{1+\alpha} 0) 0 = Fix (\alpha \mapsto Next^\alpha 0) 0 = [0] Next\ 0 \). 
+
+\( Fix (\alpha \mapsto Next^{1+\alpha} 0) 0 = sup \lbrace 1, Next^2 0 = \varepsilon_1, Next^{1+\varepsilon_1} 0 = \varepsilon_{\varepsilon_1}, \ldots \rbrace \)
+
+\( Fix (\alpha \mapsto Next^\alpha 0) 0 = sup \lbrace 1, Next\ 0 = \varepsilon_0, Next^{\varepsilon_0} 0 = Next^{1+\varepsilon_0} 0 = \varepsilon_{\varepsilon_0}, \ldots \rbrace \) 
+
+Dans les deux cas, le résultat est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \).
+
+Comme \( \zeta_0 \) est aussi plus grand que \( \omega \), c'est aussi \( [0] Next\ \omega \) selon un calcul similaire.
+
+\( \zeta_1 = \varphi_2(1) \) est le point fixe suivant de \( \alpha \mapsto \varepsilon_\alpha \), le plus petit strictement supérieur à \( \zeta_0 \), donc \( \zeta_1 = Fix (\alpha \mapsto \varepsilon_\alpha) \zeta_0 = Fix (\alpha \mapsto Next^\alpha 0) \zeta_0 = [0] Next\ \zeta_0 = [0] Next ([0] Next\ 0) = ([0] Next)^2 0 = [0] Next ([0] Next\ \omega) = ([0] Next)^2 \omega \).
+
+Plus généralement, \( \zeta_\alpha = ([0] Next)^{1+\alpha} 0 \).
+
+\medskip
+
+Des calculs similaires donnent \( \eta_0 = \varphi_3(0) = [0]^2 Next\ 0 \) et \( \eta_\alpha = ([0]^2 Next)^{1+\alpha} 0 \).
+
+Plus généralement on a :
+
+\small
+ 
+\( \varphi_{1+\beta}(\alpha) = ([0]^\beta Next)^{1+\alpha} 0 = ([0]^\beta Next)^{1+\alpha} \omega \).
+
+
+\end{frame}
+\begin{frame}
+
+Correspondance avec \(\varphi\) de Veblen :
+
+\small
+
+\medskip
+
+\( \varphi_{1+\beta}(\alpha) = ([0]^\beta Next)^{1+\alpha} \omega \)
+
+\( [0]^\Omega = [1] [0] ; [0]^{\Omega^n} = [1]^n [0] \)
+
+\medskip
+
+Si \( \gamma > 0 \) :
+
+\( \varphi_{\gamma,\beta}(\alpha) = \varphi_{\Omega\cdot\gamma+\beta}(\alpha) \)
+
+\( = ([0]^{\Omega\cdot\gamma+\beta} Next)^{1+\alpha} \omega \)
+
+\( = ([0]^\beta (([0]^\Omega)^\gamma Next))^{1+\alpha} \omega \)
+
+\( = ([0]^\beta (([1] [0])^\gamma Next))^{1+\alpha} \omega \)
+
+\medskip
+
+Si \( \delta > 0 \) ou \( \gamma > 0 \) :
+
+\( \varphi_{\delta,\gamma,\beta}(\alpha) = \varphi_{\Omega^2\cdot\delta+\Omega\cdot\gamma+\beta}(\alpha) \)
+
+\(  = ([0]^{\Omega^2\cdot\delta+\Omega\cdot\gamma+\beta} Next)^{1+\alpha} \omega \)
+
+\( = ([0]^\beta ([0]^\Omega)^\gamma ([0]^{\Omega^2})^\delta Next)))^{1+\alpha} \omega \)
+
+\( = ([0]^\beta (([1] [0])^\gamma (([1]^2 [0])^\delta Next)))^{1+\alpha} \omega \) 
+
+\medskip
+
+\( [1]^\omega [0] Next\ \omega \) est le petit ordinal de Veblen.
+
+\( \Delta[4] = [2] [1] [0] Next\ \omega \) est le grand ordinal de Veblen
+
+\end{frame}
+\begin{frame}
+
+"Rationalisation" de \( \varphi \) : 
+
+\medskip
+
+\(\varphi_{1+\beta}(\alpha) = \varphi'_\beta(1+\alpha) \)
+
+\( \varphi'_\beta(\alpha) = ([0]^\beta Next)^\alpha \omega \)
+
+\medskip
+
+\( \varphi_{\gamma,\beta}(\alpha) = \varphi'_{\gamma,\beta}(1+\alpha) \) 
+
+\( \varphi'_{\gamma,\beta}(\alpha) = ([0]^\beta (([1] [0])^\gamma Next))^{\alpha} \omega \)
+
+
+\end{frame}
+\begin{frame}
+\frametitle{Correspondances avec la première notation}
+
+\( H\ f\ \alpha = sup \lbrace \alpha, f \alpha, f (f \alpha), \ldots \rbrace  \)
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item 0, suc 0 = 1, suc (suc 0) = 2, ... H suc 0 = \( \omega \)
+\item suc (H suc 0) = \( \omega+1 \), suc (suc (H suc 0)) = \( \omega+2 \), ... H suc (H suc 0) = \( \omega+\omega = \omega \cdot 2 \)
+\item 0, H suc 0 = \( \omega \), H suc (H suc 0) = \( \omega \cdot 2 \), ... H (H suc) 0 = \( \omega \cdot \omega = \omega^2 \)
+\item suc 0 = 1, H suc 0 = \( \omega \), H (H suc) 0 = \( \omega^2 \), ... H H suc 0 = \( \omega^\omega \)
+\item suc 0 = 1, H suc 0 = \( \omega \), H H suc 0 = \( \omega^\omega \), ... $R_1$ H suc 0 = \( \varepsilon_0 \)
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item suc 0 = 1, H suc 0 = \( \omega \), H H suc 0 = \( \omega^\omega \), ... $R_1$ H suc 0 = \( \varepsilon_0 \)
+\item $R_1$ H suc ($R_1$ H suc 0)
+\item H ($R_1$ H suc) 0
+\item $R_1$ H ($R_1$ H suc) 0
+\item H ($R_1$ H) suc 0
+\item $R_1$ H ($R_1$ H) suc 0
+\item $R_1$ ($R_1$ H) suc 0
+\item H $R_1$ H suc 0
+\item $R_1$ H $R_1$ H suc 0
+\item $R_2$ $R_1$ H suc 0 
+\item $R_3$ $R_2$ $R_1$ H suc 0 = $R_{3 \ldots 1}$ H suc 0 
+\item $R_{H\ suc\ 0 \ldots 1}$ H suc 0
+\item $R_{R_{H\ suc\ 0 \ldots 1} H\ suc\ 0 \ldots 1}$ H suc 0
+\item H [$R_{\bullet \ldots 1}$ H suc 0] 0
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Correspondances :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( H\ suc\ 0 = \omega \)
+\item \( suc\ (H\ suc\ 0) = \omega + 1 \)
+\item \( H\ suc\ (H\ suc\ 0) = \omega + \omega = \omega \cdot 2 \)
+\item \( H\ (H\ suc)\ 0 = \omega \cdot \omega = \omega^2 \)
+\item \( H\ H\ suc\ 0 = \omega^\omega \)
+\item \( R_1 H\ suc\ 0 = \) borne supérieure de \( suc\ 0, H\ suc\ 0, H\ H\ suc\ 0, H\ H\ H\ suc\ 0, \ldots = \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) = Next\ \omega \)
+\item \( suc (R_1 H\ suc\ 0) = \varepsilon_0 + 1 \)
+\item \( R_1 H\ suc (R_1 H\ suc\ 0) = \varepsilon_0 + \varepsilon_0 = \varepsilon_0 \cdot 2 \)
+\item \( R_1 H\ (R_1 H\ suc) 0 = \varepsilon_0 \cdot \varepsilon_0 = {\varepsilon_0}^2 \)
+\item \( R_1 H\ (R_1 H) suc\ 0 = {\varepsilon_0}^{\varepsilon_0} \)
+\item \( R_1 (R_1 H) suc\ 0 = \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) = Next (Next\ \omega) \)
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Correspondance avec la notation de Simmons : 
+
+\( \ldots, [3] \rightarrow R_5, [2] \rightarrow R_4, [1] \rightarrow R_3, [0] \rightarrow R_2, Next \rightarrow R_1, \omega \rightarrow H\ suc\ 0 \)
+
+Exemples :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \omega = H\ suc\ 0 \)
+\item \( \varepsilon_0 = Next\ \omega = R_1 H\ suc\ 0 \)
+\item \( \zeta_0 = [0] Next\ \omega = R_2 R_1 H\ suc\ 0 \)
+\item \( \Gamma_0 = [1] [0] Next\ \omega = R_3 R_2 R_1 H\ suc\ 0 \)
+\item \( LVO = [2] [1] [0] Next\ \omega = R_4 R_3 R_2 R_1 H\ suc\ 0 \)
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+\frametitle{Ordinaux-arbres (tree ordinals)}
+
+Un ordinal peut avoir différentes suites fondamentales, et donc être défini comme la limite de fonctions différentes, par exemple :
+
+\( \omega = sup \lbrace 0, 1, 2, \ldots \rbrace = lim ( n \mapsto n ) \)
+
+\( = sup \lbrace 1, 2, 3, \ldots \rbrace = lim ( n \mapsto n+1 ) \)
+
+Un ordinal-arbre est un ordinal associé à une suite fondamentale particulière.
+
+Les deux fonctions ci-dessus définissent donc un même ordinal, mais deux ordinaux-arbres différents.
+
+\end{frame}
+\begin{frame}
+
+Un ordinal-arbre a appartient à la classe d'ordinaux-arbres \( \Omega_n (n \in \mathbb{N}) \) si à vérifie une des propositions suivantes :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item a = 0
+\item a = a' + 1 pour un ordinal-arbre a' appartenant à la classe d'ordinaux-arbres \( \Omega_n \)
+\item a est une fonction de \( \Omega_k \) vers \( \Omega_n \) pour un certain \( k \in \mathbb{N} \) avec \( k < n \). Dans ce cas, on dit que a est un ordinal-arbre limite.
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+A tout ordinal-arbre a, on peut associer un ordinal correspondant \( \alpha = |a| \) obtenu en ignorant le choix d'une suite fondamentale particulière, et défini par :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( |0| = 0 \)
+\item \( |a+1| = |a|+1 \)
+\item \( |a| = sup |a[b]| \) if a is a function from \( \Omega_k \) to \( \Omega_n \).
+\end{itemize}
+
+ou de façon équivalente :
+\( |a| = sup_{b<a} \lbrace |b|+1 \rbrace \)
+
+\end{frame}
+\begin{frame}
+
+Les ordinaux-arbres permettent de définir rigoureusement la hiérarchie de croissance rapide (FGH)  \( f_a(n) \) avec \( a \in \Omega_1 \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( f_0(n) = n+1 \)
+\item \( f_{a+1}(n) = {f_a}^n(n) \)
+\item \( f_a(n) = f_{a[n]}(n) \) si \( a \) est un ordinal-arbre limite, où  \( a[n] \) représente le résultat de l'application de la fonction a au nombre entier n. 
+
+\end{itemize}
+
+On peut définir l'extension suivante de la hiérarchie de croissance rapide (qui correspond au cas n=0) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_n(0,b) = b+1 \)
+\item \( F_n(a+1,b) = [F_n(a,\bullet)]^b(b) \)
+\item \( (F_n(a,b))[c] = F_n(a[c],b) \) si a est une fonction de \( \Omega_k \) vers \( \Omega_{n+1} \) avec \( k < n \)
+\item \( (F_n(a,b)) = F_n(a[b],b) \) si a est une fonction de \( \Omega_n \) vers \( \Omega_{n+1} \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Cette hiérarchie de fonctions permet de représenter des ordinaux, par exemple :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( F_1(0,b) = b+1 = suc(b) \)
+\item \( F_1(1,b) = suc^b(b) = b+b = b \cdot 2\)
+\item \( F_1(2,b) = b \cdot 2^b \)
+\item \( |F_1(2,\omega_0)| = |\omega_0 \cdot 2^{\omega_0}| = \omega \cdot 2^\omega = \omega \cdot \omega = \omega^2 \)
+\item \( |F_1(2,F_1(2,\omega_0)) = |(\omega_0 \cdot 2^{\omega_0}) \cdot 2^{\omega_0 \cdot 2^{\omega_0}}| = \omega^2 \cdot 2^{\omega^2} = \omega^2 \cdot 2^{\omega \cdot \omega} = \omega^2 \cdot (2^\omega)^\omega = \omega^2 \cdot \omega^\omega = \omega^{2+\omega} = \omega^\omega \) 
+\item \( |F_1(3,\omega_0)| = |[F_1(2,\bullet)]^{\omega_0}(\omega_0)| = sup |[F_1(2,\bullet)]^{\omega_0[k]}(\omega_0)| = sup |[F_1(2,\bullet)]^k(\omega_0)| = sup (\omega^{\vdots^\omega}) = \varepsilon_0 \)
+\item \( |F_1(2,F_1(3,\omega_0))| = \varepsilon_0 \cdot 2^{\varepsilon_0} = {\varepsilon_0}^2 \)
+\item \( |[F_1(2,\bullet)]^2(F_1(3,\omega_0))| = {\varepsilon_0}^2 \cdot 2^{{\varepsilon_0}^2} = {\varepsilon_0}^{\varepsilon_0} \)
+\item \( |F_1(3,F_1(3,\omega_0))| = sup \lbrace {\varepsilon_0}^{\vdots^{\varepsilon_0}} \rbrace = \varepsilon_1 \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( |F_1(4,\omega_0)| = \zeta_0 = \varphi(2,0) = \varphi'(1,1) \)
+\item \( |F_1(3,F_1(4,\omega_0))| = sup \lbrace {\zeta_0}^{\vdots^{\zeta_0}} \rbrace = \varepsilon_{\zeta_0+1} \)
+\item \( |F_1(4,F_1(4,\omega_0))| = sup \lbrace \varepsilon_{\ddots_{\varepsilon_{\zeta_0+1}}} \rbrace = \zeta_1 = \varphi(2,1) = \varphi'(1,2) \)
+\item \( |F_1(5,\omega_0)| = \eta_0 = \varphi(3,0) = \varphi'(2,1) \)
+\item \( |F_1(\omega_0,\omega_0)| = \varphi_\omega(0) \)
+\item \( |F_1(\omega_1+1,\omega_0)| = \Gamma_0 \)
+\item \( |F_1(F_2(3,\omega_1),\omega_0)| = BHO \)
+
+\item \( \ldots \)
+\end{itemize}
+
+Voir "Ridiculously huge numbers" sur Youtube.
+
+\end{frame}
+\begin{frame}
+
+\frametitle{Fonctions d'écrasement (Ordinal collapsing functions)}
+
+Nous avons déjà vu que la méthode des points fixes permet de définir des ordinaux en répétant l'application d'une fonction qui donne un résultat plus grand que l'ordinal auquel elle est appliquée.
+L'idée des fonctions d'écrasement est de représenter les points fixes en utilisant un ordinal \( \Omega \) plus grand que tous les ordinaux que l'on veut décrire (on se limite actuellement aux ordinaux dénombrables). On peut prendre par exemple pour \( \Omega \) le plus petit ordinal non dénombrable.
+
+\end{frame}
+\begin{frame}
+
+Soit par exemple la fonction \( \psi(\alpha) = \omega^\alpha \).
+
+On généralise cette fonction en définissant :
+\[ \psi(\Omega) = sup \lbrace 0, \psi(0), \psi(\psi(0)), \ldots \rbrace \]
+
+On définit de même :
+\[ \psi(\Omega \cdot 2) = \psi(\Omega+\Omega) = sup \lbrace 0, \psi(\Omega), \psi(\Omega+\psi(\Omega)), \ldots \rbrace \]
+
+" (...) on introduit une certaine fonction $\psi$  dont l'argument peut faire intervenir un symbole magique $\Omega$, et ce symbole veut dire quelque chose comme "faire un point fixe de la fonction $\psi$ où le dernier symbole $\Omega$ est remplacé par une variable" ; bref, $\Omega$ est une sorte d' "opérateur de point fixe" qui généralise de façon systématique ce qu'on essayait de faire dans les fonctions de Veblen (...)"
+
+David Madore, Petit guide bordélique de quelques ordinaux intéressants
+
+\end{frame}
+\begin{frame}
+
+\small
+
+\( lim\ f = sup \lbrace f(0), f(1), f(2), ... \rbrace = sup_{\alpha < \omega} f(\alpha) = sup_{\alpha \in \omega} f(\alpha) \)
+
+\( Lim_1 f = sup_{\alpha < \omega_1} f(\alpha) = sup_{\alpha \in \omega_1} f(\alpha) \)
+
+où \( \omega_1 \) désigne le plus petit ordinal non dénombrable.
+
+\( \omega_1 = Lim_1 I \) où $I$ désigne la fonction identité.
+
+Posons \( \Omega = \omega_1 \). On a alors :
+
+\( \Omega = Lim_1 I \)
+
+\( \Omega \cdot 2 = \Omega + \Omega = Lim_1 ( \xi \mapsto \Omega + \xi ) \)
+
+On peut généraliser la définition de \( \psi \) par :
+
+\( \psi(Lim_1 f) = lim (n \mapsto (\psi \circ f)^n (0)) \)
+
+ce qui donne :
+
+\( \psi(\Omega) = \psi(Lim_1 I) = lim (n \mapsto (\psi \circ I)n (0)) \)
+
+\( = lim (n \mapsto \psi^n(0)) = sup \lbrace 0, \psi(0), \psi^2(0), \ldots \rbrace \)
+
+\( \psi(\Omega \cdot 2) = \psi(\Omega+\Omega) = \psi(Lim_1(\xi \mapsto \Omega+\xi)) \)
+
+\( = lim (n \mapsto (\xi \mapsto \psi(\Omega+\xi))^n(0)) \)
+
+On retrouve bien :
+
+\( \psi(\Omega \cdot 2) = \psi(\Omega+\Omega) = sup \lbrace 0, \psi(\Omega), \psi(\Omega+\psi(\Omega)), \ldots \rbrace \)
+
+\end{frame}
+\begin{frame}
+
+Définition complète de la fonction \( \psi \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = 1 \)
+\item \( \psi(\alpha+1) = \psi(\alpha) \cdot \omega \)
+\item \( \psi(lim\ f) = lim (\psi \circ f) \)
+\item \( \psi(Lim_1 f) = lim (n \mapsto (\psi \circ f)^n (0)) \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Limite de cette notation :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(\Omega+\Omega) = \psi(\Omega \cdot 2) \)
+\item \( \psi(\Omega \cdot \Omega) = \psi(\Omega^2) \)
+\item \( \psi(\Omega^\Omega) \)
+\item \( \psi(\Omega^{\Omega^\Omega}) \)
+\item ...
+\item \( \psi(\varepsilon_{\Omega+1}) = BHO \)
+\end{itemize}
+
+Problème : \( \varepsilon_{\Omega+1} \) n'est pas représentable dans cette notation.
+
+On introduit une fonction \( \psi_1 \) et un ordinal \( \Omega_2 \) (on peut prendre par exemple \( \Omega_2 = \omega_2 \) le plus petit ordinal de cardinal strictement supérieur à \( \omega_1 \) ) vérifiant \( \psi_1(\Omega_2) = \varepsilon_{\Omega+1} \). On a alors \( BHO = \psi(\psi_1(\Omega_2)) = \psi(\Omega_2) \). 
+Pour plus d'homogénéité dans les notations, on pose aussi \( \psi_0 = \psi \) et \( \Omega_1 = \Omega \).
+
+\end{frame}
+\begin{frame}
+Définition complète de la fonction \( \psi \) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi(0) = 1 \)
+\item \( \psi(\alpha+1) = \psi(\alpha) \cdot \omega \)
+\item \( \psi(lim\ f) = lim (\psi \circ f) \)
+\item \( \psi(Lim_1 f) = lim (n \mapsto (\psi \circ f)^n (0)) \)
+\end{itemize}
+
+Généralisation (fonctions de Buchholz) :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \psi_0(0) = 1 \)
+\item \( \psi_\nu(0) = \Omega_\nu \) pour \( \nu > 0 \)
+\item \( \psi_\nu(\alpha+1) = \psi_\nu(\alpha) \cdot \omega \)
+\item \( \psi_\nu(lim\ f) = lim (\psi_\nu \circ f) \)
+\item \( \psi_\nu(Lim_{\kappa+1}f = Lim_{\kappa+1}(\psi_\nu \circ f) \) si \( \kappa < \nu \)
+\item \( \psi_\nu(Lim_{\kappa+1}f = lim (n \mapsto \psi_\nu(f((\psi_\kappa \circ h)^n(0)))) \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\small 
+
+Traditionnellement, les fonctions d'écrasement sont définies de façon différente mais équivalente, par exemple pour les fonctions de Buchholz :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(C_\nu^0(\alpha) = \{\beta|\beta<\Omega_\nu\}\),
+\item \(C_\nu^{n+1}(\alpha) = \{\beta+\gamma,\psi_\mu(\eta)|\mu,\beta, \gamma,\eta\in C_{\nu}^n(\alpha)\wedge\eta<\alpha\}\),
+\item \(C_\nu(\alpha) = \bigcup_{n < \omega} C_\nu^n (\alpha)\),
+\item \(\psi_\nu(\alpha) = \min\{\gamma | \gamma \not\in C_\nu(\alpha)\}\),
+\end{itemize}
+
+avec 
+
+\(\Omega_\nu=\left\{\begin{array}{lcr} 1\text{ if }\nu=0\\ \aleph_\nu\text{ if }\nu>0\\ \end{array}\right.\)
+
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+
+Les suites fondamentales sont définies par :
+
+\small
+
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item Si \(\alpha=\psi_{\nu_1}(\beta_1)+\psi_{\nu_2}(\beta_2)+\ldots+\psi_{\nu_k}(\beta_k)\) où \(k\geq2\) alors \(\text{cof}(\alpha)=\text{cof}(\psi_{\nu_k}(\beta_k))\) et \(\alpha[\eta]=\psi_{\nu_1}(\beta_1)+\ldots+\psi_{\nu_{k-1}}(\beta_{k-1})+(\psi_{\nu_k}(\beta_k)[\eta])\),
+\item Si \(\alpha=\psi_{0}(0)=1\), alors \(\text{cof}(\alpha)=1\) et \(\alpha[0]=0\),
+\item Si \(\alpha=\psi_{\nu+1}(0)\), alors \(\text{cof}(\alpha)=\Omega_{\nu+1}\) et \(\alpha[\eta]=\Omega_{\nu+1}[\eta]=\eta\),
+\item Si \(\alpha=\psi_{\nu}(0)\) et \(\text{cof}(\nu)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu\geq 0\}\), alors \(\text{cof}(\alpha)=\text{cof}(\nu)\) et \(\alpha[\eta]=\psi_{\nu[\eta]}(0)=\Omega_{\nu[\eta]}\),
+\item Si \(\alpha=\psi_{\nu}(\beta+1)\) alors \(\text{cof}(\alpha)=\omega\) et \(\alpha[\eta]=\psi_{\nu}(\beta)\cdot \eta\) (et notez: \(\psi_\nu(0)=\Omega_\nu\)),
+\item Si \(\alpha=\psi_{\nu}(\beta)\) et \(\text{cof}(\beta)\in\{\omega\}\cup\{\Omega_{\mu+1}|\mu<\nu\}\) alors \(\text{cof}(\alpha)=\text{cof}(\beta)\) et \(\alpha[\eta]=\psi_{\nu}(\beta[\eta])\),
+\item Si \(\alpha=\psi_{\nu}(\beta)\) et \(\text{cof}(\beta)\in\{\Omega_{\mu+1}|\mu\geq\nu\}\) alors \(\text{cof}(\alpha)=\omega\) et \(\alpha[\eta]=\psi_{\nu}(\beta[\gamma[\eta]])\) où \(\left\{\begin{array}{lcr} \gamma[0]=\Omega_\mu \\ \gamma[\eta+1]=\psi_\mu(\beta[\gamma[\eta]])\\ \end{array}\right.\).
+\item Si \(\alpha=\Lambda\) alors \(\text{cof}(\alpha)=\omega\) et \(\alpha[0]=0\) et \(\alpha[\eta+1]=\psi_{\alpha[\eta]}(0)=\Omega_{\alpha[\eta]}\).
+\end{enumerate}
+
+\end{frame}
+\begin{frame}
+
+Ces définitions sont équivalentes à :
+
+\small
+
+\begin{enumerate}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item La première suite fondamentale ne fait pas partie de la définition de  \( \psi_\nu(\alpha) \), c'est un cas particulier de la définition générale de l'addition, avec \( \alpha + Lim_\nu(h) = Lim_\nu (\xi \mapsto \alpha + h(\xi)) \)
+\item \( \psi_0(0) = 1 \)
+\item \( \psi_{\nu+1}(0) = \Omega_{\nu+1} \) 
+\item \( \psi_{Lim_\mu h}(0) = Lim_\mu (\xi \mapsto \psi_{h(\xi)}(0)) = Lim_\mu (\xi \mapsto \Omega_{h(\xi)}) \)
+\item \( \psi_\nu(\beta+1) = \psi_\nu(\beta) \cdot \omega \)
+\item \( \psi_\nu (lim\ h) = lim (\xi \mapsto \psi_\nu(h(\xi))) = lim (\psi_\nu \circ h) \) ( with \( lim = Lim_0 \) )
+\item \( \psi_\nu (Lim_{\mu+1} h) = Lim_{\mu+1} (\xi \mapsto \psi_\nu(h(\xi))) = Lim_{\mu+1} (\psi_\nu \circ h) \) if \( \mu < \nu \)
+\item \( \psi_\nu(Lim_{\mu+1} h) = lim (\xi \mapsto \psi_\nu (h ((\psi_\mu \circ h)^\xi (\Omega_\mu)))) \) if \( \mu \ge \nu \)
+\item Cette suite ne fait pas partie de la définition de  \( \psi_\nu(\alpha) \), elle peut être déduite de la définition de \( \Lambda = min \lbrace \beta | \psi_\beta(0) = \beta \rbrace \)
+\end{enumerate}
+
+\end{frame}
+\end{comment}
+
+\begin{frame}
+
+Autres fonctions d'écrasement
+
+\bigskip
+\begin{changemargin}{-1cm}{0cm}
+\tiny
+
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+Notation de base	& Formule			& Limite					& Extension		& Correspondance					& Franchissement 				\\ \hline
+Cantor		& \( cantor(\alpha,\beta) \)	& plus petit \( \alpha = cantor(\alpha,0) \)	& C de Taranovsky	& \( C(\alpha,\beta) = \beta+\omega^\alpha \)		& \( C(\Omega,0) = \varepsilon_0 \)	\\
+		& \( = \beta + \omega^\alpha \)	& \( = \omega^\alpha = \varepsilon_0 \)	&			& si \( C(\alpha,\beta) \geq \alpha \)			&					\\ \hline
+		& \( \omega^\alpha \)		& plus petit \( \alpha = \omega^\alpha \)	& \( \psi_0 \) de Buchholz & \( \psi_0(\alpha) = \omega^\alpha \)			& \( \psi_0(\Omega) = \varepsilon_0 \)	\\
+		&				& \( = \varepsilon_0 \)			&			& si \( \alpha < \varepsilon_0 \)			&					\\ \hline
+Epsilon		& \( \varepsilon_\alpha	\)	& plus petit \( \alpha = \varepsilon_\alpha\)& \( \psi \) de Madore	& \( \psi(\alpha) = \varepsilon_\alpha \)		& \( \psi(\Omega) = \zeta_0 \)		\\
+		&				& \( = \zeta_0 \)			&			& pour tout \( \alpha < \zeta_0 \)			& 					\\ \hline
+Veblen binaire	& \( \varphi_\alpha(\beta) \)	& plus petit \( \alpha = \varphi(\alpha,0) \)& \( \theta \)		& \( \theta(\alpha,\beta) = \varphi(\alpha,\beta) \)	& \( \theta(\Omega,0) = \Gamma_0 \)	\\
+		& or \( \varphi(\alpha,\beta) \)& \( = \Gamma_0 \)			&			& sous \( \Gamma_0 \)					&					\\ \hline
+													
+\end{tabular}
+\end{changemargin}
+
+\footnotesize
+
+Les fonctions d'écrasement sont des extensions de fonctions sur des ordinaux dénombrables, dont on peut atteindre le point fixe en les appliquant à un ordinal non dénombrable, puis le dépasser en les appliquant à des ordinaux non dénombrables plus grands, par exemple : 
+
+\vspace{-0.4cm}
+\smallskip
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_0 \) de Buchholz : \( \psi_0(\alpha) = \omega^\alpha \) if \( \alpha < \varepsilon_0 ; \psi_0(\Omega) = \varepsilon_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \omega^\alpha \).
+\vspace{-0.1cm}
+
+\item \(\psi\) de Madore : \(\psi(\alpha) = \varepsilon_\alpha \) si \(\alpha < \zeta_0 ; \psi(\Omega) = \zeta_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varepsilon_\alpha \).
+\vspace{-0.1cm}
+
+\item \(\theta\) de Feferman : \(\theta(\alpha,\beta) = \varphi(\alpha,\beta) \) si \( \alpha < \Gamma_0 \) et \( \beta < \Gamma_0 ; \theta(\Omega,0) = \Gamma_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \varphi(\alpha,0) \).
+\vspace{-0.1cm}
+
+\item C de Taranovsky : \( C(\alpha,\beta) = \beta+\omega^\alpha \) si \( \alpha \) est dénombrable; \( C(\Omega_1,0) = \varepsilon_0 \) qui est le plus petit point fixe de \( \alpha \mapsto \omega^\alpha \).
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Exemples de formules générales définissant des fonctions d'écrasement :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_\nu(0) = z(\nu) \) ( par exemple : \( \psi_\nu(0) = \Omega_\nu \), ou \( \psi_0(0) = 1; \psi_{1+\nu}(0) = \Omega_{1+\nu} = \omega_{1+\nu} \) 
+
+\item \( \psi_\nu(suc\ \alpha) = f(\psi_\nu(\alpha)) \) 
+
+\item \( \psi_\nu(lim\ h) = lim(\psi_\nu \circ h) \) ( avec \( lim = Lim_0 \) )
+
+\item \( \psi_\nu(Lim_{\kappa+1} h) = Lim_{\kappa+1}(\psi_\nu \circ h) \) si \( \kappa < \nu \), 
+ ou \( \psi_\nu(\alpha)[\eta] = \psi_\nu(\alpha[\eta]) \)
+
+\item \( \psi_\nu (Lim_{\kappa+1} h) = lim [ \psi_\nu (h ((\psi_\kappa \circ h)^\bullet (\zeta)))] \) if \( \kappa \ge \nu \), avec \( \zeta = 0 \) ou 1 ou \( \psi_\kappa(0) \) par exemple.
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+\frametitle{Fonctions écrasant des grands cardinaux}
+
+Nous avons vu des fonctions d'écrasement qui permettent de définir des grands ordinaux dénombrables à partir d'ordinaux non dénombrables, qui sont aussi des cardinaux, tels que \( \Omega = \omega_1 \) et \( \Omega_2 = \omega_2 \). 
+
+On peut atteindre des ordinaux dénombrables de plus en plus grands en définissant des fonctions écrasant des cardinaux de plus en plus grands.
+
+\end{frame}
+\begin{frame}
+\frametitle{Grands cardinaux}
+
+Rappel : Tout ordinal, considéré comme l'ensemble des ordinaux qui lui sont inférieurs, a un cardinal, qui est une généralisation de la notion de nombre d'éléments d'un ensemble. Deux ensembles ont le même cardinal s'il existe une bijection entre ces ensembles.
+
+Le cardinal de \( \omega_\alpha \) est noté \( \aleph_\alpha \).
+
+Les ordinaux et cardinaux correspondants sont parfois identifiés ( \( \omega_\alpha = \aleph_\alpha \) ).
+
+Un cardinal \( \aleph_\alpha \) est dit cardinal limite si \( \alpha \) est un ordinal limite.
+
+\end{frame}
+\begin{frame}
+
+Les cardinaux \( \beth_\alpha \) sont définis par :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( \beth_0 = \aleph_0 \)
+\item \( \beth_{\alpha+1} = 2^{\beth_\alpha} \)
+\item \( \beth_\lambda = sup \lbrace \beth_\xi | \xi < \lambda \rbrace \) si \( \lambda \) est un ordinal limite
+\end{itemize}
+
+Si l'hypothèse généralisée du continu est acceptée, on a \( \aleph_\alpha = \beth_\alpha \) pour tout ordinal \( \alpha \).
+
+Un cardinal \( \beth_\alpha \) est dit cardinal limite forte si \( \alpha \) est un ordinal limite.
+
+\end{frame}
+\begin{frame}
+
+Un cardinal faiblement inaccessible est un cardinal limite régulier.
+
+On peut démontrer que si un cardinal \( \kappa \) est faiblement inaccessible, alors c'est le \( \kappa \)-ième point fixe de la fonction \( \xi \mapsto \aleph_\xi \).
+
+Un cardinal fortement inaccessible est un cardinal limite forte régulier.
+
+On définit ensuite la notion de degrés d'inaccessibilité pour les inaccessibilités faible et forte.
+On pose les définitions suivantes, dans lesquelles "inaccessible" peut être remplacé soit par "faiblement inaccessible" soit par "fortement inaccessible".
+
+\end{frame}
+\begin{frame}
+
+Un cardinal inaccessible est aussi dit 0-inaccessible (degré 0 d'inaccessibilité).
+
+Un cardinal \( \kappa \) est dit 1-inaccessible (degré 1 d'inaccessibilité) si il est inaccessible et si les conditions équivalentes suivantes sont vérifiées : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(\kappa\) est une limite de cardinaux inaccessibles
+\item Il existe \(\kappa\) cardinaux inaccessibles inférieurs à \( \kappa \) (ou appartenant à \( \kappa \)).
+\item \(\kappa\) est le \(\kappa\)-ième cardinal inaccessible, ou de façon équivalente \(\kappa\) est un point fixe de la fonction \( \xi \mapsto \xi\)-ième cardinal inaccessible 
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Ces définitions se généralisent à un degré quelconque : \( \kappa \) est \((\alpha+1)\)-inaccessible si il est \(\alpha\)-inaccessible et si les conditions équivalentes suivantes sont satisfaites : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(\kappa\) est une limite de cardinaux \(\alpha\)-inaccessible 
+\item Il existe \(\kappa\) cardinaux \(\alpha\)-inaccessible inférieurs à \(\kappa\) (ou appartenant à \(\kappa\))
+\item \(\kappa\) est le \(\kappa\)-ième cardinal \(\alpha\)-inaccessible 
+\end{itemize}
+
+
+Plus généralement, un cardinal \( \kappa \) est $\alpha$-inaccessible (degré $\alpha$) s'il est inaccessible et si pour tout \( \beta < \alpha \), les conditions équivalentes suivantes sont vérifiées :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item $\kappa$ est une limite de cardinaux $\beta$-inaccessibles
+\item il existe $\kappa$ cardinaux $\beta$-inaccessibles inférieurs à $\kappa$
+\item $\kappa$ est le $\kappa$-ième cardinal $\beta$-inaccessible
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Un cardinal $\kappa$ est hyperinaccessible ou (1,0)-inaccessible s'il est $\kappa$-inaccessible.
+
+Les degrés d'hyperinaccessibilité peuvent être définis de façon similaire aux degrés d'inaccessibilité : : \(\kappa\) est \(\alpha\)-hyperinaccessible si il est inaccessible et, pour tout \( \beta < \alpha \), les conditions équivalentes suivantes sont vérifiées : 
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(\kappa\) est une limite de cardinaux \(\beta\)-hyperinaccessibles
+\item Il existe \(\kappa\) cardinaux \(\beta\)-hyperinaccessible inférieurs à \(\kappa\) (ou appartenant à \(\kappa\))
+\item \(\kappa\) est le \(\kappa\)-ième cardianl \(\beta\)-hyperinaccessible 
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+$\kappa$ est hyperhyperinaccessible ou hyper$^2$-inaccessible si il est $\kappa$-hyperinaccessible, et ainsi de suite.
+
+Plus généralement :
+
+\(\kappa\) est hyper\(^\alpha\)-inaccessible si il est hyperinaccessible et si pour tout \( \beta < \alpha \), il est \(\kappa\)-hyper\(^\beta\)-inaccessible.
+
+\(\kappa\) is \(\alpha\)-hyper\(^\beta\)-inaccessible si il est hyper\(^\beta\)-inaccessible et si pour tout \( \gamma < \alpha \), les conditions équivalentes suivantes sont vérifiées :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \(\kappa\)  est une limite de cardinaux \(\gamma\)-hyper\(^\beta\)-inaccessibles
+\item Il existe \(\kappa\) cardinaux \(\gamma\)-hyper\(^\beta\)-inaccessible inférieurs à \(\kappa\) (ou appartenant à \(\kappa\))
+\item \(\kappa\) est le \(\kappa\)-ième cardinal \(\gamma\)-hyper\(^\beta\)-inaccessible.
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+\small
+
+On peut utiliser la notation de Simmons pour représenter les degrés d'inaccessibilité.
+
+Rappel :
+
+\( Fix\ f \zeta = f^\omega (\zeta+1) \) est le plus petit point fixe de f strictement supérieur à \( \zeta \).
+
+\( [0] h = Fix (\alpha \mapsto h^\alpha 0) \)
+
+\( [1] h g = Fix (\alpha \mapsto h^\alpha g 0)  \)
+
+\( [2] h g f = Fix (\alpha \mapsto h^\alpha g f 0) \)
+
+De même que Simmons a défini la fonction \( Next = Fix (\xi \mapsto \omega^\xi) \) qui donne le prochain \( \epsilon_\alpha \) après un ordinal donné, on peut définir la fonction \( NEXT = Fix (\xi \mapsto \aleph_\xi) \) qui donne le prochain point fixe de \( \xi \mapsto \aleph_\xi \) après un ordinal donné.
+
+Par exemple, NEXT 0 est le plus petit point fixe de \( \xi \mapsto \aleph_\xi \), \( NEXT (NEXT\ 0) = NEXT^2 0 \) est le second, et plus généralement \( NEXT^\alpha 0 \) est le $\alpha$-ième point fixe.
+
+\( [0] NEXT\ 0 = Fix (\xi \mapsto NEXT^\xi 0) 0 \) est le plus petit $\kappa$ tel que \( \kappa = NEXT^\kappa 0 = \kappa\)-ième point fixe de \( \xi \mapsto \aleph_\xi \), c'est-à-dire le plus petit cardinal faiblement inaccessible.
+
+\end{frame}
+\begin{frame}
+
+Plus généralement, \( ([0] \operatorname{NEXT})^\alpha 0 \) est le $\alpha$-ième cardinal faiblement inaccessible.
+
+Le plus petit cardinal 1-faiblement inaccessible cardinal est le plus petit \( \kappa \) tel que  \( \kappa \) est le \(\kappa\)-ième cardinal faiblement inaccessible, ce qu'on peut écrire \( \kappa = ([0] \operatorname{NEXT})^\kappa 0 \). Ce \( \kappa \) est \( [0] ([0] \operatorname{NEXT}) 0 = [0]^2 \operatorname{NEXT} 0 \).
+
+Le \(\alpha\)-ième cardinal 1-faiblement inaccessible est \( [0]^2 \operatorname{NEXT})^\alpha 0 \).
+
+Le plus petit cardinal 2-faiblement inaccessible est le plus petit \( \kappa \) tel que \( \kappa \) est le \(\kappa\)-ième cardinal 1-faiblement inaccessible, ce qu'on peut écrire \( \kappa = ([0]^2 \operatorname{NEXT})^\kappa 0 \). Ce \( \kappa \) est \( [0] ([0]^2 \operatorname{NEXT}) 0 = [0]^3 \operatorname{NEXT} 0 \).
+
+Plus généralement, le plus petit cardinal $\alpha$-faiblement inaccessible est \( [0]^{1+\alpha} \operatorname{NEXT} 0  \) et le \(\beta\)-ième cardinal \(\alpha\)-faiblement inaccessible est \( ([0]^{1+\alpha} \operatorname{NEXT})^\beta 0 \).
+
+\end{frame}
+\begin{frame}
+
+Le plus petit cardinal hyper-faiblement inaccessible est le plus petit \( \kappa \) tel que \( \kappa \) est \(\kappa\)-inaccessible, ce qu'on peut écrire \( \kappa = [0]^\kappa \operatorname{NEXT} 0 \). Ce \( \kappa \) est \( [1] [0] \operatorname{NEXT} 0 \).
+
+Le second est \( ([1] [0] \operatorname{NEXT})^2 0 \), et plus généralement le \(\alpha\)-ième est \( ([1] [0] \operatorname{NEXT})^\alpha 0 \).
+
+\end{frame}
+\begin{frame}
+
+\includegraphics[scale=0.35]{large_cardinals-1.png}
+
+\end{frame}
+\begin{frame}
+
+\includegraphics[scale=0.75]{diagram.jpg}
+
+\end{frame}
+\begin{frame}
+\frametitle{Fonctions écrasant des grands cardinaux}
+
+Soit \( I(\alpha,\beta) = ([0]^{1+\alpha} NEXT)^{1+\beta} 0 \) le \( 1+\beta \)-ième cardinal $\alpha$-faiblement inaccessible.
+
+On peut définir une fonction d'écrasement qui écrase de tels cardinaux de la façon suivante :
+
+\scriptsize
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+
+\item \( \psi_{I(0,0)}(0) = 1 \)
+
+\item \( \psi_{I(0,\beta+1)}(0) = I(0,\beta) \cdot \omega \)
+
+\item \( \psi_{I(0,\beta)}(\gamma+1) = \psi_{I(0,\beta)}(\gamma) \cdot \omega \) si \( \beta \) n'est pas un ordinal limite
+
+\item \( \psi_{I(\beta+1,0)}(0) = [I(\beta,\bullet)]^\omega (0) \)
+
+\item \( \psi_{I(\beta+1,\gamma+1)}(0) = [I(\beta,\bullet)]^\omega (I(\beta+1,\gamma)+1) \)
+
+\item \( \psi_{I(\beta+1,\gamma)}(\delta+1) = [I(\beta,\bullet)]^\omega (\psi_{I(\beta+1,\gamma)}(\delta)+1) \) si \( \gamma \) n'est pas un ordinal limite
+
+\item \( \psi_{I(Lim_\mu f,0)}(0) = Lim_\mu [I(f(\bullet),0)] \)
+
+\item \( \psi_{I(Lim_\mu f,\gamma+1)}(0) = Lim_\mu [I(f(\bullet),I(Lim_\mu f,\gamma)+1)] \)
+
+\item \( \psi_{I(Lim_\mu f,\gamma)}(\delta+1) = Lim_\mu [I(f(\bullet),\psi_{I(Lim_\mu f,\gamma)}(\delta)+1)] \) si \( \gamma \) n'est pas un ordinal limite 
+
+\item \( I(\beta,Lim_\mu f) = Lim_\mu [I(\beta,f(\bullet))] \)
+
+\item \( \psi_\pi(Lim_\mu f) = Lim_\mu (\psi_\pi \circ f) \) si \( \omega_\mu < \pi \)
+
+\item \( \psi_\pi(Lim_\mu f) = lim [\psi_\pi (f ((\psi_{\omega_\mu} \circ f)^\bullet (0)))] \) si \( \omega_\mu \ge \pi \)
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+Complexité de l'écrasement de très grands cardinaux
+
+\medskip
+
+\scriptsize
+
+"Mais au-delà de ça, il arrive des complications bien plus importantes : pour écraser un ordinal "$\Pi_4$-réfléchissant", on doit commencer à gérer des ordinaux dont la description est vraiment plus complexe que l'écrasement de quelque chose (par exemple des ordinaux $\Pi_2$-réfléchissant sur les $\Pi_3$-réfléchissants) : les fonctions d'écrasement prennent en argument non pas juste un ordinal vers lequel écraser et un simple niveau de Mahloïtude, mais des données beaucoup plus riches que sont des "configurations de réflexion" ou des " instances de réflexion" (on n'écrase pas juste vers un ordinal de niveau de Mahloïtude $\xi$ et inférieur à $\pi$ mais vers un ordinal ayant certaines propriétés de réflexion qui conduisent elles-mêmes à d'autres fonctions d'écrasement), et le système de notation devient incroyablement plus subtil et défini par un nombre assez impressionnant de récursions imbriquées. Au moins les ordinaux "$\Pi_5$-réfléchissants" ou plus n'apportent-ils pas plus de complexité substantielle par rapport aux $\Pi_4$-réfléchissants, mais il y a encore quelques subtilités si on veut inclure tous les niveaux d'un coup, voire, des niveaux indicés par le système d'ordinaux qu'on est en train de définir. C'est en gros à ce point-là que travaille la thèse de Jan-Carl Stegert (Ordinal proof theory of Kripke-Platek set theory augmented by strong reflection principles (2010), disponible ici en PDF), qui introduit des systèmes de notations ordinales dont la seule définition s'étend sur un bon nombre de pages (notamment p. 13–30 pour le système principal, p. 68–70 pour une version simplifiée, p. 66–67 pour une version encore plus simplifiée équivalente à l'écrasement d'un cardinal Mahlo / ordinal $\Pi_3$-réfléchissant, et p. 100–113 pour un système encore plus riche). De ce que je sais, c'est le système de notations ordinales explicite le plus grand qui ait été introduit et rigoureusement analysé dans la littérature mathématique."
+
+\medskip
+
+\footnotesize
+
+D. Madore, Petit guide bordélique de quelques ordinaux intéressants
+
+\end{frame}
+\begin{frame}
+\frametitle{La notation de Taranovsky}
+
+\small
+
+C(a,b) est le plus petit ordinal supérieur à b qui a le degré a.
+
+Définition: Un degré pour un ensemble bien ordonné S est une relation binaire sur S vérifiant :
+
+\footnotesize
+
+\begin{itemize}
+	\item Tout élément \( c \in S \) a le degré \( 0_S \) (le plus petit élément de S). \( 0_S \) n'a que le degré  \( 0_S \).
+	\item Pour une limite limit a, c a le degré a si et seulement si il a tout degré inférieur à a.
+	\item Pour un successeur a'=a+1, une des propositions suivantes est vérifiée :
+	\begin{itemize}
+		\item Un élément a le degré a' si et seulement si c'est une limite d'éléments de degré a.
+		\item Il existe un élément limite d \(\le\) a tel que pour tout c appartenant à S, c a le degré a' si et seulement si il a le degré a et soit c \(\le\) d soit c est une limite d'éléments de degré a (ou les deux). 
+	\end{itemize}
+\end{itemize}
+
+\small
+
+On a \( C(a,b) = b+\omega^a \) si et seulement si \( C(a,b) \ge a \).
+
+\end{frame}
+\begin{frame}
+
+\footnotesize
+
+Définition: 
+
+\begin{itemize}
+\item Un ordinal a est 0-construit par dessous à partir de $<$b si et seulement si a $<$ b
+\item a est n+1-construit par dessous à partir de $<$b  si et seulement si la représentation standard de a n'utilise pas les ordinaux au-dessus de a sauf en tant que sous-terme d'un ordinal n-construit par dessous à partir de $<$b.
+\end{itemize}
+
+Le n-ième  système de notation ordinale est défini comme suit.
+
+Syntaxe: Deux constantes (0, $\Omega_n$) et une fonction binaire C.
+
+Comparaison: Pour les ordinaux dans la représentation standard écrits sous la forme postfixée, la comparaison est effectuée dans l’ordre lexicographique où 'C' $<$ '0' $<$ '$\Omega_n$': Par exemple, C (C (0,0), 0) $<$ C ($\Omega_n$, 0) car 0 0 0 C C $<$ 0 $\Omega_n$ C.
+
+Forme standard:
+
+0 et $\Omega_n$ sont standard
+
+"C (a, b)" est standard si et seulement si :
+
+\begin{itemize}
+\item "a" et "b" sont standard,
+\item b vaut 0 ou $\Omega_n$ ou "C (c, d)" avec a $\le$ c, et
+\item a est n-construit par dessous à partir de $<$C(a,b).
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+
+Exemples d'ordinaux dans la notation de Taranovsky
+
+\scriptsize
+
+\begin{itemize}
+\item \( 0 = 0 \)
+\item \( 1 = 0+\omega^0 = C(0,0) \)
+\item \( 2 = 1+\omega^0 = C(0,1) = C(0,C(0,0)) \)
+\item \( \omega = 0+\omega^1 = C(1,0) = C(C(0,0),0) \)
+\item \( \omega+1 = \omega+\omega^0 = C(0,\omega) = C(0,C(1,0)) \)
+\item \( \omega \cdot 2 =\omega+\omega^1 = C(1,\omega) = C(1,C(1,0)) \)
+\item \( \omega^2 = 0+\omega^2 = C(2,0) \)
+\item \( \omega^\omega = 0+\omega^\omega = C(\omega,0) = C(C(1,0),0) \)
+\item \( \omega^{\omega^\omega} = 0+\omega^{\omega^\omega} = C(\omega^\omega,0) = C(C(C(1,0),0),0) \)
+\item \( \varepsilon_0 = \varphi(1,0) = \varphi'(0,1) = C(\Omega_1,0) \)
+\item \( \varepsilon_1 = \varphi(1,1) = \varphi'(0,2) = C(\Omega_1,C(\Omega_1,0)) \) (notez que la correspondance avec \( \varphi' \) est plus simple que avec \( \varphi \))
+\item \( \zeta_0 = \varphi(2,0) = \varphi'(1,1) = C(C(\Omega_1,\Omega_1),0) = C(\Omega_1 \cdot 2,0) \) avec \( \Omega_1 \cdot 2 = C(\Omega_1,\Omega_1)
+ \)
+\item \( \zeta_1 = \varphi(2,1) = \varphi'(1,2) = C(\Omega_1 \cdot 2,C(\Omega_1 \cdot 2,0)) \)
+\item \( \eta_0 = \varphi(3,0) = \varphi'(2,1) = C(\Omega_1 \cdot 3,0) \) with \( \Omega_1 \cdot 3 = C(\Omega_1,C(\Omega_1,\Omega)) \)
+\item \( \Gamma_0 = \varphi(1,0,0) = \varphi'(1,0,1) = C(C(\Omega_1 \cdot 2,\Omega_1),0) = C({\Omega_1}^2,0) \) avec \( {\Omega_1}^2 = C(\Omega_1 \cdot 2,\Omega_1) \)
+\item \( \Gamma_1 = C({\Omega_1}^2,C({\Omega_1}^2,0)) \)
+\item \( \Gamma_\omega = C({\Omega_1}^2+1,0) \)
+\item Petit ordinal de Veblen \( = C({\Omega_1}^\omega,0) \)
+\item Grand ordinal de Veblen \( = C({\Omega_1}^{\Omega_1},0) \)
+\item Ordinal de Bachmann Howard \( = C(C(\Omega_2,\Omega_1),0) \)
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+Un avis de David Madore sur la notation de Taranovsky :
+
+\medskip
+\footnotesize
+
+"Un certain Dmytro Taranovsky prétend avoir développé des systèmes de notations qui dépassent l'ordinal de preuve de l'arithmétique du second ordre et monte peut-être jusqu'à l'ordinal de preuve de ZFC. Il ne prétend pas avoir de preuve de ces affirmations, mais, même comme ça, j'avoue que je suis assez sceptique : pas tellement parce que l'auteur n'a ni fait de thèse de maths ni jamais rien publié formellement (je n'aime vraiment pas invoquer ce genre de critères, et en l'occurrence il ne vaut vraiment pas grand-chose parce qu'il est clair que l'auteur est au même passablement compétent dans ce qu'il écrit), mais surtout parce que je trouve très suspect de ne pas voir apparaître dans son système la complexité des hiérarchies d'écrasement qu'on voit dans celui de Stegert, et la facilité avec laquelle il prétend monter dans la hiérarchie preuve-théorique est quand même un peu incroyable. Mais je ne suis pas non plus complètement convaincu qu'il ait tort (au pif, je dirais que son système est bien-fondé, mais n'a pas la puissance qu'il croit qu'il a)."
+
+\medskip
+\normalsize
+
+David Madore, Petit guide bordélique de quelques ordinaux intéressants
+
+\end{frame}
+\begin{frame}
+\frametitle{Ordinal de preuve d'une théorie (proof theoretic ordinal)}
+
+\small
+
+L'ordinal de preuve d'une théorie est une mesure de la puissance de cette théorie.
+L'ordinal de preuve d'une théorie T peut être défini de différentes façons équivalentes :
+
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item Le plus petit ordinal récursif tel que cette théorie ne permet pas de démontrer que cet ordinal est bien fondé
+\item Le supremum de tous les ordinaux pour lesquels il existe une notation telle que la théorie permet de démontrer que cette notation est une notation d'ordinaux
+\item Le supremum de tous les ordinaux $\alpha$ tels qu'il existe une relation récursive R sur $\omega$ qui l'ordonne selon un bon ordre avec $\alpha$ et tel que T permet de démontrer l'induction transfinie sur les énoncés arithmétiques de R.
+\end{itemize}
+
+Par exemple, l'ordinal de preuve de l'arithmétique de Peano est $\varepsilon_0$.
+
+\end{frame}
+\begin{frame}
+
+Tableau de correspondances
+
+\begin{changemargin}{-0.9cm}{0cm}
+
+\fontsize{4pt}{5pt}\selectfont
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Nom		& Symbole		& Algébrique			& Veblen			& Simmons			& RHS0		& Madore				& Taranovsky 			\\
+\hline
+Zero		& 0			& 0				& 				& 				& 0			& 					& 0				\\ \hline
+Un		& 1			& 1				& \(\varphi(0,0)\)		& 				& suc 0			& 					& C(0,0)			\\ \hline
+Deux		& 2			& 2				& 				& 				& suc (suc 0)		& 					& C(0,C(0,0))			\\ \hline
+Omega		& \(\omega\)		& \(\omega\)			& \(\varphi(0,1)\)		& \(\omega\)			& H suc 0		& 					& C(1,0)			\\ \hline
+		& 			& \(\omega+1\)			& 				& 				& suc (H suc 0)		& 					& C(0,C(1,0))			\\ \hline
+		&			& \(\omega\times2\)		&				& 				& H suc (H suc 0)	& 					& C(1,C(1,0))			\\ \hline
+		&			& \(\omega^2\)			& \(\varphi(0,2)\)		& 				& H (H suc) 0		& 					& C(C(0,C(0,0)),0)		\\ \hline
+		&			& \(\omega^\omega\)		& \(\varphi(0,\omega)\)		& 				& H H suc 0		& 					& C(C(1,0),0)			\\ \hline
+Epsilon zero	& \(\varepsilon_0\)	& \(\varepsilon_0\)		& \(\varphi(1,0)\)		& \(Next\ \omega\)		& \(R_1 H\ suc\ 0\)	& \(\psi(0)\)				& \(C(\Omega_1,0)\)		\\ \hline
+		& 			& \(\varepsilon_1\)		& \(\varphi(1,1)\)		& \(Next^2 \omega\)	& \(R_1 (R_1 H) suc\ 0\)& \(\psi(1)\)				& \(C(\Omega_1,C(\Omega_1,0)\)	\\ \hline
+		& 			& \(\varepsilon_\omega\)	& \(\varphi(1,\omega)\) 	& \(Next^\omega \omega\) & \(H R_1 H\ suc\ 0\)	& \(\psi(\omega)\)			& \(C(C(0,\Omega_1),0)\)	\\ \hline
+		& 			&\(\varepsilon_{\varepsilon_0}\)& \(\varphi(1,\varphi(1,0))\)	& \(Next^{Next \omega} \omega \) & \(R_1 H R_1 H\ suc\ 0\)& \(\psi(\psi(0))\)			& \(C(C(C(\Omega_1,0),\Omega_1),0)\)\\ \hline
+Zeta zero	& \(\zeta_0\)		& \(\zeta_0\)			& \(\varphi(2,0)\)		& \([0] Next\ \omega\)		& \(R_2 R_1 H\ suc\ 0\)	& \(\psi(\Omega)\)			& \(C(C(\Omega_1,\Omega_1),0)\)	\\ \hline
+Eta zero	& \(\eta_0\)		& \(\eta_0\)			& \(\varphi(3,0)\)		& \([0]^2 Next\ \omega\) 	& \(R_2 (R_2 R_1) H\ suc\ 0\)&					& \(C(C(\Omega,C(\Omega,\Omega)),0)\) \\ \hline
+		&			&			& \(\varphi(\omega,0)\)		& \([0]^\omega Next\ \omega\) & \(H R_2 R_1 H\ suc\ 0\)&					& \(C(C(C(0,\Omega_1),\Omega_1),0)\) \\ \hline
+Feferman	& \(\Gamma_0\)		
+								& \(\Gamma_0\)			& \(\varphi(1,0,0)\)		& \([1] [0] Next\ \omega\)	& \(R_3 R_2 R_1 H\ suc\ 0\) & \(\psi(\Omega^\Omega)\)		& \(C(C(C(\Omega_1,\Omega_1),\) \\ 
+-Schütte	&			&				& \(=\varphi(2 \mapsto 1)\)	&				& \(= R_{3 \ldots 1} H\ suc\ 0\) & 					& \(\Omega_1),0)\)		\\ \hline
+Ackermann	&			&				& \(\varphi(1,0,0,0)\)		& \([1]^2 [0] Next\ \omega\) & \(R_3 (R_3 R_2) R_1 H\ suc\ 0\) & \(\psi(\Omega^{\Omega^2})\)		&				\\ 
+		&			&				& \(=\varphi(3 \mapsto 1)\)	&				&			&					&				\\ \hline
+Petit Veblen	&			&				& \(\varphi(\omega \mapsto 1)\)	& \([1]^\omega [0] Next\ \omega\) & \(H R_3 R_2 R_1 H\ suc\ 0\) & \(\psi(\Omega^{\Omega^\omega})\)	& \(C(\Omega_1^\omega,0)\)	\\
+		&			&				&				&				&			&					& \(=C(C(C(C(0,\Omega_1), \)	\\ 
+		&			&				&				&				&			&					& \(\Omega_1),\Omega_1),0)\)	\\ \hline
+Grand Veblen	&			&				& + petit ord.	 	 	& \([2] [1] [0] Next\ \omega\)	& \(R_4 R_3 R_2 R_1 H\ suc\ 0\) & \(\psi(\Omega^{\Omega^\Omega})\)	& \(C(\Omega_1^{\Omega_1},0)\)	\\
+		&			&				& non rep.			&				& \(= R_{4 \ldots 1} H\ suc\ 0\) &					& \(=C(C(C(C(\Omega_1,\Omega_1),\) \\ 
+		&			&				&				&				&			&					& \( \Omega_1),\Omega_1),0) \)	\\ \hline
+Bachmann-	&			&				&				& + petit ord.			& \(R_{\omega \ldots 1} H\ suc\ 0\) & \(\psi(\varepsilon_{\Omega+1})\)	& \(C(C(\Omega_2,\Omega_1),0)\)	\\
+Howard		&			&				&				& non rep.			&			&					&				\\ \hline
+  
+\end{tabular}
+
+\end{changemargin}
+
+\end{frame}
+
+\end{document}
