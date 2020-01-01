@@ -451,8 +451,8 @@ int ix1, iy1, ia1, ix2, iy2, ia2;
 	}
 
 	traj(&sl1, &sl2, 1,T,px1,py1,pa1,px2,py2/*,pa2*/);	
-	printf ("rho=%f sl1=%f sl2=%f  px1=%f py1=%f pa1=%f  px2=%f py2=%f\n", 
-		rho, sl1, sl2, px1, py1, pa1, px2, py2);
+	printf ("rho=%f s=%d dp=%f\nsl1=%f sl2=%f  px1=%f py1=%f pa1=%f  px2=%f py2=%f\n", 
+		rho, s, dp, sl1, sl2, px1, py1, pa1, px2, py2);
 
 
 	*psl1 = sl1;
@@ -472,7 +472,7 @@ float sl1, sl2, px1, py1, pa1, px2, py2, pa2;
 int i;
 	// for (rho=0; rho<=2*pi; rho+=pi/16)
 	{
-		solve (&sl1, &sl2, &px1, &py1, &pa1, &px2, &py2, /*&pa2,*/ 3, 0.01, 100);
+		solve (&sl1, &sl2, &px1, &py1, &pa1, &px2, &py2, /*&pa2,*/ 3, 0.001, 1000);
 		printf ("\nRésultat pour rho=%f:\nsl1=%f sl2=%f px1=%f py1=%f pa1=%f px2=%f py2=%f\n", 
 			rho, sl1, sl2, px1, py1, pa1, px2, py2/*, pa2*/);
 		for (i=0; i<1000; i++) delai();
