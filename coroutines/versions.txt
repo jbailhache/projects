@@ -1,0 +1,56 @@
+VERSIONS OF COROUTINE PROGRAMS
+
+coroutin.c = 6corouti.c = cr.c :
+	version for MS-DOS 
+
+coroutw.cpp	:			
+	version for C++ / Windows
+
+coroutin.cap, crtnvms.cap, crultrx.cap:
+	capture of distant connexion with different examples
+
+scrosf1.s :
+	version for OSF1
+
+coroutines_rpi.c, start_coroutine_rpi.c, start_coroutine_rpi.s, start_coroutine_rpi_mod.s : 	
+	version for Linux on Raspberry Pi with start_coroutine compiled to assembly and modified 
+
+coroutines_android.c, start_coroutine_android.c, start_coroutine_android.s, start_coroutine_android_mod.s :
+	idem for Linux on Android
+
+coroutines_rpi_new.c, coroutines_rpi_new.s, coroutines_rpi_new_mod.s :
+	version for Raspberry Pi to compile to assembly and to modify, with new names 
+
+coroutines_my_rpi.c, coroutines_my_rpi.s, coroutines_my_rpi_mod.s :
+	version for Raspberry Pi to compile to assembly and modify, with 2 parameters instead of structure
+
+coroutines_my_std.c :
+	modified version of coroutines_my_rpi.c in standard C, with modification of SP by buffer allocation
+
+coroutines_new_std.c :
+	modified version of coroutines_rpi_new in standard C, with modification of SP by buffer allocation
+
+coroutines_my_alloc.c :
+	modified version of coroutines_my_std.c with dynamic allocation of stack
+
+coroutines_my_univ.c : 
+	modified version of coroutines_my_alloc.c, coroutines do not print but ask main, does not work
+
+coroutines_std.c :
+	modified version of coroutines_new_std with old names
+
+coroutines_new_std_noprint_1.c, coroutines_new_std_noprint_2.c :
+	tests for x86-64 with concatenation of messages in a buffer, does not work
+
+coroutines_std_alloc.c :
+	modified version of coroutines_std.c with dynamic allocation of stack
+
+coroutines_std_univ.c :
+	modified version of coroutines_std_alloc.c, coroutines do not print but ask main
+
+coroutines_std_swap.c :
+	start swaps caller and called, needs to copy struct coroutine in action
+
+coroutines_std_long.c
+	modified version of coroutines_std.c which should work with long (64 bits) pointers and 32 bits int (2nd parameter of longjmp and result of setjmp)
+

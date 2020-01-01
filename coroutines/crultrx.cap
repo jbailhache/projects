@@ -1,0 +1,126 @@
+# 
+# cat coroutines.c
+
+/* Coroutines */
+
+#include <setjmp.h>
+
+struct coroutine
+{
+    jmp_buf *calling;
+    jmp_buf *env;
+};
+
+#if 0
+int start_coroutine (struct coroutine *cr,
+    int (*f) (void *p, struct coroutine *cr),
+    void *p, int *stack)
+{
+int x, y;
+struct coroutine calling;
+    x = setjmp (*(cr->calling));
+    if (x == 0)
+    {
+        calling.calling = cr->env;
+        calling.env = cr->calling;
+        /* _SP = stack; */
+        y = (*f) (p, &calling);
+    }
+    else
+        return x;
+}
+#endif
+
+int call_coroutine (struct coroutine *cr, int entree)
+{
+int x;
+    x = setjmp (*(cr->calling));
+    if (x == 0)
+    {
+        _longjmp (*(cr->env), entree);
+        printf ("Error calling coroutine\n");
+    }
+    else
+        return x;
+}
+
+int coroutine1 (char *p, struct coroutine *calling)
+{
+int x;
+    printf ("Lancement coroutine avec parametre <%s>\n", p);
+    x = call_coroutine (calling, (int)"1er parametre coroutine->appelant");
+    printf ("Appelant retourne <%s> la 1ere fois\n", x);
+    x = call_coroutine (calling, (int)"2eme parametre coroutine->appelant");
+    printf ("Appelant retourne <%s> la 2eme fois\n", x);
+    x = call_coroutine (calling, (int)"3eme parametre coroutine->appelant");
+}
+
+test_coroutine ()
+{
+struct coroutine cr;
+jmp_buf calling, env;
+#define STACK_SIZE 1000
+int stack[STACK_SIZE];
+int x;
+    cr.calling = &calling;
+    cr.env = &env;
+    x = start_coroutine (&cr, coroutine1, (int)"Parametre lancement",
+            stack + STACK_SIZE);
+    printf ("Lancement retourne <%s>\n", x);
+    x = call_coroutine (&cr, (int)"1er appel");
+    printf ("1er appel retourne <%s>\n", x);
+    x = call_coroutine (&cr, (int)"2eme appel");
+    printf ("2eme appel retourne <%s>\n", x);
+}
+
+main ()
+{
+    test_coroutine ();
+}
+
+# ed coroutines.c
+1671
+/main
+main ()
+
+{
+
+    test_coroutine ();
+
+}
+
+
+1
+
+/STACK
+#define STACK_SIZE 1000
+/
+int stack[STACK_SIZE];
+s/]/+50]
+int stack[STACK_SIZE+50];
+w
+1674
+q
+# cc -c -g coroutines.c
+ccom: Warning: coroutines.c, line 63: & before array or function: ignored
+          cr.calling = &calling;
+      -------------------------^
+ccom: Warning: coroutines.c, line 63: illegal pointer combination
+          cr.calling = &calling;
+      -------------------------^
+ccom: Warning: coroutines.c, line 64: & before array or function: ignored
+          cr.env = &env;
+      -----------------^
+ccom: Warning: coroutines.c, line 64: illegal pointer combination
+          cr.env = &env;
+      -----------------^
+# # cc -c -g coroutines.c# ed coroutines.c      # cat coroutines.c# ./coroutines# cc -o coroutines coroutines.o start_coroutine.o#
+# ./coroutines
+Lancement coroutine avec parametre <Parametre lancement>
+Lancement retourne <1er parametre coroutine->appelant>
+Appelant retourne <1er appel> la 1ere fois
+1er appel retourne <2eme parametre coroutine->appelant>
+Appelant retourne <2eme appel> la 2eme fois
+2eme appel retourne <3eme parametre coroutine->appelant>
+#   telnet rs6000
+
