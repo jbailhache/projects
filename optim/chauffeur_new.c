@@ -278,7 +278,7 @@ int ix1, iy1, ia1, ix2, iy2, ia2;
 
 		for (ix2=-1; ix2<=1; ix2++)
 		for (iy2=-1; iy2<=1; iy2++)
-		for (ia1=-1; ia1<=1; ia1++)
+		for (ia2=-1; ia2<=1; ia2++)
 		{
 			px2t=px2+ix2*dp;
 			py2t=py2+iy2*dp;
