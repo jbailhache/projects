@@ -78,20 +78,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
-#include <string.h>
 
 #include "stream.h"
 #include "coroutines.h"
 
-char *stralloc (char *s);
-
-int compare (char *s1, char *s2);
-
-void trace(char *s, int i);
-
-int f_put_file (struct param_file *p, char c);
-
-// #define int short
+#define int short
 
 /*#include "trace.h"*/
 
@@ -106,7 +97,7 @@ int f_put_file (struct param_file *p, char c);
 		} \
 	}
 
-void error (char *s)
+error (char *s)
 {
 	fprintf (stderr, s);
 	exit (-1);
@@ -242,7 +233,7 @@ pred p;
 	return p;
 }
 
-void print_pred (pred p)
+print_pred (pred p)
 {
 	printf ("PRED %d %d %X <%s>\n",
 		p->arity, p->type, p->flags, p->name);
@@ -478,7 +469,7 @@ prop mot_obj (enum type_prop t, prop p, obj a)
 prop mot;
 	/* si c'est ce mot on le rend */
 	if (p->type == PROP_ELEM && p->val.elem.p->type == t &&
-		(p->val.elem.a[0] == a || a == (obj)-1))
+		(p->val.elem.a[0] == a || a == -1))
 		return p;
 	if (p->type != PROP_CONJ)
 		return NULL;
@@ -497,24 +488,20 @@ prop mot;
 }
 */
 
-struct param1 { enum type_prop t; prop p; obj a; };
-
-void mots_obj1 (struct coroutine *pcalling, enum type_prop t, prop p, obj a);
-
-void *mots_obj (struct param1 *param,
+mots_obj (struct { enum type_prop t; prop p; obj a; } *param,
 		struct coroutine *me)
 {
 struct coroutine calling;
 	calling.calling = me->env;
 	calling.env = me->calling;
 	mots_obj1 (&calling, param->t, param->p, param->a);
-	call_coroutine (&calling, (void *)-1);
+	call_coroutine (&calling, -1);
 }
 
-void mots_obj1 (struct coroutine *calling, enum type_prop t, prop p, obj a)
+mots_obj1 (struct coroutine *calling, enum type_prop t, prop p, obj a)
 {
 	if (p->type == PROP_ELEM && p->val.elem.p->type == t &&
-		(p->val.elem.a[0] == a || a == (obj)-1))
+		(p->val.elem.a[0] == a || a == -1))
 		call_coroutine (calling, p);
 	else if (p->type != PROP_CONJ)
 		/* call_coroutine (calling, NULL) */;
@@ -527,21 +514,17 @@ void mots_obj1 (struct coroutine *calling, enum type_prop t, prop p, obj a)
 
 }
 
-struct param2 { prop p; fonction f; };
-
-void prop_verif1 (struct coroutine *calling, prop p, fonction f);
-
-void *prop_verif (struct param2 *param,
+prop_verif (struct { prop p; fonction f; } *param,
 		struct coroutine *me)
 {
 struct coroutine calling;
 	calling.calling = me->env;
 	calling.env = me->calling;
 	prop_verif1 (&calling, param->p, param->f);
-	call_coroutine (&calling, (void *)-1);
+	call_coroutine (&calling, -1);
 }
 
-void prop_verif1 (struct coroutine *calling, prop p, fonction f)
+prop_verif1 (struct coroutine *calling, prop p, fonction f)
 {
 	/*if (p->type == PROP_ELEM && p->val.elem.p->type == t &&
 		(p->val.elem.a[0] == a || a == -1))*/
@@ -568,7 +551,7 @@ struct { enum type_prop t; prop p; obj a; } param;
 }
 #endif
 
-void synthese_gnom (struct put_fnct *put, prop p, obj a, int akuzativo)
+synthese_gnom (struct put_fnct *put, prop p, obj a, int akuzativo)
 {
 prop nom;
 prop article;
@@ -597,7 +580,7 @@ struct { enum type_prop t; prop p; obj a; } param;
 	param.a = a;
 	adjectif = start_coroutine (&cr, mots_obj, &param,
 		stack1+(sizeof(stack1)-60)/sizeof(int));
-	while (adjectif != (prop)-1)
+	while (adjectif != -1)
 	{
 		sput (put, adjectif->val.elem.p->name);
 #if (LANGUAGE == ESPERANTO)
@@ -644,7 +627,7 @@ struct { enum type_prop t; prop p; obj a; } param;
 	param.a = a;
 	adjectif = start_coroutine (&cr, mots_obj, &param,
 		stack2+(sizeof(stack2)-60)/sizeof(int));
-	while (adjectif != (prop)-1)
+	while (adjectif != -1)
 	{
 		sput (put, " ");
 		sput (put, adjectif->val.elem.p->name);
@@ -666,7 +649,7 @@ struct { enum type_prop t; prop p; obj a; } param;
 	param.a = a;
 	prep_adj = start_coroutine (&cr, mots_obj, &param,
 		stack3+(sizeof(stack3)-60)/sizeof(int));
-	while (prep_adj != (prop)-1)
+	while (prep_adj != -1)
 	{
 		sput (put, " ");
 		sput (put, prep_adj->val.elem.p->name);
@@ -677,7 +660,7 @@ struct { enum type_prop t; prop p; obj a; } param;
 
 }
 
-void synthese_gverb (struct put_fnct *put, prop p, prop verbe, int aff)
+synthese_gverb (struct put_fnct *put, prop p, prop verbe, int aff)
 {
 /* synthese de phrases :
 	chercher les verbes
@@ -708,7 +691,7 @@ enum { PRESENT, PASSE, FUTUR, CONDITIONNEL, VOLITIF } temps;
 	param.a = verbe->val.elem.a[0];
 	adverbe = start_coroutine (&cr, mots_obj, &param,
 		stack1+(sizeof(stack1)-60)/sizeof(int));
-	while (adverbe != (prop)-1)
+	while (adverbe != -1)
 	{
 		sput (put, " ");
 		sput (put, adverbe->val.elem.p->name);
@@ -732,7 +715,7 @@ enum { PRESENT, PASSE, FUTUR, CONDITIONNEL, VOLITIF } temps;
 	special = start_coroutine (&cr, mots_obj, &param,
 		stack2+(sizeof(stack2)-60)/sizeof(int));
 	// printf ("\nspecial=0x%x\n", special);
-	if (special == (prop)-1)
+	if (special == -1)
 		;
 	else if (special->val.elem.p == passe ||
 		(verbe->val.elem.p->flags & FLAG_PASSE))
@@ -790,7 +773,7 @@ enum { PRESENT, PASSE, FUTUR, CONDITIONNEL, VOLITIF } temps;
 	param.a = verbe->val.elem.a[0];
 	preposition = start_coroutine (&cr, mots_obj, &param,
 		stack4+(sizeof(stack4)-60)/sizeof(int));
-	while (preposition != (prop)-1)
+	while (preposition != -1)
 	{
 		sput (put, " ");
 		sput (put, preposition->val.elem.p->name);
@@ -843,9 +826,7 @@ int r;
 
 /* #define synthese(put,p) synthese_aff_neg(put,p,1) */
 
-void synthese_aff_neg (struct put_fnct *put, prop p, int aff);
-
-void synthese (struct put_fnct *put, prop p)
+synthese (put, p)
 {
 	if (p == NULL)
 		sput (put, "Mi ne komprenas.");
@@ -853,7 +834,7 @@ void synthese (struct put_fnct *put, prop p)
 		synthese_aff_neg (put, p, 1);
 }
 
-void synthese_aff_neg (struct put_fnct *put, prop p, int aff)
+synthese_aff_neg (struct put_fnct *put, prop p, int aff)
 {
 prop verbe;
 struct coroutine cr;
@@ -871,13 +852,13 @@ struct fonction f;
 	adr = stack+(sizeof(stack)-60)/sizeof(int);
 	// printf ("stack=0x%x adr=0x%x size=%d=0x%x\n", stack, adr, sizeof(stack), sizeof(stack));
 	verbe = start_coroutine (&cr, prop_verif, &param, adr);
-	while (verbe != (prop)-1)
+	while (verbe != -1)
 	{
 	    if (verbe->type == PROP_ELEM && verbe->val.elem.p->type == PRED_VERB)
 	    {
 		synthese_gverb (put, p, verbe, aff);
 		verbe = call_coroutine (&cr, 0);
-		if (verbe == (prop)-1)
+		if (verbe == -1)
 			sput (put, ". ");
 		else
 		{
@@ -1214,9 +1195,7 @@ int flag_accusatif, flag_nominatif;
 int flag_nom_lu;
 /*obj objet;*/
 prop p, p1, c;
-pred prep_adj, /* gn, objet1, */ conj;
-prop gn;
-obj objet1;
+pred prep_adj, gn, objet1, conj;
 
 	/*objet = new_var ();*/
 	state->last_object = objet;
@@ -1580,7 +1559,7 @@ prop p;
 	return p;
 }
 
-void main ()
+main ()
 {
 /* struct perso_info perso; */
 FILE *in_file, *out_file;

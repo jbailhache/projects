@@ -1,0 +1,283 @@
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/jbailhache01/perso/nlp/nlp 
+
+Breakpoint 1, main () at log.c:1561
+1561	{
+(gdb) s
+1572		printf ("LANGUAGE=%d\n", LANGUAGE);
+(gdb) n
+LANGUAGE=6
+1574	    printf ("Initialisation\n");
+(gdb) 
+Initialisation
+1576	    param_in.fd = stdin;
+(gdb) 
+1577	    param_out.fd = stdout;
+(gdb) s
+1579	    get_in.f = f_get_file;
+(gdb) 
+1580	    get_in.p = &param_in;
+(gdb) 
+1582	    put_out.f = f_put_file;
+(gdb) 
+1583	    put_out.p = &param_out;
+(gdb) 
+1587	    p = example1 ();
+(gdb) n
+1588	    synthese (&put_out, p);
+(gdb) s
+synthese (put=0x7fffffffe200, p=0x55555575cf70) at log.c:829
+829		if (p == NULL)
+(gdb) b synthese_aff_neg
+Breakpoint 2 at 0x555555556403: file log.c, line 836.
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
+Starting program: /home/jbailhache01/perso/nlp/nlp 
+
+Breakpoint 1, main () at log.c:1561
+1561	{
+(gdb) c
+Continuing.
+LANGUAGE=6
+Initialisation
+
+Breakpoint 2, synthese_aff_neg (put=0x7fffffffe200, p=0x55555575cf70, aff=1) at log.c:836
+836	{
+(gdb) l
+831		else
+832			synthese_aff_neg (put, p, 1);
+833	}
+834	
+835	synthese_aff_neg (struct put_fnct *put, prop p, int aff)
+836	{
+837	prop verbe;
+838	struct coroutine cr;
+839	jmp_buf calling, env;
+840	int stack [5000];
+(gdb) s
+845		cr.calling = &calling;
+(gdb) 
+846		cr.env = &env;
+(gdb) 
+847		param.p = p;
+(gdb) p p
+$30 = (prop) 0x55555575cf70
+(gdb) p *p
+$31 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+848		param.f = &f;
+(gdb) s
+849		f.f = verbe_ou_neg /*est_un_verbe*/;
+(gdb) s
+850		adr = stack+(sizeof(stack)-60)/sizeof(int);
+(gdb) s
+852		verbe = start_coroutine (&cr, prop_verif, &param, adr);
+(gdb) s
+start_coroutine (cr=0x7fffffff91a0, f=0x555555555783 <prop_verif>, p=0x7fffffff91b0, 
+    stack=0x7fffffffe154) at coroutin_long.c:34
+34	{
+(gdb) list
+29	}
+30	
+31	void *start_coroutine (struct coroutine *cr,
+32		void *(*f) (/* void *p, struct coroutine *cr */),
+33		void *p, int *stack)
+34	{
+35	int x, y;
+36	int *_SP;
+37	int test;
+38		x = setjmp (*(cr->calling));
+(gdb) p p
+$32 = (void *) 0x7fffffff91b0
+(gdb) p (prop)p
+$33 = (prop) 0x7fffffff91b0
+(gdb) p *(prop)p
+$34 = {type = 1433784176, val = {elem = {p = 0x7fffffff91c0, a = {0x555555556352 <verbe_ou_neg>, 
+        0x0, 0x0, 0x0}}, neg = 0x7fffffff91c0, p = {0x7fffffff91c0, 
+      0x555555556352 <verbe_ou_neg>}}}
+(gdb) n
+38		x = setjmp (*(cr->calling));
+(gdb) n
+39		if (x == 0)
+(gdb) s
+44			_SP = getsp();
+(gdb) n
+45			{
+(gdb) s
+46				int buf[_SP-stack];		
+(gdb) s
+47				y = (*f) (p, cr);
+(gdb) p p
+$35 = (void *) 0x7fffffff91b0
+(gdb) s
+prop_verif (param=0x7fffffff91b0, me=0x7fffffff91a0) at log.c:517
+517	{
+(gdb) list
+512	
+513	}
+514	
+515	prop_verif (struct { prop p; fonction f; } *param,
+516			struct coroutine *me)
+517	{
+518	struct coroutine calling;
+519		calling.calling = me->env;
+520		calling.env = me->calling;
+521		prop_verif1 (&calling, param->p, param->f);
+(gdb) p p
+No symbol "p" in current context.
+(gdb) s
+519		calling.calling = me->env;
+(gdb) p p
+No symbol "p" in current context.
+(gdb) p param
+$36 = (struct {...} *) 0x7fffffff91b0
+(gdb) p *(prop *)param
+$37 = (prop) 0x55555575cf70
+(gdb) p **(prop *)param
+$38 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+520		calling.env = me->calling;
+(gdb) s
+521		prop_verif1 (&calling, param->p, param->f);
+(gdb) s
+prop_verif1 (calling=0x7fffffffe130, p=0x55555575cf70, f=0x7fffffff91c0) at log.c:529
+529		if (CALL (f), p))
+(gdb) l
+524	
+525	prop_verif1 (struct coroutine *calling, prop p, fonction f)
+526	{
+527		/*if (p->type == PROP_ELEM && p->val.elem.p->type == t &&
+528			(p->val.elem.a[0] == a || a == -1))*/
+529		if (CALL (f), p))
+530			call_coroutine (calling, p);
+531		else if (p->type != PROP_CONJ)
+532			/* call_coroutine (calling, NULL) */;
+533		else
+(gdb) p p
+$39 = (prop) 0x55555575cf70
+(gdb) p *p
+$40 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+verbe_ou_neg (v=0x0, p=0x55555575cf70) at log.c:820
+820		r = (p->type == PROP_ELEM && p->val.elem.p->type == PRED_VERB)
+(gdb) l
+815	}
+816	
+817	int verbe_ou_neg (void *v, prop p)
+818	{
+819	int r;
+820		r = (p->type == PROP_ELEM && p->val.elem.p->type == PRED_VERB)
+821			|| (p->type == PROP_NEG);
+822		return r;
+823	}
+824	
+(gdb) p p
+$41 = (prop) 0x55555575cf70
+(gdb) p *p
+$42 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+821			|| (p->type == PROP_NEG);
+(gdb) s
+820		r = (p->type == PROP_ELEM && p->val.elem.p->type == PRED_VERB)
+(gdb) s
+822		return r;
+(gdb) p r
+$43 = 1
+(gdb) s
+823	}
+(gdb) s
+prop_verif1 (calling=0x7fffffffe130, p=0x55555575cf70, f=0x7fffffff91c0) at log.c:530
+530			call_coroutine (calling, p);
+(gdb) p p
+$44 = (prop) 0x55555575cf70
+(gdb) p *p
+$45 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+call_coroutine (cr=0x7fffffffe130, entree=0x55555575cf70) at coroutin_long.c:60
+60		x = setjmp (*(cr->calling));
+(gdb) l
+55	}
+56	
+57	void *call_coroutine (struct coroutine *cr, void *entree)
+58	{
+59	int x;
+60		x = setjmp (*(cr->calling));
+61		if (x == 0)
+62		{
+63			jmpval = entree;
+64			longjmp (*(cr->env), 1);
+(gdb) s
+_setjmp () at ../sysdeps/x86_64/bsd-_setjmp.S:30
+30	../sysdeps/x86_64/bsd-_setjmp.S: Aucun fichier ou dossier de ce type.
+(gdb) b coroutin_long.c:61
+Breakpoint 3 at 0x555555558f54: file coroutin_long.c, line 61.
+(gdb) c
+Continuing.
+
+Breakpoint 3, call_coroutine (cr=0x7fffffffe130, entree=0x55555575cf70) at coroutin_long.c:61
+61		if (x == 0)
+(gdb) s
+63			jmpval = entree;
+(gdb) p entree
+$46 = (void *) 0x55555575cf70
+(gdb) p *(prop *)entree
+$47 = (prop) 0x3
+(gdb) p *(prop)entree
+$48 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+64			longjmp (*(cr->env), 1);
+(gdb) n
+0x0000555555558e57 in start_coroutine (cr=0x7fffffff91a0, f=0x555555555783 <prop_verif>, 
+    p=0x7fffffff91b0, stack=0x7fffffffe154) at coroutin_long.c:38
+38		x = setjmp (*(cr->calling));
+(gdb) l
+33		void *p, int *stack)
+34	{
+35	int x, y;
+36	int *_SP;
+37	int test;
+38		x = setjmp (*(cr->calling));
+39		if (x == 0)
+40		{
+41			//test = 123;
+42			//_SP = stack;
+(gdb) n
+39		if (x == 0)
+(gdb) 
+53			return jmpval;
+(gdb) p jmpval
+$49 = (void *) 0x55555575cf70
+(gdb) p *(prop)jmpval
+$50 = {type = PROP_NEG, val = {elem = {p = 0x55555575cf30, a = {0x0, 0x0, 0x0, 0x0}}, 
+    neg = 0x55555575cf30, p = {0x55555575cf30, 0x0}}}
+(gdb) s
+55	}
+(gdb) s
+synthese_aff_neg (put=0x7fffffffe200, p=0x55555575cf70, aff=1) at log.c:853
+853		while (verbe != -1)
+(gdb) l
+848		param.f = &f;
+849		f.f = verbe_ou_neg /*est_un_verbe*/;
+850		adr = stack+(sizeof(stack)-60)/sizeof(int);
+851		// printf ("stack=0x%x adr=0x%x size=%d=0x%x\n", stack, adr, sizeof(stack), sizeof(stack));
+852		verbe = start_coroutine (&cr, prop_verif, &param, adr);
+853		while (verbe != -1)
+854		{
+855		    if (verbe->type == PROP_ELEM && verbe->val.elem.p->type == PRED_VERB)
+856		    {
+857			synthese_gverb (put, p, verbe, aff);
+(gdb) p verbe
+$51 = (prop) 0x5575cf70
+(gdb) p *verbe
+Cannot access memory at address 0x5575cf70
+(gdb) 
+

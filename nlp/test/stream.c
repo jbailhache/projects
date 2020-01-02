@@ -1,7 +1,7 @@
 
 #include "stream.h"
 
-void sput (struct put_fnct *put, char *s)
+sput (struct put_fnct *put, char *s)
 {
 	if (s == NULL)
 	    return;
@@ -9,7 +9,7 @@ void sput (struct put_fnct *put, char *s)
 		cput (put, *s++);
 }
 
-void sget (struct get_fnct *get, char *s)
+sget (struct get_fnct *get, char *s)
 {
 int c;
 	for (;;)

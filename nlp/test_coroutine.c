@@ -1,0 +1,6 @@
+
+main ()
+{
+	test_coroutine ();
+}
+

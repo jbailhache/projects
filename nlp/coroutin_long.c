@@ -1,10 +1,6 @@
 /* coroutines */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <setjmp.h>
-
-// #define int short
 
 void *jmpval;
 
@@ -36,8 +32,7 @@ void *start_coroutine (struct coroutine *cr,
 	void *(*f) (/* void *p, struct coroutine *cr */),
 	void *p, int *stack)
 {
-int x;
-void *y;
+int x, y;
 int *_SP;
 int test;
 	x = setjmp (*(cr->calling));
@@ -75,7 +70,7 @@ int x;
 	}
 }
 
-void *coroutine1 (char *p, struct coroutine *me)
+int coroutine1 (char *p, struct coroutine *me)
 {
 void *x;
 struct coroutine calling;
@@ -90,7 +85,7 @@ struct coroutine calling;
 	x = call_coroutine (&calling, "3eme parametre coroutine->appelant");
 }
 
-void test_coroutine ()
+test_coroutine ()
 {
 struct coroutine cr;
 jmp_buf calling, env;

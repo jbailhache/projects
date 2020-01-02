@@ -1,10 +1,6 @@
 /* coroutines */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <setjmp.h>
-
-// #define int short
 
 void *jmpval;
 
@@ -36,8 +32,7 @@ void *start_coroutine (struct coroutine *cr,
 	void *(*f) (/* void *p, struct coroutine *cr */),
 	void *p, int *stack)
 {
-int x;
-void *y;
+int x, y;
 int *_SP;
 int test;
 	x = setjmp (*(cr->calling));
@@ -75,38 +70,37 @@ int x;
 	}
 }
 
-void *coroutine1 (char *p, struct coroutine *me)
+int coroutine1 (char *p, struct coroutine *me)
 {
-void *x;
+int x;
 struct coroutine calling;
 	calling.calling = me->env;
 	calling.env = me->calling;
 	printf ("Lancement coroutine avec parametre <%s>\n", p);
-	x = call_coroutine (&calling, "1er parametre coroutine->appelant");
+	x = call_coroutine (&calling, (int)"1er parametre coroutine->appelant");
 	printf ("Appelant retourne <%s> la 1ere fois\n", x);
-	x = call_coroutine (&calling, "2eme parametre coroutine->appelant");
+	x = call_coroutine (&calling, (int)"2eme parametre coroutine->appelant");
 	printf ("Appelant retourne <%s> la 2eme fois\n", x);
 	/* return "Fin coroutine"; */
-	x = call_coroutine (&calling, "3eme parametre coroutine->appelant");
+	x = call_coroutine (&calling, (int)"3eme parametre coroutine->appelant");
 }
 
-void test_coroutine ()
+test_coroutine ()
 {
 struct coroutine cr;
 jmp_buf calling, env;
 #define STACK_SIZE 1000
 int stack [STACK_SIZE];
-void *x;
+int x;
 	cr.calling = &calling;
 	cr.env = &env;
-	x = start_coroutine (&cr, coroutine1, "Parametre lancement",
+	x = start_coroutine (&cr, coroutine1, (int)"Parametre lancement",
 		stack + STACK_SIZE);
 	printf ("Lancement retourne <%s>\n", x);
-	x = call_coroutine (&cr, "1er appel");
+	x = call_coroutine (&cr, (int)"1er appel");
 	printf ("1er appel retourne <%s>\n", x);
-	x = call_coroutine (&cr, "2eme appel");
+	x = call_coroutine (&cr, (int)"2eme appel");
 	printf ("2eme appel retourne <%s>\n", x);
-	exit(0);
 }
 
 /*
@@ -116,6 +110,4 @@ main ()
 	exit(0);
 }
 */
-
-
 

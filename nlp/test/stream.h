@@ -7,7 +7,7 @@ typedef struct get_fnct
 
 typedef struct put_fnct
 {
-	int (*f) (/* void *p, char c */);
+	void (*f) (/* void *p, char c */);
 	void *p;
 } put_fnct;
 
@@ -15,8 +15,6 @@ typedef struct put_fnct
 #define cput(put,c) ((*((put)->f))((put)->p,c))
 
 #include <stdio.h>
-
-// #define int short
 
 struct param_file
 {
@@ -31,5 +29,5 @@ struct param_str
 extern int f_get_file (struct param_file *);
 extern int f_put_file (struct param_file *, char);
 
-void sput (struct put_fnct *, char *);
+sput (struct put_fnct *, char *);
 
