@@ -83,9 +83,9 @@ struct coroutine calling;
 	calling.env = me->calling;
 	printf ("Lancement coroutine avec parametre <%s>\n", p);
 	x = call_coroutine (&calling, "1er parametre coroutine->appelant");
-	printf ("Appelant retourne <%s> la 1ere fois\n", x);
+	printf ("Appelant retourne <%s> la 1ere fois\n", (char *)x);
 	x = call_coroutine (&calling, "2eme parametre coroutine->appelant");
-	printf ("Appelant retourne <%s> la 2eme fois\n", x);
+	printf ("Appelant retourne <%s> la 2eme fois\n", (char *)x);
 	/* return "Fin coroutine"; */
 	x = call_coroutine (&calling, "3eme parametre coroutine->appelant");
 }
@@ -101,11 +101,11 @@ void *x;
 	cr.env = &env;
 	x = start_coroutine (&cr, coroutine1, "Parametre lancement",
 		stack + STACK_SIZE);
-	printf ("Lancement retourne <%s>\n", x);
+	printf ("Lancement retourne <%s>\n", (char *)x);
 	x = call_coroutine (&cr, "1er appel");
-	printf ("1er appel retourne <%s>\n", x);
+	printf ("1er appel retourne <%s>\n", (char *)x);
 	x = call_coroutine (&cr, "2eme appel");
-	printf ("2eme appel retourne <%s>\n", x);
+	printf ("2eme appel retourne <%s>\n", (char *)x);
 	exit(0);
 }
 

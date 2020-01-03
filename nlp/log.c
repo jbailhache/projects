@@ -108,7 +108,7 @@ int f_put_file (struct param_file *p, char c);
 
 void error (char *s)
 {
-	fprintf (stderr, s);
+	fprintf (stderr, "%s", s);
 	exit (-1);
 }
 
@@ -1602,7 +1602,7 @@ struct get_state state[1];
     get_in.f = f_get_file;
     get_in.p = &param_in;
 
-    put_out.f = f_put_file;
+    put_out.f = (int (*) ()) f_put_file;
     put_out.p = &param_out;
 
     /* init_perso (&perso, &get_in, &put_out); */
