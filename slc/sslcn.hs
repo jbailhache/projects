@@ -93,7 +93,8 @@ module Sslc where
 	in let rlx = red lx
 	       rly = red ly
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      then red (side RightSide a b (if s == LeftSide then x else y))
+	      then side RightSide a b (if s == LeftSide then x else y)
+	      -- then red (side RightSide a b (if s == LeftSide then x else y))
           -- then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
 	      else LTR x y
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
@@ -158,6 +159,14 @@ module Sslc where
  gpLemma3c = LTR gpLemma2c gpLemma1c
  gpLemma4c = APL gpAxiom2 $ apl2 gdparent allan charles
  gpTheorem1c = LTR gpLemma4c gpLemma3c
+ 
+ gpLemma1d = apl3 gpRule1 allan brenda charles
+ gpLemma2d = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3d1 = LTR gpLemma2d gpLemma1d
+ gpLemma3d = LTR (LTR gpLemma3d1 (APL (apl2 parent brenda charles) (apl2 gdparent allan charles))) (DBL DB0)
+ gpLemma4d = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpLemma5d = LTR gpLemma4d gpLemma3d
+ gpTheorem1d = LTR (apl2 gdparent allan charles) gpLemma5d 
  
  
  test = do
