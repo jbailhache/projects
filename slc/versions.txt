@@ -1,0 +1,6 @@
+SLC versions history
+Sslc.hs + proof0, proof1, proof2, new constructors : Slcn.hs
+Slcn.hs minimal + transfinite iteration of reflection principle (TIRP) : Slc_tirp.hs, slct.hs
+Slcn.hs + compile : Slcnc.hs + show : slcncst.hs
+slcncst.hs + showapl, show proof, APL reduction : slc.hs ( -> slcnr.hs )
+slcncst.hs + showapl, show proof, APL reduction : slcnra.hs + extensions : slcrt.hs, slcr.hs, slcrn.hs
