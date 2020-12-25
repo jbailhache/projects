@@ -3,6 +3,7 @@ module Sslc where
  import Data.List
 
  data Proof = AXM
+			| EQU Proof Proof
             | SMB String
             | DB0 
             | DBS Proof
@@ -16,6 +17,7 @@ module Sslc where
 
  shift :: Proof -> Proof -> Proof
  shift _ AXM = AXM
+ shift u (EQU x y) = EQU (shift u x) (shift u y)
  shift _ (SMB s) = SMB s
  shift _ DB0 = DB0
  shift u (DBS x) = if u == DBS x then DBS u else DBS (shift u x)
@@ -27,6 +29,7 @@ module Sslc where
  subst1 :: Proof -> Proof -> Proof -> Proof
  subst u a b = if u == a then b else (if DBS u == a then u else subst1 u a b)
  subst1 _ AXM b = AXM
+ subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
  subst1 _ (SMB s) _ = SMB s
  subst1 _ DB0 _ = DB0
  subst1 u (DBS x) b = DBS (subst u x b)
@@ -38,6 +41,7 @@ module Sslc where
  cont1 :: Proof -> Proof -> Bool
  cont x y = if x == y then True else cont1 x y
  cont1 AXM _ = False
+ cont1 (EQU x y) z = (cont x y) || (cont y z)
  cont1 (SMB s) _ = False
  cont1 DB0 _ = False
  cont1 (DBS x) y = cont x y
@@ -47,6 +51,7 @@ module Sslc where
 
  red1 :: Proof -> Proof
  red1 AXM = AXM
+ red1 (EQU x y) = EQU (red1 x) (red1 y)
  red1 (SMB s) = SMB s
  red1 DB0 = DB0
  red1 (DBS x) = DBS (red1 x)
@@ -75,6 +80,8 @@ module Sslc where
  side :: Side -> Proof -> Proof -> Proof -> Proof
  side LeftSide a b AXM = a
  side RightSide a b AXM = b
+ side LeftSide _ _ (EQU x y) = x
+ side RightSide _ _ (EQU x y) = y
  side _ _ _ (SMB s) = SMB s
  side _ _ _ DB0 = DB0
  side s a b (DBS x) = DBS (side s a b x)
@@ -108,6 +115,12 @@ module Sslc where
  comp f g = DBL (APL f (APL g DB0))
  fix f = APL auto (comp f auto)
  ias = fix (DBL (APL (SMB "a") DB0))
+
+ parent = SMB "parent"
+ gdparent = SMB "gdparent"
+ allan = SMB "allan"
+ brenda = SMB "brenda"
+ charles = SMB "charles"
 
  test = do
   proves (LTR (LTR AXM (SMB "a")) (APL (SMB "a") AXM))
