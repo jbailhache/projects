@@ -92,7 +92,8 @@ module Sslc where
 	    ly = side LeftSide a b y
 	in let rlx = red lx
 	       rly = red ly
-	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	   in if rlx == rly
+	   -- in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
 	      then side RightSide a b (if s == LeftSide then x else y)
 	      -- then red (side RightSide a b (if s == LeftSide then x else y))
           -- then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
