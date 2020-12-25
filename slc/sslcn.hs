@@ -98,6 +98,28 @@ module Sslc where
 	      else LTR x y
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
 
+ contSmb :: Proof -> String -> Bool
+ -- contSmb (Proof0 (SMB s1)) s2 = s1 == s2
+ -- contSmb (Proof0 r) _ = False
+ -- contSmb (Proof1 r x) s = contSmb x s
+ -- contSmb (Proof2 r x y) s = (contSmb x s) || (contSmb y s)
+ contSmb x s = cont x (SMB s)
+ 
+ abstr :: Proof -> String -> Proof -> Proof
+ abstr1 :: Proof -> String -> Proof -> Proof
+ abstr d v x = if (contSmb x v) then (abstr1 d v x) else x
+ abstr1 d v AXM = AXM
+ abstr1 d v (EQU x y) = EQU (abstr d v x) (abstr d v y)
+ abstr1 d v (SMB s) = if v == s then d else (SMB s)
+ abstr1 d v DB0 = DB0
+ abstr1 d v (DBS x) = DBS (abstr d v x)
+ abstr1 d v (DBL x) = DBL (abstr (DBS d) v x)
+ abstr1 d v (APL x y) = APL (abstr d v x) (abstr d v y)
+ abstr1 d v (LTR x y) = LTR (abstr d v x) (abstr d v y)
+ 
+ lambda :: String -> Proof -> Proof
+ lambda v x = DBL (abstr DB0 v x)
+ 
  axl = SMB "a"
  axr = APL (SMB "a") (SMB "a")
 
