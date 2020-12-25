@@ -41,7 +41,7 @@ module Sslc where
  cont1 :: Proof -> Proof -> Bool
  cont x y = if x == y then True else cont1 x y
  cont1 AXM _ = False
- cont1 (EQU x y) z = (cont x y) || (cont y z)
+ cont1 (EQU x y) z = (cont x z) || (cont y z)
  cont1 (SMB s) _ = False
  cont1 DB0 _ = False
  cont1 (DBS x) y = cont x y
@@ -93,10 +93,11 @@ module Sslc where
 	in let rlx = red lx
 	       rly = red ly
 	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      -- then red (side RightSide a b (if s == LeftSide then x else y))
-          then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
+	      then red (side RightSide a b (if s == LeftSide then x else y))
+          -- then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
 	      else LTR x y
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
+
 
  contSmb :: Proof -> String -> Bool
  contSmb x s = cont x (SMB s)
@@ -115,6 +116,7 @@ module Sslc where
  
  lambda :: String -> Proof -> Proof
  lambda v x = DBL (abstr DB0 v x)
+
  
  axl = SMB "a"
  axr = APL (SMB "a") (SMB "a")
@@ -134,12 +136,30 @@ module Sslc where
  fix f = APL auto (comp f auto)
  ias = fix (DBL (APL (SMB "a") DB0))
 
+ apl2 f x y = APL (APL f x) y
+ apl3 f x y z = APL (APL (APL f x) y) z
+
  parent = SMB "parent"
  gdparent = SMB "gdparent"
  allan = SMB "allan"
  brenda = SMB "brenda"
  charles = SMB "charles"
 
+ gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
+  EQU (APL (apl2 parent (SMB "x") (SMB "y")) $
+       APL (apl2 parent (SMB "y") (SMB "z")) $
+       apl2 gdparent (SMB "x") (SMB "z"))
+      ident
+ gpAxiom1 = EQU (apl2 parent allan brenda) ident
+ gpAxiom2 = EQU (apl2 parent brenda charles) ident
+ 
+ gpLemma1c = apl3 gpRule1 allan brenda charles
+ gpLemma2c = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3c = LTR gpLemma2c gpLemma1c
+ gpLemma4c = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpTheorem1c = LTR gpLemma4c gpLemma3c
+ 
+ 
  test = do
   proves (LTR (LTR AXM (SMB "a")) (APL (SMB "a") AXM))
   proves (LTR (LTR AXM (SMB "a")) (APL AXM (SMB "a")))
