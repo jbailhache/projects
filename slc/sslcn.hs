@@ -99,10 +99,6 @@ module Sslc where
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
 
  contSmb :: Proof -> String -> Bool
- -- contSmb (Proof0 (SMB s1)) s2 = s1 == s2
- -- contSmb (Proof0 r) _ = False
- -- contSmb (Proof1 r x) s = contSmb x s
- -- contSmb (Proof2 r x y) s = (contSmb x s) || (contSmb y s)
  contSmb x s = cont x (SMB s)
  
  abstr :: Proof -> String -> Proof -> Proof
