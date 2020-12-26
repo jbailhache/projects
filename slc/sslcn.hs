@@ -92,10 +92,10 @@ module Sslc where
 	    ly = side LeftSide a b y
 	in let rlx = red lx
 	       rly = red ly
-	   in if rlx == rly
-	   -- in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
-	      then side RightSide a b (if s == LeftSide then x else y)
-	      -- then red (side RightSide a b (if s == LeftSide then x else y))
+	   -- in if rlx == rly
+	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	      then side RightSide a b (if s == LeftSide then x else y) -- LTR without right reduction
+	      -- then red (side RightSide a b (if s == LeftSide then x else y)) -- LTR with right reduction
           -- then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
 	      else LTR x y
  -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
@@ -177,4 +177,3 @@ module Sslc where
   reducesTo (APL (APL (DBL DB0) (DBL DB0)) (APL (DBL DB0) (SMB "a")))
   reducesTo (fix ident)
   reducesTo (fix (DBL (APL (SMB "a") DB0)))  
-
