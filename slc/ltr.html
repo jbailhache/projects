@@ -1,0 +1,386 @@
+<html>
+<head>
+<title>Note about definition of LTR in Simplified Symbolic Lambda Calculus</title>
+</head>
+<body>
+<h2>Note about definition of LTR in Simplified Symbolic Lambda Calculus</h2>
+
+Simplified Symbolic Lambda Calculus is presented <a href="sslc.txt">here</a>.
+<p>
+In a previous version of Symbolic Lambda Calculus, the rules were :
+
+<ul>
+ <li> SMB s proves SMB s = SMB s
+ <li> DB0 proves DB0 = DB0
+ <li> DBS x proves DBS a = DBS b if x proves a = b
+ <li> DBL x proves DBL a = DBL b if x proves a = b
+ <li> APL x y proves APL a c = APL b d if x proves a = b and y proves c = d
+   <br>in other terms, if a = b and c = d then APL a c = APL b d
+ <li> LTS x y proves b = c if x proves a = b and y proves a = c
+ <li> SUB x y proves APL (DBL x) y = z where z is the result of substituting in x the variables whose index equals the nesting level in DBL terms by y.
+ <li> EQU x y proves x = y (can be used only in rules an axioms of the formal system)
+</ul>
+
+Remarks : 
+<uk>
+ <li> We could also have one symbol SMB without losing theoretical generality, and this is the case in the initial formalism, but here for more facility we will consider we have a countable infinity of symbols denoted "SMB s" where s is any character string.
+ <li> In the initial formalism, the constructor EQU x y was replaced by a constructor AXM which proves u = v where u and v are parameters representing a theory. This is theoretically equivalent but a theory is more easy to represent using EQU.
+</ul>
+
+<p>
+LTS (for Left Transitivity-Symmetry) represents both transitivity (a = b, b = c => a = c) and symmetry (a = b => b = a)
+It may be replaced by RTS (for Right Transitivity-Symmetry) (a = c, b = c => a = b)
+<p>
+An idea of simplification is to merge the two constructors LTS and SUB into one constructor LTR (for Left Transitivity-symmetry with Reduction) by introducing reduction in LTS :
+
+<ul>
+ <li> LTR x y proves b = d if x proves a = b, y proves c = d, a reduces to e and c reduces to e, otherwise it proves LTR x y = LTR x y
+</ul>
+
+Another idea is to also apply reduction to the right parts of equalities (LTR with right reduction) :
+
+<ul>
+ <li> LTR x y proves f = g if x proves a = b, y proves c = d, a reduces to e, c reduces to e, b reduces to f and d reduces to g, otherwise it proves LTR x y = LTR x y
+</ul>
+
+This is the version of Simplified Symbolic Lambda Calculus presented <a href="sslc.txt">here</a>.
+
+This may simplify proofs, but it may also weaken the system.
+<br>
+For example, with LTR without right reduction we can easily prove for example : APL (DBL DB0) (SMB "a") = SMB "a" with the proof : LTR (APL (DBL DB0) (SMB "a")) (SMB "a")
+<br>
+At the bottom of this page is a Haskell program computing equalities proved by a given proof. With this example, it gives :
+<pre>
+Sslc> proves (LTR (APL (DBL DB0) (SMB "a")) (SMB "a"))
+
+The proof
+  LTR (APL (DBL DB0) (SMB "a")) (SMB "a")
+proves
+  APL (DBL DB0) (SMB "a")
+= SMB "a"
+</pre>
+
+or SMB "a" = APL (DBL DB0) (SMB "a") :
+
+<pre>
+Sslc> proves (LTR (SMB "a") (APL (DBL DB0) (SMB "a")))
+
+The proof
+  LTR (SMB "a") (APL (DBL DB0) (SMB "a"))
+proves
+  SMB "a"
+= APL (DBL DB0) (SMB "a")
+</pre>
+
+But with LTR with right reduction this does not work :
+
+<pre>
+Sslc> proves (LTR (APL (DBL DB0) (SMB "a")) (SMB "a"))
+
+The proof
+  LTR (APL (DBL DB0) (SMB "a")) (SMB "a")
+proves
+  SMB "a"
+= SMB "a"
+
+Sslc> proves (LTR (SMB "a") (APL (DBL DB0) (SMB "a")))
+
+The proof
+  LTR (SMB "a") (APL (DBL DB0) (SMB "a"))
+proves
+  SMB "a"
+= SMB "a"
+</pre>
+
+But proofs are simpler with right reduction than without. 
+<br>
+Here is an example of formal system with a rule saying that if x is parent of y and y is parent of z then x in grand parent of z, and two axioms saying that Allan is parent of Brenda and Brenda is parent of Charles.
+
+<pre>
+ gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
+  EQU (APL (apl2 parent (SMB "x") (SMB "y")) $
+       APL (apl2 parent (SMB "y") (SMB "z")) $
+       apl2 gdparent (SMB "x") (SMB "z"))
+      ident
+ gpAxiom1 = EQU (apl2 parent allan brenda) ident
+ gpAxiom2 = EQU (apl2 parent brenda charles) ident
+</pre>
+
+Here is a proof of a theorem saying that Allan is grand parent of Charles with LTR with right reduction :
+
+<pre>
+ gpLemma1c = apl3 gpRule1 allan brenda charles
+ gpLemma2c = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3c = LTR gpLemma2c gpLemma1c
+ gpLemma4c = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpTheorem1c = LTR gpLemma4c gpLemma3c
+</pre>
+
+It effectively proves what we want :
+
+<pre>
+Sslc> proves gpTheorem1c
+
+The proof
+  LTR (APL (EQU (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (DBL DB0)) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles"))) (LTR (APL (EQU (APL (APL (SMB "parent") (SMB "allan")) (SMB "brenda")) (DBL DB0)) (APL (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")))) (APL (APL (APL (DBL (DBL (DBL (EQU (APL (APL (APL (SMB "parent") (DBS (DBS DB0))) (DBS DB0)) (APL (APL (APL (SMB "parent") (DBS DB0)) DB0) (APL (APL (SMB "gdparent") (DBS (DBS DB0))) DB0))) (DBL DB0))))) (SMB "allan")) (SMB "brenda")) (SMB "charles")))
+proves
+  APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")
+= DBL DB0
+</pre>
+
+Note that in this system the truth of a sentence is represented by equality with the identity (DBL DB0).
+<p>
+But with LTR without right reduction itdoes not work :
+
+<pre>
+Sslc> proves gpTheorem1c
+
+The proof
+  LTR (APL (EQU (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (DBL DB0)) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles"))) (LTR (APL (EQU (APL (APL (SMB "parent") (SMB "allan")) (SMB "brenda")) (DBL DB0)) (APL (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")))) (APL (APL (APL (DBL (DBL (DBL (EQU (APL (APL (APL (SMB "parent") (DBS (DBS DB0))) (DBS DB0)) (APL (APL (APL (SMB "parent") (DBS DB0)) DB0) (APL (APL (SMB "gdparent") (DBS (DBS DB0))) DB0))) (DBL DB0))))) (SMB "allan")) (SMB "brenda")) (SMB "charles")))
+proves
+  APL (DBL DB0) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles"))
+= APL (APL (APL (DBL (DBL (DBL (DBL DB0)))) (SMB "allan")) (SMB "brenda")) (SMB "charles")
+</pre>
+
+To prove the theorem, we need a longer proof :
+
+<pre>
+ gpLemma1d = apl3 gpRule1 allan brenda charles
+ gpLemma2d = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3d1 = LTR gpLemma2d gpLemma1d
+ gpLemma3d = LTR (LTR gpLemma3d1 (APL (apl2 parent brenda charles) (apl2 gdparent allan charles))) (DBL DB0)
+ gpLemma4d = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpLemma5d = LTR gpLemma4d gpLemma3d
+ gpTheorem1d = LTR (apl2 gdparent allan charles) gpLemma5d 
+</pre>
+
+With this proof, it works :
+
+<pre>
+Sslc> proves gpTheorem1d
+
+The proof
+  LTR (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")) (LTR (APL (EQU (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (DBL DB0)) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles"))) (LTR (LTR (LTR (APL (EQU (APL (APL (SMB "parent") (SMB "allan")) (SMB "brenda")) (DBL DB0)) (APL (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")))) (APL (APL (APL (DBL (DBL (DBL (EQU (APL (APL (APL (SMB "parent") (DBS (DBS DB0))) (DBS DB0)) (APL (APL (APL (SMB "parent") (DBS DB0)) DB0) (APL (APL (SMB "gdparent") (DBS (DBS DB0))) DB0))) (DBL DB0))))) (SMB "allan")) (SMB "brenda")) (SMB "charles"))) (APL (APL (APL (SMB "parent") (SMB "brenda")) (SMB "charles")) (APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")))) (DBL DB0)))
+proves
+  APL (APL (SMB "gdparent") (SMB "allan")) (SMB "charles")
+= DBL DB0
+</pre>
+
+Switching between LTR without or with right reduction is done by uncommenting the corresponding line and commenting the other :
+
+<pre>
+	      then side RightSide a b (if s == LeftSide then x else y)
+	      then red (side RightSide a b (if s == LeftSide then x else y))
+</pre>
+
+<p>
+
+Another point, which is also explained <a href="slc-hist.html">here</a>, concerns the reduction, implemented by a function called "red".
+<p>
+We must now give a precise definition of the "red" function.
+<br>
+One idea is to define a function "red1" which does one step of reduction, and repeat the application of this function until no more reduction is possible, i.e. we get a x such that red1(x) == x.
+<br>
+The problem with this definition is that there exist some terms (such that the fixed point of identity for example) such that iterated steps of reduction falls into a loop. To avoid this problem, we can define a "red" function which stops when a previously got result is got again.
+<br>
+But there also exist other terms for which iterated steps of reduction gives a succession of terms of increasing size. This can be detected if at some time we get a term which contains a previously got term. We can stop reduction at this time to avoid looping.
+<br>
+Since in some cases reduction could be continued but must be stopped to avoid looping, the consequence is that if x = y, we do not necessarily have red(x) == red(y). This limits the conditions of application of the LTR constructor. These conditions can be generalized by modifying the definition of this constructor :
+<ul>
+<li> LTR : a = b, c = d |- b = d if one of a and red(a) is syntactically equal to one of c and red(c), otherwise LTR x y |- LTR x y = LTR x y
+</ul>
+with LTR without right reduction, or
+<ul>
+<li> LTR : a = b, c = d |- red(b) = red(d) if one of a and red(a) is syntactically equal to one of c and red(c), otherwise LTR x y |- LTR x y = LTR x y
+</ul>
+with LTR with right reduction.
+
+<p>
+
+Here is the Haskell code of the program used in this page :
+
+<pre>
+module Sslc where
+ 
+ import Data.List
+
+ data Proof = AXM
+			| EQU Proof Proof
+            | SMB String
+            | DB0 
+            | DBS Proof
+            | DBL Proof
+            | APL Proof Proof
+            | LTR Proof Proof
+	deriving (Eq, Show)
+
+ data Side = LeftSide | RightSide
+	deriving (Eq, Show)
+
+ shift :: Proof -> Proof -> Proof
+ shift _ AXM = AXM
+ shift u (EQU x y) = EQU (shift u x) (shift u y)
+ shift _ (SMB s) = SMB s
+ shift _ DB0 = DB0
+ shift u (DBS x) = if u == DBS x then DBS u else DBS (shift u x)
+ shift u (DBL x) = DBL (shift (DBS u) x)
+ shift u (APL x y) = APL (shift u x) (shift u y)
+ shift u (LTR x y) = LTR (shift u x) (shift u y)
+
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if DBS u == a then u else subst1 u a b)
+ subst1 _ AXM b = AXM
+ subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
+ subst1 _ (SMB s) _ = SMB s
+ subst1 _ DB0 _ = DB0
+ subst1 u (DBS x) b = DBS (subst u x b)
+ subst1 u (DBL x) b = DBL (subst (DBS u) x (shift DB0 b))
+ subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
+ subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
+
+ cont :: Proof -> Proof -> Bool
+ cont1 :: Proof -> Proof -> Bool
+ cont x y = if x == y then True else cont1 x y
+ cont1 AXM _ = False
+ cont1 (EQU x y) z = (cont x z) || (cont y z)
+ cont1 (SMB s) _ = False
+ cont1 DB0 _ = False
+ cont1 (DBS x) y = cont x y
+ cont1 (DBL x) y = cont x y
+ cont1 (APL x y) z = (cont x z) || (cont y z)
+ cont1 (LTR x y) z = (cont x z) || (cont y z)
+
+ red1 :: Proof -> Proof
+ red1 AXM = AXM
+ red1 (EQU x y) = EQU (red1 x) (red1 y)
+ red1 (SMB s) = SMB s
+ red1 DB0 = DB0
+ red1 (DBS x) = DBS (red1 x)
+ red1 (DBL x) = DBL (red1 x)
+ red1 (APL (DBL x) y) = subst DB0 x y
+ red1 (APL x y) = APL (red1 x) (red1 y)
+ red1 (LTR x y) = LTR (red1 x) (red1 y)
+
+ red2 :: [Proof] -> [Proof]
+ red2 [] = []
+ red2 (x : l) = (red1 x) : (x : l)
+
+ red3 :: [Proof] -> [Proof]
+ red3 [] = []
+ -- red3 (x : l) = if elem x l then (x : l) else red3 (red2 (x : l))
+ red3 (x : l) = case find (\y -> cont x y) l of
+	Nothing -> red3 (red2 (x : l))
+	Just _ -> x : l
+
+ red :: Proof -> Proof
+ red x = case red3 (x : []) of
+		[] -> x
+		y : m -> y
+ -- red x = if red1 x == x then x else red (red1 x)
+
+ side :: Side -> Proof -> Proof -> Proof -> Proof
+ side LeftSide a b AXM = a
+ side RightSide a b AXM = b
+ side LeftSide _ _ (EQU x y) = x
+ side RightSide _ _ (EQU x y) = y
+ side _ _ _ (SMB s) = SMB s
+ side _ _ _ DB0 = DB0
+ side s a b (DBS x) = DBS (side s a b x)
+ side s a b (DBL x) = DBL (side s a b x)
+ side s a b (APL x y) = APL (side s a b x) (side s a b y)
+ side s a b (LTR x y) = 
+	let lx = side LeftSide a b x
+	    ly = side LeftSide a b y
+	in let rlx = red lx
+	       rly = red ly
+	   -- in if rlx == rly
+	   in if (lx == ly) || (lx == rly) || (rlx == ly) || (rlx == rly) 
+	      then side RightSide a b (if s == LeftSide then x else y) -- LTR without right reduction
+	      -- then red (side RightSide a b (if s == LeftSide then x else y)) -- LTR with right reduction
+          -- then (if s == LeftSide then (side RightSide a b x) else red (side RightSide a b y))
+	      else LTR x y
+ -- if red (side LeftSide a b x) == red (side LeftSide a b y) then (side RightSide a b (if s == LeftSide then x else y)) else LTR x y
+
+
+ contSmb :: Proof -> String -> Bool
+ contSmb x s = cont x (SMB s)
+ 
+ abstr :: Proof -> String -> Proof -> Proof
+ abstr1 :: Proof -> String -> Proof -> Proof
+ abstr d v x = if (contSmb x v) then (abstr1 d v x) else x
+ abstr1 d v AXM = AXM
+ abstr1 d v (EQU x y) = EQU (abstr d v x) (abstr d v y)
+ abstr1 d v (SMB s) = if v == s then d else (SMB s)
+ abstr1 d v DB0 = DB0
+ abstr1 d v (DBS x) = DBS (abstr d v x)
+ abstr1 d v (DBL x) = DBL (abstr (DBS d) v x)
+ abstr1 d v (APL x y) = APL (abstr d v x) (abstr d v y)
+ abstr1 d v (LTR x y) = LTR (abstr d v x) (abstr d v y)
+ 
+ lambda :: String -> Proof -> Proof
+ lambda v x = DBL (abstr DB0 v x)
+
+ 
+ axl = SMB "a"
+ axr = APL (SMB "a") (SMB "a")
+
+ left = side LeftSide axl axr
+ right = side RightSide axl axr
+
+ proves x = do
+  putStr ("\nThe proof\n  " ++ show x ++ " \nproves\n  " ++ show (left x) ++ "\n= " ++ show (right x) ++ "\n")
+
+ reducesTo x = do
+  putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (red x) ++ "\n")
+
+ ident = DBL DB0
+ auto = DBL (APL DB0 DB0)
+ comp f g = DBL (APL f (APL g DB0))
+ fix f = APL auto (comp f auto)
+ ias = fix (DBL (APL (SMB "a") DB0))
+
+ apl2 f x y = APL (APL f x) y
+ apl3 f x y z = APL (APL (APL f x) y) z
+
+ parent = SMB "parent"
+ gdparent = SMB "gdparent"
+ allan = SMB "allan"
+ brenda = SMB "brenda"
+ charles = SMB "charles"
+
+ gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
+  EQU (APL (apl2 parent (SMB "x") (SMB "y")) $
+       APL (apl2 parent (SMB "y") (SMB "z")) $
+       apl2 gdparent (SMB "x") (SMB "z"))
+      ident
+ gpAxiom1 = EQU (apl2 parent allan brenda) ident
+ gpAxiom2 = EQU (apl2 parent brenda charles) ident
+ 
+ gpLemma1c = apl3 gpRule1 allan brenda charles
+ gpLemma2c = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3c = LTR gpLemma2c gpLemma1c
+ gpLemma4c = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpTheorem1c = LTR gpLemma4c gpLemma3c
+ 
+ gpLemma1d = apl3 gpRule1 allan brenda charles
+ gpLemma2d = APL gpAxiom1 $ APL (apl2 parent brenda charles) $ apl2 gdparent allan charles
+ gpLemma3d1 = LTR gpLemma2d gpLemma1d
+ gpLemma3d = LTR (LTR gpLemma3d1 (APL (apl2 parent brenda charles) (apl2 gdparent allan charles))) (DBL DB0)
+ gpLemma4d = APL gpAxiom2 $ apl2 gdparent allan charles
+ gpLemma5d = LTR gpLemma4d gpLemma3d
+ gpTheorem1d = LTR (apl2 gdparent allan charles) gpLemma5d 
+ 
+ 
+ test = do
+  proves (LTR (LTR AXM (SMB "a")) (APL (SMB "a") AXM))
+  proves (LTR (LTR AXM (SMB "a")) (APL AXM (SMB "a")))
+  proves (LTR (LTR AXM (SMB "a")) (APL AXM AXM))
+  reducesTo (APL (APL (DBL DB0) (DBL DB0)) (APL (DBL DB0) (SMB "a")))
+  reducesTo (fix ident)
+  reducesTo (fix (DBL (APL (SMB "a") DB0)))  
+
+</pre>
+
+</body>
+</html>
