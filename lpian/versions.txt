@@ -1,0 +1,17 @@
+Versions de SLC en LPIA
+
+12951 slc.lpi  - 3359 ajouts -> 14410 slcn.lpi - 347 SLC-NODES -> 14627 slc-apn.lpi 
+14410 slcn.lpi - 5610 ajouts -> 14792 slcr.lpi - 16500 simplification -> 6756 slcrs.lpi - 4657 ajouts gp, prop -> 11117 slco.lpi 
+1117 slco.lpi - 395 -> 11177 slco-test.lpi
+1117 slco.lpi - 378 -> slcot.lpi
+
+LTR : a = b, c = d, a -> e, c -> e, b -> f, d -> g
+slco.lpi : ... |- f = g
+slco-test.lpi : ... |- b = d
+slcot.lpi : ... |- b = g
+
+Exemple :
+
+$ ./lpia
+...
+"slco.lpi" LOAD
