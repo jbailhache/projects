@@ -1,0 +1,323 @@
+d 1: A = I I -> I = I.
+d 2: A = K K -> K = K.
+d 3: A = S S -> S = S.
+d 4: A = Z Z -> Z = Z.
+d 5: A = E E -> E = E.
+d 6: A = e e -> e = e.
+d 7: A = X X -> X = X.
+d 8: A = ! ! -> ! = !.
+d 11: A = --S--S-KSK-KI I -> ((S ((S (K S)) K)) (K I)) = I.
+d 12: A = --S--S-KS--S-KK--S-KSK-KK -S-KK -> ((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) = (S (K K)).
+d 13: A = --S-KS-S-KK K -> ((S (K S)) (S (K K))) = K.
+d 14: A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS-S-K-S-KSS -> ((S (K (S (K S)))) ((S (K S)) (S (K S)))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) (S (K (S (K S)))))))) S).
+d 15: A = -S-KI I -> (S (K I)) = I.
+d 16: A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS--S-K-S-KSS-KS -> ((S (K (S (K S)))) ((S (K S)) (S (K S)))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)).
+d 21: A = --SEI -KI -> ((S E) I) = (K I).
+d 22: A = --S--S-KSeK --S--S-KSe-KI -> ((S ((S (K S)) e)) K) = ((S ((S (K S)) e)) (K I)).
+d 23: A = --S-K-S-KS--S-K-S-KKe --S--S-KS--S-K-S-KS--S-K-S-K-S-KS--S-K-S-K-S-KKe--S-K-S-KKe -> ((S (K (S (K S)))) ((S (K (S (K K)))) e)) = ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K (S (K S)))))) ((S (K (S (K (S (K K)))))) e))))) ((S (K (S (K K)))) e)).
+d 31: S 2 2 7 -> ---SKKX = --KX-KX ; (((S K) K) X) = ((K X) (K X)).
+d 32: a 2 7 -> -KX = -KX ; (K X) = (K X).
+d 33: K 7 32 -> --KX-KX = X ; ((K X) (K X)) = X.
+d 34: t 31 33 -> ---SKKX = X ; (((S K) K) X) = X.
+d 41: A = x x -> x = x.
+d 42: A = y y -> y = y.
+d 43: A = z z -> z = z.
+d 51: A = t t -> t = t.
+d 52: A = o o -> o = o.
+d 53: A = u u -> u = u.
+d 54: A = f f -> f = f.
+d 61: A = -to I -> (t o) = I.
+d 62: A = -tu I -> (t u) = I.
+d 63: A = --S--S-KS--S-KK--S--S-K!t-KI--S-K-S--S--S-K!t-KI--S-K-S-Ktf --S--S-KS--S-KK--S--S-K!t-KI-K--S--S--S-K!t-KI-KI -> ((S ((S (K S)) ((S (K K)) ((S ((S (K !)) t)) (K I))))) ((S (K (S ((S ((S (K !)) t)) (K I))))) ((S (K (S (K t)))) f))) = ((S ((S (K S)) ((S (K K)) ((S ((S (K !)) t)) (K I))))) (K ((S ((S ((S (K !)) t)) (K I))) (K I)))).
+d 71: A = --S!I -KI -> ((S !) I) = (K I).
+d 72: A = i i -> i = i.
+d 73: A = k k -> k = k.
+d 74: A = s s -> s = s.
+d 80: A = & & -> & = &.
+d 81: A = T T -> T = T.
+d 82: A = --S-KTi --SfI -> ((S (K T)) i) = ((S f) I).
+d 83: A = --S-K-S-KTk --S--S-KS--S-KKf--S-K-SfK -> ((S (K (S (K T)))) k) = ((S ((S (K S)) ((S (K K)) f))) ((S (K (S f))) K)).
+d 84: A = --S-K-S-K-S-KTs --S--S-KS--S-K-S-KS--S-K-S-K-S-Kf--S--S-KS--S-KK--S-KS--S-KKf-Kf--S--S-KS--S-K-S-KS--S-K-S-KK--S-K-S-Kff--S-KKf -> ((S (K (S (K (S (K T)))))) s) = ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K (S (K f)))))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) f))))) (K f)))))) ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K K)))) ((S (K (S (K f)))) f))))) ((S (K K)) f))).
+d 85: A = --S--S-KS--S-KK--S-KS--S-K-S-KS--S--S-KS--S-KK--S-KS--S-KK--S-K!T-Kf--S-K-S-K-S-KK--S-K-S--S-KS--S-K!T--S-K-S-KK--S-K-S-KT& --S--S-KS--S-KK--S-KS--S-K-S-KS--S--S-KS--S-KK--S-KS--S-KK--S-K!T-Kf-K--S-K!T -> ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) ((S (K !)) T)))))) (K f))))))) ((S (K (S (K (S (K K)))))) ((S (K (S ((S (K S)) ((S (K !)) T))))) ((S (K (S (K K)))) ((S (K (S (K T)))) &))))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) ((S (K !)) T)))))) (K f))))))) (K ((S (K !)) T))).
+d 101: A = a a -> a = a.
+d 102: A = b b -> b = b.
+d 103: A = c c -> c = c.
+d 104: s 505 -> a = -Ia ; a = (I a).
+d 105: t 504 104 -> ---SKKa = -Ia ; (((S K) K) a) = (I a).
+d 501: S 2 2 101 -> ---SKKa = --Ka-Ka ; (((S K) K) a) = ((K a) (K a)).
+d 502: a 2 101 -> -Ka = -Ka ; (K a) = (K a).
+d 503: K 101 502 -> --Ka-Ka = a ; ((K a) (K a)) = a.
+d 504: t 501 503 -> ---SKKa = a ; (((S K) K) a) = a.
+d 505: I 101 -> -Ia = a ; (I a) = a.
+d 506: a 2 2 -> -KK = -KK ; (K K) = (K K).
+d 507: a 2 2 -> -KK = -KK ; (K K) = (K K).
+d 508: a 16 506 -> ---S-K-S-KS--S-KS-S-KS-KK = ---S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK ; (((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) = (((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)).
+d 509: a 508 507 -> ----S-K-S-KS--S-KS-S-KS-KK-KK = ----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KK ; ((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) = ((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)).
+d 510: a 509 1 -> -----S-K-S-KS--S-KS-S-KS-KK-KKI = -----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KKI ; (((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) I) = (((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) I).
+d 511: a 2 3 -> -KS = -KS ; (K S) = (K S).
+d 512: a 3 511 -> -S-KS = -S-KS ; (S (K S)) = (S (K S)).
+d 513: a 2 512 -> -K-S-KS = -K-S-KS ; (K (S (K S))) = (K (S (K S))).
+d 514: a 512 512 -> --S-KS-S-KS = --S-KS-S-KS ; ((S (K S)) (S (K S))) = ((S (K S)) (S (K S))).
+d 515: S 513 514 506 -> ---S-K-S-KS--S-KS-S-KS-KK = ---K-S-KS-KK---S-KS-S-KS-KK ; (((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) = (((K (S (K S))) (K K)) (((S (K S)) (S (K S))) (K K))).
+d 516: K 512 506 -> --K-S-KS-KK = -S-KS ; ((K (S (K S))) (K K)) = (S (K S)).
+d 517: S 511 512 506 -> ---S-KS-S-KS-KK = ---KS-KK--S-KS-KK ; (((S (K S)) (S (K S))) (K K)) = (((K S) (K K)) ((S (K S)) (K K))).
+d 518: K 3 506 -> --KS-KK = S ; ((K S) (K K)) = S.
+d 519: a 512 506 -> --S-KS-KK = --S-KS-KK ; ((S (K S)) (K K)) = ((S (K S)) (K K)).
+d 520: a 518 519 -> ---KS-KK--S-KS-KK = -S--S-KS-KK ; (((K S) (K K)) ((S (K S)) (K K))) = (S ((S (K S)) (K K))).
+d 521: a 3 519 -> -S--S-KS-KK = -S--S-KS-KK ; (S ((S (K S)) (K K))) = (S ((S (K S)) (K K))).
+d 522: t 517 520 -> ---S-KS-S-KS-KK = -S--S-KS-KK ; (((S (K S)) (S (K S))) (K K)) = (S ((S (K S)) (K K))).
+d 523: a 516 522 -> ---K-S-KS-KK---S-KS-S-KS-KK = --S-KS-S--S-KS-KK ; (((K (S (K S))) (K K)) (((S (K S)) (S (K S))) (K K))) = ((S (K S)) (S ((S (K S)) (K K)))).
+d 524: a 512 521 -> --S-KS-S--S-KS-KK = --S-KS-S--S-KS-KK ; ((S (K S)) (S ((S (K S)) (K K)))) = ((S (K S)) (S ((S (K S)) (K K)))).
+d 525: t 515 523 -> ---S-K-S-KS--S-KS-S-KS-KK = --S-KS-S--S-KS-KK ; (((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) = ((S (K S)) (S ((S (K S)) (K K)))).
+d 526: a 525 506 -> ----S-K-S-KS--S-KS-S-KS-KK-KK = ---S-KS-S--S-KS-KK-KK ; ((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) = (((S (K S)) (S ((S (K S)) (K K)))) (K K)).
+d 527: S 511 521 506 -> ---S-KS-S--S-KS-KK-KK = ---KS-KK--S--S-KS-KK-KK ; (((S (K S)) (S ((S (K S)) (K K)))) (K K)) = (((K S) (K K)) ((S ((S (K S)) (K K))) (K K))).
+d 528: K 3 506 -> --KS-KK = S ; ((K S) (K K)) = S.
+d 529: a 521 506 -> --S--S-KS-KK-KK = --S--S-KS-KK-KK ; ((S ((S (K S)) (K K))) (K K)) = ((S ((S (K S)) (K K))) (K K)).
+d 530: a 528 529 -> ---KS-KK--S--S-KS-KK-KK = -S--S--S-KS-KK-KK ; (((K S) (K K)) ((S ((S (K S)) (K K))) (K K))) = (S ((S ((S (K S)) (K K))) (K K))).
+d 531: a 3 529 -> -S--S--S-KS-KK-KK = -S--S--S-KS-KK-KK ; (S ((S ((S (K S)) (K K))) (K K))) = (S ((S ((S (K S)) (K K))) (K K))).
+d 532: t 527 530 -> ---S-KS-S--S-KS-KK-KK = -S--S--S-KS-KK-KK ; (((S (K S)) (S ((S (K S)) (K K)))) (K K)) = (S ((S ((S (K S)) (K K))) (K K))).
+d 533: t 526 532 -> ----S-K-S-KS--S-KS-S-KS-KK-KK = -S--S--S-KS-KK-KK ; ((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) = (S ((S ((S (K S)) (K K))) (K K))).
+d 534: a 533 1 -> -----S-K-S-KS--S-KS-S-KS-KK-KKI = --S--S--S-KS-KK-KKI ; (((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) I) = ((S ((S ((S (K S)) (K K))) (K K))) I).
+d 535: a 531 1 -> --S--S--S-KS-KK-KKI = --S--S--S-KS-KK-KKI ; ((S ((S ((S (K S)) (K K))) (K K))) I) = ((S ((S ((S (K S)) (K K))) (K K))) I).
+d 536: s 534 -> --S--S--S-KS-KK-KKI = -----S-K-S-KS--S-KS-S-KS-KK-KKI ; ((S ((S ((S (K S)) (K K))) (K K))) I) = (((((S (K (S (K S)))) ((S (K S)) (S (K S)))) (K K)) (K K)) I).
+d 537: t 536 510 -> --S--S--S-KS-KK-KKI = -----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KKI ; ((S ((S ((S (K S)) (K K))) (K K))) I) = (((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) I).
+d 538: a 3 506 -> -S-KK = -S-KK ; (S (K K)) = (S (K K)).
+d 539: a 3 513 -> -S-K-S-KS = -S-K-S-KS ; (S (K (S (K S)))) = (S (K (S (K S)))).
+d 540: a 539 3 -> --S-K-S-KSS = --S-K-S-KSS ; ((S (K (S (K S)))) S) = ((S (K (S (K S)))) S).
+d 541: a 512 540 -> --S-KS--S-K-S-KSS = --S-KS--S-K-S-KSS ; ((S (K S)) ((S (K (S (K S)))) S)) = ((S (K S)) ((S (K (S (K S)))) S)).
+d 542: a 538 541 -> --S-KK--S-KS--S-K-S-KSS = --S-KK--S-KS--S-K-S-KSS ; ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))) = ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))).
+d 543: a 512 542 -> --S-KS--S-KK--S-KS--S-K-S-KSS = --S-KS--S-KK--S-KS--S-K-S-KSS ; ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))) = ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))).
+d 544: S 543 511 506 -> ---S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK = ----S-KS--S-KK--S-KS--S-K-S-KSS-KK--KS-KK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) = ((((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))) (K K)) ((K S) (K K))).
+d 545: S 511 542 506 -> ---S-KS--S-KK--S-KS--S-K-S-KSS-KK = ---KS-KK---S-KK--S-KS--S-K-S-KSS-KK ; (((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))) (K K)) = (((K S) (K K)) (((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))) (K K))).
+d 546: K 3 506 -> --KS-KK = S ; ((K S) (K K)) = S.
+d 547: S 506 541 506 -> ---S-KK--S-KS--S-K-S-KSS-KK = ---KK-KK---S-KS--S-K-S-KSS-KK ; (((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))) (K K)) = (((K K) (K K)) (((S (K S)) ((S (K (S (K S)))) S)) (K K))).
+d 548: K 2 506 -> --KK-KK = K ; ((K K) (K K)) = K.
+d 549: S 511 540 506 -> ---S-KS--S-K-S-KSS-KK = ---KS-KK---S-K-S-KSS-KK ; (((S (K S)) ((S (K (S (K S)))) S)) (K K)) = (((K S) (K K)) (((S (K (S (K S)))) S) (K K))).
+d 550: K 3 506 -> --KS-KK = S ; ((K S) (K K)) = S.
+d 551: S 513 3 506 -> ---S-K-S-KSS-KK = ---K-S-KS-KK-S-KK ; (((S (K (S (K S)))) S) (K K)) = (((K (S (K S))) (K K)) (S (K K))).
+d 552: K 512 506 -> --K-S-KS-KK = -S-KS ; ((K (S (K S))) (K K)) = (S (K S)).
+d 553: a 552 538 -> ---K-S-KS-KK-S-KK = --S-KS-S-KK ; (((K (S (K S))) (K K)) (S (K K))) = ((S (K S)) (S (K K))).
+d 554: a 512 538 -> --S-KS-S-KK = --S-KS-S-KK ; ((S (K S)) (S (K K))) = ((S (K S)) (S (K K))).
+d 555: t 551 553 -> ---S-K-S-KSS-KK = --S-KS-S-KK ; (((S (K (S (K S)))) S) (K K)) = ((S (K S)) (S (K K))).
+d 556: a 550 555 -> ---KS-KK---S-K-S-KSS-KK = -S--S-KS-S-KK ; (((K S) (K K)) (((S (K (S (K S)))) S) (K K))) = (S ((S (K S)) (S (K K)))).
+d 557: a 3 554 -> -S--S-KS-S-KK = -S--S-KS-S-KK ; (S ((S (K S)) (S (K K)))) = (S ((S (K S)) (S (K K)))).
+d 558: t 549 556 -> ---S-KS--S-K-S-KSS-KK = -S--S-KS-S-KK ; (((S (K S)) ((S (K (S (K S)))) S)) (K K)) = (S ((S (K S)) (S (K K)))).
+d 559: a 548 558 -> ---KK-KK---S-KS--S-K-S-KSS-KK = -K-S--S-KS-S-KK ; (((K K) (K K)) (((S (K S)) ((S (K (S (K S)))) S)) (K K))) = (K (S ((S (K S)) (S (K K))))).
+d 560: a 2 557 -> -K-S--S-KS-S-KK = -K-S--S-KS-S-KK ; (K (S ((S (K S)) (S (K K))))) = (K (S ((S (K S)) (S (K K))))).
+d 561: t 547 559 -> ---S-KK--S-KS--S-K-S-KSS-KK = -K-S--S-KS-S-KK ; (((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))) (K K)) = (K (S ((S (K S)) (S (K K))))).
+d 562: a 546 561 -> ---KS-KK---S-KK--S-KS--S-K-S-KSS-KK = -S-K-S--S-KS-S-KK ; (((K S) (K K)) (((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))) (K K))) = (S (K (S ((S (K S)) (S (K K)))))).
+d 563: a 3 560 -> -S-K-S--S-KS-S-KK = -S-K-S--S-KS-S-KK ; (S (K (S ((S (K S)) (S (K K)))))) = (S (K (S ((S (K S)) (S (K K)))))).
+d 564: t 545 562 -> ---S-KS--S-KK--S-KS--S-K-S-KSS-KK = -S-K-S--S-KS-S-KK ; (((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))) (K K)) = (S (K (S ((S (K S)) (S (K K)))))).
+d 565: K 3 506 -> --KS-KK = S ; ((K S) (K K)) = S.
+d 566: a 564 565 -> ----S-KS--S-KK--S-KS--S-K-S-KSS-KK--KS-KK = --S-K-S--S-KS-S-KKS ; ((((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S)))) (K K)) ((K S) (K K))) = ((S (K (S ((S (K S)) (S (K K)))))) S).
+d 567: a 563 3 -> --S-K-S--S-KS-S-KKS = --S-K-S--S-KS-S-KKS ; ((S (K (S ((S (K S)) (S (K K)))))) S) = ((S (K (S ((S (K S)) (S (K K)))))) S).
+d 568: t 544 566 -> ---S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK = --S-K-S--S-KS-S-KKS ; (((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) = ((S (K (S ((S (K S)) (S (K K)))))) S).
+d 569: a 568 506 -> ----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KK = ---S-K-S--S-KS-S-KKS-KK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) = (((S (K (S ((S (K S)) (S (K K)))))) S) (K K)).
+d 570: S 560 3 506 -> ---S-K-S--S-KS-S-KKS-KK = ---K-S--S-KS-S-KK-KK-S-KK ; (((S (K (S ((S (K S)) (S (K K)))))) S) (K K)) = (((K (S ((S (K S)) (S (K K))))) (K K)) (S (K K))).
+d 571: K 557 506 -> --K-S--S-KS-S-KK-KK = -S--S-KS-S-KK ; ((K (S ((S (K S)) (S (K K))))) (K K)) = (S ((S (K S)) (S (K K)))).
+d 572: a 571 538 -> ---K-S--S-KS-S-KK-KK-S-KK = --S--S-KS-S-KK-S-KK ; (((K (S ((S (K S)) (S (K K))))) (K K)) (S (K K))) = ((S ((S (K S)) (S (K K)))) (S (K K))).
+d 573: a 557 538 -> --S--S-KS-S-KK-S-KK = --S--S-KS-S-KK-S-KK ; ((S ((S (K S)) (S (K K)))) (S (K K))) = ((S ((S (K S)) (S (K K)))) (S (K K))).
+d 574: t 570 572 -> ---S-K-S--S-KS-S-KKS-KK = --S--S-KS-S-KK-S-KK ; (((S (K (S ((S (K S)) (S (K K)))))) S) (K K)) = ((S ((S (K S)) (S (K K)))) (S (K K))).
+d 575: t 569 574 -> ----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KK = --S--S-KS-S-KK-S-KK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) = ((S ((S (K S)) (S (K K)))) (S (K K))).
+d 576: a 575 1 -> -----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KKI = ---S--S-KS-S-KK-S-KKI ; (((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) I) = (((S ((S (K S)) (S (K K)))) (S (K K))) I).
+d 577: S 554 538 1 -> ---S--S-KS-S-KK-S-KKI = ----S-KS-S-KKI--S-KKI ; (((S ((S (K S)) (S (K K)))) (S (K K))) I) = ((((S (K S)) (S (K K))) I) ((S (K K)) I)).
+d 578: S 511 538 1 -> ---S-KS-S-KKI = ---KSI--S-KKI ; (((S (K S)) (S (K K))) I) = (((K S) I) ((S (K K)) I)).
+d 579: K 3 1 -> --KSI = S ; ((K S) I) = S.
+d 580: a 538 1 -> --S-KKI = --S-KKI ; ((S (K K)) I) = ((S (K K)) I).
+d 581: a 579 580 -> ---KSI--S-KKI = -S--S-KKI ; (((K S) I) ((S (K K)) I)) = (S ((S (K K)) I)).
+d 582: a 3 580 -> -S--S-KKI = -S--S-KKI ; (S ((S (K K)) I)) = (S ((S (K K)) I)).
+d 583: t 578 581 -> ---S-KS-S-KKI = -S--S-KKI ; (((S (K S)) (S (K K))) I) = (S ((S (K K)) I)).
+d 584: a 583 580 -> ----S-KS-S-KKI--S-KKI = --S--S-KKI--S-KKI ; ((((S (K S)) (S (K K))) I) ((S (K K)) I)) = ((S ((S (K K)) I)) ((S (K K)) I)).
+d 585: a 582 580 -> --S--S-KKI--S-KKI = --S--S-KKI--S-KKI ; ((S ((S (K K)) I)) ((S (K K)) I)) = ((S ((S (K K)) I)) ((S (K K)) I)).
+d 586: t 577 584 -> ---S--S-KS-S-KK-S-KKI = --S--S-KKI--S-KKI ; (((S ((S (K S)) (S (K K)))) (S (K K))) I) = ((S ((S (K K)) I)) ((S (K K)) I)).
+d 587: t 576 586 -> -----S--S-KS--S-KK--S-KS--S-K-S-KSS-KS-KK-KKI = --S--S-KKI--S-KKI ; (((((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)) (K K)) (K K)) I) = ((S ((S (K K)) I)) ((S (K K)) I)).
+d 588: t 537 587 -> --S--S--S-KS-KK-KKI = --S--S-KKI--S-KKI ; ((S ((S ((S (K S)) (K K))) (K K))) I) = ((S ((S (K K)) I)) ((S (K K)) I)).
+d 589: a 13 1 -> ---S-KS-S-KKI = -KI ; (((S (K S)) (S (K K))) I) = (K I).
+d 590: a 589 580 -> ----S-KS-S-KKI--S-KKI = --KI--S-KKI ; ((((S (K S)) (S (K K))) I) ((S (K K)) I)) = ((K I) ((S (K K)) I)).
+d 591: K 1 580 -> --KI--S-KKI = I ; ((K I) ((S (K K)) I)) = I.
+d 592: t 590 591 -> ----S-KS-S-KKI--S-KKI = I ; ((((S (K S)) (S (K K))) I) ((S (K K)) I)) = I.
+d 593: S 511 538 1 -> ---S-KS-S-KKI = ---KSI--S-KKI ; (((S (K S)) (S (K K))) I) = (((K S) I) ((S (K K)) I)).
+d 594: K 3 1 -> --KSI = S ; ((K S) I) = S.
+d 595: t 593 581 -> ---S-KS-S-KKI = -S--S-KKI ; (((S (K S)) (S (K K))) I) = (S ((S (K K)) I)).
+d 596: s 584 -> --S--S-KKI--S-KKI = ----S-KS-S-KKI--S-KKI ; ((S ((S (K K)) I)) ((S (K K)) I)) = ((((S (K S)) (S (K K))) I) ((S (K K)) I)).
+d 597: t 596 592 -> --S--S-KKI--S-KKI = I ; ((S ((S (K K)) I)) ((S (K K)) I)) = I.
+d 598: t 588 597 -> --S--S--S-KS-KK-KKI = I ; ((S ((S ((S (K S)) (K K))) (K K))) I) = I.
+d 599: I 1 -> -II = I ; (I I) = I.
+d 600: a 15 1 -> --S-KII = -II ; ((S (K I)) I) = (I I).
+d 601: t 600 599 -> --S-KII = I ; ((S (K I)) I) = I.
+d 602: s 601 -> I = --S-KII ; I = ((S (K I)) I).
+d 603: t 598 602 -> --S--S--S-KS-KK-KKI = --S-KII ; ((S ((S ((S (K S)) (K K))) (K K))) I) = ((S (K I)) I).
+d 604: a 12 3 -> ---S--S-KS--S-KK--S-KSK-KKS = --S-KKS ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) = ((S (K K)) S).
+d 605: a 604 2 -> ----S--S-KS--S-KK--S-KSK-KKSK = ---S-KKSK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) K) = (((S (K K)) S) K).
+d 606: a 512 2 -> --S-KSK = --S-KSK ; ((S (K S)) K) = ((S (K S)) K).
+d 607: a 538 606 -> --S-KK--S-KSK = --S-KK--S-KSK ; ((S (K K)) ((S (K S)) K)) = ((S (K K)) ((S (K S)) K)).
+d 608: a 512 607 -> --S-KS--S-KK--S-KSK = --S-KS--S-KK--S-KSK ; ((S (K S)) ((S (K K)) ((S (K S)) K))) = ((S (K S)) ((S (K K)) ((S (K S)) K))).
+d 609: S 608 506 3 -> ---S--S-KS--S-KK--S-KSK-KKS = ----S-KS--S-KK--S-KSKS--KKS ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) = ((((S (K S)) ((S (K K)) ((S (K S)) K))) S) ((K K) S)).
+d 610: S 511 607 3 -> ---S-KS--S-KK--S-KSKS = ---KSS---S-KK--S-KSKS ; (((S (K S)) ((S (K K)) ((S (K S)) K))) S) = (((K S) S) (((S (K K)) ((S (K S)) K)) S)).
+d 611: K 3 3 -> --KSS = S ; ((K S) S) = S.
+d 612: S 506 606 3 -> ---S-KK--S-KSKS = ---KKS---S-KSKS ; (((S (K K)) ((S (K S)) K)) S) = (((K K) S) (((S (K S)) K) S)).
+d 613: K 2 3 -> --KKS = K ; ((K K) S) = K.
+d 614: S 511 2 3 -> ---S-KSKS = ---KSS-KS ; (((S (K S)) K) S) = (((K S) S) (K S)).
+d 615: K 3 3 -> --KSS = S ; ((K S) S) = S.
+d 616: a 615 511 -> ---KSS-KS = -S-KS ; (((K S) S) (K S)) = (S (K S)).
+d 617: t 614 616 -> ---S-KSKS = -S-KS ; (((S (K S)) K) S) = (S (K S)).
+d 618: a 613 617 -> ---KKS---S-KSKS = -K-S-KS ; (((K K) S) (((S (K S)) K) S)) = (K (S (K S))).
+d 619: t 612 618 -> ---S-KK--S-KSKS = -K-S-KS ; (((S (K K)) ((S (K S)) K)) S) = (K (S (K S))).
+d 620: a 611 619 -> ---KSS---S-KK--S-KSKS = -S-K-S-KS ; (((K S) S) (((S (K K)) ((S (K S)) K)) S)) = (S (K (S (K S)))).
+d 621: t 610 620 -> ---S-KS--S-KK--S-KSKS = -S-K-S-KS ; (((S (K S)) ((S (K K)) ((S (K S)) K))) S) = (S (K (S (K S)))).
+d 622: K 2 3 -> --KKS = K ; ((K K) S) = K.
+d 623: a 621 622 -> ----S-KS--S-KK--S-KSKS--KKS = --S-K-S-KSK ; ((((S (K S)) ((S (K K)) ((S (K S)) K))) S) ((K K) S)) = ((S (K (S (K S)))) K).
+d 624: a 539 2 -> --S-K-S-KSK = --S-K-S-KSK ; ((S (K (S (K S)))) K) = ((S (K (S (K S)))) K).
+d 625: t 609 623 -> ---S--S-KS--S-KK--S-KSK-KKS = --S-K-S-KSK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) = ((S (K (S (K S)))) K).
+d 626: a 625 2 -> ----S--S-KS--S-KK--S-KSK-KKSK = ---S-K-S-KSKK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) K) = (((S (K (S (K S)))) K) K).
+d 627: S 513 2 2 -> ---S-K-S-KSKK = ---K-S-KSK-KK ; (((S (K (S (K S)))) K) K) = (((K (S (K S))) K) (K K)).
+d 628: K 512 2 -> --K-S-KSK = -S-KS ; ((K (S (K S))) K) = (S (K S)).
+d 629: a 628 506 -> ---K-S-KSK-KK = --S-KS-KK ; (((K (S (K S))) K) (K K)) = ((S (K S)) (K K)).
+d 630: t 627 629 -> ---S-K-S-KSKK = --S-KS-KK ; (((S (K (S (K S)))) K) K) = ((S (K S)) (K K)).
+d 631: t 626 630 -> ----S--S-KS--S-KK--S-KSK-KKSK = --S-KS-KK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) K) = ((S (K S)) (K K)).
+d 632: s 631 -> --S-KS-KK = ----S--S-KS--S-KK--S-KSK-KKSK ; ((S (K S)) (K K)) = ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) S) K).
+d 633: t 632 605 -> --S-KS-KK = ---S-KKSK ; ((S (K S)) (K K)) = (((S (K K)) S) K).
+d 634: S 506 3 2 -> ---S-KKSK = ---KKK-SK ; (((S (K K)) S) K) = (((K K) K) (S K)).
+d 635: K 2 2 -> --KKK = K ; ((K K) K) = K.
+d 636: a 3 2 -> -SK = -SK ; (S K) = (S K).
+d 637: a 635 636 -> ---KKK-SK = -K-SK ; (((K K) K) (S K)) = (K (S K)).
+d 638: a 2 636 -> -K-SK = -K-SK ; (K (S K)) = (K (S K)).
+d 639: t 634 637 -> ---S-KKSK = -K-SK ; (((S (K K)) S) K) = (K (S K)).
+d 640: t 633 639 -> --S-KS-KK = -K-SK ; ((S (K S)) (K K)) = (K (S K)).
+d 641: a 3 638 -> -S-K-SK = -S-K-SK ; (S (K (S K))) = (S (K (S K))).
+d 642: a 3 638 -> -S-K-SK = -S-K-SK ; (S (K (S K))) = (S (K (S K))).
+d 643: a 3 640 -> -S--S-KS-KK = -S-K-SK ; (S ((S (K S)) (K K))) = (S (K (S K))).
+d 644: a 12 636 -> ---S--S-KS--S-KK--S-KSK-KK-SK = --S-KK-SK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) = ((S (K K)) (S K)).
+d 645: a 644 2 -> ----S--S-KS--S-KK--S-KSK-KK-SKK = ---S-KK-SKK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) K) = (((S (K K)) (S K)) K).
+d 646: S 608 506 636 -> ---S--S-KS--S-KK--S-KSK-KK-SK = ----S-KS--S-KK--S-KSK-SK--KK-SK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) = ((((S (K S)) ((S (K K)) ((S (K S)) K))) (S K)) ((K K) (S K))).
+d 647: S 511 607 636 -> ---S-KS--S-KK--S-KSK-SK = ---KS-SK---S-KK--S-KSK-SK ; (((S (K S)) ((S (K K)) ((S (K S)) K))) (S K)) = (((K S) (S K)) (((S (K K)) ((S (K S)) K)) (S K))).
+d 648: K 3 636 -> --KS-SK = S ; ((K S) (S K)) = S.
+d 649: S 506 606 636 -> ---S-KK--S-KSK-SK = ---KK-SK---S-KSK-SK ; (((S (K K)) ((S (K S)) K)) (S K)) = (((K K) (S K)) (((S (K S)) K) (S K))).
+d 650: K 2 636 -> --KK-SK = K ; ((K K) (S K)) = K.
+d 651: S 511 2 636 -> ---S-KSK-SK = ---KS-SK-K-SK ; (((S (K S)) K) (S K)) = (((K S) (S K)) (K (S K))).
+d 652: K 3 636 -> --KS-SK = S ; ((K S) (S K)) = S.
+d 653: a 652 638 -> ---KS-SK-K-SK = -S-K-SK ; (((K S) (S K)) (K (S K))) = (S (K (S K))).
+d 654: t 651 653 -> ---S-KSK-SK = -S-K-SK ; (((S (K S)) K) (S K)) = (S (K (S K))).
+d 655: a 650 654 -> ---KK-SK---S-KSK-SK = -K-S-K-SK ; (((K K) (S K)) (((S (K S)) K) (S K))) = (K (S (K (S K)))).
+d 656: a 2 641 -> -K-S-K-SK = -K-S-K-SK ; (K (S (K (S K)))) = (K (S (K (S K)))).
+d 657: t 649 655 -> ---S-KK--S-KSK-SK = -K-S-K-SK ; (((S (K K)) ((S (K S)) K)) (S K)) = (K (S (K (S K)))).
+d 658: a 648 657 -> ---KS-SK---S-KK--S-KSK-SK = -S-K-S-K-SK ; (((K S) (S K)) (((S (K K)) ((S (K S)) K)) (S K))) = (S (K (S (K (S K))))).
+d 659: a 3 656 -> -S-K-S-K-SK = -S-K-S-K-SK ; (S (K (S (K (S K))))) = (S (K (S (K (S K))))).
+d 660: t 647 658 -> ---S-KS--S-KK--S-KSK-SK = -S-K-S-K-SK ; (((S (K S)) ((S (K K)) ((S (K S)) K))) (S K)) = (S (K (S (K (S K))))).
+d 661: K 2 636 -> --KK-SK = K ; ((K K) (S K)) = K.
+d 662: a 660 661 -> ----S-KS--S-KK--S-KSK-SK--KK-SK = --S-K-S-K-SKK ; ((((S (K S)) ((S (K K)) ((S (K S)) K))) (S K)) ((K K) (S K))) = ((S (K (S (K (S K))))) K).
+d 663: a 659 2 -> --S-K-S-K-SKK = --S-K-S-K-SKK ; ((S (K (S (K (S K))))) K) = ((S (K (S (K (S K))))) K).
+d 664: t 646 662 -> ---S--S-KS--S-KK--S-KSK-KK-SK = --S-K-S-K-SKK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) = ((S (K (S (K (S K))))) K).
+d 665: a 664 2 -> ----S--S-KS--S-KK--S-KSK-KK-SKK = ---S-K-S-K-SKKK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) K) = (((S (K (S (K (S K))))) K) K).
+d 666: S 656 2 2 -> ---S-K-S-K-SKKK = ---K-S-K-SKK-KK ; (((S (K (S (K (S K))))) K) K) = (((K (S (K (S K)))) K) (K K)).
+d 667: K 641 2 -> --K-S-K-SKK = -S-K-SK ; ((K (S (K (S K)))) K) = (S (K (S K))).
+d 668: a 667 506 -> ---K-S-K-SKK-KK = --S-K-SK-KK ; (((K (S (K (S K)))) K) (K K)) = ((S (K (S K))) (K K)).
+d 669: a 641 506 -> --S-K-SK-KK = --S-K-SK-KK ; ((S (K (S K))) (K K)) = ((S (K (S K))) (K K)).
+d 670: t 666 668 -> ---S-K-S-K-SKKK = --S-K-SK-KK ; (((S (K (S (K (S K))))) K) K) = ((S (K (S K))) (K K)).
+d 671: t 665 670 -> ----S--S-KS--S-KK--S-KSK-KK-SKK = --S-K-SK-KK ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) K) = ((S (K (S K))) (K K)).
+d 672: s 671 -> --S-K-SK-KK = ----S--S-KS--S-KK--S-KSK-KK-SKK ; ((S (K (S K))) (K K)) = ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) (S K)) K).
+d 673: t 672 645 -> --S-K-SK-KK = ---S-KK-SKK ; ((S (K (S K))) (K K)) = (((S (K K)) (S K)) K).
+d 674: S 506 636 2 -> ---S-KK-SKK = ---KKK--SKK ; (((S (K K)) (S K)) K) = (((K K) K) ((S K) K)).
+d 675: K 2 2 -> --KKK = K ; ((K K) K) = K.
+d 676: a 636 2 -> --SKK = --SKK ; ((S K) K) = ((S K) K).
+d 677: a 675 676 -> ---KKK--SKK = -K--SKK ; (((K K) K) ((S K) K)) = (K ((S K) K)).
+d 678: a 2 676 -> -K--SKK = -K--SKK ; (K ((S K) K)) = (K ((S K) K)).
+d 679: t 674 677 -> ---S-KK-SKK = -K--SKK ; (((S (K K)) (S K)) K) = (K ((S K) K)).
+d 680: t 673 679 -> --S-K-SK-KK = -K--SKK ; ((S (K (S K))) (K K)) = (K ((S K) K)).
+d 681: a 643 506 -> --S--S-KS-KK-KK = --S-K-SK-KK ; ((S ((S (K S)) (K K))) (K K)) = ((S (K (S K))) (K K)).
+d 682: t 681 680 -> --S--S-KS-KK-KK = -K--SKK ; ((S ((S (K S)) (K K))) (K K)) = (K ((S K) K)).
+d 683: a 3 678 -> -S-K--SKK = -S-K--SKK ; (S (K ((S K) K))) = (S (K ((S K) K))).
+d 684: a 3 678 -> -S-K--SKK = -S-K--SKK ; (S (K ((S K) K))) = (S (K ((S K) K))).
+d 685: a 3 682 -> -S--S--S-KS-KK-KK = -S-K--SKK ; (S ((S ((S (K S)) (K K))) (K K))) = (S (K ((S K) K))).
+d 686: a 11 676 -> ---S--S-KSK-KI--SKK = -I--SKK ; (((S ((S (K S)) K)) (K I)) ((S K) K)) = (I ((S K) K)).
+d 687: I 676 -> -I--SKK = --SKK ; (I ((S K) K)) = ((S K) K).
+d 688: t 686 687 -> ---S--S-KSK-KI--SKK = --SKK ; (((S ((S (K S)) K)) (K I)) ((S K) K)) = ((S K) K).
+d 689: a 2 1 -> -KI = -KI ; (K I) = (K I).
+d 690: S 606 689 676 -> ---S--S-KSK-KI--SKK = ----S-KSK--SKK--KI--SKK ; (((S ((S (K S)) K)) (K I)) ((S K) K)) = ((((S (K S)) K) ((S K) K)) ((K I) ((S K) K))).
+d 691: S 511 2 676 -> ---S-KSK--SKK = ---KS--SKK-K--SKK ; (((S (K S)) K) ((S K) K)) = (((K S) ((S K) K)) (K ((S K) K))).
+d 692: K 3 676 -> --KS--SKK = S ; ((K S) ((S K) K)) = S.
+d 693: a 692 678 -> ---KS--SKK-K--SKK = -S-K--SKK ; (((K S) ((S K) K)) (K ((S K) K))) = (S (K ((S K) K))).
+d 694: t 691 693 -> ---S-KSK--SKK = -S-K--SKK ; (((S (K S)) K) ((S K) K)) = (S (K ((S K) K))).
+d 695: K 1 676 -> --KI--SKK = I ; ((K I) ((S K) K)) = I.
+d 696: a 694 695 -> ----S-KSK--SKK--KI--SKK = --S-K--SKKI ; ((((S (K S)) K) ((S K) K)) ((K I) ((S K) K))) = ((S (K ((S K) K))) I).
+d 697: a 683 1 -> --S-K--SKKI = --S-K--SKKI ; ((S (K ((S K) K))) I) = ((S (K ((S K) K))) I).
+d 698: t 690 696 -> ---S--S-KSK-KI--SKK = --S-K--SKKI ; (((S ((S (K S)) K)) (K I)) ((S K) K)) = ((S (K ((S K) K))) I).
+d 699: s 698 -> --S-K--SKKI = ---S--S-KSK-KI--SKK ; ((S (K ((S K) K))) I) = (((S ((S (K S)) K)) (K I)) ((S K) K)).
+d 700: t 699 688 -> --S-K--SKKI = --SKK ; ((S (K ((S K) K))) I) = ((S K) K).
+d 701: a 685 1 -> --S--S--S-KS-KK-KKI = --S-K--SKKI ; ((S ((S ((S (K S)) (K K))) (K K))) I) = ((S (K ((S K) K))) I).
+d 702: t 701 700 -> --S--S--S-KS-KK-KKI = --SKK ; ((S ((S ((S (K S)) (K K))) (K K))) I) = ((S K) K).
+d 703: a 3 689 -> -S-KI = -S-KI ; (S (K I)) = (S (K I)).
+d 704: a 11 1 -> ---S--S-KSK-KII = -II ; (((S ((S (K S)) K)) (K I)) I) = (I I).
+d 705: I 1 -> -II = I ; (I I) = I.
+d 706: t 704 705 -> ---S--S-KSK-KII = I ; (((S ((S (K S)) K)) (K I)) I) = I.
+d 707: S 606 689 1 -> ---S--S-KSK-KII = ----S-KSKI--KII ; (((S ((S (K S)) K)) (K I)) I) = ((((S (K S)) K) I) ((K I) I)).
+d 708: S 511 2 1 -> ---S-KSKI = ---KSI-KI ; (((S (K S)) K) I) = (((K S) I) (K I)).
+d 709: K 3 1 -> --KSI = S ; ((K S) I) = S.
+d 710: a 709 689 -> ---KSI-KI = -S-KI ; (((K S) I) (K I)) = (S (K I)).
+d 711: t 708 710 -> ---S-KSKI = -S-KI ; (((S (K S)) K) I) = (S (K I)).
+d 712: K 1 1 -> --KII = I ; ((K I) I) = I.
+d 713: a 711 712 -> ----S-KSKI--KII = --S-KII ; ((((S (K S)) K) I) ((K I) I)) = ((S (K I)) I).
+d 714: a 703 1 -> --S-KII = --S-KII ; ((S (K I)) I) = ((S (K I)) I).
+d 715: t 707 713 -> ---S--S-KSK-KII = --S-KII ; (((S ((S (K S)) K)) (K I)) I) = ((S (K I)) I).
+d 716: s 715 -> --S-KII = ---S--S-KSK-KII ; ((S (K I)) I) = (((S ((S (K S)) K)) (K I)) I).
+d 717: t 716 706 -> --S-KII = I ; ((S (K I)) I) = I.
+d 718: s 702 -> --SKK = --S--S--S-KS-KK-KKI ; ((S K) K) = ((S ((S ((S (K S)) (K K))) (K K))) I).
+d 719: t 718 603 -> --SKK = --S-KII ; ((S K) K) = ((S (K I)) I).
+d 720: t 719 717 -> --SKK = I ; ((S K) K) = I.
+d 721: a 3 502 -> -S-Ka = -S-Ka ; (S (K a)) = (S (K a)).
+d 722: a 11 101 -> ---S--S-KSK-KIa = -Ia ; (((S ((S (K S)) K)) (K I)) a) = (I a).
+d 723: I 101 -> -Ia = a ; (I a) = a.
+d 724: t 722 723 -> ---S--S-KSK-KIa = a ; (((S ((S (K S)) K)) (K I)) a) = a.
+d 725: S 606 689 101 -> ---S--S-KSK-KIa = ----S-KSKa--KIa ; (((S ((S (K S)) K)) (K I)) a) = ((((S (K S)) K) a) ((K I) a)).
+d 726: S 511 2 101 -> ---S-KSKa = ---KSa-Ka ; (((S (K S)) K) a) = (((K S) a) (K a)).
+d 727: K 3 101 -> --KSa = S ; ((K S) a) = S.
+d 728: a 727 502 -> ---KSa-Ka = -S-Ka ; (((K S) a) (K a)) = (S (K a)).
+d 729: t 726 728 -> ---S-KSKa = -S-Ka ; (((S (K S)) K) a) = (S (K a)).
+d 730: K 1 101 -> --KIa = I ; ((K I) a) = I.
+d 731: a 729 730 -> ----S-KSKa--KIa = --S-KaI ; ((((S (K S)) K) a) ((K I) a)) = ((S (K a)) I).
+d 732: a 721 1 -> --S-KaI = --S-KaI ; ((S (K a)) I) = ((S (K a)) I).
+d 733: t 725 731 -> ---S--S-KSK-KIa = --S-KaI ; (((S ((S (K S)) K)) (K I)) a) = ((S (K a)) I).
+d 734: s 733 -> --S-KaI = ---S--S-KSK-KIa ; ((S (K a)) I) = (((S ((S (K S)) K)) (K I)) a).
+d 735: t 734 724 -> --S-KaI = a ; ((S (K a)) I) = a.
+d 736: a 2 102 -> -Kb = -Kb ; (K b) = (K b).
+d 737: a 12 101 -> ---S--S-KS--S-KK--S-KSK-KKa = --S-KKa ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) = ((S (K K)) a).
+d 738: a 737 102 -> ----S--S-KS--S-KK--S-KSK-KKab = ---S-KKab ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) b) = (((S (K K)) a) b).
+d 739: S 608 506 101 -> ---S--S-KS--S-KK--S-KSK-KKa = ----S-KS--S-KK--S-KSKa--KKa ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) = ((((S (K S)) ((S (K K)) ((S (K S)) K))) a) ((K K) a)).
+d 740: S 511 607 101 -> ---S-KS--S-KK--S-KSKa = ---KSa---S-KK--S-KSKa ; (((S (K S)) ((S (K K)) ((S (K S)) K))) a) = (((K S) a) (((S (K K)) ((S (K S)) K)) a)).
+d 741: K 3 101 -> --KSa = S ; ((K S) a) = S.
+d 742: S 506 606 101 -> ---S-KK--S-KSKa = ---KKa---S-KSKa ; (((S (K K)) ((S (K S)) K)) a) = (((K K) a) (((S (K S)) K) a)).
+d 743: K 2 101 -> --KKa = K ; ((K K) a) = K.
+d 744: S 511 2 101 -> ---S-KSKa = ---KSa-Ka ; (((S (K S)) K) a) = (((K S) a) (K a)).
+d 745: K 3 101 -> --KSa = S ; ((K S) a) = S.
+d 746: t 744 728 -> ---S-KSKa = -S-Ka ; (((S (K S)) K) a) = (S (K a)).
+d 747: a 743 746 -> ---KKa---S-KSKa = -K-S-Ka ; (((K K) a) (((S (K S)) K) a)) = (K (S (K a))).
+d 748: a 2 721 -> -K-S-Ka = -K-S-Ka ; (K (S (K a))) = (K (S (K a))).
+d 749: t 742 747 -> ---S-KK--S-KSKa = -K-S-Ka ; (((S (K K)) ((S (K S)) K)) a) = (K (S (K a))).
+d 750: a 741 749 -> ---KSa---S-KK--S-KSKa = -S-K-S-Ka ; (((K S) a) (((S (K K)) ((S (K S)) K)) a)) = (S (K (S (K a)))).
+d 751: a 3 748 -> -S-K-S-Ka = -S-K-S-Ka ; (S (K (S (K a)))) = (S (K (S (K a)))).
+d 752: t 740 750 -> ---S-KS--S-KK--S-KSKa = -S-K-S-Ka ; (((S (K S)) ((S (K K)) ((S (K S)) K))) a) = (S (K (S (K a)))).
+d 753: K 2 101 -> --KKa = K ; ((K K) a) = K.
+d 754: a 752 753 -> ----S-KS--S-KK--S-KSKa--KKa = --S-K-S-KaK ; ((((S (K S)) ((S (K K)) ((S (K S)) K))) a) ((K K) a)) = ((S (K (S (K a)))) K).
+d 755: a 751 2 -> --S-K-S-KaK = --S-K-S-KaK ; ((S (K (S (K a)))) K) = ((S (K (S (K a)))) K).
+d 756: t 739 754 -> ---S--S-KS--S-KK--S-KSK-KKa = --S-K-S-KaK ; (((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) = ((S (K (S (K a)))) K).
+d 757: a 756 102 -> ----S--S-KS--S-KK--S-KSK-KKab = ---S-K-S-KaKb ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) b) = (((S (K (S (K a)))) K) b).
+d 758: S 748 2 102 -> ---S-K-S-KaKb = ---K-S-Kab-Kb ; (((S (K (S (K a)))) K) b) = (((K (S (K a))) b) (K b)).
+d 759: K 721 102 -> --K-S-Kab = -S-Ka ; ((K (S (K a))) b) = (S (K a)).
+d 760: a 759 736 -> ---K-S-Kab-Kb = --S-Ka-Kb ; (((K (S (K a))) b) (K b)) = ((S (K a)) (K b)).
+d 761: a 721 736 -> --S-Ka-Kb = --S-Ka-Kb ; ((S (K a)) (K b)) = ((S (K a)) (K b)).
+d 762: t 758 760 -> ---S-K-S-KaKb = --S-Ka-Kb ; (((S (K (S (K a)))) K) b) = ((S (K a)) (K b)).
+d 763: t 757 762 -> ----S--S-KS--S-KK--S-KSK-KKab = --S-Ka-Kb ; ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) b) = ((S (K a)) (K b)).
+d 764: s 763 -> --S-Ka-Kb = ----S--S-KS--S-KK--S-KSK-KKab ; ((S (K a)) (K b)) = ((((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) a) b).
+d 765: t 764 738 -> --S-Ka-Kb = ---S-KKab ; ((S (K a)) (K b)) = (((S (K K)) a) b).
+d 766: S 506 101 102 -> ---S-KKab = ---KKb-ab ; (((S (K K)) a) b) = (((K K) b) (a b)).
+d 767: K 2 102 -> --KKb = K ; ((K K) b) = K.
+d 768: a 101 102 -> -ab = -ab ; (a b) = (a b).
+d 769: a 767 768 -> ---KKb-ab = -K-ab ; (((K K) b) (a b)) = (K (a b)).
+d 770: a 2 768 -> -K-ab = -K-ab ; (K (a b)) = (K (a b)).
+d 771: t 766 769 -> ---S-KKab = -K-ab ; (((S (K K)) a) b) = (K (a b)).
+d 772: t 765 771 -> --S-Ka-Kb = -K-ab ; ((S (K a)) (K b)) = (K (a b)).
+
+
+
+
+
