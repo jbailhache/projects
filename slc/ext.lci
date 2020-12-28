@@ -1,0 +1,55 @@
+d 1: A = I I -> I = I.
+d 2: A = K K -> K = K.
+d 3: A = S S -> S = S.
+d 4: A = Z Z -> Z = Z.
+d 5: A = E E -> E = E.
+d 6: A = e e -> e = e.
+d 7: A = X X -> X = X.
+d 8: A = ! ! -> ! = !.
+d 11: A = --S--S-KSK-KI I -> ((S ((S (K S)) K)) (K I)) = I.
+d 12: A = --S--S-KS--S-KK--S-KSK-KK -S-KK -> ((S ((S (K S)) ((S (K K)) ((S (K S)) K)))) (K K)) = (S (K K)).
+d 13: A = --S-KS-S-KK K -> ((S (K S)) (S (K K))) = K.
+d 14: A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS-S-K-S-KSS -> ((S (K (S (K S)))) ((S (K S)) (S (K S)))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) (S (K (S (K S)))))))) S).
+d 15: A = -S-KI I -> (S (K I)) = I.
+d 16: A = --S-K-S-KS--S-KS-S-KS --S--S-KS--S-KK--S-KS--S-K-S-KSS-KS -> ((S (K (S (K S)))) ((S (K S)) (S (K S)))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) S))))) (K S)).
+d 21: A = --SEI -KI -> ((S E) I) = (K I).
+d 22: A = --S--S-KSeK --S--S-KSe-KI -> ((S ((S (K S)) e)) K) = ((S ((S (K S)) e)) (K I)).
+d 23: A = --S-K-S-KS--S-K-S-KKe --S--S-KS--S-K-S-KS--S-K-S-K-S-KS--S-K-S-K-S-KKe--S-K-S-KKe -> ((S (K (S (K S)))) ((S (K (S (K K)))) e)) = ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K (S (K S)))))) ((S (K (S (K (S (K K)))))) e))))) ((S (K (S (K K)))) e)).
+d 31: S 2 2 7 -> ---SKKX = --KX-KX ; (((S K) K) X) = ((K X) (K X)).
+d 32: a 2 7 -> -KX = -KX ; (K X) = (K X).
+d 33: K 7 32 -> --KX-KX = X ; ((K X) (K X)) = X.
+d 34: t 31 33 -> ---SKKX = X ; (((S K) K) X) = X.
+d 41: A = x x -> x = x.
+d 42: A = y y -> y = y.
+d 43: A = z z -> z = z.
+d 51: A = t t -> t = t.
+d 52: A = o o -> o = o.
+d 53: A = u u -> u = u.
+d 54: A = f f -> f = f.
+d 61: A = -to I -> (t o) = I.
+d 62: A = -tu I -> (t u) = I.
+d 63: A = --S--S-KS--S-KK--S--S-K!t-KI--S-K-S--S--S-K!t-KI--S-K-S-Ktf --S--S-KS--S-KK--S--S-K!t-KI-K--S--S--S-K!t-KI-KI -> ((S ((S (K S)) ((S (K K)) ((S ((S (K !)) t)) (K I))))) ((S (K (S ((S ((S (K !)) t)) (K I))))) ((S (K (S (K t)))) f))) = ((S ((S (K S)) ((S (K K)) ((S ((S (K !)) t)) (K I))))) (K ((S ((S ((S (K !)) t)) (K I))) (K I)))).
+d 71: A = --S!I -KI -> ((S !) I) = (K I).
+d 72: A = i i -> i = i.
+d 73: A = k k -> k = k.
+d 74: A = s s -> s = s.
+d 80: A = & & -> & = &.
+d 81: A = T T -> T = T.
+d 82: A = --S-KTi --SfI -> ((S (K T)) i) = ((S f) I).
+d 83: A = --S-K-S-KTk --S--S-KS--S-KKf--S-K-SfK -> ((S (K (S (K T)))) k) = ((S ((S (K S)) ((S (K K)) f))) ((S (K (S f))) K)).
+d 84: A = --S-K-S-K-S-KTs --S--S-KS--S-K-S-KS--S-K-S-K-S-Kf--S--S-KS--S-KK--S-KS--S-KKf-Kf--S--S-KS--S-K-S-KS--S-K-S-KK--S-K-S-Kff--S-KKf -> ((S (K (S (K (S (K T)))))) s) = ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K (S (K f)))))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) f))))) (K f)))))) ((S ((S (K S)) ((S (K (S (K S)))) ((S (K (S (K K)))) ((S (K (S (K f)))) f))))) ((S (K K)) f))).
+d 85: A = --S--S-KS--S-KK--S-KS--S-K-S-KS--S--S-KS--S-KK--S-KS--S-KK--S-K!T-Kf--S-K-S-K-S-KK--S-K-S--S-KS--S-K!T--S-K-S-KK--S-K-S-KT& --S--S-KS--S-KK--S-KS--S-K-S-KS--S--S-KS--S-KK--S-KS--S-KK--S-K!T-Kf-K--S-K!T -> ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) ((S (K !)) T)))))) (K f))))))) ((S (K (S (K (S (K K)))))) ((S (K (S ((S (K S)) ((S (K !)) T))))) ((S (K (S (K K)))) ((S (K (S (K T)))) &))))) = ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K (S (K S)))) ((S ((S (K S)) ((S (K K)) ((S (K S)) ((S (K K)) ((S (K !)) T)))))) (K f))))))) (K ((S (K !)) T))).
+d 101: A = a a -> a = a.
+d 102: A = b b -> b = b.
+d 103: A = c c -> c = c.
+r ---SKKa
+r -Ia
+d 104 s 505
+d 105 t 504 104
+E a 105 15 13 16 11 12
+R --S-KaI
+R --S-Ka-Kb
+
+
+
+
