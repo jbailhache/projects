@@ -105,9 +105,73 @@ and the left and right functions :
 
 <p>
 
-See the full code below for the definition of the "red" function (reduction).
+Here is the definition of the reduction function : 
 
-<p>
+<pre>
+ -- shift u x increases all variables greater than u in x
+ shift :: Proof -> Proof -> Proof
+ shift _ (SMB s) = SMB s
+ shift VAR VAR = NXV VAR
+ shift _ VAR = VAR
+ shift (NXV u) (NXV x) = NXV (shift u x)
+ shift u (NXV x) = NXV (shift u x)
+ shift u (FNC x) = FNC (shift (NXV u) x)
+ shift u (APL x y) = APL (shift u x) (shift u y)
+ shift u (LTR x y) = LTR (shift u x) (shift u y)
+ shift u (EQU x y) = EQU (shift u x) (shift u y)
+
+ -- subst u a b (approximatively) replaces u in a by b (a little more complex in fact)
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if NXV u == a then u else subst1 u a b)
+ subst1 _ (SMB s) _ = SMB s
+ subst1 _ VAR _ = VAR
+ subst1 u (NXV x) b = NXV (subst u x b)
+ subst1 u (FNC x) b = FNC (subst (NXV u) x (shift VAR b))
+ subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
+ subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
+ subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
+
+ -- cont x y tests if x contains y 
+ cont :: Proof -> Proof -> Bool
+ cont1 :: Proof -> Proof -> Bool
+ cont x y = if x == y then True else cont1 x y
+ cont1 (SMB s) _ = False
+ cont1 VAR _ = False
+ cont1 (NXV x) y = cont x y
+ cont1 (FNC x) y = cont x y
+ cont1 (APL x y) z = (cont x z) || (cont y z)
+ cont1 (LTR x y) z = (cont x z) || (cont y z)
+ cont1 (EQU x y) z = (cont x z) || (cont y z)
+
+ -- red1 does one step of reduction
+ red1 :: Proof -> Proof
+ red1 (SMB s) = SMB s
+ red1 VAR = VAR
+ red1 (NXV x) = NXV (red1 x)
+ red1 (FNC x) = FNC (red1 x)
+ red1 (APL (FNC x) y) = subst VAR x y
+ red1 (APL x y) = APL (red1 x) (red1 y)
+ red1 (LTR x y) = LTR (red1 x) (red1 y)
+ red1 (EQU x y) = EQU (red1 x) (red1 y)
+
+ red2 :: [Proof] -> [Proof]
+ red2 [] = []
+ red2 (x : l) = (red1 x) : (x : l)
+
+ red3 :: [Proof] -> [Proof]
+ red3 [] = []
+ red3 (x : l) = case find (\y -> cont x y) l of
+	Nothing -> red3 (red2 (x : l))
+	Just _ -> x : l
+
+ -- red : reduction
+ red :: Proof -> Proof
+ red x = case red3 (x : []) of
+		[] -> x
+		y : m -> y
+
+</pre>
 
 De Bruijn index is efficient and theoretically satisfying, but resulting expressions are not always easily writeable and readable. 
 So it could be useful to write expression with named variables like in Lambda Calculus, and convert them into De Bruijn index : 
