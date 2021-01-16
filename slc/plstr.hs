@@ -47,6 +47,7 @@ module PL where
  pl1 ('%' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (LTR x y, u)
  pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
  pl1 ('#' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (EQU x y, u)
+ pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
  -- pl1 (c : s) = (SMB (c : ""), s)
  pl1 (c : s) = pl4 [c] s
  
