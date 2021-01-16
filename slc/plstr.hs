@@ -39,6 +39,7 @@ module PL where
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
  pl1 ('(' : s) = pl3 ')' Nothing (FNC VAR) s
+ pl1 (':' : s) = let (x, t) = pl3 ')' Nothing (FNC VAR) s in (x, (')' : t))
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
  pl1 ('\\' : s) = let (x, t) = pl1 s in (FNC x, t)
@@ -52,6 +53,7 @@ module PL where
  -- pl1 (c : s) = (SMB (c : ""), s)
  pl1 (c : s) = pl4 [c] s
  
+ pl4 s "" = (SMB s, "")
  pl4 s (' ' : t) = (SMB s, t)
  pl4 s ('\t' : t) = (SMB s, t)
  pl4 s ('\n' : t) = (SMB s, t)
