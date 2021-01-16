@@ -38,42 +38,26 @@ module PL where
  pl1 (' ' : s) = pl1 s
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
- pl1 ('(' : s) = pl3 ')' Nothing (FNC VAR) s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
  pl1 ('\\' : s) = let (x, t) = pl1 s in (FNC x, t)
- pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing (FNC VAR) s in (FNC x, t)
  pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (APL x y, u)
  pl1 ('%' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (LTR x y, u)
- pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
  pl1 ('#' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (EQU x y, u)
- -- pl1 (c : s) = (SMB (c : ""), s)
- pl1 (c : s) = pl4 [c] s
+ pl1 (c : s) = (SMB (c : ""), s)
  
- pl4 s (' ' : t) = (SMB s, t)
- pl4 s ('\t' : t) = (SMB s, t)
- pl4 s ('\n' : t) = (SMB s, t)
- pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ pl2 (' ' : s) = pl2 s
+ pl2 ('\t' : s) = pl2 s
+ pl2 ('\n' : s) = pl2 s
+ pl2 "" = Nothing
+ pl2 s = Just (pl1 s)
  
- pl2 e (' ' : s) = pl2 e s
- pl2 e ('\t' : s) = pl2 e s
- pl2 e ('\n' : s) = pl2 e s
- pl2 e "" = (False, Nothing, "")
- pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
- 
- pl3 e l x s = case pl2 e s of
-	(False, Nothing, t) -> case l of 
-	                           Nothing -> (x, t)
-	                           Just l -> (EQU l x, t)
-	(True, Nothing, t) -> case l of 
-	                          Nothing -> pl3 e (Just x) (FNC VAR) t
-	                          Just l -> pl3 e (Just (EQU l x)) (FNC VAR) t		
-	(False, Just y, t) -> case x of 
-	                          FNC VAR -> pl3 e l y t
-	                          x -> pl3 e l (APL x y) t
-		 
- pl s = let (x, t) = pl3 '.' Nothing (FNC VAR) s in x
- 
+ pl3 x s = case pl2 s of
+	Nothing -> (x, "")
+	Just (y, t) -> case x of 
+	                   FNC VAR -> pl3 y t
+	                   x1 -> pl3 (APL x1 y) t
+		
 
  -- shift u x increases all variables greater than u in x
  shift :: Proof -> Proof -> Proof

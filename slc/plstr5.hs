@@ -47,13 +47,7 @@ module PL where
  pl1 ('%' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (LTR x y, u)
  pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
  pl1 ('#' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (EQU x y, u)
- -- pl1 (c : s) = (SMB (c : ""), s)
- pl1 (c : s) = pl4 [c] s
- 
- pl4 s (' ' : t) = (SMB s, t)
- pl4 s ('\t' : t) = (SMB s, t)
- pl4 s ('\n' : t) = (SMB s, t)
- pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ pl1 (c : s) = (SMB (c : ""), s)
  
  pl2 e (' ' : s) = pl2 e s
  pl2 e ('\t' : s) = pl2 e s
