@@ -165,12 +165,12 @@ module PL where
  pl1 (' ' : s) = pl1 s
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
- pl1 ('(' : s) = pl3 ')' Nothing (FNC VAR) s
+ pl1 ('(' : s) = pl3 ')' Nothing Nothing s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
- pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing (FNC VAR) s in (FNC x, t)
+ pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing Nothing s in (FNC x, t)
  pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
- pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
+ pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing Nothing s in let (y, u) = pl3 '}' Nothing Nothing t in (LTR x y, u)
  pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
  pl1 ('!' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in let (z, v) = pl1 u in (substitute x y z, v)
  pl1 (c : s) = pl4 [c] s
@@ -187,19 +187,20 @@ module PL where
  pl2 e "" = (False, Nothing, "")
  pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
  
- pl3 e l x (':' : s) = let (y, t) = pl3 e l (FNC VAR) s in (APL x y, t)
- pl3 e l x s = case pl2 e s of
+ pl3 e l Nothing (':' : s) = let (y, t) = pl3 e l Nothing s in (y, t)
+ pl3 e l (Just x) (':' : s) = let (y, t) = pl3 e l Nothing s in (APL x y, t)
+ pl3 e l x1 s = let x = case x1 of { Nothing -> FNC VAR; Just x2 -> x2 } in case pl2 e s of
 	(False, Nothing, t) -> case l of 
 	                           Nothing -> (x, t)
 	                           Just l -> (EQU l x, t)
 	(True, Nothing, t) -> case l of 
-	                          Nothing -> pl3 e (Just x) (FNC VAR) t
-	                          Just l -> pl3 e (Just (EQU l x)) (FNC VAR) t		
-	(False, Just y, t) -> case x of 
-	                          FNC VAR -> pl3 e l y t
-	                          x -> pl3 e l (APL x y) t
-		 
- pl s = let (x, t) = pl3 '.' Nothing (FNC VAR) s in x
+	                          Nothing -> pl3 e (Just x) Nothing t
+	                          Just l -> pl3 e (Just (EQU l x)) Nothing t		
+	(False, Just y, t) -> case x1 of 
+	                          Nothing -> pl3 e l (Just y) t
+	                          _ -> pl3 e l (Just (APL x y)) t	
+							  
+ pl s = let (x, t) = pl3 '.' Nothing Nothing s in x
  
  				
  -- Example of theory
