@@ -191,6 +191,107 @@ PL> right gpTheorem1
 FNC VAR
 </pre>
 
+This code is to write proofs in Proof Logic syntax :
+<pre>	
+ -- showproof1 ctx col x : user readable representation of x in context ctx at column col
+ showproof1 :: Context -> Int -> Proof -> String
+ showproof1 _ _ (SMB s) = s
+ showproof1 _ _ VAR = "*"
+ showproof1 _ col (NXV x) = "'" ++ showproof1 Other (col+1) x
+ showproof1 _ col (FNC x) = "[" ++ showproof1 Other (col+1) x ++ "]"
+ showproof1 Argument col (APL x y) = "(" ++ showproof1 Other (col+1) (APL x y) ++ ")"
+ showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (col + (length s) + 1) y 
+ showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
+ showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
+ showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+  
+ -- showproof x = user readable representation of proof x
+ showproof = showproof1 Other 0
+ 
+ instance Show Proof where
+  show x = showproof x
+</pre>
+
+And to convert Proof Logic syntax into Haskell internal representation :
+
+<pre>
+ -- substitute x by y in z
+ substitute x y z = if x == z then y else substitute1 x y z
+ substitute1 x y (SMB s) = SMB s
+ substitute1 x y VAR = VAR
+ substitute1 x y (NXV z) = NXV (substitute x y z)
+ substitute1 x y (FNC z) = FNC (substitute x y z)
+ substitute1 x y (APL z t) = APL (substitute x y z) (substitute x y t)
+ substitute1 x y (LTR z t) = LTR (substitute x y z) (substitute x y t)
+ substitute1 x y (EQU z t) = EQU (substitute x y z) (substitute x y t)
+
+ -- Convert string to proof
+ 
+ pl1 (' ' : s) = pl1 s
+ pl1 ('\t' : s) = pl1 s
+ pl1 ('\n' : s) = pl1 s
+ pl1 ('(' : s) = pl3 ')' Nothing (FNC VAR) s
+ pl1 ('*' : s) = (VAR, s)
+ pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
+ pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing (FNC VAR) s in (FNC x, t)
+ pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
+ pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
+ pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
+ pl1 ('!' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in let (z, v) = pl1 u in (substitute x y z, v)
+ pl1 (c : s) = pl4 [c] s
+ 
+ pl4 s "" = (SMB s, "")
+ pl4 s (' ' : t) = (SMB s, t)
+ pl4 s ('\t' : t) = (SMB s, t)
+ pl4 s ('\n' : t) = (SMB s, t)
+ pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ 
+ pl2 e (' ' : s) = pl2 e s
+ pl2 e ('\t' : s) = pl2 e s
+ pl2 e ('\n' : s) = pl2 e s
+ pl2 e "" = (False, Nothing, "")
+ pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
+ 
+ pl3 e l x (':' : s) = let (y, t) = pl3 e l (FNC VAR) s in (APL x y, t)
+ pl3 e l x s = case pl2 e s of
+	(False, Nothing, t) -> case l of 
+	                           Nothing -> (x, t)
+	                           Just l -> (EQU l x, t)
+	(True, Nothing, t) -> case l of 
+	                          Nothing -> pl3 e (Just x) (FNC VAR) t
+	                          Just l -> pl3 e (Just (EQU l x)) (FNC VAR) t		
+	(False, Just y, t) -> case x of 
+	                          FNC VAR -> pl3 e l y t
+	                          x -> pl3 e l (APL x y) t
+		 
+ pl s = let (x, t) = pl3 '.' Nothing (FNC VAR) s in x
+</pre>
+
+We can write theories and proofs using Proof Logic syntax :
+
+<pre>
+ gpRule1b = pl "^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] )"
+ gpAxiom1b = pl "parent allan brenda = [*]"
+ gpAxiom2b = pl "parent brenda charles = [*]"
+ 
+ gpTheorem1b = LTR (apr gpAxiom2b (grandparent allan charles))
+                   (LTR (apr gpAxiom1b (apr (parent brenda charles) (grandparent allan charles)))
+                        (apr3 gpRule1b allan brenda charles))
+								  
+ gpTheorem1c = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpLemma1c (gpRule1 allan brenda charles) \
+  \ ! gpLemma2c (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
+  \ ! gpLemma3c1 { gpLemma2c , gpLemma1c } \
+  \ ! gpLemma3c { { gpLemma3c1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
+  \ ! gpLemma4c (gpAxiom2 (grandparent allan charles)) \
+  \ ! gpLemma5c { gpLemma4c , gpLemma3c } \
+  \ ! gpTheorem1c { grandparent allan charles , gpLemma5c } \
+  \ gpTheorem1c "
+</pre>
+
 Historically, Proof Logic comes from <a href="http://log.chez.com/text/logic/sslc.txt">SSLC (Simplified Symbolic Lambda Calculus)</a>, with a new notation introduced, the "AXM" proof replaced by "a = b", and DB0, DBS and DBL respectively replaced by VAR, NXV and FNC in Haskell representation.
 SSLC itself comes from Schönfinkel and Curry's Combinatory Logic and Church's Lambda Calculus throught <a href="http://log.chez.com/text/logic/slc-hist.html">this history</a>.
 
@@ -210,28 +311,15 @@ module PL where
             | APL Proof Proof
             | LTR Proof Proof
             | EQU Proof Proof			
-	deriving (Eq, Show)
+	deriving (Eq)
 	
  data Side = LeftSide | RightSide
 	deriving (Eq, Show)
 
  data Context = Function | Argument | Other
 	deriving (Eq, Show)
-	
- -- showproof x = user readable representation of proof x
- showproof1 :: Context -> Proof -> String
- showproof1 _ (SMB s) = s
- showproof1 _ VAR = "*"
- showproof1 _ (NXV x) = "'" ++ showproof1 Other x
- showproof1 _ (FNC x) = "[" ++ showproof1 Other x ++ "]"
- showproof1 Argument (APL x y) = "(" ++ showproof1 Other (APL x y) ++ ")"
- showproof1 _ (APL x y) = showproof1 Function x ++ " " ++ showproof1 Argument y 
- showproof1 _ (LTR x y) = "{ " ++ showproof1 Other x ++ " , " ++ showproof1 Other y ++ " }"
- showproof1 Other (EQU x y) = showproof1 Other x ++ " = " ++ showproof1 Other y 
- showproof1 _ (EQU x y) = "(" ++ showproof1 Other (EQU x y) ++ ")"
- 
- showproof = showproof1 0 Other
- 
+
+
  -- shift u x increases all variables greater than u in x
  shift :: Proof -> Proof -> Proof
  shift _ (SMB s) = SMB s
@@ -343,8 +431,79 @@ module PL where
  apr r x = LTR (LTR (APL r x) (red (left (APL r x)))) (red (right (APL r x)))
  apr2 r x y = apr (apr r x) y
  apr3 r x y z = apr (apr (apr r x) y) z 
+					   
+ 	
+ -- showproof1 ctx col x : user readable representation of x in context ctx at column col
+ showproof1 :: Context -> Int -> Proof -> String
+ showproof1 _ _ (SMB s) = s
+ showproof1 _ _ VAR = "*"
+ showproof1 _ col (NXV x) = "'" ++ showproof1 Other (col+1) x
+ showproof1 _ col (FNC x) = "[" ++ showproof1 Other (col+1) x ++ "]"
+ showproof1 Argument col (APL x y) = "(" ++ showproof1 Other (col+1) (APL x y) ++ ")"
+ showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (col + (length s) + 1) y 
+ showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
+ showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
+ showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+  
+ -- showproof x = user readable representation of proof x
+ showproof = showproof1 Other 0
+ 
+ instance Show Proof where
+  show x = showproof x
+ 
+ 
+ -- substitute x by y in z
+ substitute x y z = if x == z then y else substitute1 x y z
+ substitute1 x y (SMB s) = SMB s
+ substitute1 x y VAR = VAR
+ substitute1 x y (NXV z) = NXV (substitute x y z)
+ substitute1 x y (FNC z) = FNC (substitute x y z)
+ substitute1 x y (APL z t) = APL (substitute x y z) (substitute x y t)
+ substitute1 x y (LTR z t) = LTR (substitute x y z) (substitute x y t)
+ substitute1 x y (EQU z t) = EQU (substitute x y z) (substitute x y t)
 
-
+ -- Convert string to proof
+ 
+ pl1 (' ' : s) = pl1 s
+ pl1 ('\t' : s) = pl1 s
+ pl1 ('\n' : s) = pl1 s
+ pl1 ('(' : s) = pl3 ')' Nothing (FNC VAR) s
+ pl1 ('*' : s) = (VAR, s)
+ pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
+ pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing (FNC VAR) s in (FNC x, t)
+ pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
+ pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing (FNC VAR) s in let (y, u) = pl3 '}' Nothing (FNC VAR) t in (LTR x y, u)
+ pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
+ pl1 ('!' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in let (z, v) = pl1 u in (substitute x y z, v)
+ pl1 (c : s) = pl4 [c] s
+ 
+ pl4 s "" = (SMB s, "")
+ pl4 s (' ' : t) = (SMB s, t)
+ pl4 s ('\t' : t) = (SMB s, t)
+ pl4 s ('\n' : t) = (SMB s, t)
+ pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ 
+ pl2 e (' ' : s) = pl2 e s
+ pl2 e ('\t' : s) = pl2 e s
+ pl2 e ('\n' : s) = pl2 e s
+ pl2 e "" = (False, Nothing, "")
+ pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
+ 
+ pl3 e l x (':' : s) = let (y, t) = pl3 e l (FNC VAR) s in (APL x y, t)
+ pl3 e l x s = case pl2 e s of
+	(False, Nothing, t) -> case l of 
+	                           Nothing -> (x, t)
+	                           Just l -> (EQU l x, t)
+	(True, Nothing, t) -> case l of 
+	                          Nothing -> pl3 e (Just x) (FNC VAR) t
+	                          Just l -> pl3 e (Just (EQU l x)) (FNC VAR) t		
+	(False, Just y, t) -> case x of 
+	                          FNC VAR -> pl3 e l y t
+	                          x -> pl3 e l (APL x y) t
+		 
+ pl s = let (x, t) = pl3 '.' Nothing (FNC VAR) s in x
+ 
+ 				
  -- Example of theory
  
  parent = apl2 (SMB "parent")
@@ -364,10 +523,33 @@ module PL where
  gpTheorem1 = LTR (apr gpAxiom2 (grandparent allan charles))
                   (LTR (apr gpAxiom1 (apr (parent brenda charles) (grandparent allan charles)))
                        (apr3 gpRule1 allan brenda charles))
-					   
+
+				
+ gpRule1b = pl "^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] )"
+ gpAxiom1b = pl "parent allan brenda = [*]"
+ gpAxiom2b = pl "parent brenda charles = [*]"
  
+ gpTheorem1b = LTR (apr gpAxiom2b (grandparent allan charles))
+                   (LTR (apr gpAxiom1b (apr (parent brenda charles) (grandparent allan charles)))
+                        (apr3 gpRule1b allan brenda charles))
+								  
+ gpTheorem1c = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpLemma1c (gpRule1 allan brenda charles) \
+  \ ! gpLemma2c (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
+  \ ! gpLemma3c1 { gpLemma2c , gpLemma1c } \
+  \ ! gpLemma3c { { gpLemma3c1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
+  \ ! gpLemma4c (gpAxiom2 (grandparent allan charles)) \
+  \ ! gpLemma5c { gpLemma4c , gpLemma3c } \
+  \ ! gpTheorem1c { grandparent allan charles , gpLemma5c } \
+  \ gpTheorem1c "
+		
  test = do
   proves gpTheorem1
+  proves gpTheorem1b
+  proves gpTheorem1c
 
 </pre>
 
