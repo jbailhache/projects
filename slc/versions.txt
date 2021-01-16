@@ -4,3 +4,13 @@ Slcn.hs minimal + transfinite iteration of reflection principle (TIRP) : Slc_tir
 Slcn.hs + compile : Slcnc.hs + show : slcncst.hs
 slcncst.hs + showapl, show proof, APL reduction : slc.hs ( -> slcnr.hs )
 slcncst.hs + showapl, show proof, APL reduction : slcnra.hs + extensions : slcrt.hs, slcr.hs, slcrn.hs
+
+slcrn.hs + example of theory -> slcrnt.hs 
+slcrnworr.hs without right reduction + example of theory -> slcrnworrt.hs
+
+Sslc.hs -> sslc.hs + example of theory -> sslcnt.hs
+
+pl.hs : Proof Logic
+pls.hs : simplified
+plst.hs : with showproof, modification of shift, comments
+plstr.hs : pl1 function converting string to proof 
