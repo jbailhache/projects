@@ -257,6 +257,8 @@ FNC VAR
 
 This code is to write proofs in Proof Logic syntax :
 <pre>	
+ column col s = let l = length (lines s) in if l > 1 then length $ last $ lines s else col + length s 
+ 
  -- showproof1 ctx col x : user readable representation of x in context ctx at column col
  showproof1 :: Context -> Int -> Proof -> String
  showproof1 _ _ (SMB s) = s
@@ -264,10 +266,12 @@ This code is to write proofs in Proof Logic syntax :
  showproof1 _ col (NXV x) = "'" ++ showproof1 Other (col+1) x
  showproof1 _ col (FNC x) = "[" ++ showproof1 Other (col+1) x ++ "]"
  showproof1 Argument col (APL x y) = "(" ++ showproof1 Other (col+1) (APL x y) ++ ")"
- showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (col + (length s) + 1) y 
+ showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (column col s + 1) y 
+ -- showproof1 _ (LTR x y) = "{ " ++ showproof1 Other x ++ " , " ++ showproof1 Other y ++ " }"
  showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+ -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
+ -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+ showproof1 _ col (EQU x y) = let s = showproof1 Other col x in "(" ++ s ++ " = " ++ showproof1 Other (column col s + 4) y ++ ")" 
   
  -- showproof x = user readable representation of proof x
  showproof = showproof1 Other 0

@@ -8,7 +8,8 @@ module PL where
             | FNC Proof
             | APL Proof Proof
             | LTR Proof Proof
-            | EQU Proof Proof			
+            | EQU Proof Proof	
+			| ESQ Proof
 	deriving (Eq)
 	
  data Side = LeftSide | RightSide
@@ -29,7 +30,8 @@ module PL where
  shift u (APL x y) = APL (shift u x) (shift u y)
  shift u (LTR x y) = LTR (shift u x) (shift u y)
  shift u (EQU x y) = EQU (shift u x) (shift u y)
-
+ shift u (ESQ x) = ESQ (shift u x)
+ 
  -- subst u a b (approximatively) replaces u in a by b (a little more complex in fact)
  subst :: Proof -> Proof -> Proof -> Proof
  subst1 :: Proof -> Proof -> Proof -> Proof
@@ -41,7 +43,8 @@ module PL where
  subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
  subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
  subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
-
+ subst1 u (ESQ x) b = ESQ (subst u x b)
+ 
  -- cont x y tests if x contains y 
  cont :: Proof -> Proof -> Bool
  cont1 :: Proof -> Proof -> Bool
@@ -53,7 +56,8 @@ module PL where
  cont1 (APL x y) z = (cont x z) || (cont y z)
  cont1 (LTR x y) z = (cont x z) || (cont y z)
  cont1 (EQU x y) z = (cont x z) || (cont y z)
-
+ cont1 (ESQ x) y = cont x y
+ 
  -- red1 does one step of reduction
  red1 :: Proof -> Proof
  red1 (SMB s) = SMB s
@@ -64,7 +68,8 @@ module PL where
  red1 (APL x y) = APL (red1 x) (red1 y)
  red1 (LTR x y) = LTR (red1 x) (red1 y)
  red1 (EQU x y) = EQU (red1 x) (red1 y)
-
+ red1 (ESQ x) = ESQ (red1 x)
+ 
  red2 :: [Proof] -> [Proof]
  red2 [] = []
  red2 (x : l) = (red1 x) : (x : l)
@@ -90,7 +95,8 @@ module PL where
  side s (LTR x y) = if red (side LeftSide x) == red (side LeftSide y) then (side RightSide (if s == LeftSide then x else y)) else LTR x y
  side LeftSide (EQU x y) = x
  side RightSide (EQU x y) = y
-
+ side s (ESQ x) = side s (red1 x)
+ 
  left = side LeftSide 
  right = side RightSide 
 
@@ -108,6 +114,7 @@ module PL where
  abstr1 d v (FNC x) = FNC (abstr (NXV d) v x)
  abstr1 d v (APL x y) = APL (abstr d v x) (abstr d v y)
  abstr1 d v (LTR x y) = LTR (abstr d v x) (abstr d v y)
+ abstr1 d v (ESQ x) = ESQ (abstr1 d v x)
  
  lambda :: String -> Proof -> Proof
  lambda v x = FNC (abstr VAR v x)
@@ -145,13 +152,15 @@ module PL where
  -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
  -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
  showproof1 _ col (EQU x y) = let s = showproof1 Other col x in "(" ++ s ++ " = " ++ showproof1 Other (column col s + 4) y ++ ")" 
-  
+ showproof1 _ col (ESQ x) = "@" ++ showproof1 Other (col+1) x
+ 
+ -- showproof2 c m x = (lines (showproof1 c x)) !! 0 ++ "\n" ++ concat (map (\ line -> concat (replicate m "    ") ++ line ++ "\n") (drop 1 (lines (showproof1 c x))))
+ 
  -- showproof x = user readable representation of proof x
  showproof = showproof1 Other 0
  
  instance Show Proof where
   show x = showproof x
- 
  
  -- substitute x by y in z
  substitute x y z = if x == z then y else substitute1 x y z
@@ -162,20 +171,30 @@ module PL where
  substitute1 x y (APL z t) = APL (substitute x y z) (substitute x y t)
  substitute1 x y (LTR z t) = LTR (substitute x y z) (substitute x y t)
  substitute1 x y (EQU z t) = EQU (substitute x y z) (substitute x y t)
-
- -- Convert string to proof
+ substitute1 x y (ESQ z) = ESQ (substitute x y z)
  
  pl1 (' ' : s) = pl1 s
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
  pl1 ('(' : s) = pl3 ')' Nothing Nothing s
+ -- pl1 (':' : s) = let (x, t) = pl3 ')' Nothing (FNC VAR) s in (x, (')' : t))
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
+ pl1 ('\\' : s) = let (x, t) = pl1 s in (FNC x, t)
  pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing Nothing s in (FNC x, t)
  pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
+ pl1 ('%' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (LTR x y, u)
  pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing Nothing s in let (y, u) = pl3 '}' Nothing Nothing t in (LTR x y, u)
+ pl1 ('#' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (EQU x y, u)
+ pl1 ('@' : s) = let (x, t) = pl1 s in (ESQ x, t)
  pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
- pl1 ('!' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in let (z, v) = pl1 u in (substitute x y z, v)
+ -- pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in let (z, w) = pl1 u in (apr (lambda v z) y, w)
+ -- pl1 ('!' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in let (z, v) = pl1 u in (substitute x y z, v)
+ pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (ESQ (APL (lambda x1 z) y), v)
+ -- pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (APL (lambda x1 z) y, v)
+ pl1 ('$' : s) = let (x, t) = pl1 s in (red x, t)
+ pl1 ('<' : s) = let (x, t) = pl1 s in (left x, t)
+ pl1 ('>' : s) = let (x, t) = pl1 s in (right x, t)
  pl1 (c : s) = pl4 [c] s
  
  pl4 s "" = (SMB s, "")
@@ -188,6 +207,8 @@ module PL where
  pl2 e ('\t' : s) = pl2 e s
  pl2 e ('\n' : s) = pl2 e s
  pl2 e "" = (False, Nothing, "")
+ -- pl2 ':' ('=' : s) 
+ -- pl2 ':' (c : s) = if (any.(==)) c ")]}=" then 
  pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
  
  pl3 e l Nothing (':' : s) = let (y, t) = pl3 e l Nothing s in (y, t)
@@ -201,11 +222,17 @@ module PL where
 	                          Just l -> pl3 e (Just (EQU l x)) Nothing t		
 	(False, Just y, t) -> case x1 of 
 	                          Nothing -> pl3 e l (Just y) t
-	                          _ -> pl3 e l (Just (APL x y)) t	
-							  
+	                          _ -> pl3 e l (Just (APL x y)) t
+		 
  pl s = let (x, t) = pl3 '.' Nothing Nothing s in x
  
- 				
+ 
+ run filename = do
+  -- readFile filename >>= \s -> proves $ slc s
+  -- readFile filename >>= \s -> proves (let x = slc s in ltr x x)
+  -- readFile filename >>= \s -> proves $ reduce $ slc s
+  readFile filename >>= \s -> proves $ pl s 				
+				
  -- Example of theory
  
  parent = apl2 (SMB "parent")
@@ -234,21 +261,58 @@ module PL where
  gpTheorem1b = LTR (apr gpAxiom2b (grandparent allan charles))
                    (LTR (apr gpAxiom1b (apr (parent brenda charles) (grandparent allan charles)))
                         (apr3 gpRule1b allan brenda charles))
-								  
+								
+ -- does not work					
  gpTheorem1c = pl "\
   \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
   \ ! gpAxiom1 (parent allan brenda = [*]) \
   \ ! gpAxiom2 (parent brenda charles = [*]) \
-  \ ! gpLemma1c (gpRule1 allan brenda charles) \
-  \ ! gpLemma2c (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
-  \ ! gpLemma3c1 { gpLemma2c , gpLemma1c } \
-  \ ! gpLemma3c { { gpLemma3c1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
-  \ ! gpLemma4c (gpAxiom2 (grandparent allan charles)) \
-  \ ! gpLemma5c { gpLemma4c , gpLemma3c } \
-  \ ! gpTheorem1c { grandparent allan charles , gpLemma5c } \
-  \ gpTheorem1c "
+  \ ! gpTheorem1 { - gpAxiom1 (grandparent allan charles) , \
+  \                { - gpAxiom1 - (parent brenda charles) (grandparent allan charles) , \
+  \                  --- gpRule1 allan brenda charles } } \
+  \ gpTheorem1 "
+  
+ gptest1 = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpTheorem1 { - gpAxiom1 (grandparent allan charles) , \
+  \                { - gpAxiom1 - (parent brenda charles) (grandparent allan charles) , \
+  \                  --- gpRule1 allan brenda charles } } \
+  \ --- gpRule1 allan brenda charles "
+
+ gptest2 = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ --- gpRule1 allan brenda charles "
+ 
+ test1 = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ gpRule1 "
+  
+ gpTheorem1d = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpLemma1d (gpRule1 allan brenda charles) \
+  \ ! gpLemma2d (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
+  \ ! gpLemma3d1 { gpLemma2d , gpLemma1d } \
+  \ ! gpLemma3d { { gpLemma3d1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
+  \ ! gpLemma4d (gpAxiom2 (grandparent allan charles)) \
+  \ ! gpLemma5d { gpLemma4d , gpLemma3d } \
+  \ ! gpTheorem1d { grandparent allan charles , gpLemma5d } \
+  \ gpTheorem1d "
+  
+ testRule1 = pl "^x (x x = x)"
+ testTheorem1 = pl "! testRule1 ^x (x x = x) { { testRule1 a , $ < (testRule1 a) } , $ > (testRule1 a) }"
+ testTheorem1b = pl " { { ^x(x x=x) a , $ < (^x(x x=x) a) } , $ > (^x(x x=x) a) } "
+ testTheorem1c = pl "{ { testRule1 a , $ < (testRule1 a) } , $ > (testRule1 a) }"
+ 
+-- inc = do
+--  let counter = 0
+--  counter1 <- counter + 1
+--  putStrLn (show counter1)
 		
  test = do
   proves gpTheorem1
-  proves gpTheorem1b
-  proves gpTheorem1c
