@@ -166,6 +166,7 @@ module PL where
  pl1 (' ' : s) = pl1 s
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
+ pl1 ('\r' : s) = pl1 s
  pl1 ('(' : s) = pl3 ')' Nothing Nothing s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
@@ -181,11 +182,13 @@ module PL where
  pl4 s (' ' : t) = (SMB s, t)
  pl4 s ('\t' : t) = (SMB s, t)
  pl4 s ('\n' : t) = (SMB s, t)
+ pl4 s ('\r' : t) = (SMB s, t)
  pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
  
  pl2 e (' ' : s) = pl2 e s
  pl2 e ('\t' : s) = pl2 e s
  pl2 e ('\n' : s) = pl2 e s
+ pl2 e ('\r' : s) = pl2 e s
  pl2 e "" = (False, Nothing, "")
  pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
  
