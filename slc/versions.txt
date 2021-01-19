@@ -14,3 +14,9 @@ pl.hs : Proof Logic
 pls.hs : simplified
 plst.hs : with showproof, modification of shift, comments
 plstr.hs : pl1 function converting string to proof 
+plstre.hs : experiments
+plstresq.hs : avec ESQ
+plstresqt.hs : test
+plstrp.hs : publié
+plstrpr.hs : avec RED (ex ESQ)
+
