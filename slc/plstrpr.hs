@@ -121,7 +121,7 @@ module PL where
 
 
  proves x = do
-  putStr ("\nThe proof\n  " ++ show x ++ " \nproves\n  " ++ show (left x) ++ "\n= " ++ show (right x) ++ "\n")
+  putStr ("\nThe proof\n  " ++ showproof1 Other 2 x ++ " \nproves\n  " ++ showproof1 Other 2 (left x) ++ "\n= " ++ showproof1 Other 2 (right x) ++ "\n")
 
  reducesTo x = do
   putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (red x) ++ "\n")
@@ -152,7 +152,7 @@ module PL where
  showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
  -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
  -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
- showproof1 _ col (EQU x y) = let s = showproof1 Other col x in "(" ++ s ++ " = " ++ showproof1 Other (column col s + 4) y ++ ")" 
+ showproof1 _ col (EQU x y) = let s = showproof1 Other (col+1) x in "(" ++ s ++ " = " ++ showproof1 Other (column (col+1) s + 3) y ++ ")" 
   
  -- showproof x = user readable representation of proof x
  showproof = showproof1 Other 0
@@ -167,6 +167,7 @@ module PL where
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
  pl1 ('\r' : s) = pl1 s
+ pl1 ('#' : s) = pl1 $ concat $ map (\l -> l ++ "\n") $ tail $ lines s
  pl1 ('(' : s) = pl3 ')' Nothing Nothing s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
