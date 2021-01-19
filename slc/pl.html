@@ -414,6 +414,30 @@ proves
 = [*]
 </pre>
 
+Here is a proof file "skk.prf" proving the Combinatory Logic equality "S K K = I" :
+
+<pre>
+! DI (I = ^a a)
+! DK (K = ^a ^b a)
+! DS (S = ^a ^b ^c (a c (b c)))
+{ { (DS DK DK) , S K K } , { DI , I } }
+</pre>
+
+The conclusion of this proof is "S K K = I" :
+
+<pre>
+PL> run "skk.prf"
+
+The proof
+  @[@[@[{ { * '* '* ,
+          S K K } ,
+        { ''* ,
+          I } }] (S = [[[''* * ('* *)]]])] (K = [['*]])] (I = [*])
+proves
+  S K K
+= I
+</pre>
+
 Historically, Proof Logic comes from <a href="http://log.chez.com/text/logic/sslc.txt">SSLC (Simplified Symbolic Lambda Calculus)</a>, with a new notation introduced, the "AXM" proof replaced by "a = b", and DB0, DBS and DBL respectively replaced by VAR, NXV and FNC in Haskell representation.
 SSLC itself comes from Schönfinkel and Curry's Combinatory Logic and Church's Lambda Calculus throught <a href="http://log.chez.com/text/logic/slc-hist.html">this history</a>.
 
