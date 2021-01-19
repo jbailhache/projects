@@ -12,9 +12,9 @@ This does not mean that some Proof Logic expression are terms and other are proo
 A term "x" is identified with the proof of the sentence "x = x".
 Proof Logic expressions are called "proofs".
 <p>
-Proof logic is a functional formalism, like Combinatory Logic and lambda Calculus.
+Proof Logic is a functional formalism, like Combinatory Logic and lambda Calculus.
 It uses <a href="https://en.wikipedia.org/wiki/De_Bruijn_index">De Bruijn index</a> to represent variables.
-Like in Combinatory Logic and Lambda Calculus, the application of a function "f" to an argument "a" is denoted "f a", and "(f a) b" may be written more simply "f a b" which means : first apply f to a, and then apply the resulting function to b. But if we want to apply a function f to an argument a, and then apply another function g to the result, we must write it "g (f a)". It may also be written "g : f a". The ":" is like a "(" with an implicit corresponding ")". 
+As in Combinatory Logic and Lambda Calculus, the application of a function "f" to an argument "a" is denoted "f a", and "(f a) b" may be written more simply "f a b" which means : first apply f to a, and then apply the resulting function to b. But if we want to apply a function f to an argument a, and then apply another function g to the result, we must write it "g (f a)". It may also be written "g : f a". The ":" is like a "(" with an implicit corresponding ")". 
 <p>
 A function with one variable is represented by an expression of the form "[ ... * ... * ... ]" where "*" represents the variable (which may appear with 0, 1, or several occurences).
 For example, a function applying its argument to itself is written "[ * * ]" and when we apply it to an argument "a" we have the equality " [ * * ] a = a a ".
@@ -237,7 +237,7 @@ It is also useful to define application of a function to several arguments, and 
  apr3 r x y z = apr (apr (apr r x) y) z 
 </pre>
 
-Here is an example of a formal system with one rule saying that if x is parent of y and y is parent of z, then x is grand parent of z, and two axioms saying that Allan is parent of Brenda and brenda is parent of Charles :
+Here is an example of a formal system with one rule saying that if x is parent of y and y is parent of z, then x is grand parent of z, and two axioms saying that Allan is parent of Brenda and Brenda is parent of Charles :
 
 <pre>
  parent = apl2 (SMB "parent")
@@ -289,7 +289,7 @@ This code is to write proofs in Proof Logic syntax :
  showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
  -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
  -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
- showproof1 _ col (EQU x y) = let s = showproof1 Other col x in "(" ++ s ++ " = " ++ showproof1 Other (column col s + 4) y ++ ")" 
+ showproof1 _ col (EQU x y) = let s = showproof1 Other (col+1) x in "(" ++ s ++ " = " ++ showproof1 Other (column (col+1) s + 3) y ++ ")" 
   
  -- showproof x = user readable representation of proof x
  showproof = showproof1 Other 0
@@ -307,6 +307,7 @@ And to convert Proof Logic syntax into Haskell internal representation :
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
  pl1 ('\r' : s) = pl1 s
+ pl1 ('#' : s) = pl1 $ concat $ map (\l -> l ++ "\n") $ tail $ lines s
  pl1 ('(' : s) = pl3 ')' Nothing Nothing s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
@@ -436,6 +437,80 @@ The proof
 proves
   S K K
 = I
+</pre>
+
+Here is a proof of p => p in propositional logic :
+
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+! EFQ ^p (imp false p = [*])
+! RAA ^p (imp (imp (imp p false) false) p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t (imp (all p) (p t) = [*])
+! PERMUT ^p ^q (imp (all ^x  : imp p (q x)) (imp p (all q)) = [*])
+! SOME ^p (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)
+               = [*])
+
+# Proof
+
+! lemma1 (AS p (imp p p) p)
+
+! lemma2 (AK p (imp p p))
+
+! lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+! lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+! lemma5 { lemma4 , lemma3 }
+
+! lemma6 ( lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) ) )
+
+! lemma7 { lemma6 , lemma5 }
+
+! lemma8 (AK p p)
+
+! lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p) )
+
+! lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+! lemma11 { lemma10 , lemma9 }
+
+! lemma12 (lemma8 (imp p p))
+
+! theorem1 { imp p p ,  { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+We can see that it effectively proves "p => p" (which is written "imp p p") :
+
+<pre>
+PL> run "prop.prf"
+
+The proof
+  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { imp p p ,
+                                                   { * ,
+                                                     '* } }] ('''* (imp p p))] { * ,
+                                                                                 '* }] (''* (imp p (imp p p) (imp p p)))] (''''''''''''''''* (imp p (imp p p)) (imp p p))] (''''''''''''''* p p)] { * ,
+                                                                                                                                                                                                    '* }] ('''* (imp (imp p (imp p p)) (imp p p)))] { * ,
+                                                                                                                                                                                                                                                      '* }] (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))))] (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)))] (''''''''* p (imp p p))] (''''''* p (imp p p) p)] [(imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*])]] [[(imp (all [:] imp '* (* x)) (imp '* (all *)) = [*])]]] [[(imp (all '*) ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(imp (imp (imp * false) false) * = [*])]] [(imp false * = [*])]] [[[(imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*])]]]] [[(imp '* (imp * '*) = [*])]]] [[(imp '* * ('* *) = [*])]] 
+proves
+  imp p p
+= [*]
 </pre>
 
 Historically, Proof Logic comes from <a href="http://log.chez.com/text/logic/sslc.txt">SSLC (Simplified Symbolic Lambda Calculus)</a>, with a new notation introduced, the "AXM" proof replaced by "a = b", and DB0, DBS and DBL respectively replaced by VAR, NXV and FNC in Haskell representation.
@@ -571,7 +646,7 @@ module PL where
 
 
  proves x = do
-  putStr ("\nThe proof\n  " ++ show x ++ " \nproves\n  " ++ show (left x) ++ "\n= " ++ show (right x) ++ "\n")
+  putStr ("\nThe proof\n  " ++ showproof1 Other 2 x ++ " \nproves\n  " ++ showproof1 Other 2 (left x) ++ "\n= " ++ showproof1 Other 2 (right x) ++ "\n")
 
  reducesTo x = do
   putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (red x) ++ "\n")
@@ -602,7 +677,7 @@ module PL where
  showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
  -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
  -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
- showproof1 _ col (EQU x y) = let s = showproof1 Other col x in "(" ++ s ++ " = " ++ showproof1 Other (column col s + 4) y ++ ")" 
+ showproof1 _ col (EQU x y) = let s = showproof1 Other (col+1) x in "(" ++ s ++ " = " ++ showproof1 Other (column (col+1) s + 3) y ++ ")" 
   
  -- showproof x = user readable representation of proof x
  showproof = showproof1 Other 0
@@ -617,6 +692,7 @@ module PL where
  pl1 ('\t' : s) = pl1 s
  pl1 ('\n' : s) = pl1 s
  pl1 ('\r' : s) = pl1 s
+ pl1 ('#' : s) = pl1 $ concat $ map (\l -> l ++ "\n") $ tail $ lines s
  pl1 ('(' : s) = pl3 ')' Nothing Nothing s
  pl1 ('*' : s) = (VAR, s)
  pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
