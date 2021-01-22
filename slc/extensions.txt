@@ -1,0 +1,89 @@
+SLC - EXTENSIONS
+
+Opérateurs de base :
+EQU a b |- a = b
+SMB s |- SMB s = SMB s
+DB0 |- DB0 = DB0
+DBS : a = b |- DBS a = DBS b
+DBL : a = b |- DBL a = DBL b
+APL : a = b, c = d |- APL a c = APL b d
+LTR : a = b, c = d, a -> e, c -> e |- b = d
+
+Extensions :
+
+NOP : a = b |- a = b ; x |- left x = right x
+
+LFT : a = b |- a = a
+RGT : a = b |- b = b
+SYM : a = b |- b = a
+TRN : a = b, b = c |- a = c
+RTR : a = b, c = d, b -> e, d -> e |- a = b
+
+QOT : x |- x = x
+RFE : a = b |- (a = b) = (a = b)
+EVL : (a = b) = (c = d) |- a = b
+EVR : (a = b) = (c = d) |- c = d
+
+SUB : a = b, c = d |- APL (DBL a) c = subst (DB0, b, d)
+
+STL : a = b |- redstep a = b
+STR : a = b |- a = redstep b
+ST2 : a = b |- redstep a = redstep b
+SLQ : x |- redstep x = x
+SRQ : x |- x = redstep x
+SBQ : x |- redstep x = redstep x
+
+ESQ : x |- left (redstep x) = right (redstep x) ; ESQ x = EVL (STL (QOT x)) = EVR (STR (QOT x))
+
+RDL : a = b |- reduce a = b
+RED : a = b |- a = reduce b
+RD2 : a = b |- reduce a = reduce b
+RLQ : x |- reduce x = x
+RDQ : x |- x = reduce x
+RBQ : x |- reduce x = reduce x
+
+ERQ : x |- left (reduce x) = right (reduce x) ; ERQ x = EVL (RDL (QOT x)) = EVR (RED (QOT x))
+
+
+          gauche  gauche et droite  droite
+a = b |-
+redstep   STL     ST2               STR
+reduce    RDL     RD2               RED
+
+x |-    
+redstep   SLQ     SBQ               SRQ     ESQ
+reduce    RLQ     RBQ               RDQ     ERQ
+
+          LFT     QOT               RGT
+                  RFE
+          EVL                       EVR
+
+
+LTR : a = b, a = b |- b = b donc RGT x = LTR x x
+RTR : a = b, a = b |- a = a donc LFT x = RTR x x
+ 
+LTR : a = b, a = a |- b = a donc SYM x = LTR x (LFT x)
+a = b |SYM- b = a |LFT- b = b donc RGT x = LFT (SYM x)
+de même LFT x = RGT (SYM x)
+
+SUB x y = LTR (APL (DBL x) y) (RD2 (APL (DBL x) y)) = LTR (APL (DBL x) y) (RED (APL (DBL x) y))
+
+RDL x = SYM (RED (SYM x))
+RD2 x = SYM (RED (SYM (RED x)))
+RLQ x = RDL (QOT x)
+RDQ x = RED (QOT x)
+RBQ x = RD2 (QOT x)
+
+ERQ x = EVL (RDL (QOT x)) = EVR (RED (QOT x))
+
+QOT x = LTR (SYM (RDQ x)) (SYM (RDQ x))
+
+RED x = LTR (SYM x) (ERQ (RGT x)) ?
+
+LTR -> RGT
+RTR -> LFT
+LFT -> SYM, RGT, TRN
+ERQ, SYM, RGT -> RED ?
+RED -> SUB
+RED, SYM -> RDL, RD2
+QOT, RED, RDL, RD2 -> RDQ, RLQ, RBQ
