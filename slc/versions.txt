@@ -19,4 +19,5 @@ plstresq.hs : avec ESQ
 plstresqt.hs : test
 plstrp.hs : publié
 plstrpr.hs : avec RED (ex ESQ)
-
+plstrprx.hs : avec extension +
+plstrprs.hs : plstrpr.hs + RTR (symétrique de LTR)
