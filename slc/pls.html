@@ -1,0 +1,880 @@
+<html>
+<head>
+<title>Proof Logic</title>
+</head>
+<body>
+<h2>Proof Logic</h2>
+Proof Logic is a formalism for representing proofs in formal systems.
+A proof is an expression that proves the truth of a sentence in a given formal system, which is a formalization of a theory.
+In Proof Logic, a sentence is an equality between two terms.
+Proof Logic expressions are both terms and proofs.
+This does not mean that some Proof Logic expression are terms and other are proofs, but that ANY Proof Logic expression is BOTH a term and a proof. 
+A term "x" is identified with the proof of the sentence "x = x".
+Proof Logic expressions are called "proofs".
+<p>
+Proof Logic is a functional formalism, like Combinatory Logic and lambda Calculus.
+It uses <a href="https://en.wikipedia.org/wiki/De_Bruijn_index">De Bruijn index</a> to represent variables.
+As in Combinatory Logic and Lambda Calculus, the application of a function "f" to an argument "a" is denoted "f a", and "(f a) b" may be written more simply "f a b" which means : first apply f to a, and then apply the resulting function to b. But if we want to apply a function f to an argument a, and then apply another function g to the result, we must write it "g (f a)". It may also be written "g : f a". The ":" is like a "(" with an implicit corresponding ")". 
+<p>
+A function with one variable is represented by an expression of the form "[ ... * ... * ... ]" where "*" represents the variable (which may appear with 0, 1, or several occurences).
+For example, a function applying its argument to itself is written "[ * * ]" and when we apply it to an argument "a" we have the equality " [ * * ] a = a a ".
+A function with two variables is represented by a function with one variable giving, when applyed to a first argument, another function with one variable giving, when applied to the second argument, the final result. Such a function is written "[[ ... '* ... * ... ]]" where " '* " will be replaced by the first argument and " * " will be replaced by the second argument.
+So " * " corresponds to " 1 " in De Bruijn's index, " '* " to " 2 ", " ''* " to " 3 ", and so on.
+<p>
+At this point, the formalism is equivalent to Lambda Calculus or Combinatory Logic.
+We will now extend it.
+<p>
+First, we will add symbols. A symbol, which is a member of a set of symbols, which can be chosen either as finite, but as big as needed, or infinite but countable. A symbol is represented by a sequence of letter, digits, and eventually some special characters like "_" which are not used for anything else.
+<p>
+We have seen that Proof Logic expressions represent proofs. The simplest proofs of a formal system are the axioms of the system. Since sentences of Proof Logic are equalities, an axiom has the form "a = b". So the Proof Logic expression (or the proof) "a = b" represents the axioms asserting the equality between a and b. Of course, the operator "=" may be used only in axioms, otherwise we could prove anything !
+<p>
+Any Proof Logic expression may be seen as a proof which proves the truth of a sentence (the conclusion of the proof) which is an equality between two terms, which are also Proof Logic expressions. Given any Proof Logic expression x, we can determine which equality it proves. More precisely, there are two computable functions called "left" and "right", computing the terms of the equality proved by the given proof : x proves left(x) = right(x).
+For example, we have left(a = b) = a and right(a = b) = b, so a = b proves left(a = b) = right(a = b) or a = b proves a = b.
+<p>
+In theories based on equality, there are often 3 axioms representing the properties of equality : reflexivity (a = a), symmetry (a = b => b = a) and transitivity (a = b & b = c => a = c).
+In Proof Logic, a reflexivity axiom is useless because, as we have seen, any term a is also the proof of the sentence "a = a". Symmetry and transitivity are merged into one property of "transymmetry" with two possible variants : left transymmetry (a = b, a = c => b = c) and right transymmetry (a = c, b = c => a = b). <!-- We will use left transymmetry. -->
+<p>
+We must also be able to prove the equality between an expression and its reduced form, for example " [* *] a = a a ".
+We could introduce a special operator for this, but we will rather modify the transymmetry, saying, for left transymmetry, that if a = b, and c = d, and a reduces to e, and c reduces to e, then b = d. This operator will be called "left transymmetry with reduction".
+It is written " {x,y} ". If x proves a = b, and y proves c = d, and a reduces to e, and c reduces to e, then {x,y} proves b = d.
+Similarly for right transymmetry, if a = b, and c = d, and b reduces to e, and d reduces to e, then a = c. This operator will be called "right transymmetry with reduction" and is written " &lt;x|y> ". It is not necessary to have both left and right transymmetry with reduction, but it may be useful.
+<p>
+A last useful operator is the reduction operator written "@" which reduces its argument. We will see later that it is useful principally to implement a notation for definitions.
+<p>
+In summary, a proof may be :
+<ul>
+<li> A symbol
+<li> * (the variable)
+<li> 'x where x is a proof 
+<li> [x] where x is a proof
+<li> @x where x is a proof
+<li> x y (application) where x and y are proofs
+<li> {x,y} <!-- or LTR x y (left transsymetry with reduction) --> where x and y are proofs
+<li> &lt;x|y> where x and y are proofs
+<li> x=y (axiom) where x and y are proofs
+</ul>
+
+The left and right terms of the conclusion of a proof are defined as follows :
+<ul>
+<li> If x is a symbol or the variable "*", then left(x) = x and right(x) = x, which means that x proves x = x.
+<li> left('x) = 'left(x) ; right('x) = 'right(x)
+<li> left([x]) = [left(x)] ; right([x]) = [right(x)]
+<li> left(x y) = left(x) left(y) ; right(x y) = right(x) right(y), which means that if x proves a = b and y proves c = d then x y proves a c = b d.
+<li> left({x,y}) = right(x) and right({x,y}) = right(y) if left(x) and left(y) reduce to a same term, otherwise left({x,y}) = right({x,y}) = {x,y}
+<li> left(&lt;x|y>) = left(x) and right(&lt;x,y>) = left(y) if right(x) and right(y) reduce to the same term, otherwise left(&lt;x|y>) = right(&lt;x|y>) = &lt;x|y>
+<li> left(a=b) = a ; right(a=b) = b
+</ul>
+
+We also need a notation to write a definition, to give a name to a proof and then use this name in other proofs instead of writing its full definition each time we need to use it. This is written "! name definition proof" which means "replace name by definition in proof". It is similar to "let name = definition in proof" in Haskell. The reduction operator "@" is required to implement this notation, as you can see in the Haskell code below : 
+<pre>
+ pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v) 
+</pre>
+Without definitions, the reduction operator "@" would not be necessary.
+
+<p>
+
+We will now introduce a notation for a Haskell imprementation :
+<ul>
+<li> The symbol s is written SMB s
+<li> The variable * is written VAR
+<li> 'x is written NXV x
+<li> [x] is written FNC x
+<li> @x is written RED x
+<li> x y is written APL x y
+<li> {x,y} is written LTR x y
+<li> &lt;x|y> is written RTR x y
+</ul>
+
+We can then define Proof Logic terms in Haskell :
+
+<pre>
+ data Proof = SMB String
+            | VAR 
+            | NXV Proof
+            | FNC Proof
+            | RED Proof
+            | APL Proof Proof
+            | LTR Proof Proof
+			| RTR Proof Proof
+            | EQU Proof Proof			
+	deriving (Eq, Show)
+</pre>
+
+and the left and right functions :
+
+<pre>
+ data Side = LeftSide | RightSide
+	deriving (Eq, Show)
+
+ side :: Side -> Proof -> Proof
+ side _ (SMB s) = SMB s
+ side _ VAR = VAR
+ side s (NXV x) = NXV (side s x)
+ side s (FNC x) = FNC (side s x)
+ side s (RED x) = side s (red x)
+ side s (APL x y) = APL (side s x) (side s y)
+ side s (LTR x y) = if red (side LeftSide x) == red (side LeftSide y) then (side RightSide (if s == LeftSide then x else y)) else LTR x y
+ side s (RTR x y) = if red (side RightSide x) == red (side RightSide y) then (side LeftSide (if s == LeftSide then x else y)) else RTR x y
+ side LeftSide (EQU x y) = x
+ side RightSide (EQU x y) = y
+
+ left = side LeftSide 
+ right = side RightSide 
+</pre>
+
+<p>
+
+Here is the definition of the reduction function : 
+
+<pre>
+ -- shift u x increases all variables greater than u in x
+ shift :: Proof -> Proof -> Proof
+ shift _ (SMB s) = SMB s
+ shift VAR VAR = NXV VAR
+ shift _ VAR = VAR
+ shift (NXV u) (NXV x) = NXV (shift u x)
+ shift u (NXV x) = NXV (shift u x)
+ shift u (FNC x) = FNC (shift (NXV u) x)
+ shift u (RED x) = RED (shift u x)
+ shift u (APL x y) = APL (shift u x) (shift u y)
+ shift u (LTR x y) = LTR (shift u x) (shift u y)
+ shift u (RTR x y) = RTR (shift u x) (shift u y)
+ shift u (EQU x y) = EQU (shift u x) (shift u y)
+
+ -- subst u a b (approximatively) replaces u in a by b (a little more complex in fact)
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if NXV u == a then u else subst1 u a b)
+ subst1 _ (SMB s) _ = SMB s
+ subst1 _ VAR _ = VAR
+ subst1 u (NXV x) b = NXV (subst u x b)
+ subst1 u (FNC x) b = FNC (subst (NXV u) x (shift VAR b))
+ subst1 u (RED x) b = RED (subst u x b)
+ subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
+ subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
+ subst1 u (RTR x y) b = RTR (subst u x b) (subst u y b)
+ subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
+
+ -- cont x y tests if x contains y 
+ cont :: Proof -> Proof -> Bool
+ cont1 :: Proof -> Proof -> Bool
+ cont x y = if x == y then True else cont1 x y
+ cont1 (SMB s) _ = False
+ cont1 VAR _ = False
+ cont1 (NXV x) y = cont x y
+ cont1 (FNC x) y = cont x y
+ cont1 (RED x) y = cont x y
+ cont1 (APL x y) z = (cont x z) || (cont y z)
+ cont1 (LTR x y) z = (cont x z) || (cont y z)
+ cont1 (RTR x y) z = (cont x z) || (cont y z)
+ cont1 (EQU x y) z = (cont x z) || (cont y z)
+
+ -- red1 does one step of reduction
+ red1 :: Proof -> Proof
+ red1 (SMB s) = SMB s
+ red1 VAR = VAR
+ red1 (NXV x) = NXV (red1 x)
+ red1 (FNC x) = FNC (red1 x)
+ red1 (RED x) = RED (red1 x)
+ red1 (APL (FNC x) y) = subst VAR x y
+ red1 (APL x y) = APL (red1 x) (red1 y)
+ red1 (LTR x y) = LTR (red1 x) (red1 y)
+ red1 (RTR x y) = RTR (red1 x) (red1 y)
+ red1 (EQU x y) = EQU (red1 x) (red1 y)
+
+ red2 :: [Proof] -> [Proof]
+ red2 [] = []
+ red2 (x : l) = (red1 x) : (x : l)
+
+ red3 :: [Proof] -> [Proof]
+ red3 [] = []
+ red3 (x : l) = case find (\y -> cont x y) l of
+	Nothing -> red3 (red2 (x : l))
+	Just _ -> x : l
+
+ -- red : reduction
+ red :: Proof -> Proof
+ red x = case red3 (x : []) of
+		[] -> x
+		y : m -> y
+</pre>
+
+De Bruijn index is efficient and theoretically satisfying, but resulting expressions are not always easily writeable and readable. 
+So it could be useful to write expression with named variables like in Lambda Calculus, and convert them into De Bruijn index : 
+
+<pre>
+ contSmb :: Proof -> String -> Bool
+ contSmb x s = cont x (SMB s)
+ 
+ abstr :: Proof -> String -> Proof -> Proof
+ abstr1 :: Proof -> String -> Proof -> Proof
+ abstr d v x = if (contSmb x v) then (abstr1 d v x) else x
+ abstr1 d v (EQU x y) = EQU (abstr d v x) (abstr d v y)
+ abstr1 d v (SMB s) = if v == s then d else (SMB s)
+ abstr1 d v VAR = VAR
+ abstr1 d v (NXV x) = NXV (abstr d v x)
+ abstr1 d v (FNC x) = FNC (abstr (NXV d) v x)
+ abstr1 d v (RED x) = RED (abstr d v x)
+ abstr1 d v (APL x y) = APL (abstr d v x) (abstr d v y)
+ abstr1 d v (LTR x y) = LTR (abstr d v x) (abstr d v y)
+ abstr1 d v (RTR x y) = RTR (abstr d v x) (abstr d v y)
+ 
+ lambda :: String -> Proof -> Proof
+ lambda v x = FNC (abstr VAR v x)
+</pre>
+
+Example (the identity function) :
+<pre>
+PL> lambda "x" VAR
+FNC VAR
+</pre>
+
+We saw that in Proof Logic, all sentences are equality.
+But how can we represent a sentence that is not an equality ?
+A possible convention is to represent the truth of a sentence by the equality with a given term, for example the identity [*] = FNC VAR.
+With this convention, the implication can be represented by application, and we get automatically the Modus Ponens rule : if p q = [*] and p = [*] then q = [*].
+
+<p>
+
+It is also useful to define application of a function to several arguments, and application with reduction of the results :
+
+<pre>
+ apl2 f x y = APL (APL f x) y
+ apl3 f x y z = APL (APL (APL f x) y) z
+ 
+ -- Application with reduction
+ apr r x = LTR (LTR (APL r x) (red (left (APL r x)))) (red (right (APL r x)))
+ apr2 r x y = apr (apr r x) y
+ apr3 r x y z = apr (apr (apr r x) y) z 
+</pre>
+
+Here is an example of a formal system with one rule saying that if x is parent of y and y is parent of z, then x is grand parent of z, and two axioms saying that Allan is parent of Brenda and Brenda is parent of Charles :
+
+<pre>
+ parent = apl2 (SMB "parent")
+ grandparent = apl2 (SMB "grandparent")
+ allan = SMB "allan"
+ brenda = SMB "brenda"
+ charles = SMB "charles"
+
+ gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
+  EQU (APL (parent (SMB "x") (SMB "y")) $
+       APL (parent (SMB "y") (SMB "z")) $
+       grandparent (SMB "x") (SMB "z"))
+      ident
+ gpAxiom1 = EQU (parent allan brenda) ident
+ gpAxiom2 = EQU (parent brenda charles) ident
+</pre>
+
+Note that lambda "x" may be interpreted as "for all x".
+<p>
+Here is a proof of a theorem saying that Allan is grand parent of Charles :
+<pre>
+ gpTheorem1 = LTR (apr gpAxiom2 (grandparent allan charles))
+                  (LTR (apr gpAxiom1 (apr (parent brenda charles) (grandparent allan charles)))
+                       (apr3 gpRule1 allan brenda charles))
+</pre>
+
+We can verify that it proves that APL (APL (SMB "grandparent") (SMB "allan")) (SMB "charles") = FNC VAR, which means that Allan is grand parent of Charles :
+<pre>
+PL> left gpTheorem1
+APL (APL (SMB "grandparent") (SMB "allan")) (SMB "charles")
+PL> right gpTheorem1
+FNC VAR
+</pre>
+
+This code is to write proofs in Proof Logic syntax :
+<pre>	
+ column col s = let l = length (lines s) in if l > 1 then length $ last $ lines s else col + length s 
+ 
+ -- showproof1 ctx col x : user readable representation of x in context ctx at column col
+ showproof1 :: Context -> Int -> Proof -> String
+ showproof1 _ _ (SMB s) = s
+ showproof1 _ _ VAR = "*"
+ showproof1 _ col (NXV x) = "'" ++ showproof1 Other (col+1) x
+ showproof1 _ col (FNC x) = "[" ++ showproof1 Other (col+1) x ++ "]"
+ showproof1 _ col (RED x) = "@" ++ showproof1 Other (col+1) x
+ showproof1 Argument col (APL x y) = "(" ++ showproof1 Other (col+1) (APL x y) ++ ")"
+ showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (column col s + 1) y 
+ -- showproof1 _ (LTR x y) = "{ " ++ showproof1 Other x ++ " , " ++ showproof1 Other y ++ " }"
+ showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
+ showproof1 _ col (RTR x y) = "&lt; " ++ showproof1 Other (col+2) x ++ " |\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " >"
+ -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
+ -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+ showproof1 _ col (EQU x y) = let s = showproof1 Other (col+1) x in "(" ++ s ++ " = " ++ showproof1 Other (column (col+1) s + 3) y ++ ")" 
+  
+ -- showproof x = user readable representation of proof x
+ showproof = showproof1 Other 0
+ 
+ instance Show Proof where
+  show x = showproof x
+</pre>
+
+And to convert Proof Logic syntax into Haskell internal representation :
+
+<pre>
+ -- Convert string to proof
+ 
+ pl1 (' ' : s) = pl1 s
+ pl1 ('\t' : s) = pl1 s
+ pl1 ('\n' : s) = pl1 s
+ pl1 ('\r' : s) = pl1 s
+ pl1 ('#' : s) = pl1 $ concat $ map (\l -> l ++ "\n") $ tail $ lines s
+ pl1 ('(' : s) = pl3 ')' Nothing Nothing s
+ pl1 ('*' : s) = (VAR, s)
+ pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
+ pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing Nothing s in (FNC x, t)
+ pl1 ('@' : s) = let (x, t) = pl1 s in (RED x, t)
+ pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
+ pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing Nothing s in let (y, u) = pl3 '}' Nothing Nothing t in (LTR x y, u)
+ pl1 ('&lt;' : s) = let (x, t) = pl3 '|' Nothing Nothing s in let (y, u) = pl3 '>' Nothing Nothing t in (RTR x y, u)
+ pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
+ pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v)
+ pl1 (c : s) = pl4 [c] s
+ 
+ pl4 s "" = (SMB s, "")
+ pl4 s (' ' : t) = (SMB s, t)
+ pl4 s ('\t' : t) = (SMB s, t)
+ pl4 s ('\n' : t) = (SMB s, t)
+ pl4 s ('\r' : t) = (SMB s, t)
+ pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ 
+ pl2 e (' ' : s) = pl2 e s
+ pl2 e ('\t' : s) = pl2 e s
+ pl2 e ('\n' : s) = pl2 e s
+ pl2 e ('\r' : s) = pl2 e s
+ pl2 e "" = (False, Nothing, "")
+ pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
+ 
+ pl3 e l Nothing (':' : s) = let (y, t) = pl3 e l Nothing s in (y, t)
+ pl3 e l (Just x) (':' : s) = let (y, t) = pl3 e l Nothing s in (APL x y, t)
+ pl3 e l x1 s = let x = case x1 of { Nothing -> FNC VAR; Just x2 -> x2 } in case pl2 e s of
+	(False, Nothing, t) -> case l of 
+	                           Nothing -> (x, t)
+	                           Just l -> (EQU l x, t)
+	(True, Nothing, t) -> case l of 
+	                          Nothing -> pl3 e (Just x) Nothing t
+	                          Just l -> pl3 e (Just (EQU l x)) Nothing t		
+	(False, Just y, t) -> case x1 of 
+	                          Nothing -> pl3 e l (Just y) t
+	                          _ -> pl3 e l (Just (APL x y)) t	
+							  
+ pl s = let (x, t) = pl3 '.' Nothing Nothing s in x
+</pre>
+
+We can write theories and proofs using Proof Logic syntax :
+
+<pre>
+ gpRule1b = pl "^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] )"
+ gpAxiom1b = pl "parent allan brenda = [*]"
+ gpAxiom2b = pl "parent brenda charles = [*]"
+ 
+ gpTheorem1b = LTR (apr gpAxiom2b (grandparent allan charles))
+                   (LTR (apr gpAxiom1b (apr (parent brenda charles) (grandparent allan charles)))
+                        (apr3 gpRule1b allan brenda charles))
+								  
+ gpTheorem1c = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpLemma1c (gpRule1 allan brenda charles) \
+  \ ! gpLemma2c (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
+  \ ! gpLemma3c1 { gpLemma2c , gpLemma1c } \
+  \ ! gpLemma3c { { gpLemma3c1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
+  \ ! gpLemma4c (gpAxiom2 (grandparent allan charles)) \
+  \ ! gpLemma5c { gpLemma4c , gpLemma3c } \
+  \ ! gpTheorem1c { grandparent allan charles , gpLemma5c } \
+  \ gpTheorem1c "
+</pre>
+
+With this function, we can load a proof from a text file and display its conclusion :
+
+<pre>
+ run filename = do
+  readFile filename >>= \s -> proves $ pl s
+</pre>
+
+For example, with the following file :
+
+<pre>
+! gpRule1
+ ^x ^y ^z ((parent x y : parent y z : grandparent x z) = [*])
+
+! gpAxiom1 ((parent allan brenda) = [*])
+
+! gpAxiom2 ((parent brenda charles) = [*])
+
+! gpTheorem1
+ { grandparent allan charles ,
+   { gpAxiom2 (grandparent allan charles),
+     { gpAxiom1 (parent brenda charles : grandparent allan charles),
+       (gpRule1 allan brenda charles) } } }
+
+gpTheorem1
+</pre>
+
+it gives :
+
+<pre>
+PL> run "grandparent.prf"
+
+The proof
+  @[@[@[@[*] { grandparent allan charles ,
+             { * (grandparent allan charles) ,
+               { '* (parent brenda charles (grandparent allan charles)) ,
+                 ''* allan brenda charles } } }] (parent brenda charles = [*])] (parent allan brenda = [*])] [[[(parent ''* '* (parent '* * (grandparent ''* *)) = [*])]]]
+proves
+  grandparent allan charles
+= [*]
+</pre>
+
+Here is a proof file "skk.prf" proving the Combinatory Logic equality "S K K = I" :
+
+<pre>
+! DI (I = ^a a)
+! DK (K = ^a ^b a)
+! DS (S = ^a ^b ^c (a c (b c)))
+{ { (DS DK DK) , S K K } , { DI , I } }
+</pre>
+
+The conclusion of this proof is "S K K = I" :
+
+<pre>
+PL> run "skk.prf"
+
+The proof
+  @[@[@[{ { * '* '* ,
+          S K K } ,
+        { ''* ,
+          I } }] (S = [[[''* * ('* *)]]])] (K = [['*]])] (I = [*])
+proves
+  S K K
+= I
+</pre>
+
+Here is a proof of p => p in propositional logic :
+
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+! EFQ ^p (imp false p = [*])
+! RAA ^p (imp (imp (imp p false) false) p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t (imp (all p) (p t) = [*])
+! PERMUT ^p ^q (imp (all ^x  : imp p (q x)) (imp p (all q)) = [*])
+! SOME ^p (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)
+               = [*])
+
+# Proof
+
+! lemma1 (AS p (imp p p) p)
+
+! lemma2 (AK p (imp p p))
+
+! lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+! lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+! lemma5 { lemma4 , lemma3 }
+
+! lemma6 ( lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) ) )
+
+! lemma7 { lemma6 , lemma5 }
+
+! lemma8 (AK p p)
+
+! lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p) )
+
+! lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+! lemma11 { lemma10 , lemma9 }
+
+! lemma12 (lemma8 (imp p p))
+
+! theorem1 { imp p p ,  { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+We can see that it effectively proves "p => p" (which is written "imp p p") :
+
+<pre>
+PL> run "prop.prf"
+
+The proof
+  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { imp p p ,
+                                                   { * ,
+                                                     '* } }] ('''* (imp p p))] { * ,
+                                                                                 '* }] (''* (imp p (imp p p) (imp p p)))] (''''''''''''''''* (imp p (imp p p)) (imp p p))] (''''''''''''''* p p)] { * ,
+                                                                                                                                                                                                    '* }] ('''* (imp (imp p (imp p p)) (imp p p)))] { * ,
+                                                                                                                                                                                                                                                      '* }] (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))))] (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)))] (''''''''* p (imp p p))] (''''''* p (imp p p) p)] [(imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*])]] [[(imp (all [:] imp '* (* x)) (imp '* (all *)) = [*])]]] [[(imp (all '*) ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(imp (imp (imp * false) false) * = [*])]] [(imp false * = [*])]] [[[(imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*])]]]] [[(imp '* (imp * '*) = [*])]]] [[(imp '* * ('* *) = [*])]] 
+proves
+  imp p p
+= [*]
+</pre>
+
+Amazingly, it also works with infix notation :
+
+<pre>
+! MP ^p ^q ((p > q) (p q) = [*])
+! AK ^p ^q (p > (q > p) = [*])
+! AS ^p ^q ^r ((p > (q > r)) > ((p > q) > (p > r)) = [*])
+! EFQ ^p (false > p = [*])
+! RAA ^p (((p > false) > false) > p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t ((all p) > (p t) = [*])
+! PERMUT ^p ^q ((all ^x  :  p > (q x)) > (p > (all q)) = [*])
+! SOME ^p (((all p) > false) > 
+                   ((p (some ^x ((p x) > false))) > false) 
+               = [*])
+
+! lemma1 (AS p (p > p) p)
+
+! lemma2 (AK p (p > p))
+
+! lemma3 (MP (p > ((p > p) > p))
+               ((p > (p > p)) > (p > p)))
+
+! lemma4 (lemma1 ( (p > ((p > p) > p))
+                      ((p > (p > p)) > (p > p)) ) )
+
+! lemma5 { lemma4 , lemma3 }
+
+! lemma6 (lemma2 
+              ((p > (p > p)) >
+               (p > p)))
+
+! lemma7 { lemma6 , lemma5 }
+
+! lemma8 (AK p p)
+
+! lemma9 
+ (MP 
+    (p > (p > p))
+    (p > p))
+
+! lemma10 (lemma7 ((p > (p > p)) (p > p)))
+
+! lemma11 { lemma10 , lemma9 }
+
+! lemma12 (lemma8 (p > p))
+
+! theorem1 { p > p , { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+It proves the same sentence with the infix notation "p > p" :
+
+<pre>
+PL> run "propi.prf"
+
+The proof
+  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { p > p ,
+                                                   { * ,
+                                                     '* } }] ('''* (p > p))] { * ,
+                                                                               '* }] (''* (p > (p > p) (p > p)))] (''''''''''''''''* (p > (p > p)) (p > p))] (''''''''''''''* p p)] { * ,
+                                                                                                                                                                                      '* }] ('''* (p > (p > p) > (p > p)))] { * ,
+                                                                                                                                                                                                                              '* }] (''* (p > (p > p > p) (p > (p > p) > (p > p))))] (''''''''''* (p > (p > p > p)) (p > (p > p) > (p > p)))] (''''''''* p (p > p))] (''''''* p (p > p) p)] [(all * > false > (* (some ['* * > false]) > false) = [*])]] [[(all [:] '* > (* x) > ('* > (all *)) = [*])]]] [[(all '* > ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(* > false > false > * = [*])]] [(false > * = [*])]] [[[(''* > ('* > *) > (''* > '* > (''* > *)) = [*])]]]] [[('* > (* > '*) = [*])]]] [[('* > * ('* *) = [*])]]
+proves
+  p > p
+= [*]
+</pre>
+
+Historically, Proof Logic comes from <a href="http://log.chez.com/text/logic/sslc.txt">SSLC (Simplified Symbolic Lambda Calculus)</a>, with a new notation introduced, the "AXM" proof replaced by "a = b", and DB0, DBS and DBL respectively replaced by VAR, NXV and FNC in Haskell representation.
+SSLC itself comes from Schönfinkel and Curry's Combinatory Logic and Church's Lambda Calculus throught <a href="http://log.chez.com/text/logic/slc-hist.html">this history</a>.
+
+<p>
+
+Here is the full Haskell code of the program implementing Proof Logic :
+
+<!-- plstrprs.hs -->
+
+<pre>
+module PL where
+ 
+ import Data.List
+
+ data Proof = SMB String
+            | VAR 
+            | NXV Proof
+            | FNC Proof
+            | RED Proof
+            | APL Proof Proof
+            | LTR Proof Proof
+			| RTR Proof Proof
+            | EQU Proof Proof			
+	deriving (Eq)
+	
+ data Side = LeftSide | RightSide
+	deriving (Eq, Show)
+
+ data Context = Function | Argument | Other
+	deriving (Eq, Show)
+
+
+ -- shift u x increases all variables greater than u in x
+ shift :: Proof -> Proof -> Proof
+ shift _ (SMB s) = SMB s
+ shift VAR VAR = NXV VAR
+ shift _ VAR = VAR
+ shift (NXV u) (NXV x) = NXV (shift u x)
+ shift u (NXV x) = NXV (shift u x)
+ shift u (FNC x) = FNC (shift (NXV u) x)
+ shift u (RED x) = RED (shift u x)
+ shift u (APL x y) = APL (shift u x) (shift u y)
+ shift u (LTR x y) = LTR (shift u x) (shift u y)
+ shift u (RTR x y) = RTR (shift u x) (shift u y)
+ shift u (EQU x y) = EQU (shift u x) (shift u y)
+
+ -- subst u a b (approximatively) replaces u in a by b (a little more complex in fact)
+ subst :: Proof -> Proof -> Proof -> Proof
+ subst1 :: Proof -> Proof -> Proof -> Proof
+ subst u a b = if u == a then b else (if NXV u == a then u else subst1 u a b)
+ subst1 _ (SMB s) _ = SMB s
+ subst1 _ VAR _ = VAR
+ subst1 u (NXV x) b = NXV (subst u x b)
+ subst1 u (FNC x) b = FNC (subst (NXV u) x (shift VAR b))
+ subst1 u (RED x) b = RED (subst u x b)
+ subst1 u (APL x y) b = APL (subst u x b) (subst u y b)
+ subst1 u (LTR x y) b = LTR (subst u x b) (subst u y b)
+ subst1 u (RTR x y) b = RTR (subst u x b) (subst u y b) 
+ subst1 u (EQU x y) b = EQU (subst u x b) (subst u y b)
+
+ -- cont x y tests if x contains y 
+ cont :: Proof -> Proof -> Bool
+ cont1 :: Proof -> Proof -> Bool
+ cont x y = if x == y then True else cont1 x y
+ cont1 (SMB s) _ = False
+ cont1 VAR _ = False
+ cont1 (NXV x) y = cont x y
+ cont1 (FNC x) y = cont x y
+ cont1 (RED x) y = cont x y
+ cont1 (APL x y) z = (cont x z) || (cont y z)
+ cont1 (LTR x y) z = (cont x z) || (cont y z)
+ cont1 (RTR x y) z = (cont x z) || (cont y z)
+ cont1 (EQU x y) z = (cont x z) || (cont y z)
+
+ -- red1 does one step of reduction
+ red1 :: Proof -> Proof
+ red1 (SMB s) = SMB s
+ red1 VAR = VAR
+ red1 (NXV x) = NXV (red1 x)
+ red1 (FNC x) = FNC (red1 x)
+ red1 (RED x) = RED (red1 x)
+ red1 (APL (FNC x) y) = subst VAR x y
+ red1 (APL x y) = APL (red1 x) (red1 y)
+ red1 (LTR x y) = LTR (red1 x) (red1 y)
+ red1 (RTR x y) = RTR (red1 x) (red1 y) 
+ red1 (EQU x y) = EQU (red1 x) (red1 y)
+
+ red2 :: [Proof] -> [Proof]
+ red2 [] = []
+ red2 (x : l) = (red1 x) : (x : l)
+
+ red3 :: [Proof] -> [Proof]
+ red3 [] = []
+ red3 (x : l) = case find (\y -> cont x y) l of
+	Nothing -> red3 (red2 (x : l))
+	Just _ -> x : l
+
+ -- red : reduction
+ red :: Proof -> Proof
+ red x = case red3 (x : []) of
+		[] -> x
+		y : m -> y
+
+ side :: Side -> Proof -> Proof
+ side _ (SMB s) = SMB s
+ side _ VAR = VAR
+ side s (NXV x) = NXV (side s x)
+ side s (FNC x) = FNC (side s x)
+ side s (RED x) = side s (red x)
+ side s (APL x y) = APL (side s x) (side s y)
+ side s (LTR x y) = if red (side LeftSide x) == red (side LeftSide y) then (side RightSide (if s == LeftSide then x else y)) else LTR x y
+ side s (RTR x y) = if red (side RightSide x) == red (side RightSide y) then (side LeftSide (if s == LeftSide then x else y)) else RTR x y
+ side LeftSide (EQU x y) = x
+ side RightSide (EQU x y) = y
+
+ left = side LeftSide 
+ right = side RightSide 
+
+
+ contSmb :: Proof -> String -> Bool
+ contSmb x s = cont x (SMB s)
+ 
+ abstr :: Proof -> String -> Proof -> Proof
+ abstr1 :: Proof -> String -> Proof -> Proof
+ abstr d v x = if (contSmb x v) then (abstr1 d v x) else x
+ abstr1 d v (EQU x y) = EQU (abstr d v x) (abstr d v y)
+ abstr1 d v (SMB s) = if v == s then d else (SMB s)
+ abstr1 d v VAR = VAR
+ abstr1 d v (NXV x) = NXV (abstr d v x)
+ abstr1 d v (FNC x) = FNC (abstr (NXV d) v x)
+ abstr1 d v (RED x) = RED (abstr d v x)
+ abstr1 d v (APL x y) = APL (abstr d v x) (abstr d v y)
+ abstr1 d v (LTR x y) = LTR (abstr d v x) (abstr d v y)
+ abstr1 d v (RTR x y) = RTR (abstr d v x) (abstr d v y)
+ 
+ lambda :: String -> Proof -> Proof
+ lambda v x = FNC (abstr VAR v x)
+
+
+ proves x = do
+  putStr ("\nThe proof\n  " ++ showproof1 Other 2 x ++ " \nproves\n  " ++ showproof1 Other 2 (left x) ++ "\n= " ++ showproof1 Other 2 (right x) ++ "\n")
+
+ reducesTo x = do
+  putStr ("\n  " ++ show x ++ "\nreduces to\n  " ++ show (red x) ++ "\n")
+
+ ident = FNC VAR
+
+ -- Multiple application
+ apl2 f x y = APL (APL f x) y
+ apl3 f x y z = APL (APL (APL f x) y) z
+ 
+ -- Application with reduction
+ apr r x = LTR (LTR (APL r x) (red (left (APL r x)))) (red (right (APL r x)))
+ apr2 r x y = apr (apr r x) y
+ apr3 r x y z = apr (apr (apr r x) y) z 
+					   
+ column col s = let l = length (lines s) in if l > 1 then length $ last $ lines s else col + length s 
+ 
+ -- showproof1 ctx col x : user readable representation of x in context ctx at column col
+ showproof1 :: Context -> Int -> Proof -> String
+ showproof1 _ _ (SMB s) = s
+ showproof1 _ _ VAR = "*"
+ showproof1 _ col (NXV x) = "'" ++ showproof1 Other (col+1) x
+ showproof1 _ col (FNC x) = "[" ++ showproof1 Other (col+1) x ++ "]"
+ showproof1 _ col (RED x) = "@" ++ showproof1 Other (col+1) x
+ showproof1 Argument col (APL x y) = "(" ++ showproof1 Other (col+1) (APL x y) ++ ")"
+ showproof1 _ col (APL x y) = let s = showproof1 Function col x in s ++ " " ++ showproof1 Argument (column col s + 1) y 
+ -- showproof1 _ (LTR x y) = "{ " ++ showproof1 Other x ++ " , " ++ showproof1 Other y ++ " }"
+ showproof1 _ col (LTR x y) = "{ " ++ showproof1 Other (col+2) x ++ " ,\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " }"
+ showproof1 _ col (RTR x y) = "< " ++ showproof1 Other (col+2) x ++ " |\n" ++ concat (replicate (col+2) " ") ++ showproof1 Other (col+2) y ++ " >"
+ -- showproof1 Other col (EQU x y) = let s = showproof1 Other col x in s ++ " = " ++ showproof1 Other (col + (length s) + 3) y 
+ -- showproof1 _ col (EQU x y) = "(" ++ showproof1 Other (col+1) (EQU x y) ++ ")"
+ showproof1 _ col (EQU x y) = let s = showproof1 Other (col+1) x in "(" ++ s ++ " = " ++ showproof1 Other (column (col+1) s + 3) y ++ ")" 
+  
+ -- showproof x = user readable representation of proof x
+ showproof = showproof1 Other 0
+ 
+ instance Show Proof where
+  show x = showproof x
+ 
+
+ -- Convert string to proof
+ 
+ pl1 (' ' : s) = pl1 s
+ pl1 ('\t' : s) = pl1 s
+ pl1 ('\n' : s) = pl1 s
+ pl1 ('\r' : s) = pl1 s
+ pl1 ('#' : s) = pl1 $ concat $ map (\l -> l ++ "\n") $ tail $ lines s
+ pl1 ('(' : s) = pl3 ')' Nothing Nothing s
+ pl1 ('*' : s) = (VAR, s)
+ pl1 ('\'' : s) = let (x, t) = pl1 s in (NXV x, t)
+ pl1 ('[' : s) = let (x, t) = pl3 ']' Nothing Nothing s in (FNC x, t)
+ pl1 ('@' : s) = let (x, t) = pl1 s in (RED x, t)
+ pl1 ('-' : s) = let (x, t) = pl1 s in let (y, u) = pl1 t in (apr x y, u)
+ pl1 ('{' : s) = let (x, t) = pl3 ',' Nothing Nothing s in let (y, u) = pl3 '}' Nothing Nothing t in (LTR x y, u)
+ pl1 ('<' : s) = let (x, t) = pl3 '|' Nothing Nothing s in let (y, u) = pl3 '>' Nothing Nothing t in (RTR x y, u)
+ pl1 ('^' : s) = let (x, t) = pl1 s in case x of SMB v -> let (y, u) = pl1 t in (lambda v y, u)
+ pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v)
+ pl1 (c : s) = pl4 [c] s
+ 
+ pl4 s "" = (SMB s, "")
+ pl4 s (' ' : t) = (SMB s, t)
+ pl4 s ('\t' : t) = (SMB s, t)
+ pl4 s ('\n' : t) = (SMB s, t)
+ pl4 s ('\r' : t) = (SMB s, t)
+ pl4 s (c : t) = if (any.(==)) c " \t\n()*'\\[]-%{,}#=" then (SMB s, (c : t)) else pl4 (s ++ [c]) t
+ 
+ pl2 e (' ' : s) = pl2 e s
+ pl2 e ('\t' : s) = pl2 e s
+ pl2 e ('\n' : s) = pl2 e s
+ pl2 e ('\r' : s) = pl2 e s
+ pl2 e "" = (False, Nothing, "")
+ pl2 e (c : s) = if c == e then (False, Nothing, s) else if c == '=' then (True, Nothing, s) else let (x, t) = pl1 (c : s) in (False, Just x, t)
+ 
+ pl3 e l Nothing (':' : s) = let (y, t) = pl3 e l Nothing s in (y, t)
+ pl3 e l (Just x) (':' : s) = let (y, t) = pl3 e l Nothing s in (APL x y, t)
+ pl3 e l x1 s = let x = case x1 of { Nothing -> FNC VAR; Just x2 -> x2 } in case pl2 e s of
+	(False, Nothing, t) -> case l of 
+	                           Nothing -> (x, t)
+	                           Just l -> (EQU l x, t)
+	(True, Nothing, t) -> case l of 
+	                          Nothing -> pl3 e (Just x) Nothing t
+	                          Just l -> pl3 e (Just (EQU l x)) Nothing t		
+	(False, Just y, t) -> case x1 of 
+	                          Nothing -> pl3 e l (Just y) t
+	                          _ -> pl3 e l (Just (APL x y)) t	
+							  
+ pl s = let (x, t) = pl3 '.' Nothing Nothing s in x
+ 
+ run filename = do
+  readFile filename >>= \s -> proves $ pl s
+
+
+ -- Example of theory
+ 
+ parent = apl2 (SMB "parent")
+ grandparent = apl2 (SMB "grandparent")
+ allan = SMB "allan"
+ brenda = SMB "brenda"
+ charles = SMB "charles"
+
+ gpRule1 = lambda "x" $ lambda "y" $ lambda "z" $ 
+  EQU (APL (parent (SMB "x") (SMB "y")) $
+       APL (parent (SMB "y") (SMB "z")) $
+       grandparent (SMB "x") (SMB "z"))
+      ident
+ gpAxiom1 = EQU (parent allan brenda) ident
+ gpAxiom2 = EQU (parent brenda charles) ident
+ 
+ gpTheorem1 = LTR (apr gpAxiom2 (grandparent allan charles))
+                  (LTR (apr gpAxiom1 (APL (parent brenda charles) (grandparent allan charles)))
+                       (apr3 gpRule1 allan brenda charles))
+
+				
+ gpRule1b = pl "^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] )"
+ gpAxiom1b = pl "parent allan brenda = [*]"
+ gpAxiom2b = pl "parent brenda charles = [*]"
+ 
+ gpTheorem1b = LTR (apr gpAxiom2b (grandparent allan charles))
+                   (LTR (apr gpAxiom1b (APL (parent brenda charles) (grandparent allan charles)))
+                        (apr3 gpRule1b allan brenda charles))
+								  
+ gpTheorem1c = pl "\
+  \ ! gpRule1  ^x ^y ^z ( (parent x y : parent y z : grandparent x z) = [*] ) \
+  \ ! gpAxiom1 (parent allan brenda = [*]) \
+  \ ! gpAxiom2 (parent brenda charles = [*]) \
+  \ ! gpLemma1c (gpRule1 allan brenda charles) \
+  \ ! gpLemma2c (gpAxiom1 (parent brenda charles (grandparent allan charles))) \
+  \ ! gpLemma3c1 { gpLemma2c , gpLemma1c } \
+  \ ! gpLemma3c { { gpLemma3c1 , (parent brenda charles (grandparent allan charles)) } , [*] } \
+  \ ! gpLemma4c (gpAxiom2 (grandparent allan charles)) \
+  \ ! gpLemma5c { gpLemma4c , gpLemma3c } \
+  \ ! gpTheorem1c { grandparent allan charles , gpLemma5c } \
+  \ gpTheorem1c "
+		
+ test = do
+  proves gpTheorem1
+  proves gpTheorem1b
+  proves gpTheorem1c
+
+</pre>
+
+</body>
+</html>
