@@ -87,3 +87,26 @@ ERQ, SYM, RGT -> RED ?
 RED -> SUB
 RED, SYM -> RDL, RD2
 QOT, RED, RDL, RD2 -> RDQ, RLQ, RBQ
+
+
+Extensions à partir des opérateurs de base + RTR ERQ QOT
+
+LFT x = RTR x x : RTR (a=b) (a=b) |- a=a
+RGT x = LTR x x : LTR (a=b) (a=b) |- b=b
+SYM x = LTR x (LFT x) = RTR (RGT x) x : LTR (a=b) (a=a) |- b=a ; RTR (b=b) (a=b) |- b=a
+TRN x y = LTR (SYM x) y = RTR x (SYM y) : x|=a=b, y|-b=c, LTR (b=a) (b=c) |- a=c ; RTR (a=b) (c=b) |- a=c
+
+RED x = RTR x (ERQ (RGT x)) = LTR (SYM x) (ERQ (RGT x)) : x|-a=b, 
+	RTR (a=b) (ERQ b) = RTR (a=b) (reduce b=reduce b) |- a=reduce b
+	LTR (b=a) (reduce b=reduce b) |- a=reduce b
+RDL x = LTR (ERQ (LFT x)) x
+	LTR (ERQ a) (a=b) = LTR (reduce a=reduce a) (a=b) |- reduce a=b
+RD2 x = LTR (LTR x (ERQ (LFT x))) (LTR (RGT x) (ERQ (RGT x)))
+
+RED -> RDL, RD2 :
+RDL x = SYM (RED (SYM x))
+RD2 x = SYM (RED (SYM (RED x))) = RED (SYM (RED (SYM x)))
+
+RLQ x = RDX (QOT x)
+RDQ x = RED (QOT x)
+RBQ x = RD2 (QOT x)
