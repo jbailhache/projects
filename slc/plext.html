@@ -84,36 +84,104 @@ These operators can obviously be defined by :
 <li> RGT x = {x,x}
 </ul>
 
-A symmetry operator can be defined by :
-<ul>
-<li> left(SYM x) = right(x) ; right(SYM x) = left(x)
-</ul>
-
-The corresponding logical rule is :
+We can define an operator associated to the symmetry rule :
 <ul>
 <li> SYM : a = b |- b = a
 </ul>
 
-It can be defined by :
+This operator is defined by :
+<ul>
+<li> left(SYM x) = right(x) 
+<li> right(SYM x) = left(x)
+</ul>
+
+It can be defined by a combination of {,} and LFT, or of &lt;|> and RGT :
 <ul>
 <li> SYM x = {x,LFT x} = &lt;RGT x|x>
 </ul>
 
-The transitivity operator is defined by :
-<ul>
-<li> if right(x) = left(y) then left(TRN x y) = left(x) and right(TRN x y) = right(y)
-</ul>
-
-The corresponding logical rule is :
+The transitivity rule is :
 <ul>
 <li> TRN : a = b, b = c |- a = c
 </ul>
 
-It can be defined by :
+The corresponding operator is defined by :
+<ul>
+<li> if right(x) = left(y) then left(TRN x y) = left(x) and right(TRN x y) = right(y)
+</ul>
+
+It can be defined by a combination of {,} or &lt;|>, and SYM :
 <ul>
 <li> TRN x y = {SYM x,y} = &lt;x|SYM y>
 </ul>
 
+We can say that if a = b, then red(a) = b. This is formalized by the RDL rule :
+<ul>
+<li> RDL : a = b |- red(a) = b
+</ul>
+
+The corresponding operator is defined by :
+<ul>
+<li> left(RDL x) = red(left(x))
+<li> right(RDL x) = right(x)
+</ul>
+
+It can also be defined by a combination of {,}, @ and LFT :
+<ul>
+<li> RDL x = {@(LFT x),x}
+</ul>
+
+The symmetric rule is :
+<ul>
+<li> RDR : a = b |- a = red(b)
+</ul>
+
+The corresponding operator is defined by :
+<ul>
+<li> left(RDR x) = left(x)
+<li> right(RDR x) = red(right(x))
+</ul>
+
+It can also be defined by a combination of &lt;|>, @ and RGT :
+<ul>
+<li> RDR x = &lt;x|@(RGT x)>
+</ul>
+
+RDL can also be defined from RDR and reciprocally :
+<ul>
+<li> RDL x = SYM (RDR (SYM x))
+<li> RDR x = SYM (RDL (SYM x))
+</ul>
+
+We can also reduce both left and right sides :
+<ul>
+<li> RDB : a = b |- red(a) = red(b)
+</ul>
+
+The corresponding operator is defined by :
+<ul>
+<li> left(RDB x) = red(left(x))
+<li> right(RDB x) = red(right(x))
+</ul>
+
+It can be defined by a combination of RDL or RDR, and SYM :
+<ul>
+<li> RDB x = SYM (RDL (SYM (RDL x)))
+<li> RDB x = RDL (SYM (RDL (SYM x)))
+<li> RDB x = SYM (RDR (SYM (RDR x)))
+<li> RDB x = RDR (SYM (RDR (SYM x)))
+</ul>
+
+A rule can also be introduced to do the substitution in application of a function to an argument :
+<ul>
+<li> SUB : a = b, c = d |- [a] c = subst(*,b,d)
+</ul>
+
+The corresponding operator is defined by :
+<ul>
+<li> left(SUB x y) = [left(x)] left(y)
+<li> right(SUB x y) = subst(*,right(x),right(y))
+</ul>
 
 </body>
 </html>
