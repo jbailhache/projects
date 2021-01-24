@@ -186,10 +186,7 @@ The corresponding operator is defined by :
 <h3>Definitions of extensions with Haskell program</h3>
 
 <pre>
-PL> pl "! LFT ^x <x|x> (LFT (a=b))"
-@([* (a = b)] [< * |
-                 * >])
-PL> proves $ pl "! LFT ^x <x|x> (LFT (a=b))"
+PL> proves $ pl "! LFT ^x &lt;x|x> (LFT (a=b))"
 
 The proof
   @([* (a = b)] [< * |
@@ -207,7 +204,7 @@ proves
   b
 = b
 
-PL> proves $ pl "! LFT ^x <x|x> ! SYM ^x {x,(LFT x)} (SYM(a=b))"
+PL> proves $ pl "! LFT ^x &lt;x|x> ! SYM ^x {x,(LFT x)} (SYM(a=b))"
 
 The proof
   @([@([* (a = b)] [{ * ,
@@ -217,7 +214,7 @@ proves
   b
 = a
 
-PL> proves $ pl "! LFT ^x <x|x> ! SYM ^x {x,(LFT x)} ! TRN ^x ^y {(SYM x),y} (TRN (a=b) (b=c)"
+PL> proves $ pl "! LFT ^x &lt;x|x> ! SYM ^x {x,(LFT x)} ! TRN ^x ^y {(SYM x),y} (TRN (a=b) (b=c)"
 
 The proof
   @([@([@([* (a = b) (b = c)] [[{ ''* '* ,
