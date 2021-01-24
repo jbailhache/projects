@@ -59,13 +59,30 @@ The left and right terms of the conclusion of a proof are defined as follows :
 <li> If x is a symbol or the variable "*", then left(x) = x and right(x) = x, which means that x proves x = x.
 <li> left('x) = 'left(x) ; right('x) = 'right(x)
 <li> left([x]) = [left(x)] ; right([x]) = [right(x)]
+<li> left(@x) = left(red(x)) ; right(@x) = right(red(x))
 <li> left(x y) = left(x) left(y) ; right(x y) = right(x) right(y), which means that if x proves a = b and y proves c = d then x y proves a c = b d.
 <li> left({x,y}) = right(x) and right({x,y}) = right(y) if left(x) and left(y) reduce to a same term, otherwise left({x,y}) = right({x,y}) = {x,y}
 <li> left(&lt;x|y>) = left(x) and right(&lt;x,y>) = left(y) if right(x) and right(y) reduce to the same term, otherwise left(&lt;x|y>) = right(&lt;x|y>) = &lt;x|y>
 <li> left(a=b) = a ; right(a=b) = b
 </ul>
 
-We also need a notation to write a definition, to give a name to a proof and then use this name in other proofs instead of writing its full definition each time we need to use it. This is written "! name definition proof" which means "replace name by definition in proof". It is similar to "let name = definition in proof" in Haskell. The reduction operator "@" is required to implement this notation, as you can see in the Haskell code below : 
+These operators (except the last one which expresses the axiom a=b) can be seen as logical rules, where x proves a = b and y proves c = d :
+<ul>
+<li> s : |- s = s ; * : |- * = *
+<li> ' : a = b |- 'a = 'b
+<li> [] : a = b |- [a] = [b] 
+<li> () : a = b, c = d |- a c = b d
+<li> {,} : a = b, c = d, red(a) = red(c) |- b = d
+<li> &lt;|> : a = b, c = d, red(b) = red(d) |- a = c
+</ul>
+
+The operator "@" is more difficult to express in terms of logical rules because the definition of left(@x) and right(@x) does not involve left(x) and right(x). Perhaps we could write something like :
+
+<ul>
+<li> @ : x |- left(red(x)) = right(red(x))
+</ul>
+
+We also need a notation to write a definition, to give a name to a proof and then use this name in other proofs instead of writing its full definition each time we need to use it. This is written "! name definition proof" which means "replace name by definition in proof". It is similar to "let name = definition in proof" in Haskell. The reduction operator "@" written "RED" in Haskell is required to implement this notation, as you can see in the Haskell code below : 
 <pre>
  pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v) 
 </pre>
@@ -95,7 +112,7 @@ We can then define Proof Logic terms in Haskell :
             | RED Proof
             | APL Proof Proof
             | LTR Proof Proof
-			| RTR Proof Proof
+            | RTR Proof Proof
             | EQU Proof Proof			
 	deriving (Eq, Show)
 </pre>
@@ -529,50 +546,50 @@ proves
 Amazingly, it also works with infix notation :
 
 <pre>
-! MP ^p ^q ((p > q) (p q) = [*])
-! AK ^p ^q (p > (q > p) = [*])
-! AS ^p ^q ^r ((p > (q > r)) > ((p > q) > (p > r)) = [*])
-! EFQ ^p (false > p = [*])
-! RAA ^p (((p > false) > false) > p = [*])
+! MP ^p ^q ((p imp q) (p q) = [*])
+! AK ^p ^q (p imp (q imp p) = [*])
+! AS ^p ^q ^r ((p imp (q imp r)) imp ((p imp q) imp (p imp r)) = [*])
+! EFQ ^p (false imp p = [*])
+! RAA ^p (((p imp false) imp false) imp p = [*])
 ! GEN ^p (p (all ^x p) = [*])
-! PART ^p ^t ((all p) > (p t) = [*])
-! PERMUT ^p ^q ((all ^x  :  p > (q x)) > (p > (all q)) = [*])
-! SOME ^p (((all p) > false) > 
-                   ((p (some ^x ((p x) > false))) > false) 
+! PART ^p ^t ((all p) imp (p t) = [*])
+! PERMUT ^p ^q ((all ^x  :  p imp (q x)) imp (p imp (all q)) = [*])
+! SOME ^p (((all p) imp false) imp
+                   ((p (some ^x ((p x) imp false))) imp false)
                = [*])
 
-! lemma1 (AS p (p > p) p)
+! lemma1 (AS p (p imp p) p)
 
-! lemma2 (AK p (p > p))
+! lemma2 (AK p (p imp p))
 
-! lemma3 (MP (p > ((p > p) > p))
-               ((p > (p > p)) > (p > p)))
+! lemma3 (MP (p imp ((p imp p) imp p))
+               ((p imp (p imp p)) imp (p imp p)))
 
-! lemma4 (lemma1 ( (p > ((p > p) > p))
-                      ((p > (p > p)) > (p > p)) ) )
+! lemma4 (lemma1 ( (p imp ((p imp p) imp p))
+                      ((p imp (p imp p)) imp (p imp p)) ) )
 
 ! lemma5 { lemma4 , lemma3 }
 
-! lemma6 (lemma2 
-              ((p > (p > p)) >
-               (p > p)))
+! lemma6 (lemma2
+              ((p imp (p imp p)) imp
+               (p imp p)))
 
 ! lemma7 { lemma6 , lemma5 }
 
 ! lemma8 (AK p p)
 
-! lemma9 
- (MP 
-    (p > (p > p))
-    (p > p))
+! lemma9
+ (MP
+    (p imp (p imp p))
+    (p imp p))
 
-! lemma10 (lemma7 ((p > (p > p)) (p > p)))
+! lemma10 (lemma7 ((p imp (p imp p)) (p imp p)))
 
 ! lemma11 { lemma10 , lemma9 }
 
-! lemma12 (lemma8 (p > p))
+! lemma12 (lemma8 (p imp p))
 
-! theorem1 { p > p , { lemma12 , lemma11 } }
+! theorem1 { p imp p , { lemma12 , lemma11 } }
 
 theorem1
 </pre>
@@ -583,14 +600,14 @@ It proves the same sentence with the infix notation "p > p" :
 PL> run "propi.prf"
 
 The proof
-  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { p > p ,
+  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { p imp p ,
                                                    { * ,
-                                                     '* } }] ('''* (p > p))] { * ,
-                                                                               '* }] (''* (p > (p > p) (p > p)))] (''''''''''''''''* (p > (p > p)) (p > p))] (''''''''''''''* p p)] { * ,
-                                                                                                                                                                                      '* }] ('''* (p > (p > p) > (p > p)))] { * ,
-                                                                                                                                                                                                                              '* }] (''* (p > (p > p > p) (p > (p > p) > (p > p))))] (''''''''''* (p > (p > p > p)) (p > (p > p) > (p > p)))] (''''''''* p (p > p))] (''''''* p (p > p) p)] [(all * > false > (* (some ['* * > false]) > false) = [*])]] [[(all [:] '* > (* x) > ('* > (all *)) = [*])]]] [[(all '* > ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(* > false > false > * = [*])]] [(false > * = [*])]] [[[(''* > ('* > *) > (''* > '* > (''* > *)) = [*])]]]] [[('* > (* > '*) = [*])]]] [[('* > * ('* *) = [*])]]
+                                                     '* } }] ('''* (p imp p))] { * ,
+                                                                                 '* }] (''* (p imp (p imp p) (p imp p)))] (''''''''''''''''* (p imp (p imp p)) (p imp p))] (''''''''''''''* p p)] { * ,
+                                                                                                                                                                                                    '* }] ('''* (p imp (p imp p) imp (p imp p)))] { * ,
+                                                                                                                                                                                                                                                    '* }] (''* (p imp (p imp p imp p) (p imp (p imp p) imp (p imp p))))] (''''''''''* (p imp (p imp p imp p)) (p imp (p imp p) imp (p imp p)))] (''''''''* p (p imp p))] (''''''* p (p imp p) p)] [(all * imp false imp (* (some ['* * imp false]) imp false) = [*])]] [[(all [:] '* imp (* x) imp ('* imp (all *)) = [*])]]] [[(all '* imp ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(* imp false imp false imp * = [*])]] [(false imp * = [*])]] [[[(''* imp ('* imp *) imp (''* imp '* imp (''* imp *)) = [*])]]]] [[('* imp (* imp '*) = [*])]]] [[('* imp * ('* *) = [*])]]
 proves
-  p > p
+  p imp p
 = [*]
 </pre>
 
@@ -615,7 +632,7 @@ module PL where
             | RED Proof
             | APL Proof Proof
             | LTR Proof Proof
-			| RTR Proof Proof
+            | RTR Proof Proof
             | EQU Proof Proof			
 	deriving (Eq)
 	
