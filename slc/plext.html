@@ -185,16 +185,88 @@ The corresponding operator is defined by :
 
 <h3>Definitions of extensions with Haskell program</h3>
 
+The definitions of new operators as combinations of basic operators look like the definition of new combinators as combination of basic combinators (K, S) in combinatory logic. But here we are at some kind of "meta" level. However, it seems that such definitions at "normal" level works if we use the @ operator.
+For example, we have seen that LFT x = &lt;x|x>. With lambda calculus-like notation it gives "LFT = ^x &lt;x|x>". 
+If we apply it to a proof, for example the axiom a = b, we get :
+<pre>
+PL> proves $ pl "^x &lt;x|x> (a=b)"
+
+The proof
+  [< * |
+     * >] (a = b) 
+proves
+  [*] a
+= [*] b
+</pre>
+We would like to obtain that it proves a = a.
+But with the @ operator, we get :
+<pre>
+PL> proves $ pl "@ (^x &lt;x|x> (a=b))"
+
+The proof
+  @([< * |
+       * >] (a = b)) 
+proves
+  a
+= a
+</pre>
+Remember that the @ operator is defined by :
+<ul>
+<li> left(@x) = left(red(x)) ; right(@x) = right(red(x))
+</ul>
+The reduction of its operand gives :
+<pre>
+PL> red $ pl "(^x &lt;x|x> (a=b))"
+< (a = b) |
+  (a = b) >
+</pre>
+which proves a = a :
+<pre>
+PL> proves $ red $ pl "(^x &lt;x|x> (a=b))"
+
+The proof
+  < (a = b) |
+    (a = b) >
+proves
+  a
+= a
+
+</pre>
+<p>
+We can also use the notation "! x y z" (equivalent of "let x = y in z" in Haskell) since the definition of ! embeds the @ operator (RED in Haskell code) :
+<pre>
+ pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v)
+</pre>
+Here is the result with LFT defined by ! :
 <pre>
 PL> proves $ pl "! LFT ^x &lt;x|x> (LFT (a=b))"
 
 The proof
   @([* (a = b)] [< * |
-                   * >])
+                   * >]) 
 proves
   a
 = a
+</pre>
 
+This definition does not give exactly the same result than the operator we want to define, because the operator we obtain by this method also reduces the terms of the conclusion, for example :
+<pre>
+PL> proves $ pl "! LFT ^x &lt;x|x> (LFT ([*]a=b))"
+
+The proof
+  @([* ([*] a = b)] [< * |
+                       * >]) 
+proves
+  a
+= a
+</pre>
+We obtain a = a instead of [*]a = [*]a.
+
+<p>
+
+Here are some other examples of such definitions :
+
+<pre>
 PL> proves $ pl "! RGT ^x {x,x} (RGT (a=b))"
 
 The proof
