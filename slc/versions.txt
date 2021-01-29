@@ -17,7 +17,8 @@ plstr.hs : pl1 function converting string to proof
 plstre.hs : experiments
 plstresq.hs : avec ESQ
 plstresqt.hs : test
-plstrp.hs : publié
-plstrpr.hs : avec RED (ex ESQ)
-plstrprx.hs : avec extension +
-plstrprs.hs : plstrpr.hs + RTR (symétrique de LTR)
+plstrp.hs : published
+plstrpr.hs : with RED (ex ESQ)
+plstrprx.hs : with extension +
+plstrprs.hs : plstrpr.hs + RTR (symmetric of LTR)
+plstrprsd.hs : deductions
