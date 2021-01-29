@@ -436,3 +436,5 @@ module PL where
   putStr ("\nProof of value " ++ show (value x) ++ " :")
   proves x
   
+ best1 = best_proof $ proofs_of_degree 1
+ 
