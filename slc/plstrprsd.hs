@@ -300,7 +300,7 @@ module PL where
  
  sort_proofs = sortBy (\xv -> case xv of ValuedProof x vx -> \yv -> case yv of ValuedProof y vy -> compare vy vx)
  
- used v = v / 2
+ used v = v * 0.5
  
  data BestAndOther = BestAndOther Proof [ValuedProof]
  
@@ -326,6 +326,11 @@ module PL where
   let bv = foldr1 (\xv -> case xv of ValuedProof x vx -> \yv -> case yv of ValuedProof y vy -> if value x >= value y then xv else yv) lvp in
    case bv of
     ValuedProof b vb -> b
+
+ biggest_of lvp = 
+  let bv = foldr1 (\xv -> case xv of ValuedProof x vx -> \yv -> case yv of ValuedProof y vy -> if sizeproof x >= sizeproof y then xv else yv) lvp in
+   case bv of
+    ValuedProof b vb -> b
  
  deduce bao =
   case bao of
@@ -343,20 +348,67 @@ module PL where
 	  let nbao = deduce bao in
 	   case nbao of
 	    BestAndOther nbest nlvp ->
+		 let biggest = biggest_of nlvp in
 		 if nbest == best 
 		  then do
 		   putStr ("\n" ++ show (length nlvp) ++ " proofs")
+		   putStr ("\nSize of biggest proof is " ++ show (sizeproof biggest))
+		   proves biggest
 		   putStr ("\nBest proof with value " ++ show (value nbest) ++ " is :")
 		   proves nbest
 		   print_deductions nbao target
 		  else do
 		   putStr ("\n" ++ show (length nlvp) ++ " proofs")
+		   putStr ("\nSize of biggest proof is " ++ show (sizeproof biggest))
+		   proves biggest
 		   putStr ("\nBest proof with value " ++ show (value nbest) ++ " is :")
 		   proves nbest
 		   print_deductions nbao target 
   
+ print_deductions_1 bao = do
+  case bao of 
+   BestAndOther best lvp ->
+    do
+	  let nbao = deduce bao in
+	   case nbao of
+	    BestAndOther nbest nlvp ->
+		 let biggest = biggest_of nlvp in
+		  do
+		   putStr ("\n" ++ show (length nlvp) ++ " proofs")
+		   putStr ("\nSize of biggest proof is " ++ show (sizeproof biggest))
+		   proves biggest
+		   putStr ("\nBest proof with value " ++ show (value nbest) ++ " is :")
+		   proves nbest 
+		   display_lvp nlvp
+ 
+ display_vp vp = case vp of
+  ValuedProof x v -> do
+   putStr ("Proof of value " ++ show v ++ " : " ++ show x ++ "\n")
+	
+ display_lvp [] = do return()
+ 
+ display_lvp (vp : lvp) = do
+  display_vp vp
+  display_lvp lvp
+  
+ display_bao bao = case bao of
+  BestAndOther best lvp -> do
+   putStr ("\nBest proof with value " ++ show (value best) ++ " is :")
+   proves best
+   display_lvp lvp
+   
+ init_bao = 
+  let lvp = map give_value axioms in
+   let best = best_of lvp in
+    let bao = BestAndOther best lvp in
+	 bao
+	 
+ sort_bao bao = case bao of
+  BestAndOther best lvp ->
+   BestAndOther best (sort_proofs lvp)
+   
  test_deduce = do
   let lvp = map give_value axioms in
    let best = best_of lvp in
     let bao = BestAndOther best lvp in
-     print_deductions bao 50
+     print_deductions_1 bao 
