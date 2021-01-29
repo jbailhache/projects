@@ -407,8 +407,32 @@ module PL where
   BestAndOther best lvp ->
    BestAndOther best (sort_proofs lvp)
    
- test_deduce = do
+ test_deduce_1 = do
   let lvp = map give_value axioms in
    let best = best_of lvp in
     let bao = BestAndOther best lvp in
      print_deductions_1 bao 
+	 
+ proofs_of_degree 0 = axioms
+ 
+ proofs_of_degree n_plus_1 = let n = n_plus_1 - 1 in
+  let lp = proofs_of_degree n in
+      map (\x -> NXV x) lp
+   ++ map (\x -> FNC x) lp
+   ++ concat (flip map [0..n] (\p ->
+       concat (flip map (proofs_of_degree p) (\y ->
+	    concat (flip map (proofs_of_degree (n-p)) (\z -> 
+		 [ APL y z, APL z y, LTR y z, LTR z y ] )) )) )) 
+		 
+ print_proofs [] = do return()
+ 
+ print_proofs (x : lp) = do
+  proves x
+  print_proofs lp
+  
+ best_proof = foldr1 (\x -> \y -> if value x >= value y then x else y) 
+
+ display_proof x = do
+  putStr ("\nProof of value " ++ show (value x) ++ " :")
+  proves x
+  
