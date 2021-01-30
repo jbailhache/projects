@@ -438,3 +438,22 @@ module PL where
   
  best1 = best_proof $ proofs_of_degree 1
  
+ data BestOfProofs = BestOfProofs Proof [Proof]
+ 
+ proofs_of_degree_with_best 0 = 
+  let best = best_proof axioms in
+   BestOfProofs best axioms
+ 
+ proofs_of_degree_with_best n_plus_1 = let n = n_plus_1 - 1 in
+  let bop = proofs_of_degree_with_best n in
+   case bop of
+    BestOfProofs best lp ->
+	 let {nlp =
+          map (\x -> NXV x) lp
+       ++ map (\x -> FNC x) lp
+       ++ concat (flip map [0..n] (\p ->
+           concat (flip map (proofs_of_degree p) (\y ->
+	        concat (flip map (proofs_of_degree (n-p)) (\z -> 
+		     [ APL y z, APL z y, LTR y z, LTR z y ] )) )) )) } in
+	  let nbest = best_proof nlp in
+	   BestOfProofs nbest nlp
