@@ -440,20 +440,32 @@ module PL where
  
  data BestOfProofs = BestOfProofs Proof [Proof]
  
+ add_best lp = 
+  let best = best_proof lp in
+   BestOfProofs best lp
+ 
+ append_with_best (BestOfProofs best1 lp1) (BestOfProofs best2 lp2) =
+  if value best1 >= value best2
+   then BestOfProofs best1 (lp1 ++ lp2)
+   else BestOfProofs best2 (lp1 ++ lp2)
+   
+ concat_with_best [] = BestOfProofs VAR []
+ concat_with_best (bop : lbop) = append_with_best bop (concat_with_best lbop)
+ 
  proofs_of_degree_with_best 0 = 
   let best = best_proof axioms in
    BestOfProofs best axioms
- 
+    
  proofs_of_degree_with_best n_plus_1 = let n = n_plus_1 - 1 in
   let bop = proofs_of_degree_with_best n in
    case bop of
     BestOfProofs best lp ->
-	 let {nlp =
-          map (\x -> NXV x) lp
-       ++ map (\x -> FNC x) lp
-       ++ concat (flip map [0..n] (\p ->
-           concat (flip map (proofs_of_degree p) (\y ->
-	        concat (flip map (proofs_of_degree (n-p)) (\z -> 
-		     [ APL y z, APL z y, LTR y z, LTR z y ] )) )) )) } in
-	  let nbest = best_proof nlp in
-	   BestOfProofs nbest nlp
+	       append_with_best
+            (append_with_best (add_best (map (\x -> NXV x) lp)) 
+ 		                      (add_best (map (\x -> FNC x) lp)))
+            (concat_with_best (flip map [0..n] (\p ->
+			  let BestOfProofs best1 lp1 = proofs_of_degree_with_best p in
+               concat_with_best (flip map lp1 (\y ->
+			    let BestOfProofs best2 lp2 = proofs_of_degree_with_best (n-p) in
+	             concat_with_best (flip map lp2 (\z -> 
+		          add_best [ APL y z, APL z y, LTR y z, LTR z y ] )) )) )) ) 
