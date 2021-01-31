@@ -117,113 +117,51 @@ void check_memory() {
 proof smb(char *name) {
 	int i;
 	for (i=0; i<nproofs; i++) {
-		// printf ("%x : compare %s and %s ", proofs+i, proofs[i].name, name);
 		if (proofs[i].op == SMB && !strcmp(proofs[i].name,name)) {
-			// printf (" equal ");
 			return proofs+i;
-		} else {
-			// printf (" different ");
 		}
 	}
 	check_memory();
 	proofs[nproofs].op = SMB;
 	strcpy(proofs[nproofs].name,name);
-	//proofs[nproofs].red = proofs+nproofs;
-	//proofs[nproofs].left = proofs+nproofs;
-	//proofs[nproofs].right = proofs+nproofs;
 	return proofs+nproofs++;
 }
 
-proof nxv(proof x) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == NXV && proofs[i].sp1 == x) 
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = NXV;
-	proofs[nproofs].sp1 = x;
-	//proofs[nproofs].red = proofs+nproofs;
-	//proofs[nproofs].left = proofs+nproofs;
-	//proofs[nproofs].right = proofs+nproofs;
-	return proofs+nproofs++;
+#define DEFOP1(o,f) \
+proof f(proof x) { \
+	int i; \
+	for (i=0; i<nproofs; i++) { \
+		if (proofs[i].op == o && proofs[i].sp1 == x) \
+			return proofs+i; \
+	} \
+	check_memory(); \
+	proofs[nproofs].op = o; \
+	proofs[nproofs].sp1 = x; \
+	return proofs+nproofs++; \
 }
 
-proof fnc(proof x) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == FNC && proofs[i].sp1 == x)
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = FNC;
-	proofs[nproofs].sp1 = x;
-	return proofs+nproofs++;
+DEFOP1(NXV,nxv)
+DEFOP1(FNC,fnc)
+DEFOP1(RED,red)
+
+#define DEFOP2(o,f) \
+proof f(proof x, proof y) { \
+	int i; \
+	for (i=0; i<nproofs; i++) { \
+		if (proofs[i].op == o && proofs[i].sp1 == x && proofs[i].sp2 == y) \
+			return proofs+i; \
+	} \
+	check_memory(); \
+	proofs[nproofs].op = o; \
+	proofs[nproofs].sp1 = x; \
+	proofs[nproofs].sp2 = y; \
+	return proofs+nproofs++; \
 }
 
-proof red(proof x) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == RED && proofs[i].sp1 == x)
-			return proofs+1;
-	}
-	check_memory();
-	proofs[nproofs].op = RED;
-	proofs[nproofs].sp1 = x;
-	return proofs+nproofs++;
-}
-
-proof apl(proof x, proof y) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == APL && proofs[i].sp1 == x && proofs[i].sp2 == y) 
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = APL;
-	proofs[nproofs].sp1 = x;
-	proofs[nproofs].sp2 = y;
-	return proofs+nproofs++;
-}
-
-proof ltr(proof x, proof y) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == LTR && proofs[i].sp1 == x && proofs[i].sp2 == y) 
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = LTR;
-	proofs[nproofs].sp1 = x;
-	proofs[nproofs].sp2 = y;
-	return proofs+nproofs++;
-}
-
-proof rtr(proof x, proof y) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == RTR && proofs[i].sp1 == x && proofs[i].sp2 == y) 
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = RTR;
-	proofs[nproofs].sp1 = x;
-	proofs[nproofs].sp2 = y;
-	return proofs+nproofs++;
-}
-
-proof equ(proof x, proof y) {
-	int i;
-	for (i=0; i<nproofs; i++) {
-		if (proofs[i].op == EQU && proofs[i].sp1 == x && proofs[i].sp2 == y) 
-			return proofs+i;
-	}
-	check_memory();
-	proofs[nproofs].op = EQU;
-	proofs[nproofs].sp1 = x;
-	proofs[nproofs].sp2 = y;
-	return proofs+nproofs++;
-}
+DEFOP2(APL,apl)
+DEFOP2(LTR,ltr)
+DEFOP2(RTR,rtr)
+DEFOP2(EQU,equ)
 
 proof pl1 (struct reader *reader) {
 	char c;
