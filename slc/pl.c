@@ -627,7 +627,9 @@ int main() {
 		fgets(buf, sizeof(buf), stdin);
 		x = read_proof(buf);
 		print_proof(x);
-		printf (" proves ");
+		printf (" reduces to ");
+		print_proof(reduce(x));
+		printf (" and proves ");
 		print_proof(left(x));
 		printf (" equals ");
 		print_proof(right(x));
