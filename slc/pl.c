@@ -82,7 +82,7 @@ typedef struct proof *proof;
 struct proof {
 	int op;
 	char name[8];
-	proof sp1, sp2, red, left, right;	
+	proof sp1, sp2, red, side[2];	
 };
 
 #define MAXPROOFS 1000
@@ -95,8 +95,8 @@ void init() {
 	nproofs = 0;
 	proofs[nproofs].op = VAR;
 	proofs[nproofs].red = proofs+nproofs;
-	proofs[nproofs].left = proofs+nproofs;
-	proofs[nproofs].right = proofs+nproofs;
+	proofs[nproofs].side[0] = proofs+nproofs;
+	proofs[nproofs].side[1] = proofs+nproofs;
 	nproofs++;
 }
 
@@ -110,8 +110,8 @@ void check_memory() {
 	proofs[nproofs].sp1 = NULL;
 	proofs[nproofs].sp2 = NULL;
 	proofs[nproofs].red = NULL;
-	proofs[nproofs].left = NULL;
-	proofs[nproofs].right = NULL;
+	proofs[nproofs].side[0] = NULL;
+	proofs[nproofs].side[1] = NULL;
 }
 
 proof smb(char *name) {
@@ -162,6 +162,129 @@ DEFOP2(APL,apl)
 DEFOP2(LTR,ltr)
 DEFOP2(RTR,rtr)
 DEFOP2(EQU,equ)
+
+proof mkproof(int op, proof x, proof y) { 
+	int i; 
+	for (i=0; i<nproofs; i++) { 
+		if (proofs[i].op == op && proofs[i].sp1 == x && proofs[i].sp2 == y) 
+			return proofs+i; 
+	} 
+	check_memory(); 
+	proofs[nproofs].op = op; 
+	proofs[nproofs].sp1 = x; 
+	proofs[nproofs].sp2 = y; 
+	return proofs+nproofs++; 
+}
+
+proof shift (proof u, proof x) {
+	if (x == u) return nxv(x);
+	if (x == NULL) return x;
+	switch (x->op) {
+		case SMB :
+		case VAR :
+			return x;
+		case NXV :
+			if (u->op == NXV) return nxv(shift(u->sp1,x->sp1));
+			return nxv(shift(u,x->sp1));
+		case FNC :
+			return fnc(shift(nxv(u),x->sp1));
+		default :
+			return mkproof(x->op,shift(u,x->sp1),shift(u,x->sp2));
+	}
+}
+
+proof subst (proof u, proof a, proof b) {
+	if (u == a) return b;
+	if (u->op == NXV && u->sp1 == a) return u;
+	if (a == NULL) return a;
+	switch (a->op) {
+		case SMB :
+		case VAR :
+			return a;
+		case FNC :
+			return fnc(subst(nxv(u),a->sp1,shift(var,b)));
+		default :
+			return mkproof(a->op, subst(u, a->sp1, b), subst(u, a->sp2, b));
+	}
+}
+
+int cont (proof x, proof y) {
+	if (x == y)
+		return 1;
+	if (x == NULL)
+		return 0;
+	switch (x->op) {
+		case SMB :
+		case VAR :
+			return 0;
+		default :
+			return cont(x->sp1, y) || cont(x->sp2, y);
+	}
+}
+
+proof reduce1 (proof x) {
+	if (x == NULL) return x;
+	if (x->op == SMB) return x;
+	if (x->op == APL && x->sp1->op == FNC)
+		return subst(var, x->sp1->sp1, x->sp2);
+	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
+}
+			
+proof reduce (proof x) {
+	proof y;
+	if (x == NULL) return x;
+	if (x->red != NULL)
+		return x->red;
+	y = reduce1(x);
+	if (y == x) 
+		x->red = y;
+	else
+		x->red = reduce(y);
+	return x->red;
+}
+
+proof side (int s, proof x);
+
+proof side1 (int s, proof x) {
+	if (x == NULL) return NULL;
+	switch (x->op) {
+		case SMB :
+			return x;
+		case EQU : 
+			if (s) 
+				return x->sp1;
+			else
+				return x->sp2;
+		case RED :
+			return side(s,reduce(x));
+		case LTR :
+			if (reduce(side(1,x->sp1)) == reduce(side(1,x->sp2)))
+				return side(0, s ? x->sp1 : x->sp2);
+			return x;
+		case RTR :
+			if (reduce(side(0,x->sp1)) == reduce(side(0,x->sp2)))
+				return side(1, s ? x->sp1 : x->sp2);
+			return x;
+		default :
+			return mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
+	}
+}
+
+proof side (int s, proof x) {
+	if (x == NULL)
+		return x;
+	if (x->side[s] == NULL)
+		x->side[s] = side1(s,x);
+	return x->side[s];
+}
+	
+proof left (proof x) {
+	return side(1,x);
+}
+
+proof right (proof x) {
+	return side(0,x);
+}
 
 proof simple_read_proof_1 (struct reader *reader) {
 	char c;
@@ -470,7 +593,7 @@ void dump () {
 	}
 }
 
-int main() {
+int test() {
 	char buf[1000];
 	proof x;
 	init();
@@ -484,5 +607,22 @@ int main() {
 		printf(" ");
 		print_proof(x);
 		printf("\n\n");
+	}
+}
+
+int main() {
+	char buf[1000];
+	proof x;
+	init();
+	for (;;) {
+		printf("? ");
+		fgets(buf, sizeof(buf), stdin);
+		x = read_proof(buf);
+		print_proof(x);
+		printf (" proves ");
+		print_proof(left(x));
+		printf (" equals ");
+		print_proof(right(x));
+		printf("\n");
 	}
 }
