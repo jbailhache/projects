@@ -400,6 +400,68 @@ proof read_proof (char *s) {
 	return read_proof_1(&reader);
 }
 
+void print_proof_1(struct printer *printer, proof x, int parenthesized) {
+	char buf[100];
+	switch(x->op) {
+		case SMB :
+			putstring_to_printer(printer, x->name);
+			break;
+		case VAR :
+			putstring_to_printer(printer, "*");
+			break;
+		case NXV :
+			putstring_to_printer(printer, "'");
+			print_proof_1(printer, x->sp1, 1);
+			break;
+		case FNC :
+			putstring_to_printer(printer, "[");
+			print_proof_1(printer, x->sp1, 0);
+			putstring_to_printer(printer, "]");
+			break;
+		case RED :
+			putstring_to_printer(printer, "@");
+			print_proof_1(printer, x->sp1, 1);
+			break;
+		case APL :
+			if (parenthesized) putstring_to_printer(printer, "(");
+			print_proof_1(printer, x->sp1, 0);
+			putstring_to_printer(printer, " ");
+			print_proof_1(printer, x->sp2, 1);
+			if (parenthesized) putstring_to_printer(printer, ")");
+			break;
+		case LTR : 
+			putstring_to_printer(printer, "{ ");
+			print_proof_1(printer, x->sp1, 0);
+			putstring_to_printer(printer, " , ");
+			print_proof_1(printer, x->sp2, 0);
+			putstring_to_printer(printer, " }");
+			break;
+		case RTR : 
+			putstring_to_printer(printer, "< ");
+			print_proof_1(printer, x->sp1, 0);
+			putstring_to_printer(printer, " | ");
+			print_proof_1(printer, x->sp2, 0);
+			putstring_to_printer(printer, " >");
+			break;
+		case EQU :
+			putstring_to_printer(printer, "( ");
+			print_proof_1(printer, x->sp1, 0);
+			putstring_to_printer(printer, " = ");
+			print_proof_1(printer, x->sp2, 0);
+			putstring_to_printer(printer, " )");
+			break;
+		default :
+			sprintf(buf,"%x", x->op);
+			putstring_to_printer(printer, buf);
+	}
+}
+		
+void print_proof (proof x) {
+	struct printer printer;
+	print_to_stdout(&printer);
+	print_proof_1(&printer,x,0);
+}
+
 
 void dump () {
 	int i;
@@ -419,6 +481,8 @@ int main() {
 		x = read_proof(buf);
 		printf("%8x ",x);
 		simple_print_proof(x);
+		printf(" ");
+		print_proof(x);
 		printf("\n\n");
 	}
 }
