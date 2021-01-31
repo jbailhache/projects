@@ -70,11 +70,11 @@ void print_to_stdout (struct printer *printer) {
 #define SMB '$'
 #define VAR '*'
 #define NXV '\''
-#define FNC '^'
+#define FNC '\\'
 #define RED '@'
 #define APL '-'
 #define LTR '/'
-#define RTR '\\'
+#define RTR '%'
 #define EQU '='
 
 typedef struct proof *proof;
@@ -163,40 +163,40 @@ DEFOP2(LTR,ltr)
 DEFOP2(RTR,rtr)
 DEFOP2(EQU,equ)
 
-proof pl1 (struct reader *reader) {
+proof simple_read_proof_1 (struct reader *reader) {
 	char c;
 	proof x, y;
 	char name[4];
 	c = getchar_from_reader(reader);
 	switch(c) {
 		case ' ' :
-			return pl1(reader);
+			return simple_read_proof_1(reader);
 		case '*' : 
 			return var;
 		case '\'' :
-			x = pl1(reader);
+			x = simple_read_proof_1(reader);
 			return nxv(x);
-		case '^':
-			x = pl1(reader);
+		case '\\':
+			x = simple_read_proof_1(reader);
 			return fnc(x);
 		case '@' :
-			x = pl1(reader);
+			x = simple_read_proof_1(reader);
 			return red(x);
 		case '-' :
-			x = pl1(reader);
-			y = pl1(reader);
+			x = simple_read_proof_1(reader);
+			y = simple_read_proof_1(reader);
 			return apl(x,y);
 		case '/' : 
-			x = pl1(reader);
-			y = pl1(reader);
+			x = simple_read_proof_1(reader);
+			y = simple_read_proof_1(reader);
 			return ltr(x,y);
-		case '\\' :
-			x = pl1(reader);
-			y = pl1(reader);
+		case '%' :
+			x = simple_read_proof_1(reader);
+			y = simple_read_proof_1(reader);
 			return rtr(x,y);
-		case '=' :
-			x = pl1(reader);
-			y = pl1(reader);
+		case '#' :
+			x = simple_read_proof_1(reader);
+			y = simple_read_proof_1(reader);
 			return equ(x,y);
 		default :
 			name[0] = c;
@@ -205,14 +205,13 @@ proof pl1 (struct reader *reader) {
 	}
 }
 
-
-proof pl (char *s) {
+proof simple_read_proof (char *s) {
 	struct reader reader;
 	read_from_string(&reader,s);
-	return pl1(&reader);
+	return simple_read_proof_1(&reader);
 }
 
-void print_proof1(struct printer *printer, proof x) {
+void simple_print_proof_1(struct printer *printer, proof x) {
 	switch(x->op) {
 		case SMB :
 			putstring_to_printer (printer, x->name);
@@ -222,44 +221,110 @@ void print_proof1(struct printer *printer, proof x) {
 			break;
 		case NXV :
 			putchar_to_printer (printer, '\'');
-			print_proof1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp1);
 			break;
 		case FNC :
-			putchar_to_printer (printer, '^');
-			print_proof1 (printer, x->sp1);
+			putchar_to_printer (printer, '\\');
+			simple_print_proof_1 (printer, x->sp1);
 			break;
 		case RED :
 			putchar_to_printer (printer, '@');
-			print_proof1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp1);
 			break;
 		case APL :
 			putchar_to_printer (printer, '-');
-			print_proof1 (printer, x->sp1);
-			print_proof1 (printer, x->sp2);
+			simple_print_proof_1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp2);
 			break;
 		case LTR :
 			putchar_to_printer (printer, '/');
-			print_proof1 (printer, x->sp1);
-			print_proof1 (printer, x->sp2);
+			simple_print_proof_1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp2);
 			break;
 		case RTR :
-			putchar_to_printer (printer, '\\');
-			print_proof1 (printer, x->sp1);
-			print_proof1 (printer, x->sp2);
+			putchar_to_printer (printer, '%');
+			simple_print_proof_1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp2);
 			break;
 		case EQU :
-			putchar_to_printer (printer, '=');
-			print_proof1 (printer, x->sp1);
-			print_proof1 (printer, x->sp2);
+			putchar_to_printer (printer, '#');
+			simple_print_proof_1 (printer, x->sp1);
+			simple_print_proof_1 (printer, x->sp2);
 			break;
 	}
 }
 
-void print_proof (proof x) {
+void simple_print_proof (proof x) {
 	struct printer printer;
 	print_to_stdout(&printer);
-	print_proof1(&printer,x);
+	simple_print_proof_1(&printer,x);
 }
+
+char cur_char;
+
+proof read_proof_1 (struct reader *reader) {
+	char c;
+	proof x, y;
+	char name[16];
+	int i;
+	while (strchr(" \t\n\r",cur_char)) cur_char = getchar_from_reader(reader);
+	switch(cur_char) {
+		case '*' :
+			cur_char = getchar_from_reader(reader);
+			return var;
+		case '\'' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			return nxv(x);
+		case '\\' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			return fnc(x);
+		case '@' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			return red(x);
+		case '-' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return apl(x,y);
+		case '/' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return ltr(x,y);
+		case '%' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return rtr(x,y);
+		case '#' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return equ(x,y);
+		default :
+			i = 0;
+			for (;;) {
+				if (!cur_char) break;
+				if (strchr(" \t\n\r()*'\\[]-/%{,}<|>#=",cur_char)) break;
+				if (i>=sizeof(name)-1) break;
+				name[i++] = cur_char;
+				cur_char = getchar_from_reader(reader);
+			}
+			name[i] = 0;
+			return smb(name);			
+	}
+}
+
+proof read_proof (char *s) {
+	struct reader reader;
+	read_from_string(&reader,s);
+	cur_char = getchar_from_reader(&reader);
+	return read_proof_1(&reader);
+}
+
 
 void dump () {
 	int i;
@@ -276,9 +341,9 @@ int main() {
 		dump();
 		printf("? ");
 		fgets(buf,sizeof(buf),stdin);
-		x = pl(buf);
+		x = read_proof(buf);
 		printf("%8x ",x);
-		print_proof(x);
+		simple_print_proof(x);
 		printf("\n\n");
 	}
 }
