@@ -10,7 +10,10 @@ struct reader {
 };
 
 char getchar_from_reader (struct reader *reader) {
-	return (*(reader->getchar))(reader);
+	char c;
+	c = (*(reader->getchar))(reader);
+	// printf(" %c[%02X] ", c, c);
+	return c;
 }
 
 char getchar_from_string (struct reader *reader) {
@@ -398,6 +401,8 @@ proof read_proof_1 (struct reader *reader) {
 	int i;
 	skip_blanks(reader);
 	switch(cur_char) {
+		case 0 :
+			return smb("ZERO");
 		case '*' :
 			cur_char = getchar_from_reader(reader);
 			return var;
@@ -467,7 +472,7 @@ proof read_proof_1 (struct reader *reader) {
 			i = 0;
 			for (;;) {
 				if (!cur_char) break;
-				if (strchr(" \t\n\r()*'\\[]-/%{,}<|>#=",cur_char)) break;
+				if (cur_char == 0 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=.",cur_char)) break;
 				if (i>=sizeof(name)-1) break;
 				name[i++] = cur_char;
 				cur_char = getchar_from_reader(reader);
@@ -491,6 +496,7 @@ proof read_proof_2 (struct reader *reader) {
 			case '}' :
 			case '|' :
 			case '>' :
+			case '.' :
 				if (x == NULL) return y;
 				return equ(x,y);
 			case '=' :
@@ -518,9 +524,11 @@ proof read_proof_2 (struct reader *reader) {
 
 proof read_proof (char *s) {
 	struct reader reader;
-	read_from_string(&reader,s);
+	char buf[1000];
+	sprintf(buf,"%s.",s);
+	read_from_string(&reader,buf);
 	cur_char = getchar_from_reader(&reader);
-	return read_proof_1(&reader);
+	return read_proof_2(&reader);
 }
 
 void print_proof_1(struct printer *printer, proof x, int parenthesized) {
