@@ -262,12 +262,18 @@ void simple_print_proof (proof x) {
 
 char cur_char;
 
+void skip_blanks(struct reader *reader) {
+	while (strchr(" \t\n\r",cur_char)) cur_char = getchar_from_reader(reader);
+}
+
+proof read_proof_2 (struct reader *reader);
+
 proof read_proof_1 (struct reader *reader) {
 	char c;
 	proof x, y;
 	char name[16];
 	int i;
-	while (strchr(" \t\n\r",cur_char)) cur_char = getchar_from_reader(reader);
+	skip_blanks(reader);
 	switch(cur_char) {
 		case '*' :
 			cur_char = getchar_from_reader(reader);
@@ -304,6 +310,36 @@ proof read_proof_1 (struct reader *reader) {
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return equ(x,y);
+		case '(' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_2(reader);
+			if (cur_char == ')')
+				cur_char = getchar_from_reader(reader);
+			return x;
+		case '[' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_2(reader);
+			if (cur_char == ']')
+				cur_char = getchar_from_reader(reader);
+			return fnc(x);
+		case '{' : 
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_2(reader);
+			if (cur_char == ',')
+				cur_char = getchar_from_reader(reader);
+			y = read_proof_2(reader);
+			if (cur_char == '}')
+				cur_char = getchar_from_reader(reader);
+			return ltr(x,y);
+		case '<' : 
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_2(reader);
+			if (cur_char == '|')
+				cur_char = getchar_from_reader(reader);
+			y = read_proof_2(reader);
+			if (cur_char == '>')
+				cur_char = getchar_from_reader(reader);
+			return rtr(x,y);
 		default :
 			i = 0;
 			for (;;) {
@@ -315,6 +351,45 @@ proof read_proof_1 (struct reader *reader) {
 			}
 			name[i] = 0;
 			return smb(name);			
+	}
+}
+
+proof read_proof_2 (struct reader *reader) {
+	proof x, y, z;
+	x = NULL;
+	y = NULL;
+	for (;;) {
+		skip_blanks(reader);
+		switch(cur_char) {
+			case 0 :
+			case ')' :
+			case ']' :
+			case ',' :
+			case '}' :
+			case '|' :
+			case '>' :
+				if (x == NULL) return y;
+				return equ(x,y);
+			case '=' :
+				cur_char = getchar_from_reader(reader);
+				if (x == NULL) {
+					x = y;
+				} else {
+					x = equ(x,y);
+				}
+				y = NULL;
+				break;
+			case ':' :
+				cur_char = getchar_from_reader(reader);
+				z = read_proof_2(reader);
+				if (y == NULL) y = z;
+				else y = apl(y,z);
+				break;
+			default :
+				z = read_proof_1(reader);
+				if (y == NULL) y = z;
+				else y = apl(y,z);
+		}
 	}
 }
 
