@@ -424,15 +424,27 @@ void simple_print_proof (proof x) {
 	simple_print_proof_1(&printer,x);
 }
 
-char cur_char;
+int cur_char;
 
-void skip_blanks(struct reader *reader) {
-	while (strchr(" \t\n\r",cur_char)) cur_char = getchar_from_reader(reader);
+int nextchar (struct reader *reader) {
+	cur_char = getchar_from_reader(reader);
 	if (cur_char == '#') {
-		while (cur_char != '\n') {
+		while (cur_char != '\n' && cur_char != -1) {
 			cur_char = getchar_from_reader(reader);
 		}
+		//cur_char = getchar_from_reader(reader);
 	}
+	printf("%c",cur_char);
+	return cur_char;
+}
+
+void skip_blanks(struct reader *reader) {
+	while (strchr(" \t\n\r",cur_char)) nextchar(reader);
+	//if (cur_char == '#') {
+	//	while (cur_char != '\n') {
+	//		nextchar(reader);
+	//	}
+	//}
 }
 
 proof read_proof_2 (struct reader *reader);
@@ -447,77 +459,77 @@ proof read_proof_1 (struct reader *reader) {
 		case 0 :
 			return smb("ZERO");
 		case '*' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			return var;
 		case '\'' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			return nxv(x);
 		case '\\' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			return fnc(x);
 		case '@' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			return red(x);
 		case '-' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return apl(x,y);
 		case '/' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return ltr(x,y);
 		case '%' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return rtr(x,y);
 		//case '#' :
-		//	cur_char = getchar_from_reader(reader);
+		//	nextchar(reader);
 		//	x = read_proof_1(reader);
 		//	y = read_proof_1(reader);
 		//	return equ(x,y);
 		case '(' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_2(reader);
 			if (cur_char == ')')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			return x;
 		case '[' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_2(reader);
 			if (cur_char == ']')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			return fnc(x);
 		case '{' : 
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_2(reader);
 			if (cur_char == ',')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			y = read_proof_2(reader);
 			if (cur_char == '}')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			return ltr(x,y);
 		case '<' : 
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_2(reader);
 			if (cur_char == '|')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			y = read_proof_2(reader);
 			if (cur_char == '>')
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			return rtr(x,y);
 		case '^' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return lambda(x,y);
 		case '!' :
-			cur_char = getchar_from_reader(reader);
+			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			z = read_proof_1(reader);
@@ -529,7 +541,7 @@ proof read_proof_1 (struct reader *reader) {
 				if (cur_char == 0 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=.",cur_char)) break;
 				if (i>=sizeof(name)-1) break;
 				name[i++] = cur_char;
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 			}
 			name[i] = 0;
 			return smb(name);			
@@ -554,7 +566,7 @@ proof read_proof_2 (struct reader *reader) {
 				if (x == NULL) return y;
 				return equ(x,y);
 			case '=' :
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 				if (x == NULL) {
 					x = y;
 				} else {
@@ -563,7 +575,7 @@ proof read_proof_2 (struct reader *reader) {
 				y = NULL;
 				break;
 			case ':' :
-				cur_char = getchar_from_reader(reader);
+				nextchar(reader);
 				z = read_proof_2(reader);
 				if (y == NULL) y = z;
 				else y = apl(y,z);
@@ -581,7 +593,8 @@ proof read_proof (char *s) {
 	char buf[100000];
 	sprintf(buf,"%s.",s);
 	read_from_string(&reader,buf);
-	cur_char = getchar_from_reader(&reader);
+	//cur_char = getchar_from_reader(&reader);
+	nextchar(&reader);
 	return read_proof_2(&reader);
 }
 
