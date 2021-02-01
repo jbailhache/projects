@@ -434,7 +434,7 @@ int nextchar (struct reader *reader) {
 		}
 		//cur_char = getchar_from_reader(reader);
 	}
-	printf("%c",cur_char);
+	//printf("%c",cur_char);
 	return cur_char;
 }
 
