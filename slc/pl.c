@@ -84,11 +84,11 @@ typedef struct proof *proof;
 
 struct proof {
 	int op;
-	char name[8];
+	char name[16];
 	proof sp1, sp2, red, side[2];	
 };
 
-#define MAXPROOFS 1000
+#define MAXPROOFS 100000
 
 int nproofs;
 
@@ -179,12 +179,35 @@ proof mkproof(int op, proof x, proof y) {
 	return proofs+nproofs++; 
 }
 
+
 proof shift (proof u, proof x) {
 	if (x == u) return nxv(x);
 	if (x == NULL) return x;
 	switch (x->op) {
 		case SMB :
+			return x;
 		case VAR :
+			//if (u->op == VAR) return nxv(var);
+			return x;
+		//case NXV :
+			//if (u->op == NXV) return nxv(shift(u->sp1,x->sp1));
+			//return nxv(shift(u,x->sp1));
+		case FNC :
+			return fnc(shift(nxv(u),x->sp1));
+		default :
+			return mkproof(x->op,shift(u,x->sp1),shift(u,x->sp2));
+	}
+}
+
+/*
+proof shift (proof u, proof x) {
+	//if (x == u) return nxv(x);
+	if (x == NULL) return x;
+	switch (x->op) {
+		case SMB :
+			return x;
+		case VAR :
+			if (u->op == VAR) return nxv(var);
 			return x;
 		case NXV :
 			if (u->op == NXV) return nxv(shift(u->sp1,x->sp1));
@@ -195,11 +218,13 @@ proof shift (proof u, proof x) {
 			return mkproof(x->op,shift(u,x->sp1),shift(u,x->sp2));
 	}
 }
+*/
 
 proof subst (proof u, proof a, proof b) {
 	if (u == a) return b;
-	if (u->op == NXV && u->sp1 == a) return u;
+	//if (u->op == NXV && u->sp1 == a) return u;
 	if (a == NULL) return a;
+	if (a->op == NXV && a->sp1 == u) return u;
 	switch (a->op) {
 		case SMB :
 		case VAR :
@@ -259,7 +284,7 @@ proof side1 (int s, proof x) {
 			else
 				return x->sp2;
 		case RED :
-			return side(s,reduce(x));
+			return side(s,reduce(x->sp1));
 		case LTR :
 			if (reduce(side(1,x->sp1)) == reduce(side(1,x->sp2)))
 				return side(0, s ? x->sp1 : x->sp2);
@@ -287,6 +312,19 @@ proof left (proof x) {
 
 proof right (proof x) {
 	return side(0,x);
+}
+
+proof abstr (proof u, proof v, proof x) {
+	if (v == x) return u;
+	if (!cont(x,v)) return x;
+	if (x == NULL) return x;
+	if (x->op == FNC) 
+		return fnc(abstr(nxv(u),v,x->sp1));
+	return mkproof(x->op, abstr(u,v,x->sp1), abstr(u,v,x->sp2));
+}
+
+proof lambda (proof v, proof x) {
+	return fnc(abstr(var,v,x));
 }
 
 proof simple_read_proof_1 (struct reader *reader) {
@@ -390,14 +428,19 @@ char cur_char;
 
 void skip_blanks(struct reader *reader) {
 	while (strchr(" \t\n\r",cur_char)) cur_char = getchar_from_reader(reader);
+	if (cur_char == '#') {
+		while (cur_char != '\n') {
+			cur_char = getchar_from_reader(reader);
+		}
+	}
 }
 
 proof read_proof_2 (struct reader *reader);
 
 proof read_proof_1 (struct reader *reader) {
 	char c;
-	proof x, y;
-	char name[16];
+	proof x, y, z;
+	char name[32];
 	int i;
 	skip_blanks(reader);
 	switch(cur_char) {
@@ -433,11 +476,11 @@ proof read_proof_1 (struct reader *reader) {
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
 			return rtr(x,y);
-		case '#' :
-			cur_char = getchar_from_reader(reader);
-			x = read_proof_1(reader);
-			y = read_proof_1(reader);
-			return equ(x,y);
+		//case '#' :
+		//	cur_char = getchar_from_reader(reader);
+		//	x = read_proof_1(reader);
+		//	y = read_proof_1(reader);
+		//	return equ(x,y);
 		case '(' :
 			cur_char = getchar_from_reader(reader);
 			x = read_proof_2(reader);
@@ -468,6 +511,17 @@ proof read_proof_1 (struct reader *reader) {
 			if (cur_char == '>')
 				cur_char = getchar_from_reader(reader);
 			return rtr(x,y);
+		case '^' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return lambda(x,y);
+		case '!' :
+			cur_char = getchar_from_reader(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			z = read_proof_1(reader);
+			return red(apl(lambda(x,z),y));
 		default :
 			i = 0;
 			for (;;) {
@@ -524,7 +578,7 @@ proof read_proof_2 (struct reader *reader) {
 
 proof read_proof (char *s) {
 	struct reader reader;
-	char buf[1000];
+	char buf[100000];
 	sprintf(buf,"%s.",s);
 	read_from_string(&reader,buf);
 	cur_char = getchar_from_reader(&reader);
@@ -533,6 +587,10 @@ proof read_proof (char *s) {
 
 void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 	char buf[100];
+	if (x == NULL) {
+		putstring_to_printer(printer, "0");
+		return;
+	}
 	switch(x->op) {
 		case SMB :
 			putstring_to_printer(printer, x->name);
@@ -618,20 +676,55 @@ int test() {
 	}
 }
 
-int main() {
-	char buf[1000];
+void read_file (char *filename, char *buf) {
+	int c;
+	FILE *f;
+	f = fopen(filename,"r");
+	if (f == NULL) {
+		printf("Cannot open file %s\n", filename);
+		exit(1);
+	}
+	for (;;) {
+		c = fgetc(f);
+		if (c == EOF) break;
+		*buf++ = c;
+	}
+	*buf++ = 0;
+	fclose(f);
+}
+
+int main(int argc, char *argv[]) {
+	char buf[100000];
 	proof x;
 	init();
+	/*
+	x = red(apl(lambda(smb("I"),apl(smb("I"),smb("a"))),fnc(var)));
+	print_proof(x);
+	printf(" reduces to ");
+	print_proof(reduce(x));
+	printf("\n");
+	*/
+	if (argc > 1) {
+		read_file(argv[1], buf);
+		x = read_proof(buf);
+		print_proof(x);
+		printf("\nproves\n");
+		print_proof(left(x));
+		printf("\nequals\n");
+		print_proof(right(x));
+		printf("\n");
+		return 0;
+	}
 	for (;;) {
 		printf("? ");
 		fgets(buf, sizeof(buf), stdin);
 		x = read_proof(buf);
 		print_proof(x);
-		printf (" reduces to ");
+		printf ("\nreduces to\n");
 		print_proof(reduce(x));
-		printf (" and proves ");
+		printf ("\nand proves\n");
 		print_proof(left(x));
-		printf (" equals ");
+		printf ("\nequals\n");
 		print_proof(right(x));
 		printf("\n");
 	}
