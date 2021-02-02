@@ -385,6 +385,7 @@ proof reduce (proof x) {
 proof side (int s, proof x);
 
 proof side1 (int s, proof x) {
+	proof y, z;
 	if (x == NULL) return NULL;
 	switch (x->op) {
 		case SMB :
@@ -397,11 +398,17 @@ proof side1 (int s, proof x) {
 		case RED :
 			return side(s,reduce(x->sp1));
 		case LTR :
-			if (reduce(side(1,x->sp1)) == reduce(side(1,x->sp2)))
+			//if (reduce(side(1,x->sp1)) == reduce(side(1,x->sp2)))
+			y = reduce(side(1,x->sp1));
+			z = reduce(side(1,x->sp2));
+			if (y == z || y == side(1,x->sp2) || side(1,x->sp1) == z)
 				return side(0, s ? x->sp1 : x->sp2);
 			return x;
 		case RTR :
-			if (reduce(side(0,x->sp1)) == reduce(side(0,x->sp2)))
+			//if (reduce(side(0,x->sp1)) == reduce(side(0,x->sp2)))
+			y = reduce(side(0,x->sp1));
+			z = reduce(side(0,x->sp2));
+			if (y == z || y == side(0,x->sp2) || side(0,x->sp1) == z)
 				return side(1, s ? x->sp1 : x->sp2);
 			return x;
 		default :
