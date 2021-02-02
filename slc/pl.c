@@ -205,7 +205,7 @@ proof mkproof(int op, proof x, proof y) {
 	return proofs+nproofs++; 
 }
 
-
+// shift(u,x) increases all variables greater than u in x
 proof shift (proof u, proof x) {
 	if (x == u) return nxv(x);
 	if (x == NULL) return x;
@@ -262,6 +262,7 @@ proof subst (proof u, proof a, proof b) {
 	}
 }
 
+// x contains y ?
 int cont (proof x, proof y) {
 	if (x == y)
 		return 1;
@@ -275,6 +276,15 @@ int cont (proof x, proof y) {
 			return cont(x->sp1, y) || cont(x->sp2, y);
 	}
 }
+
+int contsp (proof x, proof y) {
+	if (cont(x,y)) return 1;
+	if (x == NULL) return 0;
+	if (y == NULL) return 0;
+	if (x->op != y->op) return 0;
+	return contsp(x->sp1,y->sp1) && contsp(x->sp2,y->sp2);
+}
+
 
 proof reduce (proof x);
 
@@ -351,7 +361,7 @@ proof reduce2 (proof x) {
 		if (n >= MAX) break;
 		found = 0;
 		for (i=0; i<n; i++) {
-			if (cont(z,a[i])) {
+			if (contsp(z,a[i])) {
 				found = 1;
 				break;
 			} 
