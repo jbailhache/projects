@@ -12,9 +12,11 @@ struct reader {
 char getchar_from_reader (struct reader *reader) {
 	char c;
 	c = (*(reader->getchar))(reader);
-	// printf(" %c[%02X] ", c, c);
+	//printf(" '%c'[%02X] ", c, c);
+	//if (c == 0) c = '.';
 	return c;
 }
+
 
 char getchar_from_string (struct reader *reader) {
 	char c;
@@ -28,12 +30,23 @@ void read_from_string (struct reader *reader, char *s) {
 	reader->p = s;
 }
 
+
 char getchar_from_stdin (struct reader *reader) {
 	return getchar();
 }
 
 void read_from_stdin (struct reader *reader) {
 	reader->getchar = getchar_from_stdin;
+}
+
+
+char getchar_from_file (struct reader *reader) {
+	return fgetc((FILE *)(reader->p));
+}
+
+void read_from_file (struct reader *reader, FILE *f) {
+	reader->getchar = getchar_from_file;
+	reader->p = f;
 }
 
 
@@ -52,6 +65,7 @@ void putstring_to_printer (struct printer *printer, char *s) {
 	}
 }
 
+
 void putchar_to_string (struct printer *printer, char c) {
 	*(char *)(printer->p)++ = c;
 }
@@ -61,6 +75,7 @@ void print_to_string (struct printer *printer, char *s) {
 	printer->p = s;
 }
 
+
 void putchar_to_stdout (struct printer *printer, char c) {
 	putchar(c);
 }
@@ -69,6 +84,15 @@ void print_to_stdout (struct printer *printer) {
 	printer->putchar = putchar_to_stdout;
 }
 
+
+void putchar_to_file (struct printer *printer, char c) {
+	fputc(c, printer->p);
+}
+
+void print_to_file (struct printer *printer, FILE *f) {
+	printer->putchar = putchar_to_file;
+	printer->p = f;
+}
 
 #define SMB '$'
 #define VAR '*'
@@ -93,6 +117,8 @@ struct proof {
 int nproofs;
 
 struct proof proofs[MAXPROOFS];
+
+void print_proof_to_stdout (proof x);
 
 void init() {
 	nproofs = 0;
@@ -250,14 +276,19 @@ int cont (proof x, proof y) {
 	}
 }
 
+proof reduce (proof x);
+
 proof reduce1 (proof x) {
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
 	if (x->op == APL && x->sp1->op == FNC)
 		return subst(var, x->sp1->sp1, x->sp2);
+	//if (x->op == RED) 
+	//	return reduce1(x->sp1);
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
 			
+/*
 proof reduce (proof x) {
 	proof y;
 	if (x == NULL) return x;
@@ -270,6 +301,76 @@ proof reduce (proof x) {
 		x->red = reduce(y);
 	return x->red;
 }
+*/
+
+
+/*
+proof reduce2 (proof x) {
+	proof y;
+	if (x == NULL) return x;
+	y = reduce1(x);
+	if (y == x)
+		return y;
+	else
+		return reduce2(y);
+}
+*/
+
+/*
+proof reduce2 (proof x) {
+	proof y, z;
+	if (x == NULL) return x;
+	y = x;
+	for (;;)
+	{
+		z = reduce1(y);
+		if (z == y) break;
+		y = z;
+	}
+	return z;
+}
+*/
+
+#define MAX 10000
+
+proof reduce2 (proof x) {
+	proof y, z;
+	proof a[MAX];
+	int n, i, found;
+	if (x == NULL) return x;
+	n = 0;
+	y = x;
+	for (;;)
+	{
+		//printf("reduce2: ");
+		//print_proof_to_stdout(y);
+		//printf("\n");
+		a[n++] = y;
+		z = reduce1(y);
+		//if (z == y) break;
+		if (n >= MAX) break;
+		found = 0;
+		for (i=0; i<n; i++) {
+			if (cont(z,a[i])) {
+				found = 1;
+				break;
+			} 
+		}
+		if (found) break;
+		y = z;
+	}
+	return z;
+}
+
+proof reduce (proof x) {
+	proof y;
+	if (x == NULL) return x;
+	if (x->red != NULL) return x->red;
+	y = reduce2(x);
+	x->red = y;
+	return y;
+}
+
 
 proof side (int s, proof x);
 
@@ -439,7 +540,8 @@ int nextchar (struct reader *reader) {
 }
 
 void skip_blanks(struct reader *reader) {
-	while (strchr(" \t\n\r",cur_char)) nextchar(reader);
+	while (cur_char != 0 && strchr(" \t\n\r",cur_char)) 
+		nextchar(reader);
 	//if (cur_char == '#') {
 	//	while (cur_char != '\n') {
 	//		nextchar(reader);
@@ -457,7 +559,8 @@ proof read_proof_1 (struct reader *reader) {
 	skip_blanks(reader);
 	switch(cur_char) {
 		case 0 :
-			return smb("ZERO");
+		case -1 :
+			return smb("NULL");
 		case '*' :
 			nextchar(reader);
 			return var;
@@ -538,7 +641,7 @@ proof read_proof_1 (struct reader *reader) {
 			i = 0;
 			for (;;) {
 				if (!cur_char) break;
-				if (cur_char == 0 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=.",cur_char)) break;
+				if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=.",cur_char)) break;
 				if (i>=sizeof(name)-1) break;
 				name[i++] = cur_char;
 				nextchar(reader);
@@ -556,6 +659,7 @@ proof read_proof_2 (struct reader *reader) {
 		skip_blanks(reader);
 		switch(cur_char) {
 			case 0 :
+			case -1 :
 			case ')' :
 			case ']' :
 			case ',' :
@@ -588,14 +692,29 @@ proof read_proof_2 (struct reader *reader) {
 	}
 }
 
-proof read_proof (char *s) {
+proof read_proof_from_string (char *s) {
 	struct reader reader;
-	char buf[100000];
-	sprintf(buf,"%s.",s);
-	read_from_string(&reader,buf);
+	//char buf[100000];
+	//sprintf(buf,"%s.",s);
+	//read_from_string(&reader,buf);
+	read_from_string(&reader,s);
 	//cur_char = getchar_from_reader(&reader);
 	nextchar(&reader);
 	return read_proof_2(&reader);
+}
+
+proof read_proof_from_stdin () {
+	struct reader reader;
+	read_from_stdin(&reader);
+	nextchar(&reader);
+	return read_proof_2(&reader);
+}
+
+proof read_proof_from_file (FILE *f) {
+	struct reader reader;
+	read_from_file(&reader, f);
+	nextchar(&reader);
+	return read_proof_1(&reader);
 }
 
 void print_proof_1(struct printer *printer, proof x, int parenthesized) {
@@ -658,7 +777,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 	}
 }
 		
-void print_proof (proof x) {
+void print_proof_to_stdout (proof x) {
 	struct printer printer;
 	print_to_stdout(&printer);
 	print_proof_1(&printer,x,0);
@@ -668,7 +787,12 @@ void print_proof (proof x) {
 void dump () {
 	int i;
 	for (i=0; i<nproofs; i++) {
-		printf("%8x %c %-8s %8x %8x\n", proofs+i, proofs[i].op, proofs[i].name, proofs[i].sp1, proofs[i].sp2);
+		printf("%8lx %c %-8s %8lx %8lx\n", 
+			(unsigned long)(proofs+i), 
+			proofs[i].op, 
+			proofs[i].name, 
+			(unsigned long)(proofs[i].sp1), 
+			(unsigned long)(proofs[i].sp2));
 	}
 }
 
@@ -680,11 +804,11 @@ int test() {
 		dump();
 		printf("? ");
 		fgets(buf,sizeof(buf),stdin);
-		x = read_proof(buf);
-		printf("%8x ",x);
+		x = read_proof_from_string(buf);
+		printf("%8lx ",(unsigned long)x);
 		simple_print_proof(x);
 		printf(" ");
-		print_proof(x);
+		print_proof_to_stdout(x);
 		printf("\n\n");
 	}
 }
@@ -706,39 +830,49 @@ void read_file (char *filename, char *buf) {
 	fclose(f);
 }
 
-int main(int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
 	char buf[100000];
 	proof x;
+	FILE *f;
 	init();
 	/*
 	x = red(apl(lambda(smb("I"),apl(smb("I"),smb("a"))),fnc(var)));
-	print_proof(x);
+	print_proof_to_stdout(x);
 	printf(" reduces to ");
-	print_proof(reduce(x));
+	print_proof_to_stdout(reduce(x));
 	printf("\n");
 	*/
 	if (argc > 1) {
-		read_file(argv[1], buf);
-		x = read_proof(buf);
-		print_proof(x);
+		//read_file(argv[1], buf);
+		//strcat(buf,".");
+		//x = read_proof_from_string(buf);
+		f = fopen(argv[1], "r");
+		x = read_proof_from_file(f);
+		print_proof_to_stdout(x);
 		printf("\nproves\n");
-		print_proof(left(x));
+		print_proof_to_stdout(left(x));
 		printf("\nequals\n");
-		print_proof(right(x));
+		print_proof_to_stdout(right(x));
 		printf("\n");
+		fclose(f);
 		return 0;
 	}
 	for (;;) {
 		printf("? ");
-		fgets(buf, sizeof(buf), stdin);
-		x = read_proof(buf);
-		print_proof(x);
+		//fgets(buf, sizeof(buf), stdin);
+		//strcat(buf,".");
+		//x = read_proof_from_string(buf);
+		x = read_proof_from_stdin();
+		if (x == NULL) break;
+		print_proof_to_stdout(x);
 		printf ("\nreduces to\n");
-		print_proof(reduce(x));
+		print_proof_to_stdout(reduce(x));
 		printf ("\nand proves\n");
-		print_proof(left(x));
+		//printf("\nproves\n");
+		print_proof_to_stdout(left(x));
 		printf ("\nequals\n");
-		print_proof(right(x));
+		print_proof_to_stdout(right(x));
 		printf("\n");
 	}
 }
+
