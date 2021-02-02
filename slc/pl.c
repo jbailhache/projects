@@ -366,7 +366,8 @@ proof reduce2 (proof x) {
 				break;
 			} 
 		}
-		if (found) break;
+		//if (found) break;
+		if (found) return y;
 		y = z;
 	}
 	return z;
@@ -740,6 +741,10 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 		putstring_to_printer(printer, "0");
 		return;
 	}
+	/*if (x == read_proof_from_string("[* *] [[imp * false] (* *)].")) {
+		putstring_to_printer(printer,"contrad");
+		return;
+	}*/
 	switch(x->op) {
 		case SMB :
 			putstring_to_printer(printer, x->name);
