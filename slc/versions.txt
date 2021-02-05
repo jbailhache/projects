@@ -22,7 +22,7 @@ plstrpr.hs : with RED (ex ESQ)
 plstrprx.hs : with extension +
 plstrprs.hs : plstrpr.hs + RTR (symmetric of LTR)
 plstrprsd.hs : deductions
-plstrprsx : extensions RSL, RSR
+plstrprsx.hs : extensions RSL, RSR
 
 pl.c : Proof Logic in C
 plx.c : extensions STL, STR
