@@ -1,0 +1,5 @@
+! DI (I = ^a a)
+! DK (K = ^a ^b a)
+! DS (S = ^a ^b ^c (a c (b c)))
+
+{ { DS (DK x) (DK y), S (K x) (K y) }, { DK (x y), K (x y) } }
