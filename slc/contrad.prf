@@ -10,6 +10,15 @@
 ! Ac < \\\defc, imp \defc false >  # c = (c => false)
 
 # Proof of false 
+# This is a Proof Logic version of the following natural deduction proof :
+# 1 | c (hypothesis)
+#   |---------------
+# 2 | c => false (from 1 because c = (c => false))
+# 3 | false (MP 2 1)
+# 4 c => false (hypothesis 1 3)
+# 5 c (from 4 because c = (c => false))
+# 6 false (MP 4 5)
+
 ! L1 (AI c) 
 ! L2 (imp c Ac) 
 ! L3 { L2, L1 } 
