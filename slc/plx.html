@@ -1,32 +1,46 @@
 <html>
 <head>
 <title>Proof Logic</title>
+<style>
+	.code { font-family: monospace; font-size: larger; color: darkblue; background-color: lightblue; }
+</style>
 </head>
 <body>
+
+<table width="99%">
+<tr>
+<td align="left">
 <h2>Proof Logic</h2>
+</td>
+<td align="right">
+Jacques Bailhache (<a href="mailto:jacques.bailhache@gmail.com">jacques.bailhache@gmail.com</a>) February 2021
+</td>
+</tr>
+</table>
+
 Proof Logic is a formalism for representing proofs in formal systems.
 A proof is an expression that proves the truth of a sentence in a given formal system, which is a formalization of a theory.
 In Proof Logic, a sentence is an equality between two terms.
 Proof Logic expressions are both terms and proofs.
 This does not mean that some Proof Logic expression are terms and other are proofs, but that ANY Proof Logic expression is BOTH a term and a proof. 
-A term "x" is identified with the proof of the sentence "x = x".
+A term <span class="code">x</span> is identified with the proof of the sentence <span class="code">x = x</span>.
 Proof Logic expressions are called "proofs".
 <p>
 Proof Logic is a functional formalism, like Combinatory Logic and lambda Calculus.
-It uses <a href="https://en.wikipedia.org/wiki/De_Bruijn_index">De Bruijn index</a> to represent variables.
-As in Combinatory Logic and Lambda Calculus, the application of a function "f" to an argument "a" is denoted "f a", and "(f a) b" may be written more simply "f a b" which means : first apply f to a, and then apply the resulting function to b. But if we want to apply a function f to an argument a, and then apply another function g to the result, we must write it "g (f a)". It may also be written "g : f a". The ":" is like a "(" with an implicit corresponding ")". 
+As in Combinatory Logic and Lambda Calculus, the application of a function <span class="code">f</span> to an argument <span class="code">a</span> is denoted <span class="code">f a</span>, and <span class="code">(f a) b</span> may be written more simply <span class="code">f a b</span> which means : first apply f to a, and then apply the resulting function to b. But if we want to apply a function f to an argument a, and then apply another function g to the result, we must write it <span class="code">g (f a)</span>. It may also be written <span class="code">g : f a</span>. The ":" is like a "(" with an implicit corresponding ")". 
 <p>
-A function with one variable is represented by an expression of the form "[ ... * ... * ... ]" where "*" represents the variable (which may appear with 0, 1, or several occurences).
-For example, a function applying its argument to itself is written "[ * * ]" and when we apply it to an argument "a" we have the equality " [ * * ] a = a a ".
-A function with two variables is represented by a function with one variable giving, when applyed to a first argument, another function with one variable giving, when applied to the second argument, the final result. Such a function is written "[[ ... '* ... * ... ]]" where " '* " will be replaced by the first argument and " * " will be replaced by the second argument.
-So " * " corresponds to " 1 " in De Bruijn's index, " '* " to " 2 ", " ''* " to " 3 ", and so on.
+It uses <a href="https://en.wikipedia.org/wiki/De_Bruijn_index">De Bruijn index</a> to represent variables.
+A function with one variable is represented by an expression of the form <span class="code">[ ... * ... * ... ]</span> where <span class="code">*</span> represents the variable (which may appear with 0, 1, or several occurences).
+For example, a function applying its argument to itself is written <span class="code">[ * * ]</span> and when we apply it to an argument <span class="code">a</span> we have the equality <span class="code">[ * * ] a = a a</span>.
+A function with two variables is represented by a function with one variable giving, when applyed to a first argument, another function with one variable giving, when applied to the second argument, the final result. Such a function is written <span class="code">[[ ... '* ... * ... ]]</span> where <span class="code">'*</span> will be replaced by the first argument and <span class="code">*</span> will be replaced by the second argument.
+So * corresponds to 1 in De Bruijn's index, '* to 2 , ''* to  3, and so on.
 <p>
 At this point, the formalism is equivalent to Lambda Calculus or Combinatory Logic.
 We will now extend it.
 <p>
 First, we will add symbols. A symbol, which is a member of a set of symbols, which can be chosen either as finite, but as big as needed, or infinite but countable. A symbol is represented by a sequence of letter, digits, and eventually some special characters like "_" which are not used for anything else.
 <p>
-We have seen that Proof Logic expressions represent proofs. The simplest proofs of a formal system are the axioms of the system. Since sentences of Proof Logic are equalities, an axiom has the form "a = b". So the Proof Logic expression (or the proof) "a = b" represents the axioms asserting the equality between a and b. Of course, the operator "=" may be used only in axioms, otherwise we could prove anything !
+We have seen that Proof Logic expressions represent proofs. The simplest proofs of a formal system are the axioms of the system. Since sentences of Proof Logic are equalities, an axiom has the form <span class="code">a = b</span>. So the Proof Logic expression (or the proof) <span class="code">a = b</span> represents the axioms asserting the equality between a and b. Of course, the operator "=" may be used only in axioms, otherwise we could prove anything !
 <p>
 Any Proof Logic expression may be seen as a proof which proves the truth of a sentence (the conclusion of the proof) which is an equality between two terms, which are also Proof Logic expressions. Given any Proof Logic expression x, we can determine which equality it proves. More precisely, there are two computable functions called "left" and "right", computing the terms of the equality proved by the given proof : x proves left(x) = right(x).
 For example, we have left(a = b) = a and right(a = b) = b, so a = b proves left(a = b) = right(a = b) or a = b proves a = b.
@@ -34,10 +48,12 @@ For example, we have left(a = b) = a and right(a = b) = b, so a = b proves left(
 In theories based on equality, there are often 3 axioms representing the properties of equality : reflexivity (a = a), symmetry (a = b => b = a) and transitivity (a = b & b = c => a = c).
 In Proof Logic, a reflexivity axiom is useless because, as we have seen, any term a is also the proof of the sentence "a = a". Symmetry and transitivity are merged into one property of "transymmetry" with two possible variants : left transymmetry (a = b, a = c => b = c) and right transymmetry (a = c, b = c => a = b). <!-- We will use left transymmetry. -->
 <p>
-We must also be able to prove the equality between an expression and its reduced form, for example " [* *] a = a a ".
+We must also be able to prove the equality between an expression and its reduced form, for example <span class="code">[* *] a = a a</span>.
 We could introduce a special operator for this, but we will rather modify the transymmetry, saying, for left transymmetry, that if a = b, and c = d, and a reduces to e, and c reduces to e, then b = d. This operator will be called "left transymmetry with reduction".
-It is written " {x,y} ". If x proves a = b, and y proves c = d, and a reduces to e, and c reduces to e, then {x,y} proves b = d.
-Similarly for right transymmetry, if a = b, and c = d, and b reduces to e, and d reduces to e, then a = c. This operator will be called "right transymmetry with reduction" and is written " &lt;x,y> ". It is not necessary to have both left and right transymmetry with reduction, but it may be useful.
+It is written <span class="code">{x,y}</span>. If x proves a = b, and y proves c = d, and a reduces to e, and c reduces to e, then {x,y} proves b = d.
+Similarly for right transymmetry, if a = b, and c = d, and b reduces to e, and d reduces to e, then a = c. This operator will be called "right transymmetry with reduction" and is written <span class="code">&lt;x,y></span>. It is not necessary to have both left and right transymmetry with reduction, but it may be useful.
+<p>
+We also may want to display some intermediate result. To do this, we introduce the operator <span class="code">? x y</span> whose value is y but when we calculate the left part of its conclusion, it displays "Left of x is : " followed by this left part, and the same for the right part. This operator will be used to implement the notation <span class="code">% name definition proof</span> that we will see later.
 <p>
 It is also useful to have an operator doing one step of reduction, to be able to prove that red1(a) = a, where red1 does one step of reduction, or more generally, if a = b then red1(a) = b. This operator is written "/". If x proves a = b, then /x proves red1(a) = b. We can also introduce the symmetrical operator "\" : if x proves a = b, then \x proves a = red1(b).
 <p>
@@ -56,6 +72,7 @@ In summary, a proof may be :
 <li> {x,y} <!-- or LTR x y (left transsymetry with reduction) --> where x and y are proofs
 <li> &lt;x,y> where x and y are proofs
 <li> x=y (axiom) where x and y are proofs
+<li> ? x y where x and y are proofs
 </ul>
 
 The left and right terms of the conclusion of a proof are defined as follows :
@@ -70,6 +87,7 @@ The left and right terms of the conclusion of a proof are defined as follows :
 <li> left({x,y}) = right(x) and right({x,y}) = right(y) if left(x) and left(y) reduce to a same term, otherwise left({x,y}) = right({x,y}) = {x,y}
 <li> left(&lt;x,y>) = left(x) and right(&lt;x,y>) = left(y) if right(x) and right(y) reduce to the same term, otherwise left(&lt;x,y>) = right(&lt;x,y>) = &lt;x,y>
 <li> left(a=b) = a ; right(a=b) = b
+<li> left(? x y) = left(y) ; right(? x y) = right(y)
 </ul>
 
 These operators (except the last one which expresses the axiom a=b) can be seen as logical rules, where x proves a = b and y proves c = d :
@@ -82,6 +100,7 @@ These operators (except the last one which expresses the axiom a=b) can be seen 
 <li> () : a = b, c = d |- a c = b d
 <li> {,} : a = b, c = d, red(a) = red(c) |- b = d
 <li> &lt;,> : a = b, c = d, red(b) = red(d) |- a = c
+<li> ? : a = b, c = d |- c = d
 </ul>
 
 The operator "@" is more difficult to express in terms of logical rules because the definition of left(@x) and right(@x) does not involve left(x) and right(x). Perhaps we could write something like :
@@ -90,21 +109,18 @@ The operator "@" is more difficult to express in terms of logical rules because 
 <li> @ : x |- left(red(x)) = right(red(x))
 </ul>
 
-We also need a notation to write a definition, to give a name to a proof and then use this name in other proofs instead of writing its full definition each time we need to use it. This is written "! name definition proof" which means "replace name by definition in proof". It is similar to "let name = definition in proof" in Haskell. The reduction operator "@" written "RED" in Haskell is required to implement this notation, as you can see in the Haskell code below : 
-<pre>
- pl1 ('!' : s) = let (x, t) = pl1 s in case x of SMB x1 -> let (y, u) = pl1 t in let (z, v) = pl1 u in (RED (APL (lambda x1 z) y), v) 
-</pre>
-Without definitions, the reduction operator "@" would not be necessary.
-
-<p>
-
 De Bruijn index is efficient and theoretically satisfying, but resulting expressions are not always easily writeable and readable. 
 So it could be useful to write expression with named variables like in Lambda Calculus, and convert them into De Bruijn index.
 The notation "^x y" represents a proof obtained by "abstracting" from y the symbol x (playing the role of a Lambda Calculus variable).
 For example, the identity function may be represented either by "^x x" or by "[*]".
-
 <p>
-
+We also need a notation to write a definition, to give a name to a proof and then use this name in other proofs instead of writing its full definition each time we need to use it. This is written <span class="code">! name definition proof</span> which means "replace name by definition in proof". It is similar to "let name = definition in proof" in Haskell. 
+This notation is translated into <span class="code">@(^name proof definition)</span>.
+<p>
+Without definitions, the reduction operator "@" would not be necessary.
+<p>
+It may also be useful to display intermediate results. The notation "% name definition proof" is the same as "! name definition proof" but it also displays the left and right sides of the conclusion of the definition. It is translated into <span class="code">@(^name proof ? name definition)</span>.
+<p>
 We saw that in Proof Logic, all sentences are equality.
 But how can we represent a sentence that is not an equality ?
 A possible convention is to represent the truth of a sentence by the equality with a given term, for example the identity [*].
@@ -131,19 +147,14 @@ Here is an example of a formal system with one rule saying that if x is parent o
 gpTheorem1
 </pre>
 
-A Haskell implementation of Proof Logic gives the following result with this proof :
+Running the <a href="http://log.chez.com/src/slc/pl.c">Proof Logic program</a> with this proof gives the following result :
 
 <pre>
-PL> run "grandparent.prf"
+$ ./pl grandparent.prf 
 
-The proof
-  @[@[@[@[*] { grandparent allan charles ,
-             { * (grandparent allan charles) ,
-               { '* (parent brenda charles (grandparent allan charles)) ,
-                 ''* allan brenda charles } } }] (parent brenda charles = [*])] (parent allan brenda = [*])] [[[(parent ''* '* (parent '* * (grandparent ''* *)) = [*])]]]
-proves
-  grandparent allan charles
-= [*]
+The proof : @([@([@([@([*] { grandparent allan charles , { * (grandparent allan charles) , { '* (parent brenda charles (grandparent allan charles)) , ''* allan brenda charles } } })] ( parent brenda charles = [*] ))] ( parent allan brenda = [*] ))] [[[( parent ''* '* (parent '* * (grandparent ''* *)) = [*] )]]])
+proves    : grandparent allan charles
+equals    : [*]
 </pre>
 
 Here is a proof file "skk.prf" proving the Combinatory Logic equality "S K K = I" :
@@ -158,16 +169,11 @@ Here is a proof file "skk.prf" proving the Combinatory Logic equality "S K K = I
 The conclusion of this proof is "S K K = I" :
 
 <pre>
-PL> run "skk.prf"
+$ ./pl skk.prf
 
-The proof
-  @[@[@[{ { * '* '* ,
-          S K K } ,
-        { ''* ,
-          I } }] (S = [[[''* * ('* *)]]])] (K = [['*]])] (I = [*])
-proves
-  S K K
-= I
+The proof : @([@([@([{ { * '* '* , S K K } , { ''* , I } }] ( S = [[[''* * ('* *)]]] ))] ( K = [['*]] ))] ( I = [*] ))
+proves    : S K K
+equals    : I
 </pre>
 
 Here is a proof of p => p in propositional logic :
@@ -230,18 +236,115 @@ theorem1
 We can see that it effectively proves "p => p" (which is written "imp p p") :
 
 <pre>
-PL> run "prop.prf"
+$ ./pl prop.prf
 
-The proof
-  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { imp p p ,
-                                                   { * ,
-                                                     '* } }] ('''* (imp p p))] { * ,
-                                                                                 '* }] (''* (imp p (imp p p) (imp p p)))] (''''''''''''''''* (imp p (imp p p)) (imp p p))] (''''''''''''''* p p)] { * ,
-                                                                                                                                                                                                    '* }] ('''* (imp (imp p (imp p p)) (imp p p)))] { * ,
-                                                                                                                                                                                                                                                      '* }] (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))))] (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)))] (''''''''* p (imp p p))] (''''''* p (imp p p) p)] [(imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*])]] [[(imp (all [:] imp '* (* x)) (imp '* (all *)) = [*])]]] [[(imp (all '*) ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(imp (imp (imp * false) false) * = [*])]] [(imp false * = [*])]] [[[(imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*])]]]] [[(imp '* (imp * '*) = [*])]]] [[(imp '* * ('* *) = [*])]] 
-proves
-  imp p p
-= [*]
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { imp p p , { * , '* } })] ('''* (imp p p)))] { * , '* })] (''* (imp p (imp p p) (imp p p))))] (''''''''''''''''* (imp p (imp p p)) (imp p p)))] (''''''''''''''* p p))] { * , '* })] ('''* (imp (imp p (imp p p)) (imp p p))))] { * , '* })] (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))))] (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))))] (''''''''* p (imp p p)))] (''''''* p (imp p p) p))] [( imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*] )])] [[( imp (all [:] imp '* (* x)) (imp '* (all *)) = [*] )]])] [[( imp (all '*) ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( imp (imp (imp * false) false) * = [*] )])] [( imp false * = [*] )])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [[( imp '* * ('* *) = [*] )]])
+proves    : imp p p
+equals    : [*]
+</pre>
+
+We can replace "!" by "%" to display the intermediate results :
+
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+! EFQ ^p (imp false p = [*])
+! RAA ^p (imp (imp (imp p false) false) p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t (imp (all p) (p t) = [*])
+! PERMUT ^p ^q (imp (all ^x  : imp p (q x)) (imp p (all q)) = [*])
+! SOME ^p (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)
+               = [*])
+
+# Proof
+
+% lemma1 (AS p (imp p p) p)
+
+% lemma2 (AK p (imp p p))
+
+% lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+% lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+% lemma5 { lemma4 , lemma3 }
+
+% lemma6 ( lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) ) )
+
+% lemma7 { lemma6 , lemma5 }
+
+% lemma8 (AK p p)
+
+% lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p) )
+
+% lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+% lemma11 { lemma10 , lemma9 }
+
+% lemma12 (lemma8 (imp p p))
+
+! theorem1 { imp p p ,  { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+It gives the same result after the intermediate results :
+
+<pre>
+$ ./pl propv.prf
+
+Left  of lemma8 is : imp p (imp p p)
+Right of lemma8 is : [*]
+
+Left  of lemma12 is : imp p (imp p p) (imp p p)
+Right of lemma12 is : [*] (imp p p)
+
+Left  of lemma2 is : imp p (imp (imp p p) p)
+Right of lemma2 is : [*]
+
+Left  of lemma6 is : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+Right of lemma6 is : [*] (imp (imp p (imp p p)) (imp p p))
+
+Left  of lemma1 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))
+Right of lemma1 is : [*]
+
+Left  of lemma4 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma4 is : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+
+Left  of lemma3 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma3 is : [*]
+
+Left  of lemma5 is : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma5 is : [*]
+
+Left  of lemma7 is : [*] (imp (imp p (imp p p)) (imp p p))
+Right of lemma7 is : [*]
+
+Left  of lemma10 is : [*] (imp (imp p (imp p p)) (imp p p)) (imp p (imp p p) (imp p p))
+Right of lemma10 is : [*] (imp p (imp p p) (imp p p))
+
+Left  of lemma9 is : imp (imp p (imp p p)) (imp p p) (imp p (imp p p) (imp p p))
+Right of lemma9 is : [*]
+
+Left  of lemma11 is : [*] (imp p (imp p p) (imp p p))
+Right of lemma11 is : [*]
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { imp p p , { * , '* } })] ?lemma12 ('''* (imp p p)))] ?lemma11 { * , '* })] ?lemma10 (''* (imp p (imp p p) (imp p p))))] ?lemma9 (''''''''''''''''* (imp p (imp p p)) (imp p p)))] ?lemma8 (''''''''''''''* p p))] ?lemma7 { * , '* })] ?lemma6 ('''* (imp (imp p (imp p p)) (imp p p))))] ?lemma5 { * , '* })] ?lemma4 (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))))] ?lemma3 (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))))] ?lemma2 (''''''''* p (imp p p)))] ?lemma1 (''''''* p (imp p p) p))] [( imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*] )])] [[( imp (all [:] imp '* (* x)) (imp '* (all *)) = [*] )]])] [[( imp (all '*) ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( imp (imp (imp * false) false) * = [*] )])] [( imp false * = [*] )])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [[( imp '* * ('* *) = [*] )]])
+proves    : imp p p
+equals    : [*]
+
 </pre>
 
 Amazingly, it also works with infix notation :
@@ -295,29 +398,151 @@ Amazingly, it also works with infix notation :
 theorem1
 </pre>
 
-It proves the same sentence with the infix notation "p > p" :
+It proves the same sentence with the infix notation "p imp p" :
 
 <pre>
-PL> run "propi.prf"
+$ ./pl propi.prf
 
-The proof
-  @[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[@[*] { p imp p ,
-                                                   { * ,
-                                                     '* } }] ('''* (p imp p))] { * ,
-                                                                                 '* }] (''* (p imp (p imp p) (p imp p)))] (''''''''''''''''* (p imp (p imp p)) (p imp p))] (''''''''''''''* p p)] { * ,
-                                                                                                                                                                                                    '* }] ('''* (p imp (p imp p) imp (p imp p)))] { * ,
-                                                                                                                                                                                                                                                    '* }] (''* (p imp (p imp p imp p) (p imp (p imp p) imp (p imp p))))] (''''''''''* (p imp (p imp p imp p)) (p imp (p imp p) imp (p imp p)))] (''''''''* p (p imp p))] (''''''* p (p imp p) p)] [(all * imp false imp (* (some ['* * imp false]) imp false) = [*])]] [[(all [:] '* imp (* x) imp ('* imp (all *)) = [*])]]] [[(all '* imp ('* *) = [*])]]] [(* (all ['*]) = [*])]] [(* imp false imp false imp * = [*])]] [(false imp * = [*])]] [[[(''* imp ('* imp *) imp (''* imp '* imp (''* imp *)) = [*])]]]] [[('* imp (* imp '*) = [*])]]] [[('* imp * ('* *) = [*])]]
-proves
-  p imp p
-= [*]
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { p imp p , { * , '* } })] ('''* (p imp p)))] { * , '* })] (''* (p imp (p imp p) (p imp p))))] (''''''''''''''''* (p imp (p imp p)) (p imp p)))] (''''''''''''''* p p))] { * , '* })] ('''* (p imp (p imp p) imp (p imp p))))] { * , '* })] (''* (p imp (p imp p imp p) (p imp (p imp p) imp (p imp p)))))] (''''''''''* (p imp (p imp p imp p)) (p imp (p imp p) imp (p imp p))))] (''''''''* p (p imp p)))] (''''''* p (p imp p) p))] [( all * imp false imp (* (some ['* * imp false]) imp false) = [*] )])] [[( all [:] '* imp (* x) imp ('* imp (all *)) = [*] )]])] [[( all '* imp ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( * imp false imp false imp * = [*] )])] [( false imp * = [*] )])] [[[( ''* imp ('* imp *) imp (''* imp '* imp (''* imp *)) = [*] )]]])] [[( '* imp (* imp '*) = [*] )]])] [[( '* imp * ('* *) = [*] )]])
+proves    : p imp p
+equals    : [*]
 </pre>
 
+Proof Logic is a powerful logical framework derived from Combinatory Logic and Lambda Calculus, which inherits from these theories some powerful features like fixed point. This means that we must be careful to avoid defining inconsistent axioms. For example, the fixed point combinator allows to define a term c such that <span class="code">c = (imp c false)</span>. If we do not take precautions to avoid that such a term may be considered as a proposition, it produces a contradiction, as shown by the following proof :
+
+<pre>
+# Logical axioms
+! MP ^p ^q (imp p q (p q) = [*])  # Modus ponens
+! AI ^p (imp p p = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+
+! Y [[* *] ['* (* *)]]  # Fixed point
+! defc (c = Y [imp * false])  
+
+% Ac < \\\defc, imp \defc false >  # c = (c => false)
+
+# Proof of false 
+# This is a Proof Logic version of the following natural deduction proof :
+# 1 | c (hypothesis)
+#   |---------------
+# 2 | c => false (from 1 because c = (c => false))
+# 3 | false (MP 2 1)
+# 4 c => false (hypothesis 1 3)
+# 5 c (from 4 because c = (c => false))
+# 6 false (MP 4 5)
+
+% L1 (AI c) 
+% L2 (imp c Ac) 
+% L3 { L2, L1 } 
+% L4 (AS c c false)
+% L5 (MP (imp c (imp c false)) (imp (imp c c) (imp c false))) 
+% L6 (L4 ((imp c (imp c false)) (imp (imp c c) (imp c false)))) 
+% L7 { L6, L5 } 
+% L8 (L3 (imp (imp c c) (imp c false))) 
+% L9 { L8, L7 } 
+% L10 (MP (imp c c) (imp c false)) 
+% L11 (L9 ((imp c c) (imp c false))) 
+% L12 { L11, L10 } 
+% L13 (L1 (imp c false)) 
+% L14 { L13, L12 } 
+% L15 { Ac, c } 
+% L16 { L15, L14 } 
+% L17 (MP c false) 
+% L18 (L14 (c false)) 
+% L19 { L18, L17 } 
+% L20 (L16 false) 
+% L21 { L20, L19 } 
+! T { false, L21 }
+T  # false = [*]
+</pre>
+
+If we run the <a href="http://log.chez.com/src/slc/pl.c">Proof Logic programw</a> with this proof, we see that it proves that <span class="code">false = [*]</span>, or that false is true !
+
+<pre>
+$ ./pl contradv.prf
+
+Left  of Ac is : c
+Right of Ac is : imp c false
+
+Left  of L15 is : imp c false
+Right of L15 is : c
+
+Left  of L1 is : imp c c
+Right of L1 is : [*]
+
+Left  of L13 is : imp c c (imp c false)
+Right of L13 is : [*] (imp c false)
+
+Left  of L2 is : imp c c
+Right of L2 is : imp c (imp c false)
+
+Left  of L3 is : imp c (imp c false)
+Right of L3 is : [*]
+
+Left  of L8 is : imp c (imp c false) (imp (imp c c) (imp c false))
+Right of L8 is : [*] (imp (imp c c) (imp c false))
+
+Left  of L4 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false))
+Right of L4 is : [*]
+
+Left  of L6 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false)) (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L6 is : [*] (imp c (imp c false) (imp (imp c c) (imp c false)))
+
+Left  of L5 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false)) (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L5 is : [*]
+
+Left  of L7 is : [*] (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L7 is : [*]
+
+Left  of L9 is : [*] (imp (imp c c) (imp c false))
+Right of L9 is : [*]
+
+Left  of L11 is : [*] (imp (imp c c) (imp c false)) (imp c c (imp c false))
+Right of L11 is : [*] (imp c c (imp c false))
+
+Left  of L10 is : imp (imp c c) (imp c false) (imp c c (imp c false))
+Right of L10 is : [*]
+
+Left  of L12 is : [*] (imp c c (imp c false))
+Right of L12 is : [*]
+
+Left  of L14 is : [*] (imp c false)
+Right of L14 is : [*]
+
+Left  of L16 is : c
+Right of L16 is : [*]
+
+Left  of L20 is : c false
+Right of L20 is : [*] false
+
+Left  of L18 is : [*] (imp c false) (c false)
+Right of L18 is : [*] (c false)
+
+Left  of L17 is : imp c false (c false)
+Right of L17 is : [*]
+
+Left  of L19 is : [*] (c false)
+Right of L19 is : [*]
+
+Left  of L21 is : [*] false
+Right of L21 is : [*]
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { false , * })] ?L21 { * , '* })] ?L20 ('''* false))] ?L19 { * , '* })] ?L18 ('''* (c false)))] ?L17 (''''''''''''''''''''''* c false))] ?L16 { * , '* })] ?L15 { ''''''''''''''* , c })] ?L14 { * , '* })] ?L13 ('''''''''''* (imp c false)))] ?L12 { * , '* })] ?L11 ('* (imp c c (imp c false))))] ?L10 ('''''''''''''''* (imp c c) (imp c false)))] ?L9 { * , '* })] ?L8 (''''* (imp (imp c c) (imp c false))))] ?L7 { * , '* })] ?L6 ('* (imp c (imp c false) (imp (imp c c) (imp c false)))))] ?L5 (''''''''''* (imp c (imp c false)) (imp (imp c c) (imp c false))))] ?L4 (''''''* c c false))] ?L3 { * , '* })] ?L2 (imp c '*))] ?L1 ('''''* c))] ?Ac < \\\* , imp \* false >)] ( c = * [imp * false] ))] [[* *] ['* (* *)]])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [( imp * * = [*] )])] [[( imp '* * ('* *) = [*] )]])
+proves    : false
+equals    : [*]
+</pre>
+
+To avoid this, it is necessary either to define a condition for a term to be a proposition to avoid considering <span class="code">c = (imp c false)</span> as a proposition, or to use a weakened logic permetting to have propositions verifying <span class="code">c = (imp c false)</span> without producing a contradiction. 
+
+<p>
 Historically, Proof Logic comes from <a href="http://log.chez.com/text/logic/sslc.txt">SSLC (Simplified Symbolic Lambda Calculus)</a>, with a new notation introduced, the "AXM" proof replaced by "a = b", and DB0, DBS and DBL respectively replaced by VAR, NXV and FNC in Haskell representation.
 SSLC itself comes from Schönfinkel and Curry's Combinatory Logic and Church's Lambda Calculus throught <a href="http://log.chez.com/text/logic/slc-hist.html">this history</a>.
 
 <p>
 
-<a href="http://log.chez.com/src/slc/pl.c">Here</a> is a C implementation of Proof Logic.
+
+<a href="http://log.chez.com/src/slc/pl.c">Here is a C implementation of Proof Logic</a> and <a href="http://log.chez.com/src/slc/pl.hs">here is an older Haskell implementation</a>.
 
 </body>
 </html>
