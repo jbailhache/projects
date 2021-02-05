@@ -105,6 +105,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define EQU '='
 #define RSL '$'
 #define RSR '&'
+#define PRT '?'
 
 typedef struct proof *proof;
 
@@ -195,6 +196,7 @@ DEFOP2(APL,apl)
 DEFOP2(LTR,ltr)
 DEFOP2(RTR,rtr)
 DEFOP2(EQU,equ)
+DEFOP2(PRT,prt)
 
 proof mkproof(int op, proof x, proof y) { 
 	int i; 
@@ -290,15 +292,31 @@ int contsp (proof x, proof y) {
 }
 
 
+proof left(proof x);
+proof right(proof x);
+
 proof reduce (proof x);
 
 proof reduce1 (proof x) {
+	proof l, r;
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
 	if (x->op == APL && x->sp1->op == FNC)
 		return subst(var, x->sp1->sp1, x->sp2);
 	//if (x->op == RED) 
 	//	return reduce1(x->sp1);
+	/*if (x->op == PRT) {
+		l = left(x->sp2);
+		r = right(x->sp2);
+		printf("\nreduce1 : \nThe proof : ");
+		print_proof_to_stdout(x->sp1);
+		printf("\nproves    : ");
+		print_proof_to_stdout(l);
+		printf("\nequals    : ");
+		print_proof_to_stdout(r);
+		printf("\n");		
+		return x->sp2;
+	}*/
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
 			
@@ -431,16 +449,31 @@ proof side1 (int s, proof x) {
 			if (y == z || y == side(0,x->sp2) || side(0,x->sp1) == z)
 				return side(1, s ? x->sp1 : x->sp2);
 			return x;
+		case PRT :
+			y=side(s,x->sp2);
+			//y = reduce(side(s,x->sp2));
+			if (s) printf("\nLeft  of ");
+			else   printf("Right of ");
+			print_proof_to_stdout(x->sp1);
+			printf(" is : ");
+			print_proof_to_stdout(y);
+			printf("\n");
+			return y;
 		default :
 			return mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 	}
 }
 
 proof side (int s, proof x) {
+	int i;
 	if (x == NULL)
 		return x;
-	if (x->side[s] == NULL)
-		x->side[s] = side1(s,x);
+	//if (x->side[s] == NULL)
+	//	x->side[s] = side1(s,x);
+	for (i=1; i>=0; i--) {
+		if (x->side[i] == NULL)
+			x->side[i] = side1(i,x);
+	}
 	return x->side[s];
 }
 	
@@ -590,7 +623,7 @@ proof read_proof_2 (struct reader *reader);
 
 proof read_proof_1 (struct reader *reader) {
 	char c;
-	proof x, y, z;
+	proof x, y, z, l, r;
 	char name[32];
 	int i;
 	skip_blanks(reader);
@@ -614,15 +647,20 @@ proof read_proof_1 (struct reader *reader) {
 			x = read_proof_1(reader);
 			return red(x);
 		case '/' :
-		case '$' :
+		//case '$' :
 			nextchar(reader);
 			x = read_proof_1(reader);
 			return rsl(x);
 		case '\\' :
-		case '&' :
+		//case '&' :
 			nextchar(reader);
 			x = read_proof_1(reader);
 			return rsr(x);
+		case '?' :
+			nextchar(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			return prt(x,y);
 		case '-' :
 			nextchar(reader);
 			x = read_proof_1(reader);
@@ -633,11 +671,11 @@ proof read_proof_1 (struct reader *reader) {
 		//	x = read_proof_1(reader);
 		//	y = read_proof_1(reader);
 		//	return ltr(x,y);
-		case '%' :
-			nextchar(reader);
-			x = read_proof_1(reader);
-			y = read_proof_1(reader);
-			return rtr(x,y);
+		//case '%' :
+		//	nextchar(reader);
+		//	x = read_proof_1(reader);
+		//	y = read_proof_1(reader);
+		//	return rtr(x,y);
 		//case '#' :
 		//	nextchar(reader);
 		//	x = read_proof_1(reader);
@@ -684,6 +722,25 @@ proof read_proof_1 (struct reader *reader) {
 			y = read_proof_1(reader);
 			z = read_proof_1(reader);
 			return red(apl(lambda(x,z),y));
+		case '%' :
+			nextchar(reader);
+			x = read_proof_1(reader);
+			y = read_proof_1(reader);
+			/*
+			l = left(y);
+			r = right(y);
+			printf("\nRead proof");
+			printf("\nThe proof : ");
+			print_proof_to_stdout(x);
+			printf("\nproves    : ");
+			print_proof_to_stdout(l);
+			printf("\nequals     : ");
+			print_proof_to_stdout(r);
+			printf("\n");
+			*/
+			z = read_proof_1(reader);
+			//return red(apl(lambda(x,z),y));
+			return red(apl(lambda(x,z),prt(x,y)));
 		default :
 			i = 0;
 			for (;;) {
@@ -804,6 +861,12 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 			putstring_to_printer(printer, "\\");
 			print_proof_1(printer, x->sp1, 1);
 			break;
+		case PRT :
+			putstring_to_printer(printer, "?");
+			print_proof_1(printer, x->sp1, 1);
+			putstring_to_printer(printer," ");
+			print_proof_1(printer, x->sp2, 1);
+			break;
 		case APL :
 			if (parenthesized) putstring_to_printer(printer, "(");
 			print_proof_1(printer, x->sp1, 0);
@@ -894,7 +957,7 @@ void read_file (char *filename, char *buf) {
 
 int main (int argc, char *argv[]) {
 	char buf[100000];
-	proof x;
+	proof x, y, l, r;
 	FILE *f;
 	init();
 	/*
@@ -910,15 +973,20 @@ int main (int argc, char *argv[]) {
 		//x = read_proof_from_string(buf);
 		f = fopen(argv[1], "r");
 		x = read_proof_from_file(f);
+		l = left(x);
+		r = right(x);
+		printf("\nThe proof : ");
 		print_proof_to_stdout(x);
-		printf("\nproves\n");
-		print_proof_to_stdout(left(x));
-		printf("\nequals\n");
-		print_proof_to_stdout(right(x));
+		printf("\nproves    : ");
+		print_proof_to_stdout(l);
+		printf("\nequals    : ");
+		print_proof_to_stdout(r);
 		printf("\n");
 		fclose(f);
 		return 0;
 	}
+	printf("Welcome to Proof Logic !\n");
+	printf("Type a proof ended by \".\", and type just \".\" to quit.\n");
 	for (;;) {
 		printf("? ");
 		//fgets(buf, sizeof(buf), stdin);
@@ -926,14 +994,18 @@ int main (int argc, char *argv[]) {
 		//x = read_proof_from_string(buf);
 		x = read_proof_from_stdin();
 		if (x == NULL) break;
+		y = reduce(x);
+		l = left(x);
+		r = right(x);
+		printf("\nThe proof  : ");
 		print_proof_to_stdout(x);
-		printf ("\nreduces to\n");
-		print_proof_to_stdout(reduce(x));
-		printf ("\nand proves\n");
+		printf ("\nreduces to : ");
+		print_proof_to_stdout(y);
+		printf ("\nand proves : ");
 		//printf("\nproves\n");
-		print_proof_to_stdout(left(x));
-		printf ("\nequals\n");
-		print_proof_to_stdout(right(x));
+		print_proof_to_stdout(l);
+		printf ("\nequals     : ");
+		print_proof_to_stdout(r);
 		printf("\n");
 	}
 }
