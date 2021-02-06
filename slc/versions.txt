@@ -27,4 +27,4 @@ plstrprsx.hs : extensions RSL, RSR
 pl.c : Proof Logic in C
 plx.c : extensions STL, STR
 plxn.c : new version
-
+plxnf.c : code factorization
