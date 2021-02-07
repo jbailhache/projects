@@ -1014,7 +1014,7 @@ int main (int argc, char *argv[]) {
 	printf("Welcome to Proof Logic !\n");
 	printf("Type a proof ended by \".\", and type just \".\" to quit.\n");
 	for (;;) {
-		printf("? ");
+		printf("\n? ");
 		//fgets(buf, sizeof(buf), stdin);
 		//strcat(buf,".");
 		//x = read_proof_from_string(buf);
