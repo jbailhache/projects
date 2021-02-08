@@ -329,7 +329,7 @@ proof right(proof x);
 proof reduce (proof x);
 
 proof reduce1 (proof x) {
-	proof l, r;
+	proof l, r, y;
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
 	if (x->op == APL && x->sp1->op == FNC)
@@ -349,17 +349,26 @@ proof reduce1 (proof x) {
 		return x->sp2;
 	}*/
 	if (x->op == SMO) {
-		if (x->sp1->op == x->sp2->op)
+		if (reduce(x->sp1)->op == reduce(x->sp2)->op)
 			return fnc(fnc(nxv(var)));
 		else
 			return fnc(fnc(var));
 	}
 	if (x->op == SP1)
-		return x->sp1->sp1; // or reduce(x->sp1)->sp1 
+		return reduce(x->sp1)->sp1; // x->sp1->sp1 or reduce(x->sp1)->sp1 
 	if (x->op == SP2)
-		return x->sp1->sp2;
-	if (x->op == MKP)
-		return mkproof(x->sp2->op, x->sp1, x->sp2->sp1);	
+		return reduce(x->sp1)->sp2;
+	if (x->op == MKP) {
+		//printf("\nMKP: sp1 = ");
+		//print_proof_to_stdout(x->sp1);
+		//printf("\n     sp2 = ");
+		//print_proof_to_stdout(x->sp2);
+		// y = mkproof(x->sp2->op, x->sp1, x->sp2->sp1);	
+		y = mkproof(reduce(x->sp2)->op, reduce(x->sp1), reduce(x->sp2)->sp1);
+		//printf("\nreduce1 -> ");
+		//print_proof_to_stdout(y);
+		return y;
+	}
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
 			
