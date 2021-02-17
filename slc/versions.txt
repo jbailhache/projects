@@ -28,3 +28,6 @@ pl.c : Proof Logic in C
 plx.c : extensions STL, STR
 plxn.c : new version
 plxnf.c : code factorization
+plxnf.c -> plxnfr.c : reflection
+plxnf.c -> plxnft.c : tutorial
+
