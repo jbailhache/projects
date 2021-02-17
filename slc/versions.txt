@@ -30,4 +30,5 @@ plxn.c : new version
 plxnf.c : code factorization
 plxnf.c -> plxnfr.c : reflection
 plxnf.c -> plxnft.c : tutorial
-
+plxnftw.c : Windows version
+plxnftwp.c : portable version (tested on Raspberry Pi and Windows)
