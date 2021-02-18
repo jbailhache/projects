@@ -438,6 +438,8 @@ int eqr (proof x, proof y) {
 }
 
 proof side (int s, proof x);
+proof left (proof x);
+proof right (proof x);
 
 proof side1 (int s, proof x) {
 	proof y, z;
@@ -474,8 +476,8 @@ proof side1 (int s, proof x) {
 			// y = reduce(side(LEFT,x->sp1));
 			// z = reduce(side(LEFT,x->sp2));
 			// if (y == z || y == side(LEFT,x->sp2) || side(LEFT,x->sp1) == z)
-			if (eqr(side(LEFT,x->sp1),side(LEFT,x->sp2))) 
-				return side(RIGHT, s==LEFT ? x->sp1 : x->sp2);
+			if (eqr(left(x->sp1),left(x->sp2))) 
+				return right(s==LEFT ? x->sp1 : x->sp2);
 			printf("LTR does not apply to ");
 			print_proof_to_stdout(x);
 			printf("\n first  proof reduces to ");
@@ -489,8 +491,8 @@ proof side1 (int s, proof x) {
 			// y = reduce(side(RIGHT,x->sp1));
 			// z = reduce(side(RIGHT,x->sp2));
 			// if (y == z || y == side(RIGHT,x->sp2) || side(RIGHT,x->sp1) == z)
-			if (eqr(side(RIGHT,x->sp1),side(RIGHT,x->sp2))) 
-				return side(LEFT, s==LEFT ? x->sp1 : x->sp2);
+			if (eqr(right(x->sp1),right(x->sp2))) 
+				return left(s==LEFT ? x->sp1 : x->sp2);
 			printf("RTR does not apply to ");
 			print_proof_to_stdout(x);
 			printf("\n first  proof reduces to ");
@@ -502,8 +504,11 @@ proof side1 (int s, proof x) {
 		case PRT :
 			y=side(s,x->sp2);
 			//y = reduce(side(s,x->sp2));
-			if (s) printf("\nLeft  of ");
-			else   printf("Right of ");
+			switch(s) {
+				case LEFT  : printf("\nLeft  of ");
+				case RIGHT : printf("Right of ");
+				default    : ;
+			}
 			print_proof_to_stdout(x->sp1);
 			printf(" is : ");
 			print_proof_to_stdout(y);
