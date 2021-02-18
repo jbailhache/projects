@@ -32,3 +32,5 @@ plxnf.c -> plxnfr.c : reflection
 plxnf.c -> plxnft.c : tutorial
 plxnftw.c : Windows version
 plxnftwp.c : portable version (tested on Raspberry Pi and Windows)
+plxnftwps.c : constants LEFT and RIGHT for sides
+
