@@ -1,0 +1,558 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>La logique démonstrative</title>
+<style>
+	.code { font-family: monospace; font-size: larger; color: darkblue; background-color: lightblue; }
+</style>
+</head>
+<body>
+
+<table width="99%">
+<tr>
+<td align="left">
+<h2>La logique démonstrative</h2>
+</td>
+<td align="right">
+Jacques Bailhache (<a href="mailto:jacques.bailhache@gmail.com">jacques.bailhache@gmail.com</a>) Février 2021
+</td>
+</tr>
+</table>
+
+La logique démonstrative est un formalisme permettant de représenter des démonstrations dans des systèmes formels.
+Une démonstration est une expression qui démontre la vérité d'une proposition dans un système formel donné qui formalise une théorie.
+En logique démonstrative, une proposition est une égalité entre deux termes.
+Chaque expression de la logique démonstrative est à la fois un terme et une démonstration.
+Un terme <span class="code">x</span> est identifié avec la démonstration de la proposition <span class="code">x = x</span>.
+Les expressions de la logique démonstrative sont appelées "démonstrations".
+<p>
+La logique démonstrative est un formalisme fonctionnel, comme la logique combinatoire et le lambda-calcul. 
+Comme dans la logique combinatoire et le lambda-calcul, l'application d'une fonction <span class="code">f</span> à un argument <span class="code">a</span>  s'écrit <span class="code">f a</span>, et <span class="code">(f a) b</span> peut s'écrire plus simplement <span class="code">f a b</span> qui signifie : d'abord appliquer f à a, et ensuite appliquer la fonction obtenue à b. Mais pour appliquer une fonction f à un argument a, et ensuite appliquer une autre fonction g au résultat, on doit écrire <span class="code">g (f a)</span>. En logique démonstrative, on peut aussi l'écrire <span class="code">g : f a</span>. Le ":" est comme une "(" avec la ")" correspondante implicite.
+<p>
+La logique démonstrative utilise les <a href="https://en.wikipedia.org/wiki/De_Bruijn_index">indices de De Bruijn</a> pour représenter les variables.
+Une fonction avec une variable est représentée par une expression de la forme <span class="code">[ ... * ... * ... ]</span> où <span class="code">*</span> représente la variable (qui peut apparaître avec 0, 1 ou plusieurs occurences).
+Par exemple, une fonction qui applique son argument à lui-même s'écrit <span class="code">[ * * ]</span>. On a par exemple l'égalité  <span class="code">[ * * ] a = a a</span>.
+Une fonction à deux variables est représentée par une fonction à une variable qui donne, quand on l'applique à un premier argument, une autre fonction à une variablequi, quand on l'applique à un second argument, donne le résultat final. Une telle fonction s'écrit <span class="code">[[ ... '* ... * ... ]]</span> où <span class="code">'*</span> sera remplacé par le premier argument et <span class="code">*</span> sera remplacé par le second argument.
+Donc * correspond à l'indice de De Buijn 1, '* à 2, ''* à 3, etc...
+<p>
+Jusqu'à maintenant, ce formalisme est équivalent au lambda-calcul ou à la logique combinatoire.
+Nous allons maintenant lui ajouter des extensions.
+<p>
+Tout d'abord, nous allons ajouter la notion de symbole. Un symbole est un objet élémentaire dont les propriétés sont définies par des axiomes qui se présentent sous la forme d'égalités posées comme vraies.
+Un symbole est représenté par une lettre ou une suite de lettres, chiffres, et éventuellement certains caractères spéciaux.
+<p>
+Nous avons vu que les expressions de logique démonstrative représentent des démonstrations. Les démonstrations les plus simples sont les axiomes du système formel. Etant donné que les propositions de logique démonstrative sont des égalités, un axiome est de la forme <span class="code">a = b</span>. Donc l'expression de logique démonstrative (ou la démonstration) <span class="code">a = b</span> représente l'axiome qui affirme l'égalité entre a et b. Evidemment, l'opérateur "=" ne peut être utilisé que dans les axiomes, sinon on pourrait démontrer n'importe quoi !
+<p>
+Toute expression de logique démonstrative peut être vue comme une démonstration qui démontre la vérité d'une proposition (la conclusion de la démonstration) qui est une égalité entre deux termes (qui sont aussi des expressions de logique démonstrative). Etant donné une expression de logique démonstrative x, on peut déterminer quelle égalité elle démontre. Plus précisément, il existe deux fonctions calculables appelées "gauche" et "droite" qui calculent les termes de l'égalité démontrée par x : x démontre gauche(x) = droite(x).
+Par exemple, on a gauche(a = b) = a et droite(a = b) = b, donc a = b démontre gauche(a = b) = droite(a = b), ou a = b démontre a = b.
+<p>
+Dans les théories basées sur l'égalité, il y a souvent 3 règles qui représentent les propriétés de l'égalité : la réflexivité (a = a), la symétrie (a = b => b = a) et la transitivité (a = b & b = c => a = c). 
+En logique démonstrative, la règle de réflexivité est inutile car, comme nous l'avons vu, tout terme x est aussi la démonstration de l'égalité x = x.
+<!--
+La symétrie et la transitivité peuvent être fusionnées en une propriété de "transymétrie" avec deux variantes possibles : la transymétrie gauche (a = b & a = c => b = c) et la transymétrie droite (a = c & b = c => a = b).
+<p>
+On doit aussi pouvoir démontrer l'égalité entre une expression et sa forme réduite, par exemple <span class="code">[* *] a = a a</span>.
+On pourrait introduire un opérateur spécifique pour cela, mais nous allons plutôt modifier la transymétrie de sorte que, pour la transymétrie gauche, si a = b, et c = d, et a et c se réduisent à un même terme, alors b = d. Cet opérateur est appelé "transymétrie gauche avec réduction. Il s'écrit <span class="code">{x,y}</span>. Si x démontre a = b, et y démontre c = d, et a et c se réduisent à un même terme, alors {x,y} démontre b = d.
+De même pour la transymétrie droite, si a = b, et c = d, et b et d se réduisent à un même terme, alors a = c. Cet opérateur est appelé "transymétrie droite avec réduction". Il s'écrit <span class="code">&lt;x,y></span>. Il n'est pas nécessaire d'avoir à la fois la transymétrie gauche et droite mais ça peut être utile.
+-->
+La transitivité est généralisée : s'il y a un terme commun dans deux égalités, les deux autres termes sont égaux.
+<ul>
+<li> a = b & a = c => b = c
+<li> a = b & b = c => a = c
+<li> a = b & c = a => b = c
+<li> a = b & c = b => a = c
+</ul>
+On doit aussi pouvoir démontrer l'égalité entre une expression et sa forme réduite, par exemple <span class="code">[* *] a = a a</span>.
+On pourrait introduire un opérateur spécifique pour cela, mais nous allons plutôt modifier la transitivité de sorte que, par exemple, si a = b, et c = d, et a et c se réduisent à un même terme, alors b = d. Cet opérateur est appelé "transitivité généralisée avec réduction". Il s'écrit <span class="code">{x,y}</span>. Par exemple, si x démontre a = b, et y démontre c = d, et a et c se réduisent à un même terme, alors {x,y} démontre b = d.
+
+<p>
+Dans le cadre d'une implémentation de la logique démonstrative, on peut aussi souhaiter afficher certains résultats intermédiaires d'une démonstration. Pour cela, on introduit l'opérateur <span class="code">? x y</span> dont la valeur est y mais quand on calcule les parties gauche et droite de sa conclusion, on les affiche. 
+<p>
+Il est aussi utile d'avoir un opérateur effectuant une étape de réduction, pour pouvoir démontrer que red1(a) = a, où red1 effectue une étape de réduction, ou plus généralement, si a = b alors red1(a) = b. Cet opérateur s'écrit "/". Si x démontre a = b, alors /x démontre red1(a) = b. On peut aussi introduire l'opérateur symétrique "\" : si x démontre a = b, alors \x démontre a = red1(b).
+<p>
+Un dernier opérateur utile est l'opérateur noté "@" qui réduit son argument. Nus verrons plus loin qu'il sert principalement à implémenter une notation pour les définitions.
+<p>
+En résumé, une démonstration peut être :
+<ul>
+<li> Un symbole
+<li> * (la variable)
+<li> 'x où x est une démonstration 
+<li> [x] où x est une démonstration 
+<li> @x où x est une démonstration 
+<li> /x où x est une démonstration 
+<li> \x où x est une démonstration 
+<li> x y (application) où x et y sont des démonstrations
+<li> {x,y} <!-- or LTR x y (left transsymetry with reduction) --> où x et y sont des démonstrations
+<!-- <li> &lt;x,y> où x et y sont des démonstrations -->
+<li> x=y (axiom) où x et y sont des démonstrations
+<li> ? x y où x et y sont des démonstrations
+</ul>
+
+Les termes gauche et droit de la conclusion d'une démonstration sont définis comme suit :
+<ul>
+<li> Si x est un symbole ou la variable "*", alors gauche(x) = x et droite(x) = x
+<li> gauche('x) = 'gauche(x) ; droite('x) = 'droite(x)
+<li> gauche([x]) = [gauche(x)] ; droite([x]) = [droite(x)]
+<li> gauche(@x) = @gauche(x) ; droite(@x) = @droite(x)
+<li> gauche(/x) = /gauche(x) ; droite(/x) = /droite(x)
+<li> gauche(\x) = \gauche(x) ; droite(\x) = \droite(x)
+<li> gauche(x y) = gauche(x) gauche(y) ; droite(x y) = droite(x) droite(y)
+<!-- <li> gauche({x,y}) = droite(x) et droite({x,y}) = droite(y) si gauche(x) et gauche(y) se réduisent à un même terme, sinon gauche({x,y}) = droite({x,y}) = {x,y} -->
+<li> si x démontre a = b et y démontre c = d et a ou b est équivalent à c ou d, alors { x, y } démontre l'égalité des deux autres termes, deux termes étant équivalents s'ils sont égaux, s'ils se réduisent à un même terme, ou si l'un d'eux se réduit à l'autre
+<!-- <li> gauche(&lt;x,y>) = gauche(x) et droite(&lt;x,y) = gauche(y) si droite(x) et droite(y) se réduisent à un même terme, sinon gauche(&lt;x,y>) = droite(&lt;x,y>) = &lt;x,y> -->
+<li> gauche(a = b) = a : droite(a = b) = b
+<li> gauche(? x y) = gauche(y) ; droite(? x y) = droite(y)
+</ul>
+Ces opérateurs (sauf le dernier qui est utilisé pour représenter les axiomes) sont associés à ces règles logiques (où x démontre a = b et y démontre c = d) :
+<ul>
+<li> s : |- s = s ; * : |- * = *
+<li> ' : a = b |- 'a = 'b
+<li> [] : a = b |- [a] = [b] 
+<li> / : a = b |- red1(a) = b
+<li> \ : a = b |- a = red1(b)
+<li> () : a = b, c = d |- a c = b d
+<li> {,} : a = b, c = d, red(a) = red(c) |- b = d ;
+           a = b, c = d, red(b) = red(d) |- a = c ;
+		   a = b, c = d, red(b) = red(c) |- a = d ;
+		   a = b, c = d, red(a) = red(d) |- b = c
+<!-- <li> &lt;,> : a = b, c = d, red(b) = red(d) |- a = c -->
+<li> ? : a = b, c = d |- c = d
+</ul>
+
+L'opérateur "@" est plus difficile à traduire en règle logique car la définition de gauche(@x) et droite(@x) ne fait pas intervenir gauche(x) et droite(x) :
+
+<ul>
+<li> @ : x |- left(red(x)) = right(red(x))
+</ul>
+Les indices de De Bruijn sont efficaces et théoriquement satisfaisants, mais les expressions utilisant cette notation ne sont pas toujours faciles à écrire et à lire. On peut préférer écrire des expressions avec des variables nommées comme en lambda-calcul, et les convertir en indices de De Bruijn. La notation "^x y" représente la démonstration obtenue par "abstraction" du symbole x (qui joue le rôle d'une variable du lambda-calcul) de la démonstration y. Par exemple, la fonction identité peut être représentée soit par "^x x" soit par "[*]".
+<p>
+On peut aussi avoir besoin d'écrire une définition, de donner un nom à une démonstration et ensuite utiliser ce nom dans d'autres démonstrations au lieu d'écrire sa définition complète chaque fois qu'on a besoin de l'utiliser. On utilise la notation <span class="code">! nom définition démonstration</span> qui signifie "remplacer nom par définition dans démonstration". Cette notation est similaire à la syntaxe Haskell "let nom = définition in démonstration". Elle est traduite par "@(^nom démonstration définition)".
+L'opérateur "@" est nécessaire pour implémenter cette notion de définition.
+<p>
+Il peut aussi être utile d'afficher des résultats intermédiaires associés à des définitions.
+La notation "% nom définition démonstration" est équivalente à "! nom définition démonstration" mais affiche aussi les parties gauche et droite de la conclusion de la définition. Elle est traduite par <span class="code">@(^nom démonstration ? nom définition)</span>.
+<p>
+Nous avons vu qu'en logique démonstrative toutes les propositions sont des égalités.
+Mais comment représenter une proposition qui ne se présente pas a priori sous la forme d'une égalité ?
+Une convention possible consiste à représenter la vérité d'une proposition par l'égalité avec un terme donné, par exemple l'identité [*].
+Avec cette convention, l'implication peut être représentée par l'application, et on obtient automatiquement la règle du Modus Ponens : si p q = (*] et p = [*] alors q = [*].
+
+<p>
+
+Voici un exemple de système formel avec une règle qui dit que si x est parent de y et y est parent de z alors x est grand-parent de z, et deux axiomes qui expriment que Allan est parent de Brenda et Brenda est parente de Charles, et une démonstration du fait que Allan est grand-parent de Charles :
+
+<pre>
+! gpRule1
+ ^x ^y ^z ((parent x y : parent y z : grandparent x z) = [*])
+
+! gpAxiom1 ((parent allan brenda) = [*])
+
+! gpAxiom2 ((parent brenda charles) = [*])
+
+! gpTheorem1
+ { grandparent allan charles ,
+   { gpAxiom2 (grandparent allan charles),
+     { gpAxiom1 (parent brenda charles : grandparent allan charles),
+       (gpRule1 allan brenda charles) } } }
+
+gpTheorem1
+</pre>
+
+Le <a href="http://log.chez.com/src/slc/pl.c">programme de logique démonstrative</a> donne le résultat suivant avec cette démonstration : 
+
+<pre>
+$ ./pl grandparent.prf 
+
+The proof : @([@([@([@([*] { grandparent allan charles , { * (grandparent allan charles) , { '* (parent brenda charles (grandparent allan charles)) , ''* allan brenda charles } } })] ( parent brenda charles = [*] ))] ( parent allan brenda = [*] ))] [[[( parent ''* '* (parent '* * (grandparent ''* *)) = [*] )]]])
+proves    : grandparent allan charles
+equals    : [*]
+</pre>
+
+Voici une démonstration de l'égalité de logique combinatoire "S K K = I".
+
+<pre>
+! DI (I = ^a a)
+! DK (K = ^a ^b a)
+! DS (S = ^a ^b ^c (a c (b c)))
+{ { DS DK DK, S K K } , { DI , I } }
+</pre>
+
+La conclusion de cette démonstration est "S K K = I" :
+
+<pre>
+$ ./pl skk.prf
+
+The proof : @([@([@([{ { * '* '* , S K K } , { ''* , I } }] ( S = [[[''* * ('* *)]]] ))] ( K = [['*]] ))] ( I = [*] ))
+proves    : S K K
+equals    : I
+</pre>
+
+Voici une démonstration de la proposition p => p en logique propositionnelle :
+
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+! EFQ ^p (imp false p = [*])
+! RAA ^p (imp (imp (imp p false) false) p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t (imp (all p) (p t) = [*])
+! PERMUT ^p ^q (imp (all ^x  : imp p (q x)) (imp p (all q)) = [*])
+! SOME ^p (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)
+               = [*])
+
+# Proof
+
+! lemma1 (AS p (imp p p) p)
+
+! lemma2 (AK p (imp p p))
+
+! lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+! lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+! lemma5 { lemma4 , lemma3 }
+
+! lemma6 ( lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) ) )
+
+! lemma7 { lemma6 , lemma5 }
+
+! lemma8 (AK p p)
+
+! lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p) )
+
+! lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+! lemma11 { lemma10 , lemma9 }
+
+! lemma12 (lemma8 (imp p p))
+
+! theorem1 { imp p p ,  { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+On vérifie qu'elle démontre bien p => p (noté "imp p p") :
+
+<pre>
+$ ./pl prop.prf
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { imp p p , { * , '* } })] ('''* (imp p p)))] { * , '* })] (''* (imp p (imp p p) (imp p p))))] (''''''''''''''''* (imp p (imp p p)) (imp p p)))] (''''''''''''''* p p))] { * , '* })] ('''* (imp (imp p (imp p p)) (imp p p))))] { * , '* })] (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))))] (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))))] (''''''''* p (imp p p)))] (''''''* p (imp p p) p))] [( imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*] )])] [[( imp (all [:] imp '* (* x)) (imp '* (all *)) = [*] )]])] [[( imp (all '*) ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( imp (imp (imp * false) false) * = [*] )])] [( imp false * = [*] )])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [[( imp '* * ('* *) = [*] )]])
+proves    : imp p p
+equals    : [*]
+</pre>
+
+On peut remplacer "!" par "%" pour afficher les résultats intermédiaires :
+
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+! EFQ ^p (imp false p = [*])
+! RAA ^p (imp (imp (imp p false) false) p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t (imp (all p) (p t) = [*])
+! PERMUT ^p ^q (imp (all ^x  : imp p (q x)) (imp p (all q)) = [*])
+! SOME ^p (imp (imp (all p) false) 
+                   (imp (p (some ^x (imp (p x) false))) false)
+               = [*])
+
+# Proof
+
+% lemma1 (AS p (imp p p) p)
+
+% lemma2 (AK p (imp p p))
+
+% lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+% lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+% lemma5 { lemma4 , lemma3 }
+
+% lemma6 ( lemma2 
+              (imp 
+               (imp p (imp p p))
+               (imp p p) ) )
+
+% lemma7 { lemma6 , lemma5 }
+
+% lemma8 (AK p p)
+
+% lemma9 
+ (MP 
+    (imp p (imp p p))
+    (imp p p) )
+
+% lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+% lemma11 { lemma10 , lemma9 }
+
+% lemma12 (lemma8 (imp p p))
+
+! theorem1 { imp p p ,  { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+On obtient le même résultat, après affichage des résultats intermédiaires :
+
+<pre>
+$ ./pl propv.prf
+
+Left  of lemma8 is : imp p (imp p p)
+Right of lemma8 is : [*]
+
+Left  of lemma12 is : imp p (imp p p) (imp p p)
+Right of lemma12 is : [*] (imp p p)
+
+Left  of lemma2 is : imp p (imp (imp p p) p)
+Right of lemma2 is : [*]
+
+Left  of lemma6 is : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+Right of lemma6 is : [*] (imp (imp p (imp p p)) (imp p p))
+
+Left  of lemma1 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))
+Right of lemma1 is : [*]
+
+Left  of lemma4 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma4 is : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+
+Left  of lemma3 is : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma3 is : [*]
+
+Left  of lemma5 is : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+Right of lemma5 is : [*]
+
+Left  of lemma7 is : [*] (imp (imp p (imp p p)) (imp p p))
+Right of lemma7 is : [*]
+
+Left  of lemma10 is : [*] (imp (imp p (imp p p)) (imp p p)) (imp p (imp p p) (imp p p))
+Right of lemma10 is : [*] (imp p (imp p p) (imp p p))
+
+Left  of lemma9 is : imp (imp p (imp p p)) (imp p p) (imp p (imp p p) (imp p p))
+Right of lemma9 is : [*]
+
+Left  of lemma11 is : [*] (imp p (imp p p) (imp p p))
+Right of lemma11 is : [*]
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { imp p p , { * , '* } })] ?lemma12 ('''* (imp p p)))] ?lemma11 { * , '* })] ?lemma10 (''* (imp p (imp p p) (imp p p))))] ?lemma9 (''''''''''''''''* (imp p (imp p p)) (imp p p)))] ?lemma8 (''''''''''''''* p p))] ?lemma7 { * , '* })] ?lemma6 ('''* (imp (imp p (imp p p)) (imp p p))))] ?lemma5 { * , '* })] ?lemma4 (''* (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))))] ?lemma3 (''''''''''* (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))))] ?lemma2 (''''''''* p (imp p p)))] ?lemma1 (''''''* p (imp p p) p))] [( imp (imp (all *) false) (imp (* (some [imp ('* *) false])) false) = [*] )])] [[( imp (all [:] imp '* (* x)) (imp '* (all *)) = [*] )]])] [[( imp (all '*) ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( imp (imp (imp * false) false) * = [*] )])] [( imp false * = [*] )])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [[( imp '* * ('* *) = [*] )]])
+proves    : imp p p
+equals    : [*]
+
+</pre>
+
+Curieusement, ça marche aussi avec une notation infixée :
+
+<pre>
+! MP ^p ^q ((p imp q) (p q) = [*])
+! AK ^p ^q (p imp (q imp p) = [*])
+! AS ^p ^q ^r ((p imp (q imp r)) imp ((p imp q) imp (p imp r)) = [*])
+! EFQ ^p (false imp p = [*])
+! RAA ^p (((p imp false) imp false) imp p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t ((all p) imp (p t) = [*])
+! PERMUT ^p ^q ((all ^x  :  p imp (q x)) imp (p imp (all q)) = [*])
+! SOME ^p (((all p) imp false) imp
+                   ((p (some ^x ((p x) imp false))) imp false)
+               = [*])
+
+! lemma1 (AS p (p imp p) p)
+
+! lemma2 (AK p (p imp p))
+
+! lemma3 (MP (p imp ((p imp p) imp p))
+               ((p imp (p imp p)) imp (p imp p)))
+
+! lemma4 (lemma1 ( (p imp ((p imp p) imp p))
+                      ((p imp (p imp p)) imp (p imp p)) ) )
+
+! lemma5 { lemma4 , lemma3 }
+
+! lemma6 (lemma2
+              ((p imp (p imp p)) imp
+               (p imp p)))
+
+! lemma7 { lemma6 , lemma5 }
+
+! lemma8 (AK p p)
+
+! lemma9
+ (MP
+    (p imp (p imp p))
+    (p imp p))
+
+! lemma10 (lemma7 ((p imp (p imp p)) (p imp p)))
+
+! lemma11 { lemma10 , lemma9 }
+
+! lemma12 (lemma8 (p imp p))
+
+! theorem1 { p imp p , { lemma12 , lemma11 } }
+
+theorem1
+</pre>
+
+On obtient la même conclusion avec la notation infixée "p imp p".
+
+<pre>
+$ ./pl propi.prf
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { p imp p , { * , '* } })] ('''* (p imp p)))] { * , '* })] (''* (p imp (p imp p) (p imp p))))] (''''''''''''''''* (p imp (p imp p)) (p imp p)))] (''''''''''''''* p p))] { * , '* })] ('''* (p imp (p imp p) imp (p imp p))))] { * , '* })] (''* (p imp (p imp p imp p) (p imp (p imp p) imp (p imp p)))))] (''''''''''* (p imp (p imp p imp p)) (p imp (p imp p) imp (p imp p))))] (''''''''* p (p imp p)))] (''''''* p (p imp p) p))] [( all * imp false imp (* (some ['* * imp false]) imp false) = [*] )])] [[( all [:] '* imp (* x) imp ('* imp (all *)) = [*] )]])] [[( all '* imp ('* *) = [*] )]])] [( * (all ['*]) = [*] )])] [( * imp false imp false imp * = [*] )])] [( false imp * = [*] )])] [[[( ''* imp ('* imp *) imp (''* imp '* imp (''* imp *)) = [*] )]]])] [[( '* imp (* imp '*) = [*] )]])] [[( '* imp * ('* *) = [*] )]])
+proves    : p imp p
+equals    : [*]
+</pre>
+
+La logique démonstrative est un formalisme logique puissant dérivé de la logique combinatoire et du lambda-calcul, qui hérite de ces théories certaines caractéristiques puissantes comme le point fixe. Cela signifie qu'on doit être attentif pour éviter de poser des axiomes incohérents. Par exemple, le point fixe permet de définir un terme c tel que <span class="code">c = (imp c false)</span>, c'est-à-dire égal à sa propre négation. Si on ne prend pas de précautions pour éviter qu'un tel terme puisse être considéré comme une proposition, cela produit une contradiction, comme la démonstration suivante le montre :
+
+<pre>
+# Logical axioms
+! MP ^p ^q (imp p q (p q) = [*])  # Modus ponens
+! AI ^p (imp p p = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+
+! Y [[* *] ['* (* *)]]  # Fixed point
+! defc (c = Y [imp * false])  
+
+% Ac < \\\defc, imp \defc false >  # c = (c => false)
+
+# Proof of false 
+# This is a Proof Logic version of the following natural deduction proof :
+# 1 | c (hypothesis)
+#   |---------------
+# 2 | c => false (from 1 because c = (c => false))
+# 3 | false (MP 2 1)
+# 4 c => false (hypothesis 1 3)
+# 5 c (from 4 because c = (c => false))
+# 6 false (MP 4 5)
+
+% L1 (AI c) 
+% L2 (imp c Ac) 
+% L3 { L2, L1 } 
+% L4 (AS c c false)
+% L5 (MP (imp c (imp c false)) (imp (imp c c) (imp c false))) 
+% L6 (L4 ((imp c (imp c false)) (imp (imp c c) (imp c false)))) 
+% L7 { L6, L5 } 
+% L8 (L3 (imp (imp c c) (imp c false))) 
+% L9 { L8, L7 } 
+% L10 (MP (imp c c) (imp c false)) 
+% L11 (L9 ((imp c c) (imp c false))) 
+% L12 { L11, L10 } 
+% L13 (L1 (imp c false)) 
+% L14 { L13, L12 } 
+% L15 { Ac, c } 
+% L16 { L15, L14 } 
+% L17 (MP c false) 
+% L18 (L14 (c false)) 
+% L19 { L18, L17 } 
+% L20 (L16 false) 
+% L21 { L20, L19 } 
+! T { false, L21 }
+T  # false = [*]
+</pre>
+
+Le <a href="http://log.chez.com/src/slc/pl.c">programme de logique démonstrative</a> produit avec cette démonstration la conclusion <span class="code">false = [*]</span>, c'est-à-dire que faux est vrai !
+
+<pre>
+$ ./pl contradv.prf
+
+Left  of Ac is : c
+Right of Ac is : imp c false
+
+Left  of L15 is : imp c false
+Right of L15 is : c
+
+Left  of L1 is : imp c c
+Right of L1 is : [*]
+
+Left  of L13 is : imp c c (imp c false)
+Right of L13 is : [*] (imp c false)
+
+Left  of L2 is : imp c c
+Right of L2 is : imp c (imp c false)
+
+Left  of L3 is : imp c (imp c false)
+Right of L3 is : [*]
+
+Left  of L8 is : imp c (imp c false) (imp (imp c c) (imp c false))
+Right of L8 is : [*] (imp (imp c c) (imp c false))
+
+Left  of L4 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false))
+Right of L4 is : [*]
+
+Left  of L6 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false)) (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L6 is : [*] (imp c (imp c false) (imp (imp c c) (imp c false)))
+
+Left  of L5 is : imp (imp c (imp c false)) (imp (imp c c) (imp c false)) (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L5 is : [*]
+
+Left  of L7 is : [*] (imp c (imp c false) (imp (imp c c) (imp c false)))
+Right of L7 is : [*]
+
+Left  of L9 is : [*] (imp (imp c c) (imp c false))
+Right of L9 is : [*]
+
+Left  of L11 is : [*] (imp (imp c c) (imp c false)) (imp c c (imp c false))
+Right of L11 is : [*] (imp c c (imp c false))
+
+Left  of L10 is : imp (imp c c) (imp c false) (imp c c (imp c false))
+Right of L10 is : [*]
+
+Left  of L12 is : [*] (imp c c (imp c false))
+Right of L12 is : [*]
+
+Left  of L14 is : [*] (imp c false)
+Right of L14 is : [*]
+
+Left  of L16 is : c
+Right of L16 is : [*]
+
+Left  of L20 is : c false
+Right of L20 is : [*] false
+
+Left  of L18 is : [*] (imp c false) (c false)
+Right of L18 is : [*] (c false)
+
+Left  of L17 is : imp c false (c false)
+Right of L17 is : [*]
+
+Left  of L19 is : [*] (c false)
+Right of L19 is : [*]
+
+Left  of L21 is : [*] false
+Right of L21 is : [*]
+
+The proof : @([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([@([*] { false , * })] ?L21 { * , '* })] ?L20 ('''* false))] ?L19 { * , '* })] ?L18 ('''* (c false)))] ?L17 (''''''''''''''''''''''* c false))] ?L16 { * , '* })] ?L15 { ''''''''''''''* , c })] ?L14 { * , '* })] ?L13 ('''''''''''* (imp c false)))] ?L12 { * , '* })] ?L11 ('* (imp c c (imp c false))))] ?L10 ('''''''''''''''* (imp c c) (imp c false)))] ?L9 { * , '* })] ?L8 (''''* (imp (imp c c) (imp c false))))] ?L7 { * , '* })] ?L6 ('* (imp c (imp c false) (imp (imp c c) (imp c false)))))] ?L5 (''''''''''* (imp c (imp c false)) (imp (imp c c) (imp c false))))] ?L4 (''''''* c c false))] ?L3 { * , '* })] ?L2 (imp c '*))] ?L1 ('''''* c))] ?Ac < \\\* , imp \* false >)] ( c = * [imp * false] ))] [[* *] ['* (* *)]])] [[[( imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *)) = [*] )]]])] [[( imp '* (imp * '*) = [*] )]])] [( imp * * = [*] )])] [[( imp '* * ('* *) = [*] )]])
+proves    : false
+equals    : [*]
+</pre>
+
+Pour éviter cela, il est nécessaire de définir une condition pour qu'un terme soit une proposition pour qu'un terme c tel que <span class="code">c = (imp c false)</span> ne puisse pas être considéré comme une proposition, ou d'utiliser une logique affaiblie permettant de manipuler des propositions vérifiant <span class="code">c = (imp c false)</span> sans produire de contradiction.
+<p>
+Historiquement, la logique démonstrative vient du <a href="http://log.chez.com/text/logic/sslc.txt">lambda-calcul symbolique simplifié</a>,
+avec des nouvelles notations introduites, et l'axiome unique remplacé par plusieurs axiomes de la forme "a = b".
+Le lambda-calcul symbolique vient lui-même de la logique combinatoire de Schönfinkel et Curry et du lambda-calcul de Church via <a href="http://log.chez.com/text/logic/slc-hist.html">cet historique</a>.
+
+<p>
+
+La logique démonstrative a été <a href="http://log.chez.com/src/slc/pl.c">implémentée en C</a> dans la version décrite dans le présent document, et <a href="../../showfile.php?filename=src/slc/pl.hs">en Haskell</a> dans une <a href="pls.html">version précédente</a>.
+
+</body>
+</html>
