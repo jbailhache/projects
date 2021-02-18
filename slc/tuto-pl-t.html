@@ -448,7 +448,8 @@ The conclusion of a proof is computed according to the following rules :
 <li> if x proves a = b then 'x proves 'a = 'b
 <li> if x proves a = b then [x] proves [a] = [b]
 <li> if x proves a = b and y proves c = d then x y proves a c = b d
-<li> if x proves a = b, y proves c = d, and a and c reduce to a same proof, then { x, y } proves b = d, otherwise { x, y } proves { x, y } = { x, y}
+<!-- <li> if x proves a = b, y proves c = d, and a and c reduce to a same proof, then { x, y } proves b = d, otherwise { x, y } proves { x, y } = { x, y} -->
+<li> if x proves a = b and y proves c = d and a or b is equivalent to c or d, then { x, y } proves the equality of the two other terms, two terms being equivalent if they are equal, or they reduce to the same term, or one reduces to the other.
 <!-- <li> if x proves a = b, y proves c = d, and b and d reduce to a same proof, then &lt; x, y > proves a = c, otherwise &lt; x, y > proves &lt; x, y > = &lt; x, y > -->
 <li> x = y proves x = y
 <li> if x proves a = b, a reduces to a' and b reduces to b', then $x proves a' = b'
