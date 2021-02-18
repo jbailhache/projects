@@ -35,3 +35,5 @@ plxnftwp.c : portable version (tested on Raspberry Pi and Windows)
 plxnftwps.c : constants LEFT and RIGHT for sides
 plxnftwpse.c : function eqn (equality with reduction)
 plxnftwpset.c : Generalized transitivity with reduction
+plxnftwpsetc.c : Correction
+plxnftwpsetct.c : Transitivity "x ; y"
