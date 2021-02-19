@@ -1,0 +1,48 @@
+
+! MP ^p ^q ((p imp q) (p q) = [*])
+! AK ^p ^q (p imp (q imp p) = [*])
+! AS ^p ^q ^r ((p imp (q imp r)) imp ((p imp q) imp (p imp r)) = [*])
+! EFQ ^p (false imp p = [*])
+! RAA ^p (((p imp false) imp false) imp p = [*])
+! GEN ^p (p (all ^x p) = [*])
+! PART ^p ^t ((all p) imp (p t) = [*])
+! PERMUT ^p ^q ((all ^x  :  p imp (q x)) imp (p imp (all q)) = [*])
+! SOME ^p (((all p) imp false) imp 
+                   ((p (some ^x ((p x) imp false))) imp false) 
+               = [*])
+
+! lemma1 (AS p (p imp p) p)
+
+! lemma2 (AK p (p imp p))
+
+! lemma3 (MP (p imp ((p imp p) imp p))
+               ((p imp (p imp p)) imp (p imp p)))
+
+! lemma4 (lemma1 ( (p imp ((p imp p) imp p))
+                      ((p imp (p imp p)) imp (p imp p)) ) )
+
+! lemma5 ( lemma4 ; lemma3 )
+
+! lemma6 (lemma2 
+              ((p imp (p imp p)) imp
+               (p imp p)))
+
+! lemma7 ( lemma6 ; lemma5 )
+
+! lemma8 (AK p p)
+
+! lemma9 
+ (MP 
+    (p imp (p imp p))
+    (p imp p))
+
+! lemma10 (lemma7 ((p imp (p imp p)) (p imp p)))
+
+! lemma11 ( lemma10 ; lemma9 )
+
+! lemma12 (lemma8 (p imp p))
+
+! theorem1 ( p imp p ; lemma12 ; lemma11 )
+
+theorem1
+
