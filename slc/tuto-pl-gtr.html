@@ -1,0 +1,463 @@
+<html>
+<head>
+<title>Tutorial presentation of Proof Logic</title>
+</head>
+<body>
+
+<table width="99%">
+<tr>
+<td align="left">
+<h2>Tutorial presentation of Proof Logic</h2>
+(new version with generalized transitivity with reduction)
+</td>
+<td></td></tr><tr><td></td>
+<td align="right">
+Jacques Bailhache (<a href="mailto:jacques.bailhache@gmail.com">jacques.bailhache@gmail.com</a>) February 2021
+</td>
+</tr>
+</table>
+<p>
+Proof Logic is a logical framework for building proofs. Proofs are built by combining other proofs using operators, starting from an initial set of proofs representing the axioms and the rules of a theory in the framework of which we want to prove some sentences. Each proof has a conclusion, which is a sentence proved as true by the proof. In Proof Logic, a sentence is an equality between two terms, which are also proofs. So, to any proof we can associate two other proofs, which are respectively the lefs side and the right side of the equality proved by the proof. 
+<p>
+Proof Logic has been implemented by a program which computes the conclusion of a given proof stored in a file given as argument of the program, or which can run interactively if called without argument, giving the conclusions of proofs typed by the user. In this case, each proof must be ended by ".", because proofs can be typed on several lines.
+<p>
+The program is written in C, has no dependency and is easy to compile, you just have to compile the source <a href="http://log.chez.com/src/slc/pl-gtr.c">pl-gtr.c</a> with a C compiler. You can also download a precompiled executable <a href="http://log.chez.com/src/slc/pl-gtr-win.exe">for Windows</a>, <a href="http://log.chez.com/src/slc/pl-gtr-linux">for Linux</a> or <a href="http://log.chez.com/src/slc/pl-gtr-rpi">for Raspberry Pi</a>.
+<p>
+The simplest example of proof is a word. (Note : words are also called "symbols" in other more technical presentation of Proof Logic, but here I prefer to call them "words" because it is something similar to what is commonly called "a word"). A word is represented by a sequence of letters (and some other allowed characters) and represents something, an objet, a person, an abstract concept, a property, a relation... A word proves its equality with itself. This is the law of identity, one of the most fundamental logical principles.
+<pre>
+? foo.
+
+The proof  : foo
+reduces to : foo
+and proves : foo
+equals     : foo
+</pre>
+We will see later that there is an operation called "reduction" which transform a proof into another proof, but for the moment you just have to know that a word reduces to itself.
+<p>
+The fact that foo is the same thing as bar is expressed by the axiom "foo = bar", which is a proof whose conclusion is foo = bar. "=" is an operator which combines the two proofs "foo" and "bar", giving the proof "foo = bar". Of course, this operator may be used only in axioms, otherwise we could prove anything.
+<pre>
+? foo = bar.
+
+The proof  : foo = bar
+reduces to : foo = bar
+and proves : foo
+equals     : bar
+</pre>
+<!--
+If foo is the same as bar, and foo is also the same as baz, we would like to deduce that bar is the same as baz. This is done by an operator written "{ , }" :
+<pre>
+? { foo = bar, foo = baz }.
+
+The proof  : { foo = bar , foo = baz }
+reduces to : { foo = bar , foo = baz }
+and proves : bar
+equals     : baz
+</pre>
+The symmetric operator "&lt; , >" works when the common term is the right side of the equalities :
+<pre>
+? < bar = foo, baz = foo >.
+
+The proof  : < bar = foo , baz = foo >
+reduces to : < bar = foo , baz = foo >
+and proves : bar
+equals     : baz
+</pre>
+-->
+If we have two equalities with a common term, the two other terms should be equal. This is a fundamental property of equality called transitivity. In Proof Logic, the transitivity operator applied to two proofs x and y is written "{ x, y }". For example :
+<pre>
+? { foo = bar, bar = baz }.
+
+The proof  : { foo = bar , bar = baz }
+reduces to : { foo = bar , bar = baz }
+and proves : foo
+equals     : baz
+
+? { foo = bar, foo = baz }.
+
+The proof  : { foo = bar , foo = baz }
+reduces to : { foo = bar , foo = baz }
+and proves : bar
+equals     : baz
+
+? { foo = bar, baz = bar }.
+
+The proof  : { foo = bar , baz = bar }
+reduces to : { foo = bar , baz = bar }
+and proves : foo
+equals     : baz
+
+? { foo = bar, baz = foo }.
+
+The proof  : { foo = bar , baz = foo }
+reduces to : { foo = bar , baz = foo }
+and proves : bar
+equals     : baz
+</pre>
+
+We have seen that a word can represent a property or a relation. This corresponds to the notion of "the ... of ..." in current language, associating to something or someone another thing or person having some relation with the first one. For example, "The mother of Anthony is Brenda" can be written "mother Anthony = Brenda". We introduce here the operator of application : "mother Anthony" is the application of "mother" to "Anthony". In this application, "mother" is called the function, and "Anthony" is called the argument.
+<p>
+If Anthony is also called Tony, then the mother of Tony is the same parson as the mother of Anthony. Also, if the mother is also called mom, then the mom of Anthony is also the same person, and also the mom of Tony :
+<pre>
+? (mother = mom) (Anthony = Tony).
+
+The proof  : (mother = mom) (Anthony = Tony)
+reduces to : (mother = mom) (Anthony = Tony)
+and proves : mother Anthony
+equals     : mom Tony
+</pre>
+More generally, if x proves a = b, and y proves c = d, then the application x y proves a c = b d.
+<p>
+Knowing that the mother of Anthony is Brenda, we can prove that the mom of Tony is also Brenda :
+<pre>
+? { (mother = mom) (Anthony = Tony), mother Anthony = Brenda }.
+
+The proof  : { (mother = mom) (Anthony = Tony) , mother Anthony = Brenda }
+reduces to : { (mother = mom) (Anthony = Tony) , mother Anthony = Brenda }
+and proves : mom Tony
+equals     : Brenda
+</pre>
+
+Now we will see how to say, for example, that the maternal grandmother of someone is the mother of his or her mother. We can write it like this :
+
+<pre>
+? maternal_grandmother = [mother (mother *)].
+
+The proof  : maternal_grandmother = [mother (mother *)]
+reduces to : maternal_grandmother = [mother (mother *)]
+and proves : maternal_grandmother
+equals     : [mother (mother *)]
+</pre>
+The notation "[ ... * ... ]" means the function that, when applied to some argument, gives what is inside the "[ ... ]" (this is called the "body" of the function) where all the "*" are replaced by the argument. Let's see how it work when we apply this fonction to an argument, for example "Anthony" :
+<pre>
+? [mother (mother *)] Anthony.
+
+The proof  : [mother (mother *)] Anthony
+reduces to : mother (mother Anthony)
+and proves : [mother (mother *)] Anthony
+equals     : [mother (mother *)] Anthony
+</pre>
+Here we see the effect of the reduction : we obtain the body of the function where the "*" is replaced by the argument "Anthony".
+<p>
+When we apply the previous definition of maternal_grandmother to "Anthony" we get :
+<pre>
+? (maternal_grandmother = [mother (mother *)]) Anthony.
+
+The proof  : (maternal_grandmother = [mother (mother *)]) Anthony
+reduces to : (maternal_grandmother = [mother (mother *)]) Anthony
+and proves : maternal_grandmother Anthony
+equals     : [mother (mother *)] Anthony
+</pre>
+<!--
+We can get the symmetrical equality like this :
+<pre>
+? { (maternal_grandmother = [mother (mother *)]) Anthony,
+    maternal_grandmother Anthony }.
+
+The proof  : { (maternal_grandmother = [mother (mother *)]) Anthony , maternal_grandmother Anthony }
+reduces to : { (maternal_grandmother = [mother (mother *)]) Anthony , maternal_grandmother Anthony }
+and proves : [mother (mother *)] Anthony
+equals     : maternal_grandmother Anthony
+</pre>
+Now see the following proof :
+<pre>
+? { { (maternal_grandmother = [mother (mother *)]) Anthony,
+      maternal_grandmother Anthony },
+    mother (mother Anthony) }.
+
+The proof  : { { (maternal_grandmother = [mother (mother *)]) Anthony , maternal_grandmother Anthony } , mother (mother Anthony) }
+reduces to : { { (maternal_grandmother = [mother (mother *)]) Anthony , maternal_grandmother Anthony } , mother (mother Anthony) }
+and proves : maternal_grandmother Anthony
+equals     : mother (mother Anthony)
+</pre>
+Here we see that the operator "{ , }" applies even if the left side of the conclusion of the first proof, which is "[mother (mother *)] Anthony" is not textually the same as the left side of the conclusion of the second proof which is "mother (mother Anthony)". It applies because both reduce to the same term "mother (mother Anthony)".
+-->
+Now see the following proof :
+<pre>
+? { (maternal_grandmother = [mother (mother *)]) Anthony,
+    mother (mother Anthony) }.
+
+The proof  : { (maternal_grandmother = [mother (mother *)]) Anthony , mother (mother Anthony) }
+reduces to : { (maternal_grandmother = [mother (mother *)]) Anthony , mother (mother Anthony) }
+and proves : maternal_grandmother Anthony
+equals     : mother (mother Anthony)
+</pre>
+Here we see that the operator "{ , }" applies even if the right side of the conclusion of the first proof, which is "[mother (mother *)] Anthony" is not textually the same as the left side (or the right side) of the conclusion of the second proof which is "mother (mother Anthony)". It applies because both reduce to the same term "mother (mother Anthony)".
+<p>
+We can also directly reduce both sides of the conclusion of a proof with the operator "$" :
+<pre>
+? $((maternal_grandmother = [mother (mother *)]) Anthony).
+
+The proof  : $((maternal_grandmother = [mother (mother *)]) Anthony)
+reduces to : $((maternal_grandmother = [mother (mother *)]) Anthony)
+and proves : maternal_grandmother Anthony
+equals     : mother (mother Anthony)
+</pre>
+Another way to define "maternal_grandmother" is the following axiom :
+<pre>
+? [maternal_grandmother * = mother (mother *)].
+
+The proof  : [maternal_grandmother * = mother (mother *)]
+reduces to : [maternal_grandmother * = mother (mother *)]
+and proves : [maternal_grandmother *]
+equals     : [mother (mother *)]
+</pre>
+When we apply it to Anthony, it gives :
+<pre>
+? [maternal_grandmother * = mother (mother *)] Anthony.
+
+The proof  : [maternal_grandmother * = mother (mother *)] Anthony
+reduces to : maternal_grandmother Anthony = mother (mother Anthony)
+and proves : [maternal_grandmother *] Anthony
+equals     : [mother (mother *)] Anthony
+</pre>
+With reduction of the conclusion, it gives :
+<pre>
+? $([maternal_grandmother * = mother (mother *)] Anthony).
+
+The proof  : $([maternal_grandmother * = mother (mother *)] Anthony)
+reduces to : $(maternal_grandmother Anthony = mother (mother Anthony))
+and proves : maternal_grandmother Anthony
+equals     : mother (mother Anthony)
+</pre>
+We can see that the penultimate demonstration reduces to what we want. In this case, we can use the operator "@", which reduces the proof to which it is applied, before computing the conclusion of the reduced proof :
+<pre>
+? @([maternal_grandmother * = mother (mother *)] Anthony).
+
+The proof  : @([maternal_grandmother * = mother (mother *)] Anthony)
+reduces to : @(maternal_grandmother Anthony = mother (mother Anthony))
+and proves : maternal_grandmother Anthony
+equals     : mother (mother Anthony)
+</pre>
+Note that the operators "$" and "@" are not necessary to get this result because we have seen that we can get it without them, but it may simplify the proofs.
+<p>
+All Proof Logic sentences are equalities. But we may want to manipulate sentences which does not present in the form of equalities. In this case, we can write them as equalities with the word "true" for example to say that Anthony is a man and Brenda is a woman :
+<pre>
+? man Anthony = true.
+
+The proof  : man Anthony = true
+reduces to : man Anthony = true
+and proves : man Anthony
+equals     : true
+
+? woman Brenda = true.
+
+The proof  : woman Brenda = true
+reduces to : woman Brenda = true
+and proves : woman Brenda
+equals     : true
+</pre>
+The application operator always applies a function to one argument. We may want to apply a function to several arguments. Such an operator does not exist directly in Proof Logic, put it is possible to apply a function to an argument, for example "f a1", giving some proof, and then apply this proof to the second argument, giving the final result, for example "(f a1) a2" which can be written more simply "f a1 a2". For example we can write "parent a" the property of being a parent of a, and "parent a b" the fact that this property applies to b, or that b is a parent of a, being equal to true if this fact is true. We can say that the property of being a parent of someone apply to his or her mother, and to his or her father, and represent this by the following axioms :
+<pre>
+? [parent * (mother *) = true].
+
+The proof  : [parent * (mother *) = true]
+reduces to : [parent * (mother *) = true]
+and proves : [parent * (mother *)]
+equals     : [true]
+
+? [parent * (father *) = true].
+
+The proof  : [parent * (father *) = true]
+reduces to : [parent * (father *) = true]
+and proves : [parent * (father *)]
+equals     : [true]
+</pre>
+If we apply the first axiom to Anthony, we get :
+<pre>
+? [parent * (mother *) = true] Anthony.
+
+The proof  : [parent * (mother *) = true] Anthony
+reduces to : parent Anthony (mother Anthony) = true
+and proves : [parent * (mother *)] Anthony
+equals     : [true] Anthony
+</pre>
+If we reduce the proof before computing its conclusion, we get :
+<pre>
+? @([parent * (mother *) = true] Anthony).
+
+The proof  : @([parent * (mother *) = true] Anthony)
+reduces to : @(parent Anthony (mother Anthony) = true)
+and proves : parent Anthony (mother Anthony)
+equals     : true
+</pre>
+Reducing the conclusion of the initial proof gives the same result :
+<pre>
+? $([parent * (mother *) = true] Anthony).
+
+The proof  : $([parent * (mother *) = true] Anthony)
+reduces to : $(parent Anthony (mother Anthony) = true)
+and proves : parent Anthony (mother Anthony)
+equals     : true
+</pre>
+But knowing that the mother of Anthony is Brenda we can also get :
+<pre>
+?  { parent Anthony (mother Anthony = Brenda),
+     $([parent * (mother *) = true] Anthony) }.
+
+The proof  : { parent Anthony (mother Anthony = Brenda) , $([parent * (mother *) = true] Anthony) }
+reduces to : { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) }
+and proves : parent Anthony Brenda
+equals     : true
+</pre>
+How can we represent the property of being a child of Brenda ? We can say that someone is a child of Brenda if Brenda is a parent of this person. So the property of being a child of Brenda can be written "[parent * Brenda]". If we apply it to Anthony we get :
+<pre>
+? [parent * Brenda] Anthony.
+
+The proof  : [parent * Brenda] Anthony
+reduces to : parent Anthony Brenda
+and proves : [parent * Brenda] Anthony
+equals     : [parent * Brenda] Anthony
+</pre>
+But how can we represent the property of being the child of someone ? We want a function that, when applied to Brenda, gives "[parent * Brenda]". We could have the idea of creating a function whose body is obtained by replacing "Brenda" by "*", giving "[[parent * *]]", but it does not work, because "Brenda" is already inside the body of a function :
+<pre>
+? [[parent * *]] Brenda.
+
+The proof  : [[parent * *]] Brenda
+reduces to : [parent * *]
+and proves : [[parent * *]] Brenda
+equals     : [[parent * *]] Brenda
+</pre>
+In this case, we have to use the operator "'" and write "[[parent * '*]]". 
+<pre>
+? [[parent * '*]] Brenda.
+
+The proof  : [[parent * '*]] Brenda
+reduces to : [parent * Brenda]
+and proves : [[parent * '*]] Brenda
+equals     : [[parent * '*]] Brenda
+</pre>
+We can then apply the result to Anthony :
+<pre>
+? [[parent * '*]] Brenda Anthony.
+
+The proof  : [[parent * '*]] Brenda Anthony
+reduces to : parent Anthony Brenda
+and proves : [[parent * '*]] Brenda Anthony
+equals     : [[parent * '*]] Brenda Anthony
+</pre>
+We can define the word "child" by the axiom " child = [[parent * '*]]" and apply it to Brenda and Anthony, reducing the conclusion :
+<pre>
+? $((child = [[parent * '*]]) Brenda Anthony).
+
+The proof  : $((child = [[parent * '*]]) Brenda Anthony)
+reduces to : $((child = [[parent * '*]]) Brenda Anthony)
+and proves : child Brenda Anthony
+equals     : parent Anthony Brenda
+</pre>
+We can then combine this proof with the previous proof of "parent Anthony Brenda = true" :
+<!--
+<pre>
+? { { $((child = [[parent * '*]]) Brenda Anthony), child Brenda Anthony },
+     { parent Anthony (mother Anthony = Brenda),
+       $([parent * (mother *) = true] Anthony) } }.
+
+The proof  : { { $((child = [[parent * '*]]) Brenda Anthony) , child Brenda Anthony } , { parent Anthony (mother Anthony = Brenda) , $([parent * (mother *) = true] Anthony) } }
+reduces to : { { $((child = [[parent * '*]]) Brenda Anthony) , child Brenda Anthony } , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+-->
+<pre>
+? { $((child = [[parent * '*]]) Brenda Anthony),
+    { parent Anthony (mother Anthony = Brenda),
+      $([parent * (mother *) = true] Anthony) } }.
+
+The proof  : { $((child = [[parent * '*]]) Brenda Anthony) , { parent Anthony (mother Anthony = Brenda) , $([parent * (mother *) = true] Anthony) } }
+reduces to : { $((child = [[parent * '*]]) Brenda Anthony) , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+The function "child = [[parent * '*]]" is a function that, when applied to a first argument a1, gives another function that, when applied to a second argument a2, gives the final result, which is "parent a2 a1". It can be seen as a function with two arguments whose body is "parent * '*". So we can consider that in the body of a function with two arguments, " '* " represents the first one and " * " represents the second one. This can be generalized to any number of arguments. But it may give expressions difficult to read. So we will introduce another notation to make writing and reading of functions easier : a function " [ ... * ... ] " can also be written " ^x ( ... x ... ) ". With two arguments, " [[ ... '* ... * ... ]] " can be written " ^x ^y ( ... x ... y ...) ". For example, we can write "child = ^x ^y (parent y x)" which means that "child x y = parent y x" :
+<pre>
+? child = ^x ^y (parent x y).
+
+The proof  : child = [[parent '* *]]
+reduces to : child = [[parent '* *]]
+and proves : child
+equals     : [[parent '* *]]
+</pre>
+Note that "^" is not an operator, this is a syntactic notation which is converted into an internal form using the operators "[...]", " * ", " '* ", ...
+<p>
+The previous proof can be rewritten with this definition :
+<!--
+<pre>
+? { { $((child = ^x ^y (parent y x)) Brenda Anthony), child Brenda Anthony },
+    { parent Anthony (mother Anthony = Brenda),
+      $([parent * (mother *) = true] Anthony) } }.
+
+The proof  : { { $((child = [[parent * '*]]) Brenda Anthony) , child Brenda Anthony } , { parent Anthony (mother Anthony = Brenda) , $([parent * (mother *) = true] Anthony) } }
+reduces to : { { $((child = [[parent * '*]]) Brenda Anthony) , child Brenda Anthony } , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+-->
+<pre>
+? { $((child = ^x ^y (parent y x)) Brenda Anthony),
+    { parent Anthony (mother Anthony = Brenda),
+      $([parent * (mother *) = true] Anthony) } }.
+
+The proof  : { $((child = [[parent * '*]]) Brenda Anthony) , { parent Anthony (mother Anthony = Brenda) , $([parent * (mother *) = true] Anthony) } }
+reduces to : { $((child = [[parent * '*]]) Brenda Anthony) , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+To make writing of proofs easier, it is useful to have a notation to give a name to a proof and use this name instead of the whole construction of the proof. This notation is "! x y z" in which x is the name, y is the construction of the proof named x, and z is a proof in which the defined proof will be represented by its name x. "!x y z" is translated into "@(^x z y)". For example :
+<!--
+<pre>
+? ! axiom_parent [parent * (mother *) = true]
+  ! axiom_child (child = ^x ^y (parent y x))
+  ! axiom_mother_Anthony (mother Anthony = Brenda)
+  { { $(axiom_child Brenda Anthony), child Brenda Anthony },
+    { parent Anthony axiom_mother_Anthony,
+      $(axiom_parent Anthony) } }.
+
+The proof  : @([@([@([{ { $('* Brenda Anthony) , child Brenda Anthony } , { parent Anthony * , $(''* Anthony) } }] (mother Anthony = Brenda))] (child = [[parent * '*]]))] [parent * (mother *) = true])
+reduces to : @@@{ { $((child = [[parent * '*]]) Brenda Anthony) , child Brenda Anthony } , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+-->
+<pre>
+? ! axiom_parent [parent * (mother *) = true]
+  ! axiom_child (child = ^x ^y (parent y x))
+  ! axiom_mother_Anthony (mother Anthony = Brenda)
+  { $(axiom_child Brenda Anthony),
+    { parent Anthony axiom_mother_Anthony,
+      $(axiom_parent Anthony) } }.
+
+The proof  : @([@([@([{ $('* Brenda Anthony) , { parent Anthony * , $(''* Anthony) } }] (mother Anthony = Brenda))] (child = [[parent * '*]]))] [parent * (mother *) = true])
+reduces to : @@@{ $((child = [[parent * '*]]) Brenda Anthony) , { parent Anthony (mother Anthony = Brenda) , $(parent Anthony (mother Anthony) = true) } }
+and proves : child Brenda Anthony
+equals     : true
+</pre>
+In summary, a proof may be :
+<ul>
+<li> a word (or symbol)
+<li> the variable *
+<li> 'x where x is a proof (makes sense only if x is in the form '...'*)
+<li> a function [x] where x is a proof
+<li> the application x y of the proof x (function) to the proof y (argument)
+<li> { x, y } where x and y are proofs
+<!-- <li> &lt; x, y > where x and y are proofs -->
+<li> x = y where x and y are proofs (may be used only in axioms)
+<li> $x where x is a proof
+<li> @x where x is a proof
+</ul>
+The conclusion of a proof is computed according to the following rules :
+<ul>
+<li> a symbol foo proves foo = foo
+<li> the variable * proves * = *
+<li> if x proves a = b then 'x proves 'a = 'b
+<li> if x proves a = b then [x] proves [a] = [b]
+<li> if x proves a = b and y proves c = d then x y proves a c = b d
+<!-- <li> if x proves a = b, y proves c = d, and a and c reduce to a same proof, then { x, y } proves b = d, otherwise { x, y } proves { x, y } = { x, y} -->
+<li> if x proves a = b and y proves c = d and a or b is equivalent to c or d, then { x, y } proves the equality of the two other terms, two terms being equivalent if they are equal, or they reduce to the same term, or one reduces to the other.
+<!-- <li> if x proves a = b, y proves c = d, and b and d reduce to a same proof, then &lt; x, y > proves a = c, otherwise &lt; x, y > proves &lt; x, y > = &lt; x, y > -->
+<li> x = y proves x = y
+<li> if x proves a = b, a reduces to a' and b reduces to b', then $x proves a' = b'
+<li> if x reduces to y and y proves a = b, then @x proves a = b
+</ul>
+
+</body>
+</html>
+
