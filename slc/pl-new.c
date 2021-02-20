@@ -106,7 +106,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define RED '@'
 #define RLR '$'
 #define APL '-'
-#define LTR '{'
+#define GTR '{'
 #define RTR '<'
 #define EQU '='
 #define RSL '/'
@@ -217,7 +217,7 @@ proof f(proof x, proof y) { \
 }
 
 DEFOP2(APL,apl)
-DEFOP2(LTR,ltr)
+DEFOP2(GTR,gtr)
 DEFOP2(RTR,rtr)
 DEFOP2(EQU,equ)
 DEFOP2(PRT,prt)
@@ -471,7 +471,7 @@ proof side1 (int s, proof x) {
 				case RIGHT : return reduce1(side(s,x->sp1));
 				default    : return NULL;
 			}
-		case LTR :
+		case GTR :
 			//if (reduce(side(1,x->sp1)) == reduce(side(1,x->sp2)))
 			// y = reduce(side(LEFT,x->sp1));
 			// z = reduce(side(LEFT,x->sp2));
@@ -506,7 +506,7 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			// printf("LTR does not apply to ");
+			// printf("GTR does not apply to ");
 			// print_proof_to_stdout(x);
 			/*
 			printf("\n first  proof reduces to ");
@@ -610,7 +610,7 @@ proof simple_read_proof_1 (struct reader *reader) {
 		case '/' : 
 			x = simple_read_proof_1(reader);
 			y = simple_read_proof_1(reader);
-			return ltr(x,y);
+			return gtr(x,y);
 		case '%' :
 			x = simple_read_proof_1(reader);
 			y = simple_read_proof_1(reader);
@@ -657,7 +657,7 @@ void simple_print_proof_1(struct printer *printer, proof x) {
 			simple_print_proof_1 (printer, x->sp1);
 			simple_print_proof_1 (printer, x->sp2);
 			break;
-		case LTR :
+		case GTR :
 			putchar_to_printer (printer, '/');
 			simple_print_proof_1 (printer, x->sp1);
 			simple_print_proof_1 (printer, x->sp2);
@@ -770,7 +770,7 @@ proof read_proof_1 (struct reader *reader) {
 			y = read_proof_2(reader);
 			if (cur_char == '}')
 				nextchar(reader);
-			return ltr(x,y);
+			return gtr(x,y);
 		case '<' : 
 			nextchar(reader);
 			x = read_proof_2(reader);
@@ -856,8 +856,8 @@ proof read_proof_2 (struct reader *reader) {
 					if (x == NULL) return y;
 					return equ(x,y);
 				} else {
-					if (x == NULL) return ltr(t,y);
-					return ltr(t,equ(x,y));
+					if (x == NULL) return gtr(t,y);
+					return gtr(t,equ(x,y));
 				}
 			case '=' :
 				nextchar(reader);
@@ -878,9 +878,9 @@ proof read_proof_2 (struct reader *reader) {
 					}
 				} else {
 					if (x == NULL) {
-						t = ltr(t,y);
+						t = gtr(t,y);
 					} else {
-						t = ltr(t,equ(x,y));
+						t = gtr(t,equ(x,y));
 					}
 				}
 				x = NULL;
@@ -983,7 +983,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 			print_proof_1(printer, x->sp2, 7);
 			if (parenthesized & 2) putstring_to_printer(printer, ")");
 			break;
-		case LTR : 
+		case GTR : 
 			/*
 			putstring_to_printer(printer, "{ ");
 			print_proof_1(printer, x->sp1, 0);
