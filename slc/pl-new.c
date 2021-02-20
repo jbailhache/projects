@@ -506,12 +506,14 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			printf("LTR does not apply to ");
-			print_proof_to_stdout(x);
+			// printf("LTR does not apply to ");
+			// print_proof_to_stdout(x);
+			/*
 			printf("\n first  proof reduces to ");
 			print_proof_to_stdout(y);
 			printf("\n second proof reduces to ");
 			print_proof_to_stdout(z);
+			*/
 			printf("\n");
 			return x;
 		case RTR :
