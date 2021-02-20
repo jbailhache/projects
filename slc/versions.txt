@@ -37,3 +37,4 @@ plxnftwpse.c : function eqn (equality with reduction)
 plxnftwpset.c : Generalized transitivity with reduction
 plxnftwpsetc.c : Correction
 plxnftwpsetct.c : Transitivity "x ; y"
+plxnftwpsetctn.c = pl-new.c : modification display LTR, bugs corrected
