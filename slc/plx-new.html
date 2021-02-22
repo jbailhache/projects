@@ -98,7 +98,7 @@ The left and right terms of the conclusion of a proof are defined as follows :
 <li> left(\x) = left(x) ; right(\x) = red(right(x))
 <li> left(x y) = left(x) left(y) ; right(x y) = right(x) right(y), which means that if x proves a = b and y proves c = d then x y proves a c = b d.
 <!-- <li> left({x,y}) = right(x) and right({x,y}) = right(y) if left(x) and left(y) reduce to a same term, otherwise left({x,y}) = right({x,y}) = {x,y} -->
-<li> if x proves a = b and y proves c = d and a or b is equivalent to c or d, then { x, y } proves the equality of the two other terms, two terms being equivalent if they are equal, or they reduce to the same term, or one reduces to the other.
+<li> if x proves a = b and y proves c = d and a or b is equivalent to c or d, then x ; y proves the equality of the two other terms, two terms being equivalent if they are equal, or they reduce to the same term, or one reduces to the other.
 <!-- <li> left(&lt;x,y>) = left(x) and right(&lt;x,y>) = left(y) if right(x) and right(y) reduce to the same term, otherwise left(&lt;x,y>) = right(&lt;x,y>) = &lt;x,y> -->
 <li> left(a=b) = a ; right(a=b) = b
 <li> left(? x y) = left(y) ; right(? x y) = right(y)

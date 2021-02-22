@@ -98,7 +98,7 @@ Les termes gauche et droit de la conclusion d'une démonstration sont définis c
 <li> gauche(\x) = \gauche(x) ; droite(\x) = \droite(x)
 <li> gauche(x y) = gauche(x) gauche(y) ; droite(x y) = droite(x) droite(y)
 <!-- <li> gauche({x,y}) = droite(x) et droite({x,y}) = droite(y) si gauche(x) et gauche(y) se réduisent à un même terme, sinon gauche({x,y}) = droite({x,y}) = {x,y} -->
-<li> si x démontre a = b et y démontre c = d et a ou b est équivalent à c ou d, alors { x, y } démontre l'égalité des deux autres termes, deux termes étant équivalents s'ils sont égaux, s'ils se réduisent à un même terme, ou si l'un d'eux se réduit à l'autre
+<li> si x démontre a = b et y démontre c = d et a ou b est équivalent à c ou d, alors x ; y démontre l'égalité des deux autres termes, deux termes étant équivalents s'ils sont égaux, s'ils se réduisent à un même terme, ou si l'un d'eux se réduit à l'autre
 <!-- <li> gauche(&lt;x,y>) = gauche(x) et droite(&lt;x,y) = gauche(y) si droite(x) et droite(y) se réduisent à un même terme, sinon gauche(&lt;x,y>) = droite(&lt;x,y>) = &lt;x,y> -->
 <li> gauche(a = b) = a : droite(a = b) = b
 <li> gauche(? x y) = gauche(y) ; droite(? x y) = droite(y)
