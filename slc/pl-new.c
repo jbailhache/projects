@@ -484,14 +484,6 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			if (eqr(right(x->sp1),right(x->sp2))) {
-				// return left(s==LEFT ? x->sp1 : x->sp2);
-				switch(s) {
-					case LEFT  : return left(x->sp1);
-					case RIGHT : return left(x->sp2);
-					default    : return NULL;
-				}
-			}
 			if (eqr(right(x->sp1),left(x->sp2))) {
 				switch(s) {
 					case LEFT  : return left(x->sp1);
@@ -502,6 +494,14 @@ proof side1 (int s, proof x) {
 			if (eqr(left(x->sp1),right(x->sp2))) {
 				switch(s) {
 					case LEFT  : return right(x->sp1);
+					case RIGHT : return left(x->sp2);
+					default    : return NULL;
+				}
+			}
+			if (eqr(right(x->sp1),right(x->sp2))) {
+				// return left(s==LEFT ? x->sp1 : x->sp2);
+				switch(s) {
+					case LEFT  : return left(x->sp1);
 					case RIGHT : return left(x->sp2);
 					default    : return NULL;
 				}
