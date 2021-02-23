@@ -112,10 +112,10 @@ These operators (except the last one which expresses the axiom a=b) can be seen 
 <li> / : a = b |- red1(a) = b
 <li> \ : a = b |- a = red1(b)
 <li> () : a = b, c = d |- a c = b d
-<li> ; : a = b, c = d, red(a) = red(c) |- b = d ;
-           a = b, c = d, red(b) = red(d) |- a = c ;
-		   a = b, c = d, red(b) = red(c) |- a = d ;
-		   a = b, c = d, red(a) = red(d) |- b = c
+<li> ; : a = b, c = d, red(a) = red(c) |- b = d 
+<li> ; :	a = b, c = d, red(b) = red(c) |- a = d 
+<li> ; : a = b, c = d, red(a) = red(d) |- b = c
+<li> ; : a = b, c = d, red(b) = red(d) |- a = c 
 <!-- <li> &lt;,> : a = b, c = d, red(b) = red(d) |- a = c -->
 <li> ? : a = b, c = d |- c = d
 </ul>
