@@ -478,7 +478,8 @@ double cert (proof x) {
 	//print_proof_to_stdout(x);
 	if (x == NULL) return 1.0;
 	if (x->cert == NOCERT)
-		x->cert = cert(x->sp1) * cert(x->sp2);
+		// x->cert = cert(x->sp1) * cert(x->sp2);
+		return cert(x->sp1) * cert(x->sp2);
 	return x->cert;
 }
 
