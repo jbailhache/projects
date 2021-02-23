@@ -463,6 +463,7 @@ proof right (proof x) {
 }
 
 
+/* CERTAINTY (FUZZY LOGIC) */
 
 double cert1 (proof x) {
 	if (x == NULL) return 1;
@@ -474,6 +475,7 @@ double cert (proof x) {
 	if (x == NULL) return 1.0;
 	return cert1(x->sp1) * cert1(x->sp2);
 }
+
 
 /* ABSTRACTION */
 
