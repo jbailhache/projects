@@ -38,3 +38,5 @@ plxnftwpset.c : Generalized transitivity with reduction
 plxnftwpsetc.c : Correction
 plxnftwpsetct.c = pl-gtr.c : Transitivity "x ; y"
 plxnftwpsetctn.c = pl-new.c : modification display LTR, bugs corrected
+pl-new-clean.c : Obsolete code removed
+fpl.c : Fuzzy Proof Logic
