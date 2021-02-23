@@ -477,8 +477,9 @@ double cert (proof x) {
 	//printf ("\ncertainty of ");
 	//print_proof_to_stdout(x);
 	if (x == NULL) return 1.0;
-	if (x->cert != NOCERT) return x->cert;
-	return cert(x->sp1) * cert(x->sp2);
+	if (x->cert == NOCERT)
+		x->cert = cert(x->sp1) * cert(x->sp2);
+	return x->cert;
 }
 
 
@@ -701,7 +702,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 		putstring_to_printer(printer, "0");
 		return;
 	}
-	if (x->cert != NOCERT) {
+	if (x->cert != NOCERT && x->cert != 1.0) {
 		sprintf(buf,"%5.3lf (",x->cert);
 		putstring_to_printer(printer, buf);
 	}
@@ -753,7 +754,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 				}
 			}					
 	}
-	if (x->cert != NOCERT) {
+	if (x->cert != NOCERT && x->cert != 1.0) {
 		putstring_to_printer(printer, ")");
 	}
 }
