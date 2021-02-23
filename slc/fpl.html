@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Fuzzy Proof Logic</title>
+</head>
+<body>
+<h2>Fuzzy Proof Logic</h2>
+<a href="http://log.chez.com/src/slc/fpl.c">Here</a> is an implementation of Fuzzy Proof Logic.
+<p>
+To assign a certainty degree to an axiom, type the value of this degree before the axiom, for example :
+<pre>
+? 0.6 (foo = bar).
+
+The proof  : 0.600 (foo = bar)
+reduces to : 0.600 (foo = bar)
+and proves : foo
+equals     : bar
+certainty  : 0.600
+</pre>
+When two proofs are combined, the certainty degrees are multiplied :
+<pre>
+? 0.6 (foo = bar) ; 0.5 (foo = baz).
+
+The proof  : 0.600 (foo = bar) ; 0.500 (foo = baz)
+reduces to : 0.600 (foo = bar) ; 0.500 (foo = baz)
+and proves : bar
+equals     : baz
+certainty  : 0.300
+</pre>
+If no certainty degree is indicated, it is assumed to be 1 :
+<pre>
+? (mother = mom) 0.8 (Anthony = Tony).
+
+The proof  : (mother = mom) 0.800 ((Anthony = Tony))
+reduces to : (mother = mom) 0.800 ((Anthony = Tony))
+and proves : mother Anthony
+equals     : mom Tony
+certainty  : 0.800
+</pre>
+Here are some examples of fuzzy proofs :
+<pre>
+? parent Anthony 0.9(mother Anthony = Brenda) ; $([parent * (mother *) = true] Anthony).
+
+The proof  : parent Anthony 0.900 ((mother Anthony = Brenda)) ; $([parent * (mother *) = true] Anthony)
+reduces to : parent Anthony 0.900 ((mother Anthony = Brenda)) ; $(parent Anthony (mother Anthony) = true)
+and proves : parent Anthony Brenda
+equals     : true
+certainty  : 0.900
+
+? $((child = [[parent * '*]]) Brenda Anthony) ; parent Anthony 0.9(mother Anthony = Brenda) ; $([parent * (mother *) = true] Anthony).
+
+The proof  : ( $((child = [[parent * '*]]) Brenda Anthony) ; parent Anthony 0.900 ((mother Anthony = Brenda)) ) ; $([parent * (mother *) = true] Anthony)
+reduces to : ( $((child = [[parent * '*]]) Brenda Anthony) ; parent Anthony 0.900 ((mother Anthony = Brenda)) ) ; $(parent Anthony (mother Anthony) = true)
+and proves : child Brenda Anthony
+equals     : true
+certainty  : 0.900
+</pre>
+
+</body>
+</html>
