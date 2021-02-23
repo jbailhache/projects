@@ -137,9 +137,9 @@ typedef struct proof1 *proof;
 
 struct proof1 {
 	int op;
-	char name[16];
-	proof sp1, sp2, red, side[2];	
 	double cert;
+	char name[32];
+	proof sp1, sp2, red, side[2];	
 };
 
 #define MAXPROOFS 100000
@@ -465,15 +465,20 @@ proof right (proof x) {
 
 /* CERTAINTY (FUZZY LOGIC) */
 
-double cert1 (proof x) {
+double cert (proof x);
+
+/*double cert1 (proof x) {
 	if (x == NULL) return 1;
 	if (x->cert == NOCERT) return 1.0;
 	return x->cert;
-}
+}*/
 
 double cert (proof x) {
+	//printf ("\ncertainty of ");
+	//print_proof_to_stdout(x);
 	if (x == NULL) return 1.0;
-	return cert1(x->sp1) * cert1(x->sp2);
+	if (x->cert != NOCERT) return x->cert;
+	return cert(x->sp1) * cert(x->sp2);
 }
 
 
