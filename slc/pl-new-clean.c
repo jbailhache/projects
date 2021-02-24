@@ -417,7 +417,6 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			printf("\n");
 			return x;
 		case PRT :
 			y=side(s,x->sp2);
