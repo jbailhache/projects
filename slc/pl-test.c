@@ -540,7 +540,7 @@ int nextchar (struct reader *reader) {
 }
 
 void skip_blanks(struct reader *reader) {
-	while (cur_char != 0 && strchr(" \t\n\r",cur_char)) 
+	while (cur_char != 0 && cur_char != 255 && strchr(" \t\n\r",cur_char)) 
 		nextchar(reader);
 }
 
@@ -557,6 +557,7 @@ proof read_proof_1 (struct reader *reader) {
 	switch(cur_char) {
 		case 0 :
 		case -1 :
+		case 255 :
 			return smb("NULL");
 		case '*' :
 			nextchar(reader);
@@ -643,6 +644,7 @@ proof read_proof_2 (struct reader *reader) {
 		switch(cur_char) {
 			case 0 :
 			case -1 :
+			case 255 :
 			case ')' :
 			case ']' :
 			//case ',' :
@@ -717,6 +719,13 @@ proof read_proof_from_file (FILE *f) {
 	read_from_file(&reader, f);
 	nextchar(&reader);
 	return read_proof_1(&reader);
+}
+
+proof read_proof_from_file_2 (FILE *f) {
+	struct reader reader;
+	read_from_file(&reader, f);
+	nextchar(&reader);
+	return read_proof_2(&reader);
 }
 
 
@@ -821,17 +830,21 @@ int main (int argc, char *argv[]) {
 
 	if (argc > 1) {
 		f = fopen(argv[1], "r");
-		x = read_proof_from_file(f);
-		l = left(x);
-		r = right(x);
-		printf("\nThe proof : ");
-		print_proof_to_stdout(x);
-		printf("\nproves    : ");
-		print_proof_to_stdout(l);
-		printf("\nequals    : ");
-		print_proof_to_stdout(r);
-		printf("\ncertainty : ");
-		printf("%5.3f\n",cert(x));
+		for (;;) {
+			x = read_proof_from_file_2(f);
+			if (x == NULL) break;
+			l = left(x);
+			r = right(x);
+			printf("\nThe proof : ");
+			print_proof_to_stdout(x);
+			printf("\nproves    : ");
+			print_proof_to_stdout(l);
+			printf("\nequals    : ");
+			print_proof_to_stdout(r);
+			printf("\ncertainty : ");
+			printf("%5.3f\n",cert(x));
+		}
+		printf("\n");
 		fclose(f);
 		return 0;
 	}
