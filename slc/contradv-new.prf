@@ -7,7 +7,7 @@
 ! Y [[* *] ['* (* *)]]  # Fixed point
 ! defc (c = Y [imp * false])  
 
-% Ac < \\\defc, imp \defc false >  # c = (c => false)
+% Ac ( \\\defc ; imp \defc false )  # c = (c => false)
 
 # Proof of false 
 # This is a Proof Logic version of the following natural deduction proof :
