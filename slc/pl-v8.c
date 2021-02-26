@@ -817,10 +817,10 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized) {
 			for (i=0; i<N_OPERATORS; i++) {
 				if (operators[i].code == x->op) {
 					if (operators[i].arity > 0) {
-						print_proof_1(printer, x->sp1, 3);
+						print_proof_1(printer, x->sp1, 7);
 						if (operators[i].arity > 1) {
 							putstring_to_printer(printer, " ");
-							print_proof_1(printer, x->sp2, 3);
+							print_proof_1(printer, x->sp2, 7);
 						}
 					}
 				}
