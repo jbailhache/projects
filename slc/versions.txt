@@ -24,19 +24,23 @@ plstrprs.hs : plstrpr.hs + RTR (symmetric of LTR)
 plstrprsd.hs : deductions
 plstrprsx.hs : extensions RSL, RSR
 
-pl.c : Proof Logic in C
+pl.c (v2) : Proof Logic in C
 plx.c : extensions STL, STR
 plxn.c : new version
 plxnf.c : code factorization
 plxnf.c -> plxnfr.c : reflection
 plxnf.c -> plxnft.c : tutorial
 plxnftw.c : Windows version
-plxnftwp.c : portable version (tested on Raspberry Pi and Windows)
+plxnftwp.c = pl.c (v3) : portable version (tested on Raspberry Pi and Windows)
 plxnftwps.c : constants LEFT and RIGHT for sides
 plxnftwpse.c : function eqn (equality with reduction)
 plxnftwpset.c : Generalized transitivity with reduction
 plxnftwpsetc.c : Correction
-plxnftwpsetct.c = pl-gtr.c : Transitivity "x ; y"
-plxnftwpsetctn.c = pl-new.c : modification display LTR, bugs corrected
-pl-new-clean.c : Obsolete code removed
-fpl.c : Fuzzy Proof Logic
+plxnftwpsetct.c = pl-gtr.c (v4) : Transitivity "x ; y"
+plxnftwpsetctn.c = pl-new.c (v5) : modification display LTR, bugs corrected
+pl-new-clean.c (v6) : Obsolete code removed
+fpl.c (v7) : Fuzzy Proof Logic
+pl-test-1.c : new operators < > 1 2
+pl-test-2.c : read several proofs in one file
+pl-test-3.c (v8) : proof name, display certainty only if not 1.0
+
