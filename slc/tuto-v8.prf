@@ -1,0 +1,6 @@
+  & axiom_parent [parent * (mother *) = true].
+  & axiom_child (child = ^x ^y (parent y x)).
+  & axiom_mother_Anthony (mother Anthony = Brenda).
+  ( $(axiom_child Brenda Anthony) ;
+    parent Anthony axiom_mother_Anthony ;
+    $(axiom_parent Anthony) ).
