@@ -862,26 +862,42 @@ int main (int argc, char *argv[]) {
 	char buf[100000];
 	proof x, y, l, r;
 	FILE *f;
+	char *filename;
+	int quiet;
+	
 	init();
-
+	filename = NULL;
+	quiet = 0;
+	
 	if (argc > 1) {
-		f = fopen(argv[1], "r");
+		if (argv[1][0] == '-') {
+			if (argc > 2) filename = argv[2];
+			if (strchr(argv[1],'q')) quiet = 1;
+		} else {
+			filename = argv[1];
+		}
+	}
+	
+	if (filename) {
+		f = fopen(filename, "r");
 		for (;;) {
 			x = read_proof_from_file_2(f);
 			if (x == NULL) break;
 			l = left(x);
 			r = right(x);
-			printf("\nThe proof : ");
-			print_proof_to_stdout(x);
-			printf("\nproves    : ");
-			print_proof_to_stdout(l);
-			printf("\nequals    : ");
-			print_proof_to_stdout(r);
-			if (cert(x) != NOCERT && cert(x) != 1.0) {
-				printf("\ncertainty : ");
-				printf("%5.3f",cert(x));
+			if (!quiet) {
+				printf("\nThe proof : ");
+				print_proof_to_stdout(x);
+				printf("\nproves    : ");
+				print_proof_to_stdout(l);
+				printf("\nequals    : ");
+				print_proof_to_stdout(r);
+				if (cert(x) != NOCERT && cert(x) != 1.0) {
+					printf("\ncertainty : ");
+					printf("%5.3f",cert(x));
+				}
+				printf("\n");
 			}
-			printf("\n");
 		}
 		printf("\n");
 		fclose(f);
