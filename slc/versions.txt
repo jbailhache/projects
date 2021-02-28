@@ -18,9 +18,9 @@ plstre.hs : experiments
 plstresq.hs : avec ESQ
 plstresqt.hs : test
 plstrp.hs : published
-plstrpr.hs : with RED (ex ESQ)
+plstrpr.hs = pl-v1.hs : with RED (ex ESQ)
 plstrprx.hs : with extension +
-plstrprs.hs : plstrpr.hs + RTR (symmetric of LTR)
+plstrprs.hs = pl-v2.hs : plstrpr.hs + RTR (symmetric of LTR)
 plstrprsd.hs : deductions
 plstrprsx.hs : extensions RSL, RSR
 
