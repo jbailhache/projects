@@ -1,0 +1,581 @@
+<html>
+<head>
+<title>Proof Logic v8</title>
+</head>
+<body>
+<h2>Proof Logic v8</h2>
+
+<a href="http://log.chez.com/src/slc/pl-v8.c">Source code</a>
+
+<h3>New features</h3>
+
+<h4>New operators acting on reduction</h4>
+
+<ul>
+<li> &lt; : left
+<li> > : right
+<li> 1 : first operand
+<li> 2 : second operand
+</ul>
+
+Examples :
+
+<pre>
+? &lt;(a=b).
+
+The proof  : &lt;(a = b)
+reduces to : a
+and proves : &lt;a
+equals     : &lt;b
+
+? >(a=b).
+
+The proof  : >(a = b)
+reduces to : b
+and proves : >a
+equals     : >b
+
+? 1(a b).
+
+The proof  : 1(a b)
+reduces to : a
+and proves : 1(a b)
+equals     : 1(a b)
+
+? 2(a b).
+
+The proof  : 2(a b)
+reduces to : b
+and proves : 2(a b)
+equals     : 2(a b)
+</pre>
+
+Here is a proof file "e.prf" containing an example of application of modus ponens on equalities :
+
+<pre>
+! AE ^x (E x x = [*])
+! A1 (E a b c = E a b d)
+! A2 (a = b)
+$( AE a c ; E a A2 c ; A1 ; E a A2 d ; AE a d )
+</pre>
+We use a word E with the axiom AE : "^x (E x x = [*]" saying that for all x, E x x = {*], or for all x and y, E x x y = y. The implication a = b => c = d is written "E a b c = E a b d" (axiom A1). If we also have a = b (axiom A2) we can deduce c = d by the proof "$( AE a c ; E a A2 c ; A1 ; E a A2 d ; AE a d )" :
+<pre>
+$ ./pl-v8 e.prf
+
+The proof : @([@([@([$( ( ( ( ''* a c ; E a * c ) ; '* ) ; E a * d ) ; ''* a d )] (a = b))] (E a b c = E a b d))] [E * * = [*]])
+proves    : c
+equals    : d
+</pre>
+With Proof Logic v8, we can define a schema of modus ponens application on equalities like in the proof file "e-v8.prf" :
+<pre>
+! AE ^x (E x x = [*])
+! MP ^pA1 ^pA2 $( AE &lt;pA2 2&lt;pA1 ; E &lt;pA2 pA2 2&lt;pA1 ; pA1 ; E &lt;pA2 pA2 2>pA1 ; AE &lt;pA2 2>pA1 )
+! A1 (E a b c = E a b d)
+! A2 (a = b)
+
+(MP A1 A2)
+</pre>
+It gives the same result as e.prf :
+<pre>
+ $ ./pl-v8 e-v8.prf
+
+The proof : @([@([@([@([''* '* *] (a = b))] (E a b c = E a b d))] [[$( ( ( ( ''* &lt;* 2&lt;'* ; E &lt;* * 2&lt;'* ) ; '* ) ; E &lt;* * 2>'* ) ; ''* &lt;* 2>'* )]])] [E * * = [*]])
+proves    : c
+equals    : d
+</pre>
+
+
+<h4>Several proofs in one file</h4>
+
+It is now possible to put several proofs in one proof file, separated by ".".
+
+
+<h4>Named proofs</h4>
+
+Proofs can be named by the syntax "&amp; name proof". After having been named, a proof can be mentioned by its name, and is displayed by its name.
+<p>
+Example :
+<pre>
+&amp; axiom1 (foo = bar).
+&amp; axiom2 (foo = baz).
+axiom1 ; axiom2.
+</pre>
+Result :
+<pre>
+$ ./pl-v8 named-proofs.prf
+
+The proof : axiom1
+proves    : foo
+equals    : bar
+
+The proof : axiom2
+proves    : foo
+equals    : baz
+
+The proof : axiom1 ; axiom2
+proves    : bar
+equals    : baz
+</pre>
+
+Other example :
+<pre>
+  &amp; axiom_parent [parent * (mother *) = true].
+  &amp; axiom_child (child = ^x ^y (parent y x)).
+  &amp; axiom_mother_Anthony (mother Anthony = Brenda).
+  ( $(axiom_child Brenda Anthony) ;
+    parent Anthony axiom_mother_Anthony ;
+    $(axiom_parent Anthony) ).
+</pre>
+Result :
+<pre>
+ $ ./pl-v8 tuto-v8.prf
+
+The proof : axiom_parent
+proves    : [parent * (mother *)]
+equals    : [true]
+
+The proof : axiom_child
+proves    : child
+equals    : [[parent * '*]]
+
+The proof : axiom_mother_Anthony
+proves    : mother Anthony
+equals    : Brenda
+
+The proof : ( $(axiom_child Brenda Anthony) ; parent Anthony axiom_mother_Anthony ) ; $(axiom_parent Anthony)
+proves    : child Brenda Anthony
+equals    : true
+</pre>
+
+The examples of <a href="plx-new.prf">this document</a> can be rewritten with named proofs, replacing "! x y" by "&amp; x y."
+<p>
+Previous version :
+<pre>
+! gpRule1
+ ^x ^y ^z ((parent x y : parent y z : grandparent x z) = [*])
+
+! gpAxiom1 ((parent allan brenda) = [*])
+
+! gpAxiom2 ((parent brenda charles) = [*])
+
+! gpTheorem1
+ ( grandparent allan charles ;
+   gpAxiom2 (grandparent allan charles) ;
+   gpAxiom1 (parent brenda charles (grandparent allan charles)) ;
+   gpRule1 allan brenda charles )
+
+gpTheorem1
+</pre>
+Rewritten version grandparent-v8.prf :
+<pre>
+& gpRule1 ^x ^y ^z ((parent x y : parent y z : grandparent x z) = [*]).
+
+& gpAxiom1 (parent allan brenda = [*]).
+
+& gpAxiom2 (parent brenda charles = [*]).
+
+$( grandparent allan charles ;
+   gpAxiom2 (grandparent allan charles) ;
+   gpAxiom1 (parent brenda charles (grandparent allan charles)) ;
+   gpRule1 allan brenda charles )
+</pre>
+Result :
+<pre>
+ $ ./pl-v8 grandparent-v8.prf
+
+The proof : gpRule1
+proves    : [[[parent ''* '* (parent '* * (grandparent ''* *))]]]
+equals    : [[[[*]]]]
+
+The proof : gpAxiom1
+proves    : parent allan brenda
+equals    : [*]
+
+The proof : gpAxiom2
+proves    : parent brenda charles
+equals    : [*]
+
+The proof : $( ( ( grandparent allan charles ; gpAxiom2 (grandparent allan charles) ) ; gpAxiom1 (parent brenda charles (grandparent allan charles)) ) ; gpRule1 allan brenda charles )
+proves    : grandparent allan charles
+equals    : [*]
+</pre>
+
+skk-v8.prf :
+<pre>
+& DI (I = ^a a).
+& DK (K = ^a ^b a).
+& DS (S = ^a ^b ^c (a c (b c))).
+
+( DS DK DK ; DI ).
+</pre>
+Result :
+<pre>
+ $ ./pl-v8 skk-v8.prf
+
+The proof : DI
+proves    : I
+equals    : [*]
+
+The proof : DK
+proves    : K
+equals    : [['*]]
+
+The proof : DS
+proves    : S
+equals    : [[[''* * ('* *)]]]
+
+The proof : DS DK DK ; DI
+proves    : S K K
+equals    : I
+</pre>
+Sometimes, a reduction operator like $ or @ must be added, for example with this proof :
+<pre>
+# Proof of p => p
+
+# Axioms
+! MP ^p ^q ((imp p q) (p q) = [*])
+! AK ^p ^q (imp p (imp q p) = [*])
+! AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*])
+
+# Proof
+
+! lemma1 (AS p (imp p p) p)
+
+! lemma2 (AK p (imp p p))
+
+! lemma3 (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p)))
+
+! lemma4 ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) )
+
+! lemma5 ( lemma4 ; lemma3 )
+
+! lemma6 ( lemma2
+              (imp
+               (imp p (imp p p))
+               (imp p p) ) )
+
+! lemma7 ( lemma6 ; lemma5 )
+
+! lemma8 (AK p p)
+
+! lemma9
+ (MP
+    (imp p (imp p p))
+    (imp p p) )
+
+! lemma10 (lemma7 ((imp p (imp p p)) (imp p p)))
+
+! lemma11 ( lemma10 ; lemma9 )
+
+! lemma12 (lemma8 (imp p p))
+
+! theorem1 ( imp p p ; lemma12 ; lemma11 )
+
+theorem1
+</pre>
+
+This proof can be rewritten with named proofs, adding operator "$" :
+<pre>
+# Proof of p => p
+
+# Axioms
+& MP ^p ^q ((imp p q) (p q) = [*]).
+& AK ^p ^q (imp p (imp q p) = [*].
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+
+# Proof
+
+& lemma1 $ (AS p (imp p p) p).
+
+& lemma2 $ (AK p (imp p p)).
+
+& lemma3 $ (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p))).
+
+& lemma4 $ ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) ).
+
+& lemma5 $ ( lemma4 ; lemma3 ).
+
+& lemma6 $ ( lemma2
+              (imp
+               (imp p (imp p p))
+               (imp p p) ) ).
+
+& lemma7 $ ( lemma6 ; lemma5 ).
+
+& lemma8 $ (AK p p).
+
+& lemma9 $
+ (MP
+    (imp p (imp p p))
+    (imp p p) ).
+
+& lemma10 $ (lemma7 ((imp p (imp p p)) (imp p p))).
+
+& lemma11 $ ( lemma10 ; lemma9 ).
+
+& lemma12 $ (lemma8 (imp p p)).
+
+& theorem1 $ ( imp p p ; lemma12 ; lemma11 ).
+
+theorem1.
+</pre>
+Result :
+<pre>
+ $ ./pl-v8 prop-v8-a.prf
+
+The proof : MP
+proves    : [[imp '* * ('* *)]]
+equals    : [[[*]]]
+
+The proof : AK
+proves    : [[imp '* (imp * '*)]]
+equals    : [[[*]]]
+
+The proof : AS
+proves    : [[[imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *))]]]
+equals    : [[[[*]]]]
+
+The proof : lemma1
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))
+equals    : [*]
+
+The proof : lemma2
+proves    : imp p (imp (imp p p) p)
+equals    : [*]
+
+The proof : lemma3
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+equals    : [*]
+
+The proof : lemma4
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+equals    : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+
+The proof : lemma5
+proves    : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+equals    : [*]
+
+The proof : lemma6
+proves    : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+equals    : imp (imp p (imp p p)) (imp p p)
+
+The proof : lemma7
+proves    : imp (imp p (imp p p)) (imp p p)
+equals    : [*]
+
+The proof : lemma8
+proves    : imp p (imp p p)
+equals    : [*]
+
+The proof : lemma9
+proves    : imp (imp p (imp p p)) (imp p p) (imp p (imp p p) (imp p p))
+equals    : [*]
+
+The proof : lemma10
+proves    : imp (imp p (imp p p)) (imp p p) (imp p (imp p p) (imp p p))
+equals    : imp p (imp p p) (imp p p)
+
+The proof : lemma11
+proves    : imp p (imp p p) (imp p p)
+equals    : [*]
+
+The proof : lemma12
+proves    : imp p (imp p p) (imp p p)
+equals    : imp p p
+
+The proof : theorem1
+proves    : imp p p
+equals    : [*]
+
+The proof : theorem1
+proves    : imp p p
+equals    : [*]
+</pre>
+It can also be rewritten adding operator "@" :
+<pre>
+# Proof of p => p
+
+# Axioms
+& MP ^p ^q ((imp p q) (p q) = [*]).
+& AK ^p ^q (imp p (imp q p) = [*].
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+
+# Proof
+
+& lemma1 @ (AS p (imp p p) p).
+
+& lemma2 @ (AK p (imp p p)).
+
+& lemma3 @ (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p))).
+
+& lemma4 @ ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) ).
+
+& lemma5 @ ( lemma4 ; lemma3 ).
+
+& lemma6 @ ( lemma2
+              (imp
+               (imp p (imp p p))
+               (imp p p) ) ).
+
+& lemma7 @ ( lemma6 ; lemma5 ).
+
+& lemma8 @ (AK p p).
+
+& lemma9 @
+ (MP
+    (imp p (imp p p))
+    (imp p p) ).
+
+& lemma10 @ (lemma7 ((imp p (imp p p)) (imp p p))).
+
+& lemma11 @ ( lemma10 ; lemma9 ).
+
+& lemma12 @ (lemma8 (imp p p)).
+
+& theorem1 @ ( imp p p ; lemma12 ; lemma11 ).
+
+theorem1.
+</pre>
+The result is the same :
+<pre>
+$ ./pl-v8 prop-v8-b.prf
+
+The proof : MP
+proves    : [[imp '* * ('* *)]]
+equals    : [[[*]]]
+
+The proof : AK
+proves    : [[imp '* (imp * '*)]]
+equals    : [[[*]]]
+
+The proof : AS
+proves    : [[[imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *))]]]
+equals    : [[[[*]]]]
+
+The proof : lemma1
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p))
+equals    : [*]
+
+The proof : lemma2
+proves    : imp p (imp (imp p p) p)
+equals    : [*]
+
+The proof : lemma3
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+equals    : [*]
+
+The proof : lemma4
+proves    : imp (imp p (imp (imp p p) p)) (imp (imp p (imp p p)) (imp p p)) (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+equals    : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+
+The proof : lemma5
+proves    : [*] (imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p)))
+equals    : [*]
+
+The proof : lemma6
+proves    : imp p (imp (imp p p) p) (imp (imp p (imp p p)) (imp p p))
+equals    : [*] (imp (imp p (imp p p)) (imp p p))
+
+The proof : lemma7
+proves    : [*] (imp (imp p (imp p p)) (imp p p))
+equals    : [*]
+
+The proof : lemma8
+proves    : imp p (imp p p)
+equals    : [*]
+
+The proof : lemma9
+proves    : imp (imp p (imp p p)) (imp p p) (imp p (imp p p) (imp p p))
+equals    : [*]
+
+The proof : lemma10
+proves    : [*] (imp (imp p (imp p p)) (imp p p)) (imp p (imp p p) (imp p p))
+equals    : [*] (imp p (imp p p) (imp p p))
+
+The proof : lemma11
+proves    : [*] (imp p (imp p p) (imp p p))
+equals    : [*]
+
+The proof : lemma12
+proves    : imp p (imp p p) (imp p p)
+equals    : [*] (imp p p)
+
+The proof : theorem1
+proves    : imp p p
+equals    : [*]
+
+The proof : theorem1
+proves    : imp p p
+equals    : [*]
+</pre>
+
+<h4>Option -q</h4>
+
+If you don't want to display all the intermediate results but only the final result, use the -q option. With this option, it displays only the left and right sides of the conclusions of the proof preceded by "? x" in the form :
+<pre>
+Left  of x is : ...
+Right of x is : ...
+</pre>
+For example with the proof file prop-v8-c.prf :
+<pre>
+# Proof of p => p
+
+# Axioms
+& MP ^p ^q ((imp p q) (p q) = [*]).
+& AK ^p ^q (imp p (imp q p) = [*].
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+
+# Proof
+
+& lemma1 $ (AS p (imp p p) p).
+
+& lemma2 $ (AK p (imp p p)).
+
+& lemma3 $ (MP (imp p (imp (imp p p) p))
+               (imp (imp p (imp p p)) (imp p p))).
+
+& lemma4 $ ( lemma1 ( (imp p (imp (imp p p) p))
+                      (imp (imp p (imp p p)) (imp p p)) ) ).
+
+& lemma5 $ ( lemma4 ; lemma3 ).
+
+& lemma6 $ ( lemma2
+              (imp
+               (imp p (imp p p))
+               (imp p p) ) ).
+
+& lemma7 $ ( lemma6 ; lemma5 ).
+
+& lemma8 $ (AK p p).
+
+& lemma9 $
+ (MP
+    (imp p (imp p p))
+    (imp p p) ).
+
+& lemma10 $ (lemma7 ((imp p (imp p p)) (imp p p))).
+
+& lemma11 $ ( lemma10 ; lemma9 ).
+
+& lemma12 $ (lemma8 (imp p p)).
+
+& theorem1 $ ( imp p p ; lemma12 ; lemma11 ).
+
+? theorem1 theorem1.
+</pre>
+we get this result :
+<pre>
+$ ./pl-v8 -q prop-v8-c.prf
+
+Left  of theorem1 is : imp p p
+Right of theorem1 is : [*]
+</pre>
+
+</body>
+</html>
