@@ -1,0 +1,31 @@
+& K ^x ^y x.
+& S ^x ^y ^z (x z (y z)).
+
+# K = ^x ^y (K x y)
+K ; ^x ^y (K x y).
+K ; S (S (K S) (S (K K) K)) (K(S K K)).
+
+# S = ^x ^y ^z (S x y z)
+S ; ^x ^y ^z (S x y z).
+S ; S (S (K S) (S (K (S (K S))) (S (K (S (K K))) S))) (K (K (S K K))).
+
+# ^x ^y ( S (K x) (K y) = K (x y) )
+^x ^y ( S (K x) (K y) ; K (x y) ).
+S (S (K S) (S (K K) (S (K S) K))) (K K) ; S(K K).
+
+# ^x ^y ^u ( K (x u) (y u) = x u )
+^x ^y ^u ( K (x u) (y u) ; x u ).
+S (K S) (S (K K)) ; S (K K) (S (S (K S) (S (K K) (S K K))) (K (S K K))).
+
+# ^x ^y ^z ^u ( S (x u) (y u) (z u) = (x u) (z u) ((y u) (z u)) )
+^x ^y ^z ^u ( S (x u) (y u) (z u) ; (x u) (z u) ((y u) (z u)) ).
+S (K (S (K S))) (S (K S) (S (K S))) ; S (S (K S) (S (K K) (S (K S) (S (K (S (K S))) S)))) (K S).
+
+# ^f ( S (K f) I = f) 
+^f ( S (K f) I ; f).
+S (S (K S) K) (K (S K K)) ; S K K.
+
+& ext ( [['* *]] = [*] ).
+
+$(ext f).
+
