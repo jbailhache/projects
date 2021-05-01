@@ -42,7 +42,10 @@ void read_from_stdin (struct reader *reader) {
 
 
 char getchar_from_file (struct reader *reader) {
-	return fgetc((FILE *)(reader->p));
+	char c;
+	c = fgetc((FILE *)(reader->p));
+	if (c != 0 && c != 0xFF) printf("%c",c);
+	return c;
 }
 
 void read_from_file (struct reader *reader, FILE *f) {
@@ -962,17 +965,20 @@ int main (int argc, char *argv[]) {
 			nextchar(&reader);
 			x = read_proof_2(&reader);
 			if (x == NULL) break;
+			y = reduce(x);
 			l = left(x);
 			r = right(x);
 			if (!quiet) {
-				printf("\nThe proof : ");
+				printf("\nThe proof  : ");
 				print_proof_to_stdout(x);
-				printf("\nproves    : ");
+				printf ("\nreduces to : ");
+				print_proof_to_stdout(y);				
+				printf("\nand proves : ");
 				print_proof_to_stdout(l);
-				printf("\nequals    : ");
+				printf("\nequals     : ");
 				print_proof_to_stdout(r);
 				if (cert(x) != NOCERT && cert(x) != 1.0) {
-					printf("\ncertainty : ");
+					printf("\ncertainty  : ");
 					printf("%5.3f",cert(x));
 				}
 				printf("\n");
