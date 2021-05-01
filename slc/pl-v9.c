@@ -559,6 +559,7 @@ proof abstr (proof u, proof v, proof x) {
 }
 
 proof lambda (proof v, proof x) {
+	if (x->op == APL && x->sp2 == v && !cont(x->sp1,v)) return x->sp1; // ^x (f x) = f
 	return fnc(abstr(var,v,x));
 }
 
