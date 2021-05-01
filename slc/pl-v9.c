@@ -562,16 +562,52 @@ proof lambda (proof v, proof x) {
 
 /* READING PROOFS */
 
+#define NLEVEL 100
+
+int level = 0;
+
+struct reader readers[NLEVEL];
+
+
 int cur_char;
 
 int nextchar (struct reader *reader) {
 	cur_char = getchar_from_reader(reader);
+	//printf(" %02X%c ", cur_char, cur_char);
 	if (cur_char == '#') {
 		while (cur_char != '\n' && cur_char != -1) {
 			cur_char = getchar_from_reader(reader);
 		}
+	} else if (cur_char == '"') {
+		char filename[100];
+		int i = 0;
+		FILE *f;
+		cur_char = getchar_from_reader(reader);
+		while (cur_char != '"' && cur_char != -1) {
+			filename[i++] = cur_char;
+			cur_char = getchar_from_reader(reader);
+		}
+		cur_char = getchar_from_reader(reader);
+		filename[i] = 0;
+		f = fopen(filename,"r");
+		if (f == NULL) {
+			printf("\nCannot open file %s\n", filename);
+			return nextchar(reader);
+		} else {
+			readers[level].getchar = reader->getchar;
+			readers[level].p = reader->p;
+			level++;
+			read_from_file(reader,f);
+			return nextchar(reader);
+		}
+	} else if ((cur_char == -1 || cur_char == 0xFF) && level > 0) {
+		level--;
+		reader->getchar = readers[level].getchar;
+		reader->p = readers[level].p;
+		return nextchar(reader);
+	} else {
+		return cur_char;
 	}
-	return cur_char;
 }
 
 void skip_blanks(struct reader *reader) {
@@ -903,6 +939,7 @@ int main (int argc, char *argv[]) {
 	FILE *f;
 	char *filename;
 	int quiet;
+	struct reader reader;
 	
 	init();
 	filename = NULL;
@@ -919,8 +956,11 @@ int main (int argc, char *argv[]) {
 	
 	if (filename) {
 		f = fopen(filename, "r");
+		read_from_file(&reader, f);
 		for (;;) {
-			x = read_proof_from_file_2(f);
+			// x = read_proof_from_file_2(f);
+			nextchar(&reader);
+			x = read_proof_2(&reader);
 			if (x == NULL) break;
 			l = left(x);
 			r = right(x);
@@ -945,9 +985,13 @@ int main (int argc, char *argv[]) {
 
 	printf("Welcome to Proof Logic !\n");
 	printf("Type a proof ended by \".\", and type just \".\" to quit.\n");
+	read_from_stdin(&reader);
+
 	for (;;) {
 		printf("\n? ");
-		x = read_proof_from_stdin();
+		// x = read_proof_from_stdin();
+		nextchar(&reader);
+		x = read_proof_2(&reader);
 		if (x == NULL) break;
 		y = reduce(x);
 		l = left(x);
