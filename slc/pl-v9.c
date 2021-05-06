@@ -707,6 +707,10 @@ proof read_proof_1 (struct reader *reader) {
 			print_full_proof_to_stdout(x);
 			printf("\n");
 			return x;
+		case '~' :
+			nextchar(reader);
+			x = read_proof_1(reader);
+			return reduce(x);
 		default :
 			//if (cur_char >= '0' && cur_char <= '9') {
 			if (cur_char == '0') {
