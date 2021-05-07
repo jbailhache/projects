@@ -1,0 +1,39 @@
+MEANINGS OF CHARACTERS IN PROOF LOGIC
+
+    syntax                          delimiter
+!   syntax              ! x y z     let x = y in z"
+"   syntax              "filename"  load file
+#   syntax              #comment    comment
+$   proof constructor   $x          reduce after deriving proof
+%   syntax              % x y z     let x = y in z and print
+&   syntax              & x y       give name x to proof y
+'   proof constructor   'x          next index after x
+( ) syntax              ( ... )     delimiter
+*   proof constructor   *           first index
++   syntax              +x          print full definition of proof x
+,   proof constructor - deprecated
+-   proof constructor - deprecated
+.   syntax                          end of proof
+/   proof constructor   /x          one step reduction of left part after deriving proof
+0   syntax                          certainty (fuzzy logic)
+1   proof constructor   1 x         first subproof
+2   proof constructor   2 x         second subproof
+3-9 symbol
+:   syntax              ( : )       delimiter
+;   proof constructor   x ; y       generalized transitivity with reduction
+<   proof constructor   <x          left
+=   proof constructor   x = y       axiom
+>   proof constructor   >x          right
+?   proof constructor   ?x          print
+@   proof constructor   @x          reduce before deriving proof
+A-Z symbol
+[ ] proof constructor   [x]         function
+\   proof constructor   \x          one step reduction of right part after deriving proof
+^   syntax              ^x y        lambda abstraction
+_   symbol
+`   symbol
+a-z symbol
+{ } proof constructor - deprecated
+|   symbol
+~   syntax              ~x          reduce at reading
+
