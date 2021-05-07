@@ -1,0 +1,9 @@
+& I ^x x.
+& K ^x ^y x.
+& S ^x ^y ^z (x z (y z)).
+& M ^x (x x).
+
+& F (S (K (S I)) K).
+& A (M (S (K F) M)).
+
+(\\\\\\A ; F \\\\A) x ; x \\\\\A.
