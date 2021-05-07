@@ -1,0 +1,9 @@
+
+& AE ^x (E x x = [*]).
+& MP ^pA1 ^pA2 $( AE <pA2 2<pA1 ; E <pA2 pA2 2<pA1 ; pA1 ; E <pA2 pA2 2>pA1 ; AE <pA2 2>pA1 ).
+& A1 (E a b c = E a b d).
+& A2 (a = b).
+
+@(MP A1 A2).
+~(MP A1 A2).
+
