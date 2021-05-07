@@ -44,7 +44,7 @@ void read_from_stdin (struct reader *reader) {
 char getchar_from_file (struct reader *reader) {
 	char c;
 	c = fgetc((FILE *)(reader->p));
-	if (c != 0 && c != 0xFF) printf("%c",c);
+	if (c != 0 && c != 0xFF && c != -1) printf("%c",c);
 	return c;
 }
 
