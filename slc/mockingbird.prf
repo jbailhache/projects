@@ -9,9 +9,10 @@
 & I ^x x.
 & L ^x ^y (x (y y)).
 
+/\(Egocentric I) ; `(I I ; I).
+
 & AE1 ^x ^y (E x x y = y).
 & AE ^x (E x x = [*]).
 
 & EgoCentric ^x (E (x x) x).
-
 /(EgoCentric I) ; (E (I ; I I) I ; $(AE I)).
