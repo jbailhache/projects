@@ -1,0 +1,17 @@
+
+& M [* *].
+& Compose ^a ^b ^x (a (b x)).
+& fond ^a ^b (a b = b).
+& egocentric ^x (x x = x).
+& Egocentric ^x (EC x = (x x = x)).
+& hlec ^b ^x (b x = b).
+& K ^x ^y x.
+& I ^x x.
+& L ^x ^y (x (y y)).
+
+& AE1 ^x ^y (E x x y = y).
+& AE ^x (E x x = [*]).
+
+& EgoCentric ^x (E (x x) x).
+
+/(EgoCentric I) ; (E (I ; I I) I ; $(AE I)).
