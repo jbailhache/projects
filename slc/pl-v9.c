@@ -7,6 +7,8 @@
 
 /* INPUT - OUTPUT */
 
+int quiet_read;
+
 struct reader {
 	char (*getchar)(struct reader *);
 	void *p;
@@ -44,7 +46,7 @@ void read_from_stdin (struct reader *reader) {
 char getchar_from_file (struct reader *reader) {
 	char c;
 	c = fgetc((FILE *)(reader->p));
-	if (c != 0 && c != 0xFF && c != -1) printf("%c",c);
+	if (!quiet_read && c != 0 && c != 0xFF && c != -1) printf("%c",c);
 	return c;
 }
 
@@ -122,6 +124,8 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define SP1 '1'
 #define SP2 '2'
 
+#define RFE '`'
+
 //#define FPR '+'
 
 struct oper {
@@ -140,7 +144,8 @@ struct oper operators[] = {
 	{ LFT, 1 },
 	{ RGT, 1 },
 	{ SP1, 1 },
-	{ SP2, 1 }
+	{ SP2, 1 },
+	{ RFE, 1 }
 //,{ FPR, 1 }
 };	
 
@@ -244,6 +249,8 @@ DEFOP1(LFT,lft)
 DEFOP1(RGT,rgt)
 DEFOP1(SP1,sp1)
 DEFOP1(SP2,sp2)
+
+DEFOP1(RFE,rfe)
 
 //DEFOP1(FPR,fpr)
 
@@ -362,6 +369,8 @@ proof reduce1 (proof x) {
 		printf("\n                      is : ");
 		print_full_proof_to_stdout(x->sp1);
 	}*/
+	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
+		return x->sp1->sp1;
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
 			
@@ -499,6 +508,9 @@ proof side1 (int s, proof x) {
 			printf("\n                      is : ");
 			print_full_proof_to_stdout(y);
 			return y;*/
+		case RFE :
+			//return x->sp1;
+			return equ(left(x->sp1),right(x->sp1));
 		default :
 			y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 			// y->cert = cert(x->sp1) * cert(x->sp2);
@@ -626,7 +638,8 @@ void read_name (struct reader *reader, char *name) {
 		if (i > NAMESIZE) break;
 		if (!cur_char) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=;.",cur_char)) break;
-		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
+		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
+		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;.",cur_char)) break;
 		name[i++] = cur_char;
 		nextchar(reader);
 	}
@@ -952,11 +965,13 @@ int main (int argc, char *argv[]) {
 	init();
 	filename = NULL;
 	quiet = 0;
+	quiet_read = 0;
 	
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
 			if (argc > 2) filename = argv[2];
 			if (strchr(argv[1],'q')) quiet = 1;
+			if (strchr(argv[1],'Q')) quiet_read = 1;
 		} else {
 			filename = argv[1];
 		}
