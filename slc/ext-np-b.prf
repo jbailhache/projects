@@ -1,0 +1,6 @@
+& I ^a a.
+& K ^a ^b a.
+& S ^a ^b ^c (a c (b c)).
+
+S (K x) (K y) ; K (x y).
+
