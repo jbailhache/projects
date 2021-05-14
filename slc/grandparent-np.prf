@@ -7,10 +7,9 @@
 & gpAxiom2 ((parent brenda charles) = [*]).
 
 & gpTheorem1
- $( grandparent allan charles ;
-    gpAxiom2 (grandparent allan charles) ;
+ $( gpAxiom2 (grandparent allan charles) ;
     gpAxiom1 (parent brenda charles (grandparent allan charles)) ;
     gpRule1 allan brenda charles ).
 
 & gpTheorem1-fact
- $(([*] ; gpAxiom2 ; [gpAxiom1 (parent brenda charles *)]) (grandparent allan charles) ; gpRule1 allan brenda charles).
+ $((gpAxiom2 ; [gpAxiom1 (parent brenda charles *)]) (grandparent allan charles) ; gpRule1 allan brenda charles).
