@@ -13,3 +13,6 @@
 
 & gpTheorem1-fact
  $((gpAxiom2 ; [gpAxiom1 (parent brenda charles *)]) (grandparent allan charles) ; gpRule1 allan brenda charles).
+ 
+& gpTheorem1-new
+ $(gpAxiom1 (gpAxiom2 (grandparent allan charles)) ; gpRule1 allan brenda charles).
