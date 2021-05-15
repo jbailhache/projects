@@ -113,7 +113,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define RED '@'
 #define RLR '$'
 #define APL '-'
-#define GTR '{'
+#define GTR ';'
 #define EQU '='
 #define RSL '/'
 #define RSR '\\'
