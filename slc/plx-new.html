@@ -64,7 +64,7 @@ Transitivity is generalized : if there is one common term in two equalities, the
 </ul>
 We must also be able to prove the equality between an expression and its reduced form, for example <span class="code">[* *] a = a a</span>.
 We could introduce a special operator for this, but we will rather modify the transitivity, saying, for example, that if a = b, and c = d, and a reduces to e, and c reduces to e, then b = d. This operator will be called "generalized transitivity with reduction".
-It is written <span class="code">x : y</span>. For example, if x proves a = b, and y proves c = d, and a reduces to e, and c reduces to e, then x ; y proves b = d.
+It is written <span class="code">x ; y</span>. For example, if x proves a = b, and y proves c = d, and a reduces to e, and c reduces to e, then x ; y proves b = d.
 <p>
 We also may want to display some intermediate result. To do this, we introduce the operator <span class="code">? x y</span> whose value is y but when we calculate the left part of its conclusion, it displays "Left of x is : " followed by this left part, and the same for the right part. This operator will be used to implement the notation <span class="code">% name definition proof</span> that we will see later.
 <p>
