@@ -113,7 +113,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define RED '@'
 #define RLR '$'
 #define APL '-'
-#define GTR '{'
+#define GTR ';'
 #define EQU '='
 #define RSL '/'
 #define RSR '\\'
@@ -960,11 +960,13 @@ int main (int argc, char *argv[]) {
 	FILE *f;
 	char *filename;
 	int quiet;
+	int print_red;
 	struct reader reader;
 	
 	init();
 	filename = NULL;
 	quiet = 0;
+	print_red = 0;
 	quiet_read = 0;
 	
 	if (argc > 1) {
@@ -972,6 +974,7 @@ int main (int argc, char *argv[]) {
 			if (argc > 2) filename = argv[2];
 			if (strchr(argv[1],'q')) quiet = 1;
 			if (strchr(argv[1],'Q')) quiet_read = 1;
+			if (strchr(argv[1],'r')) print_red = 1;
 		} else {
 			filename = argv[1];
 		}
@@ -991,9 +994,13 @@ int main (int argc, char *argv[]) {
 			if (!quiet) {
 				printf("\nThe proof  : ");
 				print_proof_to_stdout(x);
-				printf ("\nreduces to : ");
-				print_proof_to_stdout(y);				
-				printf("\nand proves : ");
+				if (print_red) {
+					printf("\nreduces to : ");
+					print_proof_to_stdout(y);				
+					printf("\nand proves : ");
+				} else {
+					printf("\nproves     : ");
+				}
 				print_proof_to_stdout(l);
 				printf("\nequals     : ");
 				print_proof_to_stdout(r);
