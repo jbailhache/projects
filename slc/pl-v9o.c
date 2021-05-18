@@ -427,14 +427,46 @@ proof reduce (proof x) {
 	return y;
 }
 
+int eq (proof x, proof y) {
+	if (x == y) return 1;
+	if (x->op == ANY) {
+		if (x->val == NULL) {
+			x->val = y;
+			return 1;
+		} else {
+			return eq(x->val, y);
+		}
+	}
+	if (y->op == ANY) {
+		if (y->val == NULL) {
+			y->val = x;
+			return 1;
+		} else {
+			return eq(x, y->val);
+		}
+	}
+	if (x->op != y->op) return 0;
+	if (x->op == SMB) return 0;
+	if (!eq(x->sp1,y->sp1)) return 0;
+	if (!eq(x->sp2,y->sp2)) return 0;
+	return 1;
+}
 
 int eqr (proof x, proof y) {
+	return 
+		eq(x,y) ||
+		eq(x,reduce(y)) ||
+		eq(reduce(x),y) ||
+		eq(reduce(x),reduce(y));
+}
+
+/*int eqr (proof x, proof y) {
 	return 
 		x == y ||
 		x == reduce(y) ||
 		reduce(x) == y ||
 		reduce(x) == reduce(y);
-}
+}*/
 
 
 /* CONCLUSION */
@@ -897,6 +929,10 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 		case ANY :
 			sprintf(buf, "_%x", x);
 			putstring_to_printer(printer, buf);
+			if (x->val != NULL) {
+				putstring_to_printer(printer, "=");
+				print_proof_1(printer,x->val,0,full);
+			}
 			break;
 		case VAR :
 			putstring_to_printer(printer, "*");
