@@ -162,7 +162,7 @@ struct proof1 {
 	int op;
 	double cert;
 	char name[NAMESIZE+1];
-	proof sp1, sp2, red, side[2];	
+	proof sp1, sp2, red, side[2], val;	
 };
 
 #define MAXPROOFS 100000
@@ -180,9 +180,10 @@ void init() {
 	proofs[nproofs].red = proofs+nproofs;
 	proofs[nproofs].side[LEFT] = proofs+nproofs;
 	proofs[nproofs].side[RIGHT] = proofs+nproofs;
+	proofs[nproofs].val = NULL;
 	proofs[nproofs].cert = NOCERT;
 	proofs[nproofs].name[0] = 0;
-	nproofs++;
+	nproofs++;	
 }
 
 proof var = proofs;
@@ -197,12 +198,14 @@ void check_memory() {
 	proofs[nproofs].red = NULL;
 	proofs[nproofs].side[LEFT] = NULL;
 	proofs[nproofs].side[RIGHT] = NULL;
+	proofs[nproofs].val = NULL;
 	proofs[nproofs].cert = NOCERT;
 }
 
 proof any() {
 	check_memory();
 	proofs[nproofs].op = ANY;
+	proofs[nproofs].val = NULL;
 	return proofs+nproofs++;
 }
 
@@ -215,6 +218,7 @@ proof smb(char *name) {
 	}
 	check_memory();
 	proofs[nproofs].op = SMB;
+	proofs[nproofs].val = NULL;
 	strcpy(proofs[nproofs].name,name);
 	return proofs+nproofs++;
 }
@@ -228,6 +232,7 @@ proof proof_with_name (char *name) {
 	}
 	check_memory();
 	proofs[nproofs].op = SMB;
+	proofs[nproofs].val = NULL;
 	strcpy(proofs[nproofs].name,name);
 	return proofs+nproofs++;
 }
@@ -243,6 +248,7 @@ proof f(proof x) { \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = NULL; \
+	proofs[nproofs].val = NULL; \
 	return proofs+nproofs++; \
 }
 
@@ -273,6 +279,7 @@ proof f(proof x, proof y) { \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = y; \
+	proofs[nproofs].val = NULL; \
 	return proofs+nproofs++; \
 }
 
@@ -291,6 +298,7 @@ proof mkproof(int op, proof x, proof y) {
 	proofs[nproofs].op = op; 
 	proofs[nproofs].sp1 = x; 
 	proofs[nproofs].sp2 = y; 
+	proofs[nproofs].val = NULL;
 	return proofs+nproofs++; 
 }
 
