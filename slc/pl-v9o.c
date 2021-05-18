@@ -312,6 +312,8 @@ proof shift (proof u, proof x) {
 	switch (x->op) {
 		case SMB :
 			return x;
+		case ANY :
+			return x;
 		case VAR :
 			return x;
 		case FNC :
@@ -328,6 +330,7 @@ proof subst (proof u, proof a, proof b) {
 	switch (a->op) {
 		case SMB :
 		case VAR :
+		case ANY :
 			return a;
 		case FNC :
 			return fnc(subst(nxv(u),a->sp1,shift(var,b)));
@@ -345,6 +348,7 @@ int cont (proof x, proof y) {
 	switch (x->op) {
 		case SMB :
 		case VAR :
+		case ANY :
 			return 0;
 		default :
 			return cont(x->sp1, y) || cont(x->sp2, y);
@@ -369,6 +373,7 @@ proof reduce1 (proof x) {
 	proof l, r;
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
+	if (x->op == ANY) return x;
 	if (x->op == APL && x->sp1->op == FNC)
 		return subst(var, x->sp1->sp1, x->sp2);
 	if (x->op == LFT)
@@ -428,10 +433,22 @@ proof reduce (proof x) {
 }
 
 int eq (proof x, proof y) {
-	if (x == y) return 1;
+	printf("\nCompare : ");
+	print_proof_to_stdout(x);
+	printf("\nand     : ");
+	print_proof_to_stdout(y);
+	if (x == y) {
+		printf("\nEqual\n");
+		return 1;
+	}
 	if (x->op == ANY) {
 		if (x->val == NULL) {
 			x->val = y;
+			printf("\nAssign to ");
+			print_proof_to_stdout(x);
+			printf(" the value ");
+			print_proof_to_stdout(y);
+			printf("\n");
 			return 1;
 		} else {
 			return eq(x->val, y);
@@ -440,13 +457,24 @@ int eq (proof x, proof y) {
 	if (y->op == ANY) {
 		if (y->val == NULL) {
 			y->val = x;
+			printf("\nAssign to ");
+			print_proof_to_stdout(y);
+			printf(" the value ");
+			print_proof_to_stdout(x);
+			printf("\n");
 			return 1;
 		} else {
 			return eq(x, y->val);
 		}
 	}
-	if (x->op != y->op) return 0;
-	if (x->op == SMB) return 0;
+	if (x->op != y->op) {
+		printf("\nDifferent operators\n");
+		return 0;
+	}
+	if (x->op == SMB) {
+		printf("\nDifferent symbols\n");
+		return 0;
+	}
 	if (!eq(x->sp1,y->sp1)) return 0;
 	if (!eq(x->sp2,y->sp2)) return 0;
 	return 1;
