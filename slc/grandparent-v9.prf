@@ -1,0 +1,9 @@
+
+& gpRule1 
+ ^x ^y ^z ((parent x y : parent y z : grandparent x z) = [*]).
+ 
+& gpAxiom1 ((parent allan brenda) = [*]).
+
+& gpAxiom2 ((parent brenda charles) = [*]).
+ 
+$(gpAxiom1 (gpAxiom2 (grandparent allan charles)) ; gpRule1 allan brenda charles).
