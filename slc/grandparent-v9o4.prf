@@ -7,9 +7,19 @@
 & gpAxiom2 ((parent brenda charles) = [*]).
  
 & conclusion _.
++conclusion.
+
 & a _.
 & b _.
 & c _.
  
++conclusion.
+
 $(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 a b c).
+
++conclusion.
++a.
++b.
++c.
++grandparent.
 
