@@ -1,0 +1,13 @@
+
+& gpRule1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+ 
+& gpAxiom1 (parent Allan Brenda = [*]).
+
+& gpAxiom2 (parent Brenda Charles = [*]).
+ 
+& conclusion _.
+& a _.
+& b _.
+& c _.
+ 
+$(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 a b c).
