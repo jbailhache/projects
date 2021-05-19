@@ -390,7 +390,7 @@ proof reduce1 (proof x) {
 		printf("\n                      is : ");
 		print_full_proof_to_stdout(x->sp1);
 	}*/
-	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
+	if (x->op == FNC && x->sp1 != NULL && x->sp1->op == APL && x->sp1->sp2 != NULL && x->sp1->sp2->op == VAR) 
 		return x->sp1->sp1;
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
