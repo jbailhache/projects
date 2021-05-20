@@ -1,0 +1,6 @@
+& AE ^x (E x x = [*]).
+& A1 (E a b (c = d)).
+& A2 (a = b).
+$( AE a c ; E a A2 c ; A1 ; E a A2 d ; AE a d ).
+$((E a A2 ; AE a) c ; A1 ; (E a A2 ; AE a) d).
+! x (E a A2 ; AE a) $( x c ; A1 ; x d).
