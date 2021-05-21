@@ -148,6 +148,20 @@ equals     : [*]
 
 We can see that the program automatically finds that X must be Allan, Y must be Brenda, Z must be Charles and the conclusion must be that X (which is Allan) is grand parent of Z (which is Charles).
 <p>
+It is also possible to use anonymous unknowns :
+<pre>
+? $(gpAxiom1 (gpAxiom2 _) ; gpRule1 _ _ _).
+
+_{Allan}
+_{Brenda}
+_{Charles}
+_{grandparent _{Allan} _{Charles}}
+The proof  : $( gpAxiom1 (gpAxiom2 _{grandparent _{Allan} _{Charles}}) ; gpRule1 _{Allan} _{Brenda} _{Charles} )
+reduces to : $( gpAxiom1 (gpAxiom2 _{grandparent _{Allan} _{Charles}}) ; parent _{Allan} _{Brenda} (parent _{Brenda} _{Charles} (grandparent _{Allan} _{Charles})) = [*] )
+and proves : _{grandparent _{Allan} _{Charles}}
+equals     : [*]
+</pre>
+
 Here is the complete proof file :
 
 <pre>
