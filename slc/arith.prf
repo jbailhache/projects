@@ -1,0 +1,8 @@
+
+& axm_zero ^n (plus zero n = n).
+& axm_suc ^n ^p (plus (suc n) p = suc (plus n p)).
+
+$( axm_suc (suc zero) (suc (suc (suc zero))) ; 
+   suc (axm_suc zero (suc (suc (suc zero))) ; 
+        suc (axm_zero (suc (suc (suc zero)))) ) ).
+
