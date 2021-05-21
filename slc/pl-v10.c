@@ -237,6 +237,8 @@ proof proof_with_name (char *name) {
 	return proofs+nproofs++;
 }
 
+proof empty_proof;
+
 #define DEFOP1(o,f) \
 proof f(proof x) { \
 	int i; \
@@ -245,6 +247,7 @@ proof f(proof x) { \
 			return proofs+i; \
 	} \
 	check_memory(); \
+	if (x == NULL) x = empty_proof; \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = NULL; \
@@ -276,6 +279,8 @@ proof f(proof x, proof y) { \
 			return proofs+i; \
 	} \
 	check_memory(); \
+	if (x == NULL) x = empty_proof; \
+	if (y == NULL) y = empty_proof; \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = y; \
@@ -390,7 +395,7 @@ proof reduce1 (proof x) {
 		printf("\n                      is : ");
 		print_full_proof_to_stdout(x->sp1);
 	}*/
-	if (x->op == FNC && x->sp1 != NULL && x->sp1->op == APL && x->sp1->sp2 != NULL && x->sp1->sp2->op == VAR) 
+	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
 		return x->sp1->sp1;
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
@@ -726,7 +731,9 @@ void read_name (struct reader *reader, char *name) {
 	name[i] = 0;
 }
 
-proof read_proof_2 (struct reader *reader);
+proof read_proof_2 (struct reader *reader, int options);
+// options :
+//  1 : returnv [*] if nothing to read, otherwise return NULL
 
 proof read_proof_1 (struct reader *reader) {
 	char c;
@@ -754,13 +761,13 @@ proof read_proof_1 (struct reader *reader) {
 			return apl(x,y);
 		case '(' :
 			nextchar(reader);
-			x = read_proof_2(reader);
+			x = read_proof_2(reader, 1);
 			if (cur_char == ')')
 				nextchar(reader);
 			return x;
 		case '[' :
 			nextchar(reader);
-			x = read_proof_2(reader);
+			x = read_proof_2(reader, 1);
 			if (cur_char == ']')
 				nextchar(reader);
 			return fnc(x);
@@ -838,7 +845,7 @@ proof read_proof_1 (struct reader *reader) {
 	}
 }
 
-proof read_proof_2 (struct reader *reader) {
+proof read_proof_2 (struct reader *reader, int options) {
 	proof x, y, z, t;
 	x = NULL;
 	y = NULL;
@@ -857,7 +864,10 @@ proof read_proof_2 (struct reader *reader) {
 			//case '>' :
 			case '.' :
 				if (t == NULL) {
-					if (x == NULL) return y;
+					if (x == NULL) {
+						if ((y == NULL) && (options & 1)) return empty_proof;
+						return y;
+					}
 					return equ(x,y);
 				} else {
 					if (x == NULL) return gtr(t,y);
@@ -892,7 +902,7 @@ proof read_proof_2 (struct reader *reader) {
 				break;
 			case ':' :
 				nextchar(reader);
-				z = read_proof_2(reader);
+				z = read_proof_2(reader, 1);
 				if (y == NULL) y = z;
 				else y = apl(y,z);
 				break;
@@ -908,14 +918,14 @@ proof read_proof_from_string (char *s) {
 	struct reader reader;
 	read_from_string(&reader,s);
 	nextchar(&reader);
-	return read_proof_2(&reader);
+	return read_proof_2(&reader, 0);
 }
 
 proof read_proof_from_stdin () {
 	struct reader reader;
 	read_from_stdin(&reader);
 	nextchar(&reader);
-	return read_proof_2(&reader);
+	return read_proof_2(&reader, 0);
 }
 
 proof read_proof_from_file (FILE *f) {
@@ -929,7 +939,7 @@ proof read_proof_from_file_2 (FILE *f) {
 	struct reader reader;
 	read_from_file(&reader, f);
 	nextchar(&reader);
-	return read_proof_2(&reader);
+	return read_proof_2(&reader, 0);
 }
 
 
@@ -957,12 +967,13 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 			putstring_to_printer(printer, x->name);
 			break;
 		case ANY :
-			sprintf(buf, "_%lx", (long)x);
+			/*sprintf(buf, "_%lx", (long)x);
 			putstring_to_printer(printer, buf);
 			if (x->val != NULL) {
 				putstring_to_printer(printer, "=");
 				print_proof_1(printer,x->val,0,full);
-			}
+			}*/
+			putstring_to_printer(printer, "_");
 			break;
 		case VAR :
 			putstring_to_printer(printer, "*");
@@ -1060,6 +1071,7 @@ int main (int argc, char *argv[]) {
 	struct reader reader;
 	
 	init();
+	empty_proof = fnc(var);
 	filename = NULL;
 	quiet = 0;
 	print_red = 0;
@@ -1078,11 +1090,15 @@ int main (int argc, char *argv[]) {
 	
 	if (filename) {
 		f = fopen(filename, "r");
+		if (f == NULL) {
+			printf("\nCannot open file %s.\n", filename);
+			exit(1);
+		}
 		read_from_file(&reader, f);
 		for (;;) {
 			// x = read_proof_from_file_2(f);
 			nextchar(&reader);
-			x = read_proof_2(&reader);
+			x = read_proof_2(&reader, 0);
 			if (x == NULL) break;
 			y = reduce(x);
 			l = left(x);
@@ -1120,7 +1136,7 @@ int main (int argc, char *argv[]) {
 		printf("\n? ");
 		// x = read_proof_from_stdin();
 		nextchar(&reader);
-		x = read_proof_2(&reader);
+		x = read_proof_2(&reader, 0);
 		if (x == NULL) break;
 		y = reduce(x);
 		l = left(x);
