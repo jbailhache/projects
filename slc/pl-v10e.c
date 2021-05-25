@@ -351,6 +351,8 @@ int cont (proof x, proof y) {
 		return 1;
 	if (x == NULL)
 		return 0;
+	if (x->val != NULL & cont(x->val, y))
+		return 1;
 	switch (x->op) {
 		case SMB :
 		case VAR :
