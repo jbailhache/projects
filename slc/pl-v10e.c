@@ -8,6 +8,7 @@
 /* INPUT - OUTPUT */
 
 int quiet_read;
+int occur_check;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -446,8 +447,9 @@ int eq (proof x, proof y) {
 		//printf("\nEqual\n");
 		return 1;
 	}
+	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
-		if (x->val == NULL) {
+		if (x->val == NULL && (!occur_check || !cont(y,x))) {
 			x->val = y;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -461,7 +463,7 @@ int eq (proof x, proof y) {
 		}
 	}
 	if (y->op == ANY) {
-		if (y->val == NULL) {
+		if (y->val == NULL && (!occur_check || !cont(x,y))) {
 			y->val = x;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -1080,6 +1082,7 @@ int main (int argc, char *argv[]) {
 	quiet = 0;
 	print_red = 0;
 	quiet_read = 0;
+	occur_check = 0;
 	
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
@@ -1087,6 +1090,7 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'q')) quiet = 1;
 			if (strchr(argv[1],'Q')) quiet_read = 1;
 			if (strchr(argv[1],'r')) print_red = 1;
+			if (strchr(argv[1],'o')) occur_check = 1;
 		} else {
 			filename = argv[1];
 		}
