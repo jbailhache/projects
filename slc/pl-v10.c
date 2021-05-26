@@ -8,6 +8,7 @@
 /* INPUT - OUTPUT */
 
 int quiet_read;
+int occur_check;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -350,6 +351,8 @@ int cont (proof x, proof y) {
 		return 1;
 	if (x == NULL)
 		return 0;
+	if (x->val != NULL & cont(x->val, y))
+		return 1;
 	switch (x->op) {
 		case SMB :
 		case VAR :
@@ -446,8 +449,9 @@ int eq (proof x, proof y) {
 		//printf("\nEqual\n");
 		return 1;
 	}
+	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
-		if (x->val == NULL) {
+		if (x->val == NULL && (!occur_check || !cont(y,x))) {
 			x->val = y;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -461,7 +465,7 @@ int eq (proof x, proof y) {
 		}
 	}
 	if (y->op == ANY) {
-		if (y->val == NULL) {
+		if (y->val == NULL && (!occur_check || !cont(x,y))) {
 			y->val = x;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -1023,9 +1027,13 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 		putstring_to_printer(printer, ")");
 	}
 	if (x->val != NULL) {
+		proof v;
+		v = x->val;
+		x->val = NULL;
 		putstring_to_printer(printer, "{");
-		print_proof_1(printer,x->val,0,full);
+		print_proof_1(printer,v,0,full);
 		putstring_to_printer(printer, "}");
+		x->val = v;
 	}
 }
 		
@@ -1076,6 +1084,7 @@ int main (int argc, char *argv[]) {
 	quiet = 0;
 	print_red = 0;
 	quiet_read = 0;
+	occur_check = 0;
 	
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
@@ -1083,6 +1092,7 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'q')) quiet = 1;
 			if (strchr(argv[1],'Q')) quiet_read = 1;
 			if (strchr(argv[1],'r')) print_red = 1;
+			if (strchr(argv[1],'o')) occur_check = 1;
 		} else {
 			filename = argv[1];
 		}
