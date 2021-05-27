@@ -232,5 +232,124 @@ proves     : conclusion{grandparent X{Allan} Z{Charles}}
 equals     : [*]
 </pre>
 
+<h3>Search for matching proof for transitivity</h3>
+
+`x searches for a proof y such that transitivity x ; y matches. It allows searching for data like in a database.
+<p>
+Example :
+
+<pre>
+name division d1 = direction.
+name division d2 = production.
+name division d3 = sales.
+
+name employee e1 = Alice.
+division employee e1 = d1.
+supervisor employee e1 = e1.
+
+name employee e2 = Bob.
+division employee e2 = d3.
+supervisor employee e2 = e1.
+
+name employee e3 = Charles.
+division employee e3 = d2.
+supervisor employee e3 = e1.
+
+`(name employee e3).
+`(name employee `(supervisor employee e3)).
+`(name division `(division employee e3)).
+`(name division `(division employee `(supervisor employee e3))).
+</pre>
+
+Result :
+
+<pre>
+$ ./pl-v10 db.prf
+
+name division d1 = direction.
+The proof  : name division d1 = direction
+proves     : name division d1
+equals     : direction
+
+name division d2 = production.
+The proof  : name division d2 = production
+proves     : name division d2
+equals     : production
+
+name division d3 = sales.
+The proof  : name division d3 = sales
+proves     : name division d3
+equals     : sales
+
+
+name employee e1 = Alice.
+The proof  : name employee e1 = Alice
+proves     : name employee e1
+equals     : Alice
+
+division employee e1 = d1.
+The proof  : division employee e1 = d1
+proves     : division employee e1
+equals     : d1
+
+supervisor employee e1 = e1.
+The proof  : supervisor employee e1 = e1
+proves     : supervisor employee e1
+equals     : e1
+
+
+name employee e2 = Bob.
+The proof  : name employee e2 = Bob
+proves     : name employee e2
+equals     : Bob
+
+division employee e2 = d3.
+The proof  : division employee e2 = d3
+proves     : division employee e2
+equals     : d3
+
+supervisor employee e2 = e1.
+The proof  : supervisor employee e2 = e1
+proves     : supervisor employee e2
+equals     : e1
+
+
+name employee e3 = Charles.
+The proof  : name employee e3 = Charles
+proves     : name employee e3
+equals     : Charles
+
+division employee e3 = d2.
+The proof  : division employee e3 = d2
+proves     : division employee e3
+equals     : d2
+
+supervisor employee e3 = e1.
+The proof  : supervisor employee e3 = e1
+proves     : supervisor employee e3
+equals     : e1
+
+
+`(name employee e3).
+The proof  : `(name employee e3)
+proves     : name employee e3
+equals     : Charles
+
+`(name employee `(supervisor employee e3)).
+The proof  : `(name employee `(supervisor employee e3))
+proves     : name employee (supervisor employee e3)
+equals     : Alice
+
+`(name division `(division employee e3)).
+The proof  : `(name division `(division employee e3))
+proves     : name division (division employee e3)
+equals     : production
+
+`(name division `(division employee `(supervisor employee e3))).
+The proof  : `(name division `(division employee `(supervisor employee e3)))
+proves     : name division (division employee (supervisor employee e3))
+equals     : direction
+</pre>
+
 </body>
 </html>
