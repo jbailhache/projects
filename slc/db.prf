@@ -1,0 +1,20 @@
+
+nom division d1 = direction.
+nom division d2 = production.
+nom division d3 = ventes.
+
+nom employe e1 = Alain.
+division employe e1 = d1.
+superieur employe e1 = e1.
+
+nom employe e2 = Bernard.
+division employe e2 = d3.
+superieur employe e2 = e1.
+
+nom employe e3 = Claude.
+division employe e3 = d2.
+superieur employe e3 = e1.
+
+`(nom employe e3).
+`(nom employe `(superieur employe e3)).
+`(nom division `(division employe e3)).
