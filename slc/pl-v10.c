@@ -126,7 +126,8 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define SP1 '1'
 #define SP2 '2'
 
-#define RFE '`'
+// #define RFE '`'
+#define RET '`'
 
 //#define FPR '+'
 
@@ -147,8 +148,9 @@ struct oper operators[] = {
 	{ RGT, 1 },
 	{ SP1, 1 },
 	{ SP2, 1 },
-	{ RFE, 1 }
-//,{ FPR, 1 }
+	{ RET, 1 }
+// ,{ RFE, 1 }
+// ,{ FPR, 1 }
 };	
 
 #define N_OPERATORS (sizeof(operators)/sizeof(operators[0]))
@@ -268,8 +270,9 @@ DEFOP1(RGT,rgt)
 DEFOP1(SP1,sp1)
 DEFOP1(SP2,sp2)
 
-DEFOP1(RFE,rfe)
+DEFOP1(RET,ret)
 
+//DEFOP1(RFE,rfe)
 //DEFOP1(FPR,fpr)
 
 #define DEFOP2(o,f) \
@@ -515,7 +518,8 @@ proof left (proof x);
 proof right (proof x);
 
 proof side1 (int s, proof x) {
-	proof y, z;
+	proof y, z, a, b;
+	int i, n;
 	if (x == NULL) return NULL;
 	switch (x->op) {
 		case SMB :
@@ -597,9 +601,41 @@ proof side1 (int s, proof x) {
 			printf("\n                      is : ");
 			print_full_proof_to_stdout(y);
 			return y;*/
-		case RFE :
-			//return x->sp1;
-			return equ(left(x->sp1),right(x->sp1));
+		//case RFE :
+		//	return equ(left(x->sp1),right(x->sp1));
+		case RET :
+			//printf("\nRetrieve      : ");
+			//print_proof_to_stdout(x->sp1);
+			n = nproofs;
+			for (i=0; i<n; i++) {
+				y = proofs+i;
+				if (y != x) {
+					//printf("\nProof %d",i);
+					//printf("\nTry with      : ");
+					//print_proof_to_stdout(y);
+					//z = gtr(x->sp1,y);
+					z = gtr(side(s,x->sp1),y);
+					//printf("\nConclusion of : ");
+					//print_proof_to_stdout(z);
+					a = left(z);
+					//printf("\nis            : ");
+					//print_proof_to_stdout(a);
+					b = right(z);
+					//printf("\nequals        : ");
+					//print_proof_to_stdout(b);
+					if (a != z && b != z && a != b) {
+						//printf("\nFound");
+						switch(s) {
+							case LEFT  : return a;
+							case RIGHT : return b;
+							default    : ;
+						}
+					}
+					//printf("\n");
+				}
+			}
+			//printf("\nNot found");
+			return x->sp1;
 		default :
 			y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 			// y->cert = cert(x->sp1) * cert(x->sp2);
