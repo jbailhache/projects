@@ -1,0 +1,9 @@
+
+& Y [[* *] ['* (* *)]]. 
+
+& zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+# & plus ^n ^p (n p ^q (suc (plus q p))).
+& fplus ^rplus ^n ^p (n p ^q (suc (rplus q p))).
+# & plus (fplus plus).
