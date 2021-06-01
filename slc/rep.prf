@@ -1,0 +1,37 @@
+
+# Representation of proofs
+# data Proof =
+#    SMB String 
+#  | VAR
+#  | NXV Proof
+#  | FNC Proof
+#  | APL Proof Proof
+#  | GTR Proof Proof
+#  | EQU Proof Proof
+
+# & B ^f ^g ^x (f (g x)).
+# & M [* *].
+# & Y ^f (M (B f M)).
+
+& Y [[* *] ['* (* *)]]. 
+///(Y f) ; f //(Y f).
+
+& SMB ^name ^s ^v ^n ^f ^a ^t ^e (s name).
+& VAR ^s ^v ^n ^f ^a ^t ^e v.
+& NXV ^x ^s ^v ^n ^f ^a ^t ^e (n x).
+& FNC ^x ^s ^v ^n ^f ^a ^t ^e (f x).
+& APL ^x ^y ^s ^v ^n ^f ^a ^t ^e (a x y).
+& GTR ^x ^y ^s ^v ^n ^f ^a ^t ^e (t x y).
+& EQU ^x ^y ^s ^v ^n ^f ^a ^t ^e (e x y).
+
+& evalv (Y ^eva ^v ^x (x
+ ^name name
+ v
+ ^x '(eva v x)
+ ^x [eva v x]
+ ^x ^y (eva v x (eva v y))
+ ^x ^y (eva v x ; eva v y)
+ ^x ^y (eva v x = eva v y)
+)).
+ 
+& eval (evalv *).
