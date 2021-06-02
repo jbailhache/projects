@@ -1,5 +1,10 @@
 
-# Representation of proofs
+# Representation of proofs and evaluation of representations
+#
+# Run Proof Logic with option -f for full reduction
+# Example :
+# $ rlwrap ./pl-v10 -f
+# 
 # data Proof =
 #    SMB String 
 #  | VAR
@@ -28,10 +33,20 @@
  ^name name
  v
  ^x '(eva v x)
- ^x [eva v x]
+ ^x [eva * x]
  ^x ^y (eva v x (eva v y))
  ^x ^y (eva v x ; eva v y)
  ^x ^y (eva v x = eva v y)
 )).
  
 & eval (evalv *).
+
+~(eval (SMB a)).
+~(eval VAR).
+~(eval (NXV VAR)).
+~(eval (FNC VAR)).
+~(eval (FNC (SMB a))).
+~(eval (APL (SMB a) (SMB b))).
+~(eval (GTR (SMB a) (SMB b))).
+~(eval (EQU (SMB a) (SMB b))).
+
