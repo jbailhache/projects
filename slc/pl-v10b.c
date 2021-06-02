@@ -8,8 +8,6 @@
 /* INPUT - OUTPUT */
 
 int quiet_read;
-int occur_check;
-int full_red;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -127,8 +125,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 #define SP1 '1'
 #define SP2 '2'
 
-// #define RFE '`'
-#define RET '`'
+#define RFE '`'
 
 //#define FPR '+'
 
@@ -149,9 +146,8 @@ struct oper operators[] = {
 	{ RGT, 1 },
 	{ SP1, 1 },
 	{ SP2, 1 },
-	{ RET, 1 }
-// ,{ RFE, 1 }
-// ,{ FPR, 1 }
+	{ RFE, 1 }
+//,{ FPR, 1 }
 };	
 
 #define N_OPERATORS (sizeof(operators)/sizeof(operators[0]))
@@ -177,17 +173,6 @@ struct proof1 proofs[MAXPROOFS];
 
 void print_proof_to_stdout (proof x);
 void print_full_proof_to_stdout (proof x);
-
-void copy_proof (proof src, proof dst) {
-	dst->op = src->op;
-	dst->cert = src->cert;
-	dst->sp1 = src->sp1;
-	dst->sp2 = src->sp2;
-	dst->red = src->red;
-	dst->side[0] = src->side[0];
-	dst->side[1] = src->side[1];
-	dst->val = src->val;
-}
 
 void init() {
 	nproofs = 0;
@@ -252,8 +237,6 @@ proof proof_with_name (char *name) {
 	return proofs+nproofs++;
 }
 
-proof empty_proof;
-
 #define DEFOP1(o,f) \
 proof f(proof x) { \
 	int i; \
@@ -262,7 +245,6 @@ proof f(proof x) { \
 			return proofs+i; \
 	} \
 	check_memory(); \
-	if (x == NULL) x = empty_proof; \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = NULL; \
@@ -282,9 +264,8 @@ DEFOP1(RGT,rgt)
 DEFOP1(SP1,sp1)
 DEFOP1(SP2,sp2)
 
-DEFOP1(RET,ret)
+DEFOP1(RFE,rfe)
 
-//DEFOP1(RFE,rfe)
 //DEFOP1(FPR,fpr)
 
 #define DEFOP2(o,f) \
@@ -295,8 +276,6 @@ proof f(proof x, proof y) { \
 			return proofs+i; \
 	} \
 	check_memory(); \
-	if (x == NULL) x = empty_proof; \
-	if (y == NULL) y = empty_proof; \
 	proofs[nproofs].op = o; \
 	proofs[nproofs].sp1 = x; \
 	proofs[nproofs].sp2 = y; \
@@ -366,8 +345,6 @@ int cont (proof x, proof y) {
 		return 1;
 	if (x == NULL)
 		return 0;
-	if (x->val != NULL & cont(x->val, y))
-		return 1;
 	switch (x->op) {
 		case SMB :
 		case VAR :
@@ -380,7 +357,6 @@ int cont (proof x, proof y) {
 
 int contsp (proof x, proof y) {
 	if (cont(x,y)) return 1;
-	if (full_red) return 0;
 	if (x == NULL) return 0;
 	if (y == NULL) return 0;
 	if (x->op != y->op) return 0;
@@ -414,7 +390,7 @@ proof reduce1 (proof x) {
 		printf("\n                      is : ");
 		print_full_proof_to_stdout(x->sp1);
 	}*/
-	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
+	if (x->op == FNC && x->sp1 != NULL && x->sp1->op == APL && x->sp1->sp2 != NULL && x->sp1->sp2->op == VAR) 
 		return x->sp1->sp1;
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
@@ -451,7 +427,6 @@ proof reduce (proof x) {
 	proof y;
 	if (x == NULL) return x;
 	if (x->red != NULL) return x->red;
-	x->red = x;
 	y = reduce2(x);
 	x->red = y;
 	return y;
@@ -466,9 +441,8 @@ int eq (proof x, proof y) {
 		//printf("\nEqual\n");
 		return 1;
 	}
-	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
-		if (x->val == NULL && (!occur_check || !cont(y,x))) {
+		if (x->val == NULL) {
 			x->val = y;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -482,7 +456,7 @@ int eq (proof x, proof y) {
 		}
 	}
 	if (y->op == ANY) {
-		if (y->val == NULL && (!occur_check || !cont(x,y))) {
+		if (y->val == NULL) {
 			y->val = x;
 			//printf("\nAssign to ");
 			printf("\n");
@@ -532,8 +506,7 @@ proof left (proof x);
 proof right (proof x);
 
 proof side1 (int s, proof x) {
-	proof y, z, a, b;
-	int i, n;
+	proof y, z;
 	if (x == NULL) return NULL;
 	switch (x->op) {
 		case SMB :
@@ -615,41 +588,9 @@ proof side1 (int s, proof x) {
 			printf("\n                      is : ");
 			print_full_proof_to_stdout(y);
 			return y;*/
-		//case RFE :
-		//	return equ(left(x->sp1),right(x->sp1));
-		case RET :
-			//printf("\nRetrieve      : ");
-			//print_proof_to_stdout(x->sp1);
-			n = nproofs;
-			for (i=0; i<n; i++) {
-				y = proofs+i;
-				if (y != x) {
-					//printf("\nProof %d",i);
-					//printf("\nTry with      : ");
-					//print_proof_to_stdout(y);
-					//z = gtr(x->sp1,y);
-					z = gtr(side(s,x->sp1),y);
-					//printf("\nConclusion of : ");
-					//print_proof_to_stdout(z);
-					a = left(z);
-					//printf("\nis            : ");
-					//print_proof_to_stdout(a);
-					b = right(z);
-					//printf("\nequals        : ");
-					//print_proof_to_stdout(b);
-					if (a != z && b != z && a != b) {
-						//printf("\nFound");
-						switch(s) {
-							case LEFT  : return a;
-							case RIGHT : return b;
-							default    : ;
-						}
-					}
-					//printf("\n");
-				}
-			}
-			//printf("\nNot found");
-			return x->sp1;
+		case RFE :
+			//return x->sp1;
+			return equ(left(x->sp1),right(x->sp1));
 		default :
 			y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 			// y->cert = cert(x->sp1) * cert(x->sp2);
@@ -662,10 +603,8 @@ proof side (int s, proof x) {
 	if (x == NULL)
 		return x;
 	for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
-		if (x->side[i] == NULL) {
-			x->side[i] = x;
+		if (x->side[i] == NULL)
 			x->side[i] = side1(i,x);
-		}
 	}
 	return x->side[s];
 }
@@ -693,12 +632,9 @@ double cert (proof x) {
 	//printf ("\ncertainty of ");
 	//print_proof_to_stdout(x);
 	if (x == NULL) return 1.0;
-	if (x->cert == NOCERT) {
+	if (x->cert == NOCERT)
 		// x->cert = cert(x->sp1) * cert(x->sp2);
-		// return cert(x->sp1) * cert(x->sp2);
-		x->cert = 1.0;
-		x->cert = cert(x->sp1) * cert(x->sp2);
-	}
+		return cert(x->sp1) * cert(x->sp2);
 	return x->cert;
 }
 
@@ -790,9 +726,7 @@ void read_name (struct reader *reader, char *name) {
 	name[i] = 0;
 }
 
-proof read_proof_2 (struct reader *reader, int options);
-// options :
-//  1 : returnv [*] if nothing to read, otherwise return NULL
+proof read_proof_2 (struct reader *reader);
 
 proof read_proof_1 (struct reader *reader) {
 	char c;
@@ -820,13 +754,13 @@ proof read_proof_1 (struct reader *reader) {
 			return apl(x,y);
 		case '(' :
 			nextchar(reader);
-			x = read_proof_2(reader, 1);
+			x = read_proof_2(reader);
 			if (cur_char == ')')
 				nextchar(reader);
 			return x;
 		case '[' :
 			nextchar(reader);
-			x = read_proof_2(reader, 1);
+			x = read_proof_2(reader);
 			if (cur_char == ']')
 				nextchar(reader);
 			return fnc(x);
@@ -854,10 +788,8 @@ proof read_proof_1 (struct reader *reader) {
 			x = read_proof_1(reader);
 			for (i=0; i<nproofs; i++) {
 				if (!strcmp(proofs[i].name,name)) {
-					//printf("\nAnother proof has the name \"%s\".\n", name);
-					//return x;
-					copy_proof(x, proofs+i);
-					return proofs+i;
+					printf("\nAnother proof has the name \"%s\".\n", name);
+					return x;
 				}
 			}
 			strncpy(x->name, name, NAMESIZE);
@@ -906,7 +838,7 @@ proof read_proof_1 (struct reader *reader) {
 	}
 }
 
-proof read_proof_2 (struct reader *reader, int options) {
+proof read_proof_2 (struct reader *reader) {
 	proof x, y, z, t;
 	x = NULL;
 	y = NULL;
@@ -925,10 +857,7 @@ proof read_proof_2 (struct reader *reader, int options) {
 			//case '>' :
 			case '.' :
 				if (t == NULL) {
-					if (x == NULL) {
-						if ((y == NULL) && (options & 1)) return empty_proof;
-						return y;
-					}
+					if (x == NULL) return y;
 					return equ(x,y);
 				} else {
 					if (x == NULL) return gtr(t,y);
@@ -963,7 +892,7 @@ proof read_proof_2 (struct reader *reader, int options) {
 				break;
 			case ':' :
 				nextchar(reader);
-				z = read_proof_2(reader, 1);
+				z = read_proof_2(reader);
 				if (y == NULL) y = z;
 				else y = apl(y,z);
 				break;
@@ -979,14 +908,14 @@ proof read_proof_from_string (char *s) {
 	struct reader reader;
 	read_from_string(&reader,s);
 	nextchar(&reader);
-	return read_proof_2(&reader, 0);
+	return read_proof_2(&reader);
 }
 
 proof read_proof_from_stdin () {
 	struct reader reader;
 	read_from_stdin(&reader);
 	nextchar(&reader);
-	return read_proof_2(&reader, 0);
+	return read_proof_2(&reader);
 }
 
 proof read_proof_from_file (FILE *f) {
@@ -1000,7 +929,7 @@ proof read_proof_from_file_2 (FILE *f) {
 	struct reader reader;
 	read_from_file(&reader, f);
 	nextchar(&reader);
-	return read_proof_2(&reader, 0);
+	return read_proof_2(&reader);
 }
 
 
@@ -1009,13 +938,10 @@ proof read_proof_from_file_2 (FILE *f) {
 void print_proof_1(struct printer *printer, proof x, int parenthesized, int full) {
 	char buf[100];
 	int i, j;
-	int op;
 	if (x == NULL) {
 		putstring_to_printer(printer, "0");
 		return;
 	}
-	op = x->op;
-	x->op = SMB;
 	if (x->cert != NOCERT && x->cert != 1.0) {
 		sprintf(buf,"%5.3lf (",x->cert);
 		putstring_to_printer(printer, buf);
@@ -1026,18 +952,17 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 	if (!full && x->name[0]) {
 		putstring_to_printer(printer, x->name);
 	} else
-	switch(op) {
+	switch(x->op) {
 		case SMB :
 			putstring_to_printer(printer, x->name);
 			break;
 		case ANY :
-			/*sprintf(buf, "_%lx", (long)x);
+			sprintf(buf, "_%lx", (long)x);
 			putstring_to_printer(printer, buf);
 			if (x->val != NULL) {
 				putstring_to_printer(printer, "=");
 				print_proof_1(printer,x->val,0,full);
-			}*/
-			putstring_to_printer(printer, "_");
+			}
 			break;
 		case VAR :
 			putstring_to_printer(printer, "*");
@@ -1069,10 +994,10 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 			if (parenthesized & 1) putstring_to_printer(printer, ")");
 			break;
 		default :
-			sprintf(buf,"%c", op);
+			sprintf(buf,"%c", x->op);
 			putstring_to_printer(printer, buf);
 			for (i=0; i<N_OPERATORS; i++) {
-				if (operators[i].code == op) {
+				if (operators[i].code == x->op) {
 					if (operators[i].arity > 0) {
 						print_proof_1(printer, x->sp1, 7, full);
 						if (operators[i].arity > 1) {
@@ -1087,15 +1012,10 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 		putstring_to_printer(printer, ")");
 	}
 	if (x->val != NULL) {
-		proof v;
-		v = x->val;
-		x->val = NULL;
 		putstring_to_printer(printer, "{");
-		print_proof_1(printer,v,0,full);
+		print_proof_1(printer,x->val,0,full);
 		putstring_to_printer(printer, "}");
-		x->val = v;
 	}
-	x->op = op;
 }
 		
 void print_proof_to_stdout (proof x) {
@@ -1140,13 +1060,10 @@ int main (int argc, char *argv[]) {
 	struct reader reader;
 	
 	init();
-	empty_proof = fnc(var);
 	filename = NULL;
 	quiet = 0;
 	print_red = 0;
 	quiet_read = 0;
-	occur_check = 0;
-	full_red = 0;
 	
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
@@ -1154,8 +1071,6 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'q')) quiet = 1;
 			if (strchr(argv[1],'Q')) quiet_read = 1;
 			if (strchr(argv[1],'r')) print_red = 1;
-			if (strchr(argv[1],'o')) occur_check = 1;
-			if (strchr(argv[1],'f')) full_red = 1;
 		} else {
 			filename = argv[1];
 		}
@@ -1163,19 +1078,13 @@ int main (int argc, char *argv[]) {
 	
 	if (filename) {
 		f = fopen(filename, "r");
-		if (f == NULL) {
-			printf("\nCannot open file %s.\n", filename);
-			exit(1);
-		}
 		read_from_file(&reader, f);
 		for (;;) {
 			// x = read_proof_from_file_2(f);
 			nextchar(&reader);
-			x = read_proof_2(&reader, 0);
+			x = read_proof_2(&reader);
 			if (x == NULL) break;
-			if (print_red) {
-				y = reduce(x);
-			}
+			y = reduce(x);
 			l = left(x);
 			r = right(x);
 			if (!quiet) {
@@ -1211,22 +1120,16 @@ int main (int argc, char *argv[]) {
 		printf("\n? ");
 		// x = read_proof_from_stdin();
 		nextchar(&reader);
-		x = read_proof_2(&reader, 0);
+		x = read_proof_2(&reader);
 		if (x == NULL) break;
-		if (!full_red) {
-			y = reduce(x);
-		}
+		y = reduce(x);
 		l = left(x);
 		r = right(x);
 		printf("\nThe proof  : ");
 		print_proof_to_stdout(x);
-		if (!full_red) {
-			printf ("\nreduces to : ");
-			print_proof_to_stdout(y);
-			printf ("\nand proves : ");
-		} else {
-			printf ("\nproves     : ");
-		}
+		printf ("\nreduces to : ");
+		print_proof_to_stdout(y);
+		printf ("\nand proves : ");
 		print_proof_to_stdout(l);
 		printf ("\nequals     : ");
 		print_proof_to_stdout(r);

@@ -1,0 +1,236 @@
+<html>
+<head>
+<title>Proof Logic v10</title>
+</head>
+<body>
+<h2>Proof Logic v10</h2>
+
+<a href="http://log.chez.com/src/slc/pl-v10.c">Source code</a>
+
+<p>
+
+Consider the following theory : if x is parent of y and y is parent of z, then x is grand parent of z. It can be formalized by the following rule named gpRule1,
+using the convention of representing truth by the identity [*] and the implication p => q by p q.
+<pre>
+? & gpRule1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+
+The proof  : gpRule1
+reduces to : gpRule1
+and proves : [[[parent ''* '* (parent '* * (grandparent ''* *))]]]
+equals     : [[[[*]]]]
+</pre>
+
+
+<p>
+Then we introduce two axioms saying that Allan is parent of Brenda and Brenda is parent of Charles :
+
+<pre>
+? & gpAxiom1 (parent Allan Brenda = [*]).
+
+The proof  : gpAxiom1
+reduces to : gpAxiom1
+and proves : parent Allan Brenda
+equals     : [*]
+
+? & gpAxiom2 (parent Brenda Charles = [*]).
+
+The proof  : gpAxiom2
+reduces to : gpAxiom2
+and proves : parent Brenda Charles
+equals     : [*]
+</pre>
+
+In this theory, we can prove that Allan is grand parent of Charles :
+
+<pre>
+? $(gpAxiom1 (gpAxiom2 (grandparent Allan Charles)) ; gpRule1 Allan Brenda Charles).
+
+The proof  : $( gpAxiom1 (gpAxiom2 (grandparent Allan Charles)) ; gpRule1 Allan Brenda Charles )
+reduces to : $( gpAxiom1 (gpAxiom2 (grandparent Allan Charles)) ; parent Allan Brenda (parent Brenda Charles (grandparent Allan Charles)) = [*] )
+and proves : grandparent Allan Charles
+equals     : [*]
+</pre>
+
+This proof uses transitivity with two subproofs :
+
+<pre>
+? $(gpAxiom1 (gpAxiom2 (grandparent Allan Charles))).
+
+The proof  : $(gpAxiom1 (gpAxiom2 (grandparent Allan Charles)))
+reduces to : $(gpAxiom1 (gpAxiom2 (grandparent Allan Charles)))
+and proves : parent Allan Brenda (parent Brenda Charles (grandparent Allan Charles))
+equals     : grandparent Allan Charles
+
+? $(gpRule1 Allan Brenda Charles).
+
+The proof  : $(gpRule1 Allan Brenda Charles)
+reduces to : $(parent Allan Brenda (parent Brenda Charles (grandparent Allan Charles)) = [*])
+and proves : parent Allan Brenda (parent Brenda Charles (grandparent Allan Charles))
+equals     : [*]
+</pre>
+
+The left sides are syntactically equal, so it proves that the right sides are equal.
+<p>
+
+<p>
+In this proof, we explicitely introduced the conclusion "grandparent Allan Charles".
+But this conclusion is the only one that permits transitivity to match. So it should be possible to Proof Logic program to automatically infere this conclusion. We would like to be able to replace this conclusion by something meaning "something unknown" to which the program would automatically assign the value "grandparent Allan Charles", the only one permitting transitivity to match.
+
+<h3>Introducing unknowns</h3>
+
+In Proof Logic v10, "_" represents an unknown whose value is initially undefined and to which a value is assigned, permitting transitivity to match.
+If several unknowns are used, they may correspond to different values. To be distinguished, they must necessarily be named with the syntax "& name _".
+<p>
+For our example, we create an unknown named "conclusion" :
+<pre>
+? & conclusion _.
+
+The proof  : conclusion
+reduces to : conclusion
+and proves : conclusion
+equals     : conclusion
+</pre>
+
+Then we can use it in our proof, replacing the explicit conclusion "grandparent Allan Charles" :
+
+<pre>
+? $(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 Allan Brenda Charles).
+
+conclusion{grandparent Allan Charles}
+The proof  : $( gpAxiom1 (gpAxiom2 conclusion{grandparent Allan Charles}) ; gpRule1 Allan Brenda Charles )
+reduces to : $( gpAxiom1 (gpAxiom2 conclusion{grandparent Allan Charles}) ; parent Allan Brenda (parent Brenda Charles (grandparent Allan Charles)) = [*] )
+and proves : conclusion{grandparent Allan Charles}
+equals     : [*]
+</pre>
+
+We see that the program finds that the conclusion must be "grandparent Allan Charles".
+<p>
+We still indicate explicitely that the rule gpRule1 must be instantiated with Allan, Brenda and Charles, but also this can be automatically inferred by the program.
+For this, we define 3 unknown X, Y and Z :
+
+<pre>
+? & X _.
+
+The proof  : X
+reduces to : X
+and proves : X
+equals     : X
+
+? & Y _.
+
+The proof  : Y
+reduces to : Y
+and proves : Y
+equals     : Y
+
+? & Z _.
+
+The proof  : Z
+reduces to : Z
+and proves : Z
+equals     : Z
+</pre>
+
+Then we can use them to replace Allan, Brenda and Charles in our proof :
+
+<pre>
+? $(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 X Y Z).
+
+X{Allan}
+Y{Brenda}
+Z{Charles}
+conclusion{grandparent X{Allan} Z{Charles}}
+The proof  : $( gpAxiom1 (gpAxiom2 conclusion{grandparent X{Allan} Z{Charles}}) ; gpRule1 X{Allan} Y{Brenda} Z{Charles} )
+reduces to : $( gpAxiom1 (gpAxiom2 conclusion{grandparent X{Allan} Z{Charles}}) ; parent X{Allan} Y{Brenda} (parent Y{Brenda} Z{Charles} (grandparent X{Allan} Z{Charles})) = [*] )
+and proves : conclusion{grandparent X{Allan} Z{Charles}}
+equals     : [*]
+</pre>
+
+We can see that the program automatically finds that X must be Allan, Y must be Brenda, Z must be Charles and the conclusion must be that X (which is Allan) is grand parent of Z (which is Charles).
+<p>
+It is also possible to use anonymous unknowns :
+<pre>
+? $(gpAxiom1 (gpAxiom2 _) ; gpRule1 _ _ _).
+
+_{Allan}
+_{Brenda}
+_{Charles}
+_{grandparent _{Allan} _{Charles}}
+The proof  : $( gpAxiom1 (gpAxiom2 _{grandparent _{Allan} _{Charles}}) ; gpRule1 _{Allan} _{Brenda} _{Charles} )
+reduces to : $( gpAxiom1 (gpAxiom2 _{grandparent _{Allan} _{Charles}}) ; parent _{Allan} _{Brenda} (parent _{Brenda} _{Charles} (grandparent _{Allan} _{Charles})) = [*] )
+and proves : _{grandparent _{Allan} _{Charles}}
+equals     : [*]
+</pre>
+
+Here is the complete proof file :
+
+<pre>
+
+& gpRule1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+ 
+& gpAxiom1 (parent Allan Brenda = [*]).
+& gpAxiom2 (parent Brenda Charles = [*]).
+ 
+& conclusion _.
+& X _.
+& Y _.
+& Z _.
+ 
+$(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 X Y Z).
+</pre>
+
+and its result :
+
+<pre>
+$ ./pl-v10 grandparent-v10.prf
+
+& gpRule1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+The proof  : gpRule1
+proves     : [[[parent ''* '* (parent '* * (grandparent ''* *))]]]
+equals     : [[[[*]]]]
+
+
+& gpAxiom1 (parent Allan Brenda = [*]).
+The proof  : gpAxiom1
+proves     : parent Allan Brenda
+equals     : [*]
+
+& gpAxiom2 (parent Brenda Charles = [*]).
+The proof  : gpAxiom2
+proves     : parent Brenda Charles
+equals     : [*]
+
+
+& conclusion _.
+The proof  : conclusion
+proves     : conclusion
+equals     : conclusion
+
+& X _.
+The proof  : X
+proves     : X
+equals     : X
+
+& Y _.
+The proof  : Y
+proves     : Y
+equals     : Y
+
+& Z _.
+The proof  : Z
+proves     : Z
+equals     : Z
+
+
+$(gpAxiom1 (gpAxiom2 conclusion) ; gpRule1 X Y Z).
+X{Allan}
+Y{Brenda}
+Z{Charles}
+conclusion{grandparent X{Allan} Z{Charles}}
+The proof  : $( gpAxiom1 (gpAxiom2 conclusion{grandparent X{Allan} Z{Charles}}) ; gpRule1 X{Allan} Y{Brenda} Z{Charles} )
+proves     : conclusion{grandparent X{Allan} Z{Charles}}
+equals     : [*]
+</pre>
+
+</body>
+</html>
