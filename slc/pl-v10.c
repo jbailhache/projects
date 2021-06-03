@@ -1137,6 +1137,7 @@ int main (int argc, char *argv[]) {
 	char *filename;
 	int quiet;
 	int print_red;
+	int conclusion_only;
 	struct reader reader;
 	
 	init();
@@ -1147,7 +1148,8 @@ int main (int argc, char *argv[]) {
 	quiet_read = 0;
 	occur_check = 0;
 	full_red = 0;
-	
+	conclusion_only = 0;
+
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
 			if (argc > 2) filename = argv[2];
@@ -1156,6 +1158,7 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'r')) print_red = 1;
 			if (strchr(argv[1],'o')) occur_check = 1;
 			if (strchr(argv[1],'f')) full_red = 1;
+			if (strchr(argv[1],'c')) conclusion_only = 1;
 		} else {
 			filename = argv[1];
 		}
@@ -1213,14 +1216,14 @@ int main (int argc, char *argv[]) {
 		nextchar(&reader);
 		x = read_proof_2(&reader, 0);
 		if (x == NULL) break;
-		if (!full_red) {
+		if (!full_red && !conclusion_only) {
 			y = reduce(x);
 		}
 		l = left(x);
 		r = right(x);
 		printf("\nThe proof  : ");
 		print_proof_to_stdout(x);
-		if (!full_red) {
+		if (!full_red && !conclusion_only) {
 			printf ("\nreduces to : ");
 			print_proof_to_stdout(y);
 			printf ("\nand proves : ");
