@@ -1,0 +1,21 @@
+# Proof of p => p
+# "p is true" is represented by p = [*]
+
+# Modus ponens rule
+# imp p q, p |- q
+# imp p q = [*], p = [*] |- q = [*]
+# imp [*] q = [*] |- q = [*]
+# imp [*] = [*]
+# To apply modus ponens to x and y, write $((imp y ; MP) _ ; x)
+& MP (imp [*] = [*]).
+
+# Axioms
+& AK ^p ^q (imp p (imp q p) = [*].
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+
+# Proof
+& L1 $(AS p (imp p p) p).
+& L2 $(AK p (imp p p)).
+& L3 $((imp L2 ; MP) _ ; L1).
+& L4 $(AK p p).
+& T $((imp L4 ; MP) _ ; L3).
