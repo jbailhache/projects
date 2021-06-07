@@ -14,8 +14,8 @@
 & AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
 
 # Proof
-& L1 $(AS p (imp p p) p).
-& L2 $(AK p (imp p p)).
+& L1 $(AS p (imp q p) p).
+& L2 $(AK p (imp q p)).
 & L3 $((imp L2 ; MP) _ ; L1).
-& L4 $(AK p p).
+& L4 $(AK p q).
 & T $((imp L4 ; MP) _ ; L3).
