@@ -1,0 +1,9 @@
+& MP (imp [*] = [*]).
+& Lob ^A (imp (nec (imp (nec A) A)) (nec A) =  [*]).
+& T ^A (imp (nec A) A = [*]).
+& Nec ^A (A (nec A) = [*]).
+& L1 $(T f).
+& L2 $(L1 _ ; Nec _).
+& L3 $(MP _ ; (imp L2 _ ; Lob _)).
+& L4 $(MP _ ; (imp L3 _ ; T _)).
+& conclusion $(f ; L4).
