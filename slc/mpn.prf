@@ -1,0 +1,17 @@
+# "p is true" is represented by p = [*]
+
+# Modus ponens rule
+# imp p q, p |- q
+# imp p q = [*], p = [*] |- q = [*]
+# imp [*] q = [*] |- q = [*]
+# imp [*] = [*]
+& MP (imp [*] = [*]).
+
+# To apply modus ponens to x and y, write $(MP _ ; (imp y _ ; x)) or $((imp y ; MP) _ ; x) 
+
+& A1 (imp P Q = [*]).
+& A2 (P = [*]).
+
+& T1 $(MP _ ; (imp A2 _ ; A1)).
+& T2 $((imp A2 ; MP) _ ; A1).
+
