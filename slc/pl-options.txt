@@ -1,0 +1,15 @@
+Proof Logic options
+
+Introduced in version v8 :
+-q : do not print the conclusions of proofs read from a file
+
+Introduced in version v9 :
+-Q : read file without echo 
+-r : print reduction of proofs read from file
+
+Introducded in version v10 :
+-o : occur check
+-f : full reduction
+-u : display only value of unknown (_) if it has a value
+-c : do not display reduction of proofs in interactive mode
+
