@@ -1178,8 +1178,8 @@ int main (int argc, char *argv[]) {
 	quiet_read = 0;
 	occur_check = 0;
 	full_red = 0;
-	print_value_of_unknown = 0;
 	conclusion_only = 0;
+	print_value_of_unknown = 0;
 
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
@@ -1189,8 +1189,8 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'r')) print_red = 1;
 			if (strchr(argv[1],'o')) occur_check = 1;
 			if (strchr(argv[1],'f')) full_red = 1;
-			if (strchr(argv[1],'u')) print_value_of_unknown = 1;
 			if (strchr(argv[1],'c')) conclusion_only = 1;
+			if (strchr(argv[1],'u')) print_value_of_unknown = 1;
 		} else {
 			filename = argv[1];
 		}
