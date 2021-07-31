@@ -167,7 +167,13 @@ According to  https://googology.wikia.org/wiki/User\_blog:Hyp\_cos/TON,\_stable\
  \item $K = C(\Omega_2+d^d,0)$
 \end{itemize}
 
-$\Omega_2 + d = \Omega_2 + \omega^d = C(d,\Omega_2)$
+The standard forms are :
+
+\begin{itemize}
+ \item $\Omega_2 + d = \Omega_2 + \omega^d = C(d,\Omega_2)$
+ \item $\Omega_2 + d^2 = \Omega_2 + \omega^{d 2} = C(d 2,\Omega_2) = C(C(d,d),\Omega_2)$
+ \item $\Omega_2 + d^d = \Omega_2 + \omega^{d^2} = C(d^2,\Omega_2) = C(C(C(d,d),d),\Omega_2)$
+\end{itemize}
 
 \begin{verbatim}
 pi@raspberrypi:/perso/ord $ python
@@ -182,6 +188,16 @@ C(W(2)**2+W(2))
 W(2)+C(W(2)**2+W(2))
 >>> C2(d,W(2))
 W(2)+C(W(2)**2+W(2))
+>>> C2(d*2,W(2))
+W(2)+C(W(2)**2+W(2))**2
+>>> C2(C2(d,d),W(2))
+W(2)+C(W(2)**2+W(2))**2
+>>> W(2)+d**d
+W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
+>>> C2(d**2,W(2))
+W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
+>>> C2(C2(C2(d,d),d),W(2))
+W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
 >>>
 \end{verbatim}
 

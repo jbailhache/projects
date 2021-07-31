@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.5.20)  31 JUL 2021 14:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.5.20)  31 JUL 2021 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -572,7 +572,7 @@ Overfull \hbox (0.69643pt too wide) in paragraph at lines 162--163
 s/TON,_stable_ordinals,_and_my_array_notation we have
  []
 
-[3] (./ocf_and_ton.aux) ) 
+[3] [4] (./ocf_and_ton.aux) ) 
 Here is how much of TeX's memory you used:
  2278 strings out of 494945
  26267 string characters out of 6181032
@@ -581,21 +581,22 @@ Here is how much of TeX's memory you used:
  14135 words of font info for 46 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,6n,24p,2057b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jkna
-ppen/ec/ectt1000.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecrm1000.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknappen
-/ec/ecbx1440.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecrm1200.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on ocf_and_ton.pdf (3 pages, 127020 bytes).
+ </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/
+jknappen/ec/ectt1000.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecrm1000.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/ecbx1440.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecrm1200.600pk> </home/pi/.texlive2016/texmf-var/fonts/pk/ljfour/jknappen
+/ec/ecrm1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on ocf_and_ton.pdf (4 pages, 134726 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 281 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
