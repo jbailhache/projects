@@ -82,11 +82,15 @@ In http://www.madore.org/~david/math/ordinal-zoo.pdf David Madore enumerates som
  
  \begin{itemize}
   \item https://googology.wikia.org/wiki/User\_blog:Boboris02/Analysis\_of\_Taranovsky%27s\_Ordinal\_Notation\_with\_%22standard\_OCFs.%22
-  \item https://googology.wikia.org/wiki/User\_blog:Boboris02/Algorithm\_for\_Generating\_LUCOs\_From\_TON\_Expressions\_%2B\_Intuitive\_Analysis
+  \item https://googology.wikia.org/wiki/User\_blog:Boboris02/Algorithm\_for\_Generating\_LUCOs\_From\_TON\_Expressions
+  
+  \_\%2B\_Intuitive\_Analysis
   \item https://googology.wikia.org/wiki/User\_blog:Hyp\_cos/TON,\_stable\_ordinals,\_and\_my\_array\_notation
 \end{itemize}
 
-In https://googology.wikia.org/wiki/User\_blog:Boboris02/Algorithm\_for\_Generating\_LUCOs\_From\_TON\_Expressions\_%2B\_Intuitive\_Analysis 
+In https://googology.wikia.org/wiki/User\_blog:Boboris02/Algorithm\_for\_Generating\_LUCOs\_From\_TON\_Expressions
+
+\_\%2B\_Intuitive\_Analysis 
 
 the following notations are introduced :
 
@@ -119,7 +123,8 @@ W(2)*2
 \end{verbatim}
 
 $C(a,b) = b+\omega^a if C(a,b) \ge a$
-We have $d = \omega^d, d^2 = \omega^d \omega^d = \omega^{d 2} ; d 2 = d + d = \omega^d + d = C(d,d) ; d^2 = C(C(d,d),d) ( not C(C(d,d),0) because C(C(d,d),0) < d ) ; d^d = C(C(C(d,d),d),d) ; d^{d^d} = C(C(C(C(d,d),d),d),d) ; ... $
+
+We have $d = \omega^d, d^2 = \omega^d \omega^d = \omega^{d 2} ; d 2 = d + d = \omega^d + d = C(d,d) ; d^2 = C(C(d,d),d)$ ( not C(C(d,d),0) because C(C(d,d),0) < d ) ; $d^d = C(C(C(d,d),d),d) ; d^{d^d} = C(C(C(C(d,d),d),d),d) ; ... $
 
 \begin{verbatim}
 pi@raspberrypi:/perso/ord $ python
@@ -198,6 +203,38 @@ W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
 W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
 >>> C2(C2(C2(d,d),d),W(2))
 W(2)+C(W(2)**2+W(2))**C(W(2)**2+W(2))
+>>>
+\end{verbatim}
+
+The collapses of large cardinals can also be represented with TON.
+
+According to  
+
+https://googology.wikia.org/wiki/User\_blog:Boboris02/Algorithm\_for\_Generating\_LUCOs\_From\_TON\_Expressions
+
+\_\%2B\_Intuitive\_Analysis :
+
+$\Psi^{CK}_I(I) = C(\Omega_2+a 2, 0) = C(C(a,C(a,\Omega_2)),0)$
+
+where $a = C(\Omega_2 2, 0) = C(C(\Omega_2,\Omega_2),0)$
+
+and $\Omega_2+a 2 = \Omega_2+\omega^a+\omega^a = C(a,C(a,\Omega_2))$
+
+\begin{verbatim}
+pi@raspberrypi:/perso/ord $ python
+Python 2.7.13 (default, Sep 26 2018, 18:42:22)
+[GCC 6.3.0 20170516] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> execfile('oa.py')
+>>> a=C2(W(2)*2,0)
+>>> a
+C(W(2)**2)
+>>> C2(C2(W(2),W(2)),0)
+C(W(2)**2)
+>>> W(2)+a*2
+W(2)+C(W(2)**2)*2
+>>> C2(a,C2(a,W(2)))
+W(2)+C(W(2)**2)*2
 >>>
 \end{verbatim}
 
