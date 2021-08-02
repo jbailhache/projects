@@ -33,11 +33,11 @@ module Main where
  main = do
   out <- openFile "ocf_and_ton_graph_inc.tex" WriteMode
 
-  pgraph "a = C(\\Omega_2 2,0)" (C (C W2 W2) O) 6 0.8
-  pgraph "d" (C W2 (C (C W2 W2) O)) 6 0.8
+  pgraph "a = C(\\Omega_2 2,0) = C(C(\\Omega_2,\\Omega_2),0)" (C (C W2 W2) O) 6 0.8
+  pgraph "d = C(\\Omega_2,C(C(\\Omega_2,\\Omega_2),0))" (C W2 (C (C W2 W2) O)) 6 0.8
   pgraph "I = C(\\Omega_2+d,0) = C(C(d,\\Omega_2),0)" (C (C (C W2 (C (C W2 W2) O)) W2) O) 6 0.8
   pgraph "M = C(\\Omega_2+d^2,0) = C(C(C(C(d,d),0),\\Omega_2),0)" (C (C (C (C (C W2 (C (C W2 W2) O)) (C W2 (C (C W2 W2) O))) O) W2) O) 10 0.8
   pgraph "\\Psi^{CK}_I(I) = C(\\Omega_2+a 2) = C(C(a,C(a,\\Omega_2)),0)" (C (C (C (C W2 W2) O) (C (C (C W2 W2) O) W2)) O) 10 0.8
-  pgraph "\\Psi(\\Psi_I(0) = C(C(\\Omega_2 2,0),0)" (C (C (C W2 W2) O) O) 10 0.8
+  pgraph "\\Psi(\\Psi_I(0) = C(C(\\Omega_2 2,0),0) = C(C(C(\\Omega_2,\\Omega_2),0),0)" (C (C (C W2 W2) O) O) 10 0.8
   pgraph "\\Psi(\\Psi_I(I))" (C (C (C (C (C (C (C W2 W2) O) (C (C (C W2 W2) O) W2)) O) (C W2 W2)) O) O) 10 0.8
  
