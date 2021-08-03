@@ -146,7 +146,7 @@
 	<td>v9</td>
 	<td><a href="http://log.chez.com/src/slc/pl-v9.c">pl-v9.c</a>
 	<td><a href="http://log.chez.com/src/slc/pl-v9.exe">pl-v9.exe</a></td>
-	<td><!-- <a href="http://log.chez.com/src/slc/pl-v9-linux">pl-v9-linux</a> --></td>
+	<td><a href="http://log.chez.com/src/slc/pl-v9-linux">pl-v9-linux</a></td>
 	<td><a href="http://log.chez.com/src/slc/pl-v9-rpi">pl-v9-rpi</a></td>			
 	<td></td>
 	<td>
@@ -174,6 +174,34 @@
 		reduce [a *] -> a<br>
 		option -Q : lecture fichier sans écho
 		option -r : afficher la réduction des démonstrations lues dans un fichier
+	</td>
+</tr>
+<tr>
+	<td>v10</td>
+	<td><a href="http://log.chez.com/src/slc/pl-v10.c">pl-v10.c</a>
+	<td><a href="http://log.chez.com/src/slc/pl-v10.exe">pl-v10.exe</a></td>
+	<td><a href="http://log.chez.com/src/slc/pl-v10-linux">pl-v10-linux</a></td>
+	<td><a href="http://log.chez.com/src/slc/pl-v10-rpi">pl-v10-rpi</a></td>			
+	<td></td>
+	<td>
+		Introduced '_' which represents unknowns like Prolog variables and can be instantiated with any value<br>
+		Display recursive proofs<br>
+		Option -o for occur-check<br>
+		`x (RFE) removed<br>
+		`x : search for matching proof for transitivity<br>
+		Circular proofs<br>
+		Option -f : full reduction<br>
+		Option -u : Display only value of unknown (_) if it has a value and do not display instantiations of unknowns
+	</td>
+	<td>
+		Introduction de '_' qui représente des inconnues comme les variables en Prolog et peut être instancié par une valeur quelconque<br>
+		Affichage des démonstrations récursives<br>
+		Option -o pour test d'occurence<br>
+		`x (RFE) supprimé<br>
+		`x : cherche une démonstration compatible pour transitivité<br>
+		Démonstrations circulaires<br>
+		Option -f : réduction complète<br>
+		Option -u : Afficher uniquement la valeur de l'inconnue (_) si elle a une valeur et ne pas afficher les instantiations des inconnues
 	</td>
 </tr>
 </table>
