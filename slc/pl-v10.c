@@ -10,6 +10,7 @@
 int quiet_read;
 int occur_check;
 int full_red;
+int print_value_of_unknown;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -471,8 +472,10 @@ int eq (proof x, proof y) {
 		if (x->val == NULL && (!occur_check || !cont(y,x))) {
 			x->val = y;
 			//printf("\nAssign to ");
-			printf("\n");
-			print_proof_to_stdout(x);
+			if (!print_value_of_unknown) {
+				printf("\n");
+				print_proof_to_stdout(x);
+			}
 			//printf(" the value ");
 			//print_proof_to_stdout(y);
 			//printf("\n");
@@ -485,8 +488,10 @@ int eq (proof x, proof y) {
 		if (y->val == NULL && (!occur_check || !cont(x,y))) {
 			y->val = x;
 			//printf("\nAssign to ");
-			printf("\n");
-			print_proof_to_stdout(y);
+			if (!print_value_of_unknown) {
+				printf("\n");
+				print_proof_to_stdout(y);
+			}
 			//printf(" the value ");
 			//print_proof_to_stdout(x);
 			//printf("\n");
@@ -906,8 +911,20 @@ proof read_proof_1 (struct reader *reader) {
 	}
 }
 
+proof sequ (proof x, proof y) {
+	if (x == NULL) return y;
+	if (y == NULL) return x;
+	return equ(x,y);
+}
+
+proof sgtr (proof x, proof y) {
+	if (x == NULL) return y;
+	if (y == NULL) return x;
+	return gtr(x,y);
+}
+
 proof read_proof_2 (struct reader *reader, int options) {
-	proof x, y, z, t;
+	proof x, y, z, t, r;
 	x = NULL;
 	y = NULL;
 	t = NULL;
@@ -924,6 +941,10 @@ proof read_proof_2 (struct reader *reader, int options) {
 			//case '|' :
 			//case '>' :
 			case '.' :
+				r = sgtr(t,sequ(x,y));
+				if (r == NULL && (options & 1)) return empty_proof;
+				return r;
+				/*
 				if (t == NULL) {
 					if (x == NULL) {
 						if ((y == NULL) && (options & 1)) return empty_proof;
@@ -934,17 +955,23 @@ proof read_proof_2 (struct reader *reader, int options) {
 					if (x == NULL) return gtr(t,y);
 					return gtr(t,equ(x,y));
 				}
+				*/
 			case '=' :
 				nextchar(reader);
+				x = sequ(x,y);
+				/*
 				if (x == NULL) {
 					x = y;
 				} else {
 					x = equ(x,y);
 				}
+				*/
 				y = NULL;
 				break;
 			case ';' :
 				nextchar(reader);
+				t = sgtr(t,sequ(x,y));
+				/*
 				if (t == NULL) {
 					if (x == NULL) {
 						t = y;
@@ -958,6 +985,7 @@ proof read_proof_2 (struct reader *reader, int options) {
 						t = gtr(t,equ(x,y));
 					}
 				}
+				*/
 				x = NULL;
 				y = NULL;
 				break;
@@ -1022,7 +1050,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 	}
 	// 3 code lines below :
 	// - commented : display full proof
-   // - uncommented : display only name if the proof has a name
+	// - uncommented : display only name if the proof has a name
 	if (!full && x->name[0]) {
 		putstring_to_printer(printer, x->name);
 	} else
@@ -1037,7 +1065,9 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 				putstring_to_printer(printer, "=");
 				print_proof_1(printer,x->val,0,full);
 			}*/
-			putstring_to_printer(printer, "_");
+			if (!(print_value_of_unknown && x->val != NULL)) {
+				putstring_to_printer(printer, "_");
+			}
 			break;
 		case VAR :
 			putstring_to_printer(printer, "*");
@@ -1083,17 +1113,21 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 				}
 			}					
 	}
-	if (x->cert != NOCERT && x->cert != 1.0) {
-		putstring_to_printer(printer, ")");
-	}
 	if (x->val != NULL) {
 		proof v;
 		v = x->val;
 		x->val = NULL;
-		putstring_to_printer(printer, "{");
-		print_proof_1(printer,v,0,full);
-		putstring_to_printer(printer, "}");
+		if (print_value_of_unknown && v != NULL && !(!full && x->name[0])) {
+			print_proof_1(printer,v,0,full);
+		} else {
+			putstring_to_printer(printer, "{");
+			print_proof_1(printer,v,0,full);
+			putstring_to_printer(printer, "}");
+		}
 		x->val = v;
+	}
+	if (x->cert != NOCERT && x->cert != 1.0) {
+		putstring_to_printer(printer, ")");
 	}
 	x->op = op;
 }
@@ -1149,6 +1183,7 @@ int main (int argc, char *argv[]) {
 	occur_check = 0;
 	full_red = 0;
 	conclusion_only = 0;
+	print_value_of_unknown = 0;
 
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
@@ -1159,6 +1194,7 @@ int main (int argc, char *argv[]) {
 			if (strchr(argv[1],'o')) occur_check = 1;
 			if (strchr(argv[1],'f')) full_red = 1;
 			if (strchr(argv[1],'c')) conclusion_only = 1;
+			if (strchr(argv[1],'u')) print_value_of_unknown = 1;
 		} else {
 			filename = argv[1];
 		}
