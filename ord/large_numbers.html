@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Large Numbers</title>
+</head>
+<body>
+<h3>Large Numbers</h2>
+How can we build a large number ?
+<p>
+Let us start with addition, the simplest operation with two numbers. If we have two numbers a and b, we can build a third number c = a + b by adding a and b. This number c is greater than a and than b.
+<p>
+Then we can add repetitively a to itself b times : a + a + ... + a. This is called the product a * b. 
+We can consider the operation "*" as the result of a "meta-operation" (an operation on operations) applied to the operation "+", this meta-operation consisting in iterating the original operation, and write it "* = ,+" where "," represents the iteration meta-operation. So we have a * b = a ,+ b.
+<p>
+We can go on by iterating the product : a * a * ... * a with a repeated b times. This is the exponentiation a^b, and the exponentiation is the iteration of the product : ^ = ,* = ,,+ which we can write more simply 2,+.
+<p>
+If we want to iterate exponentiation, we must be careful because it is not commutative and we have for example (a^a)^a = a^(a*a) = a^(a^2). 
+So we get larger numbers if we apply exponentiation from right to left and we define an operation called "tetration" by a^^b = a^(a^(a^(...^(a^a)))) with a repeated b times. We have ^^ = ,^ = ,,,+ = 3,+.
+<p>
+We can define very large numbers starting with addition and repetitively iterating it a large number of times, and applying it to some large numbers, for example : 1000 1000,+ 1000.
+<p>
+The number of times we apply the iteration meta-operator to addition can itself be built this way, giving successively :
+<ul>
+<li> 1000 1000,+ 1000
+<li> 1000 (1000 1000,+ 1000),+ 1000
+<li> 1000 (1000 (1000 1000,+ 1000),+ 1000),+ 1000
+<li> ...
+</ul>
+We will introduce another meta-operator called "nesting", represented by "@" and defined by (where # represents any operator) : 
+<ul>
+<li> a @# 1 = a
+<li> a @# 2 = a a,# a
+<li> a @# 3 = a (a a,# a) a
+<li> ...
+<li> a @# (b+1) = a (a @# b),# a
+</ul>
+With this notation we have :
+<ul>
+<li> 1000 = 1000 @+ 1
+<li> 1000 1000,+ 1000 = 1000 @+ 2
+<li> 1000 (1000 1000,+ 1000),+ 1000 = 1000 @+ 3
+<li> 1000 (1000 (1000 1000,+ 1000),+ 1000),+ 1000 = 1000 @+ 4
+<li> ...
+</ul>
+
+Here is a Haskell definition of these notations :
+
+<pre>
+module Main where
+
+ add a b = a + b
+
+ iter 0 x a b = x a b
+ iter (n+1) x a 1 = a
+ iter (n+1) x a (b+1) = iter n x a (iter (n+1) x a b)
+
+ nest x a 1 = a
+ nest x a (b+1) = iter (nest x a b) x a a
+</pre>
+
+There is a correspondence between these notations and another notation invented by Jonathan Bowers and called Bowers Exploding Array Function, Array Notation or Extended Operator Notation defined by the following rules :
+
+<ul>
+<li> Rule 1: Condition - only 1 or 2 entries - {a}  = a,  {a,b} = a+b. (in other words take the sum of the entries).
+<li> Rule 2: Condition - last entry is 1 - {a,b,c,...,k,1}  =  {a,b,c,...,k} (in other words remove trailing 1's).
+<li> Rule 3: Condition - 2nd entry is 1 - {a,1,c,d,..,k}  = a.
+<li> Rule 4: Condition - 3rd entry is 1 - {a,b,1,..,1,d,e,..,k}  = {a,a,a,..,{a,b-1,1,..,1,d,e,..,k},d-1,e,..,k} - the ".." between the 1's represent 1's - there can be any number of ones, from 1 "1" (3rd entry alone) to a string of 1s - the last 1 of this string is what becomes {a,b-1,1,..,1,d,e,..,k} all entries prior becomes "a".  For an array like this{3,2,1,1,1,5,1,2}  the last 1 in the string is the one before the 5 (not the one after - since it is a different string of 1s).
+<li> Rule 5: Condition - Rules 1-4 doesn't apply - {a,b,c,d,...,k} = {a,{a,b-1,c,d,...,k},c-1,d,..,k}.
+</ul>
+
+For example, we have {a,b,c,d,e} = a {c,d,e} b with {c,d,e} = (c-1),@(d-1),@(e-1).
+
+<p>
+
+Links about Bowers notation :
+<ul>
+<li> <a href="https://sites.google.com/site/largenumbers/home/appendix/b/jb2002_archive/array_notation"> Array Notation </a>
+<li> <a href="https://sites.google.com/site/largenumbers/home/4-1/extended_operators"> Jonathan Bowers' Extended Operator Notation </a>
+<li> <a href="http://www.polytope.net/hedrondude/array.htm"> Exploding Array Function </a>
+
+</ul>
+</body>
+</head>
