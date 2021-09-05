@@ -9,6 +9,11 @@ How can we build a large number ?
 Let us start with addition, the simplest operation with two numbers. If we have two numbers a and b, we can build a third number c = a + b by adding a and b. This number c is greater than a and than b.
 <p>
 Then we can add repetitively a to itself b times : a + a + ... + a. This is called the product a * b. 
+It can be defined recursively : 
+<ul>
+<li> a * 1 = a
+<li> a * (b+1) = (a * b) + a
+</ul>
 We can consider the operation "*" as the result of a "meta-operation" (an operation on operations) applied to the operation "+", this meta-operation consisting in iterating the original operation, and write it "* = ,+" where "," represents the iteration meta-operation. So we have a * b = a ,+ b.
 <p>
 We can go on by iterating the product : a * a * ... * a with a repeated b times. This is the exponentiation a^b, and the exponentiation is the iteration of the product : ^ = ,* = ,,+ which we can write more simply 2,+.
@@ -57,7 +62,7 @@ module Main where
  nest x a (b+1) = iter (nest x a b) x a a
 </pre>
 
-There is a correspondence between these notations and another notation invented by Jonathan Bowers and called Bowers Exploding Array Function, Array Notation or Extended Operator Notation defined by the following rules :
+There is a correspondence between these notations and other notations invented by Jonathan Bowers called  Extended Operator Notation and Array Notation or Bower Exploding Array Function defined by the following rules :
 
 <ul>
 <li> Rule 1: Condition - only 1 or 2 entries - {a}  = a,  {a,b} = a+b. (in other words take the sum of the entries).
@@ -67,7 +72,61 @@ There is a correspondence between these notations and another notation invented 
 <li> Rule 5: Condition - Rules 1-4 doesn't apply - {a,b,c,d,...,k} = {a,{a,b-1,c,d,...,k},c-1,d,..,k}.
 </ul>
 
-For example, we have {a,b,c,d,e} = a {c,d,e} b with {c,d,e} = (c-1),@(d-1),@(e-1).
+Bowers extended operator notation is related to his array notation in this way:
+<ul>
+<li> a {c} b = {a,b,c}, where c=1,2,3,4,5 etc represents adding, multiplying, exponentiation, tetration, pentation, etc. (I first encountered the names tetration, pentation, etc. in a book which I no longer remember the name).
+
+<li> a {{c}} b = {a,b,c,2}
+<li> a {{{c}}} b = {a,b,c,3}  etc.
+
+<li> a {{1}} b =  a { a { a....a { a { a } a } a.... a } a } a   (b a's from center out) - I call this a expanded to b
+<li> a {{2}} b = a expanded to itself b times (or a multiexpanded to b) = a {{1}} (a {{1}} (a {{1}} (a ....   (b times)
+<li> a {{3}} b = a multiexpanded to itself b times (or a powerexpanded to b)
+<li> a {{4}} b = a powerexpanded to itself b times (or a expandotetrated to b)
+<li>etc.
+
+<li> a {{{1}}} b = a {{ a {{ a ... a {{ a {{ a }} a }} a ...  a }} a }} a ( b a's from center out) - I call this a exploded to b.
+<li> a {{{2}}} b = a exploded to itself b times (a multiexploded to b)
+<li> a {{{3}}} b = a multiexploded to itself b times (a powerexploded to b)
+<li> a {{{4}}} b = a powerexploded to itself b times (a explodotetrated to b)
+<li> etc.
+</ul>
+
+For example, we have :
+<ul>
+<li> {a,b,c} = a {c} b = a (c-1),+ b
+<li> a {{1}} b = {a,b,1,2} = a {a { ... a {a} a ... } a} a with b levels of nesting  &lt; a @+ b
+<li> a {{2}} b = {a,b,2,2} = a {{1}} (a {{1}} ... {{1}} a) with a repeated b times = a ,{{1}} b &lt;  a ,@+ b
+<li> a {{3}} b = {a,b,3,2} = a {{2}} (a {{2}} ... {{2}} a) with a repeated b times = a ,{{2}} b &lt; a ,,@+ b = a 2,@+ b
+<li> a {{c}} b = {a,b,c,2}  &lt; a (c-1),@+ b
+<li> a {{{1}}} b = {a,b,1,3} = a {{ a {{ ... a {{ a }} a ... }} a }} a with b levels of nesting &lt; a @@+ b
+
+<!--
+a {c} b = a (c-1),+ b < a c,+ b
+a {a} a  < a a,+ a = a @+ 2
+a {a {a} a} a < a (a a,+ a),+ a = a @+ 3
+a {{1}} b < a @+ b
+a @# 2 = a a,# a
+a {{a}} a = a = a (a-1),@+ a < a a,@+ a = a @@+ 2
+-->
+
+<li> a {{{2}}} b = {a,b,2,3}= a {{{1}}} (a {{{1}}} ... {{{1}}} a) with a repeated b times = a ,{{{1}}} b &lt; a ,@@+ b
+<li> a {{{3}}} b = {a,b,3,3} = a {{{2}}} (a {{{2}}} ... {{{2}}} a) with a repeated b times = a ,{{{2}}} b &lt; a ,,@@+ b = a 2,@@+ b
+<li> a {{{c}}} b = {a,b,c,3} &ltf a (c-1),@@+ b
+
+<!--
+{a,b} = a + b
+{a,b,c} = a (c-1),+ b < a c,+ b
+{a,b,c,2} < a c,@+ b
+{a,b,c,3} < a c,@@+ b = a c,2@+ b
+{a,b,c,d} < a c,d@+ b
+
+-->
+
+<!--
+<li> {a,b,c,d,e} = a {c,d,e} b with {c,d,e} = (c-1),@(d-1),@(e-1).+
+-->
+</ul>
 
 <p>
 
