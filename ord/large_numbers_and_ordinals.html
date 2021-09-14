@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Large numbers and ordinals</title>
+</head>
+<body>
+<h2>Large numbers and ordinals</h2>
+There are some similarities between construction of large numbers and ordinals, but also some differences. At the beginning, we start with addition, then repeating addition gives multiplication, repeating multiplication gives exponentiation, etc... With numbers, addition and multiplication are symmetrical, not with ordinals. 
+<p>
+For numbers and ordinals, addition can be defined from successor (suc a = a+1) by :
+<ul>
+<li> a + 0 = a
+<li> a + suc b = suc (a + b) = suc (suc ( ... (suc a) ... )) with suc repeated suc b times
+<li> a + lim f = lim [a + f *] for limit ordinals
+</ul>
+multiplication by :
+<ul>
+<li> a . 0 = 0
+<li> a . suc b = a . b + a = a + a + ... + a with a repeated suc b times = a + a . b for numbers only
+<li> a . lim f = lim [a . f *] for limit ordinals
+</ul>
+exponentiation by :
+<ul>
+<li> a ^ 0 = 1
+<li> a ^ suc b = a^b . a = a . a . ... . a with a repeated suc b times = a . a^b for numbers only
+<li> a ^ lim f = lim [a ^ f *] for limit ordinals
+</ul>
+and tetration by :
+<ul>
+<li> a ^^ 1 = a
+<li> a ^^ suc b = a ^ (a^^b) = a^a^...^a with a repeated b times, with the notation a^b^c = a^(b^c)
+<li> a ^^ lim f = lim [a ^^ f *] for limit ordinals
+</ul>
+For numbers, we can more generally define :
+<ul>
+<li> a {1} b = a + b
+<li> a {suc n} 1 = a
+<li> a {suc n} (suc b) = a {n} (a {suc n} b) = a {n} (a {n} ( ... (a {n} a) ... )) with suc b a's.
+</ul>
+With numbers, if we take a large number N, for example N = googol, we can build greater numbers writing N_2 = N^^N = N^N^ ... ^N repeated N times, N_3 = N ^^ N_2 = N^^N^^N (with the notation a ^^ b ^^ c = a ^^ (b ^^ c)), ..., N ^^ N ^^ ... ^^ N repeated N times = N ^^^ N, ...
+<p>
+With ordinals, we can define epsilon_0 = sup { w, w^w, w^w^w, ... } which we can write w ^^ w, but w ^^ (w+1) is not greater : we have w ^^ (w+1) = w ^ (w ^^ w) = w ^ epsilon_0 = w ^ sup { w, w^w, w^w^w, ... } = sup { w^w, w^w^w, w^w^w^w, ... } = epsilon_0. So with ordinals we can eventually use tetration but following operations are useless.
+</body>
+</html>
