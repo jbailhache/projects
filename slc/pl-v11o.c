@@ -505,7 +505,7 @@ int eq (proof x, proof y) {
 	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
 		if (x->val == NULL) {
-			if ((!occur_check || !cont(y,x)) && pof()) {
+			if ((!occur_check || !cont(y,x)) /*&& pof()*/) {
 				x->val = y;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -525,7 +525,7 @@ int eq (proof x, proof y) {
 	}
 	if (y->op == ANY) {
 		if (y->val == NULL) {
-			if ((!occur_check || !cont(x,y)) && pof()) {
+			if ((!occur_check || !cont(x,y)) /*&& pof()*/) {
 				y->val = x;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -617,8 +617,8 @@ proof side1 (int s, proof x) {
 		//case RGT :
 		//	return side(RIGHT,x->sp1);
 		case GTR :
-			//if (pof()) {
-			//if (pof()) {
+			if (pof()) {
+			if (pof()) {
 			if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
 				//printf("\nleft = left side %d", s);
 				switch(s) {
@@ -627,7 +627,7 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			//} else {
+			} else {
 			if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
 				//printf("\nright = left side %d", s);
 				switch(s) {
@@ -636,9 +636,9 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			//}
-			//} else {
-			//if (pof()) {
+			}
+			} else {
+			if (pof()) {
 			if (eqr(left(x->sp1),right(x->sp2)) /*&& pof()*/) {
 				//printf("\nleft = right side %d", s);
 				switch(s) {
@@ -647,7 +647,7 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			//} else {
+			} else {
 			if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
 				//printf("\nright = right side %d", s);
 				switch(s) {
@@ -656,8 +656,8 @@ proof side1 (int s, proof x) {
 					default    : return NULL;
 				}
 			}
-			//}
-			//}
+			}
+			}
 			if (use_coroutines) {
 				printf("\nGTR : no match, end");
 				end(calling);

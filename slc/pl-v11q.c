@@ -505,7 +505,7 @@ int eq (proof x, proof y) {
 	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
 		if (x->val == NULL) {
-			if ((!occur_check || !cont(y,x)) && pof()) {
+			if ((!occur_check || !cont(y,x)) /* && pof() */ ) {
 				x->val = y;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -525,7 +525,7 @@ int eq (proof x, proof y) {
 	}
 	if (y->op == ANY) {
 		if (y->val == NULL) {
-			if ((!occur_check || !cont(x,y)) && pof()) {
+			if ((!occur_check || !cont(x,y)) /* && pof() */ ) {
 				y->val = x;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -617,47 +617,51 @@ proof side1 (int s, proof x) {
 		//case RGT :
 		//	return side(RIGHT,x->sp1);
 		case GTR :
-			//if (pof()) {
-			//if (pof()) {
+			if (pof()) {
+			if (pof()) {
 			if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				//printf("\nleft = left side %d", s);
+				printf("\nleft = left side %d", s);
 				switch(s) {
 					case LEFT  : return right(x->sp1);
 					case RIGHT : return right(x->sp2);
 					default    : return NULL;
 				}
 			}
-			//} else {
+printf("\nleft != left");
+			} else {
 			if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				//printf("\nright = left side %d", s);
+				printf("\nright = left side %d", s);
 				switch(s) {
 					case LEFT  : return left(x->sp1);
 					case RIGHT : return right(x->sp2);
 					default    : return NULL;
 				}
 			}
-			//}
-			//} else {
-			//if (pof()) {
+printf("\nright != left");
+			}
+			} else {
+			if (pof()) {
 			if (eqr(left(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				//printf("\nleft = right side %d", s);
+				printf("\nleft = right side %d", s);
 				switch(s) {
 					case LEFT  : return right(x->sp1);
 					case RIGHT : return left(x->sp2);
 					default    : return NULL;
 				}
 			}
-			//} else {
+printf("\nleft != right");
+			} else {
 			if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				//printf("\nright = right side %d", s);
+				printf("\nright = right side %d", s);
 				switch(s) {
 					case LEFT  : return left(x->sp1);
 					case RIGHT : return left(x->sp2);
 					default    : return NULL;
 				}
 			}
-			//}
-			//}
+printf("\nright != right");
+			}
+			}
 			if (use_coroutines) {
 				printf("\nGTR : no match, end");
 				end(calling);

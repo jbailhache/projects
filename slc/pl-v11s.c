@@ -505,7 +505,7 @@ int eq (proof x, proof y) {
 	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
 		if (x->val == NULL) {
-			if ((!occur_check || !cont(y,x)) && pof()) {
+			if ((!occur_check || !cont(y,x)) /* && pof() */ ) {
 				x->val = y;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -525,7 +525,7 @@ int eq (proof x, proof y) {
 	}
 	if (y->op == ANY) {
 		if (y->val == NULL) {
-			if ((!occur_check || !cont(x,y)) && pof()) {
+			if ((!occur_check || !cont(x,y)) /* && pof() */ ) {
 				y->val = x;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -582,9 +582,10 @@ proof right (proof x);
 proof side1 (int s, proof x) {
 	proof y, z, a, b;
 	int i, n;
-    printf("\ncalculate side %d of ",s);
+    printf("\n---calculate side %d of ",s);
     print_proof_to_stdout(x);
 	if (x == NULL) return NULL;
+printf("\nop=%c",x->op);
 	switch (x->op) {
 		case SMB :
 			return x;
@@ -617,45 +618,50 @@ proof side1 (int s, proof x) {
 		//case RGT :
 		//	return side(RIGHT,x->sp1);
 		case GTR :
+printf("\nGTR");
 			//if (pof()) {
 			//if (pof()) {
-			if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				//printf("\nleft = left side %d", s);
+			if (eqr(left(x->sp1),left(x->sp2)) && pof()) {
+				printf("\nleft = left side %d", s);
 				switch(s) {
 					case LEFT  : return right(x->sp1);
 					case RIGHT : return right(x->sp2);
 					default    : return NULL;
 				}
 			}
+printf("\nleft != left");
 			//} else {
-			if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				//printf("\nright = left side %d", s);
+			if (eqr(right(x->sp1),left(x->sp2)) && pof()) {
+				printf("\nright = left side %d", s);
 				switch(s) {
 					case LEFT  : return left(x->sp1);
 					case RIGHT : return right(x->sp2);
 					default    : return NULL;
 				}
 			}
+printf("\nright != left");
 			//}
 			//} else {
 			//if (pof()) {
-			if (eqr(left(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				//printf("\nleft = right side %d", s);
+			if (eqr(left(x->sp1),right(x->sp2)) && pof()) {
+				printf("\nleft = right side %d", s);
 				switch(s) {
 					case LEFT  : return right(x->sp1);
 					case RIGHT : return left(x->sp2);
 					default    : return NULL;
 				}
 			}
+printf("\nleft != right");
 			//} else {
-			if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				//printf("\nright = right side %d", s);
+			if (eqr(right(x->sp1),right(x->sp2)) && pof()) {
+				printf("\nright = right side %d", s);
 				switch(s) {
 					case LEFT  : return left(x->sp1);
 					case RIGHT : return left(x->sp2);
 					default    : return NULL;
 				}
 			}
+printf("\nright != right");
 			//}
 			//}
 			if (use_coroutines) {
@@ -875,19 +881,21 @@ proof side (int s, proof x) {
     print_proof_to_stdout(x);
 	if (x == NULL)
 		return x;
-	/*for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
+	for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
         printf(" i=%d",i);
 		if (x->side[i] == NULL) {
             printf(" NULL");
 			x->side[i] = x;
 			x->side[i] = side1(i,x);
 		}
-	}*/
+	}
+/*
 	if (x->side[LEFT] == NULL || x->side[RIGHT] == NULL) {
 		x->side[LEFT] = x;
 		x->side[RIGHT] = x;
 		sides(x,&(x->side[LEFT]),&(x->side[RIGHT]));
 	}
+*/
     printf(" sides calculated");
 	return x->side[s];
 }
