@@ -776,26 +776,35 @@ void sides (proof x, proof *l, proof *r) {
 		case GTR :
 			sides(x->sp1,&l1,&r1);
 			sides(x->sp2,&l2,&r2);
+if (pof()) {
+if (pof()) {
 			if (eqr(l1,l2)) {
 				*l = r1;
 				*r = r2;
 				return;
 			}
+} else {
 			if (eqr(r1,l2)) {
 				*l = l1;
 				*r = r2;
 				return;
 			}
+}
+} else {
+if (pof()) {
 			if (eqr(l1,r2)) {
 				*l = r1;
 				*r = l2;
 				return;
 			}
+} else {
 			if (eqr(r1,r2)) {
 				*l = l1;
 				*r = l2;
 				return;
 			}
+}
+}
 			if (use_coroutines) {
 				printf("\nGTR : no match, end");
 				end(calling);
@@ -881,6 +890,7 @@ proof side (int s, proof x) {
     print_proof_to_stdout(x);
 	if (x == NULL)
 		return x;
+#ifndef SIDES
 	for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
         printf(" i=%d",i);
 		if (x->side[i] == NULL) {
@@ -889,13 +899,13 @@ proof side (int s, proof x) {
 			x->side[i] = side1(i,x);
 		}
 	}
-/*
+#else
 	if (x->side[LEFT] == NULL || x->side[RIGHT] == NULL) {
 		x->side[LEFT] = x;
 		x->side[RIGHT] = x;
 		sides(x,&(x->side[LEFT]),&(x->side[RIGHT]));
 	}
-*/
+#endif
     printf(" sides calculated");
 	return x->side[s];
 }
@@ -1535,8 +1545,10 @@ void *maincr (void *p, struct coroutine *c1)
 		nextchar(&reader);
 		x = read_proof_2(&reader, 0);
 		//printf("\nproof read");
+if (x) {
 		printf("\nThe proof  : ");
 		print_proof_to_stdout(x);
+}
 		if (x == NULL) break;
 		if (!full_red && !conclusion_only) {
 			y = reduce(x);
