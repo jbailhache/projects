@@ -821,6 +821,7 @@ int np;
 	for (;;)
 	{
 		flag_send = 0;
+		if (!r) break;
 		switch (r->op)
 		{
 			case OP_SCHEDULE:
