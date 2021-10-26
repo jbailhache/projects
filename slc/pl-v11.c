@@ -11,27 +11,27 @@ struct coroutine calling[1];
 int use_coroutines;
 
 int pof () {
-	printf("\nPOF");
+	///printf("\nPOF");
 	if (!use_coroutines) 
 		return 1;
 	if (alt(calling, (void *)1, (void *)0)) {
-		printf("\nPOF 1");
+		///printf("\nPOF 1");
 		return 1;
 	} else {
-		printf("\nPOF 0");
+		///printf("\nPOF 0");
 		return 0;
 	}
 }
 
 int pof_end () {
-	printf("\nPOF");
+	///printf("\nPOF");
 	if (!use_coroutines) 
 		return 1;
 	if (alt(calling, (void *)1, (void *)0)) {
-		printf("\nPOF 1");
+		///printf("\nPOF 1");
 		return 1;
 	} else {
-		printf("\nPOF 0");
+		///printf("\nPOF 0");
 		//return 0;
 		end(calling);
 	}
@@ -582,10 +582,11 @@ proof right (proof x);
 proof side1 (int s, proof x) {
 	proof y, z, a, b;
 	int i, n;
-    printf("\n---calculate side %d of ",s);
-    print_proof_to_stdout(x);
+int p, q;
+    ///printf("\n---calculate side %d of ",s);
+    ///print_proof_to_stdout(x);
 	if (x == NULL) return NULL;
-printf("\nop=%c",x->op);
+	///printf("\nop=%c",x->op);
 	switch (x->op) {
 		case SMB :
 			return x;
@@ -618,54 +619,67 @@ printf("\nop=%c",x->op);
 		//case RGT :
 		//	return side(RIGHT,x->sp1);
 		case GTR :
-printf("\nGTR");
-			if (pof()) {
-			if (pof()) {
-			if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				printf("\nleft = left side %d", s);
-				switch(s) {
-					case LEFT  : return right(x->sp1);
-					case RIGHT : return right(x->sp2);
-					default    : return NULL;
+			///printf("\nGTR");
+			p = pof();
+			if (p || !use_coroutines) {
+				q = pof();
+				if (q || !use_coroutines) {
+				//if (pof()) {
+				//if (pof()) {
+					if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
+						///printf("\nleft = left side %d", s);
+						switch(s) {
+							case LEFT  : return right(x->sp1);
+							case RIGHT : return right(x->sp2);
+							default    : return NULL;
+						}
+					}
+					///printf("\nleft != left");
+				}
+				if (!q || !use_coroutines) {
+				//} else {
+					if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
+						///printf("\nright = left side %d", s);
+						switch(s) {
+							case LEFT  : return left(x->sp1);
+							case RIGHT : return right(x->sp2);
+							default    : return NULL;
+						}
+					}
+					///printf("\nright != left");
 				}
 			}
-printf("\nleft != left");
-			} else {
-			if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
-				printf("\nright = left side %d", s);
-				switch(s) {
-					case LEFT  : return left(x->sp1);
-					case RIGHT : return right(x->sp2);
-					default    : return NULL;
+			if (!p || !use_coroutines) {
+				q = pof();
+				if (q || !use_coroutines) {
+				//}
+				//} else {
+				//if (pof()) {
+					if (eqr(left(x->sp1),right(x->sp2)) /*&& pof()*/) {
+						///printf("\nleft = right side %d", s);
+						switch(s) {
+							case LEFT  : return right(x->sp1);
+							case RIGHT : return left(x->sp2);
+							default    : return NULL;
+						}
+					}
+					///printf("\nleft != right");
 				}
-			}
-printf("\nright != left");
-			}
-			} else {
-			if (pof()) {
-			if (eqr(left(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				printf("\nleft = right side %d", s);
-				switch(s) {
-					case LEFT  : return right(x->sp1);
-					case RIGHT : return left(x->sp2);
-					default    : return NULL;
+				if (!q || !use_coroutines) {
+				//} else {
+					if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
+						///printf("\nright = right side %d", s);
+						switch(s) {
+							case LEFT  : return left(x->sp1);
+							case RIGHT : return left(x->sp2);
+							default    : return NULL;
+						}
+					}
+					///printf("\nright != right");
 				}
-			}
-printf("\nleft != right");
-			} else {
-			if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
-				printf("\nright = right side %d", s);
-				switch(s) {
-					case LEFT  : return left(x->sp1);
-					case RIGHT : return left(x->sp2);
-					default    : return NULL;
-				}
-			}
-printf("\nright != right");
-			}
 			}
 			if (use_coroutines) {
-				printf("\nGTR : no match, end");
+				///printf("\nGTR : no match, end");
 				end(calling);
 			} else {
 				return x;
@@ -734,8 +748,9 @@ printf("\nright != right");
 void sides (proof x, proof *l, proof *r) {
 	proof y, z, a, b, l1, r1, l2, r2, zl, zr;
 	int i, n;
-	printf("\ncalculate sides of ");
-	print_proof_to_stdout(x);
+int p, q;
+	///printf("\ncalculate sides of ");
+	///print_proof_to_stdout(x);
 	if (x == NULL) {
 		*l = NULL;
 		*r = NULL;
@@ -776,28 +791,50 @@ void sides (proof x, proof *l, proof *r) {
 		case GTR :
 			sides(x->sp1,&l1,&r1);
 			sides(x->sp2,&l2,&r2);
-			if (eqr(l1,l2)) {
-				*l = r1;
-				*r = r2;
-				return;
+			p = pof();
+			if (p || !use_coroutines) {
+				q = pof();
+				if (q || !use_coroutines) {
+				//if (pof()) {
+				//if (pof()) {
+					if (eqr(l1,l2)) {
+						*l = r1;
+						*r = r2;
+						return;
+					}
+				}
+				if (!q || !use_coroutines) {
+				//} else {
+					if (eqr(r1,l2)) {
+						*l = l1;
+						*r = r2;
+						return;
+					}
+				}
 			}
-			if (eqr(r1,l2)) {
-				*l = l1;
-				*r = r2;
-				return;
-			}
-			if (eqr(l1,r2)) {
-				*l = r1;
-				*r = l2;
-				return;
-			}
-			if (eqr(r1,r2)) {
-				*l = l1;
-				*r = l2;
-				return;
+			if (!p || !use_coroutines) {
+				q = pof();
+				if (q || !use_coroutines) {
+				//}
+				//} else {
+				//if (pof()) {
+					if (eqr(l1,r2)) {
+						*l = r1;
+						*r = l2;
+						return;
+					}
+				}
+				if (!q || !use_coroutines) {
+				//} else {
+					if (eqr(r1,r2)) {
+						*l = l1;
+						*r = l2;
+						return;
+					}
+				}		
 			}
 			if (use_coroutines) {
-				printf("\nGTR : no match, end");
+				///printf("\nGTR : no match, end");
 				end(calling);
 			} else {
 				*l = x;
@@ -877,26 +914,27 @@ void sides (proof x, proof *l, proof *r) {
 
 proof side (int s, proof x) {
 	int i;
-    printf("\nside %d of ",s);
-    print_proof_to_stdout(x);
+    ///printf("\nside %d of ",s);
+    ///print_proof_to_stdout(x);
 	if (x == NULL)
 		return x;
+#ifndef SIDES
 	for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
-        printf(" i=%d",i);
+        ///printf(" i=%d",i);
 		if (x->side[i] == NULL) {
-            printf(" NULL");
+            ///printf(" NULL");
 			x->side[i] = x;
 			x->side[i] = side1(i,x);
 		}
 	}
-/*
+#else
 	if (x->side[LEFT] == NULL || x->side[RIGHT] == NULL) {
 		x->side[LEFT] = x;
 		x->side[RIGHT] = x;
 		sides(x,&(x->side[LEFT]),&(x->side[RIGHT]));
 	}
-*/
-    printf(" sides calculated");
+#endif
+    ///printf(" sides calculated");
 	return x->side[s];
 }
 	
@@ -1414,7 +1452,7 @@ void init_args (int argc, char *argv[]) {
 			if (strchr(argv[1],'f')) full_red = 1;
 			if (strchr(argv[1],'c')) conclusion_only = 1;
 			if (strchr(argv[1],'u')) print_value_of_unknown = 1;
-			if (strchr(argv[1],'c')) use_coroutines = 1;
+			if (strchr(argv[1],'a')) use_coroutines = 1;
 		} else {
 			strcpy(filename, argv[1]);
 		}
@@ -1535,21 +1573,24 @@ void *maincr (void *p, struct coroutine *c1)
 		nextchar(&reader);
 		x = read_proof_2(&reader, 0);
 		//printf("\nproof read");
+		if (x == NULL) break;
 		printf("\nThe proof  : ");
 		print_proof_to_stdout(x);
-		if (x == NULL) break;
+		//printf("\nfull_red=%d conclusion_only=%d", full_red, conclusion_only);
 		if (!full_red && !conclusion_only) {
 			y = reduce(x);
 			printf ("\nreduces to : ");
 			print_proof_to_stdout(y);
-		}
-		printf ("\nCalculate left and right");
+		} /*else {
+			printf("\nDo not print reduction");
+		}*/
+		///printf ("\nCalculate left and right");
 		l = left(x);
-		printf ("\nLeft  = ");
-		print_proof_to_stdout(l);
+		///printf ("\nLeft  = ");
+		///print_proof_to_stdout(l);
 		r = right(x);
-		printf("\nRight = ");
-		print_proof_to_stdout(r);
+		///printf("\nRight = ");
+		///print_proof_to_stdout(r);
 		//sides(x,&l,&r);
 		//printf("\nThe proof  : ");
 		//print_proof_to_stdout(x);
@@ -1570,7 +1611,7 @@ void *maincr (void *p, struct coroutine *c1)
 		}
 		printf("\n");
 		if (use_coroutines) {
-			printf("\nMain loop : end");
+			///printf("\nMain loop : end");
 			end(calling);
 		}
 	  }
