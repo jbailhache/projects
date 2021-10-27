@@ -1,0 +1,158 @@
+--- pl-v11x.c	2021-10-27 11:10:53.000000000 +0200
++++ pl-v11y.c	2021-10-27 19:09:07.095531300 +0200
+@@ -165,6 +165,8 @@
+ 
+ //#define FPR '+'
+ 
++#define ALT '|'
++
+ struct oper {
+ 	char code;
+ 	int arity;
+@@ -344,6 +346,7 @@
+ DEFOP2(GTR,gtr)
+ DEFOP2(EQU,equ)
+ DEFOP2(PRT,prt)
++DEFOP2(ALT,alp)
+ 
+ proof mkproof(int op, proof x, proof y) { 
+ 	int i; 
+@@ -738,6 +741,12 @@
+ 			}
+ 			//printf("\nNot found");
+ 			return x->sp1;
++		case ALT :
++			if (pof()) {
++				return side(s,x->sp1);
++			} else {
++				return side(s,x->sp2);
++			}
+ 		default :
+ 			y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
+ 			// y->cert = cert(x->sp1) * cert(x->sp2);
+@@ -1051,7 +1060,7 @@
+ 		if (!cur_char) break;
+ 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=;.",cur_char)) break;
+ 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
+-		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;.",cur_char)) break;
++		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|.",cur_char)) break;
+ 		name[i++] = cur_char;
+ 		nextchar(reader);
+ 	}
+@@ -1186,8 +1195,14 @@
+ 	return gtr(x,y);
+ }
+ 
++proof salt (proof x, proof y) {
++	if (x == NULL) return y;
++	if (y == NULL) return x;
++	return alp(x,y);
++}
++
+ proof read_proof_2 (struct reader *reader, int options) {
+-	proof x, y, z, t, r;
++	proof x, y, z, t, u, r;
+ 	x = NULL;
+ 	y = NULL;
+ 	t = NULL;
+@@ -1204,54 +1219,28 @@
+ 			//case '|' :
+ 			//case '>' :
+ 			case '.' :
+-				r = sgtr(t,sequ(x,y));
++				// r = sgtr(t,sequ(x,y));
++				r = salt(u,sgtr(t,sequ(x,y)));
+ 				if (r == NULL && (options & 1)) return empty_proof;
+ 				return r;
+-				/*
+-				if (t == NULL) {
+-					if (x == NULL) {
+-						if ((y == NULL) && (options & 1)) return empty_proof;
+-						return y;
+-					}
+-					return equ(x,y);
+-				} else {
+-					if (x == NULL) return gtr(t,y);
+-					return gtr(t,equ(x,y));
+-				}
+-				*/
+ 			case '=' :
+ 				nextchar(reader);
+ 				x = sequ(x,y);
+-				/*
+-				if (x == NULL) {
+-					x = y;
+-				} else {
+-					x = equ(x,y);
+-				}
+-				*/
+ 				y = NULL;
+ 				break;
+ 			case ';' :
+ 				nextchar(reader);
+ 				t = sgtr(t,sequ(x,y));
+-				/*
+-				if (t == NULL) {
+-					if (x == NULL) {
+-						t = y;
+-					} else {
+-						t = equ(x,y);
+-					}
+-				} else {
+-					if (x == NULL) {
+-						t = gtr(t,y);
+-					} else {
+-						t = gtr(t,equ(x,y));
+-					}
+-				}
+-				*/
+ 				x = NULL;
+ 				y = NULL;
+ 				break;
++			case '|' :
++				nextchar(reader);
++				u = salt(u,sgtr(t,sequ(x,y)));
++				x = NULL;
++				y = NULL;
++				t = NULL;
++				break;
+ 			case ':' :
+ 				nextchar(reader);
+ 				z = read_proof_2(reader, 1);
+@@ -1361,6 +1350,13 @@
+ 			print_proof_1(printer, x->sp2, 1, full);
+ 			if (parenthesized & 1) putstring_to_printer(printer, ")");
+ 			break;
++		case ALT :
++			if (parenthesized & 1) putstring_to_printer(printer, "(");
++			print_proof_1(printer, x->sp1, 1, full);
++			putstring_to_printer(printer, " | ");
++			print_proof_1(printer, x->sp2, 1, full);
++			if (parenthesized & 1) putstring_to_printer(printer, ")");
++			break;
+ 		default :
+ 			sprintf(buf,"%c", op);
+ 			putstring_to_printer(printer, buf);
+@@ -1474,7 +1470,9 @@
+ 	long i;
+ 	long z;
+ 	
+-	memcpy (calling, c1, sizeof(calling));
++	if (use_coroutines) {
++		memcpy (calling, c1, sizeof(calling));
++	}
+ 
+ 	struct proof1 proofs_buf[MAXPROOFS];
+ 	proofs = proofs_buf;
+@@ -1641,6 +1639,10 @@
+ 	p.stack_size = sizeof(stack)-STACK_BOTTOM*sizeof(int);
+ 	//printf("Welcome to Proof Logic !\n");
+ 	//printf("Type a proof ended by \".\", and type just \".\" to quit.\n");
+-	scheduler (maincr, &p, stack, p.stack_size, 0);
++	if (use_coroutines) {
++		scheduler (maincr, &p, stack, p.stack_size, 0);
++	} else {
++		maincr(NULL, NULL);
++	}
+ }
+ 

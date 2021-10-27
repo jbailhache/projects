@@ -165,8 +165,6 @@ void print_to_file (struct printer *printer, FILE *f) {
 
 //#define FPR '+'
 
-#define ALT '|'
-
 struct oper {
 	char code;
 	int arity;
@@ -346,7 +344,6 @@ DEFOP2(APL,apl)
 DEFOP2(GTR,gtr)
 DEFOP2(EQU,equ)
 DEFOP2(PRT,prt)
-DEFOP2(ALT,alp)
 
 proof mkproof(int op, proof x, proof y) { 
 	int i; 
@@ -741,12 +738,6 @@ int p, q;
 			}
 			//printf("\nNot found");
 			return x->sp1;
-		case ALT :
-			if (pof()) {
-				return side(s,x->sp1);
-			} else {
-				return side(s,x->sp2);
-			}
 		default :
 			y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 			// y->cert = cert(x->sp1) * cert(x->sp2);
@@ -1060,7 +1051,7 @@ void read_name (struct reader *reader, char *name) {
 		if (!cur_char) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=;.",cur_char)) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
-		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|.",cur_char)) break;
+		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;.",cur_char)) break;
 		name[i++] = cur_char;
 		nextchar(reader);
 	}
@@ -1195,18 +1186,11 @@ proof sgtr (proof x, proof y) {
 	return gtr(x,y);
 }
 
-proof salt (proof x, proof y) {
-	if (x == NULL) return y;
-	if (y == NULL) return x;
-	return alp(x,y);
-}
-
 proof read_proof_2 (struct reader *reader, int options) {
-	proof x, y, z, t, u, r;
+	proof x, y, z, t, r;
 	x = NULL;
 	y = NULL;
 	t = NULL;
-	u = NULL;
 	for (;;) {
 		skip_blanks(reader);
 		switch(cur_char) {
@@ -1220,27 +1204,53 @@ proof read_proof_2 (struct reader *reader, int options) {
 			//case '|' :
 			//case '>' :
 			case '.' :
-				// r = sgtr(t,sequ(x,y));
-				r = salt(u,sgtr(t,sequ(x,y)));
+				r = sgtr(t,sequ(x,y));
 				if (r == NULL && (options & 1)) return empty_proof;
 				return r;
+				/*
+				if (t == NULL) {
+					if (x == NULL) {
+						if ((y == NULL) && (options & 1)) return empty_proof;
+						return y;
+					}
+					return equ(x,y);
+				} else {
+					if (x == NULL) return gtr(t,y);
+					return gtr(t,equ(x,y));
+				}
+				*/
 			case '=' :
 				nextchar(reader);
 				x = sequ(x,y);
+				/*
+				if (x == NULL) {
+					x = y;
+				} else {
+					x = equ(x,y);
+				}
+				*/
 				y = NULL;
 				break;
 			case ';' :
 				nextchar(reader);
 				t = sgtr(t,sequ(x,y));
+				/*
+				if (t == NULL) {
+					if (x == NULL) {
+						t = y;
+					} else {
+						t = equ(x,y);
+					}
+				} else {
+					if (x == NULL) {
+						t = gtr(t,y);
+					} else {
+						t = gtr(t,equ(x,y));
+					}
+				}
+				*/
 				x = NULL;
 				y = NULL;
-				break;
-			case '|' :
-				nextchar(reader);
-				u = salt(u,sgtr(t,sequ(x,y)));
-				x = NULL;
-				y = NULL;
-				t = NULL;
 				break;
 			case ':' :
 				nextchar(reader);
@@ -1348,13 +1358,6 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 			if (parenthesized & 1) putstring_to_printer(printer, "(");
 			print_proof_1(printer, x->sp1, 1, full);
 			putstring_to_printer(printer, " = ");
-			print_proof_1(printer, x->sp2, 1, full);
-			if (parenthesized & 1) putstring_to_printer(printer, ")");
-			break;
-		case ALT :
-			if (parenthesized & 1) putstring_to_printer(printer, "(");
-			print_proof_1(printer, x->sp1, 1, full);
-			putstring_to_printer(printer, " | ");
 			print_proof_1(printer, x->sp2, 1, full);
 			if (parenthesized & 1) putstring_to_printer(printer, ")");
 			break;
@@ -1474,7 +1477,7 @@ void *maincr (void *p, struct coroutine *c1)
 	if (use_coroutines) {
 		memcpy (calling, c1, sizeof(calling));
 	}
-
+	
 	struct proof1 proofs_buf[MAXPROOFS];
 	proofs = proofs_buf;
 	var = proofs;

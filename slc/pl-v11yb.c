@@ -1206,7 +1206,6 @@ proof read_proof_2 (struct reader *reader, int options) {
 	x = NULL;
 	y = NULL;
 	t = NULL;
-	u = NULL;
 	for (;;) {
 		skip_blanks(reader);
 		switch(cur_char) {
@@ -1471,9 +1470,9 @@ void *maincr (void *p, struct coroutine *c1)
 	long i;
 	long z;
 	
-	if (use_coroutines) {
+	//if (use_coroutines) {
 		memcpy (calling, c1, sizeof(calling));
-	}
+	//}
 
 	struct proof1 proofs_buf[MAXPROOFS];
 	proofs = proofs_buf;
@@ -1640,10 +1639,10 @@ struct param_scheduler p;
 	p.stack_size = sizeof(stack)-STACK_BOTTOM*sizeof(int);
 	//printf("Welcome to Proof Logic !\n");
 	//printf("Type a proof ended by \".\", and type just \".\" to quit.\n");
-	if (use_coroutines) {
+	//if (use_coroutines) {
 		scheduler (maincr, &p, stack, p.stack_size, 0);
-	} else {
-		maincr(NULL, NULL);
-	}
+	//} else {
+	//	maincr(NULL, NULL);
+	//}
 }
 
