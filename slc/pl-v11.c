@@ -1,4 +1,5 @@
-/* Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) */
+// Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) 
+// Compilation : cc -g -fno-stack-protector -DSIDES -o pl-v11 pl-v11.c schedule.c
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -757,7 +758,7 @@ int p, q;
 void sides (proof x, proof *l, proof *r) {
 	proof y, z, a, b, l1, r1, l2, r2, zl, zr;
 	int i, n;
-int p, q;
+	int p, q;
 	///printf("\ncalculate sides of ");
 	///print_proof_to_stdout(x);
 	if (x == NULL) {
@@ -767,6 +768,9 @@ int p, q;
 	}
 	switch (x->op) {
 		case SMB :
+			if (use_coroutines && !strcmp(x->name,"END")) {
+				end(calling);
+			}
 		case ANY :
 			*l = x;
 			*r = x;
@@ -909,6 +913,13 @@ int p, q;
 			*l = x->sp1;
 			*r = x->sp1;
 			return;
+		case ALT :
+			if (pof()) {
+				sides(x->sp1, l, r);
+			} else {
+				sides(x->sp2, l, r);
+			}
+			return; 
 		default :
 			//y = mkproof(x->op, side(s,x->sp1), side(s,x->sp2));
 			sides(x->sp1,&l1,&r1);
@@ -1094,7 +1105,8 @@ proof read_proof_1 (struct reader *reader) {
 			nextchar(reader);
 			x = read_proof_1(reader);
 			y = read_proof_1(reader);
-			return apl(x,y);
+			//return apl(x,y);
+			return y;
 		case '(' :
 			nextchar(reader);
 			x = read_proof_2(reader, 1);
@@ -1515,6 +1527,7 @@ void *maincr (void *p, struct coroutine *c1)
 		}
 		read_from_file(&reader, f);
 		for (;;) {
+		  //if (pof()) {
 			// x = read_proof_from_file_2(f);
 			nextchar(&reader);
 			x = read_proof_2(&reader, 0);
@@ -1543,6 +1556,11 @@ void *maincr (void *p, struct coroutine *c1)
 				}
 				printf("\n");
 			}
+			/*if (use_coroutines) {
+				///printf("\nMain loop : end");
+				end(calling);
+			}*/
+		  //}
 		}
 		printf("\n");
 		fclose(f);
@@ -1566,21 +1584,21 @@ void *maincr (void *p, struct coroutine *c1)
 	exit(0);*/
 
 	for (;;) {
-	  if (pof()) {
+	  //if (pof()) {
 		printf("\n? ");
 		// x = read_proof_from_stdin();
 		nextchar(&reader);
 		x = read_proof_2(&reader, 0);
 		//printf("\nproof read");
 		if (x == NULL) break;
-		printf("\nThe proof  : ");
-		print_proof_to_stdout(x);
+		//printf("\nThe proof  : ");
+		//print_proof_to_stdout(x);
 		//printf("\nfull_red=%d conclusion_only=%d", full_red, conclusion_only);
 		if (!full_red && !conclusion_only) {
 		//if (!full_red) {
 			y = reduce(x);
-			printf ("\nreduces to : ");
-			print_proof_to_stdout(y);
+			//printf ("\nreduces to : ");
+			//print_proof_to_stdout(y);
 		} /*else {
 			printf("\nDo not print reduction");
 		}*/
@@ -1592,16 +1610,16 @@ void *maincr (void *p, struct coroutine *c1)
 		///printf("\nRight = ");
 		///print_proof_to_stdout(r);
 		//sides(x,&l,&r);
-		//printf("\nThe proof  : ");
-		//print_proof_to_stdout(x);
-		/*if (!full_red && !conclusion_only) {
+		printf("\nThe proof  : ");
+		print_proof_to_stdout(x);
+		if (!full_red && !conclusion_only) {
 			printf ("\nreduces to : ");
 			print_proof_to_stdout(y);
 			printf ("\nand proves : ");
 		} else {
 			printf ("\nproves     : ");
-		}*/
-		printf ("\nproves     : ");
+		}
+		// printf ("\nproves     : ");
 		print_proof_to_stdout(l);
 		printf ("\nequals     : ");
 		print_proof_to_stdout(r);
@@ -1610,11 +1628,11 @@ void *maincr (void *p, struct coroutine *c1)
 			printf("%5.3f",cert(x));
 		}
 		printf("\n");
-		if (use_coroutines) {
+		/*if (use_coroutines) {
 			///printf("\nMain loop : end");
 			end(calling);
-		}
-	  }
+		}*/
+	  //}
 	}
 	exit(0);
 }
