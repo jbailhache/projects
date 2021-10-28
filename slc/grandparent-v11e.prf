@@ -1,0 +1,26 @@
+
+& r1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+ 
+& a1 (parent Alphonse Barnabe = [*]).
+& a2 (parent Alphonse Brigitte = [*]).
+& a3 (parent Barnabe Catherine = [*]).
+& a4 (parent Brigitte Claude = [*]).
+& a5 (parent Brigitte Chloe = [*]).
+& a6 (parent Didier Evelyne = [*]).
+
+& axiom (a1 | a2 | a3 | a4 | a5 | a6).
+#& axiom (a1 | a3).
+
+grandparent _ _ ; $(axiom (axiom _) ; r1 _ _ _).
+END.
+END.
+END.
+END.
+END.
+END.
+END.
+END.
+END.
+END.
+END.
+
