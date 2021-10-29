@@ -15,3 +15,7 @@
 grandparent _ _ ; $(axiom (axiom _) ; r1 _ _ _).
 END.
 END.
+END.
+END.
+END.
+
