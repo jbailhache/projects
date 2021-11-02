@@ -44,6 +44,8 @@ int quiet_read;
 int occur_check;
 int full_red;
 int print_value_of_unknown;
+int gtr_alt;
+int unknown_alt;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -167,6 +169,7 @@ void print_to_file (struct printer *printer, FILE *f) {
 //#define FPR '+'
 
 #define ALT '|'
+#define ALR ','
 
 struct oper {
 	char code;
@@ -348,6 +351,7 @@ DEFOP2(GTR,gtr)
 DEFOP2(EQU,equ)
 DEFOP2(PRT,prt)
 DEFOP2(ALT,alp)
+DEFOP2(ALR,alr)
 
 proof mkproof(int op, proof x, proof y) { 
 	int i; 
@@ -456,6 +460,13 @@ proof reduce1 (proof x) {
 	}*/
 	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
 		return x->sp1->sp1;
+	if (x->op == ALR) {
+		if (pof()) {
+			return x->sp1;
+		} else {
+			return x->sp2;
+		}
+	}
 	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
 }
 			
@@ -498,6 +509,7 @@ proof reduce (proof x) {
 }
 
 int eq (proof x, proof y) {
+	int p;
 	//printf("\nCompare : ");
 	//print_proof_to_stdout(x);
 	//printf("\nand     : ");
@@ -509,7 +521,11 @@ int eq (proof x, proof y) {
 	if (x == NULL || y == NULL) return 0;
 	if (x->op == ANY) {
 		if (x->val == NULL) {
-			if ((!occur_check || !cont(y,x)) /* && pof() */ ) {
+			if (unknown_alt) {
+				p = pof();
+				//printf("\np = %d", p);
+			}
+			if ((!occur_check || !cont(y,x)) && (!unknown_alt || p)) {
 				x->val = y;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -529,7 +545,11 @@ int eq (proof x, proof y) {
 	}
 	if (y->op == ANY) {
 		if (y->val == NULL) {
-			if ((!occur_check || !cont(x,y)) /* && pof() */ ) {
+			if (unknown_alt) {
+				p = pof();
+				//printf("\np = %d",p);
+			}
+			if ((!occur_check || !cont(x,y)) && (!unknown_alt || p)) {
 				y->val = x;
 				//printf("\nAssign to ");
 				if (!print_value_of_unknown) {
@@ -624,10 +644,16 @@ int p, q;
 		//	return side(RIGHT,x->sp1);
 		case GTR :
 			///printf("\nGTR");
-			p = pof();
-			if (p || !use_coroutines) {
-				q = pof();
-				if (q || !use_coroutines) {
+			p = 1;
+			q = 1;
+			if (gtr_alt) {
+				p = pof();
+			}
+			if (p || !use_coroutines || !gtr_alt) {
+				if (gtr_alt) {
+					q = pof();
+				}
+				if (q || !use_coroutines || !gtr_alt) {
 				//if (pof()) {
 				//if (pof()) {
 					if (eqr(left(x->sp1),left(x->sp2)) /*&& pof()*/) {
@@ -640,7 +666,7 @@ int p, q;
 					}
 					///printf("\nleft != left");
 				}
-				if (!q || !use_coroutines) {
+				if (!q || !use_coroutines || !gtr_alt) {
 				//} else {
 					if (eqr(right(x->sp1),left(x->sp2)) /*&& pof()*/) {
 						///printf("\nright = left side %d", s);
@@ -653,9 +679,11 @@ int p, q;
 					///printf("\nright != left");
 				}
 			}
-			if (!p || !use_coroutines) {
-				q = pof();
-				if (q || !use_coroutines) {
+			if (!p || !use_coroutines || !gtr_alt) {
+				if (gtr_alt) {
+					q = pof();
+				}
+				if (q || !use_coroutines || !gtr_alt) {
 				//}
 				//} else {
 				//if (pof()) {
@@ -669,7 +697,7 @@ int p, q;
 					}
 					///printf("\nleft != right");
 				}
-				if (!q || !use_coroutines) {
+				if (!q || !use_coroutines || !gtr_alt) {
 				//} else {
 					if (eqr(right(x->sp1),right(x->sp2)) /*&& pof()*/) {
 						///printf("\nright = right side %d", s);
@@ -804,10 +832,16 @@ void sides (proof x, proof *l, proof *r) {
 		case GTR :
 			sides(x->sp1,&l1,&r1);
 			sides(x->sp2,&l2,&r2);
-			p = pof();
-			if (p || !use_coroutines) {
-				q = pof();
-				if (q || !use_coroutines) {
+			p = 1;
+			q = 1;
+			if (gtr_alt) {
+				p = pof();
+			} 
+			if (p || !use_coroutines || !gtr_alt) {
+				if (gtr_alt) {
+					q = pof();
+				}
+				if (q || !use_coroutines || !gtr_alt) {
 				//if (pof()) {
 				//if (pof()) {
 					if (eqr(l1,l2)) {
@@ -816,7 +850,7 @@ void sides (proof x, proof *l, proof *r) {
 						return;
 					}
 				}
-				if (!q || !use_coroutines) {
+				if (!q || !use_coroutines || !gtr_alt) {
 				//} else {
 					if (eqr(r1,l2)) {
 						*l = l1;
@@ -825,9 +859,11 @@ void sides (proof x, proof *l, proof *r) {
 					}
 				}
 			}
-			if (!p || !use_coroutines) {
-				q = pof();
-				if (q || !use_coroutines) {
+			if (!p || !use_coroutines || !gtr_alt) {
+				if (gtr_alt) {
+					q = pof();
+				}
+				if (q || !use_coroutines || !gtr_alt) {
 				//}
 				//} else {
 				//if (pof()) {
@@ -837,7 +873,7 @@ void sides (proof x, proof *l, proof *r) {
 						return;
 					}
 				}
-				if (!q || !use_coroutines) {
+				if (!q || !use_coroutines || !gtr_alt) {
 				//} else {
 					if (eqr(r1,r2)) {
 						*l = l1;
@@ -1071,7 +1107,7 @@ void read_name (struct reader *reader, char *name) {
 		if (!cur_char) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=;.",cur_char)) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
-		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|.",cur_char)) break;
+		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|,.",cur_char)) break;
 		name[i++] = cur_char;
 		nextchar(reader);
 	}
@@ -1213,12 +1249,46 @@ proof salt (proof x, proof y) {
 	return alp(x,y);
 }
 
+proof salr (proof x, proof y) {
+	if (x == NULL) return y;
+	if (y == NULL) return x;
+	return alr(x,y);
+}
+
+struct infix_op {
+	int op;
+	char c;
+	proof (*f)(proof,proof);
+};
+
+struct infix_op infix_ops[] = { 
+	{ ALR, ',', alr },
+	{ EQU, '=', equ },
+	{ GTR, ';', gtr },
+	{ ALT, '|', alp }
+};
+
+proof siop (int i, proof x, proof y) {
+	if (x == NULL) return y;
+	if (y == NULL) return x;
+	return (*(infix_ops[i].f))(x,y);
+}
+
+int n_infix_ops = sizeof(infix_ops)/sizeof(infix_ops[0]);
 proof read_proof_2 (struct reader *reader, int options) {
-	proof x, y, z, t, u, r;
-	x = NULL;
+	//proof x, y, z, t, u, v, r;
+	proof y, z, r;
+	proof a[n_infix_ops];
+	int i, j;
+	int op_found;
+	a[0] = NULL;
 	y = NULL;
-	t = NULL;
-	u = NULL;
+	a[1] = NULL;
+	a[2] = NULL;
+	a[3] = NULL;
+	/*for (i=0; i<n_infix_ops; i++) {
+		a[i] = NULL;
+	}*/
 	for (;;) {
 		skip_blanks(reader);
 		switch(cur_char) {
@@ -1233,27 +1303,74 @@ proof read_proof_2 (struct reader *reader, int options) {
 			//case '>' :
 			case '.' :
 				// r = sgtr(t,sequ(x,y));
-				r = salt(u,sgtr(t,sequ(x,y)));
+				// r = salt(u,sgtr(t,sequ(x,y)));
+				// r = salr(v,salt(u,sgtr(t,sequ(x,y))));
+				// r = salr(a[3],salt(a[2],sgtr(a[1],sequ(a[0],y))));
+				r = y;
+				for (i=0; i<n_infix_ops; i++) {
+					//printf("\ni=%d r : ",i);
+					//print_proof_to_stdout(r);
+					//printf("\na[i] : ");
+					//print_proof_to_stdout(a[i]);
+					//if (a[i] == NULL) printf (" NULL");
+					//r = (*(infix_ops[i].f))(a[i],r);
+					r = siop(i,a[i],r);
+					//printf("\ni=%d r : ",i);
+					//print_proof_to_stdout(r);
+				}
 				if (r == NULL && (options & 1)) return empty_proof;
 				return r;
-			case '=' :
+			/*case '=' :
 				nextchar(reader);
-				x = sequ(x,y);
+				//a[0] = sequ(a[0],y);
+				a[0] = y;
+				for (j=0; j<=0; j++) {
+					a[0]= siop(j,a[j],a[0]);
+				}
 				y = NULL;
 				break;
 			case ';' :
 				nextchar(reader);
-				t = sgtr(t,sequ(x,y));
-				x = NULL;
+				//a[1] = sgtr(a[1],sequ(a[0],y));
+				a[1] = y;
+				for (j=0; j<=1; j++) {
+					a[1]= siop(j,a[j],a[1]);
+				}
+				//a[0] = NULL;
 				y = NULL;
+				for (j=0; j<1; j++) {
+					a[j] = NULL;
+				}
 				break;
 			case '|' :
 				nextchar(reader);
-				u = salt(u,sgtr(t,sequ(x,y)));
-				x = NULL;
+				//a[2] = salt(a[2],sgtr(a[1],sequ(a[0],y)));
+				a[2] = y;
+				for (j=0; j<=2; j++) {
+					a[2]= siop(j,a[j],a[2]);
+				}
+				//a[0] = NULL;
 				y = NULL;
-				t = NULL;
+				//a[1] = NULL;
+				for (j=0; j<2; j++) {
+					a[j] = NULL;
+				}
 				break;
+			case ',':
+				nextchar(reader);
+				//a[3] = salr(a[3],salt(a[2],sgtr(a[1],sequ(a[0],y))));
+				a[3] = y;
+				for (j=0; j<=3; j++) {
+					a[3] = siop(j,a[j],a[3]);
+				}
+				//a[0] = NULL;
+				y = NULL;
+				//a[1] = NULL;
+				//a[2] = NULL;
+				for (j=0; j<3; j++) {
+					a[j] = NULL;
+				}
+				break;*/
 			case ':' :
 				nextchar(reader);
 				z = read_proof_2(reader, 1);
@@ -1261,9 +1378,34 @@ proof read_proof_2 (struct reader *reader, int options) {
 				else y = apl(y,z);
 				break;
 			default :
-				z = read_proof_1(reader);
-				if (y == NULL) y = z;
-				else y = apl(y,z);
+				op_found = 0;
+				for (i=0; i<n_infix_ops; i++) {
+					if (cur_char == infix_ops[i].c) {
+						op_found = 1;
+
+						nextchar(reader);
+						// v = salr(v,salt(u,sgtr(t,sequ(x,y))));
+						r = y;
+						for (j=0; j<=i; j++) {
+							r = siop(j,a[j],r); 
+						}
+						a[i] = r;
+						// x = NULL;
+						y = NULL;
+						// t = NULL;
+						// u = NULL;
+						for (j=0; j<i; j++) {
+							a[j] = NULL;
+						}
+
+
+					}
+				}
+				if (!op_found) {
+					z = read_proof_1(reader);
+					if (y == NULL) y = z;
+					else y = apl(y,z);
+				}
 		}
 	}
 }
@@ -1303,6 +1445,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 	char buf[100];
 	int i, j;
 	int op;
+	int op_found;
 	if (x == NULL) {
 		putstring_to_printer(printer, "0");
 		return;
@@ -1349,7 +1492,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 			print_proof_1(printer, x->sp2, 7, full);
 			if (parenthesized & 2) putstring_to_printer(printer, ")");
 			break;
-		case GTR : 
+		/*case GTR : 
 			if (parenthesized & 4) putstring_to_printer(printer, "( ");
 			print_proof_1(printer, x->sp1, 4, full);
 			putstring_to_printer(printer, " ; ");
@@ -1370,16 +1513,39 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 			print_proof_1(printer, x->sp2, 1, full);
 			if (parenthesized & 1) putstring_to_printer(printer, ")");
 			break;
+		case ALR :
+			if (parenthesized & 1) putstring_to_printer(printer, "(");
+			print_proof_1(printer, x->sp1, 1, full);
+			putstring_to_printer(printer, " , ");
+			print_proof_1(printer, x->sp2, 1, full);
+			if (parenthesized & 1) putstring_to_printer(printer, ")");
+			break;*/
 		default :
-			sprintf(buf,"%c", op);
-			putstring_to_printer(printer, buf);
-			for (i=0; i<N_OPERATORS; i++) {
-				if (operators[i].code == op) {
-					if (operators[i].arity > 0) {
-						print_proof_1(printer, x->sp1, 7, full);
-						if (operators[i].arity > 1) {
-							putstring_to_printer(printer, " ");
-							print_proof_1(printer, x->sp2, 7, full);
+			op_found = 0;
+			for (i=0; i<n_infix_ops; i++) {
+				if (op == infix_ops[i].op) {
+					op_found = 1;
+
+					if (parenthesized & 1) putstring_to_printer(printer, "(");
+					print_proof_1(printer, x->sp1, 1, full);
+					sprintf(buf," %c ",infix_ops[i].c);
+					putstring_to_printer(printer, buf);
+					print_proof_1(printer, x->sp2, 1, full);
+					if (parenthesized & 1) putstring_to_printer(printer, ")");
+
+				}
+			}
+			if (!op_found) {
+				sprintf(buf,"%c", op);
+				putstring_to_printer(printer, buf);
+				for (i=0; i<N_OPERATORS; i++) {
+					if (operators[i].code == op) {
+						if (operators[i].arity > 0) {
+							print_proof_1(printer, x->sp1, 7, full);
+							if (operators[i].arity > 1) {
+								putstring_to_printer(printer, " ");
+								print_proof_1(printer, x->sp2, 7, full);
+							}
 						}
 					}
 				}
@@ -1451,6 +1617,8 @@ void init_args (int argc, char *argv[]) {
 	conclusion_only = 0;
 	print_value_of_unknown = 0;
     use_coroutines = 0;
+	gtr_alt = 0;
+	unknown_alt = 0;
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
 			if (argc > 2) strcpy(filename, argv[2]);
@@ -1462,6 +1630,8 @@ void init_args (int argc, char *argv[]) {
 			if (strchr(argv[1],'c')) conclusion_only = 1;
 			if (strchr(argv[1],'u')) print_value_of_unknown = 1;
 			if (strchr(argv[1],'a')) use_coroutines = 1;
+			if (strchr(argv[1],'g')) gtr_alt = 1;
+			if (strchr(argv[1],'U')) unknown_alt = 1;
 		} else {
 			strcpy(filename, argv[1]);
 		}
