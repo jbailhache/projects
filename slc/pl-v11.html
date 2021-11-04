@@ -1,0 +1,506 @@
+<html>
+<head>
+<title>Proof Logic v11 with coroutines</title>
+</head>
+<body>
+<h2>Proof Logic v11 with coroutines</h2>
+Source code : 
+<a href="http://log.chez.com/src/slc/pl-v11.c">pl-v11.c</a>
+<a href="http://log.chez.com/showfile.php?filename=src/slc/schedule.h">schedule.h</a>
+<a href="http://log.chez.com/src/slc/schedule.c">schedule.c</a>
+<p>
+Compilation :
+<pre>
+cc -g -fno-stack-protector -DSIDES -o pl-v11 pl-v11.c schedule.c
+</pre>
+<h3>Coroutines</h3>
+Coroutines permit to run something like parallel processes, but in one process concerning the operating system. 
+Coroutines are like functions that, after returning, may continue from the return point.
+Here is an example of coroutines in C under Linux :
+<p>
+<!--textarea rows=20 cols=130-->
+<pre>
+/* coroutines */
+/* build : cc -fno-stack-protector -o coroutines_std_long coroutines_std_long.c */
+
+#include &lt;stdio.h>
+#include &lt;setjmp.h>
+
+typedef struct coroutine { jmp_buf *caller; jmp_buf *called; } *coroutine;
+
+// int stack[10000];
+
+char *jmpval;
+
+int *getsp ()
+{
+int *a;
+	a = (int *)&a;
+	a += 3;
+	return a;
+}
+
+int call_with_stack (int *stack, int (*f)(), int x)
+{
+int *sp;
+	sp = getsp();
+	{
+		int buf[sp-stack];
+		return (*f) (x);
+	}
+}
+
+char *start (coroutine cr, char *(*actions) (), char *intro, int *stack)
+{
+int result;
+int *sp;
+	result = setjmp (*(cr->caller));
+	if (result == 0)
+	{
+		// _SP = (int *)123; _SP = stack; _SP = (int *)456;
+		sp = getsp();
+		{
+			int buf[sp-stack];
+			return (*actions) (cr, intro);
+		}
+	}
+	else return jmpval;
+}
+
+char *cont (coroutine cr, char *param)
+{
+int result;
+	result = setjmp (*(cr->caller));
+	if (result == 0) 
+	{
+		jmpval = param;
+		longjmp (*(cr->called), 1);
+	}
+	else return jmpval;
+}
+
+char *coroutine_actions (coroutine me, char *intro)
+{
+struct coroutine you[1];
+char *answer;
+	you->caller = me->called;
+	you->called = me->caller;
+	printf ("First got %s from Main\n", intro);
+	answer = cont (you, "Fine Main, and you ?");
+	printf ("Then got %s from Main\n", answer);
+	answer = cont (you, "Nice day, isn't it ?");
+	return "That's all !\n";
+}
+
+int main ()
+{
+jmp_buf my_env, your_env;
+struct coroutine cr[1];
+char *answer;
+#define STACK_SIZE 1000
+int stack[STACK_SIZE];
+	cr->caller = &my_env;
+	cr->called = &your_env;
+	answer = start (cr, coroutine_actions, "Hello Coroutine, how are you ?", stack+STACK_SIZE);
+	printf ("First got %s from Coroutine\n", answer);
+	answer = cont (cr, "And what else ?");
+	printf ("Then got %s from Coroutine\n", answer);
+}
+</pre>
+<!--/textarea-->
+
+Running this program gives the following output :
+
+<pre>
+First got Hello Coroutine, how are you ? from Main
+First got Fine Main, and you ? from Coroutine
+Then got And what else ? from Main
+Then got Nice day, isn't it ? from Coroutine
+</pre>
+
+</body>
+</html>
+
+<h3>Scheduler</h3>
+The scheduler successively gives the control to the different coroutines of the program.
+In these coroutines, different functions can be used which can create coroutines or give control to other coroutines.
+In Proof Logic, we will principally use the functions <b>alt</b> and <b>end</b>.
+<b>alt(cr,a,b)</b> (where cr is a coroutine) first yields a, and when <b>end(cr)</b> is called, it backtracks returning b.
+Here is an example of a program using the scheduler with alt and end functions :
+<p>
+<pre>
+#include &lt;stdlib.h>
+#include &lt;string.h>
+
+#include "schedule.h"
+
+void *maincr (void *p, struct coroutine *c1)
+{
+struct coroutine calling[1];
+long x;
+	memcpy (calling, c1, sizeof(calling));
+
+	printf("Test\n");
+	x = (long) alt (calling, (void *)111, (void *)222);
+	printf ("x = %ld\n", x);	
+	end (calling);
+}
+
+void main ()
+{
+int stack [8000];
+void *maincr ();
+struct param_scheduler p;
+	p.stack_size = sizeof(stack)-STACK_BOTTOM*sizeof(int);
+	scheduler (maincr, &p, stack, p.stack_size, 0);
+}
+</pre>
+<p>
+Here is the output of this program :
+<pre>
+Test
+x = 111
+x = 222
+
+No more result
+</pre>
+<p>
+
+<h3>Coroutines in Proof Logic</h2>
+
+Here is how coroutines are introduced in the Proof Logic code :
+<p>
+<pre>
+...
+struct coroutine calling[1];
+
+int use_coroutines;
+
+int pof () {
+	if (!use_coroutines) 
+		return 1;
+	if (alt(calling, (void *)1, (void *)0)) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+...
+
+void *maincr (void *p, struct coroutine *c1)
+{
+...
+}
+
+int main (int argc, char *argv[])
+{
+int stack [800000];
+void *maincr ();
+struct param_scheduler p;
+	init_args(argc, argv);
+	p.stack_size = sizeof(stack)-STACK_BOTTOM*sizeof(int);
+	if (use_coroutines) {
+		scheduler (maincr, &p, stack, p.stack_size, 0);
+	} else {
+		maincr(NULL, NULL);
+	}
+}
+
+</pre>
+
+With the following code, we can first run the first code, and after executing <b>end(calling)</b>, backtrack to run the second code :
+
+<pre>
+	if (pof()) {
+		// first code
+	} else {
+		// second code
+	}
+</pre>
+
+<h3>New options</h3>
+The following options have been added to Proof Logic v11 :
+<ul>
+<li> -a : use coroutines
+<li> -g : use coroutines to compute the conclusion of "a = b ; c = d" with the 4 possibilities (a = c, b = c, a = d, b = d)
+<li> -U : use coroutines when matching "_" with 2 possibilities : it matches or it does not match
+</ul>
+
+<h3>New operators</h3>
+The following operators have been added to Proof Logic v11 :
+<ul>
+<li> x | y : use coroutines to compute its conclusion with 2 possibilities : the conclusion of x or the conclusions of y
+<li> x , y : use coroutines to reduce it with 2 possibilities : x or y
+</ul>
+
+<h3>Special symbol</h3>
+The symbol <b>END</b> has a special effect : it backtracks when its conclusion is computed.
+
+<h3>Modifications</h3>
+The effect of the operator ";" is modified : when it does not match, x ; y backtracks instead of proving that x ; y equals x ; y.
+
+<h3>Examples</h3>
+<pre>
+$ rlwrap ./pl-v11 -a
+Welcome to Proof Logic !
+Type a proof ended by ".", and type just "." to quit.
+
+? a = b | c = d.
+
+The proof  : (a = b) | (c = d)
+reduces to : (a = b) | (c = d)
+and proves : a
+equals     : b
+
+? END.
+
+The proof  : (a = b) | (c = d)
+reduces to : (a = b) | (c = d)
+and proves : c
+equals     : d
+
+? END.
+
+No more result
+$ rlwrap ./pl-v11 -a
+Welcome to Proof Logic !
+Type a proof ended by ".", and type just "." to quit.
+
+? a,b = c.
+
+The proof  : (a , b) = c
+reduces to : a = c
+and proves : a , b
+equals     : c
+
+? END.
+
+The proof  : (a , b) = c
+reduces to : b = c
+and proves : a , b
+equals     : c
+
+? END.
+
+No more result
+$ rlwrap ./pl-v11 -ag
+Welcome to Proof Logic !
+Type a proof ended by ".", and type just "." to quit.
+
+? a = b ; a = b.
+
+The proof  : (a = b) ; (a = b)
+reduces to : (a = b) ; (a = b)
+and proves : b
+equals     : b
+
+? END.
+
+The proof  : (a = b) ; (a = b)
+reduces to : (a = b) ; (a = b)
+and proves : a
+equals     : a
+
+? END.
+
+No more result
+$ rlwrap ./pl-v11 -aU
+Welcome to Proof Logic !
+Type a proof ended by ".", and type just "." to quit.
+
+? a = _ ; b = c.
+
+_{b}
+The proof  : (a = _{b}) ; (b = c)
+reduces to : (a = _{b}) ; (b = c)
+and proves : a
+equals     : c
+
+? END.
+
+_{b}
+The proof  : (a = _{b}) ; (b = c)
+reduces to : (a = _{b}) ; (b = c)
+and proves : a
+equals     : c
+
+? END.
+
+_{b}
+The proof  : (a = _{b}) ; (b = c)
+reduces to : (a = _{b}) ; (b = c)
+and proves : a
+equals     : c
+
+? END.
+
+_{b}
+The proof  : (a = _{b}) ; (b = c)
+reduces to : (a = _{b}) ; (b = c)
+and proves : a
+equals     : c
+
+? END.
+
+_{c}
+The proof  : (a = _{c}) ; (b = c)
+reduces to : (a = _{c}) ; (b = c)
+and proves : a
+equals     : b
+
+? END.
+
+_{c}
+The proof  : (a = _{c}) ; (b = c)
+reduces to : (a = _{c}) ; (b = c)
+and proves : a
+equals     : b
+
+? END.
+
+_{c}
+The proof  : (a = _{c}) ; (b = c)
+reduces to : (a = _{c}) ; (b = c)
+and proves : a
+equals     : b
+
+? END.
+
+_{c}
+The proof  : (a = _{c}) ; (b = c)
+reduces to : (a = _{c}) ; (b = c)
+and proves : a
+equals     : b
+
+? END.
+
+No more result
+$ cat grandparent-v11.prf
+# ./pl-v11-linux -a grandparent-v11.prf
+
+& r1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+ 
+& a1 (parent Alphonse Barnabe = [*]).
+& a2 (parent Alphonse Brigitte = [*]).
+& a3 (parent Barnabe Catherine = [*]).
+& a4 (parent Brigitte Claude = [*]).
+& a5 (parent Brigitte Chloe = [*]).
+& a6 (parent Didier Evelyne = [*]).
+
+& axiom (a1 | a2 | a3 | a4 | a5 | a6).
+#& axiom (a1 | a3).
+
+grandparent _ _ ; $(axiom (axiom _) ; r1 _ _ _).
+END.
+END.
+$ ./pl-v11 -a grandparent-v11.prf
+# ./pl-v11-linux -a grandparent-v11.prf
+
+& r1 ^x ^y ^z (parent x y (parent y z (grandparent x z)) = [*]).
+The proof  : r1
+proves     : [[[parent ''* '* (parent '* * (grandparent ''* *))]]]
+equals     : [[[[*]]]]
+
+ 
+& a1 (parent Alphonse Barnabe = [*]).
+The proof  : a1
+proves     : parent Alphonse Barnabe
+equals     : [*]
+
+& a2 (parent Alphonse Brigitte = [*]).
+The proof  : a2
+proves     : parent Alphonse Brigitte
+equals     : [*]
+
+& a3 (parent Barnabe Catherine = [*]).
+The proof  : a3
+proves     : parent Barnabe Catherine
+equals     : [*]
+
+& a4 (parent Brigitte Claude = [*]).
+The proof  : a4
+proves     : parent Brigitte Claude
+equals     : [*]
+
+& a5 (parent Brigitte Chloe = [*]).
+The proof  : a5
+proves     : parent Brigitte Chloe
+equals     : [*]
+
+& a6 (parent Didier Evelyne = [*]).
+The proof  : a6
+proves     : parent Didier Evelyne
+equals     : [*]
+
+
+& axiom (a1 | a2 | a3 | a4 | a5 | a6).
+The proof  : axiom
+proves     : parent Alphonse Barnabe
+equals     : [*]
+
+#& axiom (a1 | a3).
+
+grandparent _ _ ; $(axiom (axiom _) ; r1 _ _ _).
+_{Alphonse}
+_{Barnabe}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Barnabe} _}
+_{Alphonse}
+_{Barnabe}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Barnabe} _}
+_{Alphonse}
+_{Barnabe}
+_{Catherine}
+_{grandparent _{Alphonse} _{Catherine}}
+_{_{Alphonse}}
+_{_{Catherine}}
+The proof  : grandparent _{_{Alphonse}} _{_{Catherine}} ; $(axiom (axiom _{grandparent _{Alphonse} _{Catherine}}) ; r1 _{Alphonse} _{Barnabe} _{Catherine})
+proves     : grandparent _{_{Alphonse}} _{_{Catherine}}
+equals     : [*]
+
+END.
+_{Alphonse}
+_{Barnabe}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Barnabe} _}
+_{Alphonse}
+_{Barnabe}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Barnabe} _}
+_{Alphonse}
+_{Barnabe}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Barnabe} _}
+_{Alphonse}
+_{Brigitte}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Brigitte} _}
+_{Alphonse}
+_{Brigitte}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Brigitte} _}
+_{Alphonse}
+_{Brigitte}
+_{[[[parent ''* '* (parent '* * (grandparent ''* *))]]] _{Alphonse} _{Brigitte} _}
+_{Alphonse}
+_{Brigitte}
+_{Claude}
+_{grandparent _{Alphonse} _{Claude}}
+_{_{Alphonse}}
+_{_{Claude}}
+The proof  : grandparent _{_{Alphonse}} _{_{Claude}} ; $(axiom (axiom _{grandparent _{Alphonse} _{Claude}}) ; r1 _{Alphonse} _{Brigitte} _{Claude})
+proves     : grandparent _{_{Alphonse}} _{_{Claude}}
+equals     : [*]
+
+END.
+_{Alphonse}
+_{Brigitte}
+_{Chloe}
+_{grandparent _{Alphonse} _{Chloe}}
+_{_{Alphonse}}
+_{_{Chloe}}
+The proof  : grandparent _{_{Alphonse}} _{_{Chloe}} ; $(axiom (axiom _{grandparent _{Alphonse} _{Chloe}}) ; r1 _{Alphonse} _{Brigitte} _{Chloe})
+proves     : grandparent _{_{Alphonse}} _{_{Chloe}}
+equals     : [*]
+
+</pre>
+
+</pre>
+
+
+
