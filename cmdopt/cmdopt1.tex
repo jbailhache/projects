@@ -1,0 +1,88 @@
+\documentclass[10pt]{article}
+\title{Transfinite ordinals}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{verbatim}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+
+\DeclareUnicodeCharacter{2082}{$_2$}
+\DeclareUnicodeCharacter{2083}{$_3$}
+\DeclareUnicodeCharacter{2084}{$_4$}
+\DeclareUnicodeCharacter{2085}{$_5$}
+\DeclareUnicodeCharacter{3A0}{$\Pi$}
+\DeclareUnicodeCharacter{3A9}{$\Omega$}
+\DeclareUnicodeCharacter{3B3}{$\gamma$}
+\DeclareUnicodeCharacter{3B5}{$\epsilon$}
+\DeclareUnicodeCharacter{3B8}{$\theta$}
+\DeclareUnicodeCharacter{3BE}{$\xi$}
+\DeclareUnicodeCharacter{3C0}{$\pi$}
+\DeclareUnicodeCharacter{3C8}{$\psi$}
+
+
+\begin{document}
+
+\title{Commande optimale}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+\section{Multiplicateurs de Lagrange}
+
+On cherche le vecteur \( x = (x_1, x_2, ... x_n) \) de \( \mathbb{R}^n \) tel que l(x) soit maximal tout en satisfaisant les contraintes :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( h_1(x) = 0 \)
+\item \( h_2(x) = 0 \)
+\item ...
+\item \( h_p(x) = 0 \)
+\end{itemize}
+
+On définit le lagrangien L par : 
+\[ L(x,p) = l(x) + p_1 h_1(x) + p_2 h_2(x) + ... + p_n h_n(x) \]
+avec
+\[ p = (p_1, p_2, ... , p_n) \]
+On a alors :
+\[ \frac{\partial L(x,p)}{\partial x_i} = 0 \]
+
+Pour plus de détails, voir \url{http://log.chez.com/text/math/multiplicateurs_de_lagrange.pdf} .
+
+\section{Commande optimale avec temps discret}
+
+On considère un système dont l'état à un instant donné est représenté par un réel x et dont l'évolution est commandée par un nombre u dont on peut faire varier la valeur à volonté. Plus précisément, dans le cas le plus général, l'état à l'instant t+1 vaut :
+\[ x(t+1) = x(t) + f(t,x(t),u(t)) \]
+où f est une fonction qui détermine la variation de l'état x en fonction du temps t, de l'état précédent et de la commande u.
+
+Le système passe ainsi par plusieurs états successifs x(1) en t=1, x(2) en t=2, ... jusqu'à x(T) en t=T.
+
+A chaque instant précédant T, on a un certain gain \( l(t,x(t),u(t)) \) et on a aussi un gain final \( m(x(T)) \) qui dépend de l'état final.
+On cherche à maximiser la somme des gains à chaque instant plus le gain final, 
+
+Pour simplifier les notations, on pourra écrire f(t) = f(t,x(t),u(t)) et l(t) = l(t,x(t),u(t)).
+
+Considérons par exemple le cas où t = 3.
+On a alors :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( x(1) = x_0 \) donné
+\item \( x(2) = x(1) + f(1,x(1),u(1)) \)
+\item \( x(3) = x(2) + f(2,x(2),u(2)) \)
+\end{itemize}
+
+On cherche alors quelles sont les valeurs de x(1), x(2), x(3), u(1), u(2) qui maximisent l(1,x(1),u(1)) + l(2,x(2),u(2)) + m(x(3)) tout en satisfaisant les contraintes énumérées ci-dessus.
+
+
+
+
+\end{document}

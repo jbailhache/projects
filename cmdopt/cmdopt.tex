@@ -1,0 +1,188 @@
+\documentclass[10pt]{article}
+\title{Commande optimale}
+
+\usepackage[left=3cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{verbatim}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Commande optimale}
+\author{Jacques Bailhache (jacques.bailhache@gmail.com)}
+
+\maketitle
+
+\setlength{\parindent}{0pt}
+
+\section{Multiplicateurs de Lagrange}
+
+On cherche le vecteur \( x = (x_1, x_2, ... x_n) \) de \( \mathbb{R}^n \) tel que l(x) soit maximal tout en satisfaisant les contraintes :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( h_1(x) = 0 \)
+\item \( h_2(x) = 0 \)
+\item ...
+\item \( h_p(x) = 0 \)
+\end{itemize}
+
+On définit le lagrangien : 
+\[ L = l(x) - p_1 h_1(x) - p_2 h_2(x) - ... - p_n h_n(x) \]
+avec les multiplicateurs de Lagrange :
+\[ p = (p_1, p_2, ... , p_n) \]
+On a alors :
+\[ \frac{\partial L}{\partial x_i} = 0 \]
+
+Pour plus de détails, voir \url{http://log.chez.com/text/math/multiplicateurs_de_lagrange.pdf} .
+
+\section{Commande optimale avec temps discret}
+
+On considère un système dont l'état à un instant donné est représenté par un réel x et dont l'évolution est commandée par un nombre u dont on peut faire varier la valeur à volonté. Plus précisément, dans le cas le plus général, l'état à l'instant t+1 vaut :
+\[ x(t+1) = x(t) + f(t,x(t),u(t)) \]
+où f est une fonction qui détermine la variation de l'état x en fonction du temps t, de l'état précédent et de la commande u.
+
+Le système passe ainsi par plusieurs états successifs x(1) en t=1, x(2) en t=2, ... jusqu'à x(T) en t=T.
+
+A chaque instant précédant T, on a un certain gain \( l(t,x(t),u(t)) \) et on a aussi un gain final \( m(x(T)) \) qui dépend de l'état final.
+On cherche à maximiser la somme des gains à chaque instant plus le gain final, 
+
+Pour simplifier les notations, on pourra écrire f(t) = f(t,x(t),u(t)) et l(t) = l(t,x(t),u(t)), mais il ne faudra pas oublier, notamment dans les calculs de dérivées, que f(t) et l(t) dépendent de x(t) et de u(t).
+
+Considérons par exemple le cas où T = 3 (les résultats obtenus pourront se généraliser à T quelconque).
+On a alors :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \( x(1) = x_0 \) donné
+\item \( x(2) = x(1) + f(1) \)
+\item \( x(3) = x(2) + f(2)) \)
+\end{itemize}
+
+On cherche alors quelles sont les valeurs de x(1), x(2), x(3), u(1), u(2) qui maximisent l(1) + l(2) + m(x(3)) tout en satisfaisant les contraintes énumérées ci-dessus.
+
+On définit le lagrangien :
+\[ L = l(1) + l(2) + m(x(3)) - p(0) (x(1)-x_0) - p(1) (x(2) - x(1) - f(1)) - p(2)(x(3) - x(2) - f(2)) \]
+en notant les multiplicateurs de Lagrange \( p(0), p(1), p(2) \).
+
+On a alors :
+ \[ \frac{\partial L}{\partial x(1)} = 0 = \frac{\partial l(1)}{\partial x(1)} - p(0) + p(1) + p(1) \frac{\partial f(1)}{\partial x(1)} \]
+ \[ \frac{\partial L}{\partial x(2)} = 0 = \frac{\partial l(2)}{\partial x(2)} - p(1) + p(2) + p(2) \frac{\partial f(2)}{\partial x(2)} \]
+ \[ \frac{\partial L}{\partial x(3)} = 0 = \frac{\partial m(x(3))}{\partial x(3)} - p(2) \ donc \ p(2) = \frac{\partial m(x(3))}{\partial x(3)} \]
+ \[ \frac{\partial L}{\partial u(1)} = 0 = \frac{\partial l(1)}{\partial u(1)} + p(1) \frac{\partial f(1)}{\partial u(1)} \]
+ \[ \frac{\partial L}{\partial u(2)} = 0 = \frac{\partial l(2)}{\partial u(2)} + p(2) \frac{\partial f(2)}{\partial u(2)} \]
+
+Les deux premières équations peuvent être réécrites sous la forme :
+ \[ p(1) - p(0) = - \frac{\partial l(1)}{\partial x(1)} - p(1) \frac{\partial f(1)}{\partial x(1)} \]
+ \[ p(2) - p(1) = - \frac{\partial l(2)}{\partial x(2)} - p(2) \frac{\partial f(2)}{\partial x(2)} \]
+
+On définit le hamiltonien :
+\[ H(t) =l(t) + p(t) f(t) \]
+pour t = 1, ... T-1 (donc t = 1 ou 2 pour T=3).
+
+On a alors, pour les mêmes valeurs de t :
+ \[ \Delta x(t) = x(t+1) - x(t) = f(t) = \frac{\partial H(t)}{\partial p(t)} \]
+ \[ \Delta p(t-1) = p(t) - p(t-1) = - \frac{\partial l(t)}{\partial x(t)} - p(t) \frac{\partial f(t)}{\partial x(t)} = - \frac{\partial H(t)}{\partial x(t)} \]
+ \[ \frac{\partial H(t)}{\partial u(t)} = \frac{\partial l(t)}{\partial u(t)} + p(t) \frac{\partial f(t)}{\partial u(t)} = 0 \]
+
+Ces résultats peuvent se généraliser :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item pour T quelconque
+\item dans le cas où x n'est pas un simple réel mais un vecteur \( x = (x_1, x_2, ... x_n) \) : dans ce cas, f(t) et p(t) sont également des vecteurs, et le produit p(t) (x(t+1) - x(t) - f(t)) devient un produit scalaire de vecteurs :
+\[ p(t) . (x(t+1) - x(t) - f(t)) = \sum_{i=0}^n{p_i(t) (x_i(t+1) - x_i(t) - f_i(t))} \]
+\item dans le cas où la commande u n'est pas un simple réel mais un vecteur \( u = (u_1, u_2, ... , u_q) \).
+\item dans le cas du temps continu.
+\end{itemize}
+
+Dans le cas général avec temps discret, l'évolution de l'état \( x = (x_1, x_2, ... , x_n) \) en fonction de la commande \( u = (u_1, u_2, ... , u_q) \) est toujours déterminée par la formule : 
+\[ x(t+1) = x(t) + f(t,x(t),u(t)) \]
+mais cette fois on a des vecteurs au lieu de scalaires.
+
+On a toujours un gain l(t,x(t),u(t)) à chaque instant et un gain final m(x(T)).
+
+On cherche les valeurs (vectorielles) de x(1), x(2), ... , x(T), u(1), u(2), ... , u(T-1) qui maximisent 
+\[ \sum_{t=1}^{T-1}l(t) + m(x(T)) \]
+tout en satisfaisant les contraintes \( x(1) = x_0 \) donné et x(t+1) = x(t) + f(t) pour t = 1, 2, ... T-1.
+
+On définit le lagrangien :
+
+\[ L = \sum_{t=1}^{T-1}l(t) + m(x(T)) - p(0) . (x(1) - x_0) - \sum_{t=1}^{T-1} p(t) . (x(t+1) - x(t) - f(t)) \]
+
+ou en développant les produits scalaire :
+
+\[ L = \sum_{t=1}^{T-1}l(t) + m(x(T)) - \sum_{j=1}^n p_j(0) (x_j(1) - {x_0}_j) - \sum_{t=1}^{T-1} \sum_{j=1}^n p_j(t) (x_j(t+1) - x_j(t) - f_j(t)) \]
+
+On a alors pour i = 1, 2, ..., n :
+\[ \frac{\partial L}{\partial x_i(T)} = 0 = \frac{\partial m(x(T))}{\partial x_i(T)} - p_i(T-1) \]
+donc
+\[ p_i(T-1) = \frac{\partial m(x(T))}{\partial x_i(T)} \]
+
+et pour t = 1, 2, ... , T-1 et k = 1, 2, ... , q :
+ \[ \frac{\partial L}{\partial u_k(t)} = 0 = \frac{\partial l(t)}{\partial u_k(t)} + \sum_{j=1}^n p_j(t) \frac{\partial f_j(t)}{\partial u_k(t)} \]
+et
+ \[ \frac{\partial L}{\partial x_i(t)} = 0 = \frac{\partial l(t)}{\partial x_i(t)} - p_i(t-1) + p_i(t) + \sum_{j=1}^n p_j(t) \frac{\partial f_j(t)}{\partial x_i(t)} \]
+que l'on peut réécrire sous la forme
+\[ p_i(t) - p_i(t-1) = - \frac{\partial l(t)}{\partial x_i(t)} - \sum_{j=1}^n p_j(t) \frac{\partial f_j(t)}{\partial x_i(t)} \]
+
+On définit le hamiltonien pour t = 1, 2, ... , T-1 :
+
+\[ H(t) = l(t) + p(t) . f(t) = l(t) + \sum_{j=1}^n p_j(t) f_j(t) \] 
+
+On a alors, pour t = 1, 2, ... , T-1 et i = 1, 2, ... , n : 
+ \[ \Delta x_i(t) = x_i(t+1) - x_i(t) = f_i(t) = \frac{\partial H(t)}{\partial p_i(t)} \]
+ \[ \Delta p_i(t-1) = p_i(t) - p_i(t-1) = - \frac{\partial l(t)}{\partial x_i(t)} - \sum_{j=1}^n p_j(t) \frac{\partial f_j(t)}{\partial x_i(t)} = - \frac{\partial H(t)}{\partial x_i(t)} \]
+ \[ \frac{\partial H(t)}{\partial u_k(t)} = \frac{\partial l(t)}{\partial u_k(t)} + \sum_{j=1}^n p_j(t) \frac{\partial f_j(t)}{\partial u_k(t)} = 0 \]
+
+\section{Commande optimale avec temps continu}
+
+Avec un temps discret, pour simplifier on a considéré que l'écart entre deux instants successifs était de 1. On pourrait aussi avoir un écart de \( \Delta t \) avec \( \frac{T}{\Delta t} \) instants successifs \( t = \Delta t, t = 2 \Delta t, ... , t = T \). Pour passer au continu, on fait tendre le nombre d'instants successifs vers l'infini et donc \( \Delta t \) vers 0.
+
+La loi d'évolution de l'état que l'on peut écrire en temps discret sous la forme 
+\[ \Delta x(t) = x(t+1) - x(t) = f(t) \]
+devient en temps continu 
+\[ \frac{\partial x(t)}{\partial t} = f(t) \]
+
+La valeur à maximiser qui était en temps discret
+\[ \sum_{t=1}^{T-1}l(t) + m(x(T)) \]
+devient en temps continu
+\[ J = \int_0^T l(t) dt + m(x(T)) \]
+
+La formule donnant le hamiltonien en temps discret 
+\[ H(t) = l(t) + p(t) . f(t) = l(t) + \sum_{j=1}^n p_j(t) f_j(t) \]
+reste valable en temps continu.
+
+Les résultats obtenus en temps discret
+\[ \Delta x_i(t) = x_i(t+1) - x_i(t) = f_i(t) = \frac{\partial H(t)}{\partial p_i(t)} \]
+\[ \Delta p_i(t-1) = p_i(t) - p_i(t-1) = - \frac{\partial H(t)}{\partial x_i(t)} \]
+\[ \frac{\partial H(t)}{\partial u_k(t)} = 0 \]
+donnent en temps continu le \textbf{principe du maximum de Pontryagin} dans sa version faible (sans contrainte sur les commandes \( u_k(t) \) ) :
+
+Pour t compris entre 0 et T, i = 1, 2, ... , n et k = 1, 2, ... , q on a :
+\[ \frac{\partial x_i(t)}{\partial t} = f_i(t) = \frac{\partial H(t)}{\partial p_i(t)} \]
+\[ \frac{\partial p_i(t)}{\partial t} = - \frac{\partial H(t)}{\partial x_i(t)} \]
+\[ \frac{\partial H(t)}{\partial u_k(t)} = 0 \]
+
+Pour plus de détails, voir :
+\begin{itemize}
+     \setlength{\itemsep}{1pt}
+     \setlength{\parskip}{0pt}
+     \setlength{\parsep}{0pt}
+\item \url{https://imag.umontpellier.fr/~bayen/cours/module-doctoral-2016/pense-bete-PMP.pdf} ou \url{http://log.chez.com/text/math/pense-bete-PMP.pdf}
+\item \url{http://irma.math.unistra.fr/~privat/documents/M2_CO/PMPgal.pdf} ou \url{http://log.chez.com/text/math/PMPgal.pdf}
+\item \url{https://www.ljll.math.upmc.fr/~trelat/enseignement/M2controle_optimal/courscontopt.pdf} ou \url {http://log.chez.com/text/math/courscontopt.pdf}
+\item \url{http://log.chez.com/text/math/LIVREOPT.PDF}
+\item \url{http://log.chez.com/text/math/optimal.pdf}
+\end{itemize}
+
+
+
+\end{document}

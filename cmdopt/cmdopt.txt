@@ -1,0 +1,264 @@
+COMMANDE OPTIMALE
+
+Multiplicateurs de Lagrange
+
+Problème :
+Trouver x = (x1,...xn) 
+qui maximise l(x)
+sous contrainte c(x) = 0 = (c1(x), ... cq(x))
+
+la solution vérifie la condition :
+dl(x)/dx - p1 dc1(x)/dx - ... - pq dcq(x)/dx = 0 = dl(x)/dx - p . dc(x)/dx avec p = (p1,...,pq)
+
+Lagrangien L(x,p) = l(x) - p . c(x) = l(x) - p1 c1(x) - ... - pq cq(x) 
+
+La condition vérifiée par la solution peut alors s'écrire :
+dL(x,p)/dx = 0
+qui équivaut ) :
+dl(x)/dx - p . dc(x)/dx = 0
+
+Commande optimale - Temps discret
+Exemple :
+en t=0 : x(0) = x0
+en t=1 : x(1) = x(0) + a(0,x(0),u(0))
+en t=2 : x(2) = x(1) + a(1,x(1),u(1))
+
+Problème :
+Trouver x(0), x(1), x(2), u(0), u(1)
+qui maximise l(0,x(0),u(0)) + l(1,x(1),u(1)) + m(x(2))
+sous contraintes :
+ x(0) = x0
+ x(1) = x(0) + a(0,x(0),u(0))
+ x(2) = x(1) + a(1,x(1),u(1)
+
+Lagrangien L = valeur à maximiser - somme p_i * c_i où c_i représentent les contraintes (c_i = 0)
+L = l(0,x(0),u(0) + l(1,x(1),u(1) + m(x(2))
+    - p(0) (x(0) - x0)
+    - p(1) (x(1) - x(0) - a(0,x(0),u(0))
+    - p(2) (x(2) - x(1) - a(1,x(1),u(1))
+
+dL/dx(0) = 0 = dl(0,x(0),u(0))/dx(0) - p(0) + p(1) + p(1) da(0,x(0),u(0))/dx(0)
+dL/dx(1) = 0 = dl(1,x(1),u(1))/dx(1) - p(1) + p(2) + p(2) da(1,x(1),u(1))/dx(1)
+dL/dx(2) = 0 = dm(x(2))/dx(2) - p(2) 
+dL/du(0) = 0 = dl(0,x(0),u(0))/du(0) + p(1) da(0,x(0),u(0))/du(0)
+dL/du(1) = 0 = dl(1,x(1),u(1))/du(1) + p(2) da(1,x(1),u(1))/du(1)
+
+dL/dp(i) = 0 redonne les contraintes
+
+p(1) - p(0) = -dl(0,x(0),u(0))/dx(0) - p(1) da(0,x(0),u(0))/dx(0)
+p(2) - p(1) = -dl(1,x(1),u(1))/dx(1) - p(2) da(1,x(1),u(1))/dx(1)
+
+Hamiltonien H = l + p . a
+
+Dx = x(t+1) - x(t)
+Dx = dH/dp = a
+Dp = -dH/dx = -dl/dx - p da/dx
+dH/du = 0 = dl/du + p da/du
+
+H(t) = l(t) + p(t+1).a(t)
+ l(t) = l(t,x(t),u(t))
+ a(t) = a(t,x(t),u(t))
+
+H(0) = l(0) + p(1).a(0)
+H(1) = l(1) + p(2).a(1)
+
+Dx = dH/dp = a
+Dx(t) = x(t+1) - x(t) = dH(t)/dp(t+1) = a(t)
+Dx(0) = x(1) - x(0) = dH(0)/dp(1) = a(0)
+Dx(1) = x(2)-x(1) = dH(1)/dp(2) = a(1)
+
+Dp = -dH/dx
+Dp(t) = p(t+1) - p(t) = -dH(t)/dx(t) = -dl(t)/dx(t) - p(t+1).da(t)/dx(t)
+Dp(0) = p(1) - p(0) = -dH(0)/dx(0) = -dl(0)/dx(0) - p(1).da(0)/dx(0)
+Dp(1) = p(2)-p(1) = -dH(1)/dx(1) = -dl(1)/dx(1) - p(2).da(1)/dx(1)
+
+Renommage pour notations plus cohérentes :
+
+notations :
+ a(t) = a(t,x(t),u(t))
+ l(t) = l(t,x(t),u(t))
+
+t = 1 : x(1) = x0
+t = 2 : x(2) = x(1) + a(1)
+t = 3 : x(3) = x(2) + a(2)
+
+Trouver x(1), x(2), x(3), u(1), u(2)
+qui maximisent l(1) + l(2) + m(x(3))
+sous contraintes :
+ x(1) = x0
+ x(2) = x(1) + a(1)
+ x(3) = x(2) + a(2)
+
+Lagrangien L = l(1) + l(2) + m(x(3)) 
+ - p(0) (x(1) - X0)
+ - p(1) (x(2) - x(1) - a(1))
+ - p(2) (x(3) - x(2) - a(2))
+
+dL/dx_i(t) = 0, t = 1,2,3
+dL/du_i(t) = 0, t = 1,2
+dL/dp_i(t) = 0, t = 0,1,2
+
+dL/dx(1) = 0 = dl/dx(1) - p(0) + p(1) + p(1) da(1)/dx(1)    => p(1) - p(0) = -dl(1)/dx(1) - p(1) da(1)/dx(1)
+dL/dx(2) = 0 = dl(2)/dx(2) - p(1) + p(2) + p(2) da(2)/dx(2) => p(2) - p(1) = -dl(2)/dx(2) - p(2) da(2)/dx(2)
+dL/dx(3) = 0 = dm(x(3))/dx(3) - p(2)                        => p(2) = dm(x(3))/dx(3)
+
+dL/du(1) = 0 = dl(1)/du(1) + p(1) da(1)/du(1)
+dL/du(2) = 0 = dl(2)/du(2) + p(2) da(2)/du(2)
+
+H(t) = l(t) + p(t).a(t)
+Dx(t) = a(t) = x(t+1) - x(t) = dH(t)/dp(t)
+Dp(t) = p(t) - p(t-1) = -dH(t)/dx(t) = -dl(t)/dx(t) - p(t) da(t)/dx(t)
+dH(t)/du(t) = dl(t)/du(t) + p(t) da(t)/du(t) = 0
+
+
+Temps continu :
+H = l + p . a
+
+dx/dt = dH/dp
+dp/dt = -dH/dx
+dH/du = 0
+x(0) = x0
+p(T) = dM(x(T))/dx(T) = m'(x(T))
+
+
+Exemple maiar avec notation initiale :
+Pool 1 : C1 (EGLD-MEX) -> I1 (LKMEX) (taux T1) réparti entre C2 (part u1) et C4 (part 1-u1)
+Pool 2 : C2 (LKMEX)    -> I2 (RIDE)  (taux T2) 
+Pool 4 : C4 (LKMEX)    -> I4 (LKMEX) (taux T4) réparti entre C2 (part u2) et C4 (part 1-u2)
+Part u3 de C2 transférée vers C4
+Part u4 de C4 transférée vers C2
+
+Résolution directe :
+ Passage du temps : 
+  C1 -> C1
+  I1 -> I1 + C1 T1
+  C2 -> C2
+  I2 -> I2 + C2 T2
+  C4 -> C4
+  I4 -> I4 + C4 T4
+ Opérations :
+  C1 -> C1
+  I1 -> 0
+  C2 -> C2 + u1 I1 + u2 I4 - u3 C2 + u4 C4
+  I2 -> I2
+  C4 -> C4 + (1-u1) I1 + (1-u2) I4 + u3 C2 - u4 C4
+  I4 -> 0
+
+t=1:
+ C1 = C1
+ I1 = 0
+ C2 = 0
+ I2 = 0
+ C4 = 0
+ I4 = 0
+Passage du temps
+t=2:
+ C1 = C1
+ I1 = C1 T1
+ C2 = 0
+ I2 = 0
+ C4 = 0
+ I4 = 0
+Opérations
+ C1 = C1
+ I1 = 0
+ C2 = u1(2) C1 T1
+ I2 = 0
+ C4 = (1-u1(2)) C1 T1
+ I4 = 0
+Passage du temps
+t=3:
+ C1 = C1
+ I1 = C1 T1
+ C2 = u1(2) C1 T1
+ I2 = u1(2) C1 T1 T2
+ C4 = (1-u1(2)) C1 T1
+ I4 = (1-u1(2)) C1 T1 T4
+Opérations 
+ ...
+Passage du temps
+t=4:
+ ...
+
+
+Simplification
+
+ C'2 = C2 + u1 I1 + u2 I4 - u3 C2 + u4 C4
+  avec I1 = C1 T1 et I4 = C4 T4
+ C'2 = C2 + u1 C1 T1 + u2 C4 T4 - u3 C2 + u4 C4
+
+ C'4 = C4 + (1-u1) I1 + (1-u2) I4 + u3 C2 - u4 C4
+ C'4 = C4 + (1-u1) C1 T1 + (1-u2) C4 T4 + u3 C2 - u4 C4
+
+t=0: 
+ C2 = 0
+ C4=0
+t=1: 
+ C2 = u1(1) C1 T1
+ C4 = (1-u1(1)) C1 T1
+
+ 
+Modèle discret :
+x1 = C2, x2 = C4
+t=0 : x1(0)=0
+      x2(0)=0
+t=1 : x1(1) = x1(0) + a1(0) = x1(0) + T1 C1 u1(0) + T4 x2(0) u2(0) + x2(0) u4(0)
+      x2(1) = x2(0) + a2(0) = x2(0) + T1 C1 (1-u1(0)) + T4 x2(0) (1-u2(0)) + x1(0) u3(0)
+t=2 : x1(2) = x1(1) + a1(1) = x1(1) + T1 C1 U1(1) + T4 x2(1) u2(1) + x2(1) u4(1)
+      x2(2) = x2(1) + a2(1) = x2(1) + T1 C1 (1-u1(1)) + T4 x2(1) (1-u2(1)) + x1(1) u3(1)
+
+Trouver x1(0), x2(0), x1(1), x2(1), x1(2), x2(2),
+        u1(0), u2(0), u3(0), u4(0), u1(1), u2(1), u3(1), u4(1)
+qui maximisent l(0) + l(1) = T2 x1(0) + T2 x1(1) = T2 (x1(0)+x1(1))
+sous contraintes :
+ x1(0) = 0, x2(0) = 0,
+ x1(1) = ..., x2(1) = ...
+ x1(2) = ..., x2(2) = ...
+
+Lagrangien L 
+ = T2 (x1(0) + x1(1))
+ - p1(0) x1(0) 
+ - p2(0) x2(0)
+ - p1(1) (x1(1) - x1(0) - T1 C1 u1(0) - T4 x2(0) u2(0) - x2(0) u4(0))
+ - p2(1) (x2(1) - x2(0) - T1 C1 (1-u1(0)) - T4 x2(0) (1-u2(0)) - x1(0) u3(0))
+ - p1(2) (x1(2) - x1(1) - T1 C1 u1(1) - T4 x2(1) u2(1) - x2(1) u1(1))
+ - p1(2) (x2(2) - x2(1) - T1 C1 (1-u1(1)) - T4 x2(1) (1-u2(1)) - x1(1) u3(1)
+
+dL/dx_i(t) = 0, t=0,1,2, i=1,2
+dL/du_j(t) = 0, t=0,1,   j=1,2,3
+dL/dp_i(t) = 0, t=0,1,2, i=1,2
+
+Hamiltonien :
+H(0) = l(0) + p(1).a(0) = T2 x1(0) + p1(1) (T1 C1 u1(0) + T4 x2(0) u2(0) + x2(0) u4(0)) + p2(1) (T1 C1 (1-u1(0)) + T4 x2(0) (1-u2(0)) + x1(0) u3(0))
+H(1) = l(1) + p(2).a(1) = T2 x1(1) + p1(2) (T1 C1 u1(1) + T4 x2(1) u2(1) + x2(1) u4(1)) + p2(2) (T1 C1 (1-u1(1)) + T4 x2(1) (1-u2(1)) + x1(1) u3(1))
+
+Dp1(0) = p1(1) - p1(0) = -dH(0)/dx1(0) = - T2 - p2(1) u3(0)
+Dp2(0) = p2(1) - p2(0) = -dH(0)/dx2(0) = - p1(1) T4 u2(0) - p1(1) u4(0) - p2(1) T4 (1-u2(0))
+Dp1(1) = p1(2) - p1(1) = -dH(1)/dx1(1) = - T2 - p2(2) u3(1)
+Dp2(1) = p2(2) - p2(1) = -dH(1)/dx2(1) = - p1(2) T4 u2(1) - p1(2) u4(1) - p2(2) T4 (1-u2(1))
+
+dH(t)/du_i(t) = 0, t=0,1, i=1,2,3,4
+
+
+Modèle continu :
+
+dC2/dt = u1 C1 T1 + u2 C4 T4 + u4 C2
+dC4/dt = (1-u1) C1 T1 + (1-u2) C4 T4 + u3 C2
+
+Maximiser J = intégrale de C2 T2
+Hamiltonien 
+ H = C2 T2 + p2 dC2/dt + p4 dC4/dt 
+ H = C2 T2 + p2 (u1 C1 T1 + u2 C4 T4 + u4 C4) + p4 ((1-u1) C1 T1 + (1-u2) C4 T4 + u3 C2)
+
+dp2/dt = -dH/dc2
+dp4/dt = -dH/dc4
+dH/du_i = 0
+
+dp2/dt = -dH/dC2 = - T2 - p4 u3
+dp1/dt = -dH/dC4 = - p2 u2 T4 - p2 u4 - p4 (1-u2) T4
+
+dH/du1 = 0 = p2 C1 T1 - p4 C1 T1 = (p2 - p4) C1 T1 => p2 = p4
+dH/du2 = 0 = P2 C4 T4 - p4 C4 T4 = (p2 - p4) C4 T4
+dH/du3 = 0 = p4 C2
+dH/du4 = 0 = p2 C4
+
