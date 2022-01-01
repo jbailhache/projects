@@ -171,6 +171,40 @@ Pour t compris entre 0 et T, i = 1, 2, ... , n et k = 1, 2, ... , q on a :
 \[ \dot{p_i}(t) = \frac{d p_i(t)}{d t} = - \frac{\partial H(t)}{\partial x_i(t)} \]
 \[ \frac{\partial H(t)}{\partial u_k(t)} = 0 \]
 
+
+\section{Exemple}
+
+On considère un système dont l'état est représenté par un scalaire x qui vaut 0 en t=0 et dont l'évolution est contrôlée par une commande scalaire u avec \( \dot{x}(t) = u(t) \). On veut maximiser 
+\[ J = \int_0^T (x(t) - \frac{u(t)^2}{2}) dt \]
+avec T > 0.
+
+On définit le hamiltonien :
+\[ H(t) = x(t) - \frac{u(t)^2}{2} + p(t) u(t) \]
+
+On a alors 
+\[ \frac{\partial H(t)}{\partial u(t)} = 0 = - u(t) + p(t) \]
+donc u(t) = p(t).
+
+D'autre part,
+\[ \dot{p}(t) = - \frac{\partial H(t)}{\partial x(t)} = -1 \]
+donc \( p(t) = p_0 - t \) et comme u(t) = p(t), \( u(t) = u_0 - t \).
+
+Comme \( \dot{x}(t) = u(t) \), on a
+\[ x = u_0 t - \frac{t^2}{2} \]
+
+On a alors
+\[ J = \int_0^T (x - \frac{u^2}{2}) dt = \int_0^T (u_0 t - \frac{t^2}{2} - \frac{(u_0 - t)^2}{2}) dt = \int_0^T (2 u_0 t - t^2 - \frac{{u_0}^2}{2}) dt = T^2 u_0 - \frac{T^3}{3} - T \frac{{u_0}^2}{2} \]
+
+On cherche donc la valeur de \( u_0 \) qui maximise
+\[ J = - \frac{T}{2} {u_0}^2 + T^2 u_0 - \frac{T^3}{3} \]
+
+Cette valeur vérifie l'équation 
+\[ \frac{\partial J}{\partial u_0} = 0 = - T u_0 + T^2 = (- u_0 + T) T \]
+On a donc \( u_0 = T, u(t) = u_0 - t = T - t \) et en particulier \( u(T) = u_0 - T = T - T = 0 \). 
+
+
+\section{Liens}
+
 Pour plus de détails, voir :
 \begin{itemize}
      \setlength{\itemsep}{1pt}
