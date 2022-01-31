@@ -1,0 +1,26 @@
+& I ^x x.
+& K ^x ^y x.
+& S ^x ^y ^z (x z (y z)).
+
+& Y [[* *] ['* (* *)]].
+
+& zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+zero a b.
+suc zero a I.
+
+# + = Y [x][n][p](n p [q](s (+ q p)))
+# * = Y [x][n][p](n 0 [q](+ p (x q p)))
+# ! = Y [x][n](n (s 0) [q](* n (x q)))
+# or if we don't want G to depend on n :
+# ! = Y [x][n](n (s 0) [q](* (s q) (x q)))
+
+& plus (Y ^r ^n ^p (n p ^q (suc (r q p)))).
+\\\\\\\\(plus zero zero).
+\\\\\\\\(plus zero (suc zero)).
+\\\\\\\\(plus zero (suc zero)) ; suc zero.
+
+& times (Y ^r ^n ^p (n zero ^q (plus p (r q p)))).
+
+& fact (Y ^r ^n (n (suc zero) ^q (times n (r q)))).
