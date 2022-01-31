@@ -1,0 +1,80 @@
+Usage: pl [OPTIONS] [FILE]
+
+Options:
+ -a : use coroutines
+ -c : displays only conclusion, not reduction
+ -f : full reduction
+ -g : use coroutines to compute the conclusion of "a = b ; c = d" with the 4 possibilities (a = c, b = c, a = d, b = d) 
+ -h : display this help
+ -o : occur-check
+ -q : quiet mode
+ -Q : read file without echo
+ -r : print reduction of proofs read from file
+ -u : display only value of unknown
+ -U : use coroutines when matching "_" with 2 possibilities : it matches or it does not match 
+
+After starting the program, a prompt "?" is displayed. Type a proof ended by ".", or just "." to quit. The reduction and the conclusion of this proof is displayed. 
+
+A proof is one of the following (where x and y are proofs) :
+ A name represented by a sequence of characters not associated with an operator and with no particular syntactic meaning
+ *     : the first variable (De Bruijn index)
+ 'x    : the next variable (De Bruijn index)
+ [x]   : a function 
+ x y   : application 
+ x ; y : generalized transitivity
+ x = y : equality axiom
+ @ x   : pre-reduction (reduce before deducing)
+ $ x   : post-reduction (reduce the conclusion)
+ / x   : one step of reduction of left part of conclusion
+ \ x   : one step of reduction of right part of conclusion
+ - x   : full reduction of right part of conclusion operator
+ ` x   : search for matching proof for transitivity
+ ? x y : print x and conclusion of y
+ x | y : use coroutines to compute its conclusion with 2 possibilities : the conclusion of x or the conclusions of y 
+ < x   : reduces to left part of conclusion of x
+ > x   : reduces to right part of conclusion of x
+ 1 x   : reduces to first operand of x
+ 2 x   : reduces to second operand of x
+ x , y : use coroutines to reduce it with 2 possibilities : x or y
+
+Syntactic constructs :
+ ( : )   : syntactic grouping
+ ! x y z : let x = y in z
+ % x y z : let x = y in z and print the result
+ & x y   : give name x to y
+ + x     : print full definition of x
+ ~ x     : reads the reduction of x
+ "filename.prf" : loads a file
+ # ...   : comment
+
+Special characters ordered by ASCII code :
+ ! x y z : let x = y in z
+ "filename.prf" : loads a file
+ # ...   : comment
+ $ x     : post-reduction operator
+ % x y z : let x = y in z and print the result
+ & x y   : give name x to y
+ ' x     : next variable operator
+ ( ... ) : syntactic grouping
+ *       : first variable
+ + x     : print full definition of x
+ x , y   : use coroutines to reduce it with 2 possibilities : x or y
+ - x     : full reduction of right part of conclusion operator
+ .       : end of proof, quit
+ / x     : one step of reduction of left part of conclusion operator
+ :       : syntactic grouping
+ x ; y   : generalized transitivity operator
+ < x     : reduces to left part of conclusion of x
+ x = y   : equality axiom operator
+ > x     : reduces to right part of conclusion of x
+ ? x y   : rint x and conclusion of y operator
+ @ x     : pre-reduction operator
+ [x]     : function operator
+ \ x     : one step of reduction of right part of conclusion operator
+ ^x y    : lambda expression
+ _       : unknown
+ ` x     : search for matching proof for transitivity
+ { }     : unused
+ x | y   : use coroutines to compute its conclusion with 2 possibilities : the conclusion of x or the conclusions of y 
+ ~ x     : reads the reduction of x
+
