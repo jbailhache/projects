@@ -1,0 +1,19 @@
+
+& Y [[* *] ['* (* *)]].
+
+& K ^x ^y x.
+& F ^x ^y y.
+
+# & zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+& isone ^n (n F ^p (p K [F])).
+
+-(isone K).
+-(isone (suc K)).
+-(isone (suc (suc K))).
+ 
+& mu (Y ^m ^n ^f (f n n (m (suc n) f))).
+
+-(mu K isone).
+
