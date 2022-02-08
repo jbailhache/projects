@@ -1,0 +1,138 @@
+Proof Logic v12
+
+-h : help
+
+-s : use side1 instead of sides
+
+{ = &
+} : copy
+different names for one proof
+
+? & K ^x ^y x. # main name
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+
+? K a b.
+
+The proof  : K a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+
+? +K.
+
+Full definition of proof : K
+                      is : [['*]]
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+
+? {T} ^x ^y x. # other name
+
+The proof  : T
+reduces to : K
+and proves : K
+equals     : K
+
+? T a b.
+
+The proof  : T a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+
+? +T.
+
+Full definition of proof : T
+                      is : [['*]]
+
+The proof  : T
+reduces to : K
+and proves : K
+equals     : K
+
+? K a b.
+
+The proof  : K a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+
+? +K. # name K kept because T is the name of a copy
+
+Full definition of proof : K
+                      is : [['*]]
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+
+? 
+
+
+New operator "-" (RRR) : full reduction of right part of conclusion 
+
+example :
+
+
+& I ^x x.
+& K ^x ^y x.
+& S ^x ^y ^z (x z (y z)).
+
+& Y [[* *] ['* (* *)]].
+
+& zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+zero a b.
+suc zero a I.
+
+& plus (Y ^r ^n ^p (n p ^q (suc (r q p)))).
+
+& times (Y ^r ^n ^p (n zero ^q (plus p (r q p)))).
+
+& fact (Y ^r ^n (n (suc zero) ^q (times n (r q)))).
+
+& fac (Y ^r ^n (n (suc zero) ^q (times (suc q) (r q)))).
+
+# & fa (Y ^r ^n (n (suc zero) ^q (times q (r q)))).
+
+& cfact (Y ^r ^n ^f (n (f (suc zero)) ^q (r q ^x (f (times (suc q) x))))).
+
+-(plus zero a).
+-(plus (suc zero) a).
+-(times (suc (suc zero)) (suc (suc zero))).
+-(fac (suc (suc zero))).
+
+
+output :
+
+-(plus zero a).
+The proof  : -(plus zero a)
+proves     : plus zero a
+equals     : a
+
+-(plus (suc zero) a).
+The proof  : -(plus (suc zero) a)
+proves     : plus (suc zero) a
+equals     : [[* a]]
+
+-(times (suc (suc zero)) (suc (suc zero))).
+The proof  : -(times (suc (suc zero)) (suc (suc zero)))
+proves     : times (suc (suc zero)) (suc (suc zero))
+equals     : [[* [[* [[* [[* zero]]]]]]]]
+
+-(fac (suc (suc zero))).
+The proof  : -(fac (suc (suc zero)))
+proves     : fac (suc (suc zero))
+equals     : [[* [[* zero]]]]
+
+
+
+

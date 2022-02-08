@@ -1,0 +1,246 @@
+<html>
+<head>
+<title>Proof Logic v12</title>
+</head>
+<body>
+<h2>Proof Logic v12</h2>
+<h3>New features</h3>
+<ul>
+<li> New option -h to display help
+<li> New syntax "{ x y" equivalent to "& x y" for "give name x to y".
+<li> New syntax "} x" reads a copy of x.
+<li> New operator "-" : if x proves that a equals b, then -x proves that a equals the full reduction of b.
+</ul>
+
+<h3>Named proofs</h3>
+
+You can give a name x to a proof y with the syntax "& x y" or "{ x y", for example :
+
+<pre>
+? & K ^x ^y x.
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+</pre>
+
+Then you can refer to this expression by its name :
+
+<pre>
+? K a b.
+
+The proof  : K a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+</pre>
+
+and this expression is displayed by its name :
+
+<pre>
+? ^x ^y x.
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+</pre>
+
+You can display the expression associated to a name with "+" :
+
+<pre>
+? +K.
+
+Full definition of proof : K
+                      is : [['*]]
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+</pre>
+
+But if you give another name to the same expression, the first name is no more associated to it :
+
+<pre>
+? & T ^x ^y x.
+
+The proof  : T
+reduces to : T
+and proves : T
+equals     : T
+
+? T a b.
+
+The proof  : T a b
+reduces to : a
+and proves : T a b
+equals     : T a b
+
+? ^x ^y x.
+
+The proof  : T
+reduces to : T
+and proves : T
+equals     : T
+
+? +T.
+
+Full definition of proof : T
+                      is : [['*]]
+
+The proof  : T
+reduces to : T
+and proves : T
+equals     : T
+
+? K a b.
+
+The proof  : K a b
+reduces to : K a b
+and proves : K a b
+equals     : K a b
+
+? +K.
+
+Full definition of proof : K
+                      is : K
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+</pre>
+
+To avoid this problem, it is possible to give a name not to the initial proof but to a copy of it. To do this, a syntax "} x" is introduced, which reads a copy of x. Then you can give the name K to a proof and T to a copy of this proof :
+
+<pre>
+? & K ^x ^y x.
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+
+? & T } ^x ^y x.
+
+The proof  : T
+reduces to : K
+and proves : K
+equals     : K
+
+? K a b.
+
+The proof  : K a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+
+? T a b.
+
+The proof  : T a b
+reduces to : a
+and proves : K a b
+equals     : K a b
+
+? +K.
+
+Full definition of proof : K
+                      is : [['*]]
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+
+? +T.
+
+Full definition of proof : T
+                      is : [['*]]
+
+The proof  : T
+reduces to : K
+and proves : K
+equals     : K
+
+? ^x ^y x.
+
+The proof  : K
+reduces to : K
+and proves : K
+equals     : K
+</pre>
+
+Note that the proof is displayed as the name of the original proof, not the name of its copy.
+
+<h3>New operator "-" : if x proves that a equals b, then -x proves that a equals the full reduction of b</h3>
+
+Example :
+
+<pre>
+& Y [[* *] ['* (* *)]].
+
+& zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+& plus (Y ^r ^n ^p (n p ^q (suc (r q p)))).
+
+-(plus (suc (suc zero)) (suc zero)).
+suc (suc (suc zero)).
+-(plus (suc (suc zero)) (suc zero)) ; suc (suc (suc zero)).
+</pre>
+
+Output :
+
+<pre>
+$ ./pl-v12 -r plus.prf
+
+& Y [[* *] ['* (* *)]].
+The proof  : Y
+reduces to : Y
+and proves : Y
+equals     : Y
+
+
+& zero ^z ^s z.
+The proof  : zero
+reduces to : zero
+and proves : zero
+equals     : zero
+
+& suc ^n ^z ^s (s n).
+The proof  : suc
+reduces to : suc
+and proves : suc
+equals     : suc
+
+
+& plus (Y ^r ^n ^p (n p ^q (suc (r q p)))).
+The proof  : plus
+reduces to : [* *] [[[['* * [suc ('''* * '*)]]]] (* *)]
+and proves : plus
+equals     : plus
+
+
+-(plus (suc (suc zero)) (suc zero)).
+The proof  : -(plus (suc (suc zero)) (suc zero))
+reduces to : -([[[['* * [suc ('''* * '*)]]]] (* *)] [[[['* * [suc ('''* * '*)]]]] (* *)] [[* [[* zero]]]] [[* zero]])
+and proves : plus (suc (suc zero)) (suc zero)
+equals     : [[* [[* [[* zero]]]]]]
+
+suc (suc (suc zero)).
+The proof  : suc (suc (suc zero))
+reduces to : [[* [[* [[* zero]]]]]]
+and proves : suc (suc (suc zero))
+equals     : suc (suc (suc zero))
+
+-(plus (suc (suc zero)) (suc zero)) ; suc (suc (suc zero)).
+The proof  : -(plus (suc (suc zero)) (suc zero)) ; suc (suc (suc zero))
+reduces to : -[[* ([[[['* * [suc ('''* * '*)]]]] (* *)] [[[['* * [suc ('''* * '*)]]]] (* *)] [[* zero]] [[* zero]])]] ; [[* [[* [[* zero]]]]]]
+and proves : plus (suc (suc zero)) (suc zero)
+equals     : suc (suc (suc zero))
+</pre>
+
+</body>
+</html>
