@@ -1,0 +1,47 @@
+& I ^x x.
+& K ^x ^y x.
+& S ^x ^y ^z (x z (y z)).
+
+& Y [[* *] ['* (* *)]].
+
+& zero ^z ^s z.
+& suc ^n ^z ^s (s n).
+
+zero a b.
+suc zero a I.
+
+# + = Y [x][n][p](n p [q](s (+ q p)))
+# * = Y [x][n][p](n 0 [q](+ p (x q p)))
+# ! = Y [x][n](n (s 0) [q](* n (x q)))
+# or if we don't want G to depend on n :
+# ! = Y [x][n](n (s 0) [q](* (s q) (x q)))
+
+& rplus ^r ^n ^p (n p ^q (suc (r q p))).
+& plus (Y rplus).
+#\\\\\\\\(plus zero zero).
+#\\\\\\\\(plus zero (suc zero)).
+#\\\\\\\\(plus zero (suc zero)) ; suc zero.
+#\\\\\\\\\\\\\\\ (plus (suc zero) zero) ; suc zero.
+
+& rtimes ^r ^n ^p (n zero ^q (plus p (r q p))).
+& times (Y rtimes).
+#\\\\\\\\ (times zero zero).
+#\\\\\\\\ (times zero (suc zero)).
+#\\\\\\\\\\\\\\\\\ (times (suc zero) zero).
+#\\\\\\\\\\\\\\\\\\\\\\\ (times (suc zero) (suc zero)) ; suc zero.
+
+& fact (Y ^r ^n (n (suc zero) ^q (times n (r q)))).
+#\\\\\\\ (fact zero).
+#\\\\\ \\\\\ \\\\\ \\\\\ \\\\\ \\\\\ (fact (suc zero)) ; suc zero.
+
+& rfac ^r ^n (n (suc zero) ^q (times (suc q) (r q))).
+& fac (Y rfac).
+
+& fac1 ([rfac (* *)] [rfac (* *)]).
+
+# & fa (Y ^r ^n (n (suc zero) ^q (times q (r q)))).
+
+& cfact (Y ^r ^n ^f (n (f (suc zero)) ^q (r q ^x (f (times (suc q) x))))).
+
+# & one [[* zero]].
+
