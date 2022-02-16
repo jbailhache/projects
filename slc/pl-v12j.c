@@ -1,6 +1,6 @@
 // Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) 
 // Compilation : cc -g -fno-stack-protector -o pl-v12 pl-v12.c schedule.c
-// For global table of proofs, add option "-DGLOBAL"
+// For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
 
 #include <stdlib.h>
 #include <stdio.h>
