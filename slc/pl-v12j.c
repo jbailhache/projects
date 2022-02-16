@@ -1,6 +1,8 @@
 // Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) 
 // Compilation : cc -g -fno-stack-protector -o pl-v12 pl-v12.c schedule.c
-// For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
+//  For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
+//  To modifiy standard maximum number of proof, add option "-DMAXPROOFS=n"
+//  Example : cc -g -fno-stack-protector -DGLOBAL -DMAXPROOFS=200000 -o pl-v12j-rpi pl-v12j.c schedule.c
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -299,10 +301,12 @@ struct proof1 {
 	proof sp1, sp2, red, side[2], val;	
 };
 
+#ifndef MAXPROOFS
 #ifdef GLOBAL
 #define MAXPROOFS 100000
 #else
 #define MAXPROOFS 20000
+#endif
 #endif
 
 int nproofs;
@@ -660,8 +664,8 @@ proof reduce3 (proof x) {
 		nsteps++;
 		a[n++] = y;
 		z = reduce1step(y);
-		//printf("\n\t");
-		//print_proof_to_stdout(z);
+		printf("\n\t %d : ", nsteps);
+		print_proof_to_stdout(z);
 		if (n >= MAX) break;
 		found = 0;
 		for (i=0; i<n; i++) {
