@@ -664,8 +664,8 @@ proof reduce3 (proof x) {
 		nsteps++;
 		a[n++] = y;
 		z = reduce1step(y);
-		printf("\n\t %d : ", nsteps);
-		print_proof_to_stdout(z);
+		//printf("\n\t %d : ", nsteps);
+		//print_proof_to_stdout(z);
 		if (n >= MAX) break;
 		found = 0;
 		for (i=0; i<n; i++) {
