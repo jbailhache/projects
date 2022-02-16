@@ -1,7 +1,7 @@
 // Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) 
 // Compilation : cc -g -fno-stack-protector -o pl-v12 pl-v12.c schedule.c
 //  For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
-//  To modifiy standard maximum number of proof, add option "-DMAXPROOFS=n"
+//  To modifiy default maximum number of proof, add option "-DMAXPROOFS=n"
 //  Example : cc -g -fno-stack-protector -DGLOBAL -DMAXPROOFS=200000 -o pl-v12j-rpi pl-v12j.c schedule.c
 
 #include <stdlib.h>
