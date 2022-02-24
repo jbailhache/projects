@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>SPL : Stack Programming Language</title>
+</head>
+<body>
+<center>
+<h2>SPL : Stack Programming Language</h2>
+By Jacques Bailhache ( jacques.bailhache@gmail.com ) February 2022
+</center>
+
+<h3>Data</h3>
+SPL uses symbolic expressions like LISP. 
+A symbolic expression is either an atom (number, string, symbol...), a pair of symbolic expressions, or a vector of symbolic expressions. 
+A string is written between double quotes (").
+A pair of symbolic expressions a and b is written (a . b). A list is represented by nested pairs, for example (a . (b . (c . (d . nil))) which may also be written (a b c). Writing of nested list can be simplified, for example (a b c (d e f)) may be written (a b c : d e f).
+
+<h3>Program</h3>
+A program is a list of instructions executed successively from left to right. 
+
+<h3>Context</h3>
+A context represents the state of execution of the program at some time.
+A context contains the program, two stacks and an environment containing the values of variables.
+
+<h3>Execution</h3>
+Execution consists in repetitively taking the first instruction from the program and applying its effects on the context.
+
+<h3>Example</h3>
+This is an example of a program that pushes the symbol FOO on the main stack, then the symbol BAR, then makes a pair with them and prints the result :
+<pre>
+(QUOTE FOO QUOTE BAR CONS PRINT)
+(BAR . FOO)
+</pre>
+
+<h3>Instructions</h3>
+
+<h4>QUOTE</h4>
+QUOTE pushes the next instruction to the main stack.
+
+<h4>Combinators</h4>
+Combinators are instructions acting on the program :
+<ul>
+<li> I ... -> ...
+<li> K a b -> a
+<li> S a b c -> a c (b c)
+</ul>
+
+<h4>Stack manipulation instructions</h4>
+
+<ul>
+<li>DROP drops the top of the main stack
+<li>DUP duplicates the top of the main stack
+<li>SWAP swaps the tho items on top of the main stack
+</ul>
+
+<h4>Conditional</h4>
+If the top of the main stack is true, (THEN a b) drops b and only a is executed, otherwise it drops a and only b is executed.
+
+<h4>Symbolic expressions manipulation</h4>
+
+<ul>
+<li> CAR replaces a pair at the top of the main stack by its first component
+<li> CDR replaces a pair at the top of the main stack by its second component
+<li> CONS pushes on the main stack a pair built with the two items at the top of the main stack
+<li> EQ pushes a true value at the top of the main stack if the two items at the top of the main stack are equal, otherwise it pushes a false value.
+
+</body>
+</html>
+
