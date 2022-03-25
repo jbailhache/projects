@@ -1,0 +1,55 @@
+
+# Modus ponens rule
+# imp p q, p |- q
+# imp p q = [*], p = [*] |- q = [*]
+# imp [*] q = [*] |- q = [*]
+# imp [*] = [*]
+# To apply modus ponens to x and y, write $((imp y ; MP) _ ; x) or $(MP _ ; (imp y _ ; x))
+& MP (imp [*] = [*]).
+
+& AI ^p (imp p p = [*]).
+& AK ^p ^q (imp p (imp q p) = [*]).
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+
+# X |- nec X
+& A1 (nec [*] = [*]).
+
+# |- nec x -> nec (nec x)
+& A2 ^x (imp (nec x) (nec (nec x)) = [*]).
+
+# |- nec (p -> q) -> (nec p -> nec q)
+& A3 ^p ^q (imp (nec (imp p q)) (imp (nec p) (nec q)) = [*]).
+
+# A -> B, B -> C |- A -> C
+
+# A -> B, A -> (B -> C) |- A -> C
+
+& LS (L = imp (nec L) C).
+
+& HYP (imp (nec C) C = [*]).
+
+& Step3 $(A3 (nec L) C).
+
+& Step4 (imp (nec LS) (imp (nec (nec L)) (nec C)) ; Step3).
+
+& Step5 $(A2 L).
+
+& Step6a $(AS (nec L) (nec (nec L)) (nec C)).
+& Step6 $(MP _ ; (imp Step5 _ ; $(MP _ ; (imp Step4 _ ; Step6a)))).
+
+& Step7a $(AK (imp (nec C) C) (nec L)).
+& Step7b $(AS (nec L) (nec C) C).
+& Step7c $(AK (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))) (imp (nec C) C)).
+& Step7d $(MP _ ; (imp Step7b _ ; Step7c)).
+& Step7e $(AS (imp (nec C) C) (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))).
+& Step7f $(MP _ ; (imp Step7d _ ; Step7e)).
+& Step7g $(MP _ ; (imp Step7a _ ; Step7f)).
+& Step7h $(MP _ ; (imp HYP _ ; Step7g)).
+& Step7  $(MP _ ; (imp Step6 _ ; Step7h)).
+
+& Step8 (nec Step7 ; A1).
+
+& Step9 (nec LS ; Step8).
+
+& Proof $(MP _ ; (imp Step9 _ ; Step7)).
+
