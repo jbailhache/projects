@@ -1,0 +1,210 @@
+Welcome to Proof Logic !
+Type a proof ended by ".", and type just "." to quit.
+
+? # Proof of Löb's theorem
+# according to The Cartoon Guide to Löb's Theorem 
+# http://categorified.net/FreshmanSeminar2014/Lobs-Theorem.pdf
+
+# Modus ponens rule
+# imp p q, p |- q
+# imp p q = [*], p = [*] |- q = [*]
+# imp [*] q = [*] |- q = [*]
+# imp [*] = [*]
+# To apply modus ponens to x and y, write $((imp y ; MP) _ ; x) or $(MP _ ; (imp y _ ; x))
+& MP (imp [*] = [*]).
+The proof  : MP
+proves     : imp [*]
+equals     : [*]
+
+? 
+
+# Propositional calculus axioms
+
+# p -> p
+& AI ^p (imp p p = [*]).
+The proof  : AI
+proves     : [imp * *]
+equals     : [[*]]
+
+? 
+
+# p -> q -> p
+& AK ^p ^q (imp p (imp q p) = [*]).
+The proof  : AK
+proves     : [[imp '* (imp * '*)]]
+equals     : [[[*]]]
+
+? 
+
+# (p -> q -> r) -> (p -> q) -> (p -> r)
+& AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
+The proof  : AS
+proves     : [[[imp (imp ''* (imp '* *)) (imp (imp ''* '*) (imp ''* *))]]]
+equals     : [[[[*]]]]
+
+? 
+
+# A1 : X |- nec X
+& A1 (nec [*] = [*]).
+The proof  : A1
+proves     : nec [*]
+equals     : [*]
+
+? 
+
+# A2 : |- nec x -> nec (nec x)
+& A2 ^x (imp (nec x) (nec (nec x)) = [*]).
+The proof  : A2
+proves     : [imp (nec *) (nec (nec *))]
+equals     : [[*]]
+
+? 
+
+# A3 : |- nec (p -> q) -> (nec p -> nec q)
+& A3 ^p ^q (imp (nec (imp p q)) (imp (nec p) (nec q)) = [*]).
+The proof  : A3
+proves     : [[imp (nec (imp '* *)) (imp (nec '*) (nec *))]]
+equals     : [[[*]]]
+
+? 
+
+# B1 : A -> B, B -> C |- A -> C
+
+# B2 : A -> B, A -> (B -> C) |- A -> C
+
+# Löb's sentence : L = nec L -> C
+& LS (L = imp (nec L) C).
+The proof  : LS
+proves     : L
+equals     : imp (nec L) C
+
+? 
+
+# 1. nec L <-> nec (nec L -> C)
+
+# 2. Löb's hypothesis : nec C -> C
+& HYP (imp (nec C) C = [*]).
+The proof  : HYP
+proves     : imp (nec C) C
+equals     : [*]
+
+? 
+
+# 3. (A3 with p = nec L and q = C) : nec (nec L -> C) -> (nec (nec L) -> nec C)
+& Step3 $(A3 (nec L) C).
+The proof  : Step3
+proves     : imp (nec (imp (nec L) C)) (imp (nec (nec L)) (nec C))
+equals     : [*]
+
+? 
+
+# 4. (1, 3, B1) : nec L -> (nec (nec L) -> nec C)
+& Step4 (imp (nec LS) (imp (nec (nec L)) (nec C)) ; Step3).
+The proof  : Step4
+proves     : imp (nec L) (imp (nec (nec L)) (nec C))
+equals     : [*]
+
+? 
+
+# 5. (A2 with x = L) : nec L -> nec (nec L)
+& Step5 $(A2 L).
+The proof  : Step5
+proves     : imp (nec L) (nec (nec L))
+equals     : [*]
+
+? 
+
+# 6. (5, 4, B2) : nec L -> nec C
+& Step6a $(AS (nec L) (nec (nec L)) (nec C)).
+The proof  : Step6a
+proves     : imp (imp (nec L) (imp (nec (nec L)) (nec C))) (imp (imp (nec L) (nec (nec L))) (imp (nec L) (nec C)))
+equals     : [*]
+
+? 
+& Step6 $(MP _ ; (imp Step5 _ ; $(MP _ ; (imp Step4 _ ; Step6a)))).
+The proof  : Step6
+proves     : (imp (nec L) (nec C))
+equals     : [*]
+
+? 
+
+# 7. (6, 2, B1 with A = nec L, B = nec C, C = C) : nec L -> C
+& Step7a $(AK (imp (nec C) C) (nec L)).
+The proof  : Step7a
+proves     : imp (imp (nec C) C) (imp (nec L) (imp (nec C) C))
+equals     : [*]
+
+? 
+& Step7b $(AS (nec L) (nec C) C).
+The proof  : Step7b
+proves     : imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))
+equals     : [*]
+
+? 
+& Step7c $(AK (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))) (imp (nec C) C)).
+The proof  : Step7c
+proves     : imp (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))) (imp (imp (nec C) C) (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))))
+equals     : [*]
+
+? 
+& Step7d $(MP _ ; (imp Step7b _ ; Step7c)).
+The proof  : Step7d
+proves     : (imp (imp (nec C) C) (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))))
+equals     : [*]
+
+? 
+& Step7e $(AS (imp (nec C) C) (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))).
+The proof  : Step7e
+proves     : imp (imp (imp (nec C) C) (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C)))) (imp (imp (imp (nec C) C) (imp (nec L) (imp (nec C) C))) (imp (imp (nec C) C) (imp (imp (nec L) (nec C)) (imp (nec L) C))))
+equals     : [*]
+
+? 
+& Step7f $(MP _ ; (imp Step7d _ ; Step7e)).
+The proof  : Step7f
+proves     : (imp (imp (imp (nec C) C) (imp (nec L) (imp (nec C) C))) (imp (imp (nec C) C) (imp (imp (nec L) (nec C)) (imp (nec L) C))))
+equals     : [*]
+
+? 
+& Step7g $(MP _ ; (imp Step7a _ ; Step7f)).
+The proof  : Step7g
+proves     : (imp (imp (nec C) C) (imp (imp (nec L) (nec C)) (imp (nec L) C)))
+equals     : [*]
+
+? 
+& Step7h $(MP _ ; (imp HYP _ ; Step7g)).
+The proof  : Step7h
+proves     : (imp (imp (nec L) (nec C)) (imp (nec L) C))
+equals     : [*]
+
+? 
+& Step7  $(MP _ ; (imp Step6 _ ; Step7h)).
+The proof  : Step7
+proves     : (imp (nec L) C)
+equals     : [*]
+
+? 
+
+# 8. (7, A1 with x = nec L -> C) : nec (nec L -> C)
+& Step8 (nec Step7 ; A1).
+The proof  : Step8
+proves     : nec (imp (nec L) C)
+equals     : [*]
+
+? 
+
+# 9. (1, 8, MP) : nec L
+& Step9 (nec LS ; Step8).
+The proof  : Step9
+proves     : nec L
+equals     : [*]
+
+? 
+
+# 10. (9, 7, MP) : C
+& Proof $(MP _ ; (imp Step9 _ ; Step7)).
+The proof  : Proof
+proves     : C
+equals     : [*]
+
+? 
+

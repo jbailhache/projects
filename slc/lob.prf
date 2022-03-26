@@ -1,3 +1,6 @@
+# Proof of Löb's theorem
+# according to The Cartoon Guide to Löb's Theorem 
+# http://categorified.net/FreshmanSeminar2014/Lobs-Theorem.pdf
 
 # Modus ponens rule
 # imp p q, p |- q
@@ -7,36 +10,52 @@
 # To apply modus ponens to x and y, write $((imp y ; MP) _ ; x) or $(MP _ ; (imp y _ ; x))
 & MP (imp [*] = [*]).
 
+# Propositional calculus axioms
+
+# p -> p
 & AI ^p (imp p p = [*]).
+
+# p -> q -> p
 & AK ^p ^q (imp p (imp q p) = [*]).
+
+# (p -> q -> r) -> (p -> q) -> (p -> r)
 & AS ^p ^q ^r (imp (imp p (imp q r)) (imp (imp p q) (imp p r)) = [*]).
 
-# X |- nec X
+# A1 : X |- nec X
 & A1 (nec [*] = [*]).
 
-# |- nec x -> nec (nec x)
+# A2 : |- nec x -> nec (nec x)
 & A2 ^x (imp (nec x) (nec (nec x)) = [*]).
 
-# |- nec (p -> q) -> (nec p -> nec q)
+# A3 : |- nec (p -> q) -> (nec p -> nec q)
 & A3 ^p ^q (imp (nec (imp p q)) (imp (nec p) (nec q)) = [*]).
 
-# A -> B, B -> C |- A -> C
+# B1 : A -> B, B -> C |- A -> C
 
-# A -> B, A -> (B -> C) |- A -> C
+# B2 : A -> B, A -> (B -> C) |- A -> C
 
+# Löb's sentence : L = nec L -> C
 & LS (L = imp (nec L) C).
 
+# 1. nec L <-> nec (nec L -> C)
+
+# 2. Löb's hypothesis : nec C -> C
 & HYP (imp (nec C) C = [*]).
 
+# 3. (A3 with p = nec L and q = C) : nec (nec L -> C) -> (nec (nec L) -> nec C)
 & Step3 $(A3 (nec L) C).
 
+# 4. (1, 3, B1) : nec L -> (nec (nec L) -> nec C)
 & Step4 (imp (nec LS) (imp (nec (nec L)) (nec C)) ; Step3).
 
+# 5. (A2 with x = L) : nec L -> nec (nec L)
 & Step5 $(A2 L).
 
+# 6. (5, 4, B2) : nec L -> nec C
 & Step6a $(AS (nec L) (nec (nec L)) (nec C)).
 & Step6 $(MP _ ; (imp Step5 _ ; $(MP _ ; (imp Step4 _ ; Step6a)))).
 
+# 7. (6, 2, B1 with A = nec L, B = nec C, C = C) : nec L -> C
 & Step7a $(AK (imp (nec C) C) (nec L)).
 & Step7b $(AS (nec L) (nec C) C).
 & Step7c $(AK (imp (imp (nec L) (imp (nec C) C)) (imp (imp (nec L) (nec C)) (imp (nec L) C))) (imp (nec C) C)).
@@ -47,9 +66,12 @@
 & Step7h $(MP _ ; (imp HYP _ ; Step7g)).
 & Step7  $(MP _ ; (imp Step6 _ ; Step7h)).
 
+# 8. (7, A1 with x = nec L -> C) : nec (nec L -> C)
 & Step8 (nec Step7 ; A1).
 
+# 9. (1, 8, MP) : nec L
 & Step9 (nec LS ; Step8).
 
+# 10. (9, 7, MP) : C
 & Proof $(MP _ ; (imp Step9 _ ; Step7)).
 
