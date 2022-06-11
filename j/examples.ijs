@@ -54,6 +54,10 @@ NB. v6 =: d6 +/ .* o6     NB. diagonal vector
 +/ v6                 NB. trace
 +/ +/ d6
 
+, i6
+, a66
+(, i6) +/ . * , a66  NB. Another way of computing trace
+
 [ a55 =: i. 5 5
 [ i55 =: = / ~ i. # a55
 [ i355 =: (3 # 1) */ i55
@@ -62,11 +66,19 @@ NB. v6 =: d6 +/ .* o6     NB. diagonal vector
 [ d553 =: |: d355
 [ t =: +/ +/ d553
 
-
 a553 =: |: a355
 i553 =: i55 */ 3 # 1
 d553b =: i553 * a553
 [ tb =: +/ +/ d553b
+
+(,. a355) +/ . * , i55 
+
+a3455 =: i. 3 4 5 5
+(3 4 25 $ , a3455) +/ . * , i55
+
+a5534 =: i. 5 5 3 4
+(, i55) +/ . * 25 3 4 $ , a5534
+
 
 5 -~ 8  NB. swap operands
 
