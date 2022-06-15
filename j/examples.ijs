@@ -46,6 +46,10 @@ $ a234 +/ .* a45  NB. tensorial product
 
 [ a66 =: i. 6 6 
 [ i6 =: = / ~ i. # a66  NB. identity
+NB. Identity matrix
+= i. 5
+(= & i.) 5
+
 [ d6 =: a66 * i6        NB. diagonal matrix
 NB. o6 =: (# a66) # 1     NB. vector of ones
 NB. o6
@@ -86,6 +90,14 @@ trace =: 3 : 0
     i =. =/ ~ i. # y
     (, i) +/ . * shape $ , y
    )
+
+trace =: 3 : 0
+    (, =/ ~ i. # y) +/ . * ((((0 & {) * 1 & {) , 2 & }.) $ y) $ , y
+)
+
+(, & (=/~) & i. & #) a5534
+
+trace =: (, & (=/~) & i. & #) +/ . * (((((0 & {) * 1 & {), 2 & }.) & $) $ ,)
 
 trace a5534
 
@@ -135,4 +147,38 @@ NB. Shadow Hunter attack
 | (1 + i. 6) -/ (1 + i. 4)  NB. difference
 +/ +/ (| (1 + i. 6) -/ (1 + i. 4)) =/ i. 6  NB. number of occurences of each difference
 
+
+NB. Database
+
+department =:              < 1 ; 'Administration' 
+department =: department , < 2 ; 'Marketing' 
+department =: department , < 3 ; 'Purshasing'
+
+department =: >department
+department
+
+employee =:             < 1 ; 1 ; 'Andrew'
+employee =: employee , < 2 ; 1 ; 'Betty'
+employee =: employee , < 3 ; 2 ; 'Cindy'
+employee =: employee , < 4 ; 2 ; 'Daniel'
+employee =: employee , < 5 ; 3 ; 'Evelyne'
+employee =: employee , < 6 ; 3 ; 'Fred'
+employee =: employee , < 7 ; 3 ; 'Gaby'
+
+employee =: >employee
+employee
+
+join =: 4 : 0
+ r =. i. 0
+ for_a. x do.
+  for_b. y do.
+   r =. r , <a,b
+  end.
+ end. 
+ >r
+)
+
+de =: department join employee
+de =: ((0{|:de)=3{|:de)#de  
+de
 
