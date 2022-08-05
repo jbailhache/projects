@@ -30,7 +30,7 @@ int print_help (char *progname) {
 	printf(" -r : print reduction of proofs read from file\n");
 	printf(" -u : display only value of unknown\n");
 	printf(" -U : use coroutines when matching \"_\" with 2 possibilities : it matches or it does not match \n");
-	printf(" -R : elementary reduction may reduce both left and right subproofs of a proof\n");
+	printf(" -R : elementary reduction may reduce both subproofs of a proof\n");
 	printf("\n");
 	printf("After starting the program, a prompt \"?\" is displayed. Type a proof ended by \".\", or just \".\" to quit. The reduction and the conclusion of this proof is displayed. \n");
 	printf("\n");
