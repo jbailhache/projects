@@ -1,5 +1,8 @@
 // Proof Logic by Jacques Bailhache (jacques.bailhache@gmail.com) 
-// Compilation : cc -g -fno-stack-protector -DSIDES -o pl-v11 pl-v11.c schedule.c
+// Compilation : cc -g -fno-stack-protector -o pl-v12 pl-v12.c schedule.c
+//  For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
+//  To modifiy default maximum number of proof, add option "-DMAXPROOFS=n"
+//  Example : cc -g -fno-stack-protector -DGLOBAL -DMAXPROOFS=200000 -o pl-v12 pl-v12.c schedule.c
 
 #define SIDES
 
@@ -29,6 +32,7 @@ int print_help (char *progname) {
 	printf(" -r : print reduction of proofs read from file\n");
 	printf(" -u : display only value of unknown\n");
 	printf(" -U : use coroutines when matching \"_\" with 2 possibilities : it matches or it does not match \n");
+	printf(" -R : elementary reduction may reduce both subproofs of a proof\n");
 	printf("\n");
 	printf("After starting the program, a prompt \"?\" is displayed. Type a proof ended by \".\", or just \".\" to quit. The reduction and the conclusion of this proof is displayed. \n");
 	printf("\n");
@@ -59,6 +63,8 @@ int print_help (char *progname) {
 	printf(" ! x y z : let x = y in z\n");
 	printf(" %% x y z : let x = y in z and print the result\n");
 	printf(" & x y   : give name x to y\n");
+	printf(" { x y   : give name x to y\n");
+	printf(" } x     : copy of x\n");
 	printf(" + x     : print full definition of x\n");
 	printf(" ~ x     : reads the reduction of x\n");
 	printf(" \"filename.prf\" : loads a file\n");
@@ -91,7 +97,8 @@ int print_help (char *progname) {
 	printf(" ^x y    : lambda expression\n");
 	printf(" _       : unknown\n");
 	printf(" ` x     : search for matching proof for transitivity\n");
-	printf(" { }     : unused\n");
+	printf(" { x y   : give name x to y\n");
+	printf(" } x     : copy of x\n");
 	printf(" x | y   : use coroutines to compute its conclusion with 2 possibilities : the conclusion of x or the conclusions of y \n");
 	printf(" ~ x     : reads the reduction of x\n");
 	printf("\n");
@@ -132,6 +139,8 @@ int full_red;
 int print_value_of_unknown;
 int gtr_alt;
 int unknown_alt;
+int use_sides;
+int orig_reduce1 = 0;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -296,9 +305,14 @@ struct proof1 {
 	proof sp1, sp2, red, side[2], val;	
 };
 
-//#define MAXPROOFS 100000
+#ifndef MAXPROOFS
+#ifdef GLOBAL
+#define MAXPROOFS 100000
+#else
 //#define MAXPROOFS 20000
 #define MAXPROOFS 5000
+#endif
+#endif
 
 int nproofs;
 
@@ -383,6 +397,15 @@ proof proof_with_name (char *name) {
 	return proofs+nproofs++;
 }
 
+proof copy_of_proof (proof src) {
+	proof dst;
+	check_memory();
+	dst = proofs+nproofs;
+	copy_proof(src,dst);
+	nproofs++;
+	return dst;
+}
+
 proof empty_proof;
 
 #define DEFOP1(o,f) \
@@ -442,6 +465,8 @@ DEFOP2(EQU,equ)
 DEFOP2(PRT,prt)
 DEFOP2(ALT,alp)
 DEFOP2(ALR,alr)
+
+int eq (proof x, proof y);
 
 proof mkproof(int op, proof x, proof y) { 
 	int i; 
@@ -527,8 +552,41 @@ proof right(proof x);
 
 proof reduce (proof x);
 
-proof reduce1 (proof x) {
+proof reduce1_orig (proof x) {
 	proof l, r;
+	if (x == NULL) return x;
+	if (x->op == SMB) return x;
+	if (x->op == ANY) return x;
+	if (x->op == APL && x->sp1->op == FNC)
+		return subst(var, x->sp1->sp1, x->sp2);
+	if (x->op == LFT)
+		return left(reduce(x->sp1));
+	if (x->op == RGT)
+		return right(reduce(x->sp1));
+	if (x->op == SP1)
+		return reduce(x->sp1)->sp1;
+	if (x->op == SP2)
+		return reduce(x->sp1)->sp2;
+	//if (x->op == FPR) {
+	//	printf("\nFull definition of proof : ");
+	//	print_proof_to_stdout(x->sp1);
+	//	printf("\n                      is : ");
+	//	print_full_proof_to_stdout(x->sp1);
+	//}
+	if (x->op == FNC && x->sp1->op == APL && x->sp1->sp2->op == VAR) 
+		return x->sp1->sp1;
+	if (x->op == ALR) {
+		if (pof()) {
+			return x->sp1;
+		} else {
+			return x->sp2;
+		}
+	}
+	return mkproof(x->op, reduce1_orig(x->sp1), reduce1_orig(x->sp2));
+}
+			
+proof reduce1step (proof x) {
+	proof l, r, y;
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
 	if (x->op == ANY) return x;
@@ -557,9 +615,19 @@ proof reduce1 (proof x) {
 			return x->sp2;
 		}
 	}
-	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
+	y = reduce1step(x->sp1);
+	if (!eq(y,x->sp1)) {
+		return mkproof(x->op, y, x->sp2);
+	} else {
+		y = reduce1step(x->sp2);
+		return mkproof(x->op, x->sp1, y);
+	}
+}	
+
+proof reduce1 (proof x) {
+	if (orig_reduce1) return reduce1_orig(x);
+	return reduce1step(x);
 }
-			
 
 #define MAX 10000
 
@@ -588,19 +656,22 @@ proof reduce2 (proof x) {
 	return z;
 }
 
-int eq (proof x, proof y);
-
 proof reduce3 (proof x) {
 	proof y, z;
 	proof a[MAX];
 	int n, i, found;
+	int nsteps;
 	if (x == NULL) return x;
 	n = 0;
 	y = x;
+	nsteps = 0;
 	for (;;)
 	{
+		nsteps++;
 		a[n++] = y;
-		z = reduce1(y);
+		z = reduce1step(y);
+		//printf("\n\t %d : ", nsteps);
+		//print_proof_to_stdout(z);
 		if (n >= MAX) break;
 		found = 0;
 		for (i=0; i<n; i++) {
@@ -609,9 +680,13 @@ proof reduce3 (proof x) {
 				break;
 			} 
 		}
-		if (found) return y;
+		if (found) {
+			printf("\n%d steps",nsteps);
+			return y;
+		}
 		y = z;
 	}
+	printf("\n%d steps",nsteps);
 	return z;
 }
 
@@ -1102,22 +1177,25 @@ proof side (int s, proof x) {
     ///print_proof_to_stdout(x);
 	if (x == NULL)
 		return x;
-#ifndef SIDES
-	for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
-        ///printf(" i=%d",i);
-		if (x->side[i] == NULL) {
-            ///printf(" NULL");
-			x->side[i] = x;
-			x->side[i] = side1(i,x);
+//#ifndef SIDES
+	if (!use_sides) {
+		for (i=LEFT; i==LEFT||i==RIGHT; i+=RIGHT-LEFT) {
+			///printf(" i=%d",i);
+			if (x->side[i] == NULL) {
+				///printf(" NULL");
+				x->side[i] = x;
+				x->side[i] = side1(i,x);
+			}
+		}
+//#else
+	} else {
+		if (x->side[LEFT] == NULL || x->side[RIGHT] == NULL) {
+			x->side[LEFT] = x;
+			x->side[RIGHT] = x;
+			sides(x,&(x->side[LEFT]),&(x->side[RIGHT]));
 		}
 	}
-#else
-	if (x->side[LEFT] == NULL || x->side[RIGHT] == NULL) {
-		x->side[LEFT] = x;
-		x->side[RIGHT] = x;
-		sides(x,&(x->side[LEFT]),&(x->side[RIGHT]));
-	}
-#endif
+//#endif
     ///printf(" sides calculated");
 	return x->side[s];
 }
@@ -1244,7 +1322,7 @@ void read_name (struct reader *reader, char *name) {
 		if (!cur_char) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]-/%{,}<|>#=;.",cur_char)) break;
 		// if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()*'\\[]/%<>#=;.",cur_char)) break;
-		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|,.",cur_char)) break;
+		if (cur_char == 0 || cur_char == -1 || strchr(" \t\n\r()[]#=;|,.}",cur_char)) break;
 		name[i++] = cur_char;
 		nextchar(reader);
 	}
@@ -1310,6 +1388,7 @@ proof read_proof_1 (struct reader *reader) {
 			z = read_proof_1(reader);
 			return red(apl(lambda(x,z),prt(x,y)));
 		case '&' :
+		case '{' :
 			nextchar(reader);
 			skip_blanks(reader);
 			read_name(reader,name);
@@ -1337,6 +1416,10 @@ proof read_proof_1 (struct reader *reader) {
 			nextchar(reader);
 			x = read_proof_1(reader);
 			return reduce(x);
+		case '}' :
+			nextchar(reader);
+			x = read_proof_1(reader);
+			return copy_of_proof(x);
 		default :
 			//if (cur_char >= '0' && cur_char <= '9') {
 			if (cur_char == '0') {
@@ -1693,7 +1776,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 		v = x->val;
 		x->val = NULL;
 		if (print_value_of_unknown && v != NULL && !(!full && x->name[0])) {
-			print_proof_1(printer,v,0,full);
+			print_proof_1(printer,v,3,full);
 		} else {
 			putstring_to_printer(printer, "{");
 			print_proof_1(printer,v,0,full);
@@ -1756,6 +1839,7 @@ void init_args (int argc, char *argv[]) {
     use_coroutines = 0;
 	gtr_alt = 0;
 	unknown_alt = 0;
+	use_sides = 1;
 	if (argc > 1) {
 		if (argv[1][0] == '-') {
 			if (argc > 2) strcpy(filename, argv[2]);
@@ -1773,12 +1857,18 @@ void init_args (int argc, char *argv[]) {
 			if (strchr(argv[1],'a')) use_coroutines = 1;
 			if (strchr(argv[1],'g')) gtr_alt = 1;
 			if (strchr(argv[1],'U')) unknown_alt = 1;
+			if (strchr(argv[1],'s')) use_sides = 0;
+			if (strchr(argv[1],'R')) orig_reduce1 = 1;
 		} else {
 			strcpy(filename, argv[1]);
 		}
 	}
 	//printf("\nuse_coroutines = %d\n",use_coroutines);
 }
+
+#ifdef GLOBAL
+struct proof1 proofs_buf[MAXPROOFS];
+#endif
 
 // int main (int argc, char *argv[]) {
 void *maincr1 (void *p, struct coroutine *c1)
@@ -1798,7 +1888,9 @@ void *maincr1 (void *p, struct coroutine *c1)
 		memcpy (calling, c1, sizeof(calling));
 	}
 
+#ifndef GLOBAL
 	struct proof1 proofs_buf[MAXPROOFS];
+#endif
 	proofs = proofs_buf;
 	var = proofs;
 

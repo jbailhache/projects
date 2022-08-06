@@ -2,7 +2,7 @@
 // Compilation : cc -g -fno-stack-protector -o pl-v12 pl-v12.c schedule.c
 //  For global table of proofs, add option "-DGLOBAL" (do not use with coroutines)
 //  To modifiy default maximum number of proof, add option "-DMAXPROOFS=n"
-//  Example : cc -g -fno-stack-protector -DGLOBAL -DMAXPROOFS=200000 -o pl-v12j-rpi pl-v12j.c schedule.c
+//  Example : cc -g -fno-stack-protector -DGLOBAL -DMAXPROOFS=200000 -o pl-v12 pl-v12.c schedule.c
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -30,6 +30,7 @@ int print_help (char *progname) {
 	printf(" -r : print reduction of proofs read from file\n");
 	printf(" -u : display only value of unknown\n");
 	printf(" -U : use coroutines when matching \"_\" with 2 possibilities : it matches or it does not match \n");
+	printf(" -R : elementary reduction may reduce both subproofs of a proof\n");
 	printf("\n");
 	printf("After starting the program, a prompt \"?\" is displayed. Type a proof ended by \".\", or just \".\" to quit. The reduction and the conclusion of this proof is displayed. \n");
 	printf("\n");
@@ -137,6 +138,7 @@ int print_value_of_unknown;
 int gtr_alt;
 int unknown_alt;
 int use_sides;
+int orig_reduce1 = 0;
 
 struct reader {
 	char (*getchar)(struct reader *);
@@ -547,7 +549,7 @@ proof right(proof x);
 
 proof reduce (proof x);
 
-/*proof reduce1 (proof x) {
+proof reduce1_orig (proof x) {
 	proof l, r;
 	if (x == NULL) return x;
 	if (x->op == SMB) return x;
@@ -577,8 +579,8 @@ proof reduce (proof x);
 			return x->sp2;
 		}
 	}
-	return mkproof(x->op, reduce1(x->sp1), reduce1(x->sp2));
-}*/
+	return mkproof(x->op, reduce1_orig(x->sp1), reduce1_orig(x->sp2));
+}
 			
 proof reduce1step (proof x) {
 	proof l, r, y;
@@ -620,6 +622,7 @@ proof reduce1step (proof x) {
 }	
 
 proof reduce1 (proof x) {
+	if (orig_reduce1) return reduce1_orig(x);
 	return reduce1step(x);
 }
 
@@ -1761,7 +1764,7 @@ void print_proof_1(struct printer *printer, proof x, int parenthesized, int full
 		v = x->val;
 		x->val = NULL;
 		if (print_value_of_unknown && v != NULL && !(!full && x->name[0])) {
-			print_proof_1(printer,v,0,full);
+			print_proof_1(printer,v,3,full);
 		} else {
 			putstring_to_printer(printer, "{");
 			print_proof_1(printer,v,0,full);
@@ -1843,6 +1846,7 @@ void init_args (int argc, char *argv[]) {
 			if (strchr(argv[1],'g')) gtr_alt = 1;
 			if (strchr(argv[1],'U')) unknown_alt = 1;
 			if (strchr(argv[1],'s')) use_sides = 0;
+			if (strchr(argv[1],'R')) orig_reduce1 = 1;
 		} else {
 			strcpy(filename, argv[1]);
 		}
