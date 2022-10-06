@@ -233,10 +233,14 @@ char buf[10000];
         putpixel (i, i, 7);
     }*/
 
+    // Tests
+    /*
     get_coord (38, coord);
     n = get_number (coord);
     printf (" %d %d %d \n", coord[0], coord[1], n);
     printf (" %d \n", distance (12, 35));    
+    */
+
     init_map();
     /*for (i=0; i<NN; i++) {
         printf (" %f %f \n", map[i][0], map[i][1]);
