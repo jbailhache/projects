@@ -52,6 +52,8 @@ void putpixel (int x, int y, int c);
 
 void drawline (int x1, int y1, int x2, int y2, int c);
 
-void cleardevice (void);
+void clear (void);
+
+void endgraph (void); 
 
 

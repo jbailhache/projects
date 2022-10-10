@@ -246,26 +246,29 @@ char buf[10000];
         printf (" %f %f \n", map[i][0], map[i][1]);
     }*/
 
+    /*
     draw_map ();
     sleep(1);
     step(1);
     cleardevice();
     draw_map();
     sleep(1);
+    */
 
-    for (t=1; ; t++) {
+    draw_map();
+    for (t=1; t<100; t++) {
 		for (u=0; u<1000; u++) {
             step (t);
 		}
-        cleardevice();
+        clear();
         draw_map();
-        for (s=0; s<10000; s++);
-        if (t > 100) {
+        //for (s=0; s<10000; s++);
+        /*if (t > 100) {
             sleep(1);
-        }
+        }*/
     }
 
-    gets (buf);
+    endgraph ();
 
 }
 

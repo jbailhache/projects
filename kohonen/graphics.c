@@ -33,3 +33,13 @@ void drawline (int x1, int y1, int x2, int y2, int c)
     line (x1, y1, x2, y2);
 }
 
+void clear (void)
+{
+    cleardevice ();
+}
+
+void endgraph ()
+{
+char buf[10000];
+    gets (buf);
+}
