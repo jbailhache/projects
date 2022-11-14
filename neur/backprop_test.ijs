@@ -8,7 +8,7 @@ sigmaprime =: 3 : '(sigma y) * (1 - sigma y)'  NB. derivative
 nl =: 5        NB. Number of layers
 npl =: 6       NB. Number of neurons per layer
 n =: nl * npl  NB. Total number of neurons
-p =: 10     
+p =: 10
 alpha =: 3     NB. Learning rate
 nX =: 3        NB. Number of inputs
 
@@ -18,11 +18,16 @@ maskB =: (npl#0),(((nl-1)*npl)#1)                    NB. Mask of biases : no bia
 maskX =: (npl#1),(((nl-1)*npl)#0)                    NB. Mask of inputs : only the first layer
 maskO =: (((nl-1)*npl)#0),(npl#1)                    NB. Mask of outputs : only the last layer
 
-W =: maskW * (n,n) $ normalrand n^2  NB. Matrix of connection weights
-                                     NB. Element at i-th line and j-th column = weight of connection from neuron j to neuron i 
-B =: maskB * normalrand n            NB. biases
-X =: maskX * (? (n,nX) $ p) % p      NB. Inputs, i-th column = vector representing the i-th input
-T =: maskO * (? (n,nX) $ p) % p      NB. Expected outputs
+NB. W =: maskW * (n,n) $ normalrand n^2  NB. Matrix of connection weights
+                                         NB. Element at i-th line and
+j-th column = weight of connection from neuron j to neuron i
+W =: maskW * (1 o. i. n) +/ 1 o. i. n
+NB. B =: maskB * normalrand n            NB. biases
+B =: maskB * 1 o. i. n
+NB. X =: maskX * (? (n,nX) $ p) % p      NB. Inputs, i-th column = vector representing the i-th input
+X =: maskX * ((n,nX) $ p | i. n * nX) % p
+NB. T =: maskO * (? (n,nX) $ p) % p      NB. Expected outputs
+T =: maskO * ((n,nX) $ p | i. n * nX) % p
 
 step =: 3 : 0
  Z =: B + W +/ . * A                     NB. Aggregation : add biases and matrix product of weights by activations
@@ -46,7 +51,7 @@ steplearn =: 3 : 0
  avgdelta =: (+/ |: delta) % nX  NB. Average delta
  NB. Average gradient of weights for nX inputs
  NB. dC/dw^l_{ij} = a^{l-1}_j delta^l_i
- GW =: maskW * delta +/ . * |: A % nX 
+ GW =: maskW * delta +/ . * |: A % nX
  NB. Average gradient of biases for nX inputs
  NB. dC/db_i = delta^l_i
  GB =: maskB * avgdelta
@@ -55,9 +60,8 @@ steplearn =: 3 : 0
  B =: B - alpha * GB
 )
 
-NB. Repeat learning 
-(steplearn^:1500) 0
+NB. Repeat learning
+(steplearn^:300) 0
 
 NB. Difference between computed and expected outputs
 echo maskO * A - T
-
