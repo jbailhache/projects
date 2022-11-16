@@ -52,7 +52,7 @@ real sigmaprime (real x)
 #define npl 6 			// Number of neurons per layer
 #define n (nl * npl) 	// Total number of neurons
 #define p 10
-#define alpha 3			// Learning rate
+#define alpha 3 		// Learning rate
 #define nX 3			// Number of inputs
 
 real W[n][n];		    // Matrix of connection weights
@@ -239,9 +239,20 @@ void steplearn (void)
 void main (void)
 {
 	int i, j, s;
+	real d, e;
 	init();
 	for (s=0; s<10000; s++)
+	{
 		steplearn();
+		e = 0;
+		for (i=(nl-1)*npl; i<n; i++)
+			for (j=0; j<nX; j++)
+			{
+				d = A[i][j] - T[i][j];
+				e += d * d;			
+			}
+		printf ("Step %5d : error = %9.6Lf\n", s, e);
+	}
 	printf("T :\n");
 	for (i=(nl-1)*npl; i<n; i++)
 	{
@@ -263,5 +274,7 @@ void main (void)
 			printf (" %9.6Lf ", A[i][j] - T[i][j]);
 		printf("\n");
 	}
+	//sleep(1);
+	
 }
 
