@@ -242,6 +242,21 @@ void main (void)
 	init();
 	for (s=0; s<10000; s++)
 		steplearn();
+	printf("\n");
+	for (i=(nl-1)*npl; i<n; i++)
+	{
+		for (j=0; j<nX; j++)
+			printf (" %9.6Lf ", T[i][j]);
+		printf("\n");
+	}
+	printf("\n");
+	for (i=(nl-1)*npl; i<n; i++)
+	{
+		for (j=0; j<nX; j++)
+			printf (" %9.6Lf ", A[i][j]);
+		printf("\n");
+	}
+	printf("\n");
 	for (i=(nl-1)*npl; i<n; i++)
 	{
 		for (j=0; j<nX; j++)
