@@ -61,7 +61,16 @@ steplearn =: 3 : 0
 )
 
 NB. Repeat learning
-(steplearn^:300) 0
-
+ns =: 300
+(steplearn^:ns) 0
+echo 'ns :'
+echo ns
 NB. Difference between computed and expected outputs
-echo maskO * A - T
+NB. echo maskO * A - T
+echo 'T :'
+echo (((nl-1)*npl) + i. npl) { T
+echo 'A :'
+echo (((nl-1)*npl) + i. npl) { A 
+echo 'A - T :'
+echo (((nl-1)*npl) + i. npl) { A - T
+

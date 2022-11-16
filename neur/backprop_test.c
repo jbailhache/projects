@@ -242,13 +242,33 @@ void main (void)
 {
 	int i, j, s;
 	init();
-	for (s=0; s<300; s++)
+	
+	int ns = 300;
+	printf ("ns = %d\n", ns);
+	for (s=0; s<ns; s++)
 		steplearn();
+
+	printf("T :\n");
+	for (i=(nl-1)*npl; i<n; i++)
+	{
+		for (j=0; j<nX; j++)
+			printf (" %9.6Lf ", T[i][j]);
+		printf("\n");
+	}
+	printf("A :\n");
+	for (i=(nl-1)*npl; i<n; i++)
+	{
+		for (j=0; j<nX; j++)
+			printf (" %9.6Lf ", A[i][j]);
+		printf("\n");
+	}
+	printf("A - T :\n");	
 	for (i=(nl-1)*npl; i<n; i++)
 	{
 		for (j=0; j<nX; j++)
 			printf (" %9.6Lf ", A[i][j] - T[i][j]);
 		printf("\n");
 	}
+	
 }
 

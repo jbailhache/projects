@@ -82,7 +82,7 @@ void init (void)
 		for (i=0; i<npl; i++)
 			for (j=0; j<npl; j++)
 				W[(l+1)*npl+i][l*npl+j] = normalRandom();
-	
+	/*
 	printf ("W :\n");
 	for (i=0; i<n; i++)
 	{
@@ -90,7 +90,7 @@ void init (void)
 			printf(" %4.1Lf", W[i][j]);
 		printf("\n");
 	}
-	
+	*/
 	for (i=0; i<n; i++)
 		B[i] = 0;
 	for (l=1; l<nl; l++)
@@ -110,7 +110,7 @@ void init (void)
 			X[i][j] = (real)randomLessThan(p) / (real)p;
 	
 	printf("X :\n");
-	for (i=0; i<n; i++)
+	for (i=0; i<npl; i++)
 	{
 		for (j=0; j<nX; j++)
 			printf(" %4.1Lf", X[i][j]);
@@ -125,7 +125,7 @@ void init (void)
 			T[(nl-1)*npl+i][j] = (real)randomLessThan(p) / (real)p;	
 	
 	printf("T :\n");
-	for (i=0; i<n; i++)
+	for (i=(nl-1)*npl; i<n; i++)
 	{
 		for (j=0; j<nX; j++)
 			printf(" %4.1Lf", T[i][j]);
@@ -251,7 +251,7 @@ void main (void)
 				d = A[i][j] - T[i][j];
 				e += d * d;			
 			}
-		printf ("Step %5d : error = %9.6Lf\n", s, e);
+		//printf ("Step %5d : error = %9.6Lf\n", s, e);
 	}
 	printf("T :\n");
 	for (i=(nl-1)*npl; i<n; i++)
