@@ -165,7 +165,7 @@ void step (void)
 void stepdelta (void)
 {
 	int i, j, k;
-	// delta =: (maskO * A - T) + (sigmaprime Z) * (|: W) +/ . * delta
+	// delta =: (sigmaprime Z) * (maskO * A - T) + (|: W) +/ . * delta
 	for (i=0; i<n; i++)
 		for (j=0; j<nX; j++)
 		{
@@ -173,12 +173,12 @@ void stepdelta (void)
 			for (k=0; k<n; k++)
 				delta1[i][j] += W[k][i] * delta[k][j];
 		}
-	for (i=0; i<n; i++)
-		for (j=0; j<nX; j++)
-			delta1[i][j] *= sigmaprime(Z[i][j]);
 	for (i=(nl-1)*npl; i<n; i++)
 		for (j=0; j<nX; j++)
 			delta1[i][j] += A[i][j] - T[i][j];
+	for (i=0; i<n; i++)
+		for (j=0; j<nX; j++)
+			delta1[i][j] *= sigmaprime(Z[i][j]);
 	for (i=0; i<n; i++)
 		for (j=0; j<nX; j++)
 			delta[i][j] = delta1[i][j];

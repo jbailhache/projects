@@ -33,7 +33,8 @@ NB. One step of backpropagation
 NB. delta^L_i = A - T
 NB. delta^l_i = sigma'(z^l_i) * sum_j(w^{l+1}_{ji} delta^{l+1}_j
 stepdelta =: 3 : 0
- delta =: (maskO * A - T) + (sigmaprime Z) * (|: W) +/ . * delta
+ NB. delta =: (maskO * A - T) + (sigmaprime Z) * (|: W) +/ . * delta
+ delta =: (sigmaprime Z) * (maskO * A - T) + (|: W) +/ . * delta
 )
 
 NB. Step of learning
@@ -56,7 +57,7 @@ steplearn =: 3 : 0
 )
 
 NB. Repeat learning 
-(steplearn^:1500) 0
+(steplearn^:10000) 0
 
 NB. Difference between computed and expected outputs
 NB. echo maskO * A - T
