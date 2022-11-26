@@ -81,7 +81,7 @@ NB. brain = W ; B
 NB. W = > 0 { brain
 NB. B = > 1 { brain
 
-NB. brain apply inputs
+NB. Z ; A ; outputs = brain apply inputs
 apply =: 4 : 0
  brain =. x
  W =. > 0 { brain               NB. Matrix of connection weights
@@ -151,3 +151,6 @@ learn =: 3 : 0
  W ; B
 )
 
+brain =: learn inputs ; outputs ; nl
+echo 'Errors :'
+echo (> 2 { brain apply inputs) - outputs
