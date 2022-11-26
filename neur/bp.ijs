@@ -70,6 +70,9 @@ learn =: 3 : 0
   NB. A =. (((n-npl),nX) $ 0), out
   delta =. (n,nX) $ 0
   for. i. nl do.  NB. Repeat backpropagation nl times
+   NB. One step of backpropagation
+   NB. delta^L_i = sigma'(z^l_i) * (A - T)
+   NB. delta^l_i = sigma'(z^l_i) * sum_j(w^{l+1}_{ji} delta^{l+1}_j
    delta =. (sigmaprime Z) * (maskO * A - T) + (|: W) +/ . * delta
   end.
 
