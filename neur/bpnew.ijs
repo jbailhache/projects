@@ -1,37 +1,3 @@
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Backpropagation</title>
-</head>
-<body>
-<h2>Backpropagation</h2>
-<p>
-Backpropagation or backward propagation of errorsis a method for tuning the connection weights of a neural network by minimizing the error, the distance between the outputs given by the network and the expected outputs, using gradient descent.
-</p>
-<p>
-Usually, the neural network is structured in layers, with connections only from neurons in one layer to neurons in the following layer. 
-We will have a different approach, considering a priori that any connection scheme is possible, and introducing the layered structure as a particular connection scheme, represented by a matrix maskW in J code, containing 1 for existing connections and 0 for neurons that are not connected.
-</p>
-	Links :
-	<ul>
-	<li><a href="http://neuralnetworksanddeeplearning.com/chap2.html">
-		How the backpropagation algorithm works
-		</a> 
-	<li><a href="https://www.miximum.fr/blog/introduction-au-deep-learning-2/">
-		Deep learning : la rétropropagation du gradient
-		</a>
-	<li><a href="https://pageperso.lis-lab.fr/bernard.espinasse/wp-content/uploads/2021/12/Retropropagation-Gradient-2018-4p.pdf">
-		Apprentissage par rétropropagation du gradient de réseaux neuromimétiques multi-couches
-		</a>
-	</ul>
-<table><tr><td valign="top">
-	<img width="800" src="backprop.jpg">
-</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign="top">
-
-	J code :
-    <p>
-	<textarea rows="80" cols="120">
-
 NB. Backpropagation
 NB. See https://www.miximum.fr/blog/introduction-au-deep-learning-2/
 
@@ -173,7 +139,3 @@ echo 'Test with logical and : outputs ='
 echo (> 2 { brain apply inputs)
 echo ' '
 
-	</textarea>
-</td></tr></table>
-</body>
-</html>
