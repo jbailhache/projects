@@ -6,7 +6,14 @@ load 'stats'
 sigma =: 3 : '1 % 1 + ^(-y)'
 sigmaprime =: 3 : '(sigma y) * (1 - sigma y)'  NB. derivative
 
+NB. Parameters
+p =: 10
 alpha =: 3     NB. Learning rate
+
+inputs =: (? (6,3) $ p) % p
+outputs =: (? (6,3) $ p) % p
+
+nl =: 5        NB. Number of layers
 
 NB. brain = W ; B
 NB. W = > 0 { brain
@@ -32,14 +39,12 @@ apply =: 4 : 0
  Z ; A ; outputs
 )
  
-NB. brain = learn inputs ; outputs ; nl ; alpha ; ns
+NB. brain = learn inputs ; outputs ; nl
 learn =: 3 : 0
 
- inputs  =. > 0 { y
+ inputs =. > 0 { y
  outputs =. > 1 { y
- nl      =. > 2 { y  NB. Number of layers
- alpha   =. > 3 { y  NB. Learning rate
- nls     =. > 4 { y  NB. Number of learning steps
+ nl =. > 2 { y        NB. Number of layers
 
  npl =. 0 { $ inputs  NB. Number of neurons per layers
  n =. nl * npl        NB. Total number of neurons
@@ -57,7 +62,7 @@ learn =: 3 : 0
  X =. inputs, ((n-npl),nX) $ 0
  T =. (((n-npl),nX) $ 0), outputs
  
- for. i. nls do.  NB. Repeat learning
+ for. i. 10000 do.  NB. Repeat learning
 
   ZA =. (W;B) apply inputs
   Z =. > 0 { ZA
@@ -87,57 +92,6 @@ learn =: 3 : 0
  W ; B
 )
 
-
-NB. Test with random inputs and expected outputs
-p =: 10
-nl =: 5        NB. Number of layers
-inputs =: (? (6,3) $ p) % p
-outputs =: (? (6,3) $ p) % p
-
-brain =: learn inputs ; outputs ; nl ; 3 ; 10000
-echo ' '
-echo 'Test with random inputs and expected outputs : Errors ='
+brain =: learn inputs ; outputs ; nl
+echo 'Errors :'
 echo (> 2 { brain apply inputs) - outputs
-
-
-NB. initialisation of inputs and expected outputs
-
-init =: 3 : 0
- inputs =: 0 0 $ 0
- outputs =: 0 0 $ 0
-)
-
-gives =: 4 : 0
- inputs =: |: (|: inputs) , (1,$x) $ x
- outputs =: |: (|: outputs) , (1,$y) $ y
-)
-
-
-NB. Test with logical and
-NB. a b c -> d d d where d = a and b
-NB. c is not significant
-NB. learn with c = 0
-NB. test with c = 1
-
-init 0
-0 0 0 gives 0 0 0
-0 1 0 gives 0 0 0
-1 0 0 gives 0 0 0
-1 1 0 gives 1 1 1
-
-brain =: learn inputs ; outputs ; 5 ; 3 ; 10000
-echo ' '
-echo 'Test with logical and : Errors ='
-echo (> 2 { brain apply inputs) - outputs
-
-init 0
-0 0 1 gives 0 0 0
-0 1 1 gives 0 0 0
-1 0 1 gives 0 0 0
-1 1 1 gives 0 0 0
-
-echo ' '
-echo 'Test with logical and : outputs ='
-echo (> 2 { brain apply inputs)
-echo ' '
-

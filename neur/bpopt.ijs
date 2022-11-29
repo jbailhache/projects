@@ -31,6 +31,42 @@ apply =: 4 : 0
  outputs =. ((npl $ n-npl) + i. npl) { A
  Z ; A ; outputs
 )
+
+NB. initW inputs ; outputs ; nl ; ns
+initW =: 3 : 0
+
+ inputs  =. > 0 { y
+ outputs =. > 1 { y
+ nl      =. > 2 { y  NB. Number of layers
+ ns      =. > 3 { y
+
+ npl =. 0 { $ inputs  NB. Number of neurons per layers
+ n =. nl * npl        NB. Total number of neurons
+ nX =. 1 { $ inputs   NB. Number of inputs
+
+ NB. Masks with 1 for non-zero values
+ maskW =. (<. (i. n) % npl) =/ (1 + <. (i. n) % npl)  NB. Mask of connections : each neuron is connected only to the neurons of next layer
+ maskB =. (npl#0),(((nl-1)*npl)#1)                    NB. Mask of biases : no biases for input neurons
+ maskX =. (npl#1),(((nl-1)*npl)#0)                    NB. Mask of inputs : only the first layer
+ maskO =. (((nl-1)*npl)#0),(npl#1)                    NB. Mask of outputs : only the last layer
+
+ X =. inputs, ((n-npl),nX) $ 0
+ T =. (((n-npl),nX) $ 0), outputs
+
+ for. i. ns do.
+  W =. maskW * (n,n) $ normalrand n^2  NB. Matrix of connection weights
+                                       NB. Element at i-th line and j-th column = weight of connection from neuron j to neuron i 
+  B =. maskB * normalrand n            NB. biases
+
+  ZAY =. (W;B) apply inputs
+  Z =. > 0 { ZAY
+  A =. > 1 { ZAY
+  Y =. > 2 { ZAY
+  e =. +/ +/ *: Y - outputs
+  echo e
+ end.
+
+)
  
 NB. brain = learn inputs ; outputs ; nl ; alpha ; ns
 learn =: 3 : 0
@@ -51,7 +87,7 @@ learn =: 3 : 0
  maskX =. (npl#1),(((nl-1)*npl)#0)                    NB. Mask of inputs : only the first layer
  maskO =. (((nl-1)*npl)#0),(npl#1)                    NB. Mask of outputs : only the last layer
 
- while. 0=0 do.  NB. Loop while error is too big
+ while. 0=0 do.
 
   W =. maskW * (n,n) $ normalrand n^2  NB. Matrix of connection weights
                                        NB. Element at i-th line and j-th column = weight of connection from neuron j to neuron i 
@@ -60,6 +96,7 @@ learn =: 3 : 0
   T =. (((n-npl),nX) $ 0), outputs
   
   s =. 0
+ 
   e =. 0
  
   for. i. nls do.  NB. Repeat learning
@@ -73,6 +110,15 @@ learn =: 3 : 0
    e =. +/ +/ *: Y - outputs
    NB. echo s, e
    if. 0.000001 > | e - e1 do. break. end.
+   NB. echo 'expected :'
+   NB. echo outputs
+   NB. echo 'got :'
+   NB. echo Y
+   NB. echo 'difference :'
+   NB. echo Y - outputs
+   NB. echo 'squares :'
+   NB. echo *: Y - outputs
+   NB. echo ' '
  
    NB. A =. (((n-npl),nX) $ 0), out
    delta =. (n,nX) $ 0
@@ -101,7 +147,7 @@ learn =: 3 : 0
   echo ' '
   echo nl, alpha, e
  
-  if. e < 0.001 do. break. end.  NB. Stop if error is small enough
+  if. e < 0.001 do. break. end.
 
  end.
 
@@ -115,7 +161,30 @@ nl =: 5        NB. Number of layers
 inputs =: (? (6,3) $ p) % p
 outputs =: (? (6,3) $ p) % p
 
+NB. initW inputs ; outputs ; 5 ; 30
+
 brain =: learn inputs ; outputs ; nl ; 16 ; 3000
+
+testalpha =: 3 : 0
+ alpha =. 1
+ for. i. 30 do. 
+  brain =: learn inputs ; outputs ; nl ; alpha ; 800
+  alpha =. alpha + 1
+ end.
+)
+
+echo ' '
+NB. testalpha 0
+
+testnl =: 3 : 0
+ nl =. 3
+ for. i. 8 do. 
+  brain =: learn inputs ; outputs ; nl ; 20 ; 800
+  nl =. nl + 1
+ end.
+)
+
+NB. testnl 0
 
 echo ' '
 echo 'Test with random inputs and expected outputs :'
