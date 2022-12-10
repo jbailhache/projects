@@ -8,9 +8,10 @@ sigmaprime =: 3 : '(sigma y) * (1 - sigma y)'  NB. derivative
 
 alpha =: 3     NB. Learning rate
 
-NB. brain = W ; B
+NB. brain = W ; B ; nl
 NB. W = > 0 { brain
 NB. B = > 1 { brain
+NB. nl = > 2 { brain
 
 NB. Z ; A = brain apply inputs
 apply =: 4 : 0
@@ -109,7 +110,7 @@ learn =: 3 : 0
 
  end.
 
- W ; B
+ W ; B ; nl
 )
 
 
