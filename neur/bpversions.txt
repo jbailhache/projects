@@ -1,0 +1,10 @@
+BACKPROPAGATION VERSIONS
+
+backprop.ijs : initial J version
+backprop.c : C version
+backpropagation.ijs : functional version added
+bpold.ijs : initial version removed
+bpnew.ijs : test added
+bpopt.ijs : parameters optimization
+bpoptc.ijs : cleaned
+
