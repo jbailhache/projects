@@ -28,8 +28,7 @@ apply =: 4 : 0
   Z =. B + W +/ . * A                     NB. Aggregation : add biases and matrix product of weights by activations
   A =. (maskX * X) + (1-maskX) * sigma Z  NB. Activation : fixed values X for input neurons, sigma applied to aggregation for others
  end.
- NB. outputs =. ((npl $ n-npl) + i. npl) { A
- Z ; A  NB. ; outputs
+ Z ; A 
 )
  
 NB. brain = learn inputs ; outputs ; nnl ; alpha ; ns
@@ -38,31 +37,20 @@ learn =: 3 : 0
  inputs  =. > 0 { y
  outputs =. > 1 { y
  nnl     =. > 2 { y  NB. Number of neurons in the layers
- NB. npl =. > 3 { y  NB. Number of neurons per intermediate layer
  alpha   =. > 3 { y  NB. Learning rate
  nls     =. > 4 { y  NB. Number of learning steps
  
- NB. npl =. 0 { $ inputs  NB. Number of neurons per layers
  ni =. # inputs
  no =. # outputs
- NB. n =. nl * npl        NB. Total number of neurons
- NB. nil =. nl - 2
  nl =. # nnl
- nil =. +/nnl
- NB. n =. ni + no + nil * npl
  nil =. # nnl
  nl =. nil + 2
  n =. ni + no + +/nnl
  nX =. 1 { $ inputs   NB. Number of inputs
 
  NB. Masks with 1 for non-zero values
- NB. maskW =. (<. (i. n) % npl) =/ (1 + <. (i. n) % npl)  NB. Mask of connections : each neuron is connected only to the neurons of next layer
- NB. ln =. (ni # 0) , (1 + <.(i. nil*npl) % npl), (no # nil+1)  NB. Layer number of each neuron
  ln =. (ni # 0) , (nnl # 1 + i. nil) , (no # nil+1)
  maskW =. ln =/ 1 + ln
- NB. maskB =. (npl#0),(((nl-1)*npl)#1)                    NB. Mask of biases : no biases for input neurons
- NB. maskX =. (npl#1),(((nl-1)*npl)#0)                    NB. Mask of inputs : only the first layer
- NB. maskO =. (((nl-1)*npl)#0),(npl#1)                    NB. Mask of outputs : only the last layer
  maskB =. (ni#0),(n-ni)#1
  maskX =. (ni#1),(n-ni)#0
  maskO =. ((n-no)#0),no#1
@@ -83,7 +71,6 @@ learn =: 3 : 0
    ZA =. (W;B) apply inputs
    Z =. > 0 { ZA
    A =. > 1 { ZA
-   NB. Y =. > 2 { ZA
    Y =. ((no $ n-no) + i. no) { A
  
    e1 =. e
@@ -136,7 +123,6 @@ brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000
 
 echo ' '
 echo 'Test with random inputs and expected outputs :'
-NB. echo (> 2 { brain apply inputs) - outputs
 result =: brain apply inputs
 A =: > 1 { result
 n =: # A
@@ -145,10 +131,8 @@ got =. ((npl $ n-npl) + i. npl) { A
 echo 'Expected :'
 echo outputs
 echo 'Got :'
-NB. echo > 2 { result
 echo got
 echo 'Errors :'
-NB. echo (> 2 { result) - outputs
 echo got - outputs
 
 NB. initialisation of inputs and expected outputs
@@ -176,11 +160,8 @@ init 0
 1 0 0 gives 0 
 1 1 0 gives 1 
 
-NB. brain =: learn inputs ; outputs ; 5 ; 20 ; 4000
 brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000
 echo ' '
-NB. echo 'Test with logical and : Errors ='
-NB. echo (> 2 { brain apply inputs) - outputs
 echo 'Test with logical and :'
 result =: brain apply inputs
 A =: > 1 { result
@@ -190,10 +171,8 @@ got =. ((npl $ n-npl) + i. npl) { A
 echo 'Expected :'
 echo outputs
 echo 'Got :'
-NB. echo > 2 { result
 echo got
 echo 'Errors :'
-NB. echo (> 2 { result) - outputs
 echo got - outputs
 
 init 0
@@ -204,7 +183,5 @@ init 0
 
 echo ' '
 echo 'Test with logical and : outputs ='
-NB. echo (> 2 { brain apply inputs)
 echo (> 1 { brain apply inputs)
 echo ' '
-
