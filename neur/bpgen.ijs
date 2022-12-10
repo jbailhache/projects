@@ -114,26 +114,29 @@ learn =: 3 : 0
 
 
 NB. Test with random inputs and expected outputs
-p =: 10
-nl =: 5        NB. Number of layers
-inputs =: (? (8,3) $ p) % p
-outputs =: (? (5,3) $ p) % p
+testrandom =: 3 : 0
 
-brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000
-
-echo ' '
-echo 'Test with random inputs and expected outputs :'
-result =: brain apply inputs
-A =: > 1 { result
-n =: # A
-npl =: # outputs  NB. number of output neurons
-got =. ((npl $ n-npl) + i. npl) { A
-echo 'Expected :'
-echo outputs
-echo 'Got :'
-echo got
-echo 'Errors :'
-echo got - outputs
+ p =: 10
+ nl =: 5        NB. Number of layers
+ inputs =: (? (8,3) $ p) % p
+ outputs =: (? (5,3) $ p) % p
+ 
+ brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000
+ 
+ echo ' '
+ echo 'Test with random inputs and expected outputs :'
+ result =: brain apply inputs
+ A =: > 1 { result
+ n =: # A
+ npl =: # outputs  NB. number of output neurons
+ got =. ((npl $ n-npl) + i. npl) { A
+ echo 'Expected :'
+ echo outputs
+ echo 'Got :'
+ echo got
+ echo 'Errors :'
+ echo got - outputs
+)
 
 NB. initialisation of inputs and expected outputs
 
@@ -154,34 +157,38 @@ NB. c is not significant
 NB. learn with c = 0
 NB. test with c = 1
 
-init 0
-0 0 0 gives 0 
-0 1 0 gives 0 
-1 0 0 gives 0 
-1 1 0 gives 1 
+testand =: 3 : 0
 
-brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000
-echo ' '
-echo 'Test with logical and :'
-result =: brain apply inputs
-A =: > 1 { result
-n =: # A
-npl =: # outputs  NB. number of output neurons
-got =. ((npl $ n-npl) + i. npl) { A
-echo 'Expected :'
-echo outputs
-echo 'Got :'
-echo got
-echo 'Errors :'
-echo got - outputs
+ init 0
+ 0 0 0 gives 0 
+ 0 1 0 gives 0 
+ 1 0 0 gives 0 
+ 1 1 0 gives 1 
+ 
+ brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000
+ echo ' '
+ echo 'Test with logical and :'
+ result =: brain apply inputs
+ A =: > 1 { result
+ n =: # A
+ npl =: # outputs  NB. number of output neurons
+ got =. ((npl $ n-npl) + i. npl) { A
+ echo 'Expected :'
+ echo outputs
+ echo 'Got :'
+ echo got
+ echo 'Errors :'
+ echo got - outputs
+ 
+ init 0
+ 0 0 1 gives 0 
+ 0 1 1 gives 0 
+ 1 0 1 gives 0 
+ 1 1 1 gives 0 
+ 
+ echo ' '
+ echo 'Test with logical and : outputs ='
+ echo (> 1 { brain apply inputs)
+ echo ' '
+)
 
-init 0
-0 0 1 gives 0 
-0 1 1 gives 0 
-1 0 1 gives 0 
-1 1 1 gives 0 
-
-echo ' '
-echo 'Test with logical and : outputs ='
-echo (> 1 { brain apply inputs)
-echo ' '
