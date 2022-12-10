@@ -18,6 +18,7 @@ apply =: 4 : 0
  brain =. x
  W =. > 0 { brain               NB. Matrix of connection weights
  B =. > 1 { brain               NB. Array of biases
+ nl =. > 2 { brain
  inputs =. y
  n =. $ B                       NB. Total number of neurons
  npl =. 0 { $ inputs            NB. Number of neurons of input layer
@@ -69,7 +70,7 @@ learn =: 3 : 0
  
   for. i. nls do.  NB. Repeat learning
  
-   ZA =. (W;B) apply inputs
+   ZA =. (W;B;nl) apply inputs
    Z =. > 0 { ZA
    A =. > 1 { ZA
    Y =. ((no $ n-no) + i. no) { A
