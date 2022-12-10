@@ -32,27 +32,33 @@ apply =: 4 : 0
  Z ; A  NB. ; outputs
 )
  
-NB. brain = learn inputs ; outputs ; nl ; npl ; alpha ; ns
+NB. brain = learn inputs ; outputs ; nnl ; alpha ; ns
 learn =: 3 : 0
 
  inputs  =. > 0 { y
  outputs =. > 1 { y
- nl      =. > 2 { y  NB. Number of layers
- npl     =. > 3 { y  NB. Number of neurons per intermediate layer
- alpha   =. > 4 { y  NB. Learning rate
- nls     =. > 5 { y  NB. Number of learning steps
-
+ nnl     =. > 2 { y  NB. Number of neurons in the layers
+ NB. npl =. > 3 { y  NB. Number of neurons per intermediate layer
+ alpha   =. > 3 { y  NB. Learning rate
+ nls     =. > 4 { y  NB. Number of learning steps
+ 
  NB. npl =. 0 { $ inputs  NB. Number of neurons per layers
  ni =. # inputs
  no =. # outputs
  NB. n =. nl * npl        NB. Total number of neurons
- nil =. nl - 2
- n =. ni + no + nil * npl
+ NB. nil =. nl - 2
+ nl =. # nnl
+ nil =. +/nnl
+ NB. n =. ni + no + nil * npl
+ nil =. # nnl
+ nl =. nil + 2
+ n =. ni + no + +/nnl
  nX =. 1 { $ inputs   NB. Number of inputs
 
  NB. Masks with 1 for non-zero values
  NB. maskW =. (<. (i. n) % npl) =/ (1 + <. (i. n) % npl)  NB. Mask of connections : each neuron is connected only to the neurons of next layer
- ln =. (ni # 0) , (1 + <.(i. nil*npl) % npl), (no # nil+1)  NB. Layer number of each neuron
+ NB. ln =. (ni # 0) , (1 + <.(i. nil*npl) % npl), (no # nil+1)  NB. Layer number of each neuron
+ ln =. (ni # 0) , (nnl # 1 + i. nil) , (no # nil+1)
  maskW =. ln =/ 1 + ln
  NB. maskB =. (npl#0),(((nl-1)*npl)#1)                    NB. Mask of biases : no biases for input neurons
  NB. maskX =. (npl#1),(((nl-1)*npl)#0)                    NB. Mask of inputs : only the first layer
@@ -126,7 +132,7 @@ nl =: 5        NB. Number of layers
 inputs =: (? (8,3) $ p) % p
 outputs =: (? (5,3) $ p) % p
 
-brain =: learn inputs ; outputs ; nl ; 4 ; 16 ; 3000
+brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000
 
 echo ' '
 echo 'Test with random inputs and expected outputs :'
@@ -165,13 +171,13 @@ NB. learn with c = 0
 NB. test with c = 1
 
 init 0
-0 0 0 gives 0 0 0
-0 1 0 gives 0 0 0
-1 0 0 gives 0 0 0
-1 1 0 gives 1 1 1
+0 0 0 gives 0 
+0 1 0 gives 0 
+1 0 0 gives 0 
+1 1 0 gives 1 
 
 NB. brain =: learn inputs ; outputs ; 5 ; 20 ; 4000
-brain =: learn inputs ; outputs ; 5 ; 3 ; 16 ; 3000
+brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000
 echo ' '
 NB. echo 'Test with logical and : Errors ='
 NB. echo (> 2 { brain apply inputs) - outputs
@@ -191,10 +197,10 @@ NB. echo (> 2 { result) - outputs
 echo got - outputs
 
 init 0
-0 0 1 gives 0 0 0
-0 1 1 gives 0 0 0
-1 0 1 gives 0 0 0
-1 1 1 gives 0 0 0
+0 0 1 gives 0 
+0 1 1 gives 0 
+1 0 1 gives 0 
+1 1 1 gives 0 
 
 echo ' '
 echo 'Test with logical and : outputs ='
