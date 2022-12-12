@@ -33,7 +33,7 @@ apply =: 4 : 0
  Z ; A 
 )
  
-NB. brain = learn inputs ; outputs ; nnl ; alpha ; ns
+NB. brain = learn inputs ; outputs ; nnl ; alpha ; ns ; er ; de
 learn =: 3 : 0
 
  inputs  =. > 0 { y
@@ -41,10 +41,11 @@ learn =: 3 : 0
  nnl     =. > 2 { y  NB. Number of neurons in the layers
  alpha   =. > 3 { y  NB. Learning rate
  nls     =. > 4 { y  NB. Number of learning steps
- 
+ er      =. > 5 { y  NB. Maximum error allowed
+ de      =. > 6 { y  NB. Stop learning when variation of error less than it
+
  ni =. # inputs
  no =. # outputs
- nl =. # nnl
  nil =. # nnl
  nl =. nil + 2
  n =. ni + no + +/nnl
@@ -78,8 +79,9 @@ learn =: 3 : 0
    e1 =. e
    e =. +/ +/ *: Y - outputs
    NB. echo s, e
-   if. 0.000001 > | e - e1 do. break. end.
- 
+   NB. if. 0.000001 > | e - e1 do. break. end.
+   if. de > | e - e1 do. break. end.
+
    NB. A =. (((n-npl),nX) $ 0), out
    delta =. (n,nX) $ 0
    for. i. nl do.  NB. Repeat backpropagation nl times
@@ -101,13 +103,20 @@ learn =: 3 : 0
    B =. B - alpha * GB
  
    s =. s+1
+
+   NB. Stop if error is small enough
+   NB. if. e < 0.01 do. 
+   NB.  echo 'Stop at step',":i
+   NB.  break. 
+   NB. end.  
  
   end.
  
   echo ' '
   echo nl, alpha, e
  
-  if. e < 0.001 do. break. end.  NB. Stop if error is small enough
+  NB. if. e < 0.001 do. break. end.  NB. Stop if error is small enough
+  if. e < er do. break. end.  NB. Stop if error is small enough
 
  end.
 
@@ -123,7 +132,7 @@ testrandom =: 3 : 0
  inputs =: (? (8,3) $ p) % p
  outputs =: (? (5,3) $ p) % p
  
- brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000
+ brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.001 ; 0.000001
  
  echo ' '
  echo 'Test with random inputs and expected outputs :'
@@ -167,7 +176,7 @@ testand =: 3 : 0
  1 0 0 gives 0 
  1 1 0 gives 1 
  
- brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000
+ brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.001 ; 0.000001
  echo ' '
  echo 'Test with logical and :'
  result =: brain apply inputs
