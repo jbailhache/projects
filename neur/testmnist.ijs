@@ -5,15 +5,18 @@ load 'labels.ijs'
 load 'images.ijs'
 echo 'Data loaded'
 
+ntrain =: 100
+ntest =: 100
+
 NB. Train with 80 first items
-outputs =: |: (80 {. labels) =/ i. 10
-inputs =: |: (80 {. images) % 256
+outputs =: |: (ntrain {. labels) =/ i. 10
+inputs =: |: (ntrain {. images) % 256
 
 NB. Train
 echo 'Learning ...'
-brain =: learn inputs ; outputs ; (3 # 20) ; 5 ; 3000 ; 0.1 ; 0.00001
+brain =: learn inputs ; outputs ; (3 # 15) ; 7 ; 3000 ; 10 ; 0.00001
 echo 'Saving ...'
-(3!:1 brain) 1!:2 < 'brain.jdata'
+(3!:1 brain) 1!:2 < 'newbrain.jdata'
 
 NB. Load pretrained brain
 NB. brain =: 3!:2 (1!:1 < 'brain.jdata')
@@ -27,8 +30,8 @@ got =. ((npl $ n-npl) + i. npl) { A
 echo 'Errors with training data : ', ": +/ +/ 0.1 < | got - outputs
 
 NB. Test data : items 100 - 119
-outtest =: |: (20 {. 100 }. labels) =/ i. 10
-intest =: |: (20 {. 100 }. images) % 256
+outtest =: |: (ntest {. ntrain }. labels) =/ i. 10
+intest =: |: (ntest {. ntrain }. images) % 256
 result =: brain apply intest
 A =: > 1 { result
 n =: # A

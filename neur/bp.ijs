@@ -78,9 +78,11 @@ learn =: 3 : 0
  
    e1 =. e
    e =. +/ +/ *: Y - outputs
+   em =. >./ >./ | Y - outputs
+   echo 'Step ',(":s),' : total error = ',(":e),' ; largest error = ',(":em)
    NB. echo s, e
    NB. if. 0.000001 > | e - e1 do. break. end.
-   if. de > | e - e1 do. break. end.
+   if. (e < er) +. de > | e - e1 do. break. end.
 
    NB. A =. (((n-npl),nX) $ 0), out
    delta =. (n,nX) $ 0
@@ -113,8 +115,8 @@ learn =: 3 : 0
   end.
  
   echo ' '
-  echo nl, alpha, e
- 
+  NB. echo nl, alpha, e
+  echo 'Final total error = ',(":e),' ; largest error = ',(":em)
   NB. if. e < 0.001 do. break. end.  NB. Stop if error is small enough
   if. e < er do. break. end.  NB. Stop if error is small enough
 
@@ -133,7 +135,8 @@ testrandom =: 3 : 0
  outputs =: (? (5,3) $ p) % p
  
  brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.001 ; 0.000001
- 
+ NB. brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.01 ; 0.000001
+
  echo ' '
  echo 'Test with random inputs and expected outputs :'
  result =: brain apply inputs
@@ -177,6 +180,7 @@ testand =: 3 : 0
  1 1 0 gives 1 
  
  brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.001 ; 0.000001
+ NB. brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.1 ; 0.000001
  echo ' '
  echo 'Test with logical and :'
  result =: brain apply inputs
