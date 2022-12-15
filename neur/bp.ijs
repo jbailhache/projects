@@ -33,16 +33,25 @@ apply =: 4 : 0
  Z ; A 
 )
  
+DefaultLearning =: (0 0 $ 0) ; (0 0 $ 0) ; (0 # 0) ; 1 ; 1 ; 1 ; 0.000001
+LearningInputs    =: (3 : '> 0 { y') : (4 : '(< y) 0 } x')
+LearningOutputs   =: (3 : '> 1 { y') : (4 : '(< y) 1 } x')
+LearningLayers    =: (3 : '> 2 { y') : (4 : '(< y) 2 } x')
+LearningRate      =: (3 : '> 3 { y') : (4 : '(< y) 3 } x')
+LearningSteps     =: (3 : '> 4 { y') : (4 : '(< y) 4 } x')
+LearningError     =: (3 : '> 5 { y') : (4 : '(< y) 5 } x')
+LearningVariation =: (3 : '> 6 { y') : (4 : '(< y) 6 } x')
+
 NB. brain = learn inputs ; outputs ; nnl ; alpha ; ns ; er ; de
 learn =: 3 : 0
 
- inputs  =. > 0 { y
- outputs =. > 1 { y
- nnl     =. > 2 { y  NB. Number of neurons in the layers
- alpha   =. > 3 { y  NB. Learning rate
- nls     =. > 4 { y  NB. Number of learning steps
- er      =. > 5 { y  NB. Maximum error allowed
- de      =. > 6 { y  NB. Stop learning when variation of error less than it
+ inputs  =. LearningInputs y
+ outputs =. LearningOutputs y
+ nnl     =. LearningLayers y     NB. Numbers of neurons in the intermediate layers
+ alpha   =. LearningRate y       NB. Learning rate
+ nls     =. LearningSteps y      NB. Number of learning steps
+ er      =. LearningError y      NB. Maximum error allowed
+ de      =. LearningVariation y  NB. Stop learning when variation of error less than it
 
  ni =. # inputs
  no =. # outputs
@@ -125,6 +134,17 @@ learn =: 3 : 0
  W ; B ; nl
 )
 
+NB. OuptutsGot result ; learning
+OutputsGot =: 4 : 0
+ result =. x
+ learning =. y
+ A =. > 1 { result
+ outputs =. LearningOutputs learning
+ n =. # A
+ no =. # outputs
+ got =. ((no $ n-no) + i. no) { A
+ got
+)
 
 NB. Test with random inputs and expected outputs
 testrandom =: 3 : 0
@@ -134,16 +154,20 @@ testrandom =: 3 : 0
  inputs =: (? (8,3) $ p) % p
  outputs =: (? (5,3) $ p) % p
  
- brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.001 ; 0.000001
- NB. brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.01 ; 0.000001
+ NB. brain =: learn inputs ; outputs ; ((nl-2) # 4) ; 16 ; 3000 ; 0.001 ; 0.000001
+ learning =: DefaultLearning
+ learning =: learning LearningInputs inputs
+ learning =: learning LearningOutputs outputs
+ learning =: learning LearningLayers ((nl-2) # 4)
+ learning =: learning LearningRate 16 
+ learning =: learning LearningSteps 3000 
+ learning =: learning LearningError 0.001 
+ brain =: learn learning
 
  echo ' '
  echo 'Test with random inputs and expected outputs :'
  result =: brain apply inputs
- A =: > 1 { result
- n =: # A
- npl =: # outputs  NB. number of output neurons
- got =. ((npl $ n-npl) + i. npl) { A
+ got =: result OutputsGot learning
  echo 'Expected :'
  echo outputs
  echo 'Got :'
@@ -179,15 +203,20 @@ testand =: 3 : 0
  1 0 0 gives 0 
  1 1 0 gives 1 
  
- brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.001 ; 0.000001
- NB. brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.1 ; 0.000001
+ NB. brain =: learn inputs ; outputs ; (3 # 3) ; 16 ; 3000 ; 0.001 ; 0.000001
+ learning =: DefaultLearning
+ learning =: learning LearningInputs inputs
+ learning =: learning LearningOutputs outputs
+ learning =: learning LearningLayers (3 # 3)
+ learning =: learning LearningRate 16 
+ learning =: learning LearningSteps 3000 
+ learning =: learning LearningError 0.001 
+ brain =: learn learning
+
  echo ' '
  echo 'Test with logical and :'
  result =: brain apply inputs
- A =: > 1 { result
- n =: # A
- npl =: # outputs  NB. number of output neurons
- got =. ((npl $ n-npl) + i. npl) { A
+ got =: result OutputsGot learning
  echo 'Expected :'
  echo outputs
  echo 'Got :'
