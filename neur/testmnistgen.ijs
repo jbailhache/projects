@@ -78,12 +78,16 @@ stepgen =: 3 : 0
  
  coefs =: _1 + 2 * digit = i. 10
  var =: 784 1 $ +/ coefs * D1
- ingen =: ingen + 100 * var
+ ingen =: ingen + 10 * var
 )
 
-(stepgen ^: 1) 0
+(stepgen ^: 10) 0
 
 resgenterm =: brain apply ingen
-gotgenterm =: resgen OutputsGot learning
+gotgenterm =: resgenterm OutputsGot learning
 
 echo (0.5 < 28 28 $ , ingen) { 1 88
+
+echo gotgenterm - gotgeninit
+
+
