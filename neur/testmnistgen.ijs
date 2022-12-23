@@ -56,8 +56,12 @@ nn =: # B
 
 NB. Random input image
 ingen =: (ni,1) $ (? ni $ 256) % 256
+resgeninit =: brain apply ingen
+gotgeninit =: resgeninit OutputsGot learning
 
 nstep =: 0
+
+digit =: 7 
 
 stepgen =: 3 : 0
  nstep =: nstep + 1
@@ -72,12 +76,14 @@ stepgen =: 3 : 0
  D =: ({{ (sigmaprime ,Z) * W +/ . * y }} ^: (nl-2)) (sigmaprime ,Z) * W 
  D1 =: ni ({."1) ((nn-no) + i. no) { D
  
- digit =: 7
  coefs =: _1 + 2 * digit = i. 10
  var =: 784 1 $ +/ coefs * D1
- ingen =: ingen + 10 * var
+ ingen =: ingen + 100 * var
 )
 
-(stepgen ^: 10) 0
+(stepgen ^: 1) 0
+
+resgenterm =: brain apply ingen
+gotgenterm =: resgen OutputsGot learning
 
 echo (0.5 < 28 28 $ , ingen) { 1 88
