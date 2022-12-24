@@ -61,9 +61,7 @@ gotgeninit =: resgeninit OutputsGot learning
 
 nstep =: 0
 
-digit =: 4
-
-rate =: 4
+digit =: 7 
 
 stepgen =: 3 : 0
  nstep =: nstep + 1
@@ -80,18 +78,12 @@ stepgen =: 3 : 0
  
  coefs =: _1 + 2 * digit = i. 10
  var =: 784 1 $ +/ coefs * D1
- ingen =: ingen + rate * var
+ ingen =: ingen + 100 * var
 )
 
-(stepgen ^: 5) 0
+(stepgen ^: 1) 0
 
 resgenterm =: brain apply ingen
-gotgenterm =: resgenterm OutputsGot learning
+gotgenterm =: resgen OutputsGot learning
 
-echo 'rate = ', ": rate
-echo gotgenterm - gotgeninit
-echo ' '
-echo gotgenterm
-
-echo (0.7 < 28 28 $ , ingen) { 1 88
-
+echo (0.5 < 28 28 $ , ingen) { 1 88
