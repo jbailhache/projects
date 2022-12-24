@@ -65,6 +65,27 @@ digit =: 4
 
 rate =: 4
 
+NB. Computation of the partial derivatives of outputs with respect to inputs
+NB. Example with one input larer (i), 3 intermediate layers (j,k,l) and ono output layer (m)
+NB. Notation : Sl = sum over l
+NB. dam/dai = dam/dzm dzm/dai = s'(zm) dzm/dai
+NB. dzm/dai = Sl dzm/dal dal/dai = Sl wml dal/dai
+NB. dam/dai = s'(zm) Sl wml dal/dai
+NB. dal/dai = dal/dzl dzl/dai = s'(zl) dzl/dai
+NB. dzl/dai = Sk dzl/dak dak/dai = Sk wlk dak/dai
+NB. dal/dai = s'(zl) Sk wlk dak/dai
+NB. dam/dai = s'(zm) Sl wml s'(zl) Sk wlk dak/dai
+NB. dak/dai = dak/dzk dzk/dai = s'(zk) dzk/dai
+NB. dzk/dai = Sj dzk/daj daj/dai = Sj wkj daj/dai
+NB. dak/dai = s'(zk) Sj wkj daj/dai
+NB. dam/dai = s'(zm) Sl wml s'(zl) Sk wlk s'(zk) Sj wkj daj/dai
+NB. daj/dai = daj/dzj dzj/dai = s'(zj) dzj/dai
+NB. dzj/dai = wji
+NB. daj/dai = s'(zj) wji
+NB. dam/dai = s'(zm) Sl wml s'(zl) Sk wlk s'(zk) Sj wkj s'(zj) wji
+NB. Matrix of dam/dai = (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W 
+NB.                   = ({{ (sigmaprime ,Z) * W +/ . * y }} ^: 3) (sigmaprime ,Z) * W 
+
 stepgen =: 3 : 0
  nstep =: nstep + 1
  echo nstep
