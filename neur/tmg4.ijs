@@ -60,10 +60,10 @@ resgeninit =: brain apply ingen
 gotgeninit =: resgeninit OutputsGot learning
 
 nstep =: 0
-digit =: 0
+
+digit =: 9
+
 rate =: 0.1
-b =: _1
-a =: 2
 
 NB. Computation of the partial derivatives of outputs with respect to inputs
 NB. Example with one input larer (i), 3 intermediate layers (j,k,l) and ono output layer (m)
@@ -86,58 +86,26 @@ NB. dam/dai = s'(zm) Sl wml s'(zl) Sk wlk s'(zk) Sj wkj s'(zj) wji
 NB. Matrix of dam/dai = (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W +/ . * (sigmaprime ,Z) * W 
 NB.                   = ({{ (sigmaprime ,Z) * W +/ . * y }} ^: 3) (sigmaprime ,Z) * W 
 
-NB. Check for pixel p if calculated and experiemental gradients are almost the same
-
-p =: 12 
-
-NB. Calculated gradient
-resgen =: brain apply ingen
-gotgen =: resgen OutputsGot learning
-Z =: > 0 { resgen
-D =: ({{ (sigmaprime ,Z) * W +/ . * y }} ^: (nl-2)) (sigmaprime ,Z) * W
-D1 =: ni ({."1) ((nn-no) + i. no) { D
-calc =: 10 1 $ p {"1 D1  NB. Calculated gradient
-
-epsilon =: 0.001
-
-NB. Experimental gradient
-NB. ingen gp p = gradient for pixel p
-gp =: 4 : 0
- in =. x
- p =. y
- res =. brain apply in
- got =. res OutputsGot learning
- in1 =. (ni,1) $ (,in) + epsilon * p = i. ni
- res1 =. brain apply in1
- got1 =. res1 OutputsGot learning
- (1 % epsilon) * got1 - got
-)
-
-exp =: ingen gp p    NB. Experimental gradient
-
-echo 'Difference between calculated and experimantal gradient'
-echo calc - exp      NB. Difference
-
 stepgen =: 3 : 0
  nstep =: nstep + 1
  NB. echo nstep
 
  resgen =: brain apply ingen
  gotgen =: resgen OutputsGot learning
- value =: +/ (,gotgen) * b + a * digit = i. 10
+ value =: +/ (,gotgen) * _1 + 2 * digit = i. 10
  NB. echo 'Step ', (": nstep), ': value = ', (": value)
 
  ringen =: (ni,1) $ (? ni $ 256) % 256
  rresgen =: brain apply ringen
  rgotgen =: rresgen OutputsGot learning
- rvalue =: +/ (,rgotgen) * b + a * digit = i. 10
+ rvalue =: +/ (,rgotgen) * _1 + 2 * digit = i. 10
  echo 'Step ', (": nstep), ' : value = ', (": value), ' ; rvalue = ', (": rvalue)
  if. rvalue > value do.
   ingen =: ringen
   resgen =: rresgen
   gotgen =: rgotgen
  end.
- 
+
  Z =: > 0 { resgen
  A =: > 1 { resgen
 
@@ -145,23 +113,46 @@ stepgen =: 3 : 0
  D =: ({{ (sigmaprime ,Z) * W +/ . * y }} ^: (nl-2)) (sigmaprime ,Z) * W 
  D1 =: ni ({."1) ((nn-no) + i. no) { D
  
- coefs =: b + a * digit = i. 10
+ coefs =: _1 + 2 * digit = i. 10
  var =: 784 1 $ +/ coefs * D1
  ingen =: ingen + rate * var
 )
 
-echo 'rate = ', ": rate
-echo 'digit = ', ": digit
-
-(stepgen ^: 10) 0
+(stepgen ^: 30) 0
 
 resgenterm =: brain apply ingen
 gotgenterm =: resgenterm OutputsGot learning
 
-echo 'Difference between final and initial outputs'
+echo 'rate = ', ": rate
+echo 'digit = ', ": digit
 echo gotgenterm - gotgeninit
 echo ' '
-echo 'Final outputs'
 echo gotgenterm
-echo ' '
+
 echo (0.7 < 28 28 $ , ingen) { 1 88
+
+resgen =: brain apply ingen
+gotgen =: resgen OutputsGot learning
+Z =: > 0 { resgen
+A =: > 1 { resgen
+D =: ({{ (sigmaprime ,Z) * W +/ . * y }} ^: (nl-2)) (sigmaprime ,Z) * W
+G =: ni ({."1) ((nn-no) + i. no) { D
+
+epsilon =: 0.001
+
+NB. ingen gp p = gradient for pixel p
+gp =: 4 : 0
+ in =. x
+ p =. y
+ res =. brain apply in
+ got =. res OutputsGot learning
+ in1 =. 784 1 $ (,in) + epsilon * p = i. 784
+ res1 =. brain apply in1
+ got1 =. res1 OutputsGot learning
+ (1 % epsilon) * got1 - got
+)
+
+calc =: 10 1 $ 12 {"1 G
+exp =: ingen gp 12
+NB. echo calc - exp
+
