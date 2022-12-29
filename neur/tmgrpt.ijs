@@ -206,7 +206,7 @@ gen =: 3 : 0
  NB. echo gotgenterm - gotgeninit
  NB. echo ' '
  echo 'Final outputs'
- echo gotgenterm
+ echo (i. 11) ,. gotgenterm
  termvalue =: +/ (,gotgenterm) * b + a * digit = i. 11
  echo 'Final value : ', (": termvalue)
  echo ' '
