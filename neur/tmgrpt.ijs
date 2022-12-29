@@ -67,15 +67,17 @@ nn =: # B
 
 NB. Random input image
 ingen =: (ni,1) $ (? ni $ 256) % 256
+ingeninit =: ingen
 resgeninit =: brain apply ingen
 gotgeninit =: resgeninit OutputsGot learning
 
 nstep =: 0
 digit =: 7
-rate =: 1
+initrate =: 8
 ratevar =: 2
 b =: _1
 a =: 2
+nloop =: 40
 
 NB. Computation of the partial derivatives of outputs with respect to inputs
 NB. Example with one input larer (i), 3 intermediate layers (j,k,l) and ono output layer (m)
@@ -132,6 +134,11 @@ echo calc - exp      NB. Difference
 
 NB. stepgen =: 3 : 0
 loopgen =: 3 : 0
+
+rate =: initrate
+ingen =: ingeninit
+nstep =: 0
+
 for. i. y do.
  nstep =: nstep + 1
  NB. echo nstep
@@ -140,19 +147,18 @@ for. i. y do.
  gotgen =: resgen OutputsGot learning
  value =: +/ (,gotgen) * b + a * digit = i. 11
  NB. echo 'Step ', (": nstep), ': value = ', (": value)
-
- ringen =: (ni,1) $ (? ni $ 256) % 256
- rresgen =: brain apply ringen
- rgotgen =: rresgen OutputsGot learning
- rvalue =: +/ (,rgotgen) * b + a * digit = i. 11
- NB. echo 'Step ', (": nstep), ' : value = ', (": value), ' ; rvalue = ', (": rvalue)
- if. rvalue > value do.
-  ingen =: ringen
-  resgen =: rresgen
-  gotgen =: rgotgen
-  value =: rvalue
- end.
  
+ NB. ringen =: (ni,1) $ (? ni $ 256) % 256
+ NB. rresgen =: brain apply ringen
+ NB. rgotgen =: rresgen OutputsGot learning
+ NB. rvalue =: +/ (,rgotgen) * b + a * digit = i. 11
+ NB. if. rvalue > value do.
+ NB.  ingen =: ringen
+ NB.  resgen =: rresgen
+ NB.  gotgen =: rgotgen
+ NB.  value =: rvalue
+ NB. end.
+
  Z =: > 0 { resgen
  A =: > 1 { resgen
 
@@ -163,13 +169,16 @@ for. i. y do.
  coefs =: b + a * digit = i. 11
  var =: 784 1 $ +/ coefs * D1
  ningen =: ingen + rate * var
+ min =: <./ <./ ningen
+ max =: >./ >./ ningen 
  ningen =: 0 >. 1 <. ningen
 
  nresgen =: brain apply ningen
  ngotgen =: nresgen OutputsGot learning
  nvalue =: +/ (,ngotgen) * b + a * digit = i. 11
- echo 'Step ', (": nstep), ' : rate = ', (": rate),  ' ; value = ', (": value), ' ; rvalue = ', (": rvalue), ' ; nvalue = ',  (": nvalue)
- 
+ NB. echo 'Step ', (": nstep), ' : rate = ', (": rate),  ' ; value = ', (": value), ' ; rvalue = ', (": rvalue), ' ; nvalue = ',  (": nvalue), ' ; min = ', (": min), ' ; max = ',(": max)
+ NB. echo 'Step ', (": nstep), ' : rate = ', (": rate),  ' ; value = ', (": value), ' ; nvalue = ',  (": nvalue), ' ; min = ', (": min), ' ; max = ',(": max)
+
  if. nvalue > value do.
   ingen =: ningen
   rate =: rate * ratevar
@@ -180,24 +189,36 @@ for. i. y do.
 end.
 )
 
-echo 'rate = ', ": rate
-echo 'digit = ', ": digit
-
-NB. (stepgen ^: 20) 0
-loopgen 20
-
-resgenterm =: brain apply ingen
-gotgenterm =: resgenterm OutputsGot learning
-
-echo 'Difference between final and initial outputs'
-echo gotgenterm - gotgeninit
+echo 'rate = ', (": initrate), ' ; ratevar = ', (": ratevar), ' ; nloop = ', (": nloop)
 echo ' '
-echo 'Final outputs'
-echo gotgenterm
-termvalue =: +/ (,gotgenterm) * b + a * digit = i. 11
-echo 'Final value : ', (": termvalue)
-echo ' '
-echo (0.7 < 28 28 $ , ingen) { 1 88
 
-(3!:1 ingen) 1!:2 < 'digit.jdata'
+gen =: 3 : 0
+ digit =: y
+ echo 'digit = ', ": digit
 
+ NB. (stepgen ^: 20) 0
+ loopgen nloop
+
+ resgenterm =: brain apply ingen
+ gotgenterm =: resgenterm OutputsGot learning
+
+ NB. echo 'Difference between final and initial outputs'
+ NB. echo gotgenterm - gotgeninit
+ NB. echo ' '
+ echo 'Final outputs'
+ echo gotgenterm
+ termvalue =: +/ (,gotgenterm) * b + a * digit = i. 11
+ echo 'Final value : ', (": termvalue)
+ echo ' '
+ NB. echo (0.7 < 28 28 $ , ingen) { 1 88
+
+ NB. (3!:1 ingen) 1!:2 < 'digit.jdata'
+)
+
+genall =: 3 : 0
+ for_i. i. 10 do.
+  gen i
+ end.
+ )
+ 
+genall 0
