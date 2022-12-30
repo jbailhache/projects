@@ -237,8 +237,8 @@ gen =: 3 : 0
  termvalue =: +/ (,gotgenterm) * b + a * digit = i. 11
  echo 'Final value : ', (": termvalue)
  echo ' '
- NB. echo (0.7 < 28 28 $ , ingen) { 1 88
-
+ echo (0.5 < 28 28 $ , ingen) { 1 88
+ echo ' '
  NB. (3!:1 ingen) 1!:2 < 'digit.jdata'
 )
 
